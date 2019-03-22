@@ -20,20 +20,21 @@ int main(int ac, char **av)
 	double x_diff;
 	double y_diff;
 
-	if (ac != 6)
-		write(1, "use ./a.out x1 y1 x2 y2 ang\n", 29);
+	if (ac != 8)
+		write(1, "use ./a.out x1 y1 x2 y2 px py ang\n", 35);
 	else
 	{
 		x1 = atof(av[1]);
 		x2 = atof(av[3]);
 		y1 = atof(av[2]);
 		y2 = atof(av[4]);
-		px = 0;
-		py = 0;
-		ang = atof(av[5]);
+		px = atof(av[5]);
+		py = atof(av[6]);
+		ang = atof(av[7]);
 		m1 = (y2 - y1) / (x2 - x1);
 		m2 = tan(ang);
-		b1 = -x1 * m1 + y1;
+		b1 = (px - x1) * m1 + (py - y1);
+		//b1 = -x1 * m1 + y1;
 		x = b1 / (m2 - m1);
 		y = y1 + (x - x1) * m1;
 		x_diff = (px - x);
