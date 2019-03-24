@@ -131,42 +131,52 @@ int		do_parse(t_map *m)
 	return (0);
 }
 
-void	recap_parsing(t_map *m)
+void	recap_parsing(t_map *m, char *str)
 {
 	int i;
 	int j;
 
 	i = 0;
-	printf("map_section_number = %d\n", m->section_number);
-	printf("map_dots_count = %d\n", m->dots_count);
-	printf("map_sector_count = %d\n", m->sector_count);
-	printf("map_name = %s\n", m->map_name);
-	printf("map_path = %s\n", m->map_path);
-	while (i < m->dots_count)
+	printf("%s :\n", str);
+	if (ft_strcmp(str, "map_general") == 0)
 	{
-		printf("point_%d : x = %f, y = %f\n", i, m->dot[i].x, m->dot[i].y);
-		i++;
+		printf("map_section_number = %d\n", m->section_number);
+		printf("map_dots_count = %d\n", m->dots_count);
+		printf("map_sector_count = %d\n", m->sector_count);
+		printf("map_name = %s\n", m->map_name);
+		printf("map_path = %s\n", m->map_path);
 	}
-	i = 0;
-	while (i < m->sector_count)
+	if (ft_strcmp(str, "map_list_dots") == 0)
 	{
-		j = 0;
-		printf("sector %d : wall_count = %d\n", i, m->sector[i].wall_count);
-		printf("sector %d : floor_height = %f\n", i, m->sector[i].floor);
-		printf("sector %d : ceiling_height = %f\n", i, m->sector[i].ceiling);
-		while (j < m->sector[i].wall_count)
+		while (i < m->dots_count)
 		{
-			printf("point_%d : x = %f, y = %f\n", j, m->sector[i].dot[j].x, m->sector[i].dot[j].y);
-			j++;
+			printf("point_%d : x = %f, y = %f\n", i, m->dot[i].x, m->dot[i].y);
+			i++;
 		}
-		j = 0;
-		while (j < m->sector[i].wall_count)
-		{
-			printf("network_%d : %s\n", j, m->sector[i].network[j]);
-			j++;
-		}
-		i++;
 	}
+	if (ft_strcmp(str, "map_list_sectors") == 0)
+	{
+		while (i < m->sector_count)
+		{
+			j = 0;
+			printf("sector %d : wall_count = %d\n", i, m->sector[i].wall_count);
+			printf("sector %d : floor_height = %f\n", i, m->sector[i].floor);
+			printf("sector %d : ceiling_height = %f\n", i, m->sector[i].ceiling);
+			while (j < m->sector[i].wall_count)
+			{
+				printf("point_%d : x = %f, y = %f\n", j, m->sector[i].dot[j].x, m->sector[i].dot[j].y);
+				j++;
+			}
+			j = 0;
+			while (j < m->sector[i].wall_count)
+			{
+				printf("network_%d : %s\n", j, m->sector[i].network[j]);
+				j++;
+			}
+			i++;
+		}
+	}
+	SDL_Delay(1000);
 }
 
 t_map	set_basic_run(t_env *w)
@@ -187,7 +197,6 @@ t_map	set_basic_run(t_env *w)
 		write(1, "error map measure\n", 19);
 	if (do_parse(&map) == -1)
 		write(1, "error on map collect\n", 22);
-	recap_parsing(&map);
 	return (map);
 }
 

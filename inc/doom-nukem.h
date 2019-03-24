@@ -64,6 +64,7 @@ typedef struct		s_env
 	SDL_Window		*win;
 	SDL_Renderer	*rdr;
 	Uint32			*pix;
+	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
 	SDL_Event		event;
 }					t_env;
@@ -71,7 +72,8 @@ typedef struct		s_env
 t_map	set_basic_run(t_env *w);
 t_map	set_advanced_run(t_env *w, char **av);
 int			init_sdl(t_env *w);
-void		run(t_env *w);
+void		run(t_env *w, t_map *m);
 void		exit_game(t_env *w);
+void	recap_parsing(t_map *m, char *str);
 
 #endif

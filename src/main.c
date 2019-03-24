@@ -9,7 +9,17 @@ void		exit_game(t_env *w)
 	exit(1);
 }
 
-void		run(t_env *w)
+void		key_events(t_env *w, t_map *m)
+{
+	if (w->inkeys[SDL_SCANCODE_M])
+		recap_parsing(m, "map_general");
+	if (w->inkeys[SDL_SCANCODE_J])
+		recap_parsing(m, "map_list_dots");
+	if (w->inkeys[SDL_SCANCODE_K])
+		recap_parsing(m, "map_list_sectors");
+}
+
+void		run(t_env *w, t_map *m)
 {
 	while (1)
 	{
@@ -19,6 +29,8 @@ void		run(t_env *w)
 				if (KEY == 27)
 					exit_game(w);
 		}
+		w->inkeys = SDL_GetKeyboardState(NULL);
+		key_events(w, m);
 	}
 }
 
@@ -60,6 +72,6 @@ int				main(int ac, char **av)
 	else
 		m = set_advanced_run(w, av);
 	if (w->win)
-		run(w);
+		run(w, &m);
 	return (0);
 }
