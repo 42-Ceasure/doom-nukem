@@ -40,12 +40,23 @@ int			parse_line(t_map *m)
 			m->sector[m->s].wall_count = i;
 			if ((m->sector[m->s].dot = (t_dot *)malloc(sizeof(t_dot) * m->sector[m->s].wall_count)) == NULL)
 				return (-1);
+			if ((m->sector[m->s].network = (char **)malloc(sizeof(char *) * m->sector[m->s].wall_count)) == NULL)
+				return (-1);
 			i = 0;
-			while(i < m->sector[m->s].wall_count)
+			while (i < m->sector[m->s].wall_count)
 			{
 				mem = ft_atoi(tmp2[i]);
 				m->sector[m->s].dot[i].x = m->dot[mem].x;
 			 	m->sector[m->s].dot[i].y = m->dot[mem].y;
+				i++;
+			}
+			i = 0;
+			free(tmp2);
+			tmp2 = ft_strsplit(tmp[3], ',');		//connections
+			while (i < m->sector[m->s].wall_count)
+			{
+				m->sector[m->s].network[i] = ft_strnew(ft_strlen(tmp2[i]));
+				m->sector[m->s].network[i] = ft_strcpy(m->sector[m->s].network[i], tmp2[i]);
 				i++;
 			}
 			m->s++;
@@ -145,7 +156,13 @@ void	recap_parsing(t_map *m)
 		printf("sector %d : ceiling_height = %f\n", i, m->sector[i].ceiling);
 		while (j < m->sector[i].wall_count)
 		{
-			printf("point_%d : x = %f, y = %f\n", j, m->dot[j].x, m->dot[j].y);
+			printf("point_%d : x = %f, y = %f\n", j, m->sector[i].dot[j].x, m->sector[i].dot[j].y);
+			j++;
+		}
+		j = 0;
+		while (j < m->sector[i].wall_count)
+		{
+			printf("network_%d : %s\n", j, m->sector[i].network[j]);
 			j++;
 		}
 		i++;

@@ -1,8 +1,8 @@
 build/SDL_render_d3d.lo: \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/direct3d/SDL_render_d3d.c \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/direct3d/../../SDL_internal.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/direct3d/../../dynapi/SDL_dynapi.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/direct3d/../../dynapi/SDL_dynapi_overrides.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/direct3d/SDL_render_d3d.c \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/direct3d/../../SDL_internal.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/direct3d/../../dynapi/SDL_dynapi.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/direct3d/../../dynapi/SDL_dynapi_overrides.h \
   include/SDL_config.h include/SDL_platform.h include/begin_code.h \
   include/close_code.h include/SDL_render.h include/SDL_stdinc.h \
   include/SDL_rect.h include/SDL_error.h include/SDL_pixels.h \

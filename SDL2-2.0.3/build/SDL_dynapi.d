@@ -1,8 +1,8 @@
 build/SDL_dynapi.lo: \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/dynapi/SDL_dynapi.c \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/dynapi/SDL_dynapi.c \
   include/SDL_config.h include/SDL_platform.h include/begin_code.h \
   include/close_code.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/dynapi/SDL_dynapi.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/dynapi/SDL_dynapi.h \
   include/SDL.h include/SDL_main.h include/SDL_stdinc.h \
   include/SDL_assert.h include/SDL_atomic.h include/SDL_audio.h \
   include/SDL_error.h include/SDL_endian.h include/SDL_mutex.h \
@@ -16,5 +16,7 @@ build/SDL_dynapi.lo: \
   include/SDL_hints.h include/SDL_loadso.h include/SDL_log.h \
   include/SDL_messagebox.h include/SDL_power.h include/SDL_render.h \
   include/SDL_system.h include/SDL_timer.h include/SDL_version.h \
-  include/SDL_shape.h include/SDL_syswm.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/dynapi/SDL_dynapi_procs.h
+  include/SDL_shape.h include/SDL_syswm.h /usr/X11R6/include/X11/Xlib.h \
+  /usr/X11R6/include/X11/X.h /usr/X11R6/include/X11/Xfuncproto.h \
+  /usr/X11R6/include/X11/Xosdefs.h /usr/X11R6/include/X11/Xatom.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/dynapi/SDL_dynapi_procs.h

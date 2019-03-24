@@ -1,7 +1,7 @@
 build/SDL_log.lo: \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/SDL_log.c \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/./SDL_internal.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/dynapi/SDL_dynapi.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/dynapi/SDL_dynapi_overrides.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/SDL_log.c \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/./SDL_internal.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/dynapi/SDL_dynapi.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/dynapi/SDL_dynapi_overrides.h \
   include/SDL_config.h include/SDL_platform.h include/begin_code.h \
   include/close_code.h include/SDL_log.h include/SDL_stdinc.h

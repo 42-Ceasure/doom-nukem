@@ -1,8 +1,8 @@
 build/SDL_cocoavideo.lo: \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoavideo.m \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/../../SDL_internal.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/../../dynapi/SDL_dynapi.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/../../dynapi/SDL_dynapi_overrides.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoavideo.m \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/../../SDL_internal.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/../../dynapi/SDL_dynapi.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/../../dynapi/SDL_dynapi_overrides.h \
   include/SDL_config.h include/SDL_platform.h include/begin_code.h \
   include/close_code.h include/SDL.h include/SDL_main.h \
   include/SDL_stdinc.h include/SDL_assert.h include/SDL_atomic.h \
@@ -18,16 +18,16 @@ build/SDL_cocoavideo.lo: \
   include/SDL_log.h include/SDL_messagebox.h include/SDL_power.h \
   include/SDL_render.h include/SDL_system.h include/SDL_timer.h \
   include/SDL_version.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoavideo.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoavideo.h \
   include/SDL_opengl.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/../SDL_sysvideo.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/../SDL_sysvideo.h \
   include/SDL_shape.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoaclipboard.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoaevents.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoakeyboard.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoamodes.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoamouse.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoaopengl.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoawindow.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoashape.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/../SDL_shape_internals.h
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoaclipboard.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoaevents.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoakeyboard.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoamodes.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoamouse.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoaopengl.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoawindow.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoashape.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/../SDL_shape_internals.h

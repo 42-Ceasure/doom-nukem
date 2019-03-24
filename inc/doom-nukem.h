@@ -29,7 +29,7 @@ typedef struct		s_sector
 	double			floor;
 	double			ceiling;
 	t_dot			*dot;
-	signed char		*nxtroom;
+	char			**network;
 }					t_sector;
 
 typedef struct		s_player

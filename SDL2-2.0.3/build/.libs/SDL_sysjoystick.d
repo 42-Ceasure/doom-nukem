@@ -1,27 +1,29 @@
 build/SDL_sysjoystick.lo: \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/SDL_sysjoystick.c \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../../SDL_internal.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../../dynapi/SDL_dynapi.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../../dynapi/SDL_dynapi_overrides.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/SDL_sysjoystick.c \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../SDL_internal.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../dynapi/SDL_dynapi.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../dynapi/SDL_dynapi_overrides.h \
   include/SDL_config.h include/SDL_platform.h include/begin_code.h \
   include/close_code.h include/SDL_joystick.h include/SDL_stdinc.h \
   include/SDL_error.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../SDL_sysjoystick.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../SDL_joystick_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/SDL_sysjoystick_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../SDL_sysjoystick.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../SDL_joystick_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/SDL_sysjoystick_c.h \
   include/SDL_events.h include/SDL_video.h include/SDL_pixels.h \
   include/SDL_rect.h include/SDL_rwops.h include/SDL_surface.h \
   include/SDL_blendmode.h include/SDL_keyboard.h include/SDL_keycode.h \
   include/SDL_scancode.h include/SDL_mouse.h \
   include/SDL_gamecontroller.h include/SDL_quit.h include/SDL_gesture.h \
   include/SDL_touch.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../../haptic/darwin/SDL_syshaptic_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_events_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../haptic/darwin/SDL_syshaptic_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_events_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../events/../SDL_internal.h \
   include/SDL_thread.h include/SDL_atomic.h include/SDL_mutex.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_clipboardevents_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_dropevents_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_gesture_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_keyboard_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_mouse_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_touch_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_windowevents_c.h
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_clipboardevents_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_dropevents_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_gesture_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_keyboard_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_mouse_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_touch_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../events/../../include/SDL_touch.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/../../events/SDL_windowevents_c.h

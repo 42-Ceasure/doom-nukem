@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/Users/cglavieu/Code/DooM-Nukem-3D/project/./libSDL2/lib'
+libdir='/Users/cglavieu/Code/doom-nukem42/./libSDL2/lib'

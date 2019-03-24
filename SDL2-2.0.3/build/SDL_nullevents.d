@@ -1,11 +1,12 @@
 build/SDL_nullevents.lo: \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/SDL_nullevents.c \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/../../SDL_internal.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/../../dynapi/SDL_dynapi.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/../../dynapi/SDL_dynapi_overrides.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/SDL_nullevents.c \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../../SDL_internal.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../../dynapi/SDL_dynapi.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../../dynapi/SDL_dynapi_overrides.h \
   include/SDL_config.h include/SDL_platform.h include/begin_code.h \
   include/close_code.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/../../events/SDL_events_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../../events/SDL_events_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../../events/../SDL_internal.h \
   include/SDL_events.h include/SDL_stdinc.h include/SDL_error.h \
   include/SDL_video.h include/SDL_pixels.h include/SDL_rect.h \
   include/SDL_rwops.h include/SDL_surface.h include/SDL_blendmode.h \
@@ -14,14 +15,15 @@ build/SDL_nullevents.lo: \
   include/SDL_gamecontroller.h include/SDL_quit.h include/SDL_gesture.h \
   include/SDL_touch.h include/SDL_thread.h include/SDL_atomic.h \
   include/SDL_mutex.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/../../events/SDL_clipboardevents_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/../../events/SDL_dropevents_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/../../events/SDL_gesture_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/../../events/SDL_keyboard_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/../../events/SDL_mouse_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/../../events/SDL_touch_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/../../events/SDL_windowevents_c.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/SDL_nullvideo.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/../SDL_sysvideo.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../../events/SDL_clipboardevents_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../../events/SDL_dropevents_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../../events/SDL_gesture_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../../events/SDL_keyboard_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../../events/SDL_mouse_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../../events/SDL_touch_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../../events/../../include/SDL_touch.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../../events/SDL_windowevents_c.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/SDL_nullvideo.h \
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/../SDL_sysvideo.h \
   include/SDL_messagebox.h include/SDL_shape.h \
-  /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/SDL_nullevents_c.h
+  /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/SDL_nullevents_c.h

@@ -1,9 +1,9 @@
 # Makefile to build and install the SDL library
 
 top_builddir = .
-srcdir  = /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3
+srcdir  = /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3
 objects = build
-prefix = /Users/cglavieu/Code/DooM-Nukem-3D/project/./libSDL2
+prefix = /Users/cglavieu/Code/doom-nukem42/./libSDL2
 exec_prefix = ${prefix}
 bindir	= ${exec_prefix}/bin
 libdir  = ${exec_prefix}/lib
@@ -18,9 +18,9 @@ distfile = $(distdir).tar.gz
 
 SHELL	= /bin/sh
 CC      = gcc
-INCLUDE = -Iinclude -I/Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/include
+INCLUDE = -Iinclude -I/Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/include
 CFLAGS  = -g -O3 -DUSING_GENERATED_CONFIG_H
-EXTRA_CFLAGS = -Iinclude -I/Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/include  -mmmx -m3dnow -msse -msse2 -DTARGET_API_MAC_CARBON -DTARGET_API_MAC_OSX -fvisibility=hidden -D_THREAD_SAFE -fpascal-strings -Wall
+EXTRA_CFLAGS = -Iinclude -I/Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/include  -mmmx -m3dnow -msse -msse2 -DTARGET_API_MAC_CARBON -DTARGET_API_MAC_OSX -fvisibility=hidden  -I/usr/X11R6/include -D_THREAD_SAFE -fpascal-strings -Wall
 LDFLAGS = 
 EXTRA_LDFLAGS =  -lm -liconv -Wl,-framework,OpenGL  -Wl,-framework,ForceFeedback -lobjc -Wl,-framework,Cocoa -Wl,-framework,Carbon -Wl,-framework,IOKit -Wl,-framework,CoreAudio -Wl,-framework,AudioToolbox -Wl,-framework,AudioUnit
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
@@ -30,7 +30,7 @@ RANLIB	= ranlib
 WINDRES	= :
 
 TARGET  = libSDL2.la
-OBJECTS = $(objects)/SDL.lo $(objects)/SDL_assert.lo $(objects)/SDL_error.lo $(objects)/SDL_hints.lo $(objects)/SDL_log.lo $(objects)/SDL_atomic.lo $(objects)/SDL_spinlock.lo $(objects)/SDL_audio.lo $(objects)/SDL_audiocvt.lo $(objects)/SDL_audiodev.lo $(objects)/SDL_audiotypecvt.lo $(objects)/SDL_mixer.lo $(objects)/SDL_wave.lo $(objects)/SDL_cpuinfo.lo $(objects)/SDL_dynapi.lo $(objects)/SDL_clipboardevents.lo $(objects)/SDL_dropevents.lo $(objects)/SDL_events.lo $(objects)/SDL_gesture.lo $(objects)/SDL_keyboard.lo $(objects)/SDL_mouse.lo $(objects)/SDL_quit.lo $(objects)/SDL_touch.lo $(objects)/SDL_windowevents.lo $(objects)/SDL_rwops.lo $(objects)/SDL_haptic.lo $(objects)/SDL_gamecontroller.lo $(objects)/SDL_joystick.lo $(objects)/e_atan2.lo $(objects)/e_log.lo $(objects)/e_pow.lo $(objects)/e_rem_pio2.lo $(objects)/e_sqrt.lo $(objects)/k_cos.lo $(objects)/k_rem_pio2.lo $(objects)/k_sin.lo $(objects)/s_atan.lo $(objects)/s_copysign.lo $(objects)/s_cos.lo $(objects)/s_fabs.lo $(objects)/s_floor.lo $(objects)/s_scalbn.lo $(objects)/s_sin.lo $(objects)/SDL_power.lo $(objects)/SDL_d3dmath.lo $(objects)/SDL_render.lo $(objects)/SDL_yuv_mmx.lo $(objects)/SDL_yuv_sw.lo $(objects)/SDL_render_d3d.lo $(objects)/SDL_render_d3d11.lo $(objects)/SDL_render_gl.lo $(objects)/SDL_shaders_gl.lo $(objects)/SDL_render_gles.lo $(objects)/SDL_render_gles2.lo $(objects)/SDL_shaders_gles2.lo $(objects)/SDL_render_psp.lo $(objects)/SDL_blendfillrect.lo $(objects)/SDL_blendline.lo $(objects)/SDL_blendpoint.lo $(objects)/SDL_drawline.lo $(objects)/SDL_drawpoint.lo $(objects)/SDL_render_sw.lo $(objects)/SDL_rotate.lo $(objects)/SDL_getenv.lo $(objects)/SDL_iconv.lo $(objects)/SDL_malloc.lo $(objects)/SDL_qsort.lo $(objects)/SDL_stdlib.lo $(objects)/SDL_string.lo $(objects)/SDL_thread.lo $(objects)/SDL_timer.lo $(objects)/SDL_RLEaccel.lo $(objects)/SDL_blit.lo $(objects)/SDL_blit_0.lo $(objects)/SDL_blit_1.lo $(objects)/SDL_blit_A.lo $(objects)/SDL_blit_N.lo $(objects)/SDL_blit_auto.lo $(objects)/SDL_blit_copy.lo $(objects)/SDL_blit_slow.lo $(objects)/SDL_bmp.lo $(objects)/SDL_clipboard.lo $(objects)/SDL_egl.lo $(objects)/SDL_fillrect.lo $(objects)/SDL_pixels.lo $(objects)/SDL_rect.lo $(objects)/SDL_shape.lo $(objects)/SDL_stretch.lo $(objects)/SDL_surface.lo $(objects)/SDL_video.lo $(objects)/SDL_nullevents.lo $(objects)/SDL_nullframebuffer.lo $(objects)/SDL_nullvideo.lo $(objects)/SDL_diskaudio.lo $(objects)/SDL_dummyaudio.lo $(objects)/SDL_sysloadso.lo $(objects)/SDL_cocoaclipboard.lo $(objects)/SDL_cocoaevents.lo $(objects)/SDL_cocoakeyboard.lo $(objects)/SDL_cocoamessagebox.lo $(objects)/SDL_cocoamodes.lo $(objects)/SDL_cocoamouse.lo $(objects)/SDL_cocoamousetap.lo $(objects)/SDL_cocoaopengl.lo $(objects)/SDL_cocoashape.lo $(objects)/SDL_cocoavideo.lo $(objects)/SDL_cocoawindow.lo $(objects)/SDL_systhread.lo $(objects)/SDL_syssem.lo $(objects)/SDL_sysmutex.lo $(objects)/SDL_syscond.lo $(objects)/SDL_systls.lo $(objects)/SDL_coreaudio.lo $(objects)/SDL_sysjoystick.lo $(objects)/SDL_syshaptic.lo $(objects)/SDL_syspower.lo $(objects)/SDL_sysfilesystem.lo $(objects)/SDL_systimer.lo $(objects)/SDL_rwopsbundlesupport.lo
+OBJECTS = $(objects)/SDL.lo $(objects)/SDL_assert.lo $(objects)/SDL_error.lo $(objects)/SDL_hints.lo $(objects)/SDL_log.lo $(objects)/SDL_atomic.lo $(objects)/SDL_spinlock.lo $(objects)/SDL_audio.lo $(objects)/SDL_audiocvt.lo $(objects)/SDL_audiodev.lo $(objects)/SDL_audiotypecvt.lo $(objects)/SDL_mixer.lo $(objects)/SDL_wave.lo $(objects)/SDL_cpuinfo.lo $(objects)/SDL_dynapi.lo $(objects)/SDL_clipboardevents.lo $(objects)/SDL_dropevents.lo $(objects)/SDL_events.lo $(objects)/SDL_gesture.lo $(objects)/SDL_keyboard.lo $(objects)/SDL_mouse.lo $(objects)/SDL_quit.lo $(objects)/SDL_touch.lo $(objects)/SDL_windowevents.lo $(objects)/SDL_rwops.lo $(objects)/SDL_haptic.lo $(objects)/SDL_gamecontroller.lo $(objects)/SDL_joystick.lo $(objects)/e_atan2.lo $(objects)/e_log.lo $(objects)/e_pow.lo $(objects)/e_rem_pio2.lo $(objects)/e_sqrt.lo $(objects)/k_cos.lo $(objects)/k_rem_pio2.lo $(objects)/k_sin.lo $(objects)/s_atan.lo $(objects)/s_copysign.lo $(objects)/s_cos.lo $(objects)/s_fabs.lo $(objects)/s_floor.lo $(objects)/s_scalbn.lo $(objects)/s_sin.lo $(objects)/SDL_power.lo $(objects)/SDL_d3dmath.lo $(objects)/SDL_render.lo $(objects)/SDL_yuv_mmx.lo $(objects)/SDL_yuv_sw.lo $(objects)/SDL_render_d3d.lo $(objects)/SDL_render_d3d11.lo $(objects)/SDL_render_gl.lo $(objects)/SDL_shaders_gl.lo $(objects)/SDL_render_gles.lo $(objects)/SDL_render_gles2.lo $(objects)/SDL_shaders_gles2.lo $(objects)/SDL_render_psp.lo $(objects)/SDL_blendfillrect.lo $(objects)/SDL_blendline.lo $(objects)/SDL_blendpoint.lo $(objects)/SDL_drawline.lo $(objects)/SDL_drawpoint.lo $(objects)/SDL_render_sw.lo $(objects)/SDL_rotate.lo $(objects)/SDL_getenv.lo $(objects)/SDL_iconv.lo $(objects)/SDL_malloc.lo $(objects)/SDL_qsort.lo $(objects)/SDL_stdlib.lo $(objects)/SDL_string.lo $(objects)/SDL_thread.lo $(objects)/SDL_timer.lo $(objects)/SDL_RLEaccel.lo $(objects)/SDL_blit.lo $(objects)/SDL_blit_0.lo $(objects)/SDL_blit_1.lo $(objects)/SDL_blit_A.lo $(objects)/SDL_blit_N.lo $(objects)/SDL_blit_auto.lo $(objects)/SDL_blit_copy.lo $(objects)/SDL_blit_slow.lo $(objects)/SDL_bmp.lo $(objects)/SDL_clipboard.lo $(objects)/SDL_egl.lo $(objects)/SDL_fillrect.lo $(objects)/SDL_pixels.lo $(objects)/SDL_rect.lo $(objects)/SDL_shape.lo $(objects)/SDL_stretch.lo $(objects)/SDL_surface.lo $(objects)/SDL_video.lo $(objects)/SDL_nullevents.lo $(objects)/SDL_nullframebuffer.lo $(objects)/SDL_nullvideo.lo $(objects)/SDL_diskaudio.lo $(objects)/SDL_dummyaudio.lo $(objects)/SDL_sysloadso.lo $(objects)/SDL_cocoaclipboard.lo $(objects)/SDL_cocoaevents.lo $(objects)/SDL_cocoakeyboard.lo $(objects)/SDL_cocoamessagebox.lo $(objects)/SDL_cocoamodes.lo $(objects)/SDL_cocoamouse.lo $(objects)/SDL_cocoamousetap.lo $(objects)/SDL_cocoaopengl.lo $(objects)/SDL_cocoashape.lo $(objects)/SDL_cocoavideo.lo $(objects)/SDL_cocoawindow.lo $(objects)/SDL_x11clipboard.lo $(objects)/SDL_x11dyn.lo $(objects)/SDL_x11events.lo $(objects)/SDL_x11framebuffer.lo $(objects)/SDL_x11keyboard.lo $(objects)/SDL_x11messagebox.lo $(objects)/SDL_x11modes.lo $(objects)/SDL_x11mouse.lo $(objects)/SDL_x11opengl.lo $(objects)/SDL_x11opengles.lo $(objects)/SDL_x11shape.lo $(objects)/SDL_x11touch.lo $(objects)/SDL_x11video.lo $(objects)/SDL_x11window.lo $(objects)/SDL_x11xinput2.lo $(objects)/edid-parse.lo $(objects)/imKStoUCS.lo $(objects)/SDL_systhread.lo $(objects)/SDL_syssem.lo $(objects)/SDL_sysmutex.lo $(objects)/SDL_syscond.lo $(objects)/SDL_systls.lo $(objects)/SDL_coreaudio.lo $(objects)/SDL_sysjoystick.lo $(objects)/SDL_syshaptic.lo $(objects)/SDL_syspower.lo $(objects)/SDL_sysfilesystem.lo $(objects)/SDL_systimer.lo $(objects)/SDL_rwopsbundlesupport.lo
 VERSION_OBJECTS = 
 
 SDLMAIN_TARGET = libSDL2main.a
@@ -222,396 +222,447 @@ rpm: $(distfile)
 -include $(OBJECTS:.lo=.d)
 
 # Special dependency for SDL.c, since it depends on SDL_revision.h
-/Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/SDL.c: update-revision
+/Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/SDL.c: update-revision
 
-$(objects)/SDL.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/SDL.c
+$(objects)/SDL.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/SDL.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_assert.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/SDL_assert.c
+$(objects)/SDL_assert.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/SDL_assert.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_error.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/SDL_error.c
+$(objects)/SDL_error.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/SDL_error.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_hints.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/SDL_hints.c
+$(objects)/SDL_hints.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/SDL_hints.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_log.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/SDL_log.c
+$(objects)/SDL_log.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/SDL_log.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_atomic.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/atomic/SDL_atomic.c
+$(objects)/SDL_atomic.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/atomic/SDL_atomic.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_spinlock.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/atomic/SDL_spinlock.c
+$(objects)/SDL_spinlock.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/atomic/SDL_spinlock.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_audio.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/audio/SDL_audio.c
+$(objects)/SDL_audio.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/audio/SDL_audio.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_audiocvt.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/audio/SDL_audiocvt.c
+$(objects)/SDL_audiocvt.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/audio/SDL_audiocvt.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_audiodev.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/audio/SDL_audiodev.c
+$(objects)/SDL_audiodev.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/audio/SDL_audiodev.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_audiotypecvt.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/audio/SDL_audiotypecvt.c
+$(objects)/SDL_audiotypecvt.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/audio/SDL_audiotypecvt.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_mixer.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/audio/SDL_mixer.c
+$(objects)/SDL_mixer.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/audio/SDL_mixer.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_wave.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/audio/SDL_wave.c
+$(objects)/SDL_wave.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/audio/SDL_wave.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_cpuinfo.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/cpuinfo/SDL_cpuinfo.c
+$(objects)/SDL_cpuinfo.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/cpuinfo/SDL_cpuinfo.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_dynapi.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/dynapi/SDL_dynapi.c
+$(objects)/SDL_dynapi.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/dynapi/SDL_dynapi.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_clipboardevents.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/events/SDL_clipboardevents.c
+$(objects)/SDL_clipboardevents.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/events/SDL_clipboardevents.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_dropevents.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/events/SDL_dropevents.c
+$(objects)/SDL_dropevents.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/events/SDL_dropevents.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_events.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/events/SDL_events.c
+$(objects)/SDL_events.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/events/SDL_events.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_gesture.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/events/SDL_gesture.c
+$(objects)/SDL_gesture.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/events/SDL_gesture.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_keyboard.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/events/SDL_keyboard.c
+$(objects)/SDL_keyboard.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/events/SDL_keyboard.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_mouse.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/events/SDL_mouse.c
+$(objects)/SDL_mouse.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/events/SDL_mouse.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_quit.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/events/SDL_quit.c
+$(objects)/SDL_quit.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/events/SDL_quit.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_touch.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/events/SDL_touch.c
+$(objects)/SDL_touch.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/events/SDL_touch.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowevents.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/events/SDL_windowevents.c
+$(objects)/SDL_windowevents.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/events/SDL_windowevents.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_rwops.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/file/SDL_rwops.c
+$(objects)/SDL_rwops.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/file/SDL_rwops.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_haptic.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/haptic/SDL_haptic.c
+$(objects)/SDL_haptic.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/haptic/SDL_haptic.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_gamecontroller.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/SDL_gamecontroller.c
+$(objects)/SDL_gamecontroller.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/SDL_gamecontroller.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_joystick.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/SDL_joystick.c
+$(objects)/SDL_joystick.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/SDL_joystick.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/e_atan2.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/e_atan2.c
+$(objects)/e_atan2.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/e_atan2.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/e_log.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/e_log.c
+$(objects)/e_log.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/e_log.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/e_pow.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/e_pow.c
+$(objects)/e_pow.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/e_pow.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/e_rem_pio2.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/e_rem_pio2.c
+$(objects)/e_rem_pio2.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/e_rem_pio2.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/e_sqrt.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/e_sqrt.c
+$(objects)/e_sqrt.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/e_sqrt.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/k_cos.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/k_cos.c
+$(objects)/k_cos.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/k_cos.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/k_rem_pio2.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/k_rem_pio2.c
+$(objects)/k_rem_pio2.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/k_rem_pio2.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/k_sin.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/k_sin.c
+$(objects)/k_sin.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/k_sin.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_atan.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/s_atan.c
+$(objects)/s_atan.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/s_atan.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_copysign.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/s_copysign.c
+$(objects)/s_copysign.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/s_copysign.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_cos.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/s_cos.c
+$(objects)/s_cos.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/s_cos.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_fabs.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/s_fabs.c
+$(objects)/s_fabs.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/s_fabs.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_floor.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/s_floor.c
+$(objects)/s_floor.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/s_floor.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_scalbn.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/s_scalbn.c
+$(objects)/s_scalbn.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/s_scalbn.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_sin.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/libm/s_sin.c
+$(objects)/s_sin.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/libm/s_sin.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_power.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/power/SDL_power.c
+$(objects)/SDL_power.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/power/SDL_power.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_d3dmath.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/SDL_d3dmath.c
+$(objects)/SDL_d3dmath.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/SDL_d3dmath.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/SDL_render.c
+$(objects)/SDL_render.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/SDL_render.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_yuv_mmx.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/SDL_yuv_mmx.c
+$(objects)/SDL_yuv_mmx.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/SDL_yuv_mmx.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_yuv_sw.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/SDL_yuv_sw.c
+$(objects)/SDL_yuv_sw.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/SDL_yuv_sw.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_d3d.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/direct3d/SDL_render_d3d.c
+$(objects)/SDL_render_d3d.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/direct3d/SDL_render_d3d.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_d3d11.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/direct3d11/SDL_render_d3d11.c
+$(objects)/SDL_render_d3d11.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/direct3d11/SDL_render_d3d11.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_gl.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/opengl/SDL_render_gl.c
+$(objects)/SDL_render_gl.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/opengl/SDL_render_gl.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_shaders_gl.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/opengl/SDL_shaders_gl.c
+$(objects)/SDL_shaders_gl.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/opengl/SDL_shaders_gl.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_gles.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/opengles/SDL_render_gles.c
+$(objects)/SDL_render_gles.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/opengles/SDL_render_gles.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_gles2.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/opengles2/SDL_render_gles2.c
+$(objects)/SDL_render_gles2.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/opengles2/SDL_render_gles2.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_shaders_gles2.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/opengles2/SDL_shaders_gles2.c
+$(objects)/SDL_shaders_gles2.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/opengles2/SDL_shaders_gles2.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_psp.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/psp/SDL_render_psp.c
+$(objects)/SDL_render_psp.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/psp/SDL_render_psp.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blendfillrect.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/software/SDL_blendfillrect.c
+$(objects)/SDL_blendfillrect.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/software/SDL_blendfillrect.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blendline.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/software/SDL_blendline.c
+$(objects)/SDL_blendline.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/software/SDL_blendline.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blendpoint.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/software/SDL_blendpoint.c
+$(objects)/SDL_blendpoint.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/software/SDL_blendpoint.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_drawline.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/software/SDL_drawline.c
+$(objects)/SDL_drawline.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/software/SDL_drawline.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_drawpoint.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/software/SDL_drawpoint.c
+$(objects)/SDL_drawpoint.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/software/SDL_drawpoint.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_sw.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/software/SDL_render_sw.c
+$(objects)/SDL_render_sw.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/software/SDL_render_sw.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_rotate.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/render/software/SDL_rotate.c
+$(objects)/SDL_rotate.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/render/software/SDL_rotate.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_getenv.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/stdlib/SDL_getenv.c
+$(objects)/SDL_getenv.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/stdlib/SDL_getenv.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_iconv.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/stdlib/SDL_iconv.c
+$(objects)/SDL_iconv.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/stdlib/SDL_iconv.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_malloc.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/stdlib/SDL_malloc.c
+$(objects)/SDL_malloc.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/stdlib/SDL_malloc.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_qsort.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/stdlib/SDL_qsort.c
+$(objects)/SDL_qsort.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/stdlib/SDL_qsort.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_stdlib.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/stdlib/SDL_stdlib.c
+$(objects)/SDL_stdlib.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/stdlib/SDL_stdlib.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_string.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/stdlib/SDL_string.c
+$(objects)/SDL_string.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/stdlib/SDL_string.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_thread.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/thread/SDL_thread.c
+$(objects)/SDL_thread.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/thread/SDL_thread.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_timer.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/timer/SDL_timer.c
+$(objects)/SDL_timer.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/timer/SDL_timer.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_RLEaccel.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_RLEaccel.c
+$(objects)/SDL_RLEaccel.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_RLEaccel.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_blit.c
+$(objects)/SDL_blit.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_blit.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_0.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_blit_0.c
+$(objects)/SDL_blit_0.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_blit_0.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_1.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_blit_1.c
+$(objects)/SDL_blit_1.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_blit_1.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_A.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_blit_A.c
+$(objects)/SDL_blit_A.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_blit_A.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_N.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_blit_N.c
+$(objects)/SDL_blit_N.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_blit_N.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_auto.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_blit_auto.c
+$(objects)/SDL_blit_auto.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_blit_auto.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_copy.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_blit_copy.c
+$(objects)/SDL_blit_copy.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_blit_copy.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_slow.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_blit_slow.c
+$(objects)/SDL_blit_slow.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_blit_slow.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_bmp.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_bmp.c
+$(objects)/SDL_bmp.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_bmp.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_clipboard.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_clipboard.c
+$(objects)/SDL_clipboard.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_clipboard.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_egl.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_egl.c
+$(objects)/SDL_egl.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_egl.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_fillrect.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_fillrect.c
+$(objects)/SDL_fillrect.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_fillrect.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_pixels.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_pixels.c
+$(objects)/SDL_pixels.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_pixels.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_rect.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_rect.c
+$(objects)/SDL_rect.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_rect.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_shape.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_shape.c
+$(objects)/SDL_shape.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_shape.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_stretch.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_stretch.c
+$(objects)/SDL_stretch.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_stretch.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_surface.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_surface.c
+$(objects)/SDL_surface.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_surface.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_video.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/SDL_video.c
+$(objects)/SDL_video.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/SDL_video.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_nullevents.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/SDL_nullevents.c
+$(objects)/SDL_nullevents.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/SDL_nullevents.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_nullframebuffer.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/SDL_nullframebuffer.c
+$(objects)/SDL_nullframebuffer.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/SDL_nullframebuffer.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_nullvideo.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/dummy/SDL_nullvideo.c
+$(objects)/SDL_nullvideo.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/dummy/SDL_nullvideo.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_diskaudio.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/audio/disk/SDL_diskaudio.c
+$(objects)/SDL_diskaudio.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/audio/disk/SDL_diskaudio.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_dummyaudio.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/audio/dummy/SDL_dummyaudio.c
+$(objects)/SDL_dummyaudio.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/audio/dummy/SDL_dummyaudio.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_sysloadso.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/loadso/dlopen/SDL_sysloadso.c
+$(objects)/SDL_sysloadso.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/loadso/dlopen/SDL_sysloadso.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_cocoaclipboard.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoaclipboard.m
+$(objects)/SDL_cocoaclipboard.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoaclipboard.m
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_cocoaevents.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoaevents.m
+$(objects)/SDL_cocoaevents.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoaevents.m
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_cocoakeyboard.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoakeyboard.m
+$(objects)/SDL_cocoakeyboard.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoakeyboard.m
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_cocoamessagebox.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoamessagebox.m
+$(objects)/SDL_cocoamessagebox.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoamessagebox.m
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_cocoamodes.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoamodes.m
+$(objects)/SDL_cocoamodes.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoamodes.m
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_cocoamouse.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoamouse.m
+$(objects)/SDL_cocoamouse.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoamouse.m
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_cocoamousetap.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoamousetap.m
+$(objects)/SDL_cocoamousetap.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoamousetap.m
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_cocoaopengl.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoaopengl.m
+$(objects)/SDL_cocoaopengl.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoaopengl.m
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_cocoashape.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoashape.m
+$(objects)/SDL_cocoashape.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoashape.m
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_cocoavideo.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoavideo.m
+$(objects)/SDL_cocoavideo.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoavideo.m
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_cocoawindow.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/video/cocoa/SDL_cocoawindow.m
+$(objects)/SDL_cocoawindow.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/cocoa/SDL_cocoawindow.m
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_systhread.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/thread/pthread/SDL_systhread.c
+$(objects)/SDL_x11clipboard.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11clipboard.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_syssem.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/thread/pthread/SDL_syssem.c
+$(objects)/SDL_x11dyn.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11dyn.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_sysmutex.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/thread/pthread/SDL_sysmutex.c
+$(objects)/SDL_x11events.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11events.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_syscond.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/thread/pthread/SDL_syscond.c
+$(objects)/SDL_x11framebuffer.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11framebuffer.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_systls.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/thread/pthread/SDL_systls.c
+$(objects)/SDL_x11keyboard.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11keyboard.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_coreaudio.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/audio/coreaudio/SDL_coreaudio.c
+$(objects)/SDL_x11messagebox.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11messagebox.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_sysjoystick.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/joystick/darwin/SDL_sysjoystick.c
+$(objects)/SDL_x11modes.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11modes.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_syshaptic.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/haptic/darwin/SDL_syshaptic.c
+$(objects)/SDL_x11mouse.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11mouse.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_syspower.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/power/macosx/SDL_syspower.c
+$(objects)/SDL_x11opengl.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11opengl.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_sysfilesystem.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/filesystem/cocoa/SDL_sysfilesystem.m
+$(objects)/SDL_x11opengles.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11opengles.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_systimer.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/timer/unix/SDL_systimer.c
+$(objects)/SDL_x11shape.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11shape.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_rwopsbundlesupport.lo: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/file/cocoa/SDL_rwopsbundlesupport.m
+$(objects)/SDL_x11touch.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11touch.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
+$(objects)/SDL_x11video.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11video.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_x11window.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11window.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_x11xinput2.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/SDL_x11xinput2.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/edid-parse.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/edid-parse.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/imKStoUCS.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/video/x11/imKStoUCS.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_systhread.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/thread/pthread/SDL_systhread.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_syssem.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/thread/pthread/SDL_syssem.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_sysmutex.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/thread/pthread/SDL_sysmutex.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_syscond.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/thread/pthread/SDL_syscond.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_systls.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/thread/pthread/SDL_systls.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_coreaudio.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/audio/coreaudio/SDL_coreaudio.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_sysjoystick.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/joystick/darwin/SDL_sysjoystick.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_syshaptic.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/haptic/darwin/SDL_syshaptic.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_syspower.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/power/macosx/SDL_syspower.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_sysfilesystem.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/filesystem/cocoa/SDL_sysfilesystem.m
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_systimer.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/timer/unix/SDL_systimer.c
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_rwopsbundlesupport.lo: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/file/cocoa/SDL_rwopsbundlesupport.m
+	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
 
-$(objects)/SDL_dummy_main.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/main/dummy/SDL_dummy_main.c
+$(objects)/SDL_dummy_main.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/main/dummy/SDL_dummy_main.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_test_assert.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_assert.c
+$(objects)/SDL_test_assert.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_assert.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_common.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_common.c
+$(objects)/SDL_test_common.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_common.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_compare.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_compare.c
+$(objects)/SDL_test_compare.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_compare.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_crc32.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_crc32.c
+$(objects)/SDL_test_crc32.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_crc32.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_font.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_font.c
+$(objects)/SDL_test_font.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_font.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_fuzzer.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_fuzzer.c
+$(objects)/SDL_test_fuzzer.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_fuzzer.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_harness.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_harness.c
+$(objects)/SDL_test_harness.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_harness.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_imageBlit.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_imageBlit.c
+$(objects)/SDL_test_imageBlit.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_imageBlit.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_imageBlitBlend.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_imageBlitBlend.c
+$(objects)/SDL_test_imageBlitBlend.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_imageBlitBlend.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_imageFace.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_imageFace.c
+$(objects)/SDL_test_imageFace.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_imageFace.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_imagePrimitives.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_imagePrimitives.c
+$(objects)/SDL_test_imagePrimitives.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_imagePrimitives.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_imagePrimitivesBlend.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_imagePrimitivesBlend.c
+$(objects)/SDL_test_imagePrimitivesBlend.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_imagePrimitivesBlend.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_log.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_log.c
+$(objects)/SDL_test_log.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_log.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_md5.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_md5.c
+$(objects)/SDL_test_md5.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_md5.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_random.o: /Users/cglavieu/Code/DooM-Nukem-3D/project/SDL2-2.0.3/src/test/SDL_test_random.c
+$(objects)/SDL_test_random.o: /Users/cglavieu/Code/doom-nukem42/SDL2-2.0.3/src/test/SDL_test_random.c
 	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
