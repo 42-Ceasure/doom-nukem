@@ -69,11 +69,13 @@ typedef struct		s_env
 	SDL_Event		event;
 }					t_env;
 
-t_map	set_basic_run(t_env *w);
-t_map	set_advanced_run(t_env *w, char **av);
+void		set_basic_run(t_map *m);
+void		set_advanced_run(char **av, t_env *w, t_map *m);
 int			init_sdl(t_env *w);
-void		run(t_env *w, t_map *m);
-void		exit_game(t_env *w);
-void	recap_parsing(t_map *m, char *str);
+int			quick_look(t_map *m);
+int			do_parse(t_map *m);
+int			run(t_env *w, t_map *m);
+void		exit_game(t_env *w, t_map *m);
+void		recap_parsing(t_map *m, char *str);
 
 #endif

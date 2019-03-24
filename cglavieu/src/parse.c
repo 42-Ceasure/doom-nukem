@@ -95,10 +95,6 @@ void	check_line(t_map *m)
 
 int		quick_look(t_map *m)
 {
-	//write(1, "do_parse(ok)\n", 14);
-	// m->section_number = 0;
-	// m->dots_count = 0;
-	// m->sector_count = 0;
 	if ((m->fd = open(m->map_path, O_RDONLY)) == -1)
 		return (-1);
 	while (get_next_line(m->fd, &m->line))
@@ -129,82 +125,4 @@ int		do_parse(t_map *m)
 	}
 	close(m->fd);
 	return (0);
-}
-
-void	recap_parsing(t_map *m, char *str)
-{
-	int i;
-	int j;
-
-	i = 0;
-	printf("%s :\n", str);
-	if (ft_strcmp(str, "map_general") == 0)
-	{
-		printf("map_section_number = %d\n", m->section_number);
-		printf("map_dots_count = %d\n", m->dots_count);
-		printf("map_sector_count = %d\n", m->sector_count);
-		printf("map_name = %s\n", m->map_name);
-		printf("map_path = %s\n", m->map_path);
-	}
-	if (ft_strcmp(str, "map_list_dots") == 0)
-	{
-		while (i < m->dots_count)
-		{
-			printf("point_%d : x = %f, y = %f\n", i, m->dot[i].x, m->dot[i].y);
-			i++;
-		}
-	}
-	if (ft_strcmp(str, "map_list_sectors") == 0)
-	{
-		while (i < m->sector_count)
-		{
-			j = 0;
-			printf("sector %d : wall_count = %d\n", i, m->sector[i].wall_count);
-			printf("sector %d : floor_height = %f\n", i, m->sector[i].floor);
-			printf("sector %d : ceiling_height = %f\n", i, m->sector[i].ceiling);
-			while (j < m->sector[i].wall_count)
-			{
-				printf("point_%d : x = %f, y = %f\n", j, m->sector[i].dot[j].x, m->sector[i].dot[j].y);
-				j++;
-			}
-			j = 0;
-			while (j < m->sector[i].wall_count)
-			{
-				printf("network_%d : %s\n", j, m->sector[i].network[j]);
-				j++;
-			}
-			i++;
-		}
-	}
-	SDL_Delay(1000);
-}
-
-t_map	set_basic_run(t_env *w)
-{
-	t_map	map;
-
-	w->i = 0;
-	map.i = 0;
-	map.s = 0;
-	map.section_number = 0;
-	map.dots_count = 0;
-	map.sector_count = 0;
-	map.map_name = "test";
-	map.map_path = "maps/test.dn3d";
-	map.dot = NULL;
-	map.sector = NULL;
-	if (quick_look(&map) == -1)
-		write(1, "error map measure\n", 19);
-	if (do_parse(&map) == -1)
-		write(1, "error on map collect\n", 22);
-	return (map);
-}
-
-t_map	set_advanced_run(t_env *w, char **av)
-{
-	t_map	map;
-
-	(void)av;
-	map = set_basic_run(w);
-	return (map);
 }

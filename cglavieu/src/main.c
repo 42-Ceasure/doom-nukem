@@ -1,77 +1,56 @@
-//
+// gros taf de free sur le exit_game
 
 #include "doom-nukem.h"
 
-void		exit_game(t_env *w)
+void	set_basic_run(t_map *m)
 {
-	free(w);
-	SDL_Quit();
-	exit(1);
+	m->i = 0;
+	m->s = 0;
+	m->section_number = 0;
+	m->dots_count = 0;
+	m->sector_count = 0;
+	m->map_name = "test";
+	m->map_path = "maps/test.dn3d";
+	m->dot = NULL;
+	m->sector = NULL;
+	if (quick_look(m) == -1)
+		write(1, "error map measure\n", 19);
+	if (do_parse(m) == -1)
+		write(1, "error on map collect\n", 22);
 }
 
-void		key_events(t_env *w, t_map *m)
+void	set_advanced_run(char **av, t_env *w, t_map *m)
 {
-	if (w->inkeys[SDL_SCANCODE_M])
-		recap_parsing(m, "map_general");
-	if (w->inkeys[SDL_SCANCODE_J])
-		recap_parsing(m, "map_list_dots");
-	if (w->inkeys[SDL_SCANCODE_K])
-		recap_parsing(m, "map_list_sectors");
-}
-
-void		run(t_env *w, t_map *m)
-{
-	while (1)
+	set_basic_run(m);
+	if ((ft_strcmp(av[1], "-recap_parsing") == 0) && av[2] != NULL)
+		recap_parsing(m, av[2]);
+	else
 	{
-		while (SDL_PollEvent(&w->event))
-		{
-			if (w->event.type == SDL_KEYDOWN)
-				if (KEY == 27)
-					exit_game(w);
-		}
-		w->inkeys = SDL_GetKeyboardState(NULL);
-		key_events(w, m);
+		ft_putendl("\nThis part of the program is curently in development.");
+		ft_putendl("the only command usable now is \"-recap_parsing\" with args :");
+		ft_putendl("  \"map_general\"  \"map_list_dots\"  \"map_list_sectors\"");
 	}
-}
-
-int			init_sdl(t_env *w)
-{
-	if (SDL_Init(SDL_INIT_VIDEO) != 0)
-		return (-1);
-	w->win = SDL_CreateWindow(NAME, SDL_WINDOWPOS_CENTERED,
-									SDL_WINDOWPOS_CENTERED,
-									WIDTH,
-									HEIGHT,
-									SDL_WINDOW_RESIZABLE);
-	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED |
-											SDL_RENDERER_PRESENTVSYNC);
-	w->pix = (Uint32 *)malloc(sizeof(Uint32) * WIDTH * HEIGHT);
-	w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
-										SDL_TEXTUREACCESS_STREAMING,
-										WIDTH,
-										HEIGHT);
-	//SDL_SetRelativeMouseMode(SDL_TRUE);
-	//SDL_ShowCursor(SDL_DISABLE);
-	return (0);
+	free(w);
+	free(m);
 }
 
 int				main(int ac, char **av)
 {
 	t_env		*w;
-	t_map		m;
+	t_map		*m;
 
 	if ((w = malloc(sizeof(t_env))) == NULL)
 		return (0);
-	if ((init_sdl(w)) == -1)
+	if ((m = malloc(sizeof(t_map))) == NULL)
+		return (0);
+	if (ac == 1)
+		set_basic_run(m);
+	else
 	{
-		write(1, "cannot intitialize SDL2\n", 24);
+		set_advanced_run(av, w, m);
 		return (0);
 	}
-	if (ac == 1)
-		m = set_basic_run(w);
-	else
-		m = set_advanced_run(w, av);
-	if (w->win)
-		run(w, &m);
+	if (!run(w, m))
+		ft_putendl("program closing now");
 	return (0);
 }
