@@ -12,8 +12,8 @@
 
 typedef struct 		s_dot
 {
-	double			x1;
-	double			y1;
+	double			x;
+	double			y;
 }					t_dot;
 
 typedef struct		s_coor
@@ -25,6 +25,7 @@ typedef struct		s_coor
 
 typedef struct		s_sector
 {
+	int				wall_count;
 	double			floor;
 	double			ceiling;
 	t_dot			*dot;
@@ -43,6 +44,8 @@ typedef struct		s_player
 
 typedef struct		s_map
 {
+	int				i;
+	int				s;
 	int				fd;
 	char			*line;
 	int				section_number;
@@ -50,6 +53,7 @@ typedef struct		s_map
 	int				sector_count;
 	char			*map_name;
 	char			*map_path;
+	t_dot			*dot;
 	t_sector		*sector;
 	t_player		player;
 }					t_map;

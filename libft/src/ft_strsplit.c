@@ -28,6 +28,8 @@ static int			ft_count(char const *s, char c)
 	return (len);
 }
 
+#include <assert.h>
+
 static char			**ft_sublen(char const *s, char c, char **tab, int nbl)
 {
 	int				i;
@@ -52,6 +54,7 @@ static char			**ft_sublen(char const *s, char c, char **tab, int nbl)
 			tab[j++] = ft_strsub(s, start, len);
 		}
 		i++;
+		assert((size_t)i <= strlen(s));
 	}
 	tab[j] = NULL;
 	return (tab);

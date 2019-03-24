@@ -4,7 +4,7 @@
 
 CC			=	gcc
 
-CFLAG		=	-Wall -Wextra -Werror
+CFLAG		=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
 
 NAME		=	doom-nukem
 
@@ -39,7 +39,7 @@ SDL_CURL	= 	`curl https://www.libsdl.org/release/SDL2-2.0.3.zip -o sdl2.zip`
 all				:	libft sdl $(NAME)
 
 $(NAME)			:	$(OBJ)
-					@$(CC) $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^
+					@$(CC) $(CFLAG) $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^
 					@echo "compile done"
 
 $(OBJDIR)%.o	:	$(SRCDIR)%.c $(INC)
