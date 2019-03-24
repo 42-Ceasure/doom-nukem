@@ -1,3 +1,4 @@
+//
 
 #include "doom-nukem.h"
 
@@ -45,11 +46,8 @@ int			init_sdl(t_env *w)
 int				main(int ac, char **av)
 {
 	t_env		*w;
+	t_map		m;
 
-	if (ac == 1)
-		(void)av;
-	else
-		;
 	if ((w = malloc(sizeof(t_env))) == NULL)
 		return (0);
 	if ((init_sdl(w)) == -1)
@@ -57,6 +55,10 @@ int				main(int ac, char **av)
 		write(1, "cannot intitialize SDL2\n", 24);
 		return (0);
 	}
+	if (ac == 1)
+		m = set_basic_run(w);
+	else
+		m = set_advanced_run(w, av);
 	if (w->win)
 		run(w);
 	return (0);

@@ -16,7 +16,7 @@ SRCDIR		=	./src/
 INCFIL		=	doom-nukem.h
 OBJFIL		=	$(SRCFIL:.c=.o)
 LIBFTFIL	=	libft.a
-SRCFIL		=	main.c
+SRCFIL		=	main.c parse.c
 
 SRC			=	$(addprefix $(SRCDIR),$(SRCFIL))
 OBJ			=	$(addprefix $(OBJDIR),$(OBJFIL))
