@@ -7,7 +7,7 @@ int			parse_line(t_map *m)
 	char	**tmp;
 	char	**tmp1;
 	char	**tmp2;
-	char	**tmp3;
+	int		mem;
 	int		i;
 
 	tmp = ft_strsplit(m->line, ':');
@@ -33,7 +33,6 @@ int			parse_line(t_map *m)
 			i = 0;
 			tmp1 = ft_strsplit(tmp[1], ',');		// floor H, ceiling H
 			tmp2 = ft_strsplit(tmp[2], ',');		// walls
-			tmp3 = ft_strsplit(tmp[3], ',');		// connections
 			m->sector[m->s].floor = atof(tmp1[0]);
 			m->sector[m->s].ceiling = atof(tmp1[1]);
 			while (tmp2[i] != NULL)
@@ -44,14 +43,14 @@ int			parse_line(t_map *m)
 			i = 0;
 			while(i < m->sector[m->s].wall_count)
 			{
-			 	m->sector->dot[i].x = m->dot[ft_atoi(tmp2[i])].x;
-			 	m->sector->dot[i].y = m->dot[ft_atoi(tmp2[i])].y;
+				mem = ft_atoi(tmp2[i]);
+				m->sector[m->s].dot[i].x = m->dot[mem].x;
+			 	m->sector[m->s].dot[i].y = m->dot[mem].y;
 				i++;
 			}
 			m->s++;
 			free(tmp1);
 			free(tmp2);
-			free(tmp3);
 		}
 	}
 	free(tmp);
@@ -127,7 +126,6 @@ void	recap_parsing(t_map *m)
 	int j;
 
 	i = 0;
-	j = 0;
 	printf("map_section_number = %d\n", m->section_number);
 	printf("map_dots_count = %d\n", m->dots_count);
 	printf("map_sector_count = %d\n", m->sector_count);
@@ -135,18 +133,19 @@ void	recap_parsing(t_map *m)
 	printf("map_path = %s\n", m->map_path);
 	while (i < m->dots_count)
 	{
-		printf("point : %d x = %f, y = %f\n", i, m->dot[i].x, m->dot[i].y);
+		printf("point_%d : x = %f, y = %f\n", i, m->dot[i].x, m->dot[i].y);
 		i++;
 	}
 	i = 0;
 	while (i < m->sector_count)
 	{
+		j = 0;
 		printf("sector %d : wall_count = %d\n", i, m->sector[i].wall_count);
 		printf("sector %d : floor_height = %f\n", i, m->sector[i].floor);
 		printf("sector %d : ceiling_height = %f\n", i, m->sector[i].ceiling);
 		while (j < m->sector[i].wall_count)
 		{
-			printf("point : %d x = %f, y = %f\n", j, m->dot[j].x, m->dot[j].y);
+			printf("point_%d : x = %f, y = %f\n", j, m->dot[j].x, m->dot[j].y);
 			j++;
 		}
 		i++;
