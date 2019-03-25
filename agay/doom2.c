@@ -6,7 +6,7 @@
 /*   By: agay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 10:54:39 by agay              #+#    #+#             */
-/*   Updated: 2019/03/25 19:16:16 by agay             ###   ########.fr       */
+/*   Updated: 2019/03/25 21:03:32 by agay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	draw(t_mlx *mlx, t_doom doom, t_map *m)
 	img_clear(mlx);
 	mlx->data[(int)m->player.coor.y * PI_X + (int)m->player.coor.x] = 0xFF0000;
 	draw_utility(mlx, doom, 0xFF0000);
-	doom.wslope = (doom.y1 - doom.y) / (doom.x1 - doom.x);
+	doom.wslope = (m->sector->dot[1].y - m->sector->dot[0].y) / (m->sector->dot[1].x - m->sector->dot[0].x);
 	doom.save = m->player.angle;
 	m->player.angle = m->player.angle + (30 * M_PI / 180);
 	while (x != PI_X)
@@ -148,10 +148,6 @@ int		main(int ac, char **av)
 	t_map	*m;
 	void	*tab[3];
 
-	doom.x = 0;
-	doom.y = 0;
-	doom.x1 = 6;
-	doom.y1 = 0;
 	if ((m = (t_map *)malloc(sizeof(t_map))) == NULL)
 		return (0);
 	if (ac == 1)
