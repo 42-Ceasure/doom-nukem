@@ -64,6 +64,20 @@ int			parse_line(t_map *m)
 			free(tmp2);
 		}
 	}
+	if (m->section_number == 2)
+	{
+		if (ft_strcmp(tmp[0], "\tplayer_location") == 0)
+		{
+			tmp1 = ft_strsplit(tmp[1], ',');
+			m->player.coor.x = atof(tmp1[0]);		// coder ft_atof
+			m->player.coor.y = atof(tmp1[1]);		// coder ft_atof
+		}
+		if (ft_strcmp(tmp[0], "\tplayer_direction") == 0)
+			m->player.angle = atof(tmp[1]);		// coder ft_atof
+		if (ft_strcmp(tmp[0], "\tplayer_sector") == 0)
+			m->player.sector = ft_atoi(tmp[1]);
+		free(tmp1);
+	}
 	free(tmp);
 	return (0);
 }

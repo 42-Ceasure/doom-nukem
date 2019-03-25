@@ -34,6 +34,7 @@ typedef struct		s_sector
 
 typedef struct		s_player
 {
+	int				sector;
 	t_coor			coor;
 	t_coor			move_speed;
 	double			angle;

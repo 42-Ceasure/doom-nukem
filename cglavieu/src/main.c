@@ -29,6 +29,7 @@ void	set_advanced_run(char **av, t_env *w, t_map *m)
 		ft_putendl("\nThis part of the program is curently in development.");
 		ft_putendl("the only command usable now is \"-recap_parsing\" with args :");
 		ft_putendl("  \"map_general\"  \"map_list_dots\"  \"map_list_sectors\"");
+		ft_putendl("  \"player_list_vars\"\n");
 	}
 	free(w);
 	free(m);

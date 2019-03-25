@@ -2,6 +2,18 @@
 
 #include "doom-nukem.h"
 
+void	recap_player_list_vars(t_map *m)
+{
+	ft_putstr("player_sector = ");
+	ft_putnbrendl((int)m->player.sector);
+	ft_putstr("player_coor : x = ");
+	ft_putnbr((int)m->player.coor.x);
+	ft_putstr(", y = ");
+	ft_putnbrendl((int)m->player.coor.y);
+	ft_putstr("player_direction = ");
+	ft_putnbrendl((int)m->player.angle);
+}
+
 void	recap_map_general(t_map *m)
 {
 	ft_putstr("map_section_number = ");
@@ -63,12 +75,14 @@ void	recap_map_list_sectors(t_map *m)
 void	recap_parsing(t_map *m, char *str)
 {
 	ft_putstr(str);
-	ft_putendl(" :");
+	ft_putendl(" :\n");
 	if (ft_strcmp(str, "map_general") == 0)
 		recap_map_general(m);
 	if (ft_strcmp(str, "map_list_dots") == 0)
 		recap_map_list_dots(m);
 	if (ft_strcmp(str, "map_list_sectors") == 0)
 		recap_map_list_sectors(m);
+	if (ft_strcmp(str, "player_list_vars") == 0)
+		recap_player_list_vars(m);
 	ft_putchar('\n');
 }
