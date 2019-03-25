@@ -34,7 +34,7 @@ arguments :
 
 
 a faire :
-	- ameliorer le listing des secteurs
+	- ameliorer le listing des secteurs // fait en partie
 	- coder un ft_atof
 	- coder un ft_putfloat / ft_putdouble
 	- quelques changements sur des printf
