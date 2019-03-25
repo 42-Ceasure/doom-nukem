@@ -157,9 +157,7 @@ int		main(int ac, char **av)
 		set_advanced_run(av, m);
 		return (0);
 	}
-	printf("angle(main) :%f\n", m->player.angle);
 	m->player.angle = m->player.angle * M_PI / 180;
-	printf("angle corrige (main) :%f\n", m->player.angle);
 	doom.fov = (PI_X / 2) / tan(30 * M_PI / 180);
 	doom.ar = (double)(60 * M_PI / 180) / PI_X;
 	mlx.mlx = mlx_init();
