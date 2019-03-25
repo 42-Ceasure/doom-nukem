@@ -6,7 +6,7 @@
 /*   By: agay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 18:35:11 by agay              #+#    #+#             */
-/*   Updated: 2019/03/23 20:44:03 by agay             ###   ########.fr       */
+/*   Updated: 2019/03/25 19:08:05 by agay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct		s_doom
 	double	diffy;
 	double	dist;
 	double	wallh;
+	double	save;
+	double	fov;
 }					t_doom;
 
 void	draw_utility(t_mlx *mlx, t_doom doom, int color);

@@ -6,7 +6,7 @@
 /*   By: agay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 10:54:39 by agay              #+#    #+#             */
-/*   Updated: 2019/03/24 01:25:47 by agay             ###   ########.fr       */
+/*   Updated: 2019/03/25 19:16:16 by agay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,27 @@ void	img_clear(t_mlx *mlx)
 	int		y;
 
 	y = 0;
-	while (y < PI_Y)
+	while (y < PI_Y / 2)
 	{
 		x = 0;
 		while (x < PI_X)
 		{
-			mlx->data[y * PI_X + x] = 0x000000;
+			mlx->data[y * PI_X + x] = 0x00BFFF;
 			x++;
 		}
 		y++;
+	}
+	y = PI_Y;
+	x = 0;
+	while (y >= PI_Y / 2)
+	{
+		x = 0;
+		while (x < PI_X)
+		{
+			mlx->data[y * PI_X + x] = 0x808080;
+			x++;
+		}
+		y--;
 	}
 }
 
@@ -53,7 +65,7 @@ void	set_wall(t_mlx *mlx, t_doom doom, int x)
 	y = PI_Y / 2;
 	while (y > (PI_Y / 2) - (doom.wallh / 2))
 	{
-		mlx->data[y * PI_X + x] = 0xFFFF00;
+		mlx->data[y * PI_X + x] = 0xFFFFFF;
 		y--;
 	}
 }
@@ -74,25 +86,20 @@ void	draw(t_mlx *mlx, t_doom doom)
 	mlx->data[(int)doom.cy * PI_X + (int)doom.cx] = 0xFF0000;
 	draw_utility(mlx, doom, 0xFF0000);
 	doom.wslope = (doom.y1 - doom.y) / (doom.x1 - doom.x);
-	mlx_pixel_put(mlx->mlx, mlx->win, 0 * 5 + 100, 0 * 5 + 100, 0xFF00FF);
-	mlx_pixel_put(mlx->mlx, mlx->win, 6 * 5 + 100, 0 * 5 + 100, 0xFF00FF);
-	mlx_pixel_put(mlx->mlx, mlx->win, 0 * 5 + 100, 6 * 5 + 100, 0xFF00FF);
-	mlx_pixel_put(mlx->mlx, mlx->win, 6 * 5 + 100, 6 * 5 + 100, 0xFF00FF);
-	mlx_pixel_put(mlx->mlx, mlx->win, doom.cx * 5 + 100, doom.cy * 5 + 100, 0xFF0000);
+	doom.save = doom.a;
 	doom.a = doom.a + (30 * M_PI / 180);
-	while (x < PI_X)
+	while (x != PI_X)
 	{
 		rslope = tan(doom.a);
 		intersection(rslope, doom, &xy);
-		mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 5 + 100, xy[1] * 5 + 100, 0xFFFFFF);
 		doom.diffx = doom.cx - xy[0];
 		doom.diffy = doom.cy - xy[1];
 		doom.dist = (fabs(doom.diffx) > fabs(doom.diffy)) ? doom.diffx / cos(doom.a)
 		: doom.diffy / sin(doom.a);
+		doom.dist *= cos(doom.save - doom.a);
 		if (doom.dist == 0)
 			doom.dist = 1;
-		doom.wallh = 200 / doom.dist;
-		printf("wall = %f\n", doom.wallh);
+		doom.wallh = doom.fov / doom.dist;
 		set_wall(mlx, doom, x);
 		doom.a -= doom.ar;
 		x++;
@@ -114,6 +121,7 @@ int		main(void)
 	doom.x1 = 6;
 	doom.y1 = 0;
 	doom.a = 90 * M_PI / 180;
+	doom.fov = (PI_X / 2) / tan(30 * M_PI / 180);
 	doom.ar = (double)(60 * M_PI / 180) / PI_X;
 	mlx.mlx = mlx_init();
 	mlx.win = mlx_new_window(mlx.mlx, PI_X, PI_Y, "DOOm");
