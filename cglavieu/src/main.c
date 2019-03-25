@@ -41,9 +41,7 @@ int				main(int ac, char **av)
 	t_env		*w;
 	t_map		*m;
 
-	if ((w = malloc(sizeof(t_env))) == NULL)
-		return (0);
-	if ((m = malloc(sizeof(t_map))) == NULL)
+	if (((w = malloc(sizeof(t_env))) == NULL) || ((m = malloc(sizeof(t_map))) == NULL))
 		return (0);
 	if (ac == 1)
 		set_basic_run(m);

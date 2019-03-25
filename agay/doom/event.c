@@ -16,23 +16,25 @@ int		key(int key, void **tab)
 {
 	t_mlx	*mlx;
 	t_doom	*doom;
+	t_map	*m;
 
 	mlx = tab[0];
 	doom = tab[1];
+	m = tab[2];
 	if (key == 13)
 	{		
-		doom->cx = doom->cx + cos(doom->a);
-		doom->cy = doom->cy - sin(doom->a);
+		m->player.coor.x = m->player.coor.x + cos(m->player.angle);
+		m->player.coor.y = m->player.coor.y - sin(m->player.angle);
 	}
 	else if (key == 1)
 	{
-		doom->cx = doom->cx - cos(doom->a);
-		doom->cy = doom->cy + sin(doom->a);
+		m->player.coor.x = m->player.coor.x - cos(m->player.angle);
+		m->player.coor.y = m->player.coor.y + sin(m->player.angle);
 	}
 	else if (key == 0)
-		doom->a = doom->a + 0.1;
+		m->player.angle = m->player.angle + 0.1;
 	else if (key == 2)
-		doom->a = doom->a - 0.1;
-	draw(mlx, *doom);
+		m->player.angle = m->player.angle - 0.1;
+	draw(mlx, *doom, m);
 	return (1);
 }
