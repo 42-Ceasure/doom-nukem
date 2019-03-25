@@ -14,13 +14,10 @@ void		key_events(t_env *w, t_map *m)
 {
 	if (w->inkeys[SDL_SCANCODE_M])
 		exit_game(w, m);
-		// recap_parsing(m, "map_general");
 	if (w->inkeys[SDL_SCANCODE_J])
 		exit_game(w, m);
-		// recap_parsing(m, "map_list_dots");
 	if (w->inkeys[SDL_SCANCODE_K])
 		exit_game(w, m);
-		// recap_parsing(m, "map_list_sectors");
 }
 
 int			init_sdl(t_env *w)

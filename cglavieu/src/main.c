@@ -23,13 +23,14 @@ void	set_advanced_run(char **av, t_env *w, t_map *m)
 {
 	set_basic_run(m);
 	if ((ft_strcmp(av[1], "-recap_parsing") == 0) && av[2] != NULL)
-		recap_parsing(m, av[2]);
+		recap_parsing(m, av);
 	else
 	{
 		ft_putendl("\nThis part of the program is curently in development.");
 		ft_putendl("the only command usable now is \"-recap_parsing\" with args :");
-		ft_putendl("  \"map_general\"  \"map_list_dots\"  \"map_list_sectors\"");
-		ft_putendl("  \"player_list_vars\"\n");
+		ft_putendl("  \"map_list_general\"  \"map_list_dots\"  \"map_list_sectors\"");
+		ft_putendl("  \"map_list_sector all <attribut>\"  \"player_list_vars\"\n");
+		ft_putendl("possibles <attribut> are \"general\" \"dots\" \"network\"");
 	}
 	free(w);
 	free(m);

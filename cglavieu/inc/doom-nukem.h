@@ -77,6 +77,6 @@ int			quick_look(t_map *m);
 int			do_parse(t_map *m);
 int			run(t_env *w, t_map *m);
 void		exit_game(t_env *w, t_map *m);
-void		recap_parsing(t_map *m, char *str);
+void		recap_parsing(t_map *m, char **str);
 
 #endif

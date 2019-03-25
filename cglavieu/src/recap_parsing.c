@@ -2,8 +2,10 @@
 
 #include "doom-nukem.h"
 
-void	recap_player_list_vars(t_map *m)
+void	recap_player_list_vars(t_map *m, char *str)
 {
+	ft_putstr(str);
+	ft_putendl(" :\n");
 	ft_putstr("player_sector = ");
 	ft_putnbrendl((int)m->player.sector);
 	ft_putstr("player_coor : x = ");
@@ -14,8 +16,10 @@ void	recap_player_list_vars(t_map *m)
 	ft_putnbrendl((int)m->player.angle);
 }
 
-void	recap_map_general(t_map *m)
+void	recap_map_list_general(t_map *m, char *str)
 {
+	ft_putstr(str);
+	ft_putendl(" :\n");
 	ft_putstr("map_section_number = ");
 	ft_putnbrendl(m->section_number);
 	ft_putstr("map_dots_count = ");
@@ -28,14 +32,16 @@ void	recap_map_general(t_map *m)
 	ft_putendl(m->map_path);
 }
 
-void	recap_map_list_dots(t_map *m)
+void	recap_map_list_dots(t_map *m, char *str)
 {
 	int i;
 
 	i = 0;
+	ft_putstr(str);
+	ft_putendl(" :\n");
 	while (i < m->dots_count)
 		{
-			ft_putstr("point_");
+			ft_putstr("dot_");
 			ft_putnbr(i);
 			ft_putstr(" : x = ");
 			ft_putnbr((int)m->dot[i].x);
@@ -45,12 +51,14 @@ void	recap_map_list_dots(t_map *m)
 		}
 }
 
-void	recap_map_list_sectors(t_map *m)
+void	recap_map_list_sectors(t_map *m, char *str)
 {
 	int i;
 	int j;
 
 	i = 0;
+	ft_putstr(str);
+	ft_putendl(" :\n");
 	while (i < m->sector_count)
 		{
 			j = 0;
@@ -59,7 +67,7 @@ void	recap_map_list_sectors(t_map *m)
 			printf("sector %d : ceiling_height = %f\n", i, m->sector[i].ceiling);
 			while (j < m->sector[i].wall_count)
 			{
-				printf("point_%d : x = %f, y = %f\n", j, m->sector[i].dot[j].x, m->sector[i].dot[j].y);
+				printf("dot_%d : x = %f, y = %f\n", j, m->sector[i].dot[j].x, m->sector[i].dot[j].y);
 				j++;
 			}
 			j = 0;
@@ -72,17 +80,76 @@ void	recap_map_list_sectors(t_map *m)
 		}
 }
 
-void	recap_parsing(t_map *m, char *str)
+void	recap_map_list_sector(t_map *m, char **str)
 {
-	ft_putstr(str);
-	ft_putendl(" :\n");
-	if (ft_strcmp(str, "map_general") == 0)
-		recap_map_general(m);
-	if (ft_strcmp(str, "map_list_dots") == 0)
-		recap_map_list_dots(m);
-	if (ft_strcmp(str, "map_list_sectors") == 0)
-		recap_map_list_sectors(m);
-	if (ft_strcmp(str, "player_list_vars") == 0)
-		recap_player_list_vars(m);
-	ft_putchar('\n');
+	int i;
+	int j;
+
+	i = 0;
+	if (str[3] != NULL)
+	{
+		if (ft_strcmp(str[3], "all") == 0)
+		{
+			if (str[4] == NULL)
+				recap_map_list_sectors(m, str[2]);
+			else
+			{
+				while (i < m->sector_count)
+				{
+					j = 0;
+					ft_putstr("sector : ");
+					ft_putnbrendl(i);
+					if (ft_strcmp(str[4], "general") == 0)
+					{
+						printf("wall_count = %d\n", m->sector[i].wall_count);
+						printf("floor_height = %f\n", m->sector[i].floor);
+						printf("ceiling_height = %f\n", m->sector[i].ceiling);
+					}
+					else if (ft_strcmp(str[4], "dots") == 0)
+					{
+						while (j < m->sector[i].wall_count)
+						{
+							printf("dot_%d : x = %f, y = %f\n", j, m->sector[i].dot[j].x, m->sector[i].dot[j].y);
+							j++;
+						}
+					}
+					else if (ft_strcmp(str[4], "network") == 0)
+					{
+						while (j < m->sector[i].wall_count)
+						{
+							printf("wall_%d : %s\n", j, m->sector[i].network[j]);
+							j++;
+						}
+					}
+					else
+					{
+						ft_putstr("there is no \"");
+						ft_putstr(str[4]);
+						ft_putstr("\" section in sector ");
+						ft_putnbrendl(i);
+					}
+					i++;
+				}
+			}
+		}
+	}
+}
+
+void	recap_parsing(t_map *m, char **str)
+{
+	if (ft_strcmp(str[2], "map_list_general") == 0)
+		recap_map_list_general(m, str[2]);
+	else if (ft_strcmp(str[2], "map_list_dots") == 0)
+		recap_map_list_dots(m, str[2]);
+	else if (ft_strncmp(str[2], "map_list_sector", 15) == 0)
+	{
+		if (ft_strcmp(str[2], "map_list_sectors") == 0)
+			recap_map_list_sectors(m, str[2]);
+		else if (ft_strcmp(str[2], "map_list_sector") == 0)
+			recap_map_list_sector(m, str);
+	}
+	else if (ft_strcmp(str[2], "player_list_vars") == 0)
+		recap_player_list_vars(m, str[2]);
+	else
+		ft_putstr("invalid section");
 }
