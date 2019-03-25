@@ -14,7 +14,7 @@
 # define DOOM_H
 
 # include "libft/inc/libft.h"
-# include <mlx.h>
+# include "minilibx_macos/mlx.h"
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>

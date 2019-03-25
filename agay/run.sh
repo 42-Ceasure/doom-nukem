@@ -1,1 +1,1 @@
-gcc -Wall -Wextra -Werror doom2.c event.c bresenham.c parse.c recap_parsing.c libft/libft.a -lmlx -framework OpenGL -framework AppKit
+gcc -Wall -Wextra -Werror -o doom doom2.c event.c bresenham.c parse.c recap_parsing.c libft/libft.a -L ./minilibx_macos -lmlx -framework OpenGL -framework AppKit
