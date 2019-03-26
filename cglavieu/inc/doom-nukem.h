@@ -78,5 +78,6 @@ int			do_parse(t_map *m);
 int			run(t_env *w, t_map *m);
 void		exit_game(t_env *w, t_map *m);
 void		recap_parsing(t_map *m, char **str);
+void		free_map_struct(t_map *m);
 
 #endif

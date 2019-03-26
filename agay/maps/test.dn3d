@@ -12,6 +12,6 @@ Section:map
 	sector:0,30:5,6,10,11,13,12:x,x,2,x,x,x
 Section:player
 	player_location:3,3
-	player_direction:90
+	player_direction:90.5
 	player_sector:0
 

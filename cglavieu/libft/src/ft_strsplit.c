@@ -13,6 +13,12 @@
 #include "libft.h"
 #include "libft.h"
 
+void			ft_strsplit_free(char **str)
+{
+	free(str);
+	str = NULL;
+}
+
 static	int		ft_count_words(const char *str, char c)
 {
 	int	word;

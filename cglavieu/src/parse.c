@@ -2,6 +2,11 @@
 
 #include "doom-nukem.h"
 
+// void		free_map_struct(t_map *m)
+// {
+
+//}
+
 int			parse_line(t_map *m)
 {
 	char	**tmp;
@@ -26,7 +31,7 @@ int			parse_line(t_map *m)
 				m->i++;
 				i++;
 			}
-			free(tmp2);
+			ft_strsplit_free(tmp2);
 		}
 		if (ft_strcmp(tmp[0], "\tsector") == 0)
 		{
@@ -51,7 +56,7 @@ int			parse_line(t_map *m)
 				i++;
 			}
 			i = 0;
-			free(tmp2);
+			ft_strsplit_free(tmp2);
 			tmp2 = ft_strsplit(tmp[3], ',');		//connections
 			while (i < m->sector[m->s].wall_count)
 			{
@@ -60,8 +65,8 @@ int			parse_line(t_map *m)
 				i++;
 			}
 			m->s++;
-			free(tmp1);
-			free(tmp2);
+			ft_strsplit_free(tmp1);
+			ft_strsplit_free(tmp2);
 		}
 	}
 	if (m->section_number == 2)
@@ -73,12 +78,12 @@ int			parse_line(t_map *m)
 			m->player.coor.y = ft_atof(tmp1[1]);
 		}
 		if (ft_strcmp(tmp[0], "\tplayer_direction") == 0)
-			m->player.angle = ft_atof(tmp[1]);		// coder ft_ft_atof
+			m->player.angle = ft_atof(tmp[1]);
 		if (ft_strcmp(tmp[0], "\tplayer_sector") == 0)
 			m->player.sector = ft_atoi(tmp[1]);
-		free(tmp1);
+		ft_strsplit_free(tmp1);
 	}
-	free(tmp);
+	ft_strsplit_free(tmp);
 	return (0);
 }
 
@@ -99,12 +104,12 @@ void	check_line(t_map *m)
 			tmp2 = ft_strsplit(tmp[2], ',');
 			while (tmp2[i++] != NULL)
 				m->dots_count++;
-			free(tmp2);
+			ft_strsplit_free(tmp2);
 		}
 		if (ft_strcmp(tmp[0], "\tsector") == 0)
 			m->sector_count++;
 	}
-	free(tmp);
+	ft_strsplit_free(tmp);
 }
 
 int		quick_look(t_map *m)
