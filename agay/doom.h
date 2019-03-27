@@ -6,7 +6,7 @@
 /*   By: agay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 18:35:11 by agay              #+#    #+#             */
-/*   Updated: 2019/03/25 19:08:05 by agay             ###   ########.fr       */
+/*   Updated: 2019/03/26 18:03:09 by agay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,10 @@ typedef struct		s_doom
 	double	x1;
 	double	y;
 	double	y1;
+	double	x2;
+	double	y2;
+	double	x3;
+	double	y3;
 	double	a;
 	double	ar;
 	double	wslope;
