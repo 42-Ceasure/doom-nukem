@@ -113,13 +113,13 @@ void	draw(t_mlx *mlx, t_doom doom, t_map *m)
 			set_wall(mlx, doom, x);
 			m->player.angle -= doom.ar;
 			x++;
-			printf("i = %d angle = %f m1 = %F m2 = %f \n", i, m->player.angle, doom.wslope, rslope);	
+	//		printf("i = %d angle = %f m1 = %F m2 = %f \n", i, m->player.angle, doom.wslope, rslope);	
 		}
 		m->player.angle = doom.save;
 		i++;
 	}
 	free(xy);
-	//mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }
 
 void	set_basic_run(t_map *m)

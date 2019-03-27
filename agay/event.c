@@ -12,6 +12,15 @@
 
 #include "doom.h"
 
+void	quit_game(t_mlx *mlx, t_doom doom, t_map *map)
+{
+	free(map);
+	map = NULL;
+	mlx = NULL;
+	(void)doom;
+	exit(0);
+}
+
 int		key(int key, void **tab)
 {
 	t_mlx	*mlx;
@@ -35,6 +44,9 @@ int		key(int key, void **tab)
 		m->player.angle = m->player.angle + 0.1;
 	else if (key == 2)
 		m->player.angle = m->player.angle - 0.1;
+	else if (key == 53)
+		quit_game(mlx, *doom, m);
+	ft_putnbr(key);
 	draw(mlx, *doom, m);
 	return (1);
 }
