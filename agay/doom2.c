@@ -119,7 +119,7 @@ void	draw(t_mlx *mlx, t_doom doom, t_map *m)
 		i++;
 	}
 	free(xy);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+	//mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }
 
 void	set_basic_run(t_map *m)
