@@ -72,8 +72,7 @@ SRC = ft_atoi.c\
 	ft_strctrim.c\
 	ft_tolower.c\
 	ft_toupper.c\
-	get_next_line.c\
-	ft_atof.c
+	get_next_line.c
 
 SRCDIR = ./src/
 SRCFILL = $(addprefix $(SRCDIR),$(SRC))

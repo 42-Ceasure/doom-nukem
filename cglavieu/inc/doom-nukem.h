@@ -10,6 +10,29 @@
 # define HEIGHT 	300
 # define KEY 		w->event.key.keysym.sym
 
+typedef struct		s_work
+{
+	double m_wall;
+	double m_ray;
+	double b1;
+	double b2;
+	double x;
+	double y;
+	double *x1;
+	double *y1;
+	double *x2;
+	double *y2;
+	double *playerx;
+	double *playery;
+	double playera;
+	double x_diff;
+	double y_diff;
+	double distance;
+	double fov;
+	double angle_ray;
+	double height;
+}					t_work;
+
 typedef struct 		s_dot
 {
 	double			x;
@@ -41,6 +64,7 @@ typedef struct		s_player
 	double			anglesin;
 	double			anglecos;
 	double			yaw;
+	double			field_of_vision;
 }					t_player;
 
 typedef struct		s_map
@@ -76,8 +100,8 @@ int			init_sdl(t_env *w);
 int			quick_look(t_map *m);
 int			do_parse(t_map *m);
 int			run(t_env *w, t_map *m);
+int 		draw(t_env *w, t_map *m);
 void		exit_game(t_env *w, t_map *m);
 void		recap_parsing(t_map *m, char **str);
-void		free_map_struct(t_map *m);
 
 #endif

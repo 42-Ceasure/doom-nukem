@@ -13,6 +13,7 @@ void	set_basic_run(t_map *m)
 	m->map_path = "maps/test.dn3d";
 	m->dot = NULL;
 	m->sector = NULL;
+	m->player.field_of_vision = 60;
 	if (quick_look(m) == -1)
 		write(1, "error map measure\n", 19);
 	if (do_parse(m) == -1)

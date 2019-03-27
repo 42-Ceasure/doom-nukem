@@ -2,11 +2,6 @@
 
 #include "doom-nukem.h"
 
-// void		free_map_struct(t_map *m)
-// {
-
-//}
-
 int			parse_line(t_map *m)
 {
 	char	**tmp;
@@ -26,20 +21,20 @@ int			parse_line(t_map *m)
 			tmp2 = ft_strsplit(tmp[2], ',');
 			while (tmp2[i] != NULL)
 			{
-				m->dot[m->i].x = ft_atof(tmp2[i]);
-				m->dot[m->i].y = ft_atof(tmp[1]);
+				m->dot[m->i].x = atof(tmp2[i]);		// coder ft_atof
+				m->dot[m->i].y = atof(tmp[1]);		// coder ft_atof
 				m->i++;
 				i++;
 			}
-			ft_strsplit_free(tmp2);
+			free(tmp2);
 		}
 		if (ft_strcmp(tmp[0], "\tsector") == 0)
 		{
 			i = 0;
 			tmp1 = ft_strsplit(tmp[1], ',');		// floor H, ceiling H
 			tmp2 = ft_strsplit(tmp[2], ',');		// walls
-			m->sector[m->s].floor = ft_atof(tmp1[0]);
-			m->sector[m->s].ceiling = ft_atof(tmp1[1]);
+			m->sector[m->s].floor = atof(tmp1[0]);
+			m->sector[m->s].ceiling = atof(tmp1[1]);
 			while (tmp2[i] != NULL)
 				i++;
 			m->sector[m->s].wall_count = i;
@@ -56,7 +51,7 @@ int			parse_line(t_map *m)
 				i++;
 			}
 			i = 0;
-			ft_strsplit_free(tmp2);
+			free(tmp2);
 			tmp2 = ft_strsplit(tmp[3], ',');		//connections
 			while (i < m->sector[m->s].wall_count)
 			{
@@ -65,8 +60,8 @@ int			parse_line(t_map *m)
 				i++;
 			}
 			m->s++;
-			ft_strsplit_free(tmp1);
-			ft_strsplit_free(tmp2);
+			free(tmp1);
+			free(tmp2);
 		}
 	}
 	if (m->section_number == 2)
@@ -74,16 +69,16 @@ int			parse_line(t_map *m)
 		if (ft_strcmp(tmp[0], "\tplayer_location") == 0)
 		{
 			tmp1 = ft_strsplit(tmp[1], ',');
-			m->player.coor.x = ft_atof(tmp1[0]);
-			m->player.coor.y = ft_atof(tmp1[1]);
+			m->player.coor.x = atof(tmp1[0]);		// coder ft_atof
+			m->player.coor.y = atof(tmp1[1]);		// coder ft_atof
 		}
 		if (ft_strcmp(tmp[0], "\tplayer_direction") == 0)
-			m->player.angle = ft_atof(tmp[1]);
+			m->player.angle = atof(tmp[1]);		// coder ft_atof
 		if (ft_strcmp(tmp[0], "\tplayer_sector") == 0)
 			m->player.sector = ft_atoi(tmp[1]);
-		ft_strsplit_free(tmp1);
+		free(tmp1);
 	}
-	ft_strsplit_free(tmp);
+	free(tmp);
 	return (0);
 }
 
@@ -104,12 +99,12 @@ void	check_line(t_map *m)
 			tmp2 = ft_strsplit(tmp[2], ',');
 			while (tmp2[i++] != NULL)
 				m->dots_count++;
-			ft_strsplit_free(tmp2);
+			free(tmp2);
 		}
 		if (ft_strcmp(tmp[0], "\tsector") == 0)
 			m->sector_count++;
 	}
-	ft_strsplit_free(tmp);
+	free(tmp);
 }
 
 int		quick_look(t_map *m)
