@@ -16,17 +16,20 @@ typedef struct		s_work
 	double m_ray;
 	double x;
 	double y;
-	double *x1;
-	double *y1;
-	double *x2;
-	double *y2;
+	double x1;
+	double y1;
+	double x2;
+	double y2;
 	double *playerx;
 	double *playery;
 	double playera;
 	double x_diff;
 	double y_diff;
 	double distance;
+	double memdistance;
 	double height;
+	double angle_ray;
+	double fov;
 }					t_work;
 
 typedef struct 		s_dot
@@ -96,7 +99,7 @@ int			init_sdl(t_env *w);
 int			quick_look(t_map *m);
 int			do_parse(t_map *m);
 int			run(t_env *w, t_map *m);
-int 		draw(t_env *w, t_map *m);
+void 		draw(t_env *w, t_map *m);
 void		exit_game(t_env *w, t_map *m);
 void		recap_parsing(t_map *m, char **str);
 Uint32		color(Uint32 color1);

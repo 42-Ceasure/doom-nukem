@@ -42,18 +42,93 @@ void	get_intersection(t_work *work)
 {
 	double b1;
 	
-	b1 = (*work->playerx - *work->x1) * work->m_wall + (*work->playery - *work->y1);
+	b1 = (*work->playerx - work->x1) * work->m_wall + (*work->playery - work->y1);
 	work->x = b1 / (work->m_ray - work->m_wall);
-	work->y = *work->y1 + (work->x - *work->x1) * work->m_wall;
+	work->y = work->y1 + (work->x - work->x1) * work->m_wall;
 }
 
-draw_column_for(t_sector *s, t_work *work)
+int get_quadrant(int angle)
 {
-	get_intersection(work);
-	if (s->)
+	if ((angle >= 0) && (angle < 90))
+		return (1);
+	if ((angle >= 90) && (angle < 180))
+		return (2);
+	if ((angle >= 180) && (angle < 270))
+		return (3);
+	if ((angle >= 270) && (angle < 360))
+		return (4);
+	return (0);
 }
 
-int draw(t_env *w, t_map *m)
+int get_intersection_quadrant(t_work *work)
+{
+	// work->x_diff = (*work->playerx - work->x);
+	// work->y_diff = (*work->playery - work->y);
+	if (work->x_diff > 0)
+	{
+		if (work->y_diff > 0)
+			return (4);
+		else
+			return (1);
+	}
+	else
+	{
+		if (work->y_diff > 0)
+			return (3);
+		else
+			return (2);
+	}
+}
+
+int correct_intersection(t_work *work)
+{
+	if (get_intersection_quadrant(work) == get_quadrant(work->playera))
+		return (1);
+	else
+		return (0);
+}
+
+void draw_column_for(t_env *w, t_map *m, t_work *work, int s, int i)
+{
+	int ma;
+	int mb;
+
+	ma = 0;
+	mb = 1;
+	while (ma < m->sector[s].wall_count)
+	{
+		if (ma == m->sector[s].wall_count - 1)
+			mb = 0;
+		work->x1 = m->sector[s].dot[ma].x;
+		work->y1 = m->sector[s].dot[ma].y;
+		work->x2 = m->sector[s].dot[mb].x;
+		work->y2 = m->sector[s].dot[mb].y;
+		work->m_wall = (work->y2 - work->y1) / (work->x2 - work->x1);
+		work->m_ray = tan(work->playera);
+		get_intersection(work);
+		work->x_diff = (*work->playerx - work->x);
+		work->y_diff = (*work->playery - work->y);
+		if (fabs(work->x_diff) > fabs(work->y_diff))
+			work->distance = work->x_diff / cos(work->playera);
+		else
+			work->distance = work->y_diff / sin(work->playera);
+		work->distance = work->distance * cos(work->playera - m->player.angle);
+		if (work->distance == 0)
+				work->distance = 1;
+			work->height = (work->fov) / work->distance;
+		if ((ft_strcmp(m->sector[s].network[ma], "x") != 0) && s < m->sector_count - 1)
+			draw_column_for(w, m, work, s+1, i);
+		else
+		{
+				if (get_intersection_quadrant(work) == 1)
+					set_wall(w, *work, i);
+		}
+		ma++;
+		mb++;
+	}
+}
+
+void draw(t_env *w, t_map *m)
 {
 	t_work work;
 	int i;
@@ -69,29 +144,13 @@ int draw(t_env *w, t_map *m)
 	work.playerx = &m->player.coor.x;
 	work.playery = &m->player.coor.y;
 	work.playera = m->player.angle + 0.523599;
-	work.x1 = &m->sector[s].dot[ma].x;
-	work.y1 = &m->sector[s].dot[ma].y;
-	work.x2 = &m->sector[s].dot[mb].x;
-	work.y2 = &m->sector[s].dot[mb].y;
-	work.m_wall = (*(work.y2) - *(work.y1)) / (*(work.x2) - *(work.x1));
-	work.m_ray = tan(work.playera);
-//calculating_intersections
-	get_intersection(&work);
-//getting_the_distance
-	work.x_diff = (*work.playerx - work.x);
-	work.y_diff = (*work.playery - work.y);
-	if (fabs(work.x_diff) > fabs(work.y_diff))
-		work.distance = work.x_diff / cos(work.playera);
-	else
-		work.distance = work.y_diff / sin(work.playera);
-//correcting_the_distance
-	work.distance = work.distance * cos(work.playera - m->player.angle);
-//calculating_the_height__of_a_wall_slice
-	if (work.distance == 0)
-		work.distance = 1;
-	work.height = (m->sector[s].ceiling) / work.distance;
-//handling_sectors
-	draw_column_for(m->sector[s], &work);
-	work.playera = work.playera - work.angle_ray;
-	return (0);
+	work.fov = (WIDTH / 2) / tan(0.523599);
+	work.angle_ray = 1.0472 / WIDTH;
+			
+	while (i < WIDTH)
+	{
+		draw_column_for(w, m, &work, s, i);
+		work.playera = work.playera - work.angle_ray;
+		i++;
+	}
 }

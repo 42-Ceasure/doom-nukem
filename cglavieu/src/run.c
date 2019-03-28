@@ -2,32 +2,15 @@
 
 #include "doom-nukem.h"
 
-void	img_clear(t_env *w)
+void move_player(double length, double direction, t_map *m)
 {
-	int		x;
-	int		y;
+	double x_unit;
+	double y_unit;
 
-	y = 0;
-	while (y <= HEIGHT / 2)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			w->pix[y * WIDTH + x] = color(0x121E7FCB);
-			x++;
-		}
-		y++;
-	}
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			w->pix[y * WIDTH + x] = color(0x124E3D28);
-			x++;
-		}
-		y++;
-	}
+	x_unit = cos(direction) * length;
+	y_unit = sin(direction) * length;
+	m->player.coor.x += x_unit;
+	m->player.coor.y += y_unit;
 }
 
 void		exit_game(t_env *w, t_map *m)
@@ -47,32 +30,17 @@ void		motion_events(t_env *w, t_map *m)
 		w->event.motion.y = HEIGHT / 2;
 	}
 	if (w->event.motion.xrel > 0)
-	{
 		m->player.angle -= 0.0174533;
-		w->event.motion.xrel = WIDTH / 2;
-		w->event.motion.yrel = HEIGHT / 2;
-	}
+		w->event.motion.x = WIDTH / 2;
+		w->event.motion.y = HEIGHT / 2;
 }
 
 void		key_events(t_env *w, t_map *m)
 {
-	double x_unit;
-	double y_unit;
-
 	if (w->inkeys[SDL_SCANCODE_W])
-	{
-		x_unit = cos(m->player.angle) * 0.1;
-		y_unit = sin(m->player.angle) * 0.1;
-		m->player.coor.x -= x_unit;
-		m->player.coor.y -= y_unit;
-	}
+		move_player(0.1, m->player.angle, m);
 	if (w->inkeys[SDL_SCANCODE_S])
-	{
-		x_unit = cos(m->player.angle) * 0.1;
-		y_unit = sin(m->player.angle) * 0.1;
-		m->player.coor.x += x_unit;
-		m->player.coor.y += y_unit;
-	}
+		move_player(0.1, m->player.angle, m);
 	// if (w->inkeys[SDL_SCANCODE_A])
 	// 	m->player.coor.x += 0.1; 
 	// if (w->inkeys[SDL_SCANCODE_D])
@@ -117,9 +85,7 @@ int		run(t_env *w, t_map *m)
 			if (w->event.type == SDL_MOUSEMOTION)
 				motion_events(w, m);
 		}
-//		img_clear(w);
-		if (draw(w, m) == -1)
-			ft_putendl("problem on Raycasting...");
+		draw(w, m);
 		SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
 		SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
 		SDL_RenderPresent(w->rdr);
