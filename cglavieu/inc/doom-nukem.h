@@ -14,8 +14,6 @@ typedef struct		s_work
 {
 	double m_wall;
 	double m_ray;
-	double b1;
-	double b2;
 	double x;
 	double y;
 	double *x1;
@@ -28,8 +26,6 @@ typedef struct		s_work
 	double x_diff;
 	double y_diff;
 	double distance;
-	double fov;
-	double angle_ray;
 	double height;
 }					t_work;
 
@@ -103,5 +99,6 @@ int			run(t_env *w, t_map *m);
 int 		draw(t_env *w, t_map *m);
 void		exit_game(t_env *w, t_map *m);
 void		recap_parsing(t_map *m, char **str);
+Uint32		color(Uint32 color1);
 
 #endif

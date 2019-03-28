@@ -73,7 +73,7 @@ int			parse_line(t_map *m)
 			m->player.coor.y = atof(tmp1[1]);		// coder ft_atof
 		}
 		if (ft_strcmp(tmp[0], "\tplayer_direction") == 0)
-			m->player.angle = atof(tmp[1]);		// coder ft_atof
+			m->player.angle = (atof(tmp[1]) * M_PI / 180);		// coder ft_atof
 		if (ft_strcmp(tmp[0], "\tplayer_sector") == 0)
 			m->player.sector = ft_atoi(tmp[1]);
 		free(tmp1);
