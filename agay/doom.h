@@ -6,7 +6,7 @@
 /*   By: agay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 18:35:11 by agay              #+#    #+#             */
-/*   Updated: 2019/03/26 18:03:09 by agay             ###   ########.fr       */
+/*   Updated: 2019/03/28 02:05:21 by agay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct		s_doom
 
 void	draw_utility(t_mlx *mlx, t_doom doom, int color);
 int		key(int key, void **tab);
-void	draw(t_mlx *mlx, t_doom doom, t_map *m);
+void	draw(t_mlx *mlx, t_doom doom, t_map m);
 void		recap_parsing(t_map *m, char **str);
 void		set_basic_run(t_map *m);
 void		set_advanced_run(char **av, t_map *m);

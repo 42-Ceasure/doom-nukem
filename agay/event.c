@@ -6,7 +6,7 @@
 /*   By: agay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 18:44:39 by agay              #+#    #+#             */
-/*   Updated: 2019/03/22 14:28:02 by agay             ###   ########.fr       */
+/*   Updated: 2019/03/28 06:36:45 by agay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int		key(int key, void **tab)
 		m->player.angle = m->player.angle - 0.1;
 	else if (key == 53)
 		quit_game(mlx, *doom, m);
-	ft_putnbr(key);
-	draw(mlx, *doom, m);
+	draw(mlx, *doom, *m);
 	return (1);
 }
