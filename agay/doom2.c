@@ -6,19 +6,19 @@
 /*   By: agay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 10:54:39 by agay              #+#    #+#             */
-/*   Updated: 2019/03/28 08:18:05 by agay             ###   ########.fr       */
+/*   Updated: 2019/03/29 22:49:51 by agay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-double	*intersection(double rslope, t_doom doom, double **xy, t_map m, int i)
+double	*intersection(double rslope, t_doom doom, double **xy, t_map m, t_mlx *mlx)
 {
 	double	b1;
 
-	b1 = (m.player.coor.x - m.sector->dot[i].x) * doom.wslope + (m.player.coor.y - m.sector->dot[i].y);
+	b1 = (m.player.coor.x - m.sector->dot[mlx->i].x) * doom.wslope + (m.player.coor.y - m.sector->dot[mlx->i].y);
 	xy[0][0] = b1 / (rslope - doom.wslope) + m.player.coor.x;
-	xy[0][1] = m.sector->dot[i].y + (xy[0][0] - m.sector->dot[i].x) * doom.wslope;
+	xy[0][1] = m.sector->dot[mlx->i].y + (xy[0][0] - m.sector->dot[mlx->i].x) * doom.wslope;
 	return (*xy);
 }
 
@@ -48,60 +48,75 @@ void	draw(t_mlx *mlx, t_doom doom, t_map m)
 {
 	int		x;
 	double	*xy;
-	//int		c;
-	//int		c1;
 	double	rslope;
-	int		i;
+	int		color;
 
 	x = 0;
-	i = 0;
 	xy = NULL;
 	if ((xy = malloc(sizeof(double) * 2)) == NULL)
 		return ;
 	//mlx_pixel_put(mlx->mlx, mlx->win, m->sector->dot[0].x * 20 + 100, m->sector->dot[0].y * 20 + 100, 0xFF0000);
-	//mlx_pixel_put(mlx->mlx, mlx->win,  m->sector->dot[1].x * 20 + 100, m->sector->dot[1].y * 20 + 100, 0xFF0000); 
-	//mlx_pixel_put(mlx->mlx, mlx->win, m->sector->dot[4].x * 20 + 100, m->sector->dot[4].y * 20 + 100, 0xFF0000); 
-	//mlx_pixel_put(mlx->mlx, mlx->win, m->sector->dot[5].x * 20 + 100, m->sector->dot[5].y * 20 + 100, 0xFF0000);
+	//	//mlx_pixel_put(mlx->mlx, mlx->win,  m->sector->dot[1].x * 20 + 100, m->sector->dot[1].y * 20 + 100, 0xFF0000);
+	//		//mlx_pixel_put(mlx->mlx, mlx->win, m->sector->dot[4].x * 20 + 100, m->sector->dot[4].y * 20 + 100, 0xFF0000);
 	mlx_pixel_put(mlx->mlx, mlx->win, m.player.coor.x * 20 + 100, m.player.coor.y * 20 + 100, 0xFF0000);
-	//c = m.player.coor.x * cos(m.player.angle) + m.player.coor.x;
-	//c1 = m.player.coor.y * sin(-m.player.angle) + m.player.coor.y;
-	//mlx_pixel_put(mlx->mlx, mlx->win, (int)c * 20 + 100, (int)c1 * 20 + 100, 0xFF00FF);
 	draw_utility(mlx, doom, 0xFF0000);
 	doom.save = m.player.angle;
-	while (i <= 3)
+	m.player.angle = m.player.angle + (30 * M_PI / 180);
+	while (x < PI_X)
 	{
-		m.player.angle = 6.28;
-		doom.wslope = (m.sector->dot[i + 1].y - m.sector->dot[i].y) / (m.sector->dot[i + 1].x - m.sector->dot[i].x);
-		if (m.sector->dot[i + 1].x - m.sector->dot[i].x == 0)
-			doom.wslope = 999999.999999;
-		while (m.player.angle > 0)
+		if (mlx->i == 0)
+			color = 0xFFFFFF;
+		else if (mlx->i == 1)
+			color = 0xFFb800;
+		else if (mlx->i == 2)
+			color = 0xFF0000;
+		else if (mlx->i == 3)
+			color = 0xFF00FF;
+		if (m.player.angle == (-1.637094))
 		{
-			rslope = tan(m.player.angle);
-			intersection(rslope, doom, &xy, m, i);
-			ft_putnbr(xy[0]);
-			ft_putchar(' ');
-			ft_putnbr(xy[1]);
-			ft_putchar('\n');
-			if (doom.wslope == 999999.999999 && m.sector->dot[i].y < m.sector->dot[i + 1].y)
-			{
-				if (xy[1] >= m.sector->dot[i].y && xy[1] <= m.sector->dot[i + 1].y)
-					mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, 0xFFFFFF);
-			}
-			else if (doom.wslope == 999999.999999 && m.sector->dot[i].y > m.sector->dot[i + 1].y)
-			{
-				if (xy[1] >= m.sector->dot[i + 1].y && xy[1] <= m.sector->dot[i].y)
-					mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, 0xFFFFFF);
-			}
-			else if (m.sector->dot[i].x < m.sector->dot[i + 1].x && xy[0] >= m.sector->dot[i].x && xy[0] <= m.sector->dot[i + 1].x)
-				mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, 0xFFFFFF);
-			else if (m.sector->dot[i].x > m.sector->dot[i + 1].x && xy[0] >= m.sector->dot[i + 1].x && xy[0] <= m.sector->dot[i].x)
-				mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, 0xFFFFFF);
-
-			m.player.angle -= doom.ar;
+			ft_putstr("test");
+			mlx->dodo = 1;
 		}
-		i++;
+		doom.wslope = (m.sector->dot[mlx->i + 1].y - m.sector->dot[mlx->i].y) / (m.sector->dot[mlx->i + 1].x - m.sector->dot[mlx->i].x);
+		if (m.sector->dot[mlx->i + 1].x - m.sector->dot[mlx->i].x == 0)
+			doom.wslope = 999999.999999;
+		rslope = tan(m.player.angle);
+		intersection(rslope, doom, &xy, m, mlx);
+		//if (mlx->i == 1)
+			xy[1] = fabs(xy[1]);
+		//if (mlx->dodo == 1)
+		//	printf("angle = %f i = %d x = %f, y = %f, wslope = %f, rslope = %f, save = %f\n", m.player.angle, mlx->i, xy[0], xy[1], doom.wslope, rslope, doom.save);
+		doom.diffx = (m.player.coor.x - xy[0]);
+		doom.diffy = (m.player.coor.y - xy[1]);
+		doom.dist = (fabs(doom.diffx) < fabs(doom.diffy)) ? doom.diffx / cos(m.player.angle) : doom.diffy / sin(m.player.angle);
+		doom.dist *= cos(doom.save - m.player.angle);
+		if (doom.dist == 0)
+			doom.dist = 1;
+		doom.wallh = fabs(doom.fov / doom.dist);
+			printf("h = %f\n", doom.wallh);
+		if (xy[0] >= m.sector->dot[mlx->i].x && xy[0] <= m.sector->dot[mlx->i + 1].x)
+			set_wall(mlx, doom, x);
+			//mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, color);
+		else if (m.sector->dot[mlx->i].x > m.sector->dot[mlx->i + 1].x && (xy[0] >= m.sector->dot[mlx->i + 1].x && xy[0] <= m.sector->dot[mlx->i].x))
+			set_wall(mlx, doom, x);
+			//mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, color);
+		else if ((xy[1] >= m.sector->dot[mlx->i].y && xy[1] <= m.sector->dot[mlx->i + 1].y) && xy[0] >= m.sector->dot[mlx->i].x && xy[0] <= m.sector->dot[mlx->i + 1].x)
+			set_wall(mlx, doom, x);
+			//mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, color);
+		else if ((m.sector->dot[mlx->i + 1].x == m.sector->dot[mlx->i].x) && (xy[1] >= m.sector->dot[mlx->i].y && xy[1] <= m.sector->dot[mlx->i + 1].y))
+			set_wall(mlx, doom, x);
+			//mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, color);
+		else if ((m.sector->dot[mlx->i + 1].x == m.sector->dot[mlx->i].x) && (xy[1] >= m.sector->dot[mlx->i + 1].y && xy[1] <= m.sector->dot[mlx->i].y))
+			set_wall(mlx, doom, x);
+			//mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, color);
+		else
+			mlx->i++;
+		m.player.angle -= doom.ar;
+		x++;
 	}
+	mlx->i = 0;
 	free(xy);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }
 
 void	set_basic_run(t_map *m)
@@ -168,6 +183,8 @@ int		main(int ac, char **av)
 	doom.y2 = 7;
 	doom.x3 = 0;
 	doom.y3 = 8;
+	mlx.i = 0;
+	mlx.dodo = 0;
 	tab[0] = &mlx;
 	tab[1] = &doom;
 	tab[2] = m;

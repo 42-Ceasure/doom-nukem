@@ -6,7 +6,7 @@
 /*   By: agay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 18:35:11 by agay              #+#    #+#             */
-/*   Updated: 2019/03/28 02:05:21 by agay             ###   ########.fr       */
+/*   Updated: 2019/03/29 22:17:55 by agay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct		s_mlx
 	int		size;
 	int		bits;
 	int		endian;
+	int		i;
+	int		dodo;
 }					t_mlx;
 
 typedef struct 		s_dot
