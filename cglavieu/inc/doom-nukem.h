@@ -10,6 +10,13 @@
 # define HEIGHT 	300
 # define KEY 		w->event.key.keysym.sym
 
+typedef struct		s_color
+{
+	Uint32 top;
+	Uint32 middle;
+	Uint32 bottom;
+}					t_color;
+
 typedef struct		s_intersect
 {
 	double x1;
@@ -114,7 +121,7 @@ void		recap_parsing(t_map *m, char **str);
 Uint32		color(Uint32 color1);
 double vMin(double a, double b);
 double vMax(double a, double b);
-double vBetween(double a, double min, double max);
+double vMid(double a, double min, double max);
 double vect_cross_prod(double x0, double y0, double x1, double y1);
 double isOverlap(double a0, double a1, double b0, double b1);
 double intersectBox(t_intersect i);

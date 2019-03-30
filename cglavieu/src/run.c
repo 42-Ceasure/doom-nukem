@@ -12,19 +12,19 @@ void		exit_game(t_env *w, t_map *m)
 
 static void MovePlayer(double dx, double dy, t_map *m)
 {
-    int s;
-    const t_sector *sect;
-    t_intersect i;
-    t_coor coor;
-    /* Check if this movement crosses one of this sector's edges
-     * that have a neighboring sector on the other side.
-     * Because the edge vertices of each sector are defined in
-     * clockwise order, PointSide will always return -1 for a point
-     * that is outside the sector and 0 or 1 for a point that is inside.
-     */
-    s = 0;
-    sect = &m->sector[m->player.sector];
-    i.x1 = m->player.coor.x;
+	int s;
+	const t_sector *sect;
+	t_intersect i;
+	t_coor coor;
+	/* Check if this movement crosses one of this sector's edges
+	 * that have a neighboring sector on the other side.
+	 * Because the edge vertices of each sector are defined in
+	 * clockwise order, PointSide will always return -1 for a point
+	 * that is outside the sector and 0 or 1 for a point that is inside.
+	 */
+	s = 0;
+	sect = &m->sector[m->player.sector];
+	i.x1 = m->player.coor.x;
 	i.y1 = m->player.coor.y;
 	i.x2 = i.x1 + dx;
 	i.y2 = i.y1 + dy;
@@ -34,28 +34,26 @@ static void MovePlayer(double dx, double dy, t_map *m)
 	i.y4 = sect->dot[s+1].y;
 	coor.x = i.x2;
 	coor.y = i.y2;
-    while (s < sect->wall_count)
-    {
-        if(ft_strcmp(sect->network[s], "x") != 0
-        && intersectBox(i)
-        && pointSide(coor, i.x3, i.y3, i.x4, i.y4) < 0)
-        {
-            m->player.sector = ft_atoi(sect->network[s]);
-            printf("Player is now in sector %d\n", m->player.sector);
-            break;
-        }
-        s++;
+	while (s < sect->wall_count)
+	{
+		if(ft_strcmp(sect->network[s], "x") != 0 && intersectBox(i) && pointSide(coor, i.x3, i.y3, i.x4, i.y4) < 0)
+		{
+			m->player.sector = ft_atoi(sect->network[s]);
+			printf("Player is now in sector %d\n", m->player.sector);
+			break;
+		}
+		s++;
 	}
-    m->player.coor.x += dx;
-    m->player.coor.y += dy;
-    m->player.anglesin = sin(m->player.angle);
-    m->player.anglecos = cos(m->player.angle);
+	m->player.coor.x += dx;
+	m->player.coor.y += dy;
+	m->player.anglesin = sin(m->player.angle);
+	m->player.anglecos = cos(m->player.angle);
 }
 
 void		motion_events(t_env *w, t_map *m)
 {
-    m->player.angle += w->event.motion.x * 0.03f;
-    MovePlayer(0, 0, m); 
+	m->player.angle += w->event.motion.x * 0.03f;
+	MovePlayer(0, 0, m); 
 
 	// if (w->event.motion.xrel < 0)
 	// {

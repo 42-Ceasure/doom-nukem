@@ -38,10 +38,27 @@ void	set_wall(t_env *w, t_work work, int x)
 		}
 }
 
-// void	get_intersection(t_work *work)
-// {
+void vline(int x, int y1, int y2, t_env *w, t_color color)
+{
+	Uint32 *pix = (Uint32 *)w->pix;
+	int y;
 
-// }
+	y1 = vMid(y1, 0, HEIGHT-1);
+	y2 = vMid(y2, 0, HEIGHT-1);
+	y = y1 + 1;
+	if(y2 == y1)
+		pix[y1*WIDTH+x] = color.middle;
+	else if(y2 > y1)
+	{
+		pix[y1*WIDTH+x] = color.top;
+		while (y<y2)
+		{
+			pix[y*WIDTH+x] = color.middle;
+			y++;
+		}
+		pix[y2*WIDTH+x] = color.bottom;
+	}
+}
 
 int draw(t_env *w, t_map *m)
 {
