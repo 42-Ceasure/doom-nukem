@@ -2,34 +2,6 @@
 
 #include "doom-nukem.h"
 
-void	img_clear(t_env *w)
-{
-	int		x;
-	int		y;
-
-	y = 0;
-	while (y <= HEIGHT / 2)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			w->pix[y * WIDTH + x] = color(0x121E7FCB);
-			x++;
-		}
-		y++;
-	}
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			w->pix[y * WIDTH + x] = color(0x124E3D28);
-			x++;
-		}
-		y++;
-	}
-}
-
 void		exit_game(t_env *w, t_map *m)
 {
 	free(w);
@@ -38,45 +10,87 @@ void		exit_game(t_env *w, t_map *m)
 	exit(1);
 }
 
+static void MovePlayer(double dx, double dy, t_map *m)
+{
+    int s;
+    const t_sector *sect;
+    t_intersect i;
+    t_coor coor;
+    /* Check if this movement crosses one of this sector's edges
+     * that have a neighboring sector on the other side.
+     * Because the edge vertices of each sector are defined in
+     * clockwise order, PointSide will always return -1 for a point
+     * that is outside the sector and 0 or 1 for a point that is inside.
+     */
+    s = 0;
+    sect = &m->sector[m->player.sector];
+    i.x1 = m->player.coor.x;
+	i.y1 = m->player.coor.y;
+	i.x2 = i.x1 + dx;
+	i.y2 = i.y1 + dy;
+	i.x3 = sect->dot[s+0].x;
+	i.y3 = sect->dot[s+0].y;
+	i.x4 = sect->dot[s+1].x;
+	i.y4 = sect->dot[s+1].y;
+	coor.x = i.x2;
+	coor.y = i.y2;
+    while (s < sect->wall_count)
+    {
+        if(ft_strcmp(sect->network[s], "x") != 0
+        && intersectBox(i)
+        && pointSide(coor, i.x3, i.y3, i.x4, i.y4) < 0)
+        {
+            m->player.sector = ft_atoi(sect->network[s]);
+            printf("Player is now in sector %d\n", m->player.sector);
+            break;
+        }
+        s++;
+	}
+    m->player.coor.x += dx;
+    m->player.coor.y += dy;
+    m->player.anglesin = sin(m->player.angle);
+    m->player.anglecos = cos(m->player.angle);
+}
+
 void		motion_events(t_env *w, t_map *m)
 {
-	if (w->event.motion.xrel < 0)
-	{
-		m->player.angle += 0.0174533;
-		w->event.motion.x = WIDTH / 2;
-		w->event.motion.y = HEIGHT / 2;
-	}
-	if (w->event.motion.xrel > 0)
-	{
-		m->player.angle -= 0.0174533;
-		w->event.motion.xrel = WIDTH / 2;
-		w->event.motion.yrel = HEIGHT / 2;
-	}
+    m->player.angle += w->event.motion.x * 0.03f;
+    MovePlayer(0, 0, m); 
+
+	// if (w->event.motion.xrel < 0)
+	// {
+	// 	w->event.motion.x = WIDTH / 2;
+	// 	w->event.motion.y = HEIGHT / 2;
+	// }
+	// if (w->event.motion.xrel > 0)
+	// {
+	// 	w->event.motion.x = WIDTH / 2;
+	// 	w->event.motion.y = HEIGHT / 2;
+	// }
 }
 
 void		key_events(t_env *w, t_map *m)
 {
-	double x_unit;
-	double y_unit;
-
 	if (w->inkeys[SDL_SCANCODE_W])
 	{
-		x_unit = cos(m->player.angle) * 0.1;
-		y_unit = sin(m->player.angle) * 0.1;
-		m->player.coor.x -= x_unit;
-		m->player.coor.y -= y_unit;
+		m->player.move_speed.x += m->player.anglecos*0.2f;
+		m->player.move_speed.y += m->player.anglesin*0.2f; 
 	}
 	if (w->inkeys[SDL_SCANCODE_S])
 	{
-		x_unit = cos(m->player.angle) * 0.1;
-		y_unit = sin(m->player.angle) * 0.1;
-		m->player.coor.x += x_unit;
-		m->player.coor.y += y_unit;
+		m->player.move_speed.x -= m->player.anglecos*0.2f;
+		m->player.move_speed.y -= m->player.anglesin*0.2f;
 	}
-	// if (w->inkeys[SDL_SCANCODE_A])
-	// 	m->player.coor.x += 0.1; 
-	// if (w->inkeys[SDL_SCANCODE_D])
-	// 	m->player.coor.x -= 0.1;
+	if (w->inkeys[SDL_SCANCODE_A])
+	{
+		m->player.move_speed.x += m->player.anglesin*0.2f;
+		m->player.move_speed.y -= m->player.anglecos*0.2f;
+	}
+	if (w->inkeys[SDL_SCANCODE_D])
+	{
+		m->player.move_speed.x -= m->player.anglesin*0.2f;
+		m->player.move_speed.y += m->player.anglecos*0.2f;
+	}
 }
 
 int			init_sdl(t_env *w)
@@ -114,17 +128,16 @@ int		run(t_env *w, t_map *m)
 			if (w->event.type == SDL_KEYDOWN)
 				if (KEY == 27)
 					exit_game(w, m);
-			if (w->event.type == SDL_MOUSEMOTION)
-				motion_events(w, m);
+			// if (w->event.type == SDL_MOUSEMOTION)
+			// 	motion_events(w, m);
 		}
-//		img_clear(w);
-		if (draw(w, m) == -1)
-			ft_putendl("problem on Raycasting...");
+	//	draw(w, m);
 		SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
 		SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
 		SDL_RenderPresent(w->rdr);
 		w->inkeys = SDL_GetKeyboardState(NULL);
 		key_events(w, m);
+		printf("px=%f,py=%f,pa=%f\n", m->player.coor.x, m->player.coor.y, m->player.angle);
 	}
 	return (0);
 }
