@@ -81,30 +81,32 @@ void vline(int x, int y1, int y2, t_env *w, t_color color)
 
 void draw(t_env *w, t_map m)
 {
-	double x1;
-	double y1;
-	double x2;
-	double y2;
-	double px;
-	double py;
-	double pa;
+	t_player player;
 	t_coor p1;
 	t_coor p2;
+	t_coor tp1;
+	t_coor tp2;
 
-	x1 = m.sector[0].dot[0].x + WIDTH / 2;
-	y1 = m.sector[0].dot[0].y + HEIGHT / 2;
-	x2 = m.sector[0].dot[1].x + WIDTH / 2;
-	y2 = m.sector[0].dot[1].y + HEIGHT / 2;
-	px = m.player.coor.x + WIDTH / 2;
-	py = m.player.coor.y + HEIGHT / 2;
-	pa = m.player.angle * M_PI / 180;
-	p1.x = x1;
-	p1.y = y1;
-	p2.x = x2;
-	p2.y = y2;
+	p1.x = m.sector[0].dot[0].x;
+	p1.y = m.sector[0].dot[0].y;
+	p2.x = m.sector[0].dot[1].x;
+	p2.y = m.sector[0].dot[1].y;
+	player = m.player;
 
-	set_txtr_pix(w, px, py, 0x12FFFFFF);
+	tp1.x = p1.x - player.x;
+	tp1.y = p1.y - player.y;
+	tp2.x = p2.x - player.x;
+	tp2.y = p2.y - player.y;
+	tp1.z = tp1.x * cos(player.angle) + tp1.y * sin(player.angle);
+	tp2.z = tp2.x * cos(player.angle) + tp2.y * sin(player.angle);
+	tp1.x = tp1.x * sin(player.angle) - tp1.y * cos(player.angle);
+	tp2.x = tp2.x * sin(player.angle) - tp2.y * cos(player.angle);
+
+	set_txtr_pix(w, player.coor.x, player.coor.y, 0x12FFFFFF);
 	vect_ab(p1, p2, w, 0x121E7FCB);
+	player.move_speed.x = cos(player.angle) * 5 + player.coor.x;
+	player.move_speed.y = sin(player.angle) * 5 + player.coor.y;
+	vect_ab(player.coor, player.move_speed, w, 0x124E3D28);
 }
 
 
