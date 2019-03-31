@@ -13,6 +13,9 @@
 # define PL_X		m->player.coor.x
 # define PL_Y		m->player.coor.y
 # define PL_A		m->player.angle
+# define HFOV		(0.73f*HEIGHT)
+# define VFOV		(.2f*HEIGHT)
+# define STANDH		6
 
 typedef struct		s_vect
 {
@@ -44,18 +47,6 @@ typedef struct		s_reader
 	t_item *start;
 	t_item *stop;
 }					t_reader;
-
-typedef struct		s_intersect
-{
-	double x1;
-	double x2;
-	double x3;
-	double x4;
-	double y1;
-	double y2;
-	double y3;
-	double y4;
-}					t_intersect;
 
 typedef struct 		s_dot
 {
@@ -91,21 +82,71 @@ typedef struct		s_player
 	double			field_of_vision;
 }					t_player;
 
+typedef struct		s_intersect
+{
+	double x1;
+	double x2;
+	double x3;
+	double x4;
+	double y1;
+	double y2;
+	double y3;
+	double y4;
+}					t_intersect;
+
 typedef struct		s_work
 {
 	t_player player;
+	t_color color;
+	t_intersect inter1;
+	t_intersect inter2;
 	t_coor v1;
 	t_coor v2;
-	t_coor tv1;
-	t_coor tv2;
-	t_coor lol1;
-	t_coor lol2;
-	t_coor lel1;
-	t_coor lel2;
-	t_coor p1;
-	t_coor p2;
-	double p1yb;
-	double p2yb;
+	t_coor t1;
+	t_coor t2;
+	t_coor i1;
+	t_coor i2;
+	double pcos;
+	double psin;
+	double nearz;
+	double farz;
+	double nearside;
+	double farside;
+	double xscale1;
+	double yscale1;
+	double xscale2;
+	double yscale2;
+	int x1;
+	int x2;
+	double yceil;
+	double yfloor;
+	int neighbor;
+	double nyceil;
+	double nyfloor;
+	int y1a;
+	int y1b;
+	int y2a;
+	int y2b;
+	int ny1a;
+	int ny1b;
+	int ny2a;
+	int ny2b;
+	int startx;
+	int endx;
+	int z;
+	int ya;
+	int cya;
+	int yb;
+	int cyb;
+	int nya;
+	int cnya;
+	int nyb;
+	int cnyb;
+	unsigned int r;
+	unsigned int r1;
+	unsigned int r2;
+
+
 	double height;
 }					t_work;
 
@@ -157,5 +198,6 @@ double pointSide(t_coor p, double x0, double y0, double x1, double y1);
 t_coor intersect(t_intersect i);
 void vect_ab(t_coor p1, t_coor p2, t_env *w, Uint32 color);
 void	set_txtr_pix(t_env *w, int x, int y, Uint32 color);
+double yaw(double y, double z, t_map m);
 
 #endif
