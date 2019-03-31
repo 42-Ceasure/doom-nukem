@@ -81,32 +81,117 @@ void vline(int x, int y1, int y2, t_env *w, t_color color)
 
 void draw(t_env *w, t_map m)
 {
-	t_player player;
-	t_coor p1;
-	t_coor p2;
-	t_coor tp1;
-	t_coor tp2;
+	t_work work;
+	t_intersect i1;
+	t_intersect i2;
+	t_coor ip1;
+	t_coor ip2;
 
-	p1.x = m.sector[0].dot[0].x;
-	p1.y = m.sector[0].dot[0].y;
-	p2.x = m.sector[0].dot[1].x;
-	p2.y = m.sector[0].dot[1].y;
-	player = m.player;
+	work.v1.x = m.sector[0].dot[0].x;
+	work.v1.y = m.sector[0].dot[0].y;
+	work.v2.x = m.sector[0].dot[1].x;
+	work.v2.y = m.sector[0].dot[1].y;
+	work.player = m.player;
+	work.player.coor.x = m.player.coor.x;
+	work.player.coor.y = m.player.coor.y;
 
-	tp1.x = p1.x - player.x;
-	tp1.y = p1.y - player.y;
-	tp2.x = p2.x - player.x;
-	tp2.y = p2.y - player.y;
-	tp1.z = tp1.x * cos(player.angle) + tp1.y * sin(player.angle);
-	tp2.z = tp2.x * cos(player.angle) + tp2.y * sin(player.angle);
-	tp1.x = tp1.x * sin(player.angle) - tp1.y * cos(player.angle);
-	tp2.x = tp2.x * sin(player.angle) - tp2.y * cos(player.angle);
+	work.tv1.x = work.v1.x - work.player.coor.x;
+	work.tv1.y = work.v1.y - work.player.coor.y;
+	work.tv2.x = work.v2.x - work.player.coor.x;
+	work.tv2.y = work.v2.y - work.player.coor.y;
+	work.tv1.z = work.tv1.x * cos(work.player.angle) + work.tv1.y * sin(work.player.angle);
+	work.tv2.z = work.tv2.x * cos(work.player.angle) + work.tv2.y * sin(work.player.angle);
+	work.tv1.x = work.tv1.x * sin(work.player.angle) - work.tv1.y * cos(work.player.angle);
+	work.tv2.x = work.tv2.x * sin(work.player.angle) - work.tv2.y * cos(work.player.angle);
 
-	set_txtr_pix(w, player.coor.x, player.coor.y, 0x12FFFFFF);
-	vect_ab(p1, p2, w, 0x121E7FCB);
-	player.move_speed.x = cos(player.angle) * 5 + player.coor.x;
-	player.move_speed.y = sin(player.angle) * 5 + player.coor.y;
-	vect_ab(player.coor, player.move_speed, w, 0x124E3D28);
+	set_txtr_pix(w, work.player.coor.x, work.player.coor.y, 0x12FFFFFF);
+	vect_ab(work.v1, work.v2, w, 0x121E7FCB);
+	work.player.move_speed.x = cos(work.player.angle) * 5 + work.player.coor.x;
+	work.player.move_speed.y = sin(work.player.angle) * 5 + work.player.coor.y;
+	vect_ab(work.player.coor, work.player.move_speed, w, 0x124E3D28);
+
+	work.lol1.x = WIDTH / 2;
+	work.lol1.y = HEIGHT / 2 - 1;
+	work.lol2.x = WIDTH / 2;
+	work.lol2.y = HEIGHT / 2 - 5;
+	work.lel1.x = WIDTH / 2 - work.tv1.x;
+	work.lel1.y = HEIGHT / 2 - work.tv1.z;
+	work.lel2.x = WIDTH / 2 - work.tv2.x;
+	work.lel2.y = HEIGHT / 2 - work.tv2.z;
+	set_txtr_pix(w, WIDTH / 2, HEIGHT / 2, 0x12FFFFFF);
+	vect_ab(work.lol1, work.lol2, w, 0x124E3D28);
+	vect_ab(work.lel1, work.lel2, w, 0x121E7FCB);
+
+
+	if (work.tv1.z > 0 || work.tv2.z > 0)
+	{
+		i1.x1 = work.tv1.x;
+		i1.y1 = work.tv1.z;
+		i1.x2 = work.tv2.x;
+		i1.y2 = work.tv2.z;
+		i1.x3 = -0.0000001;
+		i1.y3 = 0.0000001;
+		i1.x4 = -20;
+		i1.y4 = 5;
+		i2.x1 = work.tv1.x;
+		i2.y1 = work.tv1.z;
+		i2.x2 = work.tv2.x;
+		i2.y2 = work.tv2.z;
+		i2.x3 = 0.0000001;
+		i2.y3 = 0.0000001;
+		i2.x4 = 20;
+		i2.y4 = 5;
+		ip1 = intersect(i1);
+		ip2 = intersect(i2);
+		if (work.tv1.z <= 0)
+		{
+			if (ip1.y > 0)
+			{
+				work.tv1.x = ip1.x;
+				work.tv1.z = ip1.y;
+			}
+			else
+			{
+				work.tv1.x = ip2.x;
+				work.tv1.z = ip2.y;
+			}
+		}
+		if (work.tv2.z <= 0)
+		{
+			if (ip1.y > 0)
+			{
+				work.tv2.x = ip1.x;
+				work.tv2.z = ip1.y;
+			}
+			else
+			{
+				work.tv2.x = ip2.x;
+				work.tv2.z = ip2.y;
+			}
+		}
+		work.p1.x = -work.tv1.x * 16 / work.tv1.z;
+		work.p1.y = -50 / work.tv1.z; 
+		work.p1.z = 50 / work.tv1.z;
+		work.p2.x = -work.tv2.x * 16 / work.tv2.z;
+		work.p2.y =	-50 / work.tv2.z;
+		work.p2.z = 50 / work.tv2.z;
+
+		work.lol1.x = WIDTH / 2 + work.p1.x;
+		work.lol1.y = HEIGHT / 2 + work.p1.y;
+		work.lol2.x = WIDTH / 2 + work.p2.x;
+		work.lol2.y = HEIGHT / 2 + work.p2.y;
+		work.lel1.x = WIDTH / 2 + work.p1.x;
+		work.lel1.y = HEIGHT / 2 + work.p1.z;
+		work.lel2.x = WIDTH / 2 + work.p2.x;
+		work.lel2.y = HEIGHT / 2 + work.p2.z;
+		vect_ab(work.lol1, work.lol2, w, 0x121E7FCB);
+		vect_ab(work.lel1, work.lel2, w, 0x121E7FCB);
+		vect_ab(work.lol1, work.lel1, w, 0x121E7FCB);
+		vect_ab(work.lol2, work.lel2, w, 0x121E7FCB);
+	}
+
+
+//	printf("%f,%f,%f,%f,%f,%f,%f,%f\n", work.lol1.x, work.lol1.y, work.lel1.x, work.lel1.y, work.lol2.x, work.lol2.y, work.lel2.x, work.lel2.y);
 }
 
 

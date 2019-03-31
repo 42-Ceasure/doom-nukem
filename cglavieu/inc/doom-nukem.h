@@ -57,25 +57,6 @@ typedef struct		s_intersect
 	double y4;
 }					t_intersect;
 
-typedef struct		s_work
-{
-	double m_wall;
-	double m_ray;
-	double x;
-	double y;
-	double *x1;
-	double *y1;
-	double *x2;
-	double *y2;
-	double *playerx;
-	double *playery;
-	double playera;
-	double x_diff;
-	double y_diff;
-	double distance;
-	double height;
-}					t_work;
-
 typedef struct 		s_dot
 {
 	double			x;
@@ -109,6 +90,24 @@ typedef struct		s_player
 	double			yaw;
 	double			field_of_vision;
 }					t_player;
+
+typedef struct		s_work
+{
+	t_player player;
+	t_coor v1;
+	t_coor v2;
+	t_coor tv1;
+	t_coor tv2;
+	t_coor lol1;
+	t_coor lol2;
+	t_coor lel1;
+	t_coor lel2;
+	t_coor p1;
+	t_coor p2;
+	double p1yb;
+	double p2yb;
+	double height;
+}					t_work;
 
 typedef struct		s_map
 {
