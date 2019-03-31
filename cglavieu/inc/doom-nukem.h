@@ -9,6 +9,10 @@
 # define WIDTH 		400
 # define HEIGHT 	300
 # define KEY 		w->event.key.keysym.sym
+# define MRS		32
+# define PL_X		m->player.coor.x
+# define PL_Y		m->player.coor.y
+# define PL_A		m->player.angle
 
 typedef struct		s_color
 {
@@ -16,6 +20,20 @@ typedef struct		s_color
 	Uint32 middle;
 	Uint32 bottom;
 }					t_color;
+
+typedef struct	s_item
+{
+	int sectorno;
+	int sx1;
+	int sx2;
+}				t_item;
+
+typedef struct		s_reader
+{
+	t_item queue[32];
+	t_item *start;
+	t_item *stop;
+}					t_reader;
 
 typedef struct		s_intersect
 {
@@ -115,7 +133,7 @@ int			init_sdl(t_env *w);
 int			quick_look(t_map *m);
 int			do_parse(t_map *m);
 int			run(t_env *w, t_map *m);
-int 		draw(t_env *w, t_map *m);
+void 		draw(t_env *w, t_map m);
 void		exit_game(t_env *w, t_map *m);
 void		recap_parsing(t_map *m, char **str);
 Uint32		color(Uint32 color1);

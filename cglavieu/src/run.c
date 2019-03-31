@@ -10,7 +10,7 @@ void		exit_game(t_env *w, t_map *m)
 	exit(1);
 }
 
-static void MovePlayer(double dx, double dy, t_map *m)
+void MovePlayer(double dx, double dy, t_map *m)
 {
 	int s;
 	const t_sector *sect;
@@ -52,42 +52,61 @@ static void MovePlayer(double dx, double dy, t_map *m)
 
 void		motion_events(t_env *w, t_map *m)
 {
-	m->player.angle += w->event.motion.x * 0.03f;
-	MovePlayer(0, 0, m); 
+	// m->player.angle += w->event.motion.x * 0.03f;
+	// MovePlayer(0, 0, m); 
 
-	// if (w->event.motion.xrel < 0)
-	// {
-	// 	w->event.motion.x = WIDTH / 2;
-	// 	w->event.motion.y = HEIGHT / 2;
-	// }
-	// if (w->event.motion.xrel > 0)
-	// {
-	// 	w->event.motion.x = WIDTH / 2;
-	// 	w->event.motion.y = HEIGHT / 2;
-	// }
+	if (w->event.motion.xrel < 0)
+	{
+		PL_A = PL_A - w->event.motion.x * 0.0001;
+		w->event.motion.x = WIDTH / 2;
+		w->event.motion.y = HEIGHT / 2;
+	}
+	if (w->event.motion.xrel > 0)
+	{
+		PL_A = PL_A + w->event.motion.x * 0.0001;
+		w->event.motion.x = WIDTH / 2;
+		w->event.motion.y = HEIGHT / 2;
+	}
 }
 
 void		key_events(t_env *w, t_map *m)
 {
 	if (w->inkeys[SDL_SCANCODE_W])
 	{
-		m->player.move_speed.x += m->player.anglecos*0.2f;
-		m->player.move_speed.y += m->player.anglesin*0.2f; 
+		PL_X = PL_X + cos(PL_A);
+		PL_Y = PL_Y + sin(PL_A);
+		// m->player.move_speed.x += m->player.anglecos*0.2f;
+		// m->player.move_speed.y += m->player.anglesin*0.2f; 
 	}
 	if (w->inkeys[SDL_SCANCODE_S])
 	{
-		m->player.move_speed.x -= m->player.anglecos*0.2f;
-		m->player.move_speed.y -= m->player.anglesin*0.2f;
+		PL_X = PL_X - cos(PL_A);
+		PL_Y = PL_Y - sin(PL_A);
+		// m->player.move_speed.x -= m->player.anglecos*0.2f;
+		// m->player.move_speed.y -= m->player.anglesin*0.2f;
 	}
 	if (w->inkeys[SDL_SCANCODE_A])
 	{
-		m->player.move_speed.x += m->player.anglesin*0.2f;
-		m->player.move_speed.y -= m->player.anglecos*0.2f;
+		PL_X = PL_X + sin(PL_A);
+		PL_Y = PL_Y - cos(PL_A);
+		// m->player.move_speed.x += m->player.anglesin*0.2f;
+		// m->player.move_speed.y -= m->player.anglecos*0.2f;
 	}
 	if (w->inkeys[SDL_SCANCODE_D])
 	{
-		m->player.move_speed.x -= m->player.anglesin*0.2f;
-		m->player.move_speed.y += m->player.anglecos*0.2f;
+		PL_X = PL_X - sin(PL_A);
+		PL_Y = PL_Y + cos(PL_A);
+		// m->player.move_speed.x -= m->player.anglesin*0.2f;
+		// m->player.move_speed.y += m->player.anglecos*0.2f;
+	}
+	if (w->inkeys[SDL_SCANCODE_Q])
+	{
+		PL_A = PL_A - 0.1;
+
+	}
+	if (w->inkeys[SDL_SCANCODE_E])
+	{
+		PL_A = PL_A + 0.1;
 	}
 }
 
@@ -126,10 +145,10 @@ int		run(t_env *w, t_map *m)
 			if (w->event.type == SDL_KEYDOWN)
 				if (KEY == 27)
 					exit_game(w, m);
-			// if (w->event.type == SDL_MOUSEMOTION)
-			// 	motion_events(w, m);
+			if (w->event.type == SDL_MOUSEMOTION)
+				motion_events(w, m);
 		}
-	//	draw(w, m);
+		draw(w, *m);
 		SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
 		SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
 		SDL_RenderPresent(w->rdr);

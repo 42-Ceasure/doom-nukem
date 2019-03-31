@@ -60,7 +60,56 @@ void vline(int x, int y1, int y2, t_env *w, t_color color)
 	}
 }
 
-int draw(t_env *w, t_map *m)
+void draw(t_env *w, t_map m)
 {
-	
+	double x1;
+	double y1;
+	double x2;
+	double y2;
+	double px;
+	double py;
+	double pa;
+
+	x1 = m.sector[0].dot[0].x;
+	y1 = m.sector[0].dot[0].y;
+	x2 = m.sector[0].dot[1].x;
+	y2 = m.sector[0].dot[1].y;
+	px = m.player.coor.x;
+	py = m.player.coor.y;
+	pa = m.player.angle * M_PI / 180;
+
+	SDL_RenderDrawPoint(w->rdr, px, py);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

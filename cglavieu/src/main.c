@@ -10,7 +10,7 @@ void	set_basic_run(t_map *m)
 	m->dots_count = 0;
 	m->sector_count = 0;
 	m->map_name = "test";
-	m->map_path = "maps/test.dn3d";
+	m->map_path = "maps/map0.dn3d";
 	m->dot = NULL;
 	m->sector = NULL;
 	m->player.field_of_vision = 1.0472;
