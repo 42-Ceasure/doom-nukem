@@ -16,6 +16,25 @@ Uint32		color(Uint32 color1)
 	return ((((((a << 8) + ro) << 8) + g) << 8) + b);
 }
 
+void	clean_render(t_env *w, Uint32 color)
+{
+	int x;
+
+	x = 0;
+	while (x < HEIGHT * WIDTH - 1)
+	{
+		w->pix[x] = color;
+		x++;
+	}
+
+}
+
+void	set_txtr_pix(t_env *w, int x, int y, Uint32 color)
+{
+	if (y >= 0 && y < HEIGHT && x >= 0 && x < WIDTH)
+		w->pix[y * WIDTH + x] = color;
+}
+
 void	set_wall(t_env *w, t_work work, int x)
 {
 	int		y;
@@ -69,16 +88,23 @@ void draw(t_env *w, t_map m)
 	double px;
 	double py;
 	double pa;
+	t_coor p1;
+	t_coor p2;
 
-	x1 = m.sector[0].dot[0].x;
-	y1 = m.sector[0].dot[0].y;
-	x2 = m.sector[0].dot[1].x;
-	y2 = m.sector[0].dot[1].y;
-	px = m.player.coor.x;
-	py = m.player.coor.y;
+	x1 = m.sector[0].dot[0].x + WIDTH / 2;
+	y1 = m.sector[0].dot[0].y + HEIGHT / 2;
+	x2 = m.sector[0].dot[1].x + WIDTH / 2;
+	y2 = m.sector[0].dot[1].y + HEIGHT / 2;
+	px = m.player.coor.x + WIDTH / 2;
+	py = m.player.coor.y + HEIGHT / 2;
 	pa = m.player.angle * M_PI / 180;
+	p1.x = x1;
+	p1.y = y1;
+	p2.x = x2;
+	p2.y = y2;
 
-	SDL_RenderDrawPoint(w->rdr, px, py);
+	set_txtr_pix(w, px, py, 0x12FFFFFF);
+	vect_ab(p1, p2, w, 0x121E7FCB);
 }
 
 

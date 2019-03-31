@@ -55,18 +55,24 @@ void		motion_events(t_env *w, t_map *m)
 	// m->player.angle += w->event.motion.x * 0.03f;
 	// MovePlayer(0, 0, m); 
 
-	if (w->event.motion.xrel < 0)
+	if (w->event.motion.xrel <= 0)
 	{
 		PL_A = PL_A - w->event.motion.x * 0.0001;
-		w->event.motion.x = WIDTH / 2;
-		w->event.motion.y = HEIGHT / 2;
+		if (PL_A > 2 * M_PI)
+			PL_A = PL_A - 2 * M_PI;
+		if (PL_A < 0)
+			PL_A = PL_A + 2 * M_PI;
 	}
 	if (w->event.motion.xrel > 0)
 	{
 		PL_A = PL_A + w->event.motion.x * 0.0001;
-		w->event.motion.x = WIDTH / 2;
-		w->event.motion.y = HEIGHT / 2;
+		if (PL_A > 2 * M_PI)
+			PL_A = PL_A - 2 * M_PI;
+		if (PL_A < 0)
+			PL_A = PL_A + 2 * M_PI;
 	}
+	w->event.motion.x = WIDTH / 2;
+	w->event.motion.y = HEIGHT / 2;
 }
 
 void		key_events(t_env *w, t_map *m)
@@ -102,11 +108,19 @@ void		key_events(t_env *w, t_map *m)
 	if (w->inkeys[SDL_SCANCODE_Q])
 	{
 		PL_A = PL_A - 0.1;
+		if (PL_A > 2 * M_PI)
+			PL_A = PL_A - 2 * M_PI;
+		if (PL_A < 0)
+			PL_A = PL_A + 2 * M_PI;
 
 	}
 	if (w->inkeys[SDL_SCANCODE_E])
 	{
 		PL_A = PL_A + 0.1;
+		if (PL_A > 2 * M_PI)
+			PL_A = PL_A - 2 * M_PI;
+		if (PL_A < 0)
+			PL_A = PL_A + 2 * M_PI;
 	}
 }
 
@@ -127,7 +141,7 @@ int			init_sdl(t_env *w)
 										WIDTH,
 										HEIGHT);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
-	SDL_ShowCursor(SDL_DISABLE);
+	// SDL_ShowCursor(SDL_DISABLE);
 	return (0);
 }
 
@@ -148,6 +162,7 @@ int		run(t_env *w, t_map *m)
 			if (w->event.type == SDL_MOUSEMOTION)
 				motion_events(w, m);
 		}
+		clean_render(w, 0x12000000);
 		draw(w, *m);
 		SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
 		SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
@@ -155,6 +170,7 @@ int		run(t_env *w, t_map *m)
 		w->inkeys = SDL_GetKeyboardState(NULL);
 		key_events(w, m);
 		printf("px=%f,py=%f,pa=%f\n", m->player.coor.x, m->player.coor.y, m->player.angle);
+		// printf("%d\n", w->event.motion.x);
 	}
 	return (0);
 }

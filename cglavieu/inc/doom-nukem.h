@@ -14,6 +14,16 @@
 # define PL_Y		m->player.coor.y
 # define PL_A		m->player.angle
 
+typedef struct		s_vect
+{
+	int x1;
+	int y1;
+	int x2;
+	int y2;
+	int dx;
+	int dy;
+}					t_vect;
+
 typedef struct		s_color
 {
 	Uint32 top;
@@ -134,6 +144,7 @@ int			quick_look(t_map *m);
 int			do_parse(t_map *m);
 int			run(t_env *w, t_map *m);
 void 		draw(t_env *w, t_map m);
+void		clean_render(t_env *w, Uint32 color);
 void		exit_game(t_env *w, t_map *m);
 void		recap_parsing(t_map *m, char **str);
 Uint32		color(Uint32 color1);
@@ -145,5 +156,7 @@ double isOverlap(double a0, double a1, double b0, double b1);
 double intersectBox(t_intersect i);
 double pointSide(t_coor p, double x0, double y0, double x1, double y1);
 t_coor intersect(t_intersect i);
+void vect_ab(t_coor p1, t_coor p2, t_env *w, Uint32 color);
+void	set_txtr_pix(t_env *w, int x, int y, Uint32 color);
 
 #endif
