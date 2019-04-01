@@ -21,8 +21,8 @@ int			parse_line(t_map *m)
 			tmp2 = ft_strsplit(tmp[2], ',');
 			while (tmp2[i] != NULL)
 			{
-				m->dot[m->i].x = atof(tmp2[i]);		// coder ft_atof
-				m->dot[m->i].y = atof(tmp[1]);		// coder ft_atof
+				m->dot[m->i].x = ft_atof(tmp2[i]);		// coder ft_atof
+				m->dot[m->i].y = ft_atof(tmp[1]);		// coder ft_atof
 				m->i++;
 				i++;
 			}
@@ -33,8 +33,8 @@ int			parse_line(t_map *m)
 			i = 0;
 			tmp1 = ft_strsplit(tmp[1], ',');		// floor H, ceiling H
 			tmp2 = ft_strsplit(tmp[2], ',');		// walls
-			m->sector[m->s].floor = atof(tmp1[0]);
-			m->sector[m->s].ceiling = atof(tmp1[1]);
+			m->sector[m->s].floor = ft_atof(tmp1[0]);
+			m->sector[m->s].ceiling = ft_atof(tmp1[1]);
 			while (tmp2[i] != NULL)
 				i++;
 			m->sector[m->s].wall_count = i;
@@ -69,12 +69,12 @@ int			parse_line(t_map *m)
 		if (ft_strcmp(tmp[0], "\tplayer_location") == 0)
 		{
 			tmp1 = ft_strsplit(tmp[1], ',');
-			m->player.coor.x = atof(tmp1[0]);		// coder ft_atof
-			m->player.coor.y = atof(tmp1[1]);		// coder ft_atof
+			m->player.coor.x = ft_atof(tmp1[0]);		// coder ft_atof
+			m->player.coor.y = ft_atof(tmp1[1]);		// coder ft_atof
 		}
 		if (ft_strcmp(tmp[0], "\tplayer_direction") == 0)
 		{
-			m->player.angle = (atof(tmp[1]) * M_PI / 180);		// coder ft_atof
+			m->player.angle = (ft_atof(tmp[1]) * M_PI / 180);		// coder ft_atof
 			m->player.anglecos = cos(m->player.angle);
 			m->player.anglesin = sin(m->player.angle);
 		}
