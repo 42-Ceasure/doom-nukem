@@ -6,7 +6,7 @@
 /*   By: agay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 18:35:11 by agay              #+#    #+#             */
-/*   Updated: 2019/03/29 22:17:55 by agay             ###   ########.fr       */
+/*   Updated: 2019/04/01 15:27:25 by agay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ typedef struct		s_mlx
 	int		size;
 	int		bits;
 	int		endian;
-	int		i;
-	int		dodo;
 }					t_mlx;
 
 typedef struct 		s_dot
@@ -86,25 +84,19 @@ typedef struct		s_map
 
 typedef struct		s_doom
 {
-	double	cx;
-	double	cy;
-	double	x;
-	double	x1;
-	double	y;
-	double	y1;
-	double	x2;
-	double	y2;
-	double	x3;
-	double	y3;
 	double	a;
 	double	ar;
 	double	wslope;
 	double	diffx;
 	double	diffy;
 	double	dist;
+	double	dist1;
 	double	wallh;
 	double	save;
 	double	fov;
+	double	rslope;
+	double	orop;
+	double	orow;
 }					t_doom;
 
 void	draw_utility(t_mlx *mlx, t_doom doom, int color);

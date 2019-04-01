@@ -1,11 +1,11 @@
 Section:map
-	dots:0:0
-	dots:0:10
-	dots:8:10
-	dots:8:0
+	dots:2:2
+	dots:2:8
+	dots:9:8
+	dots:9:2
 	sector:0,20:0,1,2,3,0:x,x,x,x,x
 Section:player
-	player_location:5,4
+	player_location:5,5
 	player_direction:90
 	player_sector:0
 

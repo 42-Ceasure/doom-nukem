@@ -6,33 +6,35 @@
 /*   By: agay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 10:54:39 by agay              #+#    #+#             */
-/*   Updated: 2019/03/29 22:49:51 by agay             ###   ########.fr       */
+/*   Updated: 2019/04/01 16:00:03 by agay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-double	*intersection(double rslope, t_doom doom, double **xy, t_map m, t_mlx *mlx)
+double	*intersection(t_doom doom, double **xy)
 {
-	double	b1;
+	double		a1;
+	double		b1;
 
-	b1 = (m.player.coor.x - m.sector->dot[mlx->i].x) * doom.wslope + (m.player.coor.y - m.sector->dot[mlx->i].y);
-	xy[0][0] = b1 / (rslope - doom.wslope) + m.player.coor.x;
-	xy[0][1] = m.sector->dot[mlx->i].y + (xy[0][0] - m.sector->dot[mlx->i].x) * doom.wslope;
+	a1 = doom.wslope - doom.rslope;
+	b1 = doom.orop - doom.orow;
+	xy[0][0] = b1 / a1;
+	xy[0][1] = doom.rslope * xy[0][0] + doom.orop;
 	return (*xy);
 }
 
-void	set_wall(t_mlx *mlx, t_doom doom, int x)
+void	set_wall(t_mlx *mlx, double	hight, int x)
 {
 	int        y;
 
 	y = 0;
-	while (y < (PI_Y - doom.wallh) / 2)
+	while (y < (PI_Y - hight) / 2)
 	{
 		mlx->data[y * PI_X + x] = 0x1E7FCB;
 		y++;
 	}
-	while (y < (PI_Y + doom.wallh) / 2)
+	while (y < (PI_Y + hight) / 2)
 	{
 		mlx->data[y * PI_X + x] = 0xFFFFFF;
 		y++;
@@ -44,81 +46,91 @@ void	set_wall(t_mlx *mlx, t_doom doom, int x)
 	}
 }
 
-void	draw(t_mlx *mlx, t_doom doom, t_map m)
+int		get_angle_quadrant(double angle)
 {
-	int		x;
-	double	*xy;
-	double	rslope;
-	int		color;
-
-	x = 0;
-	xy = NULL;
-	if ((xy = malloc(sizeof(double) * 2)) == NULL)
-		return ;
-	//mlx_pixel_put(mlx->mlx, mlx->win, m->sector->dot[0].x * 20 + 100, m->sector->dot[0].y * 20 + 100, 0xFF0000);
-	//	//mlx_pixel_put(mlx->mlx, mlx->win,  m->sector->dot[1].x * 20 + 100, m->sector->dot[1].y * 20 + 100, 0xFF0000);
-	//		//mlx_pixel_put(mlx->mlx, mlx->win, m->sector->dot[4].x * 20 + 100, m->sector->dot[4].y * 20 + 100, 0xFF0000);
-	mlx_pixel_put(mlx->mlx, mlx->win, m.player.coor.x * 20 + 100, m.player.coor.y * 20 + 100, 0xFF0000);
-	draw_utility(mlx, doom, 0xFF0000);
-	doom.save = m.player.angle;
-	m.player.angle = m.player.angle + (30 * M_PI / 180);
-	while (x < PI_X)
-	{
-		if (mlx->i == 0)
-			color = 0xFFFFFF;
-		else if (mlx->i == 1)
-			color = 0xFFb800;
-		else if (mlx->i == 2)
-			color = 0xFF0000;
-		else if (mlx->i == 3)
-			color = 0xFF00FF;
-		if (m.player.angle == (-1.637094))
-		{
-			ft_putstr("test");
-			mlx->dodo = 1;
-		}
-		doom.wslope = (m.sector->dot[mlx->i + 1].y - m.sector->dot[mlx->i].y) / (m.sector->dot[mlx->i + 1].x - m.sector->dot[mlx->i].x);
-		if (m.sector->dot[mlx->i + 1].x - m.sector->dot[mlx->i].x == 0)
-			doom.wslope = 999999.999999;
-		rslope = tan(m.player.angle);
-		intersection(rslope, doom, &xy, m, mlx);
-		//if (mlx->i == 1)
-			xy[1] = fabs(xy[1]);
-		//if (mlx->dodo == 1)
-		//	printf("angle = %f i = %d x = %f, y = %f, wslope = %f, rslope = %f, save = %f\n", m.player.angle, mlx->i, xy[0], xy[1], doom.wslope, rslope, doom.save);
-		doom.diffx = (m.player.coor.x - xy[0]);
-		doom.diffy = (m.player.coor.y - xy[1]);
-		doom.dist = (fabs(doom.diffx) < fabs(doom.diffy)) ? doom.diffx / cos(m.player.angle) : doom.diffy / sin(m.player.angle);
-		doom.dist *= cos(doom.save - m.player.angle);
-		if (doom.dist == 0)
-			doom.dist = 1;
-		doom.wallh = fabs(doom.fov / doom.dist);
-			printf("h = %f\n", doom.wallh);
-		if (xy[0] >= m.sector->dot[mlx->i].x && xy[0] <= m.sector->dot[mlx->i + 1].x)
-			set_wall(mlx, doom, x);
-			//mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, color);
-		else if (m.sector->dot[mlx->i].x > m.sector->dot[mlx->i + 1].x && (xy[0] >= m.sector->dot[mlx->i + 1].x && xy[0] <= m.sector->dot[mlx->i].x))
-			set_wall(mlx, doom, x);
-			//mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, color);
-		else if ((xy[1] >= m.sector->dot[mlx->i].y && xy[1] <= m.sector->dot[mlx->i + 1].y) && xy[0] >= m.sector->dot[mlx->i].x && xy[0] <= m.sector->dot[mlx->i + 1].x)
-			set_wall(mlx, doom, x);
-			//mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, color);
-		else if ((m.sector->dot[mlx->i + 1].x == m.sector->dot[mlx->i].x) && (xy[1] >= m.sector->dot[mlx->i].y && xy[1] <= m.sector->dot[mlx->i + 1].y))
-			set_wall(mlx, doom, x);
-			//mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, color);
-		else if ((m.sector->dot[mlx->i + 1].x == m.sector->dot[mlx->i].x) && (xy[1] >= m.sector->dot[mlx->i + 1].y && xy[1] <= m.sector->dot[mlx->i].y))
-			set_wall(mlx, doom, x);
-			//mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, color);
-		else
-			mlx->i++;
-		m.player.angle -= doom.ar;
-		x++;
-	}
-	mlx->i = 0;
-	free(xy);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+	if (angle >= 0 * M_PI / 180 && angle < 90 * M_PI / 180)
+		return (1);
+	else if (angle >= 90 * M_PI / 180 && angle < 180 * M_PI / 180)
+		return (2);
+	else if (angle >= 180 * M_PI / 180 && angle < 270 * M_PI / 180)
+		return (3);
+	else if (angle >= 270 * M_PI / 180 && angle < 360 * M_PI / 180)
+		return (4);
+	return (0);
 }
 
+int		get_ray_quadrant(t_doom doom)
+{
+	if (doom.diffx > 0)
+	{
+		if (doom.diffy > 0)
+			return (2);
+		else 
+			return (1);
+	}
+	else
+	{
+		if (doom.diffy > 0)
+			return (2);
+		else
+			return (2);
+	}
+}
+
+void	draw(t_mlx *mlx, t_doom doom, t_map m)
+{
+	double	*xy;
+	double	*xy1;
+	int		i;
+	int		x;
+	int		color;
+
+	xy = NULL;
+	xy1 = NULL;
+	x = 0;
+	color = 0xFFFFFF;
+	if ((xy = malloc(sizeof(double) * 2)) == NULL)
+		return ;
+	if ((xy1 = malloc(sizeof(double) * 2)) == NULL)
+		return ;
+	mlx_pixel_put(mlx->mlx, mlx->win, m.player.coor.x * 20 + 100, m.player.coor.y * 20 + 100, 0xFF0000);
+	doom.save = m.player.angle;
+	//m.player.angle += 30 * M_PI / 180;
+	while (x < PI_X)
+	{
+		doom.rslope = tan(m.player.angle);
+		doom.orop = m.player.coor.y - m.player.coor.x * doom.rslope;
+		i = 0;
+		while (i < 4)
+		{
+			doom.wslope = (m.sector->dot[i + 1].y - m.sector->dot[i].y) / (m.sector->dot[i + 1].x - m.sector->dot[i].x);
+			if (m.sector->dot[i + 1].x - m.sector->dot[i].x == 0)
+				doom.wslope = 999999.999999;
+			doom.orow = m.sector->dot[i].y - m.sector->dot[i].x * doom.wslope;
+			intersection(doom, &xy1);
+			doom.diffx = m.player.coor.x - xy[0];
+			doom.diffy = m.player.coor.y - xy[1];	
+			if (get_ray_quadrant(doom) == get_angle_quadrant(m.player.angle))
+			{
+				if (doom.dist == -42)
+					doom.dist = (fabs(doom.diffx) > fabs(doom.diffy)) ? doom.diffx / sin(m.player.angle) : doom.diffy / cos(m.player.angle);
+				else
+					doom.dist1 = (fabs(doom.diffx) > fabs(doom.diffy)) ? doom.diffx / sin(m.player.angle) : doom.diffy / cos(m.player.angle);
+				if (doom.dist1 != -42 && doom.dist1 < doom.dist)
+				{
+					doom.dist = doom.dist1;
+					xy = xy1;
+				}
+			}
+			i++;
+		}
+		mlx_pixel_put(mlx->mlx, mlx->win, xy[0] * 20 + 100, xy[1] * 20 + 100, 0xFFFFFF);
+		x++;
+		m.player.angle = m.player.angle - doom.ar;
+	}
+	free(xy);
+	//mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+}
 void	set_basic_run(t_map *m)
 {
 	m->i = 0;
@@ -168,23 +180,15 @@ int		main(int ac, char **av)
 		set_advanced_run(av, m);
 		return (0);
 	}
-	m->player.angle = m->player.angle * M_PI / 180;
+	m->player.angle = (double)m->player.angle * M_PI / 180;
 	doom.fov = (PI_X / 2) / tan(30 * M_PI / 180);
-	doom.ar = (double)(60 * M_PI / 180) / PI_X;
+	doom.ar = (double)((60 * M_PI / 180) / PI_X);
+	doom.dist = -42;
+	doom.dist1 = -42;
 	mlx.mlx = mlx_init();
 	mlx.win = mlx_new_window(mlx.mlx, PI_X, PI_Y, "DOOm");
 	mlx.img = mlx_new_image(mlx.mlx, PI_X, PI_Y);
 	mlx.data = (int *)mlx_get_data_addr(mlx.img, &mlx.bits, &mlx.size, &mlx.endian);
-	doom.x = 0;
-	doom.y = 0;
-	doom.x1 = 10;
-	doom.y1 = 1;
-	doom.x2 = 10;
-	doom.y2 = 7;
-	doom.x3 = 0;
-	doom.y3 = 8;
-	mlx.i = 0;
-	mlx.dodo = 0;
 	tab[0] = &mlx;
 	tab[1] = &doom;
 	tab[2] = m;
