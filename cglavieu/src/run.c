@@ -259,6 +259,13 @@ int		run(t_env *w, t_map *m)
 			{
 				if (KEY == 27)
 					exit_game(w, m);
+				if (KEY == SDLK_t)
+				{
+					if (m->trippymod == 1)
+						m->trippymod = 0;
+					else
+						m->trippymod = 1;
+				}
 			}
 			if (w->event.type == SDL_KEYUP)
 			{

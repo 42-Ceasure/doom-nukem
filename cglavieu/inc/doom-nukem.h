@@ -35,6 +35,17 @@ typedef struct		s_color
 	Uint32 top;
 	Uint32 middle;
 	Uint32 bottom;
+	int				y;
+	int				stop;
+	int				start;
+	Uint8			c_a1;
+	Uint8			c_r1;
+	Uint8			c_g1;
+	Uint8			c_b1;
+	Uint8			c_a2;
+	Uint8			c_r2;
+	Uint8			c_g2;
+	Uint8			c_b2;
 }					t_color;
 
 typedef struct	s_item
@@ -166,6 +177,7 @@ typedef struct		s_work
 
 typedef struct		s_map
 {
+	int				trippymod;
 	int				i;
 	int				s;
 	int				fd;

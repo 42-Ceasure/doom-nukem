@@ -16,6 +16,56 @@ Uint32		color(Uint32 color1)
 	return ((((((a << 8) + ro) << 8) + g) << 8) + b);
 }
 
+Uint32		c2colorw(t_color *r, Uint32 color1, Uint32 color2)
+{
+	Uint8	a;
+	Uint8	ro;
+	Uint8	g;
+	Uint8	b;
+	double	cren;
+
+	cren = (r->y - (double)(int)r->y);
+	cren *= 100;
+	r->c_a1 = (color1 & 0xFF000000) >> 24;
+	r->c_r1 = (color1 & 0x00FF0000) >> 16;
+	r->c_g1 = (color1 & 0x0000FF00) >> 8;
+	r->c_b1 = (color1 & 0x000000FF);
+	r->c_a2 = (color2 & 0xFF000000) >> 24;
+	r->c_r2 = (color2 & 0x00FF0000) >> 16;
+	r->c_g2 = (color2 & 0x0000FF00) >> 8;
+	r->c_b2 = (color2 & 0x000000FF);
+	a = 0;
+	ro = (r->c_r2 * cren / 100) + ((r->c_r1 * (100 - cren)) / 100);
+	g = (r->c_g2 * cren / 100) + ((r->c_g1 * (100 - cren)) / 100);
+	b = (r->c_b2 * cren / 100) + ((r->c_b1 * (100 - cren)) / 100);
+	return ((((((a << 8) + ro) << 8) + g) << 8) + b);
+}
+
+Uint32		color2color(t_color *r, Uint32 color1, Uint32 color2)
+{
+	Uint8	a;
+	Uint8	ro;
+	Uint8	g;
+	Uint8	b;
+
+	r->c_a1 = (color1 & 0xFF000000) >> 24;
+	r->c_r1 = (color1 & 0x00FF0000) >> 16;
+	r->c_g1 = (color1 & 0x0000FF00) >> 8;
+	r->c_b1 = (color1 & 0x000000FF);
+	r->c_a2 = (color2 & 0xFF000000) >> 24;
+	r->c_r2 = (color2 & 0x00FF0000) >> 16;
+	r->c_g2 = (color2 & 0x0000FF00) >> 8;
+	r->c_b2 = (color2 & 0x000000FF);
+	a = 0;
+	ro = r->c_r1 + (r->y - r->start) *
+		(r->c_r2 - r->c_r1) / (r->stop - r->start);
+	g = r->c_g1 + (r->y - r->start) *
+		(r->c_g2 - r->c_g1) / (r->stop - r->start);
+	b = r->c_b1 + (r->y - r->start) *
+		(r->c_b2 - r->c_b1) / (r->stop - r->start);
+	return ((((((a << 8) + ro) << 8) + g) << 8) + b);
+}
+
 void	clean_render(t_env *w, Uint32 color)
 {
 	int x;
@@ -35,23 +85,73 @@ void	set_txtr_pix(t_env *w, int x, int y, Uint32 color)
 		w->pix[y * WIDTH + x] = color;
 }
 
-void	set_wall(t_env *w, int x, int y1, int y2, Uint32 color)
+void	set_wall_trippy(t_env *w, int x, int y1, int y2, Uint32 color)
 {
 	int		y;
+	t_color colors;
 
 	y = 0;
+	if (y1 < HEIGHT)
+		colors.start = y1;
+	else
+		colors.start = HEIGHT - 4;
+	if (y2 < HEIGHT)
+		colors.stop = y2;
+	else
+		colors.stop = HEIGHT - 2;
+	if (colors.stop <= colors.start)
+		colors.start = colors.stop - 1;
 		while (y < y1)
 		{
+			colors.y = y;
 			w->pix[y * WIDTH + x] = 0x121E7FCB;
 			y++;
 		}
 		while (y < y2)
 		{
+			colors.y = y;
+			w->pix[y * WIDTH + x] = color2color(&colors, color, 0x12F9429E);
+			y++;
+		}
+		while (y < HEIGHT)
+		{
+			colors.y = y;
+			w->pix[y * WIDTH + x] = 0x124E3D28;
+			y++;
+		}
+}
+
+void	set_wall(t_env *w, int x, int y1, int y2, Uint32 color)
+{
+	int		y;
+	t_color colors;
+
+	y = 0;
+	if (y1 < HEIGHT)
+		colors.start = y1;
+	else
+		colors.start = HEIGHT - 4;
+	if (y2 < HEIGHT)
+		colors.stop = y2;
+	else
+		colors.stop = HEIGHT - 2;
+	if (colors.stop <= colors.start)
+		colors.start = colors.stop - 1;
+		while (y < y1)
+		{
+			colors.y = y;
+			w->pix[y * WIDTH + x] = 0x121E7FCB;
+			y++;
+		}
+		while (y < y2)
+		{
+			colors.y = y;
 			w->pix[y * WIDTH + x] = color;
 			y++;
 		}
 		while (y < HEIGHT)
 		{
+			colors.y = y;
 			w->pix[y * WIDTH + x] = 0x124E3D28;
 			y++;
 		}
@@ -228,10 +328,23 @@ void draw(t_env *w, t_map m)
 						if (work.z > 255)
 							work.z = 255;
 						work.r = 0x12010101 * (255 - work.z);
-						if (x == work.x2 || x == work.x2)						
-							set_wall(w, x, work.cya, work.cyb, 0);
+						if (x == work.x2 || x == work.x2)
+						{
+							if (m.trippymod == 1)
+								set_wall_trippy(w, x, work.cya, work.cyb, 0);	
+							else
+								set_wall(w, x, work.cya, work.cyb, 0);
+						}
 						else
-							set_wall(w, x, work.cya, work.cyb, work.r);
+						{
+							if (m.trippymod == 1)
+							{
+								work.r = 0x129EFD38 * (255 - work.z);
+								set_wall_trippy(w, x, work.cya, work.cyb, work.r);
+							}
+							else
+								set_wall(w, x, work.cya, work.cyb, work.r);
+						}
 						x++;
 					}
 
