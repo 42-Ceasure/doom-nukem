@@ -47,7 +47,7 @@ void	set_wall(t_env *w, int x, int y1, int y2)
 		}
 		while (y < y2)
 		{
-			w->pix[y * WIDTH + x] = 0x12FFFFFF;
+			w->pix[y * WIDTH + x] = 0x12606060;
 			y++;
 		}
 		while (y < HEIGHT)
