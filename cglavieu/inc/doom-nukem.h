@@ -6,8 +6,8 @@
 # include <fcntl.h>
 
 # define NAME 		"Doom-Numkem3D"
-# define WIDTH 		1920
-# define HEIGHT 	1080
+# define WIDTH 		800
+# define HEIGHT 	600
 # define KEY 		w->event.key.keysym.sym
 # define MRS		32
 # define PL_X		m->player.coor.x

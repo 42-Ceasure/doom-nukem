@@ -16,7 +16,7 @@ void		is_falling(t_map *m)
 
 	if (m->player.fall == 1)
 	{
-		m->player.move_speed.z = m->player.move_speed.z - 0.05f;
+		m->player.move_speed.z = m->player.move_speed.z - 0.05;
 		nxtz = m->player.coor.z + m->player.move_speed.z;
 		if (m->player.move_speed.z < 0 && nxtz < m->sector[m->player.sector].floor + STAND)
 		{
@@ -36,6 +36,27 @@ void		is_falling(t_map *m)
 			m->player.moving = 1;
 		}
 	}
+}
+
+void slowDown(t_env *w, t_map *m)
+{
+	if (w->inkeys[SDL_SCANCODE_W] || w->inkeys[SDL_SCANCODE_S]
+	|| w->inkeys[SDL_SCANCODE_A] || w->inkeys[SDL_SCANCODE_Q])
+		m->player.press = 1;
+	else
+		m->player.press = 0;
+	if (m->player.press == 1)
+		m->player.accel = 0.4;
+	else
+		m->player.accel = 0.2;
+	m->player.move_speed.x = m->player.move_speed.x * (1 - m->player.accel) + m->player.move_speedless.x * m->player.accel;
+	m->player.move_speed.y = m->player.move_speed.y * (1 - m->player.accel) + m->player.move_speedless.y * m->player.accel;
+	if (m->player.press == 1)
+		m->player.moving = 1;
+	else
+		m->player.moving = 0;
+	m->player.move_speedless.x = 0.f;
+	m->player.move_speedless.y = 0.f;
 }
 
 void MovePlayer(double dx, double dy, t_map *m)
@@ -69,7 +90,6 @@ void MovePlayer(double dx, double dy, t_map *m)
 		&& pointSide(coor, i.x3, i.y3, i.x4, i.y4) < 0)
 		{
 			m->player.sector = sect->network[s];
-			printf("Player is now in sector %d\n", m->player.sector);
 			break;
 		}
 		s++;
@@ -183,7 +203,7 @@ void		key_events(t_env *w, t_map *m)
 	{
 		if (m->player.ground == 1)
 		{
-			m->player.move_speed.z = m->player.move_speed.z + 0.5;
+			m->player.move_speed.z = m->player.move_speed.z + 0.8;
 			m->player.fall = 1;
 		}
 	}
@@ -238,23 +258,7 @@ int		run(t_env *w, t_map *m)
 		is_moving(m);
 		w->inkeys = SDL_GetKeyboardState(NULL);
 		key_events(w, m);
-		if (w->inkeys[SDL_SCANCODE_W] || w->inkeys[SDL_SCANCODE_S]
-		|| w->inkeys[SDL_SCANCODE_A] || w->inkeys[SDL_SCANCODE_Q])
-			m->player.press = 1;
-		else
-			m->player.press = 0;
-		if (m->player.press == 1)
-			m->player.accel = 0.4;
-		else
-			m->player.accel = 0.2;
-		m->player.move_speed.x = m->player.move_speed.x * (1 - m->player.accel) + m->player.move_speedless.x * m->player.accel;
-		m->player.move_speed.y = m->player.move_speed.y * (1 - m->player.accel) + m->player.move_speedless.y * m->player.accel;
-		if (m->player.press == 1)
-			m->player.moving = 1;
-		else
-			m->player.moving = 0;
-		m->player.move_speedless.x = 0.f;
-		m->player.move_speedless.y = 0.f;
+		slowDown(w, m);
 	}
 	return (0);
 }
