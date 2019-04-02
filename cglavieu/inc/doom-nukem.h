@@ -141,6 +141,10 @@ typedef struct		s_work
 	int cya;
 	int cyb;
 
+	unsigned int r;
+	unsigned int r1;
+	unsigned int r2;
+
 	double height;
 }					t_work;
 

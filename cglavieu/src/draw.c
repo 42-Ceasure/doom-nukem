@@ -35,7 +35,7 @@ void	set_txtr_pix(t_env *w, int x, int y, Uint32 color)
 		w->pix[y * WIDTH + x] = color;
 }
 
-void	set_wall(t_env *w, int x, int y1, int y2)
+void	set_wall(t_env *w, int x, int y1, int y2, Uint32 color)
 {
 	int		y;
 
@@ -47,7 +47,7 @@ void	set_wall(t_env *w, int x, int y1, int y2)
 		}
 		while (y < y2)
 		{
-			w->pix[y * WIDTH + x] = 0x12606060;
+			w->pix[y * WIDTH + x] = color;
 			y++;
 		}
 		while (y < HEIGHT)
@@ -116,7 +116,7 @@ void draw(t_env *w, t_map m)
 	int x;
 	t_work work;
 
-	sector = 0;	
+	sector = m.player.sector;	
 	work.pcos = m.player.anglecos;
 	work.psin = m.player.anglesin;
 	work.nearz = 1e-4f;
@@ -220,12 +220,18 @@ void draw(t_env *w, t_map m)
 					x = work.startx;
 					while (x < work.endx)
 					{
-						// work.z = ((x - work.x1) * (work.t2.z - work.t1.z) / (work.x2 - work.x1) + work.t1.z) * 8;
+						work.z = ((x - work.x1) * (work.t2.z - work.t1.z) / (work.x2 - work.x1) + work.t1.z) * 8;
 						work.ya = (x - work.x1) * (work.y2a - work.y1a) / (work.x2 - work.x1) + work.y1a;
 						work.yb = (x - work.x1) * (work.y2b - work.y1b) / (work.x2 - work.x1) + work.y1b;
 						work.cya = vMid(work.ya, 0, HEIGHT - 1);
 						work.cyb = vMid(work.yb, 0, HEIGHT - 1);
-						set_wall(w, x, work.cya, work.cyb);
+						if (work.z > 255)
+							work.z = 255;
+						work.r = 0x12010101 * (255 - work.z);
+						if (x == work.x2 || x == work.x2)						
+							set_wall(w, x, work.cya, work.cyb, 0);
+						else
+							set_wall(w, x, work.cya, work.cyb, work.r);
 						x++;
 					}
 
