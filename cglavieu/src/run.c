@@ -148,31 +148,23 @@ void		key_events(t_env *w, t_map *m)
 {
 	if (w->inkeys[SDL_SCANCODE_W])
 	{
-		// PL_X = PL_X + cos(PL_A) / 5;
-		// PL_Y = PL_Y + sin(PL_A) / 5;
-		m->player.move_speed.x += m->player.anglecos / 5;
-		m->player.move_speed.y += m->player.anglesin / 5; 
+		m->player.move_speedless.x += m->player.anglecos / 5;
+		m->player.move_speedless.y += m->player.anglesin / 5; 
 	}
 	if (w->inkeys[SDL_SCANCODE_S])
 	{
-		// PL_X = PL_X - cos(PL_A) / 5;
-		// PL_Y = PL_Y - sin(PL_A) / 5;
-		m->player.move_speed.x -= m->player.anglecos / 5;
-		m->player.move_speed.y -= m->player.anglesin / 5;
+		m->player.move_speedless.x -= m->player.anglecos / 5;
+		m->player.move_speedless.y -= m->player.anglesin / 5;
 	}
 	if (w->inkeys[SDL_SCANCODE_A])
 	{
-		// PL_X = PL_X + sin(PL_A) / 5;
-		// PL_Y = PL_Y - cos(PL_A) / 5;
-		m->player.move_speed.x += m->player.anglesin / 5;
-		m->player.move_speed.y -= m->player.anglecos / 5;
+		m->player.move_speedless.x += m->player.anglesin / 5;
+		m->player.move_speedless.y -= m->player.anglecos / 5;
 	}
 	if (w->inkeys[SDL_SCANCODE_D])
 	{
-		// PL_X = PL_X - sin(PL_A) / 5;
-		// PL_Y = PL_Y + cos(PL_A) / 5;
-		m->player.move_speed.x -= m->player.anglesin / 5;
-		m->player.move_speed.y += m->player.anglecos / 5;
+		m->player.move_speedless.x -= m->player.anglesin / 5;
+		m->player.move_speedless.y += m->player.anglecos / 5;
 	}
 	if (w->inkeys[SDL_SCANCODE_Q])
 	{
@@ -249,15 +241,20 @@ int		run(t_env *w, t_map *m)
 		if (w->inkeys[SDL_SCANCODE_W] || w->inkeys[SDL_SCANCODE_S]
 		|| w->inkeys[SDL_SCANCODE_A] || w->inkeys[SDL_SCANCODE_Q])
 			m->player.press = 1;
-		if (m->player.press)
+		else
+			m->player.press = 0;
+		if (m->player.press == 1)
 			m->player.accel = 0.4;
 		else
 			m->player.accel = 0.2;
-		m->player.move_speed.x = m->player.move_speed.x * (1 - m->player.accel) + m->player.move_speed.x * m->player.accel;
-		m->player.move_speed.y = m->player.move_speed.y * (1 - m->player.accel) + m->player.move_speed.y * m->player.accel;
+		m->player.move_speed.x = m->player.move_speed.x * (1 - m->player.accel) + m->player.move_speedless.x * m->player.accel;
+		m->player.move_speed.y = m->player.move_speed.y * (1 - m->player.accel) + m->player.move_speedless.y * m->player.accel;
 		if (m->player.press == 1)
 			m->player.moving = 1;
-		//printf("px=%f,py=%f,pa=%f\n", m->player.coor.x, m->player.coor.y, m->player.angle);
+		else
+			m->player.moving = 0;
+		m->player.move_speedless.x = 0.f;
+		m->player.move_speedless.y = 0.f;
 	}
 	return (0);
 }

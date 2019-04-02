@@ -78,6 +78,7 @@ typedef struct		s_player
 	int				sector;
 	t_coor			coor;
 	t_coor			move_speed;
+	t_coor			move_speedless;	
 	double			angle;
 	double			anglesin;
 	double			anglecos;
