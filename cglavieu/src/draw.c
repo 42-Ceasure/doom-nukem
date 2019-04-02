@@ -35,17 +35,17 @@ void	set_txtr_pix(t_env *w, int x, int y, Uint32 color)
 		w->pix[y * WIDTH + x] = color;
 }
 
-void	set_wall(t_env *w, t_work work, int x)
+void	set_wall(t_env *w, int x, int y1, int y2)
 {
 	int		y;
 
 	y = 0;
-		while ((y < ((HEIGHT - work.height) / 2)) && (y < HEIGHT))
+		while (y < y1)
 		{
 			w->pix[y * WIDTH + x] = 0x121E7FCB;
 			y++;
 		}
-		while (y < (((HEIGHT + work.height) / 2)) && (y < HEIGHT))
+		while (y < y2)
 		{
 			w->pix[y * WIDTH + x] = 0x12FFFFFF;
 			y++;
@@ -113,11 +113,16 @@ void draw(t_env *w, t_map m)
 	int point1;
 	int point2;
 	int sector;
+	int x;
 	t_work work;
 
 	sector = 0;	
 	work.pcos = m.player.anglecos;
 	work.psin = m.player.anglesin;
+	work.nearz = 1e-4f;
+	work.farz = 5;
+	work.nearside = 1e-5f;
+	work.farside = 20.f;
 	while (sector < m.sector_count)
 	{
 		point1 = 0;
@@ -137,27 +142,27 @@ void draw(t_env *w, t_map m)
 			work.t2.x = work.v2.x * work.psin - work.v2.y * work.pcos;
 			work.t2.z = work.v2.x * work.pcos + work.v2.y * work.psin;
 			//is the wall front of player ?
-			if (work.t1.z >= 0 || work.t2.z >= 0)
+			if (work.t1.z > 0 || work.t2.z > 0)
 			{
 				work.i1.x1 = work.t1.x;
 				work.i1.y1 = work.t1.z;
 				work.i1.x2 = work.t2.x;
 				work.i1.y2 = work.t2.z;
-				work.i1.x3 = -0.0000001;
-				work.i1.y3 = 0.0000001;
-				work.i1.x4 = -45;
-				work.i1.y4 = 5;
+				work.i1.x3 = -work.nearside;
+				work.i1.y3 = work.nearz;
+				work.i1.x4 = -work.farside;
+				work.i1.y4 = work.farz;
 				work.i2.x1 = work.t1.x;
 				work.i2.y1 = work.t1.z;
 				work.i2.x2 = work.t2.x;
 				work.i2.y2 = work.t2.z;
-				work.i2.x3 = 0.0000001;
-				work.i2.y3 = 0.0000001;
-				work.i2.x4 = 45;
-				work.i2.y4 = 5;
+				work.i2.x3 = work.nearside;
+				work.i2.y3 = work.nearz;
+				work.i2.x4 = work.farside;
+				work.i2.y4 = work.farz;
 				work.ip1 = intersect(work.i1);
 				work.ip2 = intersect(work.i2);
-				if (work.t1.z <= 0)
+				if (work.t1.z < work.nearz)
 				{
 					if (work.ip1.y > 0)
 					{
@@ -170,7 +175,7 @@ void draw(t_env *w, t_map m)
 						work.t1.z = work.ip2.y;
 					}
 				}
-				if (work.t2.z <= 0)
+				if (work.t2.z < work.nearz)
 				{
 					if (work.ip1.y > 0)
 					{
@@ -183,25 +188,30 @@ void draw(t_env *w, t_map m)
 						work.t2.z = work.ip2.y;
 					}
 				}
+
+				work.xscale1 = HFOV / work.t1.z;
+				work.yscale1 = VFOV / work.t1.z;
+				work.xscale2 = HFOV / work.t2.x;
+				work.yscale2 = VFOV / work.t2.z;
+
 				work.p1.x = -work.t1.x * (HEIGHT / 2) / work.t1.z;
 				work.p1.y = -(HEIGHT / 2) / work.t1.z; 
 				work.p1.z = (HEIGHT / 2) / work.t1.z;
 				work.p2.x = -work.t2.x * (HEIGHT / 2) / work.t2.z;
 				work.p2.y =	-(HEIGHT / 2) / work.t2.z;
 				work.p2.z = (HEIGHT / 2) / work.t2.z;
+				x = work.p1.x;
+				while (x <= work.p2.x)
+				{
+					work.ya = work.p1.y + (x - work.p1.x) * (int)round(work.p2.y - work.p1.y) / (work.p2.x - work.p1.x);
+					work.yb = work.p1.z + (x - work.p1.x) * (int)round(work.p2.z - work.p1.z) / (work.p2.x - work.p1.x);
+					if ((WIDTH / 2 + x) >= 0 && (WIDTH / 2 + x) < WIDTH
+						&& (HEIGHT / 2 + work.ya) >= 0 && (HEIGHT / 2 + work.ya) < HEIGHT
+						&& (HEIGHT / 2 + work.yb) >= 0 && (HEIGHT / 2 + work.yb) < HEIGHT)
+						set_wall(w, (WIDTH / 2 + x), (HEIGHT / 2 + work.ya), (HEIGHT / 2 + work.yb));
+					x++;
+				}
 
-				work.lol1.x = WIDTH / 2 + work.p1.x;
-				work.lol1.y = HEIGHT / 2 + work.p1.y;
-				work.lol2.x = WIDTH / 2 + work.p2.x;
-				work.lol2.y = HEIGHT / 2 + work.p2.y;
-				work.lel1.x = WIDTH / 2 + work.p1.x;
-				work.lel1.y = HEIGHT / 2 + work.p1.z;
-				work.lel2.x = WIDTH / 2 + work.p2.x;
-				work.lel2.y = HEIGHT / 2 + work.p2.z;
-				vect_ab(work.lol1, work.lol2, w, 0x121E7FCB);
-				vect_ab(work.lel1, work.lel2, w, 0x121E7FCB);
-				vect_ab(work.lol1, work.lel1, w, 0x121E7FCB);
-				vect_ab(work.lol2, work.lel2, w, 0x121E7FCB);
 			}
 			point1++;
 			point2++;

@@ -89,20 +89,16 @@ void		key_events(t_env *w, t_map *m)
 	}
 	if (w->inkeys[SDL_SCANCODE_Q])
 	{
-		PL_A = PL_A - 0.1;
-		if (PL_A > 2 * M_PI)
-			PL_A = PL_A - 2 * M_PI;
-		if (PL_A < 0)
-			PL_A = PL_A + 2 * M_PI;
+		PL_A = PL_A - 0.05;
+		m->player.anglesin = sin(m->player.angle);
+		m->player.anglecos = cos(m->player.angle);
 
 	}
 	if (w->inkeys[SDL_SCANCODE_E])
 	{
-		PL_A = PL_A + 0.1;
-		if (PL_A > 2 * M_PI)
-			PL_A = PL_A - 2 * M_PI;
-		if (PL_A < 0)
-			PL_A = PL_A + 2 * M_PI;
+		PL_A = PL_A + 0.05;
+		m->player.anglesin = sin(m->player.angle);
+		m->player.anglecos = cos(m->player.angle);
 	}
 }
 

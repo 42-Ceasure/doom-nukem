@@ -6,8 +6,8 @@
 # include <fcntl.h>
 
 # define NAME 		"Doom-Numkem3D"
-# define WIDTH 		800
-# define HEIGHT 	600
+# define WIDTH 		1920
+# define HEIGHT 	1080
 # define KEY 		w->event.key.keysym.sym
 # define MRS		32
 # define PL_X		m->player.coor.x
@@ -108,12 +108,24 @@ typedef struct		s_work
 	t_coor lol2;
 	t_coor lel1;
 	t_coor lel2;
+	t_coor lul1;
+	t_coor lul2;
 	t_coor p1;
 	t_coor p2;
 	double p1yb;
 	double p2yb;
 	double pcos;
 	double psin;
+	double nearz;
+	double farz;
+	double nearside;
+	double farside;
+	int ya;
+	int yb;
+	double xscale1;
+	double yscale1;
+	double xscale2;
+	double yscale2;
 
 	double height;
 }					t_work;
