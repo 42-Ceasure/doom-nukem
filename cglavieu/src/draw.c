@@ -123,6 +123,8 @@ void draw(t_env *w, t_map m)
 	work.farz = 5;
 	work.nearside = 1e-5f;
 	work.farside = 20.f;
+	x = 0;
+	w->i = 0;
 	while (sector < m.sector_count)
 	{
 		point1 = 0;
@@ -188,30 +190,57 @@ void draw(t_env *w, t_map m)
 						work.t2.z = work.ip2.y;
 					}
 				}
-
 				work.xscale1 = HFOV / work.t1.z;
 				work.yscale1 = VFOV / work.t1.z;
-				work.xscale2 = HFOV / work.t2.x;
+				work.xscale2 = HFOV / work.t2.z;
 				work.yscale2 = VFOV / work.t2.z;
 
-				work.p1.x = -work.t1.x * (HEIGHT / 2) / work.t1.z;
-				work.p1.y = -(HEIGHT / 2) / work.t1.z; 
-				work.p1.z = (HEIGHT / 2) / work.t1.z;
-				work.p2.x = -work.t2.x * (HEIGHT / 2) / work.t2.z;
-				work.p2.y =	-(HEIGHT / 2) / work.t2.z;
-				work.p2.z = (HEIGHT / 2) / work.t2.z;
-				x = work.p1.x;
-				while (x <= work.p2.x)
-				{
-					work.ya = work.p1.y + (x - work.p1.x) * (int)round(work.p2.y - work.p1.y) / (work.p2.x - work.p1.x);
-					work.yb = work.p1.z + (x - work.p1.x) * (int)round(work.p2.z - work.p1.z) / (work.p2.x - work.p1.x);
-					if ((WIDTH / 2 + x) >= 0 && (WIDTH / 2 + x) < WIDTH
-						&& (HEIGHT / 2 + work.ya) >= 0 && (HEIGHT / 2 + work.ya) < HEIGHT
-						&& (HEIGHT / 2 + work.yb) >= 0 && (HEIGHT / 2 + work.yb) < HEIGHT)
-						set_wall(w, (WIDTH / 2 + x), (HEIGHT / 2 + work.ya), (HEIGHT / 2 + work.yb));
-					x++;
-				}
+				// work.p1.x = -work.t1.x * (HEIGHT / 2) / work.t1.z;
+				// work.p1.y = -(HEIGHT / 2) / work.t1.z; 
+				// work.p1.z = (HEIGHT / 2) / work.t1.z;
+				// work.p2.x = -work.t2.x * (HEIGHT / 2) / work.t2.z;;  //working
+				// work.p2.y =	-(HEIGHT / 2) / work.t2.z;
+				// work.p2.z = (HEIGHT / 2) / work.t2.z;
 
+				work.x1 = WIDTH / 2 - (int)(work.t1.x * work.xscale1);
+				work.x2 = WIDTH / 2 - (int)(work.t2.x * work.xscale2);
+
+				if (work.x1 <= work.x2 || work.x2 > 0 || work.x1 < WIDTH - 1)
+				{
+					work.yceil = m.sector[sector].ceiling - m.player.coor.z;
+					work.yfloor = m.sector[sector].floor - m.player.coor.z;
+
+					work.y1a = HEIGHT / 2 - (int)(yaw(work.yceil, work.t1.z, m) * work.yscale1);
+					work.y1b = HEIGHT / 2 - (int)(yaw(work.yfloor, work.t1.z, m) * work.yscale1);
+					work.y2a = HEIGHT / 2 - (int)(yaw(work.yceil, work.t2.z, m) * work.yscale2);
+					work.y2b = HEIGHT / 2 - (int)(yaw(work.yfloor, work.t2.z, m) * work.yscale2);
+					// printf("p2.x:%f,p1.x:%f\n", work.p1.x, work.p2.x);
+					work.startx = vMax(work.x1, 0);
+					work.endx = vMin(work.x2, WIDTH);
+					x = work.startx;
+					while (x < work.endx)
+					{
+						// work.z = ((x - work.x1) * (work.t2.z - work.t1.z) / (work.x2 - work.x1) + work.t1.z) * 8;
+						work.ya = (x - work.x1) * (work.y2a - work.y1a) / (work.x2 - work.x1) + work.y1a;
+						work.yb = (x - work.x1) * (work.y2b - work.y1b) / (work.x2 - work.x1) + work.y1b;
+						work.cya = vMid(work.ya, 0, HEIGHT - 1);
+						work.cyb = vMid(work.yb, 0, HEIGHT - 1);
+						set_wall(w, x, work.cya, work.cyb);
+						x++;
+					}
+
+					// x = work.p1.x;
+					// while (x <= work.p2.x)
+					// {
+					// 	work.ya = work.p1.y + (x - work.p1.x) * (int)round(work.p2.y - work.p1.y) / (work.p2.x - work.p1.x);
+					// 	work.yb = work.p1.z + (x - work.p1.x) * (int)round(work.p2.z - work.p1.z) / (work.p2.x - work.p1.x);
+					// 	if ((WIDTH / 2 + x) >= 0 && (WIDTH / 2 + x) < WIDTH
+					// 	&& (HEIGHT / 2 + work.ya) >= 0 && (HEIGHT / 2 + work.ya) < HEIGHT
+					// 	&& (HEIGHT / 2 + work.yb) >= 0 && (HEIGHT / 2 + work.yb) < HEIGHT)
+					// 		set_wall(w, (WIDTH / 2 + x), (HEIGHT / 2 + work.ya), (HEIGHT / 2 + work.yb));
+					// 	x++;
+					// }
+				}
 			}
 			point1++;
 			point2++;

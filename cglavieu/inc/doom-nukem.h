@@ -126,6 +126,20 @@ typedef struct		s_work
 	double yscale1;
 	double xscale2;
 	double yscale2;
+	double yceil;
+	double yfloor;
+
+	double x1;
+	double x2;
+	double y1a;
+	double y1b;
+	double y2a;
+	double y2b;
+	double startx;
+	double endx;
+	int z;
+	int cya;
+	int cyb;
 
 	double height;
 }					t_work;

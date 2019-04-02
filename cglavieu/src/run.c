@@ -53,6 +53,7 @@ void MovePlayer(double dx, double dy, t_map *m)
 void		motion_events(t_env *w, t_map *m)
 {
 	PL_A = PL_A + w->event.motion.xrel * 0.001;
+	m->player.yaw = m->player.yaw + w->event.motion.yrel * 0.002;
 	m->player.anglesin = sin(m->player.angle);
 	m->player.anglecos = cos(m->player.angle);
 }
@@ -61,29 +62,29 @@ void		key_events(t_env *w, t_map *m)
 {
 	if (w->inkeys[SDL_SCANCODE_W])
 	{
-		PL_X = PL_X + cos(PL_A) / 10;
-		PL_Y = PL_Y + sin(PL_A) / 10;
+		PL_X = PL_X + cos(PL_A) / 5;
+		PL_Y = PL_Y + sin(PL_A) / 5;
 		// m->player.move_speed.x += m->player.anglecos*0.2f;
 		// m->player.move_speed.y += m->player.anglesin*0.2f; 
 	}
 	if (w->inkeys[SDL_SCANCODE_S])
 	{
-		PL_X = PL_X - cos(PL_A) / 10;
-		PL_Y = PL_Y - sin(PL_A) / 10;
+		PL_X = PL_X - cos(PL_A) / 5;
+		PL_Y = PL_Y - sin(PL_A) / 5;
 		// m->player.move_speed.x -= m->player.anglecos*0.2f;
 		// m->player.move_speed.y -= m->player.anglesin*0.2f;
 	}
 	if (w->inkeys[SDL_SCANCODE_A])
 	{
-		PL_X = PL_X + sin(PL_A) / 10;
-		PL_Y = PL_Y - cos(PL_A) / 10;
+		PL_X = PL_X + sin(PL_A) / 5;
+		PL_Y = PL_Y - cos(PL_A) / 5;
 		// m->player.move_speed.x += m->player.anglesin*0.2f;
 		// m->player.move_speed.y -= m->player.anglecos*0.2f;
 	}
 	if (w->inkeys[SDL_SCANCODE_D])
 	{
-		PL_X = PL_X - sin(PL_A) / 10;
-		PL_Y = PL_Y + cos(PL_A) / 10;
+		PL_X = PL_X - sin(PL_A) / 5;
+		PL_Y = PL_Y + cos(PL_A) / 5;
 		// m->player.move_speed.x -= m->player.anglesin*0.2f;
 		// m->player.move_speed.y += m->player.anglecos*0.2f;
 	}
