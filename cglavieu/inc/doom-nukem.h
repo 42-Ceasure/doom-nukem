@@ -15,7 +15,10 @@
 # define PL_A		m->player.angle
 # define HFOV		(0.73f*HEIGHT)
 # define VFOV		(.2f*HEIGHT)
-# define STANDH		6
+# define STAND		6
+# define HEADMARGIN	1
+# define DUCK		2.5
+# define CROUCH		2
 
 typedef struct		s_vect
 {
@@ -67,7 +70,7 @@ typedef struct		s_sector
 	double			floor;
 	double			ceiling;
 	t_dot			*dot;
-	char			**network;
+	signed char		*network;
 }					t_sector;
 
 typedef struct		s_player
@@ -80,6 +83,14 @@ typedef struct		s_player
 	double			anglecos;
 	double			yaw;
 	double			field_of_vision;
+	double			stance;
+	int				fall;
+	int				ground;
+	int				moving;
+	double			hole_low;
+	double			hole_high;
+	int				press;
+	double			accel;
 }					t_player;
 
 typedef struct		s_intersect
@@ -92,6 +103,8 @@ typedef struct		s_intersect
 	double y2;
 	double y3;
 	double y4;
+	double xd;
+	double yd;
 }					t_intersect;
 
 typedef struct		s_work
@@ -162,6 +175,7 @@ typedef struct		s_map
 	t_dot			*dot;
 	t_sector		*sector;
 	t_player		player;
+	double			yaw;
 }					t_map;
 
 typedef struct		s_env

@@ -15,7 +15,9 @@ void	set_special_run(t_map *m, char **av)
 	m->dot = NULL;
 	m->sector = NULL;
 	m->player.field_of_vision = 1.0472;
+	m->player.fall = 1;
 	m->map_path = av[2];
+	m->yaw = 0;
 	tmp = ft_strsplit(av[2], '/');
 	tmp2 = ft_strsplit(tmp[1], '.');
 	m->map_name = tmp2[0];
@@ -40,6 +42,8 @@ void	set_basic_run(t_map *m)
 	m->dot = NULL;
 	m->sector = NULL;
 	m->player.field_of_vision = 1.0472;
+	m->player.fall = 1;
+	m->yaw = 0;
 	if (quick_look(m) == -1 || do_parse(m) == -1)
 	{
 		write(1, "error on map parsing\n", 22);

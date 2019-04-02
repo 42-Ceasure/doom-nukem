@@ -10,39 +10,70 @@ void		exit_game(t_env *w, t_map *m)
 	exit(1);
 }
 
+void		is_falling(t_map *m)
+{
+	double	nxtz;
+
+	if (m->player.fall == 1)
+	{
+		m->player.move_speed.z = m->player.move_speed.z - 0.05f;
+		nxtz = m->player.coor.z + m->player.move_speed.z;
+		if (m->player.move_speed.z < 0 && nxtz < m->sector[m->player.sector].floor + STAND)
+		{
+			m->player.coor.z = m->sector[m->player.sector].floor + STAND;
+			m->player.move_speed.z = 0;
+			m->player.fall = 0;
+			m->player.ground = 1;
+		}
+		else if (m->player.move_speed.z > 0 && nxtz > m->sector[m->player.sector].ceiling)
+		{
+			m->player.move_speed.z = 0;
+			m->player.fall = 1;
+		}
+		if (m->player.fall == 1)
+		{
+			m->player.coor.z = m->player.coor.z + m->player.move_speed.z;
+			m->player.moving = 1;
+		}
+	}
+}
+
 void MovePlayer(double dx, double dy, t_map *m)
 {
 	int s;
+	int s1;
 	const t_sector *sect;
 	t_intersect i;
 	t_coor coor;
-	/* Check if this movement crosses one of this sector's edges
-	 * that have a neighboring sector on the other side.
-	 * Because the edge vertices of each sector are defined in
-	 * clockwise order, PointSide will always return -1 for a point
-	 * that is outside the sector and 0 or 1 for a point that is inside.
-	 */
+	
+
 	s = 0;
+	s1 = 1;
 	sect = &m->sector[m->player.sector];
-	i.x1 = m->player.coor.x;
-	i.y1 = m->player.coor.y;
-	i.x2 = i.x1 + dx;
-	i.y2 = i.y1 + dy;
-	i.x3 = sect->dot[s+0].x;
-	i.y3 = sect->dot[s+0].y;
-	i.x4 = sect->dot[s+1].x;
-	i.y4 = sect->dot[s+1].y;
-	coor.x = i.x2;
-	coor.y = i.y2;
 	while (s < sect->wall_count)
 	{
-		if(ft_strcmp(sect->network[s], "x") != 0 && intersectBox(i) && pointSide(coor, i.x3, i.y3, i.x4, i.y4) < 0)
+		if (s == sect->wall_count - 1)
+			s1 = 0;
+		i.x1 = m->player.coor.x;
+		i.y1 = m->player.coor.y;
+		i.x2 = i.x1 + dx;
+		i.y2 = i.y1 + dy;
+		i.x3 = sect->dot[s].x;
+		i.y3 = sect->dot[s].y;
+		i.x4 = sect->dot[s1].x;
+		i.y4 = sect->dot[s1].y;
+		coor.x = i.x2;
+		coor.y = i.y2;
+		if(sect->network[s] >= 0  
+		&& intersectBox(i) 
+		&& pointSide(coor, i.x3, i.y3, i.x4, i.y4) < 0)
 		{
-			m->player.sector = ft_atoi(sect->network[s]);
+			m->player.sector = sect->network[s];
 			printf("Player is now in sector %d\n", m->player.sector);
 			break;
 		}
 		s++;
+		s1++;
 	}
 	m->player.coor.x += dx;
 	m->player.coor.y += dy;
@@ -50,43 +81,98 @@ void MovePlayer(double dx, double dy, t_map *m)
 	m->player.anglecos = cos(m->player.angle);
 }
 
+void		is_moving(t_map *m)
+{
+	int s;
+	int s1;
+	const t_sector *sect;
+	t_intersect i;
+	t_coor		coor;
+
+	s = 0;
+	s1 = 1;
+	sect = &m->sector[m->player.sector];
+	while (s < sect->wall_count)
+	{
+		if (s == sect->wall_count - 1)
+			s1 = 0;
+		i.x1 = m->player.coor.x;
+		i.y1 = m->player.coor.y;
+		i.x2 = m->player.move_speed.x;
+		i.y2 = m->player.move_speed.y;
+		i.x3 = sect->dot[s].x;
+		i.y3 = sect->dot[s].y;
+		i.x4 = sect->dot[s1].x;
+		i.y4 = sect->dot[s1].y;
+		coor.x = i.x1 + i.x2;
+		coor.y = i.y1 + i.y2;
+		if(intersectBox(i) 
+		&& pointSide(coor, i.x3, i.y3, i.x4, i.y4) < 0)
+		{
+			m->player.hole_low = 9e9;
+			m->player.hole_high = -9e9;
+			if (sect->network[s] >= 0)
+			{
+				m->player.hole_low = vMax(sect->floor, m->sector[sect->network[s]].floor);
+				m->player.hole_high = vMin(sect->ceiling, m->sector[sect->network[s]].ceiling);
+			}
+			if (m->player.hole_high < m->player.coor.z + HEADMARGIN
+			|| m->player.hole_low > m->player.coor.z - STAND + CROUCH)
+			{
+				i.xd = sect->dot[s1].x - sect->dot[s].x;
+				i.yd = sect->dot[s1].y - sect->dot[s].y;
+				m->player.move_speed.x = i.xd * (i.x2 * i.xd + i.y2 * i.yd) / (i.xd * i.xd + i.yd * i.yd);
+				m->player.move_speed.y = i.yd * (i.x2 * i.xd + i.y2 * i.yd) / (i.xd * i.xd + i.yd * i.yd);
+				m->player.moving = 0;
+			}
+		}
+		s++;
+		s1++;
+	}
+	MovePlayer(m->player.move_speed.x, m->player.move_speed.y, m);
+	m->player.fall = 1;
+
+}
+
 void		motion_events(t_env *w, t_map *m)
 {
 	PL_A = PL_A + w->event.motion.xrel * 0.001;
-	m->player.yaw = m->player.yaw + w->event.motion.yrel * 0.002;
-	m->player.anglesin = sin(m->player.angle);
-	m->player.anglecos = cos(m->player.angle);
+	m->yaw = vMid(m->yaw + w->event.motion.yrel * 0.002, -5, 5);
+	m->player.yaw   = m->yaw - m->player.move_speed.z * 0.02;
+	MovePlayer(0, 0, m);
+	// PL_A = PL_A + w->event.motion.xrel * 0.001;
+	// m->player.yaw = m->player.yaw + w->event.motion.yrel * 0.002;
 }
 
 void		key_events(t_env *w, t_map *m)
 {
 	if (w->inkeys[SDL_SCANCODE_W])
 	{
-		PL_X = PL_X + cos(PL_A) / 5;
-		PL_Y = PL_Y + sin(PL_A) / 5;
-		// m->player.move_speed.x += m->player.anglecos*0.2f;
-		// m->player.move_speed.y += m->player.anglesin*0.2f; 
+		// PL_X = PL_X + cos(PL_A) / 5;
+		// PL_Y = PL_Y + sin(PL_A) / 5;
+		m->player.move_speed.x += m->player.anglecos / 5;
+		m->player.move_speed.y += m->player.anglesin / 5; 
 	}
 	if (w->inkeys[SDL_SCANCODE_S])
 	{
-		PL_X = PL_X - cos(PL_A) / 5;
-		PL_Y = PL_Y - sin(PL_A) / 5;
-		// m->player.move_speed.x -= m->player.anglecos*0.2f;
-		// m->player.move_speed.y -= m->player.anglesin*0.2f;
+		// PL_X = PL_X - cos(PL_A) / 5;
+		// PL_Y = PL_Y - sin(PL_A) / 5;
+		m->player.move_speed.x -= m->player.anglecos / 5;
+		m->player.move_speed.y -= m->player.anglesin / 5;
 	}
 	if (w->inkeys[SDL_SCANCODE_A])
 	{
-		PL_X = PL_X + sin(PL_A) / 5;
-		PL_Y = PL_Y - cos(PL_A) / 5;
-		// m->player.move_speed.x += m->player.anglesin*0.2f;
-		// m->player.move_speed.y -= m->player.anglecos*0.2f;
+		// PL_X = PL_X + sin(PL_A) / 5;
+		// PL_Y = PL_Y - cos(PL_A) / 5;
+		m->player.move_speed.x += m->player.anglesin / 5;
+		m->player.move_speed.y -= m->player.anglecos / 5;
 	}
 	if (w->inkeys[SDL_SCANCODE_D])
 	{
-		PL_X = PL_X - sin(PL_A) / 5;
-		PL_Y = PL_Y + cos(PL_A) / 5;
-		// m->player.move_speed.x -= m->player.anglesin*0.2f;
-		// m->player.move_speed.y += m->player.anglecos*0.2f;
+		// PL_X = PL_X - sin(PL_A) / 5;
+		// PL_Y = PL_Y + cos(PL_A) / 5;
+		m->player.move_speed.x -= m->player.anglesin / 5;
+		m->player.move_speed.y += m->player.anglecos / 5;
 	}
 	if (w->inkeys[SDL_SCANCODE_Q])
 	{
@@ -100,6 +186,14 @@ void		key_events(t_env *w, t_map *m)
 		PL_A = PL_A + 0.05;
 		m->player.anglesin = sin(m->player.angle);
 		m->player.anglecos = cos(m->player.angle);
+	}
+	if (w->inkeys[SDL_SCANCODE_SPACE])
+	{
+		if (m->player.ground == 1)
+		{
+			m->player.move_speed.z = m->player.move_speed.z + 0.5;
+			m->player.fall = 1;
+		}
 	}
 }
 
@@ -147,8 +241,22 @@ int		run(t_env *w, t_map *m)
 		SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
 		SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
 		SDL_RenderPresent(w->rdr);
+		m->player.ground = !m->player.fall;
+		is_falling(m);
+		is_moving(m);
 		w->inkeys = SDL_GetKeyboardState(NULL);
 		key_events(w, m);
+		if (w->inkeys[SDL_SCANCODE_W] || w->inkeys[SDL_SCANCODE_S]
+		|| w->inkeys[SDL_SCANCODE_A] || w->inkeys[SDL_SCANCODE_Q])
+			m->player.press = 1;
+		if (m->player.press)
+			m->player.accel = 0.4;
+		else
+			m->player.accel = 0.2;
+		m->player.move_speed.x = m->player.move_speed.x * (1 - m->player.accel) + m->player.move_speed.x * m->player.accel;
+		m->player.move_speed.y = m->player.move_speed.y * (1 - m->player.accel) + m->player.move_speed.y * m->player.accel;
+		if (m->player.press == 1)
+			m->player.moving = 1;
 		//printf("px=%f,py=%f,pa=%f\n", m->player.coor.x, m->player.coor.y, m->player.angle);
 	}
 	return (0);

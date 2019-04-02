@@ -40,7 +40,7 @@ int			parse_line(t_map *m)
 			m->sector[m->s].wall_count = i;
 			if ((m->sector[m->s].dot = (t_dot *)malloc(sizeof(t_dot) * m->sector[m->s].wall_count)) == NULL)
 				return (-1);
-			if ((m->sector[m->s].network = (char **)malloc(sizeof(char *) * m->sector[m->s].wall_count)) == NULL)
+			if ((m->sector[m->s].network = (signed char *)malloc(sizeof(char) * m->sector[m->s].wall_count)) == NULL)
 				return (-1);
 			i = 0;
 			while (i < m->sector[m->s].wall_count)
@@ -55,8 +55,7 @@ int			parse_line(t_map *m)
 			tmp2 = ft_strsplit(tmp[3], ',');		//connections
 			while (i < m->sector[m->s].wall_count)
 			{
-				m->sector[m->s].network[i] = ft_strnew(ft_strlen(tmp2[i]));
-				m->sector[m->s].network[i] = ft_strcpy(m->sector[m->s].network[i], tmp2[i]);
+				m->sector[m->s].network[i] = ft_atoi(tmp2[i]);
 				i++;
 			}
 			m->s++;
@@ -81,7 +80,7 @@ int			parse_line(t_map *m)
 		if (ft_strcmp(tmp[0], "\tplayer_sector") == 0)
 		{
 			m->player.sector = ft_atoi(tmp[1]);
-			m->player.coor.z = m->sector[m->player.sector].floor + STANDH;
+			m->player.coor.z = m->sector[m->player.sector].floor + STAND;
 		}
 		free(tmp1);
 	}

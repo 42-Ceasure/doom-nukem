@@ -73,7 +73,7 @@ void	recap_map_list_sectors(t_map *m, char *str)
 			j = 0;
 			while (j < m->sector[i].wall_count)
 			{
-				printf("network_%d : %s\n", j, m->sector[i].network[j]);
+				printf("network_%d : %d\n", j, m->sector[i].network[j]);
 				j++;
 			}
 			i++;
@@ -117,7 +117,7 @@ void	recap_map_list_sector(t_map *m, char **str)
 					{
 						while (j < m->sector[i].wall_count)
 						{
-							printf("wall_%d : %s\n", j, m->sector[i].network[j]);
+							printf("wall_%d : %d\n", j, m->sector[i].network[j]);
 							j++;
 						}
 					}
@@ -149,7 +149,7 @@ void	recap_map_list_sector(t_map *m, char **str)
 				j = 0;
 				while (j < m->sector[i].wall_count)
 				{
-					printf("network_%d : %s\n", j, m->sector[i].network[j]);
+					printf("network_%d : %d\n", j, m->sector[i].network[j]);
 					j++;
 				}
 			}
