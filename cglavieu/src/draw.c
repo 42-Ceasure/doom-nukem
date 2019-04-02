@@ -119,9 +119,9 @@ void draw(t_env *w, t_map m)
 	sector = m.player.sector;	
 	work.pcos = m.player.anglecos;
 	work.psin = m.player.anglesin;
-	work.nearz = 1e-4f;
+	work.nearz = 0.0000000001;
 	work.farz = 5;
-	work.nearside = 1e-5f;
+	work.nearside = 0.0000000001;
 	work.farside = 20.f;
 	x = 0;
 	w->i = 0;
@@ -220,7 +220,7 @@ void draw(t_env *w, t_map m)
 					x = work.startx;
 					while (x < work.endx)
 					{
-						work.z = ((x - work.x1) * (work.t2.z - work.t1.z) / (work.x2 - work.x1) + work.t1.z) * 8;
+						work.z = ((x - work.x1) * (work.t2.z - work.t1.z) / (work.x2 - work.x1) + work.t1.z) * 3;
 						work.ya = (x - work.x1) * (work.y2a - work.y1a) / (work.x2 - work.x1) + work.y1a;
 						work.yb = (x - work.x1) * (work.y2b - work.y1b) / (work.x2 - work.x1) + work.y1b;
 						work.cya = vMid(work.ya, 0, HEIGHT - 1);

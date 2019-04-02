@@ -15,10 +15,10 @@
 # define PL_A		m->player.angle
 # define HFOV		(0.73f*HEIGHT)
 # define VFOV		(.2f*HEIGHT)
-# define STAND		6
+# define STAND		8
 # define HEADMARGIN	1
-# define DUCK		2.5
-# define CROUCH		2
+# define CROUCH		2.5
+# define KNEEH		2
 
 typedef struct		s_vect
 {
@@ -88,6 +88,8 @@ typedef struct		s_player
 	int				fall;
 	int				ground;
 	int				moving;
+	double			height;
+	double			crouch;
 	double			hole_low;
 	double			hole_high;
 	int				press;

@@ -10,6 +10,15 @@ void		exit_game(t_env *w, t_map *m)
 	exit(1);
 }
 
+void		get_height(t_map *m)
+{
+	if (m->player.crouch == 1)
+		m->player.height = CROUCH;
+	if (m->player.crouch == 0)
+		m->player.height = STAND;
+	m->player.ground = !m->player.fall;
+}
+
 void		is_falling(t_map *m)
 {
 	double	nxtz;
@@ -18,9 +27,9 @@ void		is_falling(t_map *m)
 	{
 		m->player.move_speed.z = m->player.move_speed.z - 0.05;
 		nxtz = m->player.coor.z + m->player.move_speed.z;
-		if (m->player.move_speed.z < 0 && nxtz < m->sector[m->player.sector].floor + STAND)
+		if (m->player.move_speed.z < 0 && nxtz < m->sector[m->player.sector].floor + m->player.height)
 		{
-			m->player.coor.z = m->sector[m->player.sector].floor + STAND;
+			m->player.coor.z = m->sector[m->player.sector].floor + m->player.height;
 			m->player.move_speed.z = 0;
 			m->player.fall = 0;
 			m->player.ground = 1;
@@ -137,7 +146,7 @@ void		is_moving(t_map *m)
 				m->player.hole_high = vMin(sect->ceiling, m->sector[sect->network[s]].ceiling);
 			}
 			if (m->player.hole_high < m->player.coor.z + HEADMARGIN
-			|| m->player.hole_low > m->player.coor.z - STAND + CROUCH)
+			|| m->player.hole_low > m->player.coor.z - m->player.height + KNEEH)
 			{
 				i.xd = sect->dot[s1].x - sect->dot[s].x;
 				i.yd = sect->dot[s1].y - sect->dot[s].y;
@@ -207,6 +216,11 @@ void		key_events(t_env *w, t_map *m)
 			m->player.fall = 1;
 		}
 	}
+	if (w->inkeys[SDL_SCANCODE_LCTRL])
+	{
+		if (w->inkeys[SDL_SCANCODE_LCTRL] == 1)
+			m->player.crouch = w->inkeys[SDL_SCANCODE_LCTRL];
+	}
 }
 
 int			init_sdl(t_env *w)
@@ -242,8 +256,18 @@ int		run(t_env *w, t_map *m)
 		while (SDL_PollEvent(&w->event))
 		{
 			if (w->event.type == SDL_KEYDOWN)
+			{
 				if (KEY == 27)
 					exit_game(w, m);
+			}
+			if (w->event.type == SDL_KEYUP)
+			{
+				if (KEY == SDLK_LCTRL)
+				{
+					m->player.crouch = 0;
+					m->player.fall = 1;
+				}
+			}
 			if (w->event.type == SDL_MOUSEMOTION)
 				motion_events(w, m);
 		}
@@ -253,7 +277,7 @@ int		run(t_env *w, t_map *m)
 		SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
 		SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
 		SDL_RenderPresent(w->rdr);
-		m->player.ground = !m->player.fall;
+		get_height(m);
 		is_falling(m);
 		is_moving(m);
 		w->inkeys = SDL_GetKeyboardState(NULL);
