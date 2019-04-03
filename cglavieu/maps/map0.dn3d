@@ -1,6 +1,6 @@
 Section:map
-	dots:0:0,50
-	dots:50:0,50
+	dots:0:0,20
+	dots:20:0,20
 	sector:0,20:0,1,3,2:x,x,x,x
 Section:player
 	player_location:2,10

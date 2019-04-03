@@ -162,8 +162,8 @@ void vline(int x, int y1, int y2, t_env *w, t_color color)
 	Uint32 *pix = (Uint32 *)w->pix;
 	int y;
 
-	y1 = vMid(y1, 0, HEIGHT-1);
-	y2 = vMid(y2, 0, HEIGHT-1);
+	y1 = vmid(y1, 0, HEIGHT-1);
+	y2 = vmid(y2, 0, HEIGHT-1);
 	y = y1 + 1;
 	if(y2 == y1)
 		pix[y1*WIDTH+x] = color.middle;
@@ -199,8 +199,8 @@ void draw_mini_map(t_env *w, t_map m)
 			work.v1.y = m.sector[sector].dot[point1].y * 2;
 			work.v2.x = m.sector[sector].dot[point2].x * 2;
 			work.v2.y = m.sector[sector].dot[point2].y * 2;
-			set_txtr_pix(w, (m.player.coor.x * 2), (m.player.coor.y * 2), 0x12FFFFFF);
-			vect_ab(work.v1, work.v2, w, 0x121E7FCB);
+			set_txtr_pix(w, (m.player.coor.x * 2), (m.player.coor.y * 2), 0x12000000);
+			vect_ab(work.v1, work.v2, w, 0x12FF0000);
 			point1++;
 			point2++;
 		}
@@ -216,7 +216,8 @@ void draw(t_env *w, t_map m)
 	int x;
 	t_work work;
 
-	sector = m.player.sector;	
+	sector = 0;
+	// sector = m.player.sector;	
 	work.pcos = m.player.anglecos;
 	work.psin = m.player.anglesin;
 	work.nearz = 0.0000000001;
@@ -294,14 +295,6 @@ void draw(t_env *w, t_map m)
 				work.yscale1 = VFOV / work.t1.z;
 				work.xscale2 = HFOV / work.t2.z;
 				work.yscale2 = VFOV / work.t2.z;
-
-				// work.p1.x = -work.t1.x * (HEIGHT / 2) / work.t1.z;
-				// work.p1.y = -(HEIGHT / 2) / work.t1.z; 
-				// work.p1.z = (HEIGHT / 2) / work.t1.z;
-				// work.p2.x = -work.t2.x * (HEIGHT / 2) / work.t2.z;;  //working
-				// work.p2.y =	-(HEIGHT / 2) / work.t2.z;
-				// work.p2.z = (HEIGHT / 2) / work.t2.z;
-
 				work.x1 = WIDTH / 2 - (int)(work.t1.x * work.xscale1);
 				work.x2 = WIDTH / 2 - (int)(work.t2.x * work.xscale2);
 
@@ -314,28 +307,27 @@ void draw(t_env *w, t_map m)
 					work.y1b = HEIGHT / 2 - (int)(yaw(work.yfloor, work.t1.z, m) * work.yscale1);
 					work.y2a = HEIGHT / 2 - (int)(yaw(work.yceil, work.t2.z, m) * work.yscale2);
 					work.y2b = HEIGHT / 2 - (int)(yaw(work.yfloor, work.t2.z, m) * work.yscale2);
-					// printf("p2.x:%f,p1.x:%f\n", work.p1.x, work.p2.x);
-					work.startx = vMax(work.x1, 0);
-					work.endx = vMin(work.x2, WIDTH);
+					work.startx = vmax(work.x1, 0);
+					work.endx = vmin(work.x2, WIDTH);
 					x = work.startx;
 					while (x < work.endx)
 					{
 						work.z = ((x - work.x1) * (work.t2.z - work.t1.z) / (work.x2 - work.x1) + work.t1.z) * 3;
 						work.ya = (x - work.x1) * (work.y2a - work.y1a) / (work.x2 - work.x1) + work.y1a;
 						work.yb = (x - work.x1) * (work.y2b - work.y1b) / (work.x2 - work.x1) + work.y1b;
-						work.cya = vMid(work.ya, 0, HEIGHT - 1);
-						work.cyb = vMid(work.yb, 0, HEIGHT - 1);
+						work.cya = vmid(work.ya, 0, HEIGHT - 1);
+						work.cyb = vmid(work.yb, 0, HEIGHT - 1);
 						if (work.z > 255)
 							work.z = 255;
 						work.r = 0x12010101 * (255 - work.z);
-						if (x == work.x2 || x == work.x2)
+						if ((x == work.x2 || x == work.x2) && m.sector[sector].network[point1] < 0)
 						{
 							if (m.trippymod == 1)
 								set_wall_trippy(w, x, work.cya, work.cyb, 0);	
 							else
 								set_wall(w, x, work.cya, work.cyb, 0);
 						}
-						else
+						else if (m.sector[sector].network[point1] < 0)
 						{
 							if (m.trippymod == 1)
 							{
@@ -347,18 +339,6 @@ void draw(t_env *w, t_map m)
 						}
 						x++;
 					}
-
-					// x = work.p1.x;
-					// while (x <= work.p2.x)
-					// {
-					// 	work.ya = work.p1.y + (x - work.p1.x) * (int)round(work.p2.y - work.p1.y) / (work.p2.x - work.p1.x);
-					// 	work.yb = work.p1.z + (x - work.p1.x) * (int)round(work.p2.z - work.p1.z) / (work.p2.x - work.p1.x);
-					// 	if ((WIDTH / 2 + x) >= 0 && (WIDTH / 2 + x) < WIDTH
-					// 	&& (HEIGHT / 2 + work.ya) >= 0 && (HEIGHT / 2 + work.ya) < HEIGHT
-					// 	&& (HEIGHT / 2 + work.yb) >= 0 && (HEIGHT / 2 + work.yb) < HEIGHT)
-					// 		set_wall(w, (WIDTH / 2 + x), (HEIGHT / 2 + work.ya), (HEIGHT / 2 + work.yb));
-					// 	x++;
-					// }
 				}
 			}
 			point1++;
@@ -366,12 +346,7 @@ void draw(t_env *w, t_map m)
 		}
 		sector++;
 	}
-//	printf("%f,%f,%f,%f,%f,%f,%f,%f\n", work.lol1.x, work.lol1.y, work.lel1.x, work.lel1.y, work.lol2.x, work.lol2.y, work.lel2.x, work.lel2.y);
 }
-
-
-
-//	printf("%f,%f,%f,%f,%f,%f,%f,%f\n", work.lol1.x, work.lol1.y, work.lel1.x, work.lel1.y, work.lol2.x, work.lol2.y, work.lel2.x, work.lel2.y);
 
 
 

@@ -40,7 +40,7 @@ int			parse_line(t_map *m)
 			m->sector[m->s].wall_count = i;
 			if ((m->sector[m->s].dot = (t_dot *)malloc(sizeof(t_dot) * m->sector[m->s].wall_count)) == NULL)
 				return (-1);
-			if ((m->sector[m->s].network = (signed char *)malloc(sizeof(char) * m->sector[m->s].wall_count)) == NULL)
+			if ((m->sector[m->s].network = (int *)malloc(sizeof(int) * m->sector[m->s].wall_count)) == NULL)
 				return (-1);
 			i = 0;
 			while (i < m->sector[m->s].wall_count)
@@ -55,7 +55,10 @@ int			parse_line(t_map *m)
 			tmp2 = ft_strsplit(tmp[3], ',');		//connections
 			while (i < m->sector[m->s].wall_count)
 			{
-				m->sector[m->s].network[i] = ft_atoi(tmp2[i]);
+				if (ft_strcmp(tmp2[i], "x") != 0)
+					m->sector[m->s].network[i] = ft_atoi(tmp2[i]);
+				else
+					m->sector[m->s].network[i] = -1;
 				i++;
 			}
 			m->s++;
@@ -123,6 +126,8 @@ int		quick_look(t_map *m)
 		free(m->line);
 	}
 	close(m->fd);
+	if (m->dots_count == 0)
+		return (-1);
 	if ((m->sector = (t_sector *)malloc(sizeof(t_sector) * m->sector_count)) == NULL)
 		return (-1);
 	if ((m->dot = (t_dot *)malloc(sizeof(t_dot) * m->dots_count)) == NULL)

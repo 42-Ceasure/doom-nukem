@@ -81,7 +81,7 @@ typedef struct		s_sector
 	double			floor;
 	double			ceiling;
 	t_dot			*dot;
-	signed char		*network;
+	int				*network;
 }					t_sector;
 
 typedef struct		s_player
@@ -215,13 +215,13 @@ void		clean_render(t_env *w, Uint32 color);
 void		exit_game(t_env *w, t_map *m);
 void		recap_parsing(t_map *m, char **str);
 Uint32		color(Uint32 color1);
-double vMin(double a, double b);
-double vMax(double a, double b);
-double vMid(double a, double min, double max);
+double vmin(double a, double b);
+double vmax(double a, double b);
+double vmid(double a, double min, double max);
 double vect_cross_prod(double x0, double y0, double x1, double y1);
-double isOverlap(double a0, double a1, double b0, double b1);
-double intersectBox(t_intersect i);
-double pointSide(t_coor p, double x0, double y0, double x1, double y1);
+double isoverlap(double a0, double a1, double b0, double b1);
+double intersectbox(t_intersect i);
+double pointside(t_coor p, double x0, double y0, double x1, double y1);
 t_coor intersect(t_intersect i);
 void vect_ab(t_coor p1, t_coor p2, t_env *w, Uint32 color);
 void	set_txtr_pix(t_env *w, int x, int y, Uint32 color);

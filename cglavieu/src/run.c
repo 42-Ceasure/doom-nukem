@@ -47,7 +47,7 @@ void		is_falling(t_map *m)
 	}
 }
 
-void slowDown(t_env *w, t_map *m)
+void slow_down(t_env *w, t_map *m)
 {
 	if (w->inkeys[SDL_SCANCODE_W] || w->inkeys[SDL_SCANCODE_S]
 	|| w->inkeys[SDL_SCANCODE_A] || w->inkeys[SDL_SCANCODE_Q])
@@ -68,7 +68,7 @@ void slowDown(t_env *w, t_map *m)
 	m->player.move_speedless.y = 0.f;
 }
 
-void MovePlayer(double dx, double dy, t_map *m)
+void move_player(double dx, double dy, t_map *m)
 {
 	int s;
 	int s1;
@@ -95,10 +95,12 @@ void MovePlayer(double dx, double dy, t_map *m)
 		coor.x = i.x2;
 		coor.y = i.y2;
 		if(sect->network[s] >= 0  
-		&& intersectBox(i) 
-		&& pointSide(coor, i.x3, i.y3, i.x4, i.y4) < 0)
+		&& intersectbox(i) 
+		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) < 0)
 		{
 			m->player.sector = sect->network[s];
+			ft_putstr("sector:");
+			ft_putnbrendl(m->player.sector);
 			break;
 		}
 		s++;
@@ -135,15 +137,15 @@ void		is_moving(t_map *m)
 		i.y4 = sect->dot[s1].y;
 		coor.x = i.x1 + i.x2;
 		coor.y = i.y1 + i.y2;
-		if(intersectBox(i) 
-		&& pointSide(coor, i.x3, i.y3, i.x4, i.y4) < 0)
+		if(intersectbox(i) 
+		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) < 0)
 		{
 			m->player.hole_low = 9e9;
 			m->player.hole_high = -9e9;
 			if (sect->network[s] >= 0)
 			{
-				m->player.hole_low = vMax(sect->floor, m->sector[sect->network[s]].floor);
-				m->player.hole_high = vMin(sect->ceiling, m->sector[sect->network[s]].ceiling);
+				m->player.hole_low = vmax(sect->floor, m->sector[sect->network[s]].floor);
+				m->player.hole_high = vmin(sect->ceiling, m->sector[sect->network[s]].ceiling);
 			}
 			if (m->player.hole_high < m->player.coor.z + HEADMARGIN
 			|| m->player.hole_low > m->player.coor.z - m->player.height + KNEEH)
@@ -158,7 +160,7 @@ void		is_moving(t_map *m)
 		s++;
 		s1++;
 	}
-	MovePlayer(m->player.move_speed.x, m->player.move_speed.y, m);
+	move_player(m->player.move_speed.x, m->player.move_speed.y, m);
 	m->player.fall = 1;
 
 }
@@ -166,9 +168,9 @@ void		is_moving(t_map *m)
 void		motion_events(t_env *w, t_map *m)
 {
 	PL_A = PL_A + w->event.motion.xrel * 0.001;
-	m->yaw = vMid(m->yaw + w->event.motion.yrel * 0.002, -5, 5);
+	m->yaw = vmid(m->yaw + w->event.motion.yrel * 0.002, -5, 5);
 	m->player.yaw   = m->yaw - m->player.move_speed.z * 0.02;
-	MovePlayer(0, 0, m);
+	move_player(0, 0, m);
 	// PL_A = PL_A + w->event.motion.xrel * 0.001;
 	// m->player.yaw = m->player.yaw + w->event.motion.yrel * 0.002;
 }
@@ -280,7 +282,7 @@ int		run(t_env *w, t_map *m)
 		}
 		clean_render(w, 0x12000000);
 		draw(w, *m);
-		// draw_mini_map(w, *m);
+		draw_mini_map(w, *m);
 		SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
 		SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
 		SDL_RenderPresent(w->rdr);
@@ -289,7 +291,7 @@ int		run(t_env *w, t_map *m)
 		is_moving(m);
 		w->inkeys = SDL_GetKeyboardState(NULL);
 		key_events(w, m);
-		slowDown(w, m);
+		slow_down(w, m);
 	}
 	return (0);
 }

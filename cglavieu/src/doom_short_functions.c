@@ -2,14 +2,14 @@
 
 #include "doom-nukem.h"
 
-double vMin(double a, double b)
+double vmin(double a, double b)
 {
 	if (a < b)
 		return (a);
 	else
 		return (b);
 }
-double vMax(double a, double b)
+double vmax(double a, double b)
 {
 	if (a > b)
 		return (a);
@@ -17,7 +17,7 @@ double vMax(double a, double b)
 		return (b);
 }
 
-double vAbs(double a)
+double vabs(double a)
 {
 	if (a < 0)
 		return (-a);
@@ -25,9 +25,9 @@ double vAbs(double a)
 		return (a);
 }
 
-double vMid(double a, double min, double max)
+double vmid(double a, double min, double max)
 {
-	return (vMin(vMax(a, min), max));
+	return (vmin(vmax(a, min), max));
 }
 
 double sign(double a)
@@ -40,24 +40,24 @@ double v_c_p(double x0, double y0, double x1, double y1)
 	return (x0 * y1 - x1 * y0);
 }
 
-double isOverlap(double a0, double a1, double b0, double b1)
+double isoverlap(double a0, double a1, double b0, double b1)
 {
-	if ((vMin(a0,a1) <= vMax(b0,b1) && vMin(b0,b1) <= vMax(a0,a1)))
+	if ((vmin(a0,a1) <= vmax(b0,b1) && vmin(b0,b1) <= vmax(a0,a1)))
 		return (1);
 	else
 		return (0);
 }
 
-double intersectBox(t_intersect i)
+double intersectbox(t_intersect i)
 {
 
-	if (isOverlap(i.x1, i.x2, i.x3, i.x4) && isOverlap(i.y1, i.y2, i.y3, i.y4))
+	if (isoverlap(i.x1, i.x2, i.x3, i.x4) && isoverlap(i.y1, i.y2, i.y3, i.y4))
 		return (1);
 	else
 		return (0);
 }
 
-double pointSide(t_coor p, double x0, double y0, double x1, double y1)
+double pointside(t_coor p, double x0, double y0, double x1, double y1)
 {
 	return(sign(v_c_p(x1 - x0, y1 - y0, p.x - x0, p.y - y0)));
 }
