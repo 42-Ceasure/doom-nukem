@@ -115,6 +115,7 @@ void	set_wall_trippy(t_env *w, int x, int y1, int y2, Uint32 color)
 	int		y;
 	t_color colors;
 
+	(void)color;
 	y = 0;
 	if (y1 < HEIGHT)
 		colors.start = y1;
@@ -135,7 +136,7 @@ void	set_wall_trippy(t_env *w, int x, int y1, int y2, Uint32 color)
 		while (y < y2)
 		{
 			colors.y = y;
-			w->pix[y * WIDTH + x] = color2color(&colors, color, 0x12F9429E);
+			w->pix[y * WIDTH + x] = color2color(&colors, 0x1288421D, 0x12F9429E);
 			y++;
 		}
 		while (y < HEIGHT)
