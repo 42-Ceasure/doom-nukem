@@ -214,6 +214,7 @@ typedef struct		s_map
 	t_sector		*sector;
 	t_player		player;
 	double			yaw;
+	double			gravity;
 }					t_map;
 
 typedef struct		s_env

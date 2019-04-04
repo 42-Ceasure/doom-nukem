@@ -25,7 +25,7 @@ void		is_falling(t_map *m)
 
 	if (m->player.fall == 1)
 	{
-		m->player.move_speed.z = m->player.move_speed.z - 0.05;
+		m->player.move_speed.z = m->player.move_speed.z - m->gravity;
 		nxtz = m->player.coor.z + m->player.move_speed.z;
 		if (m->player.move_speed.z < 0 && nxtz < m->sector[m->player.sector].floor + m->player.height)
 		{
@@ -163,8 +163,6 @@ void		motion_events(t_env *w, t_map *m)
 	m->yaw = vmid(m->yaw + w->event.motion.yrel * 0.002, -5, 5);
 	m->player.yaw   = m->yaw - m->player.move_speed.z * 0.02;
 	move_player(0, 0, m);
-	// PL_A = PL_A + w->event.motion.xrel * 0.001;
-	// m->player.yaw = m->player.yaw + w->event.motion.yrel * 0.002;
 }
 
 void		key_events(t_env *w, t_map *m)
