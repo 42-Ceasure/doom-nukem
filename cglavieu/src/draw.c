@@ -157,25 +157,24 @@ void	set_wall(t_env *w, int x, int y1, int y2, Uint32 color)
 		}
 }
 
-void vline(int x, int y1, int y2, t_env *w, t_color color)
+void vertical_line(int x, int y1, int y2, t_env *w, t_color color)
 {
-	Uint32 *pix = (Uint32 *)w->pix;
 	int y;
 
 	y1 = vmid(y1, 0, HEIGHT-1);
 	y2 = vmid(y2, 0, HEIGHT-1);
 	y = y1 + 1;
 	if(y2 == y1)
-		pix[y1*WIDTH+x] = color.middle;
+		w->pix[y1 * WIDTH + x] = color.middle;
 	else if(y2 > y1)
 	{
-		pix[y1*WIDTH+x] = color.top;
-		while (y<y2)
+		w->pix[y1 * WIDTH + x] = color.top;
+		while (y < y2)
 		{
-			pix[y*WIDTH+x] = color.middle;
+			w->pix[y * WIDTH + x] = color.middle;
 			y++;
 		}
-		pix[y2*WIDTH+x] = color.bottom;
+		w->pix[y2 * WIDTH + x] = color.bottom;
 	}
 }
 
@@ -183,26 +182,21 @@ void draw_mini_map(t_env *w, t_map m)
 {
 	t_work work;
 	int sector;
-	int point1;
-	int point2;
+	int point;
 
 	sector = 0;
 	while (sector < m.sector_count)
 	{
-		point1 = 0;
-		point2 = 1;
-		while (point1 < m.sector[sector].wall_count)
+		point = 0;
+		while (point < m.sector[sector].wall_count)
 		{
-			if (point1 == m.sector[sector].wall_count - 1)
-				point2 = 0;
-			work.v1.x = m.sector[sector].dot[point1].x * 2;
-			work.v1.y = m.sector[sector].dot[point1].y * 2;
-			work.v2.x = m.sector[sector].dot[point2].x * 2;
-			work.v2.y = m.sector[sector].dot[point2].y * 2;
+			work.v1.x = m.sector[sector].dot[point].x * 2;
+			work.v1.y = m.sector[sector].dot[point].y * 2;
+			work.v2.x = m.sector[sector].dot[point + 1].x * 2;
+			work.v2.y = m.sector[sector].dot[point + 1].y * 2;
 			set_txtr_pix(w, (m.player.coor.x * 2), (m.player.coor.y * 2), 0x12000000);
 			vect_ab(work.v1, work.v2, w, 0x12FF0000);
-			point1++;
-			point2++;
+			point++;
 		}
 		sector++;
 	}
@@ -210,42 +204,51 @@ void draw_mini_map(t_env *w, t_map m)
 
 void draw(t_env *w, t_map m)
 {
-	int point1;
-	int point2;
+	int point;
 	int sector;
 	int x;
 	t_work work;
 
+	x = 0;
+	while (x < WIDTH)
+	{
+		work.ytop[x] = 0;
+		work.ybot[x] = HEIGHT - 1;
+		x++;
+	}
 	sector = 0;
 	// sector = m.player.sector;	
-	work.pcos = m.player.anglecos;
-	work.psin = m.player.anglesin;
 	work.nearz = 0.0000000001;
 	work.farz = 5;
 	work.nearside = 0.0000000001;
 	work.farside = 20.f;
+	work.color.top = 0x12111111;
+	work.color.middle = 0x12222222;
+	work.color.bottom = 0x12111111;
+	work.color2.top = 0x120000FF;
+	work.color2.middle = 0x120000AA;
+	work.color2.bottom = 0x120000FF;
 	x = 0;
 	w->i = 0;
 	while (sector < m.sector_count)
 	{
-		point1 = 0;
-		point2 = 1;
-		while (point1 < m.sector[sector].wall_count)
+		point = 0;
+		while (point < m.sector[sector].wall_count)
 		{
-			if (point1 == m.sector[sector].wall_count - 1)
-				point2 = 0;
-			// get wall points
-			work.v1.x = m.sector[sector].dot[point1].x - m.player.coor.x;
-			work.v1.y = m.sector[sector].dot[point1].y - m.player.coor.y;
-			work.v2.x = m.sector[sector].dot[point2].x - m.player.coor.x;
-			work.v2.y = m.sector[sector].dot[point2].y - m.player.coor.y;
-			// rotate around player view
+			work.v1.x = m.sector[sector].dot[point + 0].x - m.player.coor.x;
+			work.v1.y = m.sector[sector].dot[point + 0].y - m.player.coor.y;
+			work.v2.x = m.sector[sector].dot[point + 1].x - m.player.coor.x;
+			work.v2.y = m.sector[sector].dot[point + 1].y - m.player.coor.y;
+
+			work.pcos = m.player.anglecos;
+			work.psin = m.player.anglesin;
 			work.t1.x = work.v1.x * work.psin - work.v1.y * work.pcos;
 			work.t1.z = work.v1.x * work.pcos + work.v1.y * work.psin;
 			work.t2.x = work.v2.x * work.psin - work.v2.y * work.pcos;
 			work.t2.z = work.v2.x * work.pcos + work.v2.y * work.psin;
-			//is the wall front of player ?
-			if (work.t1.z > 0 || work.t2.z > 0)
+			// if (work.t1.z <= 0 && work.t2.z <= 0)
+
+			if (work.t1.z <= 0 || work.t2.z <= 0)
 			{
 				work.i1.x1 = work.t1.x;
 				work.i1.y1 = work.t1.z;
@@ -291,43 +294,99 @@ void draw(t_env *w, t_map m)
 						work.t2.z = work.ip2.y;
 					}
 				}
-				work.xscale1 = HFOV / work.t1.z;
-				work.yscale1 = VFOV / work.t1.z;
-				work.xscale2 = HFOV / work.t2.z;
-				work.yscale2 = VFOV / work.t2.z;
-				work.x1 = WIDTH / 2 - (int)(work.t1.x * work.xscale1);
-				work.x2 = WIDTH / 2 - (int)(work.t2.x * work.xscale2);
+			}
+			work.xscale1 = HFOV / work.t1.z;
+			work.yscale1 = VFOV / work.t1.z;
+			work.xscale2 = HFOV / work.t2.z;
+			work.yscale2 = VFOV / work.t2.z;
+			work.x1 = WIDTH / 2 - (int)(work.t1.x * work.xscale1);
+			work.x2 = WIDTH / 2 - (int)(work.t2.x * work.xscale2);
 
-				if (work.x1 <= work.x2 || work.x2 > 0 || work.x1 < WIDTH - 1)
+			if (work.x1 >= work.x2 || work.x2 > 0 || work.x1 < HEIGHT-1)
+			{
+				work.yceil = m.sector[sector].ceiling - m.player.coor.z;
+				work.yfloor = m.sector[sector].floor - m.player.coor.z;
+				work.network = m.sector[sector].network[point];
+				work.nyceil = 0;
+				work.nyfloor = 0;
+				if (work.network >= 0)
 				{
-					work.yceil = m.sector[sector].ceiling - m.player.coor.z;
-					work.yfloor = m.sector[sector].floor - m.player.coor.z;
+					work.nyceil = m.sector[work.network].ceiling - m.player.coor.z;
+					work.nyfloor = m.sector[work.network].floor - m.player.coor.z;
+				}
+				work.y1a = HEIGHT / 2 - (int)(yaw(work.yceil, work.t1.z, m) * work.yscale1);
+				work.y1b = HEIGHT / 2 - (int)(yaw(work.yfloor, work.t1.z, m) * work.yscale1);
+				work.y2a = HEIGHT / 2 - (int)(yaw(work.yceil, work.t2.z, m) * work.yscale2);
+				work.y2b = HEIGHT / 2 - (int)(yaw(work.yfloor, work.t2.z, m) * work.yscale2);
+				work.ny1a = HEIGHT / 2 - (int)(yaw(work.nyceil, work.t1.z, m) * work.yscale1);
+				work.ny1b = HEIGHT / 2 - (int)(yaw(work.nyfloor, work.t1.z, m) * work.yscale1);
+				work.ny2a = HEIGHT / 2 - (int)(yaw(work.nyceil, work.t2.z, m) * work.yscale2);
+				work.ny2b = HEIGHT / 2 - (int)(yaw(work.nyfloor, work.t2.z, m) * work.yscale2);
 
-					work.y1a = HEIGHT / 2 - (int)(yaw(work.yceil, work.t1.z, m) * work.yscale1);
-					work.y1b = HEIGHT / 2 - (int)(yaw(work.yfloor, work.t1.z, m) * work.yscale1);
-					work.y2a = HEIGHT / 2 - (int)(yaw(work.yceil, work.t2.z, m) * work.yscale2);
-					work.y2b = HEIGHT / 2 - (int)(yaw(work.yfloor, work.t2.z, m) * work.yscale2);
-					work.startx = vmax(work.x1, 0);
-					work.endx = vmin(work.x2, WIDTH);
-					x = work.startx;
-					while (x < work.endx)
+				work.startx = vmax(work.x1, 0);
+				work.endx = vmin(work.x2, WIDTH);
+				x = work.startx;
+				while (x < work.endx)
+				{
+					work.z = ((x - work.x1) * (work.t2.z - work.t1.z) / (work.x2 - work.x1) + work.t1.z) * 5;
+					work.ya = (x - work.x1) * (work.y2a - work.y1a) / (work.x2 - work.x1) + work.y1a;
+					work.yb = (x - work.x1) * (work.y2b - work.y1b) / (work.x2 - work.x1) + work.y1b;
+					work.cya = vmid(work.ya, work.ytop[x], work.ybot[x]);
+					work.cyb = vmid(work.yb, work.ytop[x], work.ybot[x]);
+					vertical_line(x, work.ytop[x], work.cya - 1, w, work.color);
+					vertical_line(x, work.cyb + 1, work.ybot[x], w, work.color2);
+
+					if (work.network >= 0)
 					{
-						work.z = ((x - work.x1) * (work.t2.z - work.t1.z) / (work.x2 - work.x1) + work.t1.z) * 3;
-						work.ya = (x - work.x1) * (work.y2a - work.y1a) / (work.x2 - work.x1) + work.y1a;
-						work.yb = (x - work.x1) * (work.y2b - work.y1b) / (work.x2 - work.x1) + work.y1b;
-						work.cya = vmid(work.ya, 0, HEIGHT - 1);
-						work.cyb = vmid(work.yb, 0, HEIGHT - 1);
+						work.nya = (x - work.x1) * (work.ny2a - work.ny1a) / (work.x2 - work.x1) + work.ny1a;
+						work.nyb = (x - work.x1) * (work.ny2b - work.ny1b) / (work.x2 - work.x1) + work.ny1b;
+						work.cnya = vmid(work.nya, work.ytop[x], work.ybot[x]);
+						work.cnyb = vmid(work.nyb, work.ytop[x], work.ybot[x]);
+						work.r1 = 0x010101 * (255 - work.z);
+						work.r2 = 0x040007 * (31 - work.z / 8);
+						if (work.z > 255)
+							work.z = 255;
+						work.color.top = 0;
+						work.color.bottom = 0;
+						if (x == work.x1 || x == work.x2)
+						{
+							work.color.middle = 0;
+							vertical_line(x, work.cya, work.cnya - 1, w, work.color);
+						}
+						else
+						{
+							work.color.middle = work.r1;
+							vertical_line(x, work.cya, work.cnya - 1, w, work.color);
+						}
+						work.ytop[x] = vmid(vmax(work.cya, work.cnya), work.ytop[x], HEIGHT - 1);
+						if (x == work.x1 || x == work.x2)
+						{
+ 							work.color.middle = 0;
+							vertical_line(x, work.cnyb + 1, work.cyb, w, work.color);
+							} 
+						else
+						{
+							work.color.middle = work.r2;
+							vertical_line(x, work.cnyb + 1, work.cyb, w, work.color);
+						}
+						work.ybot[x] = vmid(vmin(work.cyb, work.cnyb), 0, work.ybot[x]);
+					}
+					else
+					{
 						if (work.z > 255)
 							work.z = 255;
 						work.r = 0x12010101 * (255 - work.z);
-						if ((x == work.x2 || x == work.x2) && m.sector[sector].network[point1] < 0)
+						if (x == work.x1 || x == work.x2)
 						{
 							if (m.trippymod == 1)
 								set_wall_trippy(w, x, work.cya, work.cyb, 0);	
 							else
-								set_wall(w, x, work.cya, work.cyb, 0);
+							{
+								work.color.middle = 0;
+								vertical_line(x, work.cya, work.cyb, w, work.color);
+							}
 						}
-						else if (m.sector[sector].network[point1] < 0)
+						else
 						{
 							if (m.trippymod == 1)
 							{
@@ -335,14 +394,21 @@ void draw(t_env *w, t_map m)
 								set_wall_trippy(w, x, work.cya, work.cyb, work.r);
 							}
 							else
-								set_wall(w, x, work.cya, work.cyb, work.r);
+							{
+								work.color.middle = work.r;
+								vertical_line(x, work.cya, work.cyb, w, work.color);
+							}
 						}
-						x++;
 					}
+					if (work.network >= 0 && work.endx >= work.startx)
+					{
+						work.sx1 = work.startx;
+						work.sx2 = work.endx;
+					}
+					x++;
 				}
 			}
-			point1++;
-			point2++;
+			point++;
 		}
 		sector++;
 	}

@@ -109,6 +109,8 @@ typedef struct		s_player
 
 typedef struct		s_intersect
 {
+	double dx;
+	double dy;
 	double x1;
 	double x2;
 	double x3;
@@ -123,6 +125,8 @@ typedef struct		s_intersect
 
 typedef struct		s_work
 {
+	t_color color;
+	t_color color2;
 	t_intersect i1;
 	t_intersect i2;
 	t_coor v1;
@@ -147,30 +151,49 @@ typedef struct		s_work
 	double farz;
 	double nearside;
 	double farside;
-	int ya;
-	int yb;
 	double xscale1;
 	double yscale1;
 	double xscale2;
 	double yscale2;
+
 	double yceil;
 	double yfloor;
-
 	double x1;
 	double x2;
 	double y1a;
 	double y1b;
 	double y2a;
 	double y2b;
+	int ya;
+	int yb;
+	int cya;
+	int cyb;
+
+	double nyceil;
+	double nyfloor;
+	int network;
+	double ny1a;
+	double ny1b;
+	double ny2a;
+	double ny2b;
+	int nya;
+	int nyb;
+	int cnya;
+	int cnyb;
+
 	double startx;
 	double endx;
 	int z;
-	int cya;
-	int cyb;
+
+	int ytop[WIDTH];
+	int ybot[WIDTH];
 
 	unsigned int r;
 	unsigned int r1;
 	unsigned int r2;
+
+	double sx1;
+	double sx2;
 
 	double height;
 }					t_work;

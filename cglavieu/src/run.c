@@ -71,27 +71,23 @@ void slow_down(t_env *w, t_map *m)
 void move_player(double dx, double dy, t_map *m)
 {
 	int s;
-	int s1;
-	const t_sector *sect;
+	t_sector *sect;
 	t_intersect i;
 	t_coor coor;
 	
 
 	s = 0;
-	s1 = 1;
 	sect = &m->sector[m->player.sector];
 	while (s < sect->wall_count)
 	{
-		if (s == sect->wall_count - 1)
-			s1 = 0;
 		i.x1 = m->player.coor.x;
 		i.y1 = m->player.coor.y;
-		i.x2 = i.x1 + dx;
-		i.y2 = i.y1 + dy;
+		i.x2 = m->player.coor.x + dx;
+		i.y2 = m->player.coor.y + dy;
 		i.x3 = sect->dot[s].x;
 		i.y3 = sect->dot[s].y;
-		i.x4 = sect->dot[s1].x;
-		i.y4 = sect->dot[s1].y;
+		i.x4 = sect->dot[s + 1].x;
+		i.y4 = sect->dot[s + 1].y;
 		coor.x = i.x2;
 		coor.y = i.y2;
 		if(sect->network[s] >= 0  
@@ -104,10 +100,9 @@ void move_player(double dx, double dy, t_map *m)
 			break;
 		}
 		s++;
-		s1++;
 	}
-	m->player.coor.x += dx;
-	m->player.coor.y += dy;
+	m->player.coor.x = m->player.coor.x + dx;
+	m->player.coor.y = m->player.coor.y + dy;
 	m->player.anglesin = sin(m->player.angle);
 	m->player.anglecos = cos(m->player.angle);
 }
@@ -115,28 +110,26 @@ void move_player(double dx, double dy, t_map *m)
 void		is_moving(t_map *m)
 {
 	int s;
-	int s1;
-	const t_sector *sect;
+	t_sector *sect;
 	t_intersect i;
 	t_coor		coor;
 
 	s = 0;
-	s1 = 1;
+	i.x1 = m->player.coor.x;
+	i.y1 = m->player.coor.y;
+	i.x2 = m->player.coor.x + m->player.move_speed.x;
+	i.y2 = m->player.coor.y + m->player.move_speed.y;
+	i.dx = m->player.move_speed.x;
+	i.dy = m->player.move_speed.y;
 	sect = &m->sector[m->player.sector];
 	while (s < sect->wall_count)
 	{
-		if (s == sect->wall_count - 1)
-			s1 = 0;
-		i.x1 = m->player.coor.x;
-		i.y1 = m->player.coor.y;
-		i.x2 = m->player.move_speed.x;
-		i.y2 = m->player.move_speed.y;
 		i.x3 = sect->dot[s].x;
 		i.y3 = sect->dot[s].y;
-		i.x4 = sect->dot[s1].x;
-		i.y4 = sect->dot[s1].y;
-		coor.x = i.x1 + i.x2;
-		coor.y = i.y1 + i.y2;
+		i.x4 = sect->dot[s + 1].x;
+		i.y4 = sect->dot[s + 1].y;
+		coor.x = i.x1 + i.dx;
+		coor.y = i.y1 + i.dy;
 		if(intersectbox(i) 
 		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) < 0)
 		{
@@ -150,15 +143,14 @@ void		is_moving(t_map *m)
 			if (m->player.hole_high < m->player.coor.z + HEADMARGIN
 			|| m->player.hole_low > m->player.coor.z - m->player.height + KNEEH)
 			{
-				i.xd = sect->dot[s1].x - sect->dot[s].x;
-				i.yd = sect->dot[s1].y - sect->dot[s].y;
-				m->player.move_speed.x = i.xd * (i.x2 * i.xd + i.y2 * i.yd) / (i.xd * i.xd + i.yd * i.yd);
-				m->player.move_speed.y = i.yd * (i.x2 * i.xd + i.y2 * i.yd) / (i.xd * i.xd + i.yd * i.yd);
+				i.xd = sect->dot[s + 1].x - sect->dot[s].x;
+				i.yd = sect->dot[s + 1].y - sect->dot[s].y;
+				m->player.move_speed.x = i.xd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
+				m->player.move_speed.y = i.yd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
 				m->player.moving = 0;
 			}
 		}
 		s++;
-		s1++;
 	}
 	move_player(m->player.move_speed.x, m->player.move_speed.y, m);
 	m->player.fall = 1;

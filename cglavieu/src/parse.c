@@ -7,7 +7,7 @@ int			parse_line(t_map *m)
 	char	**tmp;
 	char	**tmp1;
 	char	**tmp2;
-	int		mem;
+	int		mem[2];
 	int		i;
 
 	tmp = ft_strsplit(m->line, ':');
@@ -38,18 +38,22 @@ int			parse_line(t_map *m)
 			while (tmp2[i] != NULL)
 				i++;
 			m->sector[m->s].wall_count = i;
-			if ((m->sector[m->s].dot = (t_dot *)malloc(sizeof(t_dot) * m->sector[m->s].wall_count)) == NULL)
+			if ((m->sector[m->s].dot = (t_dot *)malloc(sizeof(t_dot) * (m->sector[m->s].wall_count + 1))) == NULL)
 				return (-1);
 			if ((m->sector[m->s].network = (int *)malloc(sizeof(int) * m->sector[m->s].wall_count)) == NULL)
 				return (-1);
 			i = 0;
 			while (i < m->sector[m->s].wall_count)
 			{
-				mem = ft_atoi(tmp2[i]);
-				m->sector[m->s].dot[i].x = m->dot[mem].x;
-			 	m->sector[m->s].dot[i].y = m->dot[mem].y;
+				mem[0] = ft_atoi(tmp2[i]);
+				if (i == 0)
+					mem[1] = mem[0];
+				m->sector[m->s].dot[i].x = m->dot[mem[0]].x;
+			 	m->sector[m->s].dot[i].y = m->dot[mem[0]].y;
 				i++;
 			}
+			m->sector[m->s].dot[i].x = m->dot[mem[1]].x;
+			m->sector[m->s].dot[i].y = m->dot[mem[1]].y;
 			i = 0;
 			free(tmp2);
 			tmp2 = ft_strsplit(tmp[3], ',');		//connections
@@ -73,6 +77,7 @@ int			parse_line(t_map *m)
 			tmp1 = ft_strsplit(tmp[1], ',');
 			m->player.coor.x = ft_atof(tmp1[0]);		// coder ft_atof
 			m->player.coor.y = ft_atof(tmp1[1]);		// coder ft_atof
+			free(tmp1);
 		}
 		if (ft_strcmp(tmp[0], "\tplayer_direction") == 0)
 		{
@@ -85,7 +90,6 @@ int			parse_line(t_map *m)
 			m->player.sector = ft_atoi(tmp[1]);
 			m->player.coor.z = m->sector[m->player.sector].floor + STAND;
 		}
-		free(tmp1);
 	}
 	free(tmp);
 	return (0);

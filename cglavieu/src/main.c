@@ -23,8 +23,6 @@ void	set_special_run(t_map *m, char **av)
 
 void	set_basic_run(t_map *m)
 {
-	m->map_path = "maps/map0.dn3d";
-	m->map_name = "test";
 	if (quick_look(m) == -1 || do_parse(m) == -1)
 	{
 		write(1, "error on map parsing\n", 22);
@@ -34,6 +32,8 @@ void	set_basic_run(t_map *m)
 
 void	set_basics(t_map *m)
 {
+	m->map_path = "maps/map0.dn3d";
+	m->map_name = "test";
 	m->i = 0;
 	m->s = 0;
 	m->section_number = 0;

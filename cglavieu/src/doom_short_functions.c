@@ -59,7 +59,7 @@ double intersectbox(t_intersect i)
 
 double pointside(t_coor p, double x0, double y0, double x1, double y1)
 {
-	return(sign(v_c_p(x1 - x0, y1 - y0, p.x - x0, p.y - y0)));
+	return((v_c_p(x1 - x0, y1 - y0, p.x - x0, p.y - y0)));
 }
 
 t_coor intersect(t_intersect i) 
@@ -82,6 +82,7 @@ t_coor intersect(t_intersect i)
 	tmp4 = i.y3 - i.y4;
 	coor.z = v_c_p(tmp1, tmp2, tmp3, tmp4);
 	coor.y = (coor.z / v_c_p(i.x1 - i.x2, i.y1 - i.y2, i.x3 - i.x4, i.y3 - i.y4));
+	coor.z = 0;
 	return (coor);
 }
 

@@ -4,7 +4,7 @@ Section:map
 	dots:24:0,20,40
 	sector:0,20:0,1,4,3:x,1,2,x
 	sector:0,20:1,2,5,4:x,x,3,0
-	sector:5,30:3,4,7,6:0,3,x,x
+	sector:5,20:3,4,7,6:0,3,x,x
 	sector:0,20:4,5,8,7:1,x,x,2
 Section:player
 	player_location:6,4
