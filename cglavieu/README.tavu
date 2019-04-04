@@ -32,12 +32,23 @@ arguments :
 		player_list_vars
 			lister les variables du joueur
 
+-map <map>
+
+engine en cours
 
 a faire :
-	- ameliorer le listing des secteurs // fait en partie
-	- coder un ft_atof
 	- coder un ft_putfloat / ft_putdouble
 	- quelques changements sur des printf
+	- format textures / son dans les maps
+	- parsing textures
+	- parsing son
+
+engine :
+	- correction de bugs d'affichage sur le plafond
+	- affichage des secteurs en fonction de la position du joueur
+	- correction des angles, le joueur peut sortir de la map dans les coins
+	- ajout de textures
+	- ajout de sprites
 
 LA NORME CA SERA AU FUR ET A MESURE
 

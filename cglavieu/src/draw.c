@@ -85,6 +85,31 @@ void	set_txtr_pix(t_env *w, int x, int y, Uint32 color)
 		w->pix[y * WIDTH + x] = color;
 }
 
+void	set_txtr_dot(t_env *w, int x, int y, Uint32 color)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	if (y >= 0 && y < HEIGHT && x >= 0 && x < WIDTH)
+	{
+		w->pix[y * WIDTH + x] = color;
+		while (i < 3)
+		{
+			if (y - i >= 0)
+				w->pix[(y - i) * WIDTH + x] = color;
+			if (x - i >= 0)
+				w->pix[y * WIDTH + (x - i)] = color;
+			if (y + i < HEIGHT)
+				w->pix[(y + i) * WIDTH + x] = color;
+			if (x + i < WIDTH)
+				w->pix[y * WIDTH + (x + i)] = color;
+			i++;
+		}
+	}
+}
+
 void	set_wall_trippy(t_env *w, int x, int y1, int y2, Uint32 color)
 {
 	int		y;
@@ -184,17 +209,22 @@ void draw_mini_map(t_env *w, t_map m)
 	int sector;
 	int point;
 
+	work.p1.x = m.player.coor.x * 4;
+	work.p1.y = m.player.coor.y * 4;
+	work.p2.x = m.player.anglecos * 5 + work.p1.x;
+	work.p2.y = m.player.anglesin * 5 + work.p1.y;
 	sector = 0;
 	while (sector < m.sector_count)
 	{
 		point = 0;
 		while (point < m.sector[sector].wall_count)
 		{
-			work.v1.x = m.sector[sector].dot[point].x * 2;
-			work.v1.y = m.sector[sector].dot[point].y * 2;
-			work.v2.x = m.sector[sector].dot[point + 1].x * 2;
-			work.v2.y = m.sector[sector].dot[point + 1].y * 2;
-			set_txtr_pix(w, (m.player.coor.x * 2), (m.player.coor.y * 2), 0x12000000);
+			work.v1.x = m.sector[sector].dot[point].x * 4;
+			work.v1.y = m.sector[sector].dot[point].y * 4;
+			work.v2.x = m.sector[sector].dot[point + 1].x * 4;
+			work.v2.y = m.sector[sector].dot[point + 1].y * 4;
+			set_txtr_dot(w, (m.player.coor.x * 4), (m.player.coor.y * 4), 0x12BF3030);
+			vect_ab(work.p1, work.p2, w, 0x120F0F0F);
 			vect_ab(work.v1, work.v2, w, 0x12FF0000);
 			point++;
 		}
@@ -246,8 +276,11 @@ void draw(t_env *w, t_map m)
 			work.t1.z = work.v1.x * work.pcos + work.v1.y * work.psin;
 			work.t2.x = work.v2.x * work.psin - work.v2.y * work.pcos;
 			work.t2.z = work.v2.x * work.pcos + work.v2.y * work.psin;
-			// if (work.t1.z <= 0 && work.t2.z <= 0)
-
+			if (work.t1.z <= 0 && work.t2.z <= 0) 
+			{
+				point++;
+				continue;
+			}
 			if (work.t1.z <= 0 || work.t2.z <= 0)
 			{
 				work.i1.x1 = work.t1.x;
@@ -342,8 +375,8 @@ void draw(t_env *w, t_map m)
 						work.nyb = (x - work.x1) * (work.ny2b - work.ny1b) / (work.x2 - work.x1) + work.ny1b;
 						work.cnya = vmid(work.nya, work.ytop[x], work.ybot[x]);
 						work.cnyb = vmid(work.nyb, work.ytop[x], work.ybot[x]);
-						work.r1 = 0x010101 * (255 - work.z);
-						work.r2 = 0x040007 * (31 - work.z / 8);
+						work.r1 = 0x12010101 * (255 - work.z);
+						work.r2 = 0x12040007 * (31 - work.z / 8);
 						if (work.z > 255)
 							work.z = 255;
 						work.color.top = 0;
@@ -406,6 +439,10 @@ void draw(t_env *w, t_map m)
 						work.sx2 = work.endx;
 					}
 					x++;
+					// SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
+					// SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
+					// SDL_RenderPresent(w->rdr);
+					// SDL_Delay(10);
 				}
 			}
 			point++;

@@ -272,7 +272,6 @@ int		run(t_env *w, t_map *m)
 			if (w->event.type == SDL_MOUSEMOTION)
 				motion_events(w, m);
 		}
-		clean_render(w, 0x12000000);
 		draw(w, *m);
 		draw_mini_map(w, *m);
 		SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
@@ -284,6 +283,7 @@ int		run(t_env *w, t_map *m)
 		w->inkeys = SDL_GetKeyboardState(NULL);
 		key_events(w, m);
 		slow_down(w, m);
+		// SDL_Delay(10);
 	}
 	return (0);
 }
