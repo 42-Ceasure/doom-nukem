@@ -19,6 +19,7 @@
 # define HEADMARGIN	1
 # define CROUCH		2.5
 # define KNEEH		2
+# define BASE_GRAVITY 0.05
 
 typedef struct		s_vect
 {

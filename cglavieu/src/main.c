@@ -46,7 +46,7 @@ void	set_basics(t_map *m)
 	m->player.crouch = 0;
 	m->yaw = 0;
 	m->line = NULL;
-	m->gravity = 0.05;
+	m->gravity = BASE_GRAVITY;
 }
 
 void	set_advanced_run(char **av, t_env *w, t_map *m)
