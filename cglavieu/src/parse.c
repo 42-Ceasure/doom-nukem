@@ -130,6 +130,7 @@ int		quick_look(t_map *m)
 		check_line(m);
 		free(m->line);
 	}
+	free(m->line);
 	close(m->fd);
 	if (m->dots_count == 0)
 		return (-1);
@@ -153,6 +154,7 @@ int		do_parse(t_map *m)
 			write(1, "error on map collect\n", 22);
 		free(m->line);
 	}
+	free(m->line);
 	close(m->fd);
 	return (0);
 }
