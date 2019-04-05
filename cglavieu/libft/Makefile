@@ -12,7 +12,8 @@
 
 CC = gcc -std=c99
 
-CFLAG = -Wall -Werror -Wextra -g -O0 -fsanitize=address
+CFLAG		=	-Wall -Wextra -Werror
+DBGFLAG		=	-g -O0 -fsanitize=address
 
 NAME = libft.a
 

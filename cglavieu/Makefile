@@ -4,7 +4,8 @@
 
 CC			=	gcc
 
-CFLAG		=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
+CFLAG		=	-Wall -Wextra -Werror
+DBGFLAG		=	-g -O0 -fsanitize=address
 
 NAME		=	doom-nukem
 
