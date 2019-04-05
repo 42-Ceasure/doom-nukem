@@ -11,8 +11,8 @@ void	set_special_run(t_map *m, char **av)
 	tmp = ft_strsplit(av[2], '/');
 	tmp2 = ft_strsplit(tmp[1], '.');
 	m->map_name = tmp2[0];
-	free(tmp);
-	free(tmp2);
+	ft_memreg(tmp);
+	ft_memreg(tmp2);
 	if (quick_look(m) == -1 || do_parse(m) == -1)
 	{
 		ft_putendl("error on map,");

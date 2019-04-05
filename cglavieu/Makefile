@@ -38,8 +38,8 @@ SDL_CURL	= 	`curl https://www.libsdl.org/release/SDL2-2.0.3.zip -o sdl2.zip`
 
 all				:	libft sdl $(NAME)
 
-$(NAME)			:	$(OBJ)
-					@$(CC) $(CFLAG) $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^
+$(NAME)			:	$(OBJ) $(LIBFT)
+					@$(CC) $(CFLAG) -lm $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^
 					@echo "compile done"
 
 $(OBJDIR)%.o	:	$(SRCDIR)%.c $(INC)

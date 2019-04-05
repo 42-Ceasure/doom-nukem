@@ -26,7 +26,7 @@ int			parse_line(t_map *m)
 				m->i++;
 				i++;
 			}
-			free(tmp2);
+			ft_memreg(tmp2);
 		}
 		if (ft_strcmp(tmp[0], "\tsector") == 0)
 		{
@@ -55,7 +55,7 @@ int			parse_line(t_map *m)
 			m->sector[m->s].dot[i].x = m->dot[mem[1]].x;
 			m->sector[m->s].dot[i].y = m->dot[mem[1]].y;
 			i = 0;
-			free(tmp2);
+			ft_memreg(tmp2);
 			tmp2 = ft_strsplit(tmp[3], ',');		//connections
 			while (i < m->sector[m->s].wall_count)
 			{
@@ -66,8 +66,8 @@ int			parse_line(t_map *m)
 				i++;
 			}
 			m->s++;
-			free(tmp1);
-			free(tmp2);
+			ft_memreg(tmp1);
+			ft_memreg(tmp2);
 		}
 	}
 	if (m->section_number == 2)
@@ -77,7 +77,7 @@ int			parse_line(t_map *m)
 			tmp1 = ft_strsplit(tmp[1], ',');
 			m->player.coor.x = ft_atof(tmp1[0]);		// coder ft_atof
 			m->player.coor.y = ft_atof(tmp1[1]);		// coder ft_atof
-			free(tmp1);
+			ft_memreg(tmp1);
 		}
 		if (ft_strcmp(tmp[0], "\tplayer_direction") == 0)
 		{
@@ -91,7 +91,7 @@ int			parse_line(t_map *m)
 			m->player.coor.z = m->sector[m->player.sector].floor + STAND;
 		}
 	}
-	free(tmp);
+	ft_memreg(tmp);
 	return (0);
 }
 
@@ -112,12 +112,13 @@ void	check_line(t_map *m)
 			tmp2 = ft_strsplit(tmp[2], ',');
 			while (tmp2[i++] != NULL)
 				m->dots_count++;
-			free(tmp2);
+			ft_memreg(tmp2);
 		}
 		if (ft_strcmp(tmp[0], "\tsector") == 0)
 			m->sector_count++;
 	}
-	free(tmp);
+	i = 0;
+	ft_memreg(tmp);
 }
 
 int		quick_look(t_map *m)

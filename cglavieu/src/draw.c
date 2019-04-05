@@ -88,10 +88,8 @@ void	set_txtr_pix(t_env *w, int x, int y, Uint32 color)
 void	set_txtr_dot(t_env *w, int x, int y, Uint32 color)
 {
 	int i;
-	int j;
 
 	i = 0;
-	j = 0;
 	if (y >= 0 && y < HEIGHT && x >= 0 && x < WIDTH)
 	{
 		w->pix[y * WIDTH + x] = color;
@@ -127,24 +125,24 @@ void	set_wall_trippy(t_env *w, int x, int y1, int y2, Uint32 color)
 		colors.stop = HEIGHT - 2;
 	if (colors.stop <= colors.start)
 		colors.start = colors.stop - 1;
-		while (y < y1)
-		{
-			colors.y = y;
-			w->pix[y * WIDTH + x] = 0x121E7FCB;
-			y++;
-		}
-		while (y < y2)
-		{
-			colors.y = y;
-			w->pix[y * WIDTH + x] = color2color(&colors, 0x1288421D, 0x12F9429E);
-			y++;
-		}
-		while (y < HEIGHT)
-		{
-			colors.y = y;
-			w->pix[y * WIDTH + x] = 0x124E3D28;
-			y++;
-		}
+	while (y < y1)
+	{
+		colors.y = y;
+		w->pix[y * WIDTH + x] = 0x121E7FCB;
+		y++;
+	}
+	while (y < y2)
+	{
+		colors.y = y;
+		w->pix[y * WIDTH + x] = color2color(&colors, 0x1288421D, 0x12F9429E);
+		y++;
+	}
+	while (y < HEIGHT)
+	{
+		colors.y = y;
+		w->pix[y * WIDTH + x] = 0x124E3D28;
+		y++;
+	}
 }
 
 void	set_wall(t_env *w, int x, int y1, int y2, Uint32 color)
@@ -163,24 +161,24 @@ void	set_wall(t_env *w, int x, int y1, int y2, Uint32 color)
 		colors.stop = HEIGHT - 2;
 	if (colors.stop <= colors.start)
 		colors.start = colors.stop - 1;
-		while (y < y1)
-		{
-			colors.y = y;
-			w->pix[y * WIDTH + x] = 0x121E7FCB;
-			y++;
-		}
-		while (y < y2)
-		{
-			colors.y = y;
-			w->pix[y * WIDTH + x] = color;
-			y++;
-		}
-		while (y < HEIGHT)
-		{
-			colors.y = y;
-			w->pix[y * WIDTH + x] = 0x124E3D28;
-			y++;
-		}
+	while (y < y1)
+	{
+		colors.y = y;
+		w->pix[y * WIDTH + x] = 0x121E7FCB;
+		y++;
+	}
+	while (y < y2)
+	{
+		colors.y = y;
+		w->pix[y * WIDTH + x] = color;
+		y++;
+	}
+	while (y < HEIGHT)
+	{
+		colors.y = y;
+		w->pix[y * WIDTH + x] = 0x124E3D28;
+		y++;
+	}
 }
 
 void vertical_line(int x, int y1, int y2, t_env *w, t_color color)
