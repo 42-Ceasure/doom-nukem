@@ -270,6 +270,37 @@ int		run(t_env *w, t_map *m)
 					else
 						m->trippymod = 1;
 				}
+				if (KEY == SDLK_KP_PLUS)
+				{
+					m->maxrenderedsector += 1;
+					ft_putnbrendl(m->maxrenderedsector);
+				}
+				if (KEY == SDLK_KP_MINUS)
+				{
+					if (m->maxrenderedsector > 0)
+						m->maxrenderedsector -= 1;
+					ft_putnbrendl(m->maxrenderedsector);
+				}
+				if (KEY == SDLK_UP)
+				{
+					m->player.field_of_vision_v += 5;
+					printf("%f\n", m->player.field_of_vision_v);
+				}
+				if (KEY == SDLK_DOWN)
+				{
+					m->player.field_of_vision_v -= 5;
+					printf("%f\n", m->player.field_of_vision_v);
+				}
+				if (KEY == SDLK_RIGHT)
+				{
+					m->player.field_of_vision_h += 5;
+					printf("%f\n", m->player.field_of_vision_h);
+				}
+				if (KEY == SDLK_LEFT)
+				{
+					m->player.field_of_vision_h -= 5;
+					printf("%f\n", m->player.field_of_vision_h);
+				}
 			}
 			if (w->event.type == SDL_KEYUP)
 			{

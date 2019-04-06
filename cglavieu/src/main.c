@@ -41,12 +41,14 @@ void	set_basics(t_map *m)
 	m->sector_count = 0;
 	m->dot = NULL;
 	m->sector = NULL;
-	m->player.field_of_vision = 1.0472;
+	m->player.field_of_vision_h = 0.73f * HEIGHT;
+	m->player.field_of_vision_v = .2f * HEIGHT;
 	m->player.fall = 1;
 	m->player.crouch = 0;
 	m->yaw = 0;
 	m->line = NULL;
 	m->gravity = BASE_GRAVITY;
+	m->maxrenderedsector = 32;
 }
 
 void	set_advanced_run(char **av, t_env *w, t_map *m)

@@ -58,9 +58,10 @@ typedef struct	s_item
 
 typedef struct		s_reader
 {
-	t_item queue[32];
-	t_item *start;
-	t_item *stop;
+	t_item queue[MRS];
+	t_item *head;
+	t_item *tail;
+	t_item now;
 }					t_reader;
 
 typedef struct 		s_dot
@@ -95,7 +96,8 @@ typedef struct		s_player
 	double			anglesin;
 	double			anglecos;
 	double			yaw;
-	double			field_of_vision;
+	double			field_of_vision_h;
+	double			field_of_vision_v;
 	double			stance;
 	int				fall;
 	int				ground;
@@ -156,7 +158,6 @@ typedef struct		s_work
 	double yscale1;
 	double xscale2;
 	double yscale2;
-
 	double yceil;
 	double yfloor;
 	double x1;
@@ -169,7 +170,6 @@ typedef struct		s_work
 	int yb;
 	int cya;
 	int cyb;
-
 	double nyceil;
 	double nyfloor;
 	int network;
@@ -181,21 +181,16 @@ typedef struct		s_work
 	int nyb;
 	int cnya;
 	int cnyb;
-
 	double startx;
 	double endx;
 	int z;
-
 	int ytop[WIDTH];
 	int ybot[WIDTH];
-
 	unsigned int r;
 	unsigned int r1;
 	unsigned int r2;
-
 	double sx1;
 	double sx2;
-
 	double height;
 }					t_work;
 
@@ -216,6 +211,7 @@ typedef struct		s_map
 	t_player		player;
 	double			yaw;
 	double			gravity;
+	int maxrenderedsector;
 }					t_map;
 
 typedef struct		s_env

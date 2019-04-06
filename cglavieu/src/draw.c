@@ -181,6 +181,27 @@ void	set_wall(t_env *w, int x, int y1, int y2, Uint32 color)
 	}
 }
 
+void vertical_line_moche(int x, int y1, int y2, t_env *w, Uint32 color)
+{
+	int y;
+
+	y1 = vmid(y1, 0, HEIGHT-1);
+	y2 = vmid(y2, 0, HEIGHT-1);
+	y = y1 + 1;
+	if(y2 == y1)
+		w->pix[y1 * WIDTH + x] = color;
+	else if(y2 > y1)
+	{
+		w->pix[y1 * WIDTH + x] = color;
+		while (y < y2)
+		{
+			w->pix[y * WIDTH + x] = color;
+			y++;
+		}
+		w->pix[y2 * WIDTH + x] = color;
+	}
+}
+
 void vertical_line(int x, int y1, int y2, t_env *w, t_color color)
 {
 	int y;
@@ -234,19 +255,27 @@ void draw_mini_map(t_env *w, t_map m)
 void draw(t_env *w, t_map m)
 {
 	int point;
-	int sector;
 	int x;
 	t_work work;
+	t_reader read;
+	int renderedsectors[m.sector_count];
 
+	read.head = read.queue;
+	read.tail = read.queue;
 	x = 0;
 	while (x < WIDTH)
 	{
 		work.ytop[x] = 0;
 		work.ybot[x] = HEIGHT - 1;
+		if (x < m.sector_count)
+			renderedsectors[x] = 0;
 		x++;
 	}
-	sector = 0;
-	// sector = m.player.sector;	
+	read.head->sectorno = m.player.sector;
+	read.head->sx1 = 0;
+	read.head->sx2 = WIDTH - 1;
+	if (++read.head == read.queue + m.maxrenderedsector)
+		read.head = read.queue;
 	work.nearz = 0.0000000001;
 	work.farz = 5;
 	work.nearside = 0.0000000001;
@@ -259,15 +288,21 @@ void draw(t_env *w, t_map m)
 	work.color2.bottom = 0x120000FF;
 	x = 0;
 	w->i = 0;
-	while (sector < m.sector_count)
+	while (read.head != read.tail)
 	{
+		read.now = *read.tail;
+		if (++read.tail == read.queue + m.maxrenderedsector)
+			read.tail = read.queue;
+		if (renderedsectors[read.now.sectorno] & (m.maxrenderedsector + 1))
+			continue;
+		++renderedsectors[read.now.sectorno];
 		point = 0;
-		while (point < m.sector[sector].wall_count)
+		while (point < m.sector[read.now.sectorno].wall_count)
 		{
-			work.v1.x = m.sector[sector].dot[point + 0].x - m.player.coor.x;
-			work.v1.y = m.sector[sector].dot[point + 0].y - m.player.coor.y;
-			work.v2.x = m.sector[sector].dot[point + 1].x - m.player.coor.x;
-			work.v2.y = m.sector[sector].dot[point + 1].y - m.player.coor.y;
+			work.v1.x = m.sector[read.now.sectorno].dot[point + 0].x - m.player.coor.x;
+			work.v1.y = m.sector[read.now.sectorno].dot[point + 0].y - m.player.coor.y;
+			work.v2.x = m.sector[read.now.sectorno].dot[point + 1].x - m.player.coor.x;
+			work.v2.y = m.sector[read.now.sectorno].dot[point + 1].y - m.player.coor.y;
 
 			work.pcos = m.player.anglecos;
 			work.psin = m.player.anglesin;
@@ -327,128 +362,133 @@ void draw(t_env *w, t_map m)
 					}
 				}
 			}
-			work.xscale1 = HFOV / work.t1.z;
-			work.yscale1 = VFOV / work.t1.z;
-			work.xscale2 = HFOV / work.t2.z;
-			work.yscale2 = VFOV / work.t2.z;
+			work.xscale1 = m.player.field_of_vision_h / work.t1.z;
+			work.yscale1 = m.player.field_of_vision_v / work.t1.z;
+			work.xscale2 = m.player.field_of_vision_h / work.t2.z;
+			work.yscale2 = m.player.field_of_vision_v / work.t2.z;
 			work.x1 = WIDTH / 2 - (int)(work.t1.x * work.xscale1);
 			work.x2 = WIDTH / 2 - (int)(work.t2.x * work.xscale2);
 
-			if (work.x1 >= work.x2 || work.x2 > 0 || work.x1 < HEIGHT-1)
+			if (work.x1 >= work.x2 || work.x2 < read.now.sx1 || work.x1 > read.now.sx2)
 			{
-				work.yceil = m.sector[sector].ceiling - m.player.coor.z;
-				work.yfloor = m.sector[sector].floor - m.player.coor.z;
-				work.network = m.sector[sector].network[point];
-				work.nyceil = 0;
-				work.nyfloor = 0;
+				point++;
+				continue;
+			}
+			work.yceil = m.sector[read.now.sectorno].ceiling - m.player.coor.z;
+			work.yfloor = m.sector[read.now.sectorno].floor - m.player.coor.z;
+			work.network = m.sector[read.now.sectorno].network[point];
+			work.nyceil = 0;
+			work.nyfloor = 0;
+			if (work.network >= 0)
+			{
+				work.nyceil = m.sector[work.network].ceiling - m.player.coor.z;
+				work.nyfloor = m.sector[work.network].floor - m.player.coor.z;
+			}
+			work.y1a = HEIGHT / 2 - (int)(yaw(work.yceil, work.t1.z, m) * work.yscale1);
+			work.y2a = HEIGHT / 2 - (int)(yaw(work.yceil, work.t2.z, m) * work.yscale2);
+			work.y1b = HEIGHT / 2 - (int)(yaw(work.yfloor, work.t1.z, m) * work.yscale1);
+			work.y2b = HEIGHT / 2 - (int)(yaw(work.yfloor, work.t2.z, m) * work.yscale2);
+			work.ny1a = HEIGHT / 2 - (int)(yaw(work.nyceil, work.t1.z, m) * work.yscale1);
+			work.ny2a = HEIGHT / 2 - (int)(yaw(work.nyceil, work.t2.z, m) * work.yscale2);
+			work.ny1b = HEIGHT / 2 - (int)(yaw(work.nyfloor, work.t1.z, m) * work.yscale1);
+			work.ny2b = HEIGHT / 2 - (int)(yaw(work.nyfloor, work.t2.z, m) * work.yscale2);
+
+			work.startx = vmax(work.x1, read.now.sx1);
+			work.endx = vmin(work.x2, read.now.sx2);
+			x = work.startx;
+			while (x <= work.endx)
+			{
+				work.z = ((x - work.x1) * (work.t2.z - work.t1.z) / (work.x2 - work.x1) + work.t1.z) * 5;
+				work.ya = (x - work.x1) * (work.y2a - work.y1a) / (work.x2 - work.x1) + work.y1a;
+				work.yb = (x - work.x1) * (work.y2b - work.y1b) / (work.x2 - work.x1) + work.y1b;
+				work.cya = vmid(work.ya, work.ytop[x], work.ybot[x]);
+				work.cyb = vmid(work.yb, work.ytop[x], work.ybot[x]);
+				vertical_line_moche(x, work.ytop[x], work.cya - 1, w, 0x12677179);
+				vertical_line(x, work.cyb + 1, work.ybot[x], w, work.color2);
 				if (work.network >= 0)
 				{
-					work.nyceil = m.sector[work.network].ceiling - m.player.coor.z;
-					work.nyfloor = m.sector[work.network].floor - m.player.coor.z;
-				}
-				work.y1a = HEIGHT / 2 - (int)(yaw(work.yceil, work.t1.z, m) * work.yscale1);
-				work.y1b = HEIGHT / 2 - (int)(yaw(work.yfloor, work.t1.z, m) * work.yscale1);
-				work.y2a = HEIGHT / 2 - (int)(yaw(work.yceil, work.t2.z, m) * work.yscale2);
-				work.y2b = HEIGHT / 2 - (int)(yaw(work.yfloor, work.t2.z, m) * work.yscale2);
-				work.ny1a = HEIGHT / 2 - (int)(yaw(work.nyceil, work.t1.z, m) * work.yscale1);
-				work.ny1b = HEIGHT / 2 - (int)(yaw(work.nyfloor, work.t1.z, m) * work.yscale1);
-				work.ny2a = HEIGHT / 2 - (int)(yaw(work.nyceil, work.t2.z, m) * work.yscale2);
-				work.ny2b = HEIGHT / 2 - (int)(yaw(work.nyfloor, work.t2.z, m) * work.yscale2);
-
-				work.startx = vmax(work.x1, 0);
-				work.endx = vmin(work.x2, WIDTH);
-				x = work.startx;
-				while (x < work.endx)
-				{
-					work.z = ((x - work.x1) * (work.t2.z - work.t1.z) / (work.x2 - work.x1) + work.t1.z) * 5;
-					work.ya = (x - work.x1) * (work.y2a - work.y1a) / (work.x2 - work.x1) + work.y1a;
-					work.yb = (x - work.x1) * (work.y2b - work.y1b) / (work.x2 - work.x1) + work.y1b;
-					work.cya = vmid(work.ya, work.ytop[x], work.ybot[x]);
-					work.cyb = vmid(work.yb, work.ytop[x], work.ybot[x]);
-					vertical_line(x, work.ytop[x], work.cya - 1, w, work.color);
-					vertical_line(x, work.cyb + 1, work.ybot[x], w, work.color2);
-
-					if (work.network >= 0)
+					work.nya = (x - work.x1) * (work.ny2a - work.ny1a) / (work.x2 - work.x1) + work.ny1a;
+					work.nyb = (x - work.x1) * (work.ny2b - work.ny1b) / (work.x2 - work.x1) + work.ny1b;
+					work.cnya = vmid(work.nya, work.ytop[x], work.ybot[x]);
+					work.cnyb = vmid(work.nyb, work.ytop[x], work.ybot[x]);
+					work.r1 = 0x12010101 * (255 - work.z);
+					work.r2 = 0x12040007 * (31 - work.z / 8);
+					if (work.z > 255)
+						work.z = 255;
+					work.color.top = 0;
+					work.color.bottom = 0;
+					if (x == work.x1 || x == work.x2)
 					{
-						work.nya = (x - work.x1) * (work.ny2a - work.ny1a) / (work.x2 - work.x1) + work.ny1a;
-						work.nyb = (x - work.x1) * (work.ny2b - work.ny1b) / (work.x2 - work.x1) + work.ny1b;
-						work.cnya = vmid(work.nya, work.ytop[x], work.ybot[x]);
-						work.cnyb = vmid(work.nyb, work.ytop[x], work.ybot[x]);
-						work.r1 = 0x12010101 * (255 - work.z);
-						work.r2 = 0x12040007 * (31 - work.z / 8);
-						if (work.z > 255)
-							work.z = 255;
-						work.color.top = 0;
-						work.color.bottom = 0;
-						if (x == work.x1 || x == work.x2)
-						{
-							work.color.middle = 0;
-							vertical_line(x, work.cya, work.cnya - 1, w, work.color);
-						}
-						else
-						{
-							work.color.middle = work.r1;
-							vertical_line(x, work.cya, work.cnya - 1, w, work.color);
-						}
-						work.ytop[x] = vmid(vmax(work.cya, work.cnya), work.ytop[x], HEIGHT - 1);
-						if (x == work.x1 || x == work.x2)
-						{
- 							work.color.middle = 0;
-							vertical_line(x, work.cnyb + 1, work.cyb, w, work.color);
-							} 
-						else
-						{
-							work.color.middle = work.r2;
-							vertical_line(x, work.cnyb + 1, work.cyb, w, work.color);
-						}
-						work.ybot[x] = vmid(vmin(work.cyb, work.cnyb), 0, work.ybot[x]);
+						work.color.middle = 0;
+						vertical_line(x, work.cya, work.cnya - 1, w, work.color);
 					}
 					else
 					{
-						if (work.z > 255)
-							work.z = 255;
-						work.r = 0x12010101 * (255 - work.z);
-						if (x == work.x1 || x == work.x2)
+						work.color.middle = work.r1;
+						vertical_line(x, work.cya, work.cnya - 1, w, work.color);
+					}
+					work.ytop[x] = vmid(vmax(work.cya, work.cnya), work.ytop[x], HEIGHT - 1);
+					if (x == work.x1 || x == work.x2)
+					{
+							work.color.middle = 0;
+						vertical_line(x, work.cnyb + 1, work.cyb, w, work.color);
+						} 
+					else
+					{
+						work.color.middle = work.r2;
+						vertical_line(x, work.cnyb + 1, work.cyb, w, work.color);
+					}
+					work.ybot[x] = vmid(vmin(work.cyb, work.cnyb), 0, work.ybot[x]);
+				}
+				else
+				{
+					if (work.z > 255)
+						work.z = 255;
+					work.r = 0x12010101 * (255 - work.z);
+					if (x == work.x1 || x == work.x2)
+					{
+						if (m.trippymod == 1)
+							set_wall_trippy(w, x, work.cya, work.cyb, 0);	
+						else
 						{
-							if (m.trippymod == 1)
-								set_wall_trippy(w, x, work.cya, work.cyb, 0);	
-							else
-							{
-								work.color.middle = 0;
-								vertical_line(x, work.cya, work.cyb, w, work.color);
-							}
+							work.color.middle = 0;
+							vertical_line(x, work.cya, work.cyb, w, work.color);
+						}
+					}
+					else
+					{
+						if (m.trippymod == 1)
+						{
+							work.r = 0x129EFD38 * (255 - work.z);
+							set_wall_trippy(w, x, work.cya, work.cyb, work.r);
 						}
 						else
 						{
-							if (m.trippymod == 1)
-							{
-								work.r = 0x129EFD38 * (255 - work.z);
-								set_wall_trippy(w, x, work.cya, work.cyb, work.r);
-							}
-							else
-							{
-								work.color.middle = work.r;
-								vertical_line(x, work.cya, work.cyb, w, work.color);
-							}
+							work.color.middle = work.r;
+							vertical_line(x, work.cya, work.cyb, w, work.color);
 						}
 					}
-					if (work.network >= 0 && work.endx >= work.startx)
-					{
-						work.sx1 = work.startx;
-						work.sx2 = work.endx;
-					}
-					x++;
-					// SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
-					// SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
-					// SDL_RenderPresent(w->rdr);
-					// SDL_Delay(10);
 				}
+				x++;
+				// SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
+				// SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
+				// SDL_RenderPresent(w->rdr);
+				// SDL_Delay(10);
+			}
+			if (work.network >= 0 && work.endx >= work.startx && (read.head + m.maxrenderedsector + 1 - read.tail) % m.maxrenderedsector)
+			{
+				read.head->sectorno = work.network;
+				read.head->sx1 = work.startx;
+				read.head->sx2 = work.endx;
+				if (++read.head == read.queue + m.maxrenderedsector)
+					read.head = read.queue;
 			}
 			point++;
 		}
-		sector++;
+		++renderedsectors[read.now.sectorno];
 	}
 }
+
 
 
 
