@@ -229,28 +229,32 @@ void draw_mini_map(t_env *w, t_map m)
 	int sector;
 	int point;
 
-	clean_render(w, 0x12000000);
+	clean_render(w, 0x12DEDEDE);
 	work.p1.x = (m.player.coor.x - m.player.coor.x) + (WIDTH / 2);
-	work.p1.y = (m.player.coor.y - m.player.coor.y) + (HEIGHT / 2);
-	work.p2.x = m.player.anglecos * 5 + (WIDTH / 2);
-	work.p2.y = m.player.anglesin * 5 + (HEIGHT / 2);
-	set_txtr_dot(w, work.p1.x, work.p1.y, 0x12BF3030);
-	// vect_ab(work.p1, work.p2, w, 0x120F0F0F);
+	work.p1.y = (m.player.coor.y - m.player.coor.y) + (HEIGHT / 2) - 1;
+	work.p2.x = (m.player.coor.x - m.player.coor.x) + (WIDTH / 2);
+	work.p2.y = (m.player.coor.y - m.player.coor.y) + (HEIGHT / 2) - 10;
+	set_txtr_dot(w, work.p1.x, work.p1.y + 1, 0x12BF3030);
+	vect_ab(work.p1, work.p2, w, 0x120F0F0F);
 	sector = 0;
-	// while (sector < m.sector_count)
-	// {
+	while (sector < m.sector_count)
+	{
 		point = 0;
-	// 	while (point < m.sector[sector].wall_count)
-	// 	{
-	// 		work.v1.x = m.sector[sector].dot[point].x * 4;
-	// 		work.v1.y = m.sector[sector].dot[point].y * 4;
-	// 		work.v2.x = m.sector[sector].dot[point + 1].x * 4;
-	// 		work.v2.y = m.sector[sector].dot[point + 1].y * 4;
-	// 		vect_ab(work.v1, work.v2, w, 0x12FF0000);
-	// 		point++;
-	// 	}
-	// 	sector++;
-	// }
+		while (point < m.sector[sector].wall_count)
+		{
+			work.v1.x = (m.sector[sector].dot[point].x - m.player.coor.x);
+			work.v1.y = (m.sector[sector].dot[point].y - m.player.coor.y);
+			work.v2.x = (m.sector[sector].dot[point + 1].x - m.player.coor.x);
+			work.v2.y = (m.sector[sector].dot[point + 1].y - m.player.coor.y);
+			work.t1.x = -(work.v1.x * m.player.anglesin - work.v1.y * m.player.anglecos) * 5 + (WIDTH / 2);
+			work.t1.y = -(work.v1.x * m.player.anglecos + work.v1.y * m.player.anglesin) * 5 + (HEIGHT / 2);
+			work.t2.x = -(work.v2.x * m.player.anglesin - work.v2.y * m.player.anglecos) * 5 + (WIDTH / 2);
+			work.t2.y = -(work.v2.x * m.player.anglecos + work.v2.y * m.player.anglesin) * 5 + (HEIGHT / 2);
+			vect_ab(work.t1, work.t2, w, 0x12FF0000);
+			point++;
+		}
+		sector++;
+	}
 }
 
 void draw(t_env *w, t_map m)
@@ -400,6 +404,8 @@ void draw(t_env *w, t_map m)
 			while (x <= work.endx)
 			{
 				work.z = ((x - work.x1) * (work.t2.z - work.t1.z) / (work.x2 - work.x1) + work.t1.z) * 5;
+				if (work.z > 255)
+					work.z = 255;
 				work.ya = (x - work.x1) * (work.y2a - work.y1a) / (work.x2 - work.x1) + work.y1a;
 				work.yb = (x - work.x1) * (work.y2b - work.y1b) / (work.x2 - work.x1) + work.y1b;
 				work.cya = vmid(work.ya, work.ytop[x], work.ybot[x]);
@@ -443,8 +449,6 @@ void draw(t_env *w, t_map m)
 				}
 				else
 				{
-					if (work.z > 255)
-						work.z = 255;
 					work.r = 0x12010101 * (255 - work.z);
 					if (x == work.x1 || x == work.x2)
 					{
