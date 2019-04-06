@@ -108,6 +108,7 @@ typedef struct		s_player
 	double			hole_high;
 	int				press;
 	double			accel;
+	int				display;
 }					t_player;
 
 typedef struct		s_intersect
