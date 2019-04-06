@@ -50,6 +50,7 @@ void	set_basics(t_map *m)
 	m->line = NULL;
 	m->gravity = BASE_GRAVITY;
 	m->maxrenderedsector = 32;
+	m->sequential_draw = 0;
 }
 
 void	set_advanced_run(char **av, t_env *w, t_map *m)
@@ -57,7 +58,14 @@ void	set_advanced_run(char **av, t_env *w, t_map *m)
 	if (ft_strcmp(av[1], "-map") == 0)
 	{
 		if (av[2])
+		{
+			if (av[3])
+			{
+				if (ft_strcmp(av[3], "-seq") == 0)
+					m->sequential_draw = 1;
+			}
 			set_special_run(m, av);
+		}
 		else
 			ft_putendl("no map specified");
 	}
@@ -69,10 +77,11 @@ void	set_advanced_run(char **av, t_env *w, t_map *m)
 		else
 		{
 			ft_putendl("\nThis part of the program is curently in development.");
-			ft_putendl("the only command usable now is \"-recap_parsing\" with args :");
-			ft_putendl("  \"map_list_general\"  \"map_list_dots\"  \"map_list_sectors\"");
-			ft_putendl("  \"map_list_sector all <attribut>\"  \"player_list_vars\"\n");
-			ft_putendl("possibles <attribut> are \"general\" \"dots\" \"network\"");
+			ft_putendl("the only commands usable now are\n\"-recap_parsing\" with args :");
+			ft_putendl("\t\"map_list_general\"\t\"map_list_dots\"\t\"map_list_sectors\"");
+			ft_putendl("\t\"map_list_sector all <attribut>\"\t\"player_list_vars\"");
+			ft_putendl("<attribut> are \"general\" \"dots\" \"network\"");
+			ft_putendl("\n-map maps/<name_of_map.dn3d>");
 		}
 		free(w);
 		free(m);

@@ -206,21 +206,61 @@ void		key_events(t_env *w, t_map *m)
 	{
 		m->player.move_speedless.x += m->player.anglecos / 5;
 		m->player.move_speedless.y += m->player.anglesin / 5; 
+		if (m->player.stance == 1)
+		{
+			m->player.move_speedless.x /= 2;
+			m->player.move_speedless.y /= 2;
+		}
+		if (m->player.stance == 2)
+		{
+			m->player.move_speedless.x /= 4;
+			m->player.move_speedless.y /= 4;
+		}
 	}
 	if (w->inkeys[SDL_SCANCODE_S])
 	{
 		m->player.move_speedless.x -= m->player.anglecos / 5;
 		m->player.move_speedless.y -= m->player.anglesin / 5;
+		if (m->player.stance == 1)
+		{
+			m->player.move_speedless.x /= 2;
+			m->player.move_speedless.y /= 2;
+		}
+		if (m->player.stance == 2)
+		{
+			m->player.move_speedless.x /= 4;
+			m->player.move_speedless.y /= 4;
+		}
 	}
 	if (w->inkeys[SDL_SCANCODE_A])
 	{
 		m->player.move_speedless.x += m->player.anglesin / 5;
 		m->player.move_speedless.y -= m->player.anglecos / 5;
+		if (m->player.stance == 1)
+		{
+			m->player.move_speedless.x /= 2;
+			m->player.move_speedless.y /= 2;
+		}
+		if (m->player.stance == 2)
+		{
+			m->player.move_speedless.x /= 4;
+			m->player.move_speedless.y /= 4;
+		}
 	}
 	if (w->inkeys[SDL_SCANCODE_D])
 	{
 		m->player.move_speedless.x -= m->player.anglesin / 5;
 		m->player.move_speedless.y += m->player.anglecos / 5;
+		if (m->player.stance == 1)
+		{
+			m->player.move_speedless.x /= 2;
+			m->player.move_speedless.y /= 2;
+		}
+		if (m->player.stance == 2)
+		{
+			m->player.move_speedless.x /= 4;
+			m->player.move_speedless.y /= 4;
+		}
 	}
 	if (w->inkeys[SDL_SCANCODE_Q])
 	{
@@ -237,9 +277,9 @@ void		key_events(t_env *w, t_map *m)
 	}
 	if (w->inkeys[SDL_SCANCODE_SPACE])
 	{
-		if (m->player.ground == 1)
+		if (m->player.ground == 1 && m->player.stance == 0)
 		{
-			m->player.move_speed.z = m->player.move_speed.z + 0.8;
+			m->player.move_speed.z = m->player.move_speed.z + 1;
 			m->player.fall = 1;
 		}
 	}
@@ -264,6 +304,13 @@ int			init_sdl(t_env *w)
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_ShowCursor(SDL_DISABLE);
 	return (0);
+}
+
+void	img_update(t_env *w)
+{
+	SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
+	SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
+	SDL_RenderPresent(w->rdr);
 }
 
 int		run(t_env *w, t_map *m)
@@ -347,16 +394,15 @@ int		run(t_env *w, t_map *m)
 			draw(w, *m);
 		else if (m->player.display == 1)
 			draw_mini_map(w, *m);
-		SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
-		SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
-		SDL_RenderPresent(w->rdr);
+		img_update(w);
 		get_height(m);
 		is_falling(m);
 		is_moving(m);
 		w->inkeys = SDL_GetKeyboardState(NULL);
 		key_events(w, m);
 		slow_down(w, m);
-		// SDL_Delay(10);
+		if (m->sequential_draw == 1)
+			exit_game(w, m);
 	}
 	return (0);
 }

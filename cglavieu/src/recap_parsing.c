@@ -135,24 +135,29 @@ void	recap_map_list_sector(t_map *m, char **str)
 		if (ft_isdigit(str[3][0]) == 1)
 		{
 			i = ft_atoi(str[3]);
-			if (str[4] == NULL)
+			if (i < m->sector_count)
 			{
-				j = 0;
-				printf("sector %d : wall_count = %d\n", i, m->sector[i].wall_count);
-				printf("sector %d : floor_height = %f\n", i, m->sector[i].floor);
-				printf("sector %d : ceiling_height = %f\n", i, m->sector[i].ceiling);
-				while (j < m->sector[i].wall_count)
+				if (str[4] == NULL)
 				{
-					printf("dot_%d : x = %f, y = %f\n", j, m->sector[i].dot[j].x, m->sector[i].dot[j].y);
-					j++;
-				}
-				j = 0;
-				while (j < m->sector[i].wall_count)
-				{
-					printf("network_%d : %d\n", j, m->sector[i].network[j]);
-					j++;
+					j = 0;
+					printf("sector %d : wall_count = %d\n", i, m->sector[i].wall_count);
+					printf("sector %d : floor_height = %f\n", i, m->sector[i].floor);
+					printf("sector %d : ceiling_height = %f\n", i, m->sector[i].ceiling);
+					while (j < m->sector[i].wall_count)
+					{
+						printf("dot_%d : x = %f, y = %f\n", j, m->sector[i].dot[j].x, m->sector[i].dot[j].y);
+						j++;
+					}
+					j = 0;
+					while (j < m->sector[i].wall_count)
+					{
+						printf("network_%d : %d\n", j, m->sector[i].network[j]);
+						j++;
+					}
 				}
 			}
+			else
+				ft_putendl("this sector don't exist...");
 		}
 	}
 }

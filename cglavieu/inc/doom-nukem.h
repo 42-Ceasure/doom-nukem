@@ -211,6 +211,7 @@ typedef struct		s_map
 	double			yaw;
 	double			gravity;
 	int maxrenderedsector;
+	int sequential_draw;
 }					t_map;
 
 typedef struct		s_env
@@ -247,5 +248,6 @@ void vect_ab(t_coor p1, t_coor p2, t_env *w, Uint32 color);
 void	set_txtr_pix(t_env *w, int x, int y, Uint32 color);
 double yaw(double y, double z, t_map m);
 void draw_mini_map(t_env *w, t_map m);
+void img_update(t_env *w);
 
 #endif
