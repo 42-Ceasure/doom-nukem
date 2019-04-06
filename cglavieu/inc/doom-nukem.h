@@ -6,19 +6,17 @@
 # include <fcntl.h>
 
 # define NAME 		"Doom-Numkem3D"
-# define WIDTH 		800
-# define HEIGHT 	600
+# define WIDTH 		1024
+# define HEIGHT 	576
 # define KEY 		w->event.key.keysym.sym
 # define MRS		32
 # define PL_X		m->player.coor.x
 # define PL_Y		m->player.coor.y
 # define PL_A		m->player.angle
-# define HFOV		(0.73f*HEIGHT)
-# define VFOV		(.2f*HEIGHT)
-# define STAND		8
+# define STAND		10
 # define HEADMARGIN	1
-# define CROUCH		2.5
-# define KNEEH		2
+# define CROUCH		5
+# define KNEEH		2.5
 # define BASE_GRAVITY 0.05
 
 typedef struct		s_vect

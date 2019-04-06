@@ -229,7 +229,7 @@ void draw_mini_map(t_env *w, t_map m)
 	int sector;
 	int point;
 
-	clean_render(w, 0x12DEDEDE);
+	clean_render(w, 0x12CECECE);
 	work.p1.x = (m.player.coor.x - m.player.coor.x) + (WIDTH / 2);
 	work.p1.y = (m.player.coor.y - m.player.coor.y) + (HEIGHT / 2) - 1;
 	work.p2.x = (m.player.coor.x - m.player.coor.x) + (WIDTH / 2);
@@ -246,10 +246,10 @@ void draw_mini_map(t_env *w, t_map m)
 			work.v1.y = (m.sector[sector].dot[point].y - m.player.coor.y);
 			work.v2.x = (m.sector[sector].dot[point + 1].x - m.player.coor.x);
 			work.v2.y = (m.sector[sector].dot[point + 1].y - m.player.coor.y);
-			work.t1.x = -(work.v1.x * m.player.anglesin - work.v1.y * m.player.anglecos) * 5 + (WIDTH / 2);
-			work.t1.y = -(work.v1.x * m.player.anglecos + work.v1.y * m.player.anglesin) * 5 + (HEIGHT / 2);
-			work.t2.x = -(work.v2.x * m.player.anglesin - work.v2.y * m.player.anglecos) * 5 + (WIDTH / 2);
-			work.t2.y = -(work.v2.x * m.player.anglecos + work.v2.y * m.player.anglesin) * 5 + (HEIGHT / 2);
+			work.t1.x = -(work.v1.x * m.player.anglesin - work.v1.y * m.player.anglecos) * 10 + (WIDTH / 2);
+			work.t1.y = -(work.v1.x * m.player.anglecos + work.v1.y * m.player.anglesin) * 10 + (HEIGHT / 2);
+			work.t2.x = -(work.v2.x * m.player.anglesin - work.v2.y * m.player.anglecos) * 10 + (WIDTH / 2);
+			work.t2.y = -(work.v2.x * m.player.anglecos + work.v2.y * m.player.anglesin) * 10 + (HEIGHT / 2);
 			vect_ab(work.t1, work.t2, w, 0x12FF0000);
 			point++;
 		}

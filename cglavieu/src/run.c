@@ -24,10 +24,16 @@ void		exit_game(t_env *w, t_map *m)
 
 void		get_height(t_map *m)
 {
+	int tmp;
+
+	tmp = m->sector[m->player.sector].ceiling - m->sector[m->player.sector].floor;
 	if (m->player.crouch == 1)
 		m->player.height = CROUCH;
 	if (m->player.crouch == 0)
 		m->player.height = STAND;
+	if (tmp < m->player.height)
+		m->player.height = CROUCH;
+
 	m->player.ground = !m->player.fall;
 }
 
@@ -172,7 +178,8 @@ void		is_moving(t_map *m)
 void		motion_events(t_env *w, t_map *m)
 {
 	PL_A = PL_A + w->event.motion.xrel * 0.001;
-	m->yaw = vmid(m->yaw + w->event.motion.yrel * 0.002, -5, 5);
+	// m->yaw = vmid(m->yaw + w->event.motion.yrel * 0.002, -5, 5);
+	m->yaw = m->yaw + w->event.motion.yrel * 0.002;
 	m->player.yaw   = m->yaw - m->player.move_speed.z * 0.02;
 	move_player(0, 0, m);
 }
