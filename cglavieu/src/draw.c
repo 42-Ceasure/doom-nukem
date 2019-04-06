@@ -229,27 +229,28 @@ void draw_mini_map(t_env *w, t_map m)
 	int sector;
 	int point;
 
-	work.p1.x = m.player.coor.x * 4;
-	work.p1.y = m.player.coor.y * 4;
-	work.p2.x = m.player.anglecos * 5 + work.p1.x;
-	work.p2.y = m.player.anglesin * 5 + work.p1.y;
+	clean_render(w, 0x12000000);
+	work.p1.x = (m.player.coor.x - m.player.coor.x) + (WIDTH / 2);
+	work.p1.y = (m.player.coor.y - m.player.coor.y) + (HEIGHT / 2);
+	work.p2.x = m.player.anglecos * 5 + (WIDTH / 2);
+	work.p2.y = m.player.anglesin * 5 + (HEIGHT / 2);
+	set_txtr_dot(w, (m.player.coor.x * 4), (m.player.coor.y * 4), 0x12BF3030);
+	// vect_ab(work.p1, work.p2, w, 0x120F0F0F);
 	sector = 0;
-	while (sector < m.sector_count)
-	{
+	// while (sector < m.sector_count)
+	// {
 		point = 0;
-		while (point < m.sector[sector].wall_count)
-		{
-			work.v1.x = m.sector[sector].dot[point].x * 4;
-			work.v1.y = m.sector[sector].dot[point].y * 4;
-			work.v2.x = m.sector[sector].dot[point + 1].x * 4;
-			work.v2.y = m.sector[sector].dot[point + 1].y * 4;
-			set_txtr_dot(w, (m.player.coor.x * 4), (m.player.coor.y * 4), 0x12BF3030);
-			vect_ab(work.p1, work.p2, w, 0x120F0F0F);
-			vect_ab(work.v1, work.v2, w, 0x12FF0000);
-			point++;
-		}
-		sector++;
-	}
+	// 	while (point < m.sector[sector].wall_count)
+	// 	{
+	// 		work.v1.x = m.sector[sector].dot[point].x * 4;
+	// 		work.v1.y = m.sector[sector].dot[point].y * 4;
+	// 		work.v2.x = m.sector[sector].dot[point + 1].x * 4;
+	// 		work.v2.y = m.sector[sector].dot[point + 1].y * 4;
+	// 		vect_ab(work.v1, work.v2, w, 0x12FF0000);
+	// 		point++;
+	// 	}
+	// 	sector++;
+	// }
 }
 
 void draw(t_env *w, t_map m)

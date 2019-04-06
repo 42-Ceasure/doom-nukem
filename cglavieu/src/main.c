@@ -32,19 +32,20 @@ void	set_basic_run(t_map *m)
 
 void	set_basics(t_map *m)
 {
-	m->map_path = "maps/map0.dn3d";
-	m->map_name = "test";
 	m->i = 0;
 	m->s = 0;
+	m->map_path = "maps/map0.dn3d";
+	m->map_name = "test";
 	m->section_number = 0;
-	m->dots_count = 0;
 	m->sector_count = 0;
-	m->dot = NULL;
 	m->sector = NULL;
+	m->dots_count = 0;
+	m->dot = NULL;
 	m->player.field_of_vision_h = 0.73f * HEIGHT;
 	m->player.field_of_vision_v = .2f * HEIGHT;
 	m->player.fall = 1;
 	m->player.crouch = 0;
+	m->player.display = 0;
 	m->yaw = 0;
 	m->line = NULL;
 	m->gravity = BASE_GRAVITY;

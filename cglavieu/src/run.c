@@ -291,6 +291,8 @@ int		run(t_env *w, t_map *m)
 					m->sector[m->player.sector].ceiling += 1;
 				if (KEY == SDLK_END)
 					m->sector[m->player.sector].ceiling -= 1;
+				if (KEY == SDLK_TAB)
+					m->player.display = 1;
 			}
 			if (w->event.type == SDL_KEYUP)
 			{
@@ -299,12 +301,16 @@ int		run(t_env *w, t_map *m)
 					m->player.crouch = 0;
 					m->player.fall = 1;
 				}
+				if (KEY == SDLK_TAB)
+					m->player.display = 0;
 			}
 			if (w->event.type == SDL_MOUSEMOTION)
 				motion_events(w, m);
 		}
-		draw(w, *m);
-		draw_mini_map(w, *m);
+		if (m->player.display == 0)
+			draw(w, *m);
+		else if (m->player.display == 1)
+			draw_mini_map(w, *m);
 		SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
 		SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
 		SDL_RenderPresent(w->rdr);
