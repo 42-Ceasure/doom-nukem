@@ -44,7 +44,7 @@ void	set_basics(t_map *m)
 	m->player.field_of_vision_h = 0.5 * WIDTH;
 	m->player.field_of_vision_v = 0.3 * HEIGHT;
 	m->player.fall = 1;
-	m->player.crouch = 0;
+	m->player.stance = 0;
 	m->player.display = 0;
 	m->yaw = 0;
 	m->line = NULL;

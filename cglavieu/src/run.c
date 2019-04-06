@@ -27,12 +27,29 @@ void		get_height(t_map *m)
 	int tmp;
 
 	tmp = m->sector[m->player.sector].ceiling - m->sector[m->player.sector].floor;
-	if (m->player.crouch == 1)
-		m->player.height = CROUCH;
-	if (m->player.crouch == 0)
-		m->player.height = STAND;
-	if (tmp < m->player.height)
-		m->player.height = CROUCH;
+	if (m->player.stance == 0)
+	{
+		if (tmp < STAND)
+		{
+			if (tmp > CROUCH)
+				m->player.height = CROUCH;
+			else
+				m->player.height = CRAWL;
+		}
+		else if (m->player.height < STAND)
+			m->player.height = m->player.height + 0.3;
+		else
+			m->player.height = STAND;
+	}
+	if (m->player.stance == 1)
+	{
+		if (m->player.height < CROUCH)
+			m->player.height = m->player.height + 0.1;
+		else
+			m->player.height = CROUCH;
+	}
+	if (m->player.stance == 2)
+		m->player.height = CRAWL;
 
 	m->player.ground = !m->player.fall;
 }
@@ -178,8 +195,7 @@ void		is_moving(t_map *m)
 void		motion_events(t_env *w, t_map *m)
 {
 	PL_A = PL_A + w->event.motion.xrel * 0.001;
-	// m->yaw = vmid(m->yaw + w->event.motion.yrel * 0.002, -5, 5);
-	m->yaw = m->yaw + w->event.motion.yrel * 0.002;
+	m->yaw = vmid(m->yaw + w->event.motion.yrel * 0.002, -10, 10);
 	m->player.yaw   = m->yaw - m->player.move_speed.z * 0.02;
 	move_player(0, 0, m);
 }
@@ -227,11 +243,6 @@ void		key_events(t_env *w, t_map *m)
 			m->player.fall = 1;
 		}
 	}
-	if (w->inkeys[SDL_SCANCODE_LCTRL])
-	{
-		if (w->inkeys[SDL_SCANCODE_LCTRL] == 1)
-			m->player.crouch = w->inkeys[SDL_SCANCODE_LCTRL];
-	}
 }
 
 int			init_sdl(t_env *w)
@@ -251,7 +262,7 @@ int			init_sdl(t_env *w)
 										WIDTH,
 										HEIGHT);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
-	// SDL_ShowCursor(SDL_DISABLE);
+	SDL_ShowCursor(SDL_DISABLE);
 	return (0);
 }
 
@@ -276,6 +287,27 @@ int		run(t_env *w, t_map *m)
 						m->trippymod = 0;
 					else
 						m->trippymod = 1;
+				}
+				if (KEY == SDLK_LCTRL)
+				{
+					m->player.stance = 1;
+					m->player.fall = 1;
+				}
+				if (KEY == SDLK_z)
+				{
+					if (m->player.stance != 2)
+						m->player.stance = 2;
+					else
+						m->player.stance = 0;
+					m->player.fall = 1;
+				}
+				if (KEY == SDLK_x)
+				{
+					if (m->player.stance != 1)
+						m->player.stance = 1;
+					else
+						m->player.stance = 0;
+					m->player.fall = 1;
 				}
 				if (KEY == SDLK_KP_PLUS)
 					m->maxrenderedsector += 1;
@@ -304,10 +336,7 @@ int		run(t_env *w, t_map *m)
 			if (w->event.type == SDL_KEYUP)
 			{
 				if (KEY == SDLK_LCTRL)
-				{
-					m->player.crouch = 0;
-					m->player.fall = 1;
-				}
+					m->player.stance = 0;
 				if (KEY == SDLK_TAB)
 					m->player.display = 0;
 			}

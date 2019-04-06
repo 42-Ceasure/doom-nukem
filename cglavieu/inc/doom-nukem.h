@@ -14,8 +14,9 @@
 # define PL_Y		m->player.coor.y
 # define PL_A		m->player.angle
 # define STAND		10
-# define HEADMARGIN	1
 # define CROUCH		5
+# define CRAWL		2
+# define HEADMARGIN	1
 # define KNEEH		2.5
 # define BASE_GRAVITY 0.05
 
@@ -101,7 +102,6 @@ typedef struct		s_player
 	int				ground;
 	int				moving;
 	double			height;
-	double			crouch;
 	double			hole_low;
 	double			hole_high;
 	int				press;
