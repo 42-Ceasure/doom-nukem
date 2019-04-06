@@ -234,7 +234,7 @@ void draw_mini_map(t_env *w, t_map m)
 	work.p1.y = (m.player.coor.y - m.player.coor.y) + (HEIGHT / 2);
 	work.p2.x = m.player.anglecos * 5 + (WIDTH / 2);
 	work.p2.y = m.player.anglesin * 5 + (HEIGHT / 2);
-	set_txtr_dot(w, (m.player.coor.x * 4), (m.player.coor.y * 4), 0x12BF3030);
+	set_txtr_dot(w, work.p1.x, work.p1.y, 0x12BF3030);
 	// vect_ab(work.p1, work.p2, w, 0x120F0F0F);
 	sector = 0;
 	// while (sector < m.sector_count)
