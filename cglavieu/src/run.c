@@ -41,6 +41,8 @@ void		get_height(t_map *m)
 			else
 				m->player.height = CRAWL;
 		}
+		else if (m->player.height < CROUCH - 4)
+			m->player.height = m->player.height + 0.1;
 		else if (m->player.height < STAND)
 			m->player.height = m->player.height + 0.3;
 		else
@@ -50,8 +52,10 @@ void		get_height(t_map *m)
 	{
 		if (tmp < CROUCH)
 			m->player.height = CRAWL;
-		else if (m->player.height < CROUCH)
+		else if (m->player.height < CROUCH - 4)
 			m->player.height = m->player.height + 0.1;
+		else if (m->player.height < CROUCH)
+			m->player.height = m->player.height + 0.3;
 		else
 			m->player.height = CROUCH;
 	}
@@ -209,7 +213,7 @@ void		motion_events(t_env *w, t_map *m)
 
 void		key_events(t_env *w, t_map *m)
 {
-	if (w->inkeys[SDL_SCANCODE_W])
+	if (w->inkeys[SDL_SCANCODE_W] && !w->inkeys[SDL_SCANCODE_LSHIFT])
 	{
 		m->player.move_speedless.x += m->player.anglecos / 3;
 		m->player.move_speedless.y += m->player.anglesin / 3; 
@@ -290,10 +294,10 @@ void		key_events(t_env *w, t_map *m)
 			m->player.fall = 1;
 		}
 	}
-	if (w->inkeys[SDL_SCANCODE_LSHIFT])
+	if (w->inkeys[SDL_SCANCODE_LSHIFT] && w->inkeys[SDL_SCANCODE_W])
 	{
-		m->player.move_speedless.x += m->player.anglecos / 3;
-		m->player.move_speedless.y += m->player.anglesin / 3; 
+		m->player.move_speedless.x += m->player.anglecos / 1.5;
+		m->player.move_speedless.y += m->player.anglesin / 1.5; 
 		if (m->player.stance == 1)
 		{
 			m->player.move_speedless.x /= 2;
