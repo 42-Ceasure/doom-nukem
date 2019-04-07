@@ -43,7 +43,9 @@ void		get_height(t_map *m)
 	}
 	if (m->player.stance == 1)
 	{
-		if (m->player.height < CROUCH)
+		if (tmp < CROUCH)
+			m->player.height = CRAWL;
+		else if (m->player.height < CROUCH)
 			m->player.height = m->player.height + 0.1;
 		else
 			m->player.height = CROUCH;
