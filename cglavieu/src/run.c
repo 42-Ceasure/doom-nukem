@@ -57,7 +57,6 @@ void		get_height(t_map *m)
 	}
 	if (m->player.stance == 2)
 		m->player.height = CRAWL;
-
 	m->player.ground = !m->player.fall;
 }
 
@@ -194,6 +193,7 @@ void		is_moving(t_map *m)
 		}
 		s++;
 	}
+	printf("movespeed:%f,%f\n", m->player.move_speed.x, m->player.move_speed.y);
 	move_player(m->player.move_speed.x, m->player.move_speed.y, m);
 	m->player.fall = 1;
 
@@ -211,8 +211,8 @@ void		key_events(t_env *w, t_map *m)
 {
 	if (w->inkeys[SDL_SCANCODE_W])
 	{
-		m->player.move_speedless.x += m->player.anglecos / 5;
-		m->player.move_speedless.y += m->player.anglesin / 5; 
+		m->player.move_speedless.x += m->player.anglecos / 3;
+		m->player.move_speedless.y += m->player.anglesin / 3; 
 		if (m->player.stance == 1)
 		{
 			m->player.move_speedless.x /= 2;
@@ -241,8 +241,8 @@ void		key_events(t_env *w, t_map *m)
 	}
 	if (w->inkeys[SDL_SCANCODE_A])
 	{
-		m->player.move_speedless.x += m->player.anglesin / 5;
-		m->player.move_speedless.y -= m->player.anglecos / 5;
+		m->player.move_speedless.x += m->player.anglesin / 3;
+		m->player.move_speedless.y -= m->player.anglecos / 3;
 		if (m->player.stance == 1)
 		{
 			m->player.move_speedless.x /= 2;
@@ -256,8 +256,8 @@ void		key_events(t_env *w, t_map *m)
 	}
 	if (w->inkeys[SDL_SCANCODE_D])
 	{
-		m->player.move_speedless.x -= m->player.anglesin / 5;
-		m->player.move_speedless.y += m->player.anglecos / 5;
+		m->player.move_speedless.x -= m->player.anglesin / 3;
+		m->player.move_speedless.y += m->player.anglecos / 3;
 		if (m->player.stance == 1)
 		{
 			m->player.move_speedless.x /= 2;
@@ -288,6 +288,21 @@ void		key_events(t_env *w, t_map *m)
 		{
 			m->player.move_speed.z = m->player.move_speed.z + 1;
 			m->player.fall = 1;
+		}
+	}
+	if (w->inkeys[SDL_SCANCODE_LSHIFT])
+	{
+		m->player.move_speedless.x += m->player.anglecos / 3;
+		m->player.move_speedless.y += m->player.anglesin / 3; 
+		if (m->player.stance == 1)
+		{
+			m->player.move_speedless.x /= 2;
+			m->player.move_speedless.y /= 2;
+		}
+		if (m->player.stance == 2)
+		{
+			m->player.move_speedless.x /= 4;
+			m->player.move_speedless.y /= 4;
 		}
 	}
 }
@@ -386,6 +401,8 @@ int		run(t_env *w, t_map *m)
 					m->sector[m->player.sector].ceiling -= 1;
 				if (KEY == SDLK_TAB)
 					m->player.display = 1;
+				if (KEY == SDLK_KP_9)
+					printf("vFOV:%f,hFOV:%f\n", m->player.field_of_vision_v, m->player.field_of_vision_h);
 			}
 			if (w->event.type == SDL_KEYUP)
 			{

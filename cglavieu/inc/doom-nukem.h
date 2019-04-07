@@ -13,11 +13,11 @@
 # define PL_X		m->player.coor.x
 # define PL_Y		m->player.coor.y
 # define PL_A		m->player.angle
-# define STAND		10
-# define CROUCH		6.5
+# define STAND		16.9
+# define CROUCH		9.3
 # define CRAWL		2
-# define HEADMARGIN	1.5
-# define KNEEH		3
+# define HEADMARGIN	1.1
+# define KNEEH		7.9
 # define BASE_GRAVITY 0.05
 
 typedef struct		s_vect

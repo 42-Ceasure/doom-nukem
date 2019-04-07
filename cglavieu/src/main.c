@@ -41,8 +41,8 @@ void	set_basics(t_map *m)
 	m->sector = NULL;
 	m->dots_count = 0;
 	m->dot = NULL;
-	m->player.field_of_vision_h = 0.5 * WIDTH;
-	m->player.field_of_vision_v = 0.3 * HEIGHT;
+	m->player.field_of_vision_h = 512;
+	m->player.field_of_vision_v = 450;
 	m->player.fall = 1;
 	m->player.stance = 0;
 	m->player.display = 0;

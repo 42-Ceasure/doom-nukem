@@ -368,9 +368,9 @@ void draw(t_env *w, t_map m)
 				}
 			}
 			work.xscale1 = m.player.field_of_vision_h / work.t1.z;
-			work.yscale1 = m.player.field_of_vision_v / work.t1.z;
+			work.yscale1 = (m.player.field_of_vision_v) / work.t1.z;
 			work.xscale2 = m.player.field_of_vision_h / work.t2.z;
-			work.yscale2 = m.player.field_of_vision_v / work.t2.z;
+			work.yscale2 = (m.player.field_of_vision_v) / work.t2.z;
 			work.x1 = WIDTH / 2 - (int)(work.t1.x * work.xscale1);
 			work.x2 = WIDTH / 2 - (int)(work.t2.x * work.xscale2);
 
@@ -403,7 +403,7 @@ void draw(t_env *w, t_map m)
 			x = work.startx;
 			while (x <= work.endx)
 			{
-				work.z = ((x - work.x1) * (work.t2.z - work.t1.z) / (work.x2 - work.x1) + work.t1.z) * 5;
+				work.z = ((x - work.x1) * (work.t2.z - work.t1.z) / (work.x2 - work.x1) + work.t1.z) * 2;
 				if (work.z > 255)
 					work.z = 255;
 				work.ya = (x - work.x1) * (work.y2a - work.y1a) / (work.x2 - work.x1) + work.y1a;
