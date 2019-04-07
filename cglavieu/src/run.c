@@ -43,7 +43,7 @@ void		get_height(t_map *m)
 		}
 		else if (m->player.height < CROUCH - 4)
 			m->player.height = m->player.height + 0.1;
-		else if (m->player.height < STAND)
+		else if (m->player.height < STAND - 0.2)
 			m->player.height = m->player.height + 0.3;
 		else
 			m->player.height = STAND;
@@ -54,7 +54,7 @@ void		get_height(t_map *m)
 			m->player.height = CRAWL;
 		else if (m->player.height < CROUCH - 4)
 			m->player.height = m->player.height + 0.1;
-		else if (m->player.height < CROUCH)
+		else if (m->player.height < CROUCH - 0.2)
 			m->player.height = m->player.height + 0.3;
 		else
 			m->player.height = CROUCH;
@@ -140,8 +140,6 @@ void move_player(double dx, double dy, t_map *m)
 		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) < 0)
 		{
 			m->player.sector = sect->network[s];
-			ft_putstr("sector:");
-			ft_putnbrendl(m->player.sector);
 			break;
 		}
 		s++;
@@ -197,7 +195,6 @@ void		is_moving(t_map *m)
 		}
 		s++;
 	}
-	printf("movespeed:%f,%f\n", m->player.move_speed.x, m->player.move_speed.y);
 	move_player(m->player.move_speed.x, m->player.move_speed.y, m);
 	m->player.fall = 1;
 
@@ -217,60 +214,60 @@ void		key_events(t_env *w, t_map *m)
 	{
 		m->player.move_speedless.x += m->player.anglecos / 3;
 		m->player.move_speedless.y += m->player.anglesin / 3; 
-		if (m->player.stance == 1)
+		if (m->player.height <= 9.3)
 		{
 			m->player.move_speedless.x /= 2;
 			m->player.move_speedless.y /= 2;
 		}
-		if (m->player.stance == 2)
+		if (m->player.height <= 2)
 		{
-			m->player.move_speedless.x /= 4;
-			m->player.move_speedless.y /= 4;
+			m->player.move_speedless.x /= 2;
+			m->player.move_speedless.y /= 2;
 		}
 	}
 	if (w->inkeys[SDL_SCANCODE_S])
 	{
 		m->player.move_speedless.x -= m->player.anglecos / 5;
 		m->player.move_speedless.y -= m->player.anglesin / 5;
-		if (m->player.stance == 1)
+		if (m->player.height <= 9.3)
 		{
 			m->player.move_speedless.x /= 2;
 			m->player.move_speedless.y /= 2;
 		}
-		if (m->player.stance == 2)
+		if (m->player.height <= 2)
 		{
-			m->player.move_speedless.x /= 4;
-			m->player.move_speedless.y /= 4;
+			m->player.move_speedless.x /= 2;
+			m->player.move_speedless.y /= 2;
 		}
 	}
 	if (w->inkeys[SDL_SCANCODE_A])
 	{
 		m->player.move_speedless.x += m->player.anglesin / 3;
 		m->player.move_speedless.y -= m->player.anglecos / 3;
-		if (m->player.stance == 1)
+		if (m->player.height <= 9.3)
 		{
 			m->player.move_speedless.x /= 2;
 			m->player.move_speedless.y /= 2;
 		}
-		if (m->player.stance == 2)
+		if (m->player.height <= 2)
 		{
-			m->player.move_speedless.x /= 4;
-			m->player.move_speedless.y /= 4;
+			m->player.move_speedless.x /= 2;
+			m->player.move_speedless.y /= 2;
 		}
 	}
 	if (w->inkeys[SDL_SCANCODE_D])
 	{
 		m->player.move_speedless.x -= m->player.anglesin / 3;
 		m->player.move_speedless.y += m->player.anglecos / 3;
-		if (m->player.stance == 1)
+		if (m->player.height <= 9.3)
 		{
 			m->player.move_speedless.x /= 2;
 			m->player.move_speedless.y /= 2;
 		}
-		if (m->player.stance == 2)
+		if (m->player.height <= 2)
 		{
-			m->player.move_speedless.x /= 4;
-			m->player.move_speedless.y /= 4;
+			m->player.move_speedless.x /= 2;
+			m->player.move_speedless.y /= 2;
 		}
 	}
 	if (w->inkeys[SDL_SCANCODE_Q])
@@ -298,15 +295,15 @@ void		key_events(t_env *w, t_map *m)
 	{
 		m->player.move_speedless.x += m->player.anglecos / 1.5;
 		m->player.move_speedless.y += m->player.anglesin / 1.5; 
-		if (m->player.stance == 1)
+		if (m->player.height <= 9.3)
 		{
 			m->player.move_speedless.x /= 2;
 			m->player.move_speedless.y /= 2;
 		}
-		if (m->player.stance == 2)
+		if (m->player.height <= 2)
 		{
-			m->player.move_speedless.x /= 4;
-			m->player.move_speedless.y /= 4;
+			m->player.move_speedless.x /= 2;
+			m->player.move_speedless.y /= 2;
 		}
 	}
 }
@@ -405,8 +402,6 @@ int		run(t_env *w, t_map *m)
 					m->sector[m->player.sector].ceiling -= 1;
 				if (KEY == SDLK_TAB)
 					m->player.display = 1;
-				if (KEY == SDLK_KP_9)
-					printf("vFOV:%f,hFOV:%f\n", m->player.field_of_vision_v, m->player.field_of_vision_h);
 			}
 			if (w->event.type == SDL_KEYUP)
 			{
