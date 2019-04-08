@@ -34,8 +34,8 @@ void	set_basics(t_map *m)
 {
 	m->i = 0;
 	m->s = 0;
-	m->map_path = "maps/map0.dn3d";
-	m->map_name = "test";
+	m->map_path = "maps/home_sweet_home.dn3d";
+	m->map_name = "Home Sweet Home";
 	m->section_number = 0;
 	m->sector_count = 0;
 	m->sector = NULL;
