@@ -199,7 +199,7 @@ void		is_moving(t_map *m)
 void		motion_events(t_env *w, t_map *m)
 {
 	PL_A = PL_A + w->event.motion.xrel * 0.001;
-	m->yaw = vmid(m->yaw + w->event.motion.yrel * 0.002, -10, 10);
+	m->yaw = vmid(m->yaw + w->event.motion.yrel * 0.002, -4, 4);
 	m->player.yaw   = m->yaw - m->player.move_speed.z * 0.02;
 	move_player(0, 0, m);
 }
@@ -409,6 +409,8 @@ int		run(t_env *w, t_map *m)
 					m->sector[m->player.sector].ceiling -= 1;
 				if (KEY == SDLK_TAB)
 					m->player.display = 1;
+				if (KEY == SDLK_KP_9)
+					printf("hfov:%f,vfov:%f\n", m->player.field_of_vision_h, m->player.field_of_vision_v);
 			}
 			if (w->event.type == SDL_KEYUP)
 			{
