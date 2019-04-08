@@ -5,20 +5,22 @@
 # include "libft.h"
 # include <fcntl.h>
 
-# define NAME 		"Doom-Numkem3D"
-# define WIDTH 		1024
-# define HEIGHT 	576
-# define KEY 		w->event.key.keysym.sym
-# define MRS		32
-# define PL_X		m->player.coor.x
-# define PL_Y		m->player.coor.y
-# define PL_A		m->player.angle
-# define STAND		16.9
-# define CROUCH		9.3
-# define CRAWL		2
-# define HEADMARGIN	1.1
-# define KNEEH		7.9
-# define BASE_GRAVITY 0.05
+# define NAME 				"Doom-Numkem3D"
+# define WIDTH 				1024
+# define HEIGHT 			576
+# define RESIZABLE_SCREEN	1
+# define FULL_SCREEN		0
+# define KEY 				w->event.key.keysym.sym
+# define MRS				32
+# define PL_X				m->player.coor.x
+# define PL_Y				m->player.coor.y
+# define PL_A				m->player.angle
+# define STAND				16.9
+# define CROUCH				9.3
+# define CRAWL				2
+# define HEADMARGIN			1.1
+# define KNEEH				7.9
+# define BASE_GRAVITY		0.05
 
 typedef struct		s_vect
 {
@@ -111,6 +113,7 @@ typedef struct		s_player
 
 typedef struct		s_intersect
 {
+	int		mem;
 	double dx;
 	double dy;
 	double x1;
@@ -217,6 +220,7 @@ typedef struct		s_map
 typedef struct		s_env
 {
 	int				i;
+	int				window_mode;
 	SDL_Window		*win;
 	SDL_Renderer	*rdr;
 	Uint32			*pix;

@@ -30,7 +30,7 @@ void	set_basic_run(t_map *m)
 	}
 }
 
-void	set_basics(t_map *m)
+void	set_basics(t_env *w, t_map *m)
 {
 	m->i = 0;
 	m->s = 0;
@@ -51,6 +51,7 @@ void	set_basics(t_map *m)
 	m->gravity = BASE_GRAVITY;
 	m->maxrenderedsector = 32;
 	m->sequential_draw = 0;
+	w->window_mode = RESIZABLE_SCREEN;
 }
 
 void	set_advanced_run(char **av, t_env *w, t_map *m)
@@ -96,7 +97,7 @@ int				main(int ac, char **av)
 
 	if (((w = malloc(sizeof(t_env))) == NULL) || ((m = malloc(sizeof(t_map))) == NULL))
 		return (0);
-	set_basics(m);
+	set_basics(w, m);
 	if (ac == 1)
 		set_basic_run(m);
 	else
