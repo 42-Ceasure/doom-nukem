@@ -287,7 +287,7 @@ void		key_events(t_env *w, t_map *m)
 	{
 		if (m->player.ground == 1 && m->player.stance == 0)
 		{
-			m->player.move_speed.z = m->player.move_speed.z + 1;
+			m->player.move_speed.z = m->player.move_speed.z + 0.8;
 			m->player.fall = 1;
 		}
 	}
