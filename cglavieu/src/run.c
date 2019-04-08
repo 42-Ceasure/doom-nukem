@@ -116,30 +116,28 @@ void slow_down(t_env *w, t_map *m)
 void move_player(double dx, double dy, t_map *m)
 {
 	int s;
-	t_sector *sect;
 	t_intersect i;
 	t_coor coor;
 	
 
+	i.x1 = m->player.coor.x;
+	i.y1 = m->player.coor.y;
+	i.x2 = m->player.coor.x + dx;
+	i.y2 = m->player.coor.y + dy;
 	s = 0;
-	sect = &m->sector[m->player.sector];
-	while (s < sect->wall_count)
+	while (s < m->sector[m->player.sector].wall_count)
 	{
-		i.x1 = m->player.coor.x;
-		i.y1 = m->player.coor.y;
-		i.x2 = m->player.coor.x + dx;
-		i.y2 = m->player.coor.y + dy;
-		i.x3 = sect->dot[s].x;
-		i.y3 = sect->dot[s].y;
-		i.x4 = sect->dot[s + 1].x;
-		i.y4 = sect->dot[s + 1].y;
+		i.x3 = m->sector[m->player.sector].dot[s].x;
+		i.y3 = m->sector[m->player.sector].dot[s].y;
+		i.x4 = m->sector[m->player.sector].dot[s + 1].x;
+		i.y4 = m->sector[m->player.sector].dot[s + 1].y;
 		coor.x = i.x2;
 		coor.y = i.y2;
-		if(sect->network[s] >= 0  
+		if(m->sector[m->player.sector].network[s] >= 0  
 		&& intersectbox(i) 
 		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) < 0)
 		{
-			m->player.sector = sect->network[s];
+			m->player.sector = m->sector[m->player.sector].network[s];
 			break;
 		}
 		s++;
@@ -153,7 +151,6 @@ void move_player(double dx, double dy, t_map *m)
 void		is_moving(t_map *m)
 {
 	int s;
-	t_sector *sect;
 	t_intersect i;
 	t_coor		coor;
 
@@ -164,13 +161,12 @@ void		is_moving(t_map *m)
 	i.y2 = m->player.coor.y + m->player.move_speed.y;
 	i.dx = m->player.move_speed.x;
 	i.dy = m->player.move_speed.y;
-	sect = &m->sector[m->player.sector];
-	while (s < sect->wall_count)
+	while (s < m->sector[m->player.sector].wall_count)
 	{
-		i.x3 = sect->dot[s].x;
-		i.y3 = sect->dot[s].y;
-		i.x4 = sect->dot[s + 1].x;
-		i.y4 = sect->dot[s + 1].y;
+		i.x3 = m->sector[m->player.sector].dot[s].x;
+		i.y3 = m->sector[m->player.sector].dot[s].y;
+		i.x4 = m->sector[m->player.sector].dot[s + 1].x;
+		i.y4 = m->sector[m->player.sector].dot[s + 1].y;
 		coor.x = i.x1 + i.dx;
 		coor.y = i.y1 + i.dy;
 		if(intersectbox(i) 
@@ -178,16 +174,16 @@ void		is_moving(t_map *m)
 		{
 			m->player.hole_low = 9e9;
 			m->player.hole_high = -9e9;
-			if (sect->network[s] >= 0)
+			if (m->sector[m->player.sector].network[s] >= 0)
 			{
-				m->player.hole_low = vmax(sect->floor, m->sector[sect->network[s]].floor);
-				m->player.hole_high = vmin(sect->ceiling, m->sector[sect->network[s]].ceiling);
+				m->player.hole_low = vmax(m->sector[m->player.sector].floor, m->sector[m->sector[m->player.sector].network[s]].floor);
+				m->player.hole_high = vmin(m->sector[m->player.sector].ceiling, m->sector[m->sector[m->player.sector].network[s]].ceiling);
 			}
 			if (m->player.hole_high < m->player.coor.z + HEADMARGIN
 			|| m->player.hole_low > m->player.coor.z - m->player.height + KNEEH)
 			{
-				i.xd = sect->dot[s + 1].x - sect->dot[s].x;
-				i.yd = sect->dot[s + 1].y - sect->dot[s].y;
+				i.xd = m->sector[m->player.sector].dot[s + 1].x - m->sector[m->player.sector].dot[s].x;
+				i.yd = m->sector[m->player.sector].dot[s + 1].y - m->sector[m->player.sector].dot[s].y;
 				m->player.move_speed.x = i.xd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
 				m->player.move_speed.y = i.yd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
 				m->player.moving = 0;
@@ -414,9 +410,9 @@ int		run(t_env *w, t_map *m)
 				motion_events(w, m);
 		}
 		if (m->player.display == 0)
-			draw(w, *m);
+			draw(w, m);
 		else if (m->player.display == 1)
-			draw_mini_map(w, *m);
+			draw_mini_map(w, m);
 		img_update(w);
 		get_height(m);
 		is_falling(m);

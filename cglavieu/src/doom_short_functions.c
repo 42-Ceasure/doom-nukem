@@ -86,7 +86,7 @@ t_coor intersect(t_intersect i)
 	return (coor);
 }
 
-double yaw(double y, double z, t_map m)
+double yaw(double y, double z, t_map *m)
 {
-	return (y + z * m.player.yaw);
+	return (y + z * m->player.yaw);
 }

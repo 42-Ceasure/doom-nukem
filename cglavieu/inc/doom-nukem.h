@@ -231,7 +231,7 @@ int			init_sdl(t_env *w);
 int			quick_look(t_map *m);
 int			do_parse(t_map *m);
 int			run(t_env *w, t_map *m);
-void 		draw(t_env *w, t_map m);
+void 		draw(t_env *w, t_map *m);
 void		clean_render(t_env *w, Uint32 color);
 void		exit_game(t_env *w, t_map *m);
 void		recap_parsing(t_map *m, char **str);
@@ -246,8 +246,8 @@ double pointside(t_coor p, double x0, double y0, double x1, double y1);
 t_coor intersect(t_intersect i);
 void vect_ab(t_coor p1, t_coor p2, t_env *w, Uint32 color);
 void	set_txtr_pix(t_env *w, int x, int y, Uint32 color);
-double yaw(double y, double z, t_map m);
-void draw_mini_map(t_env *w, t_map m);
+double yaw(double y, double z, t_map *m);
+void draw_mini_map(t_env *w, t_map *m);
 void img_update(t_env *w);
 
 #endif

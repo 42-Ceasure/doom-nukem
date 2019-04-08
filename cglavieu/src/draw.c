@@ -223,33 +223,33 @@ void vertical_line(int x, int y1, int y2, t_env *w, t_color color)
 	}
 }
 
-void draw_mini_map(t_env *w, t_map m)
+void draw_mini_map(t_env *w, t_map *m)
 {
 	t_work work;
 	int sector;
 	int point;
 
 	clean_render(w, 0x12CECECE);
-	work.p1.x = (m.player.coor.x - m.player.coor.x) + (WIDTH / 2);
-	work.p1.y = (m.player.coor.y - m.player.coor.y) + (HEIGHT / 2) - 1;
-	work.p2.x = (m.player.coor.x - m.player.coor.x) + (WIDTH / 2);
-	work.p2.y = (m.player.coor.y - m.player.coor.y) + (HEIGHT / 2) - 10;
+	work.p1.x = (m->player.coor.x - m->player.coor.x) + (WIDTH / 2);
+	work.p1.y = (m->player.coor.y - m->player.coor.y) + (HEIGHT / 2) - 1;
+	work.p2.x = (m->player.coor.x - m->player.coor.x) + (WIDTH / 2);
+	work.p2.y = (m->player.coor.y - m->player.coor.y) + (HEIGHT / 2) - 10;
 	set_txtr_dot(w, work.p1.x, work.p1.y + 1, 0x12BF3030);
 	vect_ab(work.p1, work.p2, w, 0x120F0F0F);
 	sector = 0;
-	while (sector < m.sector_count)
+	while (sector < m->sector_count)
 	{
 		point = 0;
-		while (point < m.sector[sector].wall_count)
+		while (point < m->sector[sector].wall_count)
 		{
-			work.v1.x = (m.sector[sector].dot[point].x - m.player.coor.x);
-			work.v1.y = (m.sector[sector].dot[point].y - m.player.coor.y);
-			work.v2.x = (m.sector[sector].dot[point + 1].x - m.player.coor.x);
-			work.v2.y = (m.sector[sector].dot[point + 1].y - m.player.coor.y);
-			work.t1.x = -(work.v1.x * m.player.anglesin - work.v1.y * m.player.anglecos) * 10 + (WIDTH / 2);
-			work.t1.y = -(work.v1.x * m.player.anglecos + work.v1.y * m.player.anglesin) * 10 + (HEIGHT / 2);
-			work.t2.x = -(work.v2.x * m.player.anglesin - work.v2.y * m.player.anglecos) * 10 + (WIDTH / 2);
-			work.t2.y = -(work.v2.x * m.player.anglecos + work.v2.y * m.player.anglesin) * 10 + (HEIGHT / 2);
+			work.v1.x = (m->sector[sector].dot[point].x - m->player.coor.x);
+			work.v1.y = (m->sector[sector].dot[point].y - m->player.coor.y);
+			work.v2.x = (m->sector[sector].dot[point + 1].x - m->player.coor.x);
+			work.v2.y = (m->sector[sector].dot[point + 1].y - m->player.coor.y);
+			work.t1.x = -(work.v1.x * m->player.anglesin - work.v1.y * m->player.anglecos) * 10 + (WIDTH / 2);
+			work.t1.y = -(work.v1.x * m->player.anglecos + work.v1.y * m->player.anglesin) * 10 + (HEIGHT / 2);
+			work.t2.x = -(work.v2.x * m->player.anglesin - work.v2.y * m->player.anglecos) * 10 + (WIDTH / 2);
+			work.t2.y = -(work.v2.x * m->player.anglecos + work.v2.y * m->player.anglesin) * 10 + (HEIGHT / 2);
 			vect_ab(work.t1, work.t2, w, 0x12FF0000);
 			point++;
 		}
@@ -257,13 +257,13 @@ void draw_mini_map(t_env *w, t_map m)
 	}
 }
 
-void draw(t_env *w, t_map m)
+void draw(t_env *w, t_map *m)
 {
 	int point;
 	int x;
 	t_work work;
 	t_reader read;
-	int renderedsectors[m.sector_count];
+	int renderedsectors[m->sector_count];
 
 	read.head = read.queue;
 	read.tail = read.queue;
@@ -272,14 +272,14 @@ void draw(t_env *w, t_map m)
 	{
 		work.ytop[x] = 0;
 		work.ybot[x] = HEIGHT - 1;
-		if (x < m.sector_count)
+		if (x < m->sector_count)
 			renderedsectors[x] = 0;
 		x++;
 	}
-	read.head->sectorno = m.player.sector;
+	read.head->sectorno = m->player.sector;
 	read.head->sx1 = 0;
 	read.head->sx2 = WIDTH - 1;
-	if (++read.head == read.queue + m.maxrenderedsector)
+	if (++read.head == read.queue + m->maxrenderedsector)
 		read.head = read.queue;
 	work.nearz = 0.0000000001;
 	work.farz = 5;
@@ -296,21 +296,21 @@ void draw(t_env *w, t_map m)
 	while (read.head != read.tail)
 	{
 		read.now = *read.tail;
-		if (++read.tail == read.queue + m.maxrenderedsector)
+		if (++read.tail == read.queue + m->maxrenderedsector)
 			read.tail = read.queue;
-		if (renderedsectors[read.now.sectorno] & (m.maxrenderedsector + 1))
+		if (renderedsectors[read.now.sectorno] & (m->maxrenderedsector + 1))
 			continue;
 		++renderedsectors[read.now.sectorno];
 		point = 0;
-		while (point < m.sector[read.now.sectorno].wall_count)
+		while (point < m->sector[read.now.sectorno].wall_count)
 		{
-			work.v1.x = m.sector[read.now.sectorno].dot[point + 0].x - m.player.coor.x;
-			work.v1.y = m.sector[read.now.sectorno].dot[point + 0].y - m.player.coor.y;
-			work.v2.x = m.sector[read.now.sectorno].dot[point + 1].x - m.player.coor.x;
-			work.v2.y = m.sector[read.now.sectorno].dot[point + 1].y - m.player.coor.y;
+			work.v1.x = m->sector[read.now.sectorno].dot[point + 0].x - m->player.coor.x;
+			work.v1.y = m->sector[read.now.sectorno].dot[point + 0].y - m->player.coor.y;
+			work.v2.x = m->sector[read.now.sectorno].dot[point + 1].x - m->player.coor.x;
+			work.v2.y = m->sector[read.now.sectorno].dot[point + 1].y - m->player.coor.y;
 
-			work.pcos = m.player.anglecos;
-			work.psin = m.player.anglesin;
+			work.pcos = m->player.anglecos;
+			work.psin = m->player.anglesin;
 			work.t1.x = work.v1.x * work.psin - work.v1.y * work.pcos;
 			work.t1.z = work.v1.x * work.pcos + work.v1.y * work.psin;
 			work.t2.x = work.v2.x * work.psin - work.v2.y * work.pcos;
@@ -367,10 +367,10 @@ void draw(t_env *w, t_map m)
 					}
 				}
 			}
-			work.xscale1 = m.player.field_of_vision_h / work.t1.z;
-			work.yscale1 = (m.player.field_of_vision_v) / work.t1.z;
-			work.xscale2 = m.player.field_of_vision_h / work.t2.z;
-			work.yscale2 = (m.player.field_of_vision_v) / work.t2.z;
+			work.xscale1 = m->player.field_of_vision_h / work.t1.z;
+			work.yscale1 = (m->player.field_of_vision_v) / work.t1.z;
+			work.xscale2 = m->player.field_of_vision_h / work.t2.z;
+			work.yscale2 = (m->player.field_of_vision_v) / work.t2.z;
 			work.x1 = WIDTH / 2 - (int)(work.t1.x * work.xscale1);
 			work.x2 = WIDTH / 2 - (int)(work.t2.x * work.xscale2);
 
@@ -379,15 +379,15 @@ void draw(t_env *w, t_map m)
 				point++;
 				continue;
 			}
-			work.yceil = m.sector[read.now.sectorno].ceiling - m.player.coor.z;
-			work.yfloor = m.sector[read.now.sectorno].floor - m.player.coor.z;
-			work.network = m.sector[read.now.sectorno].network[point];
+			work.yceil = m->sector[read.now.sectorno].ceiling - m->player.coor.z;
+			work.yfloor = m->sector[read.now.sectorno].floor - m->player.coor.z;
+			work.network = m->sector[read.now.sectorno].network[point];
 			work.nyceil = 0;
 			work.nyfloor = 0;
 			if (work.network >= 0)
 			{
-				work.nyceil = m.sector[work.network].ceiling - m.player.coor.z;
-				work.nyfloor = m.sector[work.network].floor - m.player.coor.z;
+				work.nyceil = m->sector[work.network].ceiling - m->player.coor.z;
+				work.nyfloor = m->sector[work.network].floor - m->player.coor.z;
 			}
 			work.y1a = HEIGHT / 2 - (int)(yaw(work.yceil, work.t1.z, m) * work.yscale1);
 			work.y2a = HEIGHT / 2 - (int)(yaw(work.yceil, work.t2.z, m) * work.yscale2);
@@ -452,7 +452,7 @@ void draw(t_env *w, t_map m)
 					work.r = 0x12010101 * (255 - work.z);
 					if (x == work.x1 || x == work.x2)
 					{
-						if (m.trippymod == 1)
+						if (m->trippymod == 1)
 							set_wall_trippy(w, x, work.cya, work.cyb, 0);	
 						else
 						{
@@ -462,7 +462,7 @@ void draw(t_env *w, t_map m)
 					}
 					else
 					{
-						if (m.trippymod == 1)
+						if (m->trippymod == 1)
 						{
 							work.r = 0x129EFD38 * (255 - work.z);
 							set_wall_trippy(w, x, work.cya, work.cyb, work.r);
@@ -475,15 +475,15 @@ void draw(t_env *w, t_map m)
 					}
 				}
 				x++;
-				if (m.sequential_draw == 1)
+				if (m->sequential_draw == 1)
 					img_update(w);
 			}
-			if (work.network >= 0 && work.endx >= work.startx && (read.head + m.maxrenderedsector + 1 - read.tail) % m.maxrenderedsector)
+			if (work.network >= 0 && work.endx >= work.startx && (read.head + m->maxrenderedsector + 1 - read.tail) % m->maxrenderedsector)
 			{
 				read.head->sectorno = work.network;
 				read.head->sx1 = work.startx;
 				read.head->sx2 = work.endx;
-				if (++read.head == read.queue + m.maxrenderedsector)
+				if (++read.head == read.queue + m->maxrenderedsector)
 					read.head = read.queue;
 			}
 			point++;
