@@ -316,7 +316,7 @@ int			init_sdl(t_env *w)
 									SDL_WINDOWPOS_CENTERED,
 									WIDTH,
 									HEIGHT,
-									SDL_WINDOW_RESIZABLE);
+									SDL_WINDOW_FULLSCREEN);
 	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED |
 											SDL_RENDERER_PRESENTVSYNC);
 	w->pix = (Uint32 *)malloc(sizeof(Uint32) * WIDTH * HEIGHT);
