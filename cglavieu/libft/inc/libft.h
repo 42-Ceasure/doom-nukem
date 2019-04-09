@@ -82,5 +82,6 @@ char	*ft_epur_tabul(const char *src);
 char	*ft_epur_str(const char *src);
 double	ft_atof(const char *str);
 void	ft_memreg(char **s);
+void	ft_memreg3(char ***s);
 
 #endif

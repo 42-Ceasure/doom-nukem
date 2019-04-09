@@ -12,6 +12,30 @@
 
 #include "libft.h"
 
+void	ft_memreg3(char ***s)
+{
+	int i;
+	int j;
+
+	i = 0;
+	if (s != NULL)
+	{
+		while (s[i])
+		{
+			j = 0;
+			while (s[i][j])
+			{
+				free(s[i][j]);
+				j++;
+			}
+			free(s[i]);
+			i++;
+		}
+		free(s);
+	}
+	s = NULL;
+}
+
 void	ft_memreg(char **s)
 {
 	int i;

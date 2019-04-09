@@ -66,8 +66,7 @@ void	map_cmd(t_env *w, t_map *m, char **cmd)
 	if (tmp == NULL || tmp[1] == NULL)
 		set_error(w, m, 11);
 	tmp2 = ft_strsplit(tmp[1], '.');
-	m->map_name = ft_strnew(ft_strlen(tmp2[0]));
-	m->map_name = ft_strcpy(m->map_name, tmp2[0]);
+	m->map_name = tmp2[0];
 	ft_memreg(tmp);
 	ft_memreg(tmp2);
 }

@@ -52,6 +52,7 @@ void		interpret_cmd(t_env *w, t_map *m, char ***cmd)
 		}
 		i++;
 	}
+	ft_memreg3(cmd);
 }
 
 char		***assemble_cmd_args(char ***cmd, char **tmp, int cmd_count)
@@ -83,14 +84,12 @@ char		***assemble_cmd_args(char ***cmd, char **tmp, int cmd_count)
 	return (cmd);
 }
 
-char		***parse_cmd(int ac, char **av)
+char		***lol(char ***cmd, int ac, char **av)
 {
 	int		i;
 	int		cmd_count;
 	char	**tmp;
-	char	***cmd;
 
-	cmd = NULL;
 	i = 0;
 	cmd_count = 0;
 	tmp = (char **)malloc(sizeof(char *) * (ac));
@@ -107,7 +106,17 @@ char		***parse_cmd(int ac, char **av)
 		}
 		cmd = assemble_cmd_args(cmd, tmp, cmd_count);
 	}
-	else
+	free(tmp);
+	return (cmd);
+}
+
+char		***parse_cmd(int ac, char **av)
+{
+	char	***cmd;
+
+	cmd = NULL;
+	if ((cmd = lol(cmd, ac, av))== NULL)
 		return (NULL);
+	else
 	return (cmd);
 }
