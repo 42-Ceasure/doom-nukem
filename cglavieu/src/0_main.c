@@ -33,6 +33,6 @@ int				main(int ac, char **av)
 	if ((init_sdl(w)) == -1)
 		set_error(w, m, 1);
 	if (!run(w, m))
-		ft_putendl("program closing now");
+		set_error(w, m, 0);
 	return (0);
 }
