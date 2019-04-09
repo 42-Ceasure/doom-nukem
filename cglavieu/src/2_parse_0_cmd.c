@@ -1,6 +1,6 @@
 //
 
-#include "doom-nukem.h"
+#include "doom.h"
 
 void		interpret_cmd(t_env *w, t_map *m, char ***cmd)
 {

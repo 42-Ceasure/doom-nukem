@@ -1,6 +1,6 @@
 //
 
-#include "doom-nukem.h"
+#include "doom.h"
 
 void	set_basics(t_env *w, t_map *m)
 {

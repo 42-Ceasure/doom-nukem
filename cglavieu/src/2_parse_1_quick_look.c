@@ -1,6 +1,6 @@
 //
 
-#include "doom-nukem.h"
+#include "doom.h"
 
 void	check_line(t_map *m)
 {

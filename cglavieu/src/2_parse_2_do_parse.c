@@ -1,6 +1,6 @@
 //
 
-#include "doom-nukem.h"
+#include "doom.h"
 
 int			parse_player_section(t_map *m, char **tab)
 {

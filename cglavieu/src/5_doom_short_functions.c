@@ -1,6 +1,6 @@
 //
 
-#include "doom-nukem.h"
+#include "doom.h"
 
 double vmin(double a, double b)
 {

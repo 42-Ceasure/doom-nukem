@@ -1,6 +1,6 @@
 // gros taf de free sur le exit_game
 
-#include "doom-nukem.h"
+#include "doom.h"
 
 void			set_error(t_env *w, t_map *m, int errorno)
 {

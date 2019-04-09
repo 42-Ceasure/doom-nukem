@@ -1,6 +1,6 @@
 // retirer les printf
 
-#include "doom-nukem.h"
+#include "doom.h"
 
 void	recap_player_list_vars(t_map m, char *str)
 {

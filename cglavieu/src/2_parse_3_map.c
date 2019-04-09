@@ -1,6 +1,6 @@
 //
 
-#include "doom-nukem.h"
+#include "doom.h"
 
 int			parse_map_dots(t_map *m, char *y, char *x)
 {

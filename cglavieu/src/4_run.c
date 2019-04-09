@@ -1,6 +1,6 @@
 //
 
-#include "doom-nukem.h"
+#include "doom.h"
 
 void		exit_game(t_env *w, t_map *m)
 {

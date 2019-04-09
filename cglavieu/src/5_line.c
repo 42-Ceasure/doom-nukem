@@ -1,5 +1,5 @@
 
-#include "doom-nukem.h"
+#include "doom.h"
 
 void octant_1(t_vect norm, t_env *w, Uint32 color)
 {
