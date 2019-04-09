@@ -215,14 +215,14 @@ typedef struct		s_map
 	t_player		player;
 	double			yaw;
 	double			gravity;
-	int maxrenderedsector;
-	int sequential_draw;
+	int				maxrenderedsector;
 }					t_map;
 
 typedef struct		s_env
 {
 	int				i;
 	int				window_mode;
+	int				sequential_draw;
 	SDL_Window		*win;
 	SDL_Renderer	*rdr;
 	Uint32			*pix;
@@ -231,29 +231,42 @@ typedef struct		s_env
 	SDL_Event		event;
 }					t_env;
 
+char		***parse_cmd(int ac, char **av);
+void		interpret_cmd(t_env *w, t_map *m, char ***cmd);
+
+void		set_basics(t_env *w, t_map *m);
 void		set_basic_run(t_map *m);
+void		map_cmd(t_map *m, char **cmd);
 void		set_advanced_run(char **av, t_env *w, t_map *m);
+
+void		exit_game(t_env *w, t_map *m);
+
 int			init_sdl(t_env *w);
-int			quick_look(t_map *m);
-int			do_parse(t_map *m);
+void		img_update(t_env *w);
+void		clean_render(t_env *w, Uint32 color);
+
 int			run(t_env *w, t_map *m);
 void 		draw(t_env *w, t_map *m);
-void		clean_render(t_env *w, Uint32 color);
-void		exit_game(t_env *w, t_map *m);
-void		recap_parsing(t_map *m, char **str);
+void		draw_mini_map(t_env *w, t_map *m);
+
 Uint32		color(Uint32 color1);
-double vmin(double a, double b);
-double vmax(double a, double b);
-double vmid(double a, double min, double max);
-double vect_cross_prod(double x0, double y0, double x1, double y1);
-double isoverlap(double a0, double a1, double b0, double b1);
-double intersectbox(t_intersect i);
-double pointside(t_coor p, double x0, double y0, double x1, double y1);
-t_coor intersect(t_intersect i);
-void vect_ab(t_coor p1, t_coor p2, t_env *w, Uint32 color);
-void	set_txtr_pix(t_env *w, int x, int y, Uint32 color);
-double yaw(double y, double z, t_map *m);
-void draw_mini_map(t_env *w, t_map *m);
-void img_update(t_env *w);
+void		vect_ab(t_coor p1, t_coor p2, t_env *w, Uint32 color);
+void		set_txtr_pix(t_env *w, int x, int y, Uint32 color);
+
+double		vect_cross_prod(double x0, double y0, double x1, double y1);
+double		vmin(double a, double b);
+double		vmax(double a, double b);
+double		vmid(double a, double min, double max);
+double		intersectbox(t_intersect i);
+t_coor		intersect(t_intersect i);
+double		isoverlap(double a0, double a1, double b0, double b1);
+double		pointside(t_coor p, double x0, double y0, double x1, double y1);
+double		yaw(double y, double z, t_map *m);
+
+int			quick_look(t_map *m);
+int			do_parse(t_map *m);
+
+void		recap_parsing(t_map *m, char **str);
+
 
 #endif

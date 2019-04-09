@@ -475,7 +475,7 @@ void draw(t_env *w, t_map *m)
 					}
 				}
 				x++;
-				if (m->sequential_draw == 1)
+				if (w->sequential_draw == 1)
 					img_update(w);
 			}
 			if (work.network >= 0 && work.endx >= work.startx && (read.head + m->maxrenderedsector + 1 - read.tail) % m->maxrenderedsector)
