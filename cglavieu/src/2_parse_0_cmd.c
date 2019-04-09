@@ -2,19 +2,54 @@
 
 #include "doom.h"
 
+void		l_f_priority_cmd(t_env *w, char ***cmd)
+{
+	int		i;
+
+	i = 0;
+	while (cmd[i] != NULL)
+	{
+		if (ft_strcmp(cmd[i][0], "-video_mode") == 0)
+		{
+			if (cmd[i][1] != NULL)
+			{
+				if (ft_strcmp(cmd[i][1], "FULL_SCREEN") == 0)
+					w->window_mode = FULL_SCREEN;
+				else if (ft_strcmp(cmd[i][1], "RESIZABLE_SCREN") == 0)
+					w->window_mode = RESIZABLE_SCREEN;
+				else
+					w->window_mode = 1;
+			}
+		}
+		if (ft_strcmp(cmd[i][0], "-seq") == 0)
+			w->sequential_draw = 1;
+		else
+			w->sequential_draw = 0;
+
+		i++;
+	}
+}
+
 void		interpret_cmd(t_env *w, t_map *m, char ***cmd)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (cmd[i] != NULL)
 	{
 		if (ft_strcmp(cmd[i][0], "-map") == 0)
-			map_cmd(m, cmd[i]);
-		if (ft_strcmp(cmd[i][0], "-seq") == 0)
-			w->sequential_draw = 1;
+		{
+			map_cmd(w, m, cmd[i]);
+			if (quick_look(m) == -1 || do_parse(m) == -1)
+				set_error(w, m, 13);
+		}
 		if (ft_strcmp(cmd[i][0], "-list") == 0)
 			recap_parsing(m, cmd[i]);
+		if (ft_strcmp(cmd[i][0], "-exit") == 0)
+		{
+			ft_memreg(*cmd);
+			exit_game(w, m);
+		}
 		i++;
 	}
 }
@@ -55,14 +90,14 @@ char		***parse_cmd(int ac, char **av)
 	char	**tmp;
 	char	***cmd;
 
+	cmd = NULL;
 	i = 0;
 	cmd_count = 0;
 	tmp = (char **)malloc(sizeof(char *) * (ac));
-	cmd = NULL;
 	tmp[ac - 1] = NULL;
 	while (ac--)
 		tmp[ac] = ft_strtrim(av[ac + 1]);
-	if (ft_strncmp(tmp[0], "-", 1) == 0)
+	if (ft_strncmp(tmp[0], "-", 1) == 0 && ft_strcmp(tmp[0], "-") != 0)
 	{
 		while (tmp[i])
 		{
@@ -73,6 +108,6 @@ char		***parse_cmd(int ac, char **av)
 		cmd = assemble_cmd_args(cmd, tmp, cmd_count);
 	}
 	else
-		ft_putendl("error on command");
+		return (NULL);
 	return (cmd);
 }

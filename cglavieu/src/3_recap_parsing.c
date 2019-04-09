@@ -4,7 +4,11 @@
 
 void	recap_player_list_vars(t_map m, char *str)
 {
-	ft_putstr(str);
+	char *s;
+
+	s = str_to_upper(str);
+	ft_putstr(s);
+	free(s);
 	ft_putendl(" :\n");
 	ft_putstr("player_sector = ");
 	ft_putnbrendl((int)m.player.sector);
@@ -19,7 +23,11 @@ void	recap_player_list_vars(t_map m, char *str)
 
 void	recap_map_list_general(t_map m, char *str)
 {
-	ft_putstr(str);
+	char *s;
+
+	s = str_to_upper(str);
+	ft_putstr(s);
+	free(s);
 	ft_putendl(" :\n");
 	ft_putstr("map_section_number = ");
 	ft_putnbrendl(m.section_number);
@@ -37,9 +45,12 @@ void	recap_map_list_general(t_map m, char *str)
 void	recap_map_list_dots(t_map m, char *str)
 {
 	int i;
+	char *s;
 
 	i = 0;
-	ft_putstr(str);
+	s = str_to_upper(str);
+	ft_putstr(s);
+	free(s);
 	ft_putendl(" :\n");
 	while (i < m.dots_count)
 	{
@@ -58,9 +69,12 @@ void	recap_map_list_sectors(t_map m, char *str)
 {
 	int i;
 	int j;
+	char *s;
 
 	i = 0;
-	ft_putstr(str);
+	s = str_to_upper(str);
+	ft_putstr(s);
+	free(s);
 	ft_putendl(" :\n");
 	while (i < m.sector_count)
 	{
@@ -184,5 +198,4 @@ void	recap_parsing(t_map *m, char **str)
 		recap_player_list_vars(*m, str[1]);
 	else
 		ft_putstr("invalid section");
-	set_basic_run(m);
 }

@@ -17,7 +17,7 @@ SRCDIR		=	./src/
 INCFIL		=	doom.h
 OBJFIL		=	$(SRCFIL:.c=.o)
 	LIBFTFIL	=	libft.a
-	SRCFIL		=	0_main.c	\
+	SRCFIL		=	0_main.c 0_exit.c	\
 					1_init.c	\
 					2_parse_0_cmd.c 2_parse_1_quick_look.c 2_parse_2_do_parse.c 2_parse_3_map.c	\
 					3_recap_parsing.c 3_set_game.c	\

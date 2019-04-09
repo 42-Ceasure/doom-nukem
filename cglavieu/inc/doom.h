@@ -245,10 +245,13 @@ typedef struct		s_env
 }					t_env;
 
 char				***parse_cmd(int ac, char **av);
+void				l_f_priority_cmd(t_env *w, char ***cmd);
 void				interpret_cmd(t_env *w, t_map *m, char ***cmd);
+void				map_cmd(t_env *w, t_map *m, char **cmd);
+void				set_error(t_env *w, t_map *m, int errorno);
 void				set_basics(t_env *w, t_map *m);
-void				set_basic_run(t_map *m);
-void				map_cmd(t_map *m, char **cmd);
+void				set_advanced(t_map *m);
+void				set_basic_run(t_env *w, t_map *m);
 void				set_advanced_run(char **av, t_env *w, t_map *m);
 void				exit_game(t_env *w, t_map *m);
 int					init_sdl(t_env *w);
@@ -278,7 +281,7 @@ void				init_verification(t_draw *draw);
 int					init_draw(t_draw *d, t_reader *read, t_map *m);
 void				vertical_line(int x, int *box, t_env *w, t_color color);
 void				ceiling_line(int x, int *box, t_env *w, Uint32 color);
-int					mooving_head(t_draw *w, t_reader read, t_map *m);
+int					moving_head(t_draw *w, t_reader read, t_map *m);
 int					ceiling_and_floor(t_draw *d, t_map *m,
 					t_reader read, int point);
 void				check_invisible(t_draw *d, t_reader read, t_map *m);

@@ -90,7 +90,7 @@ void	wall_to_wall(t_draw *d, t_reader *read, t_map *m, t_env *w)
 			d->point = (d->t1.z <= 0 && d->t2.z <= 0) ? d->point + 1 : d->point;
 			continue;
 		}
-		draw_wall(d, w, mooving_head(d, *read, m));
+		draw_wall(d, w, moving_head(d, *read, m));
 		if (d->network >= 0 && d->endx >= d->startx && (read->head
 					+ m->maxrenderedsector + 1 - read->tail) % m->maxrenderedsector)
 		{

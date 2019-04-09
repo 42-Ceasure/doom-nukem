@@ -2,26 +2,6 @@
 
 #include "doom.h"
 
-void		exit_game(t_env *w, t_map *m)
-{
-	int i;
-
-	i = 0;
-	free(w->pix);
-	free(w);
-	free(m->dot);
-	while (i < m->sector_count)
-	{
-		free(m->sector[i].dot);
-		free(m->sector[i].network);
-		i++;
-	}
-	free(m->sector);
-	free(m);
-	SDL_Quit();
-	exit(1);
-}
-
 void		get_height(t_map *m)
 {
 	int tmp;

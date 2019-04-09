@@ -4,12 +4,9 @@
 
 void			set_error(t_env *w, t_map *m, int errorno)
 {
-	(void)w;
-	(void)m;
-	(void)errorno;
-
-	ft_putendl("Error, program closing now.");
-	exit(0);
+	if (errorno >= 0)
+		ft_putendl("Error, program closing now.");
+	exit_game(w, m);
 }
 
 int				main(int ac, char **av)
@@ -18,20 +15,23 @@ int				main(int ac, char **av)
 	t_map		*m;
 	char		***cmd;
 
-	if (((w = malloc(sizeof(t_env))) == NULL) || ((m = malloc(sizeof(t_map))) == NULL))
-		return (0);
+	if ((w = malloc(sizeof(t_env))) == NULL)
+		return (-1);
+	if ((m = malloc(sizeof(t_map))) == NULL)
+		return (-1);
 	set_basics(w, m);
-	if (ac == 1)
-		set_basic_run(m);
-	else
+	if (ac > 1)
 	{
-		cmd = parse_cmd(ac, av);
-		if (cmd == NULL)
-			set_error(w, m, 0);
-		interpret_cmd(w, m, cmd);
+		if ((cmd = parse_cmd(ac, av)) != NULL)
+			l_f_priority_cmd(w, cmd);
+		set_advanced(m);
 	}
 	if ((init_sdl(w)) == -1)
 		set_error(w, m, 1);
+	if (ac > 1 && cmd != NULL)
+		interpret_cmd(w, m, cmd);
+	else
+		set_basic_run(w, m);
 	if (!run(w, m))
 		set_error(w, m, 0);
 	return (0);

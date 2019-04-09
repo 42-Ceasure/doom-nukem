@@ -64,7 +64,7 @@ int		ceiling_and_floor(t_draw *d, t_map *m, t_reader read, int point)
 	return (1);
 }
 
-int		mooving_head(t_draw *w, t_reader read, t_map *m)
+int		moving_head(t_draw *w, t_reader read, t_map *m)
 {
 	w->y1a = HEIGHT / 2 - (int)(yaw(w->yceil, w->t1.z, m) * w->yscale1);
 	w->y2a = HEIGHT / 2 - (int)(yaw(w->yceil, w->t2.z, m) * w->yscale2);
