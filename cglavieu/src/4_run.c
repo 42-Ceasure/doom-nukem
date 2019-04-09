@@ -306,11 +306,6 @@ void		key_events(t_env *w, t_map *m)
 
 int		run(t_env *w, t_map *m)
 {
-	if ((init_sdl(w)) == -1)
-	{
-		write(1, "cannot intitialize SDL2\n", 24);
-		return (-1);
-	}
 	while (1)
 	{
 		while (SDL_PollEvent(&w->event))

@@ -17,8 +17,12 @@ SRCDIR		=	./src/
 INCFIL		=	doom-nukem.h
 OBJFIL		=	$(SRCFIL:.c=.o)
 LIBFTFIL	=	libft.a
-SRCFIL		=	main.c set_game.c parse_cmd.c parse_file.c recap_parsing.c init.c\
-				run.c doom_short_functions.c draw.c line.c
+SRCFIL		=	0_main.c	\
+				1_init.c	\
+				2_parse_0_cmd.c 2_parse_1_quick_look.c 2_parse_2_do_parse.c 2_parse_3_map.c	\
+				3_recap_parsing.c 3_set_game.c	\
+				4_run.c	\
+				5_doom_short_functions.c 5_draw.c 5_line.c
 
 SRC			=	$(addprefix $(SRCDIR),$(SRCFIL))
 OBJ			=	$(addprefix $(OBJDIR),$(OBJFIL))

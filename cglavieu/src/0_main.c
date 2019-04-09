@@ -2,6 +2,16 @@
 
 #include "doom-nukem.h"
 
+void			set_error(t_env *w, t_map *m, int errorno)
+{
+	(void)w;
+	(void)m;
+	(void)errorno;
+
+	ft_putendl("Error, program closing now.");
+	exit(0);
+}
+
 int				main(int ac, char **av)
 {
 	t_env		*w;
@@ -17,12 +27,11 @@ int				main(int ac, char **av)
 	{
 		cmd = parse_cmd(ac, av);
 		if (cmd == NULL)
-		{
-			ft_putendl("error on command");
-			ft_putendl("program closing now");
-		}
+			set_error(w, m, 0);
 		interpret_cmd(w, m, cmd);
 	}
+	if ((init_sdl(w)) == -1)
+		set_error(w, m, 1);
 	if (!run(w, m))
 		ft_putendl("program closing now");
 	return (0);

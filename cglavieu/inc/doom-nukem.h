@@ -265,6 +265,7 @@ double		yaw(double y, double z, t_map *m);
 
 int			quick_look(t_map *m);
 int			do_parse(t_map *m);
+int			parse_map_section(t_map *m, char **tab);
 
 void		recap_parsing(t_map *m, char **str);
 
