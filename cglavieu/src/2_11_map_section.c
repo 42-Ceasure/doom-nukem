@@ -11,8 +11,8 @@ int			parse_map_dots(t_map *m, char *y, char *x)
 	tmp = ft_strsplit(x, ',');
 	while (tmp[i] != NULL)
 	{
-		m->dot[m->i].x = ft_atof(tmp[i]);		// coder ft_atof
-		m->dot[m->i].y = ft_atof(y);		// coder ft_atof
+		m->dot[m->i].x = ft_atof(tmp[i]);
+		m->dot[m->i].y = ft_atof(y);
 		m->i++;
 		i++;
 	}
@@ -79,9 +79,11 @@ int			parse_sectors(t_map *m, char *heights, char *dots, char *net)
 	while (tmp[i] != NULL)
 		i++;
 	m->sector[m->s].wall_count = i;
-	if ((m->sector[m->s].dot = (t_dot *)malloc(sizeof(t_dot) * (m->sector[m->s].wall_count + 1))) == NULL)
+	if ((m->sector[m->s].dot = (t_dot *)malloc(sizeof(t_dot)
+		* (m->sector[m->s].wall_count + 1))) == NULL)
 		return (-1);
-	if ((m->sector[m->s].network = (int *)malloc(sizeof(int) * m->sector[m->s].wall_count)) == NULL)
+	if ((m->sector[m->s].network = (int *)malloc(sizeof(int)
+		* m->sector[m->s].wall_count)) == NULL)
 		return (-1);
 	parse_sector_dots(m, tmp);
 	parse_sector_network(m, net);

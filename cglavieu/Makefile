@@ -21,7 +21,7 @@ OBJFIL		=	$(SRCFIL:.c=.o)
 					1_init.c	\
 					2_00_parse_cmd.c 2_01_exec_cmd.c 2_02_cmd.c	\
 					2_10_parse_map_file.c 2_11_map_section.c 2_12_player_section.c	\
-					3_recap_parsing.c 3_set_game.c	\
+					3_recap_parsing.c	\
 					4_run.c	\
 					5_doom_short_functions.c 5_line.c 5_draw.c 5_draw_utility.c 5_main_draw.c 5_minimap.c
 
