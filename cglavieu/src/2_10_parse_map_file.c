@@ -87,7 +87,7 @@ int		quick_look(t_map *m)
 void	parse_map_file(t_env *w, t_map *m)
 {
 	if (quick_look(m) == -1)
-		set_error(w, m, 4, "quick_look");
+		set_error(w, m, 4, ft_strdup("quick_look"));
 	if (do_parse(m) == -1)
-		set_error(w, m, 4, "quick_look");
+		set_error(w, m, 4, ft_strdup("do_parse"));
 }

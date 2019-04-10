@@ -14,7 +14,13 @@ void			set_error(t_env *w, t_map *m, int errorno, char *s)
 		ft_putstr("Incorrect argument : \"");
 	if (errorno == 4)
 		ft_putstr("Execution error in : \"");
-	ft_putstr(s);
+	if (s != NULL)
+	{
+		ft_putstr(s);
+		free(s);
+	}
+	else
+		ft_putstr("NULL");
 	ft_putendl("\"\nProgram closing now.");
 	exit_game(w, m);
 }

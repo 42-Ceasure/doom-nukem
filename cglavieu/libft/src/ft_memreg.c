@@ -26,9 +26,11 @@ void	ft_memreg3(char ***s)
 			while (s[i][j])
 			{
 				free(s[i][j]);
+				s[i][j] = NULL;
 				j++;
 			}
 			free(s[i]);
+			s[i] = NULL;
 			i++;
 		}
 		free(s);
@@ -46,9 +48,10 @@ void	ft_memreg(char **s)
 		while (s[i])
 		{
 			free(s[i]);
+			s[i] = NULL;
 			i++;
 		}
 		free(s);
+		s = NULL;
 	}
-	s = NULL;
 }

@@ -19,6 +19,8 @@ void		empty_map(t_map *m)
 	i = 0;
 	if (m != NULL)
 	{
+		if (m->map_name != NULL)
+			free(m->map_name);
 		if (m->dot != NULL)
 			free(m->dot);
 		if (m->sector != NULL)

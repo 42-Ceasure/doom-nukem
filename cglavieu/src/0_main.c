@@ -7,8 +7,8 @@ void	set_basics(t_env *w, t_map *m, int ac)
 	w->ac = ac;
 	m->i = 0;
 	m->s = 0;
-	m->map_path = "maps/home_sweet_home.dn3d";
-	m->map_name = "Home Sweet Home";
+	m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
+	m->map_name = ft_strdup("Home Sweet Home");
 	m->section_number = 0;
 	m->sector_count = 0;
 	m->sector = NULL;
@@ -31,9 +31,9 @@ void	set_basics(t_env *w, t_map *m, int ac)
 void			init_world(t_env **w, t_map **m, int ac)
 {
 	if ((*w = (t_env *)malloc(sizeof(t_env))) == NULL)
-		set_error(*w, *m, 0, "struct world");
+		set_error(*w, *m, 0, ft_strdup("struct world"));
 	if ((*m = (t_map *)malloc(sizeof(t_map))) == NULL)
-		set_error(*w, *m, 0, "struct map");
+		set_error(*w, *m, 0, ft_strdup("struct map"));
 	set_basics(*w, *m, ac);
 }
 
@@ -46,17 +46,18 @@ void			exec_cmd(t_env *w, t_map *m, char ***cmd, char **av)
 	{
 		l_f_priority_cmd(w, m, cmd);
 		if ((init_sdl(w)) == -1)
-			set_error(w, m, 4, "SDL Initialisation");
+			set_error(w, m, 4, ft_strdup("SDL Initialisation"));
+		parse_map_file(w, m);
 		interpret_cmd(w, m, cmd);
 	}
 	else
-		set_error(w, m, 1, av[1]);
+		set_error(w, m, 1, ft_strdup(av[1]));
 }
 
 void			simple_start(t_env *w, t_map *m)
 {
 	if ((init_sdl(w)) == -1)
-		set_error(w, m, 4, "SDL Initialisation");
+		set_error(w, m, 4, ft_strdup("SDL Initialisation"));
 	parse_map_file(w, m);
 }
 
@@ -75,6 +76,6 @@ int				main(int ac, char **av)
 	else
 		simple_start(w, m);
 	if (!run(w, m))
-		set_error(w, m, 4, "run");
+		set_error(w, m, 4, ft_strdup("run"));
 	return (0);
 }

@@ -29,8 +29,6 @@ void	recap_map_list_general(t_map m, char *str)
 	ft_putstr(s);
 	free(s);
 	ft_putendl(" :\n");
-	ft_putstr("map_section_number = ");
-	ft_putnbrendl(m.section_number);
 	ft_putstr("map_dots_count = ");
 	ft_putnbrendl(m.dots_count);
 	ft_putstr("map_sector_count = ");
