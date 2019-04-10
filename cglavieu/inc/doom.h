@@ -234,6 +234,7 @@ typedef struct		s_map
 typedef struct		s_env
 {
 	int				i;
+	int				ac;
 	int				window_mode;
 	int				sequential_draw;
 	SDL_Window		*win;
@@ -249,9 +250,8 @@ void				l_f_priority_cmd(t_env *w, t_map *m, char ***cmd);
 void				interpret_cmd(t_env *w, t_map *m, char ***cmd);
 void				map_cmd(t_env *w, t_map *m, char **cmd);
 void				set_error(t_env *w, t_map *m, int errorno);
-void				set_basics(t_env *w, t_map *m);
-void				set_advanced(t_map *m);
-void				parse_map(t_env *w, t_map *m);
+void				set_basics(t_env *w, t_map *m, int ac);
+void				parse_map_file(t_env *w, t_map *m);
 void				set_advanced_run(char **av, t_env *w, t_map *m);
 void				exit_game(t_env *w, t_map *m);
 int					init_sdl(t_env *w);
@@ -276,6 +276,7 @@ double				yaw(double y, double z, t_map *m);
 int					quick_look(t_map *m);
 int					do_parse(t_map *m);
 int					parse_map_section(t_map *m, char **tab);
+int					parse_player_section(t_map *m, char **tab);
 void				recap_parsing(t_map *m, char **str);
 void				init_verification(t_draw *draw);
 int					init_draw(t_draw *d, t_reader *read, t_map *m);
