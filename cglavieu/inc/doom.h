@@ -245,7 +245,7 @@ typedef struct		s_env
 }					t_env;
 
 char				***parse_cmd(int ac, char **av);
-void				l_f_priority_cmd(t_env *w, char ***cmd);
+void				l_f_priority_cmd(t_env *w, t_map *m, char ***cmd);
 void				interpret_cmd(t_env *w, t_map *m, char ***cmd);
 void				map_cmd(t_env *w, t_map *m, char **cmd);
 void				set_error(t_env *w, t_map *m, int errorno);

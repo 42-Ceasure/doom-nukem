@@ -2,7 +2,7 @@
 
 #include "doom.h"
 
-void		l_f_priority_cmd(t_env *w, char ***cmd)
+void		l_f_priority_cmd(t_env *w, t_map *m, char ***cmd)
 {
 	int		i;
 
@@ -20,14 +20,21 @@ void		l_f_priority_cmd(t_env *w, char ***cmd)
 				else
 					w->window_mode = 1;
 			}
+			free(cmd[i][0]);
+			cmd[i][0] = ft_strdup("-ok");
 		}
 		if (ft_strcmp(cmd[i][0], "-seq") == 0)
+		{
 			w->sequential_draw = 1;
+			free(cmd[i][0]);
+			cmd[i][0] = ft_strdup("-ok");
+		}
 		else
 			w->sequential_draw = 0;
-
 		i++;
 	}
+	if ((init_sdl(w)) == -1)
+			set_error(w, m, 0);
 }
 
 void		interpret_cmd(t_env *w, t_map *m, char ***cmd)
@@ -37,6 +44,11 @@ void		interpret_cmd(t_env *w, t_map *m, char ***cmd)
 	i = 0;
 	while (cmd[i] != NULL)
 	{
+		if (ft_strcmp(cmd[i][0], "-ok") == 0)
+		{
+			i++;
+			continue;
+		}
 		if (ft_strcmp(cmd[i][0], "-map") == 0)
 		{
 			map_cmd(w, m, cmd[i]);
@@ -122,5 +134,5 @@ char		***parse_cmd(int ac, char **av)
 	if ((cmd = lol(cmd, ac, av))== NULL)
 		return (NULL);
 	else
-	return (cmd);
+		return (cmd);
 }

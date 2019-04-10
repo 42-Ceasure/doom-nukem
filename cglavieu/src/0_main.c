@@ -23,15 +23,16 @@ int				main(int ac, char **av)
 	if (ac > 1)
 	{
 		if ((cmd = parse_cmd(ac, av)) != NULL)
-			l_f_priority_cmd(w, cmd);
+			l_f_priority_cmd(w, m, cmd);
 		set_advanced(m);
-	}
-	if ((init_sdl(w)) == -1)
-		set_error(w, m, 1);
-	if (ac > 1 && cmd != NULL)
 		interpret_cmd(w, m, cmd);
+	}
 	else
+	{
+		if ((init_sdl(w)) == -1)
+			set_error(w, m, 0);
 		parse_map(w, m);
+	}
 	if (!run(w, m))
 		set_error(w, m, 0);
 	return (0);
