@@ -17,13 +17,14 @@ SRCDIR		=	./src/
 INCFIL		=	doom.h
 OBJFIL		=	$(SRCFIL:.c=.o)
 	LIBFTFIL	=	libft.a
-	SRCFIL		=	0_main.c 0_exit.c 0_error.c	\
-					1_init.c	\
-					2_00_parse_cmd.c 2_01_exec_cmd.c 2_02_cmd.c	\
-					2_10_parse_map_file.c 2_11_map_section.c 2_12_player_section.c	\
+	SRCFIL		=	main.c exit.c error.c	\
+					init.c	\
+					cmd_parse.c cmd_exec.c cmd_list.c	\
+					parse_map_file.c parse_map_section.c parse_player_section.c	\
 					3_recap_parsing.c	\
 					4_run.c	\
-					5_doom_short_functions.c 5_line.c 5_draw.c 5_draw_utility.c 5_main_draw.c 5_minimap.c
+					5_doom_short_functions.c 5_line.c	\
+					draw_main.c draw_utility.c draw_dep.c draw_minimap.c
 
 SRC			=	$(addprefix $(SRCDIR),$(SRCFIL))
 OBJ			=	$(addprefix $(OBJDIR),$(OBJFIL))
