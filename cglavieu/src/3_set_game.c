@@ -48,10 +48,10 @@ void	set_basics(t_env *w, t_map *m)
 	w->window_mode = RESIZABLE_SCREEN;
 }
 
-void	set_basic_run(t_env *w, t_map *m)
+void	parse_map(t_env *w, t_map *m)
 {
 	if (quick_look(m) == -1 || do_parse(m) == -1)
-		set_error(w, m, 12);
+		set_error(w, m, 0);
 }
 
 void	map_cmd(t_env *w, t_map *m, char **cmd)

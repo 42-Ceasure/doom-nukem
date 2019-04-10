@@ -40,15 +40,19 @@ void		interpret_cmd(t_env *w, t_map *m, char ***cmd)
 		if (ft_strcmp(cmd[i][0], "-map") == 0)
 		{
 			map_cmd(w, m, cmd[i]);
-			if (quick_look(m) == -1 || do_parse(m) == -1)
-				set_error(w, m, 13);
+			parse_map(w, m);
 		}
-		if (ft_strcmp(cmd[i][0], "-list") == 0)
+		else if (ft_strcmp(cmd[i][0], "-list") == 0)
 			recap_parsing(m, cmd[i]);
-		if (ft_strcmp(cmd[i][0], "-exit") == 0)
+		else if (ft_strcmp(cmd[i][0], "-exit") == 0)
 		{
-			ft_memreg(*cmd);
+			ft_memreg3(cmd);
 			exit_game(w, m);
+		}
+		else
+		{
+			ft_memreg3(cmd);
+			set_error(w, m, 0);
 		}
 		i++;
 	}

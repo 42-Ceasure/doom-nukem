@@ -251,7 +251,7 @@ void				map_cmd(t_env *w, t_map *m, char **cmd);
 void				set_error(t_env *w, t_map *m, int errorno);
 void				set_basics(t_env *w, t_map *m);
 void				set_advanced(t_map *m);
-void				set_basic_run(t_env *w, t_map *m);
+void				parse_map(t_env *w, t_map *m);
 void				set_advanced_run(char **av, t_env *w, t_map *m);
 void				exit_game(t_env *w, t_map *m);
 int					init_sdl(t_env *w);

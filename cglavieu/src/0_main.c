@@ -31,7 +31,7 @@ int				main(int ac, char **av)
 	if (ac > 1 && cmd != NULL)
 		interpret_cmd(w, m, cmd);
 	else
-		set_basic_run(w, m);
+		parse_map(w, m);
 	if (!run(w, m))
 		set_error(w, m, 0);
 	return (0);
