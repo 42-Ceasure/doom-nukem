@@ -10,29 +10,11 @@ void		l_f_priority_cmd(t_env *w, t_map *m, char ***cmd)
 	while (cmd[i] != NULL)
 	{
 		if (ft_strcmp(cmd[i][0], "-video_mode") == 0)
-		{
-			if (cmd[i][1] != NULL)
-			{
-				if (ft_strcmp(cmd[i][1], "FULL_SCREEN") == 0)
-					w->window_mode = FULL_SCREEN;
-				else if (ft_strcmp(cmd[i][1], "RESIZABLE_SCREN") == 0)
-					w->window_mode = RESIZABLE_SCREEN;
-				else
-					set_error(w, m, 0);
-			}
-			free(cmd[i][0]);
-			cmd[i][0] = ft_strdup("-ok");
-		}
+			video_mode_cmd(w, m, cmd, i);
 		if (ft_strcmp(cmd[i][0], "-seq") == 0)
-		{
-			w->sequential_draw = 1;
-			free(cmd[i][0]);
-			cmd[i][0] = ft_strdup("-ok");
-		}
+			seq_cmd(w, cmd, i);
 		i++;
 	}
-	if ((init_sdl(w)) == -1)
-			set_error(w, m, 0);
 }
 
 void		interpret_cmd(t_env *w, t_map *m, char ***cmd)
@@ -48,22 +30,13 @@ void		interpret_cmd(t_env *w, t_map *m, char ***cmd)
 			continue;
 		}
 		if (ft_strcmp(cmd[i][0], "-map") == 0)
-		{
 			map_cmd(w, m, cmd[i]);
-			parse_map_file(w, m);
-		}
 		else if (ft_strcmp(cmd[i][0], "-list") == 0)
 			recap_parsing(m, cmd[i]);
 		else if (ft_strcmp(cmd[i][0], "-exit") == 0)
-		{
-			ft_memreg3(cmd);
-			exit_game(w, m);
-		}
+			exit_cmd(w, m, cmd);
 		else
-		{
-			ft_memreg3(cmd);
-			set_error(w, m, 0);
-		}
+			not_a_command(w, m, cmd);
 		i++;
 	}
 	ft_memreg3(cmd);

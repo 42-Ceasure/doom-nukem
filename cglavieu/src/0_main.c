@@ -44,6 +44,8 @@ void			exec_cmd(t_env *w, t_map *m, char ***cmd, char **av)
 	if ((cmd = parse_cmd(ac, av)) != NULL)
 	{
 		l_f_priority_cmd(w, m, cmd);
+		if ((init_sdl(w)) == -1)
+			set_error(w, m, 0);
 		interpret_cmd(w, m, cmd);
 	}
 	else
