@@ -18,16 +18,16 @@ void		video_mode_cmd(t_env *w, t_map *m, char ***cmd, int i)
 		else if (ft_strcmp(cmd[i][1], "RESIZABLE_SCREN") == 0)
 			w->window_mode = RESIZABLE_SCREEN;
 		else
-			set_error(w, m, 0);
+			set_error(w, m, 3, cmd[i][1]);
 	}
 	free(cmd[i][0]);
 	cmd[i][0] = ft_strdup("-ok");
 }
 
-void	not_a_command(t_env *w, t_map *m, char ***cmd)
+void	not_a_command(t_env *w, t_map *m, char ***cmd, char *s)
 {
 	ft_memreg3(cmd);
-	set_error(w, m, 0);
+	set_error(w, m, 2, s);
 }
 
 void	exit_cmd(t_env *w, t_map *m, char ***cmd)
@@ -42,11 +42,11 @@ void	map_cmd(t_env *w, t_map *m, char **cmd)
 	char **tmp2;
 
 	if (cmd[1] == NULL)
-		set_error(w, m, 0);
+		set_error(w, m, 3, "no map specified");
 	m->map_path = cmd[1];
 	tmp = ft_strsplit(cmd[1], '/');
 	if (tmp == NULL || tmp[1] == NULL)
-		set_error(w, m, 0);
+		set_error(w, m, 3, "incorrect format");
 	tmp2 = ft_strsplit(tmp[1], '.');
 	m->map_name = tmp2[0];
 	ft_memreg(tmp);

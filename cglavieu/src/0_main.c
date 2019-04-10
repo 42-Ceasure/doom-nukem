@@ -23,6 +23,7 @@ void	set_basics(t_env *w, t_map *m, int ac)
 	m->line = NULL;
 	m->gravity = BASE_GRAVITY;
 	m->maxrenderedsector = 32;
+	w->pix = NULL;
 	w->sequential_draw = 0;
 	w->window_mode = RESIZABLE_SCREEN;
 }
@@ -30,9 +31,9 @@ void	set_basics(t_env *w, t_map *m, int ac)
 void			init_world(t_env **w, t_map **m, int ac)
 {
 	if ((*w = (t_env *)malloc(sizeof(t_env))) == NULL)
-		set_error(*w, *m, 0);
+		set_error(*w, *m, 0, "struct world");
 	if ((*m = (t_map *)malloc(sizeof(t_map))) == NULL)
-		set_error(*w, *m, 0);
+		set_error(*w, *m, 0, "struct map");
 	set_basics(*w, *m, ac);
 }
 
@@ -45,17 +46,17 @@ void			exec_cmd(t_env *w, t_map *m, char ***cmd, char **av)
 	{
 		l_f_priority_cmd(w, m, cmd);
 		if ((init_sdl(w)) == -1)
-			set_error(w, m, 0);
+			set_error(w, m, 4, "SDL Initialisation");
 		interpret_cmd(w, m, cmd);
 	}
 	else
-		set_error(w, m, 0);
+		set_error(w, m, 1, av[1]);
 }
 
 void			simple_start(t_env *w, t_map *m)
 {
 	if ((init_sdl(w)) == -1)
-		set_error(w, m, 0);
+		set_error(w, m, 4, "SDL Initialisation");
 	parse_map_file(w, m);
 }
 
@@ -74,6 +75,6 @@ int				main(int ac, char **av)
 	else
 		simple_start(w, m);
 	if (!run(w, m))
-		set_error(w, m, 0);
+		set_error(w, m, 4, "run");
 	return (0);
 }

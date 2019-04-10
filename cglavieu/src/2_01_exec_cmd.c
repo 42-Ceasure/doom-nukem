@@ -36,7 +36,7 @@ void		interpret_cmd(t_env *w, t_map *m, char ***cmd)
 		else if (ft_strcmp(cmd[i][0], "-exit") == 0)
 			exit_cmd(w, m, cmd);
 		else
-			not_a_command(w, m, cmd);
+			not_a_command(w, m, cmd, cmd[i][0]);
 		i++;
 	}
 	ft_memreg3(cmd);
