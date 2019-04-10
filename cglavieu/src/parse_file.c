@@ -1,4 +1,4 @@
-//
+/*BIG42HEADER*/
 
 #include "doom.h"
 
@@ -17,7 +17,7 @@ int			parse_line(t_map *m)
 	return (0);
 }
 
-int		do_parse(t_map *m)
+int			do_parse(t_map *m)
 {
 	m->i = 0;
 	m->s = 0;
@@ -38,7 +38,7 @@ int		do_parse(t_map *m)
 	return (0);
 }
 
-void	check_line(t_map *m)
+void		check_line(t_map *m)
 {
 	char	**tmp;
 	char	**tmp2;
@@ -58,16 +58,16 @@ void	check_line(t_map *m)
 			ft_memreg(tmp2);
 		}
 		if (ft_strcmp(tmp[0], "\tsector") == 0)
-			m->sector_count++;
+			M_S_C++;
 	}
 	i = 0;
 	ft_memreg(tmp);
 }
 
-int		quick_look(t_map *m)
+int			quick_look(t_env *w, t_map *m)
 {
 	if ((m->fd = open(m->map_path, O_RDONLY)) == -1)
-		return (-1);
+		set_error(w, m, 5, m->map_path);
 	while (get_next_line(m->fd, &m->line))
 	{
 		check_line(m);
@@ -77,16 +77,16 @@ int		quick_look(t_map *m)
 	close(m->fd);
 	if (m->dots_count == 0)
 		return (-1);
-	if ((m->sector = (t_sector *)malloc(sizeof(t_sector) * m->sector_count)) == NULL)
+	if ((m->sector = (t_sector *)malloc(sizeof(t_sector) * M_S_C)) == NULL)
 		return (-1);
 	if ((m->dot = (t_dot *)malloc(sizeof(t_dot) * m->dots_count)) == NULL)
 		return (-1);
 	return (0);
 }
 
-void	parse_map_file(t_env *w, t_map *m)
+void		parse_map_file(t_env *w, t_map *m)
 {
-	if (quick_look(m) == -1)
+	if (quick_look(w, m) == -1)
 		set_error(w, m, 4, ft_strdup("quick_look"));
 	if (do_parse(m) == -1)
 		set_error(w, m, 4, ft_strdup("do_parse"));

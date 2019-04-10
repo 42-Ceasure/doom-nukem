@@ -1,8 +1,8 @@
-//
+/*BIG42HEADER*/
 
 #include "doom.h"
 
-void	set_basics(t_env *w, t_map *m, int ac)
+void			set_basics(t_env *w, t_map *m, int ac)
 {
 	w->ac = ac;
 	m->i = 0;

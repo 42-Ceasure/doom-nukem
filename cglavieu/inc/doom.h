@@ -29,6 +29,7 @@
 # define PL_A				m->player.angle
 # define PL_AC				m->player.anglecos
 # define PL_AS				m->player.anglesin
+# define M_S_C				m->sector_count
 # define STAND				16.9
 # define CROUCH				9.3
 # define CRAWL				2
@@ -277,7 +278,7 @@ double				isoverlap(double a0, double a1, double b0, double b1);
 double				pointside(t_coor p, double x0,
 					double y0, double x1, double y1);
 double				yaw(double y, double z, t_map *m);
-int					quick_look(t_map *m);
+int					quick_look(t_env *w, t_map *m);
 int					do_parse(t_map *m);
 int					parse_map_section(t_map *m, char **tab);
 int					parse_player_section(t_map *m, char **tab);

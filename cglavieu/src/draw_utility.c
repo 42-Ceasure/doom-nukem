@@ -117,4 +117,3 @@ void	init_verification(t_draw *d)
 	d->ip1 = intersect(d->i1);
 	d->ip2 = intersect(d->i2);
 }
-

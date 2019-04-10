@@ -1,11 +1,11 @@
-//
+/*BIG42HEADER*/
 
 #include "doom.h"
 
 int			parse_map_dots(t_map *m, char *y, char *x)
 {
-	int i;
-	char **tmp;
+	int		i;
+	char	**tmp;
 
 	i = 0;
 	tmp = ft_strsplit(x, ',');
@@ -56,7 +56,7 @@ int			parse_sector_dots(t_map *m, char **dots)
 		if (i == 0)
 			mem[1] = mem[0];
 		m->sector[m->s].dot[i].x = m->dot[mem[0]].x;
-	 	m->sector[m->s].dot[i].y = m->dot[mem[0]].y;
+		m->sector[m->s].dot[i].y = m->dot[mem[0]].y;
 		i++;
 	}
 	m->sector[m->s].dot[i].x = m->dot[mem[1]].x;

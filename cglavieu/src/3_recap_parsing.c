@@ -1,4 +1,4 @@
-// retirer les printf
+/*BIG42HEADER*/
 
 #include "doom.h"
 

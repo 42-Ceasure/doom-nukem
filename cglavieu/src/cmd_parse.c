@@ -1,4 +1,4 @@
-//
+/*BIG42HEADER*/
 
 #include "doom.h"
 
@@ -62,7 +62,7 @@ char		***parse_cmd(int ac, char **av)
 	char	***cmd;
 
 	cmd = NULL;
-	if ((cmd = do_parse_cmd(cmd, ac, av))== NULL)
+	if ((cmd = do_parse_cmd(cmd, ac, av)) == NULL)
 		return (NULL);
 	else
 		return (cmd);
