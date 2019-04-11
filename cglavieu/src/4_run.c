@@ -128,6 +128,30 @@ void move_player(double dx, double dy, t_map *m)
 	m->player.anglecos = cos(m->player.angle);
 }
 
+int			is_on_a_dot(t_intersect i)
+{
+	int		r1;
+	int		r2;
+	int		r3;
+	int		r4;
+/* sources	https://www.cap-concours.fr/administratif/culture-disciplinaire/reviser/equations-de-droites-et-systemes-d-equations-lineaires-2_m305
+			https://www.lucidar.me/fr/mathematics/check-if-a-point-belongs-on-a-line-segment/ */
+	r1 = (i.x3 - i.x1) * (i.y2 + i.dy - i.y1);
+	r2 = (i.y3 - i.y1) * (i.x2 + i.dx - i.x1);
+	r3 = (i.x4 - i.x1) * (i.y2 + i.dy - i.y1);
+	r4 = (i.y4 - i.y1) * (i.x2 + i.dx - i.x1);
+	if (r1 == r2 || r3 == r4)
+	{
+		if ((i.x3 >= vmin(i.x1, i.x2) && i.x3 <= vmax(i.x1, i.x2))
+			|| (i.x4 >= vmin(i.x1, i.x2) && i.x4 <= vmax(i.x1, i.x2)))
+			return (-1);
+		else
+			return (0);
+	}
+	else
+		return (0);
+}
+
 void		is_moving(t_map *m)
 {
 	int s;
@@ -167,6 +191,11 @@ void		is_moving(t_map *m)
 				m->player.move_speed.x = i.xd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
 				m->player.move_speed.y = i.yd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
 				m->player.moving = 0;
+				if (is_on_a_dot(i) == -1)
+				{
+					m->player.move_speed.x = 0;
+					m->player.move_speed.y = 0;
+				}
 			}
 		}
 		s++;
