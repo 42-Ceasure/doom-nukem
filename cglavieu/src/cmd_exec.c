@@ -32,7 +32,7 @@ void		interpret_cmd(t_env *w, t_map *m, char ***cmd)
 			continue;
 		}
 		else if (ft_strcmp(cmd[i][0], "-list") == 0)
-			recap_parsing(m, cmd[i]);
+			recap_parsing(w, m, cmd[i]);
 		else if (ft_strcmp(cmd[i][0], "-exit") == 0)
 			exit_cmd(w, m, cmd);
 		else

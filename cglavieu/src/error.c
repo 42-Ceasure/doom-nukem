@@ -16,6 +16,8 @@ void			set_error(t_env *w, t_map *m, int errorno, char *s)
 		ft_putstr("Execution error in : \"");
 	if (errorno == 5)
 		ft_putstr("File not found : \"");
+	if (errorno == 6)
+		ft_putstr("Section invalid : \"");
 	if (s != NULL)
 	{
 		ft_putstr(s);

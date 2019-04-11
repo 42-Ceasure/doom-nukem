@@ -282,7 +282,6 @@ int					quick_look(t_env *w, t_map *m);
 int					do_parse(t_map *m);
 int					parse_map_section(t_map *m, char **tab);
 int					parse_player_section(t_map *m, char **tab);
-void				recap_parsing(t_map *m, char **str);
 void				init_verification(t_draw *draw);
 int					init_draw(t_draw *d, t_reader *read, t_map *m);
 void				vertical_line(int x, int *box, t_env *w, t_color color);
@@ -291,4 +290,11 @@ int					moving_head(t_draw *w, t_reader read, t_map *m);
 int					ceiling_and_floor(t_draw *d, t_map *m,
 					t_reader read, int point);
 void				check_invisible(t_draw *d, t_reader read, t_map *m);
+void				recap_parsing(t_env *w, t_map *m, char **str);
+void				recap_map_list_sector(t_env *w, t_map *m, char **str);
+void				recap_map_list_sectors(t_map m, char *str);
+void				recap_sector_general(t_map m, int i);
+void				recap_sector_dots(t_map m, int i);
+void				recap_sector_network(t_map m, int i);
+void				recap_sector(t_map m, int i);
 #endif
