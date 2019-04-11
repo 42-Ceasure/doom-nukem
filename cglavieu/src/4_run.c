@@ -93,6 +93,43 @@ void slow_down(t_env *w, t_map *m)
 	m->player.move_speedless.y = 0.f;
 }
 
+int			is_on_a_dot(t_map *m, int s)
+{
+	t_intersect i;
+	int		r1;
+	int		r2;
+	int		r3;
+	int		r4;
+/* sources	https://www.cap-concours.fr/administratif/culture-disciplinaire/reviser/equations-de-droites-et-systemes-d-equations-lineaires-2_m305
+			https://www.lucidar.me/fr/mathematics/check-if-a-point-belongs-on-a-line-segment/ */
+	i.x1 = m->player.coor.x;
+	i.y1 = m->player.coor.y;
+	i.x2 = m->player.coor.x + m->player.move_speed.x;
+	i.y2 = m->player.coor.y + m->player.move_speed.y;
+	i.x3 = m->sector[m->player.sector].dot[s].x;
+	i.y3 = m->sector[m->player.sector].dot[s].y;
+	i.x4 = m->sector[m->player.sector].dot[s + 1].x;
+	i.y4 = m->sector[m->player.sector].dot[s + 1].y;
+	r1 = (i.x3 - i.x1) * (i.y2 + i.dy - i.y1);
+	r2 = (i.y3 - i.y1) * (i.x2 + i.dx - i.x1);
+	r3 = (i.x4 - i.x1) * (i.y2 + i.dy - i.y1);
+	r4 = (i.y4 - i.y1) * (i.x2 + i.dx - i.x1);
+	if (r1 == r2 || r3 == r4)
+	{
+		printf("dotx:%f,x1:%f,x2:%f\n", i.x3, i.x1, i.x2);
+		printf("dotx:%f,x1:%f,x2:%f\n", i.x4, i.x1, i.x2);
+		printf("%d\n", m->player.sector);
+		ft_putendl("----------------------------------------");
+		if ((i.x3 > vmin(i.x1, i.x2) && i.x3 < vmax(i.x1, i.x2))
+			|| (i.x4 > vmin(i.x1, i.x2)  && i.x4 < vmax(i.x1, i.x2)))
+			return (-1);
+		else
+			return (0);
+	}
+	else
+		return (0);
+}
+
 void move_player(double dx, double dy, t_map *m)
 {
 	int s;
@@ -122,34 +159,15 @@ void move_player(double dx, double dy, t_map *m)
 		}
 		s++;
 	}
+	// if (is_on_a_dot(i) == -1)
+	// {
+	// 	m->player.move_speed.x = 0;
+	// 	m->player.move_speed.y = 0;
+	// }
 	m->player.coor.x = m->player.coor.x + dx;
 	m->player.coor.y = m->player.coor.y + dy;
 	m->player.anglesin = sin(m->player.angle);
 	m->player.anglecos = cos(m->player.angle);
-}
-
-int			is_on_a_dot(t_intersect i)
-{
-	int		r1;
-	int		r2;
-	int		r3;
-	int		r4;
-/* sources	https://www.cap-concours.fr/administratif/culture-disciplinaire/reviser/equations-de-droites-et-systemes-d-equations-lineaires-2_m305
-			https://www.lucidar.me/fr/mathematics/check-if-a-point-belongs-on-a-line-segment/ */
-	r1 = (i.x3 - i.x1) * (i.y2 + i.dy - i.y1);
-	r2 = (i.y3 - i.y1) * (i.x2 + i.dx - i.x1);
-	r3 = (i.x4 - i.x1) * (i.y2 + i.dy - i.y1);
-	r4 = (i.y4 - i.y1) * (i.x2 + i.dx - i.x1);
-	if (r1 == r2 || r3 == r4)
-	{
-		if ((i.x3 >= vmin(i.x1, i.x2) && i.x3 <= vmax(i.x1, i.x2))
-			|| (i.x4 >= vmin(i.x1, i.x2) && i.x4 <= vmax(i.x1, i.x2)))
-			return (-1);
-		else
-			return (0);
-	}
-	else
-		return (0);
 }
 
 void		is_moving(t_map *m)
@@ -191,10 +209,11 @@ void		is_moving(t_map *m)
 				m->player.move_speed.x = i.xd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
 				m->player.move_speed.y = i.yd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
 				m->player.moving = 0;
-				if (is_on_a_dot(i) == -1)
+				if (is_on_a_dot(m, s) == -1)
 				{
 					m->player.move_speed.x = 0;
 					m->player.move_speed.y = 0;
+					break;
 				}
 			}
 		}
