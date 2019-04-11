@@ -24,7 +24,7 @@ void		recap_one(t_env *w, t_map *m, char **str, int i)
 			recap_sector_specific(w, m, i, str[3]);
 	}
 	else
-		ft_putendl("this sector don't exist...");
+		set_error(w, m, 7, ft_strdup(str[2]));
 }
 
 void		recap_all(t_env *w, t_map *m, char **str)
@@ -59,7 +59,7 @@ void		recap_map_list_sector(t_env *w, t_map *m, char **str)
 			recap_one(w, m, str, i);
 		}
 		else
-			set_error(w, m, 3, str[2]);
+			set_error(w, m, 3, ft_strdup(str[2]));
 	}
 	ft_putchar('\n');
 }
