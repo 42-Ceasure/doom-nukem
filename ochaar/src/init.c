@@ -31,7 +31,7 @@ SDL_Texture* loadTexture(const char path[], SDL_Renderer *renderer)
 
 int			init_sdl(t_env *w)
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		return (-1);
 	if (w->window_mode == 1)
 	{
@@ -47,10 +47,31 @@ int			init_sdl(t_env *w)
 										WIDTH, HEIGHT,
 										SDL_WINDOW_FULLSCREEN);
 	}
-	//if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
-    //{
-    //    printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
-	//}
+	/*if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0)
+    {
+        printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+	}
+	Mix_Music *musique;
+   	musique = Mix_LoadMUS("musique.mp3");
+   	Mix_PlayMusic(musique, -1); //-1 = jouer en boucle
+	appuyer sur p
+	    if(Mix_PausedMusic() == 1)//Si la musique est en pause
+        {
+            Mix_ResumeMusic(); //Reprendre la musique
+        }
+        else
+        {
+            Mix_PauseMusic(); //Mettre en pause la musique
+        }
+    	break;
+	Mix_AllocateChannels(10);//cree 10 channels max
+	Mix_chunk *son;
+	son = Mix_LoadWAV("son.wav");
+	Mix_VolumeChunck(son, MAX_VOLUME / 2);
+	Mix_PlayChannel(1, son, 0);// 1er arg est le numero du cannal et 3e arg est le nombre de fois repete
+	Mix_FreeChunk(son);
+	Mix_FreeMusic(musique);
+   	Mix_CloseAudio();*/
 	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED |
 											SDL_RENDERER_PRESENTVSYNC);
 	w->pix = (Uint32 *)malloc(sizeof(Uint32) * WIDTH * HEIGHT);
