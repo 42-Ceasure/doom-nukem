@@ -182,7 +182,7 @@ int			is_on_a_dot(t_map *m, int s)
 		return (0);
 }
 
-int			is_next_to_a_dot(t_map *m, int s)
+int			is_next_to_a_dot(t_map *m)
 {
 	t_intersect	i;
 	double		slope;
@@ -192,7 +192,6 @@ int			is_next_to_a_dot(t_map *m, int s)
 	double		dist_min;
 	int			dot_mem;
 
-	s = 0;
 	i.mem = 0;
 	dist_min = 0;
 	slope = 0;
@@ -264,6 +263,7 @@ void move_player(double dx, double dy, t_map *m)
 		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) < 0)
 		{
 			m->player.sector = m->sector[m->player.sector].network[s];
+			
 			break;
 		}
 		s++;

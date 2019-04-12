@@ -43,11 +43,13 @@ void		map_cmd(t_env *w, t_map *m, char **cmd)
 
 	if (cmd[1] == NULL)
 		set_error(w, m, 3, ft_strdup("no map specified"));
+	free(m->map_path);
 	m->map_path = cmd[1];
 	tmp = ft_strsplit(cmd[1], '/');
 	if (tmp == NULL || tmp[1] == NULL)
 		set_error(w, m, 3, ft_strdup("incorrect format"));
 	tmp2 = ft_strsplit(tmp[1], '.');
+	free(m->map_name);
 	m->map_name = ft_strdup(tmp2[0]);
 	ft_memreg(tmp);
 	ft_memreg(tmp2);
