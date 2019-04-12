@@ -1,0 +1,57 @@
+avancement du parseur :
+
+	parsing section 1 fini;
+	parsing section 2 fini;
+
+possible de lancer le programme avec des args (la liste est assez courte xD)
+
+arguments :
+
+-recap_parsing :
+
+	recapitule une des sections en mémoire :
+
+		map_list_general :
+			lister variables generales de la carte
+
+		map_list_dots
+			lister les points de la map
+
+		map_list_sectors
+			lister les secteurs
+
+		map_list_sector <secteur> <attribut>
+			lister les attributs d'un secteur
+				exemples :
+					map_list_sector all
+					map_list_sector all general
+					map_list_sector 1 (seul all fonctionne pour le moment)
+			secteur = all, numero
+			attribut = general, dots, network
+
+		player_list_vars
+			lister les variables du joueur
+
+-map <map>
+
+engine en cours
+
+a faire :
+	- coder un ft_putfloat / ft_putdouble
+	- quelques changements sur des printf
+	- format textures / son dans les maps
+	- parsing textures
+	- parsing son
+
+engine :
+	- correction de bugs d'affichage sur le plafond
+	- affichage des secteurs en fonction de la position du joueur
+	- correction des angles, le joueur peut sortir de la map dans les coins
+	- ajout de textures
+	- ajout de sprites
+
+LA NORME CA SERA AU FUR ET A MESURE
+
+KISSES
+
+<3
