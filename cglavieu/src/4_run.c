@@ -230,8 +230,8 @@ int			is_next_to_a_dot(t_map *m, int s)
 	slope = (i.y1 - i.y2) / (i.x1 - i.x2);
 	if (dist_min < 0.1)
 	{
-		m->player.move_speed.x + m->player.coor.x = i.x2 += cos(slope);
-		m->player.move_speed.y + m->player.coor.y = i.y2 += sin(slope);
+		m->player.move_speed.x = i.x2 += cos(slope);
+		m->player.move_speed.y = i.y2 += sin(slope);
 		return (-1);
 	}
 	printf("point:%d,dist:%f\n", dot_mem, dist_min);
