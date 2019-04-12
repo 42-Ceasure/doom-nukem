@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:33:50 by ochaar            #+#    #+#             */
-/*   Updated: 2019/04/12 16:01:52 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/12 18:58:00 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	*thread(t_worker_arg *arg)
 {
 	const t_env	*w = arg->w;
-	int				x;
+	int			x;
 
 	printf("%d\n", w->i);
 	x = arg->start * (WIDTH / NB_THREAD);
 	while (x < (arg->start + 1) * (WIDTH / NB_THREAD))
 	{
-		//draw();
+		//draw(w, m);
 		x++;
 	}
 	return (NULL);

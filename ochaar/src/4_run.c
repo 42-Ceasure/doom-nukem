@@ -93,57 +93,51 @@ void slow_down(t_env *w, t_map *m)
 	m->player.move_speedless.y = 0.f;
 }
 
-// int			is_on_a_dot(t_map *m, int s)
-// {
-// 	double px, py;
-// 	double pnx, pny;
-// 	double p1x, p1y;
-// 	double p2x, p2y;
-// 	double		r1;
-// 	double		r2;
-// 	double		r3;
-// 	double		r4;
-// 	double	kac;
-// 	double 	kab;
-// 	double	kac2;
-// 	double 	kab2;
-// /* sources	https://www.cap-concours.fr/administratif/culture-disciplinaire/reviser/equations-de-droites-et-systemes-d-equations-lineaires-2_m305
-// 			https://www.lucidar.me/fr/mathematics/check-if-a-point-belongs-on-a-line-segment/ */
-// 	px = m->player.coor.x;
-// 	py = m->player.coor.y;
-// 	pnx = m->player.coor.x;
-// 	pny = m->player.coor.y;
-// 	p1x = m->sector[m->player.sector].dot[s].x;
-// 	p1y = m->sector[m->player.sector].dot[s].y;
-// 	p2x = m->sector[m->player.sector].dot[s + 1].x;
-// 	p2y = m->sector[m->player.sector].dot[s + 1].y;
-// 	r1 = (p1x - px) * (pny - py);
-// 	r2 = (p1y - py) * (pnx - px);
-// 	r3 = (p2x - px) * (pny - py);
-// 	r4 = (p2y - py) * (pnx - px);
-// 	// printf("p1x:%f,p1y:%f\n", p2x, p2y);
-// 	// printf("px:%f,py:%f,pnx:%f,pny:%f\n", px,py,pnx,pny);
-// 	if (r1 == r2 || r3 == r4)
-// 	{
-// /* ----------------------------------------------------------------------- */
-// 		// printf("r1:%f,r2:%f,r3:%f,r4:%f\n", r1,r2,r3,r4);
-// 		kac = (pnx - px) * (p1x - px) + (pny - py) * (p1y - py);
-// 		kab = (pnx - px) * (pnx - px) + (pny - py) * (pny - py);
-// 		kac2 = (pnx - px) * (p2x - px) + (pny - py) * (p2y - py);
-// 		kab2 = (pnx - px) * (pnx - px) + (pny - py) * (pny - py);
-// 		// printf("kac:%f,kab:%f,kac2:%f,kab2:%f\n", kac, kab, kac2, kab2);
-// 		// printf("dotx:%f,x1:%f,x2:%f\n", p2x, px, pnx);
-// 		// printf("%d\n", m->player.sector);
-// 		// ft_putendl("----------------------------------------");
-// 		if ((kac > 0 && kac < kab)
-// 			|| (kac2 > 0 && kac2 < kab2))
-// 			return (-1);
-// 		else
-// 			return (0);
-// 	}
-// 	else
-// 		return (0);
-// }
+/*int			is_on_a_dot(t_map *m, int s)
+{
+ 	t_intersect i;
+	int		r1;
+	int		r2;
+	int		r3;
+	int		r4;
+	double	Kac;
+	double	Kab;
+	double	abx;
+	double	aby;
+	double	acx;
+	double	acy;
+
+	i.x1 = m->player.coor.x;
+	i.y1 = m->player.coor.y;
+	i.x2 = m->player.coor.x + m->player.move_speed.x;
+	i.y2 = m->player.coor.y + m->player.move_speed.y;
+	i.x3 = m->sector[m->player.sector].dot[s].x;
+	i.y3 = m->sector[m->player.sector].dot[s].y;
+	i.x4 = m->sector[m->player.sector].dot[s + 1].x;
+	i.y4 = m->sector[m->player.sector].dot[s + 1].y;
+	abx = i.x2 - i.x1;
+	aby = i.y2 - i.y1;
+	acx = i.x3 - i.x1;
+	acy = i.y3 - i.y1;
+	Kac = abx * acx + aby * acy;
+	Kab = abx * abx + aby * aby;
+	r1 = (i.x3 - i.x1) * (i.y2 + i.dy - i.y1);
+	r2 = (i.y3 - i.y1) * (i.x2 + i.dx - i.x1);
+	r3 = (i.x4 - i.x1) * (i.y2 + i.dy - i.y1);
+	r4 = (i.y4 - i.y1) * (i.x2 + i.dx - i.x1);
+	if (r1 == r2 || r3 == r4)
+	{
+		printf("abx:%f,acx:%f,KAC:%f, Kab;%f\n", abx, acx, Kac, Kab);
+		//printf("dotx:%f,x1:%f,x2:%f\n", i.x4, i.x1, i.x2);
+		//printf("%d\n", m->player.sector);
+		if (Kac > 0 && Kac < Kab)
+			return (-1);
+		else
+			return (0);
+	}
+	else
+		return (0);
+}*/
 
 int			is_on_a_dot(t_map *m, int s)
 {
