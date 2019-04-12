@@ -162,24 +162,59 @@ int			is_on_a_dot(t_map *m, int s)
 	i.y3 = m->sector[m->player.sector].dot[s].y;
 	i.x4 = m->sector[m->player.sector].dot[s + 1].x;
 	i.y4 = m->sector[m->player.sector].dot[s + 1].y;
-	r1 = (i.x3 - i.x1) * (i.y2 + i.dy - i.y1);
-	r2 = (i.y3 - i.y1) * (i.x2 + i.dx - i.x1);
-	r3 = (i.x4 - i.x1) * (i.y2 + i.dy - i.y1);
-	r4 = (i.y4 - i.y1) * (i.x2 + i.dx - i.x1);
+	r1 = (i.x3 - i.x1) * (i.y2 - i.y1);
+	r2 = (i.y3 - i.y1) * (i.x2 - i.x1);
+	r3 = (i.x4 - i.x1) * (i.y2 - i.y1);
+	r4 = (i.y4 - i.y1) * (i.x2 - i.x1);
 	if (r1 == r2 || r3 == r4)
 	{
 		printf("dotx:%f,x1:%f,x2:%f\n", i.x3, i.x1, i.x2);
 		printf("dotx:%f,x1:%f,x2:%f\n", i.x4, i.x1, i.x2);
 		printf("%d\n", m->player.sector);
 		ft_putendl("----------------------------------------");
-		if ((i.x3 >= vmin(i.x1, i.x2) && i.x3 <= vmax(i.x1, i.x2))
-			|| (i.x4 >= vmin(i.x1, i.x2)  && i.x4 <= vmax(i.x1, i.x2)))
+		if ((	i.x3 > vmin(i.x1, i.x2) && i.x3 < vmax(i.x1, i.x2))
+			|| (i.y3 > vmin(i.y1, i.y2) && i.y3 < vmax(i.y1, i.y2))
+			|| (i.x4 > vmin(i.x1, i.x2) && i.x4 < vmax(i.x1, i.x2))
+			|| (i.y4 > vmin(i.y1, i.y2) && i.y4 < vmax(i.y1, i.y2)))
 			return (-1);
 		else
 			return (0);
 	}
 	else
 		return (0);
+}
+
+int			is_on_a_map_dot(t_map *m)
+{
+	t_intersect i;
+	int		r1;
+	int		r2;
+/* sources	https://www.cap-concours.fr/administratif/culture-disciplinaire/reviser/equations-de-droites-et-systemes-d-equations-lineaires-2_m305
+			https://www.lucidar.me/fr/mathematics/check-if-a-point-belongs-on-a-line-segment/ */
+	i.mem = 0;
+	i.x1 = m->player.coor.x;
+	i.y1 = m->player.coor.y;
+	i.x2 = m->player.coor.x + m->player.move_speed.x;
+	i.y2 = m->player.coor.y + m->player.move_speed.y;
+
+	while (i.mem < m->dots_count)
+	{
+		i.x3 = m->dot[i.mem].x;
+		i.y3 = m->dot[i.mem].y;
+		r1 = (i.x3 - i.x1) * (i.y2 - i.y1);
+		r2 = (i.y3 - i.y1) * (i.x2 - i.x1);
+		if (r1 == r2)
+		{
+			printf("dotx:%f,x1:%f,x2:%f\n", i.x3, i.x1, i.x2);
+			printf("%d\n", m->player.sector);
+			ft_putendl("----------------------------------------");
+			if ((	i.x3 > vmin(i.x1, i.x2) && i.x3 < vmax(i.x1, i.x2))
+				|| (i.y3 > vmin(i.y1, i.y2) && i.y3 < vmax(i.y1, i.y2)))
+				return (-1);
+		}
+		i.mem++;
+	}
+	return (0);
 }
 
 int			is_next_to_a_dot(t_map *m)
@@ -263,7 +298,7 @@ void move_player(double dx, double dy, t_map *m)
 		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) < 0)
 		{
 			m->player.sector = m->sector[m->player.sector].network[s];
-			
+			is_next_to_a_dot(m);
 			break;
 		}
 		s++;
@@ -324,7 +359,7 @@ void		is_moving(t_map *m)
 				// 	m->player.move_speed.y = 0;
 
 				m->player.moving = 0;
-				if (is_on_a_dot(m, s) == -1)
+				if (is_on_a_map_dot(m) == -1)
 				{
 					m->player.move_speed.x = 0;
 					m->player.move_speed.y = 0;
@@ -345,6 +380,11 @@ void		motion_events(t_env *w, t_map *m)
 	PL_A = PL_A + w->event.motion.xrel * 0.001;
 	m->yaw = vmid(m->yaw + w->event.motion.yrel * 0.002, -4, 4);
 	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
+	if (m->player.display == 0)
+	{
+		w->event.motion.x = WIDTH / 2;
+		w->event.motion.y = HEIGHT / 2;
+	}
 	move_player(0, 0, m);
 }
 
