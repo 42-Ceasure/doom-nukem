@@ -45,14 +45,14 @@ LIBSDL_FLAG = 	-lSDL2_mixer -L$(LIBSDL_PATH) -lSDL2
 SDLBIN		= 	$(addprefix $(LIBSDL_PATH),$(LIBSDL))
 SDL_CURL	= 	`curl https://www.libsdl.org/release/SDL2-2.0.3.zip -o sdl2.zip`
 SDLMIX_PATH	=	./SDL2_mixer-2.0.1/
-LIBSDLMIX_ROOT =	./libSDLMIX/
-LIBSDLMIX_PATH =	./libSDLMIX/lib/
-LIBSDLMIX		=	libSDLMIX.a
+LIBSDLMIX_ROOT =	./libSDL2/
+LIBSDLMIX_PATH =	./libSDL2/lib/
+LIBSDLMIX		=	libSDL2_mixer.a
 INCSDLMIX		= 	$(LIBSDLMIX_ROOT)include/
-SDLMIX		= 	$(addprefix $(LIBSDLMIX_PATH),$(LIBSDLMIX))
+SDLMIXBIN		= 	$(addprefix $(LIBSDLMIX_PATH),$(LIBSDLMIX))
 CURL_MIX	= 	`curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.zip -o sdl_mix.zip`
 
-all				:	libft sdl $(NAME)
+all				:	libft sdl sdlmix $(NAME)
 
 $(NAME)			:	$(OBJ) $(LIBFT)
 	@$(CC) $(CFLAG) -lm $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^
@@ -78,11 +78,13 @@ $(SDLBIN)		:
 	make -C $(SDL_PATH)
 	make install -C $(SDL_PATH)
 
-$(SDLMIX)		: 		
+sdlmix			:	$(SDLMIXBIN)
+
+$(SDLMIXBIN)		: 		
 	$(CURL_MIX)
 	unzip sdl_mix.zip
 	rm sdl_mix.zip
-	cd $(SDLMIX_PATH) &&  ./configure --prefix=$(PWD)/$(LIBSDL_ROOT)
+	cd $(SDLMIX_PATH) &&  ./configure --prefix=$(PWD)/$(LIBSDLMIX_ROOT)
 	make -C $(SDLMIX_PATH)
 	make install -C $(SDLMIX_PATH)
 
