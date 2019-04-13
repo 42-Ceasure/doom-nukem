@@ -174,8 +174,8 @@ int			is_next_to_a_dot(t_map *m)
 		m->player.move_speed.y = 0;
 		// m->player.coor.x = m->dot[dot_mem].x + cos(slope)*dist_min;
 		// m->player.coor.x = m->dot[dot_mem].y + sin(slope)*dist_min;
-		m->player.move_speed.x = cos(slope)*dist_min;
-		m->player.move_speed.y = sin(slope)*dist_min;
+		m->player.move_speed.x = (cos(slope)*dist_min)/2;
+		m->player.move_speed.y = (sin(slope)*dist_min)/2;
 		return (-1);
 	}
 	// printf("point:%d,dist:%f\n", dot_mem, dist_min);
