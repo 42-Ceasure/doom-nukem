@@ -1,11 +1,12 @@
 Section:map
-	dots:0:0,50
-	dots:20:20,30
-	dots:30:20,30
-	dots:50:0,50
-	sector:0,20:3,14,29,49:x,1,11,22
-	sector:,20:17,15,14,3,9:x,12,11,0,21
+	dots:0:0,50,100
+	dots:50:0,50,100
+	dots:100:0,50,100
+	sector:0,40:0,1,4,3:x,1,2,x
+	sector:0,40:1,2,5,4:x,x,3,0
+	sector:0,40:3,4,7,6:0,3,x,x
+	sector:0,40:4,5,8,7:1,x,x,2
 Section:player
-	player_location:2,6
+	player_location:45,45
 	player_direction:0
 	player_sector:0
