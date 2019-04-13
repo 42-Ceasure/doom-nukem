@@ -10,9 +10,11 @@ int			parse_line(t_map *m)
 	if (ft_strcmp(tmp[0], "Section") == 0)
 		m->section_number++;
 	if (m->section_number == 1)
-		parse_map_section(m, tmp);
+		if (parse_map_section(m, tmp) == -1)
+			return (-1);
 	if (m->section_number == 2)
-		parse_player_section(m, tmp);
+		if (parse_player_section(m, tmp))
+			return (-1);
 	ft_memreg(tmp);
 	return (0);
 }
@@ -87,7 +89,7 @@ int			quick_look(t_env *w, t_map *m)
 void		parse_map_file(t_env *w, t_map *m)
 {
 	if (quick_look(w, m) == -1)
-		set_error(w, m, 4, ft_strdup("quick_look"));
+		set_error(w, m, 8, ft_strdup("quick_look"));
 	if (do_parse(m) == -1)
-		set_error(w, m, 4, ft_strdup("do_parse"));
+		set_error(w, m, 8, ft_strdup("do_parse"));
 }

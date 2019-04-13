@@ -73,7 +73,8 @@ void	draw_mini_map(t_env *w, t_map *m)
 		while (point < m->sector[sector].wall_count)
 		{
 			init_mini_map(m, &d, point, sector);
-			vect_ab(d.t1, d.t2, w, 0x12FF0000);
+			if (m->sector[sector].network[point] < 0)
+				vect_ab(d.t1, d.t2, w, 0x12FF0000);
 			point++;
 		}
 		sector++;

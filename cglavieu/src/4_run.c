@@ -98,8 +98,7 @@ int			is_on_a_map_dot(t_map *m)
 	t_intersect i;
 	int		r1;
 	int		r2;
-/* sources	https://www.cap-concours.fr/administratif/culture-disciplinaire/reviser/equations-de-droites-et-systemes-d-equations-lineaires-2_m305
-			https://www.lucidar.me/fr/mathematics/check-if-a-point-belongs-on-a-line-segment/ */
+
 	i.mem = 0;
 	i.x1 = m->player.coor.x;
 	i.y1 = m->player.coor.y;
@@ -114,9 +113,6 @@ int			is_on_a_map_dot(t_map *m)
 		r2 = (i.y3 - i.y1) * (i.x2 - i.x1);
 		if (r1 == r2)
 		{
-			printf("dotx:%f,x1:%f,x2:%f\n", i.x3, i.x1, i.x2);
-			printf("%d\n", m->player.sector);
-			ft_putendl("----------------------------------------");
 			if ((	i.x3 > vmin(i.x1, i.x2) && i.x3 < vmax(i.x1, i.x2))
 				|| (i.y3 > vmin(i.y1, i.y2) && i.y3 < vmax(i.y1, i.y2)))
 				return (-1);

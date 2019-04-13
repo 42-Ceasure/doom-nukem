@@ -20,6 +20,8 @@ void			set_error(t_env *w, t_map *m, int errorno, char *s)
 		ft_putstr("Section invalid : \"");
 	if (errorno == 7)
 		ft_putstr("This sector don't exist : \"");
+	if (errorno == 8)
+		ft_putstr("Parse error : \"");
 	if (s != NULL)
 	{
 		ft_putstr(s);
@@ -28,5 +30,8 @@ void			set_error(t_env *w, t_map *m, int errorno, char *s)
 	else
 		ft_putstr("NULL");
 	ft_putendl("\"\nProgram closing now.");
-	exit_game(w, m);
+	if (errorno != 8)
+		exit_game(w, m);
+	else
+		exit(0);
 }
