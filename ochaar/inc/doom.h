@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/13 13:51:39 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/13 18:08:21 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,7 @@ typedef struct		s_map
 	int				maxrenderedsector;
 }					t_map;
 
+
 typedef struct		s_env
 {
 	int				i;
@@ -246,6 +247,8 @@ typedef struct		s_env
 	SDL_Window		*win;
 	SDL_Renderer	*rdr;
 	Mix_Music		*musique;
+	Mix_Chunk 		*jump;
+	Mix_Chunk 		*shoot;
 	Uint32			*pix;
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;

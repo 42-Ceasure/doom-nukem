@@ -162,10 +162,10 @@ int			is_on_a_dot(t_map *m, int s)
 	r4 = (i.y4 - i.y1) * (i.x2 + i.dx - i.x1);
 	if (r1 == r2 || r3 == r4)
 	{
-		printf("dotx:%f,x1:%f,x2:%f\n", i.x3, i.x1, i.x2);
+		/*printf("dotx:%f,x1:%f,x2:%f\n", i.x3, i.x1, i.x2);
 		printf("dotx:%f,x1:%f,x2:%f\n", i.x4, i.x1, i.x2);
 		printf("%d\n", m->player.sector);
-		ft_putendl("----------------------------------------");
+		ft_putendl("----------------------------------------");*/
 		if ((i.x3 >= vmin(i.x1, i.x2) && i.x3 <= vmax(i.x1, i.x2))
 			|| (i.x4 >= vmin(i.x1, i.x2)  && i.x4 <= vmax(i.x1, i.x2)))
 			return (-1);
@@ -421,6 +421,7 @@ void		key_events(t_env *w, t_map *m)
 	{
 		if (m->player.ground == 1 && m->player.stance == 0)
 		{
+			Mix_PlayChannel(2, w->jump, 0);
 			m->player.move_speed.z = m->player.move_speed.z + 0.8;
 			m->player.fall = 1;
 		}
@@ -475,9 +476,9 @@ int		run(t_env *w, t_map *m)
 				if (KEY == SDLK_p)
 				{
 					if(Mix_PausedMusic() == 1)
-           				Mix_ResumeMusic(); //Reprendre la musique
+           				Mix_ResumeMusic();
         			else
-            			Mix_PauseMusic(); //Mettre en pause la musique
+            			Mix_PauseMusic();
 				}
 				if (KEY == SDLK_x)
 				{
