@@ -472,6 +472,13 @@ int		run(t_env *w, t_map *m)
 						m->player.stance = 0;
 					m->player.fall = 1;
 				}
+				if (KEY == SDLK_p)
+				{
+					if(Mix_PausedMusic() == 1)
+           				Mix_ResumeMusic(); //Reprendre la musique
+        			else
+            			Mix_PauseMusic(); //Mettre en pause la musique
+				}
 				if (KEY == SDLK_x)
 				{
 					if (m->player.stance != 1)

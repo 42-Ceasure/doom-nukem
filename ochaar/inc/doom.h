@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/12 18:56:29 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/13 13:51:39 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define DOOM_NUKEM_H
 
 # include "SDL2/SDL.h"
+# include "SDL2/SDL_mixer.h"
 # include "libft.h"
 # include <pthread.h>
 # include <fcntl.h>
@@ -244,6 +245,7 @@ typedef struct		s_env
 	int				sequential_draw;
 	SDL_Window		*win;
 	SDL_Renderer	*rdr;
+	Mix_Music		*musique;
 	Uint32			*pix;
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
