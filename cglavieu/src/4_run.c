@@ -122,6 +122,66 @@ int			is_on_a_map_dot(t_map *m)
 	return (0);
 }
 
+int			is_next_to_a_dot(t_map *m)
+{
+	t_intersect	i;
+	double		slope;
+	double		diffx;
+	double		diffy;
+	double		dist;
+	double		dist_min;
+	int			dot_mem;
+
+	i.mem = 0;
+	dist_min = 0;
+	slope = 0;
+	diffx = 0;
+	diffy = 0;
+	dist = 0;
+	dot_mem = 0;
+	i.x1 = m->player.coor.x;
+	i.y1 = m->player.coor.y;
+	while (i.mem < m->dots_count)
+	{
+		i.x2 = m->dot[i.mem].x;
+		i.y2 = m->dot[i.mem].y;
+		slope = (i.y2 - i.y1) / (i.x2 - i.x1);
+		diffx = (i.x1 - i.x2);
+		diffy = (i.y1 - i.y2);
+		if (vabs(diffx) > vabs(diffy))
+			dist = vabs(diffx / cos(slope));
+		else
+			dist = vabs(diffy / sin(slope));
+		if (dist_min == 0)
+		{
+			dist_min = dist;
+			dot_mem = i.mem;
+		}
+		else if (dist < dist_min)
+		{
+			dist_min = dist;
+			dot_mem = i.mem;
+		}
+		i.mem++;
+	}
+	// m->player.move_speedless.x += m->player.anglecos / 3;
+	// m->player.move_speedless.y += m->player.anglesin / 3;
+	slope = atan((i.y1 - m->dot[dot_mem].y) / (i.x1 - m->dot[dot_mem].x));
+	// printf("slope:%f,slopecos:%f,slopesin:%f\n", slope, cos(slope), sin(slope));
+	if (dist_min < 1)
+	{
+		m->player.move_speed.x = 0;
+		m->player.move_speed.y = 0;
+		// m->player.coor.x = m->dot[dot_mem].x + cos(slope)*dist_min;
+		// m->player.coor.x = m->dot[dot_mem].y + sin(slope)*dist_min;
+		m->player.move_speed.x = cos(slope)*dist_min;
+		m->player.move_speed.y = sin(slope)*dist_min;
+		return (-1);
+	}
+	// printf("point:%d,dist:%f\n", dot_mem, dist_min);
+	return (0);
+}
+
 void move_player(double dx, double dy, t_map *m)
 {
 	int s;
@@ -147,15 +207,16 @@ void move_player(double dx, double dy, t_map *m)
 		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
 		{
 			m->player.sector = m->sector[m->player.sector].network[s];
-			if (is_on_a_map_dot(m) == -1)
-			{
-				dx = 0;
-				dy = 0;
-			}
+			// if (is_on_a_map_dot(m) == -1)
+			// {
+			// 	dx = 0;
+			// 	dy = 0;
+			// }
 			break;
 		}
 		s++;
 	}
+	is_next_to_a_dot(m);
 	m->player.coor.x = m->player.coor.x + dx;
 	m->player.coor.y = m->player.coor.y + dy;
 	m->player.anglesin = sin(m->player.angle);
@@ -201,12 +262,12 @@ void		is_moving(t_map *m)
 				m->player.move_speed.x = i.xd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
 				m->player.move_speed.y = i.yd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
 				m->player.moving = 0;
-				if (is_on_a_map_dot(m) == -1)
-				{
-					m->player.move_speed.x = 0;
-					m->player.move_speed.y = 0;
-					break;
-				}
+				// if (is_on_a_map_dot(m) == -1)
+				// {
+				// 	m->player.move_speed.x = 0;
+				// 	m->player.move_speed.y = 0;
+				// 	break;
+				// }
 			}
 		}
 		s++;

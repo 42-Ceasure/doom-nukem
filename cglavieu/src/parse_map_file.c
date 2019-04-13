@@ -10,11 +10,21 @@ int			parse_line(t_map *m)
 	if (ft_strcmp(tmp[0], "Section") == 0)
 		m->section_number++;
 	if (m->section_number == 1)
+	{
 		if (parse_map_section(m, tmp) == -1)
+		{
+			ft_putendl("error in parse_map_section");
 			return (-1);
+		}
+	}
 	if (m->section_number == 2)
-		if (parse_player_section(m, tmp))
+	{
+		if (parse_player_section(m, tmp) == -1)
+		{
+			ft_putendl("error in parse_player_section");
 			return (-1);
+		}
+	}
 	ft_memreg(tmp);
 	return (0);
 }

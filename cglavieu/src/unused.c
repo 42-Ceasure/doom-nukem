@@ -132,7 +132,7 @@ int			is_next_to_a_dot(t_map *m)
 	}
 	// m->player.move_speedless.x += m->player.anglecos / 3;
 	// m->player.move_speedless.y += m->player.anglesin / 3;
-	slope = 1 / tan((i.y1 - m->dot[dot_mem].y) / (i.x1 - m->dot[dot_mem].x));
+	slope = atan((i.y1 - m->dot[dot_mem].y) / (i.x1 - m->dot[dot_mem].x));
 	// printf("slope:%f,slopecos:%f,slopesin:%f\n", slope, cos(slope), sin(slope));
 	if (dist_min < 1)
 	{
