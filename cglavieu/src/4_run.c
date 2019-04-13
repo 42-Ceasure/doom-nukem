@@ -266,13 +266,14 @@ void		is_moving(t_map *m)
 				{
 					m->player.move_speed.x = 0;
 					m->player.move_speed.y = 0;
+					//is_next_to_a_dot(m);
 					break;
 				}
 			}
 		}
 		s++;
 	}
-	// is_next_to_a_dot(m);
+	is_next_to_a_dot(m);
 	move_player(m->player.move_speed.x, m->player.move_speed.y, m);
 	m->player.fall = 1;
 
@@ -424,6 +425,13 @@ int		run(t_env *w, t_map *m)
 					else
 						m->player.stance = 0;
 					m->player.fall = 1;
+				}
+				if (KEY == SDLK_p)
+				{
+					if (Mix_PausedMusic() == 1)
+						Mix_ResumeMusic();
+					else
+						Mix_PausedMusic();
 				}
 				if (KEY == SDLK_x)
 				{

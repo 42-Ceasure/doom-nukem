@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   doom-nukem.h                                       :+:      :+:    :+:   */
+/*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/09 10:26:32 by agay             ###   ########.fr       */
+/*   Updated: 2019/04/13 13:51:39 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define DOOM_NUKEM_H
 
 # include "SDL2/SDL.h"
+# include "SDL2/SDL_mixer.h"
 # include "libft.h"
+# include <pthread.h>
 # include <fcntl.h>
 
 # define NAME 				"Doom-Numkem3D"
@@ -38,6 +40,7 @@
 # define HEADMARGIN			1.1
 # define KNEEH				7.9
 # define BASE_GRAVITY		0.05
+# define NB_THREAD			16
 
 typedef struct		s_vect
 {
@@ -242,11 +245,18 @@ typedef struct		s_env
 	int				sequential_draw;
 	SDL_Window		*win;
 	SDL_Renderer	*rdr;
+	Mix_Music		*musique;
 	Uint32			*pix;
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
 	SDL_Event		event;
 }					t_env;
+
+typedef struct		s_worker_arg
+{
+	t_env			*w;
+	int				start;
+}					t_worker_arg;
 
 char				***parse_cmd(int ac, char **av);
 void				l_f_priority_cmd(t_env *w, t_map *m, char ***cmd);
@@ -300,4 +310,5 @@ void				recap_sector_general(t_map m, int i);
 void				recap_sector_dots(t_map m, int i);
 void				recap_sector_network(t_map m, int i);
 void				recap_sector(t_map m, int i);
+int					calcul_render(t_env *w, t_map *m);
 #endif

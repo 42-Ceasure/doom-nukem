@@ -24,7 +24,8 @@ OBJFIL		=	$(SRCFIL:.c=.o)
 					list_main.c list_dep.c list_do.c	\
 					4_run.c	\
 					5_doom_short_functions.c 5_line.c	\
-					draw_main.c draw_utility.c draw_dep.c draw_minimap.c
+					draw_main.c draw_utility.c draw_dep.c draw_minimap.c \
+					multi_thread.c
 
 SRC			=	$(addprefix $(SRCDIR),$(SRCFIL))
 OBJ			=	$(addprefix $(OBJDIR),$(OBJFIL))
@@ -40,11 +41,18 @@ LIBSDL_ROOT =	./libSDL2/
 LIBSDL_PATH =	./libSDL2/lib/
 LIBSDL		=	libSDL2.a
 INCSDL		= 	$(LIBSDL_ROOT)include/
-LIBSDL_FLAG = 	-L$(LIBSDL_PATH) -lSDL2
+LIBSDL_FLAG = 	-L$(LIBSDL_PATH) -lSDL2 -lSDL2_mixer
 SDLBIN		= 	$(addprefix $(LIBSDL_PATH),$(LIBSDL))
 SDL_CURL	= 	`curl https://www.libsdl.org/release/SDL2-2.0.3.zip -o sdl2.zip`
+SDLMIX_PATH	=	./SDL2_mixer-2.0.1/
+LIBSDLMIX_ROOT =	./libSDL2/
+LIBSDLMIX_PATH =	./libSDL2/lib/
+LIBSDLMIX		=	libSDL2_mixer.a
+INCSDLMIX		= 	$(LIBSDLMIX_ROOT)include/
+SDLMIXBIN		= 	$(addprefix $(LIBSDLMIX_PATH),$(LIBSDLMIX))
+CURL_MIX	= 	`curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.zip -o sdl_mix.zip`
 
-all				:	libft sdl $(NAME)
+all				:	libft sdl sdlmix $(NAME)
 
 $(NAME)			:	$(OBJ) $(LIBFT)
 	@$(CC) $(CFLAG) -lm $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^
@@ -70,6 +78,16 @@ $(SDLBIN)		:
 	make -C $(SDL_PATH)
 	make install -C $(SDL_PATH)
 
+sdlmix			:	$(SDLMIXBIN)
+
+$(SDLMIXBIN)		: 		
+	$(CURL_MIX)
+	unzip sdl_mix.zip
+	rm sdl_mix.zip
+	cd $(SDLMIX_PATH) &&  ./configure --prefix=$(PWD)/$(LIBSDLMIX_ROOT)
+	make -C $(SDLMIX_PATH)
+	make install -C $(SDLMIX_PATH)
+
 clean			:	
 	@make -C $(LIBFTDIR) clean
 	@rm -Rf  $(OBJDIR)
@@ -82,6 +100,8 @@ fclean			:
 sdlclean		:
 	rm -rf $(LIBSDL_ROOT)
 	rm -rf $(SDL_PATH)
+	rm -rf $(LIBSDLMIX_ROOT)
+	rm -rf $(SDLMIX_PATH)
 
 re				:	fclean all
 
