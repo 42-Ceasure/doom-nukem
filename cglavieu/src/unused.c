@@ -88,6 +88,7 @@ int			is_on_a_dot(t_map *m, int s)
 	else
 		return (0);
 }
+
 int			is_next_to_a_dot(t_map *m)
 {
 	t_intersect	i;

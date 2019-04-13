@@ -207,16 +207,15 @@ void move_player(double dx, double dy, t_map *m)
 		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
 		{
 			m->player.sector = m->sector[m->player.sector].network[s];
-			// if (is_on_a_map_dot(m) == -1)
-			// {
-			// 	dx = 0;
-			// 	dy = 0;
-			// }
+			if (is_on_a_map_dot(m) == -1)
+			{
+				dx = 0;
+				dy = 0;
+			}
 			break;
 		}
 		s++;
 	}
-	is_next_to_a_dot(m);
 	m->player.coor.x = m->player.coor.x + dx;
 	m->player.coor.y = m->player.coor.y + dy;
 	m->player.anglesin = sin(m->player.angle);
@@ -262,16 +261,17 @@ void		is_moving(t_map *m)
 				m->player.move_speed.x = i.xd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
 				m->player.move_speed.y = i.yd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
 				m->player.moving = 0;
-				// if (is_on_a_map_dot(m) == -1)
-				// {
-				// 	m->player.move_speed.x = 0;
-				// 	m->player.move_speed.y = 0;
-				// 	break;
-				// }
+				if (is_on_a_map_dot(m) == -1)
+				{
+					m->player.move_speed.x = 0;
+					m->player.move_speed.y = 0;
+					break;
+				}
 			}
 		}
 		s++;
 	}
+	// is_next_to_a_dot(m);
 	move_player(m->player.move_speed.x, m->player.move_speed.y, m);
 	m->player.fall = 1;
 
