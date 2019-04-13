@@ -168,29 +168,18 @@ int			is_next_to_a_dot(t_map *m)
 		}
 		i.mem++;
 	}
-	// m->player.move_speedless.x += m->player.anglecos / 3;
-	// m->player.move_speedless.y += m->player.anglesin / 3;
-	// slope = atan((i.y1 - m->dot[dot_mem].y) / (i.x1 - m->dot[dot_mem].x));
 	slope = atan2((i.y1 - m->dot[dot_mem].y), (i.x1 - m->dot[dot_mem].x));
 	testutx = m->player.coor.x + cos(PL_A);
 	testuty = m->player.coor.y + sin(PL_A);
 	test = atan((testuty - m->player.coor.y) / (testutx - m->player.coor.x));
 	test2 = atan2((testuty - m->player.coor.y),(testutx - m->player.coor.x));
-	// printf("slope:%f,cslope:%f,sslope:%f\n", slope, cos(slope), sin(slope));
-	// printf("pslope:%f,corrected:%f,pa:%f,cpa:%f,spa:%f\n", test,test2, PL_A, cos(PL_A), sin(PL_A));
-	// printf("ccorrected:%f,scorrected:%f\n", cos(test2), sin(test2));
-	// printf("-----------------------------------------------------------\n");
+
 	if (dist_min < 0.1)
 	{
-		// m->player.move_speed.x = 0;
-		// m->player.move_speed.y = 0;
-		// m->player.coor.x = m->dot[dot_mem].x + cos(slope)*dist_min;
-		// m->player.coor.x = m->dot[dot_mem].y + sin(slope)*dist_min;
 		m->player.move_speed.x = (cos(slope)*dist_min);
 		m->player.move_speed.y = (sin(slope)*dist_min);
 		return (-1);
 	}
-	// printf("point:%d,dist:%f\n", dot_mem, dist_min);
 	return (0);
 }
 
