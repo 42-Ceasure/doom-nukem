@@ -9,24 +9,42 @@ void		img_update(t_env *w)
 	SDL_RenderPresent(w->rdr);
 }
 
-SDL_Texture* loadTexture(const char path[], SDL_Renderer *renderer)
+// SDL_Texture* loadTexture(const char path[], SDL_Renderer *renderer)
+// {
+//     SDL_Texture *texture = NULL;
+//     SDL_Surface *tmp = NULL;
+//     tmp = SDL_LoadBMP(path);
+//     if(NULL == tmp)
+//     {
+//         fprintf(stderr, "Erreur SDL_LoadBMP : %s\n", SDL_GetError());
+//         return NULL;
+//     }
+//     texture = SDL_CreateTextureFromSurface(renderer, tmp);
+//     SDL_FreeSurface(tmp);
+//     if(NULL == texture)
+//     {
+//         printf("Erreur SDL_CreateTextureFromSurface\n");
+//         return NULL;
+//     }
+//     return (texture);
+// }
+
+int			load_sounds(t_env *w)
 {
-    SDL_Texture *texture = NULL;
-    SDL_Surface *tmp = NULL;
-    tmp = SDL_LoadBMP(path);
-    if(NULL == tmp)
-    {
-        fprintf(stderr, "Erreur SDL_LoadBMP : %s\n", SDL_GetError());
-        return NULL;
-    }
-    texture = SDL_CreateTextureFromSurface(renderer, tmp);
-    SDL_FreeSurface(tmp);
-    if(NULL == texture)
-    {
-        printf("Erreur SDL_CreateTextureFromSurface\n");
-        return NULL;
-    }
-    return (texture);
+	if (!(w->musique = Mix_LoadMUS("./sounds/musique.wav")))
+	{
+		printf("%s\n", Mix_GetError());
+		return (-1);
+	}
+   	Mix_PlayMusic(w->musique, -1);
+	Mix_AllocateChannels(10);
+	if (!(w->jump = Mix_LoadWAV("./sounds/jump.wav")))
+		return (-1);
+	if (!(w->shoot = Mix_LoadWAV("./sounds/shoot.wav")))//coder un tir
+		return (-1);
+	Mix_VolumeChunk(w->jump, 100);
+	Mix_VolumeChunk(w->shoot, 100);
+	return (1);
 }
 
 int			init_sdl(t_env *w)
@@ -47,23 +65,10 @@ int			init_sdl(t_env *w)
 										WIDTH, HEIGHT,
 										SDL_WINDOW_FULLSCREEN);
 	}
-	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048 ) == -1)
-    {
-        printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 		return (-1);
-	}
-	if ((w->musique = Mix_LoadMUS("sounds/musique.wav")) == NULL)
-	{
-		printf("%s\n", Mix_GetError());
+	if (load_sounds(w) == -1)
 		return (-1);
-	}
-   	Mix_PlayMusic(w->musique, -1); //-1 = jouer en boucle
-	/*Mix_AllocateChannels(10);//cree 10 channels max
-	Mix_Chunk *son;
-	son = Mix_LoadWAV("son.wav");
-	Mix_VolumeChunk(son, 128 / 2);
-	Mix_PlayChannel(1, son, 0);// 1er arg est le numero du cannal et 3e arg est le nombre de fois repete
-	Mix_FreeChunk(son);*/
 	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED |
 											SDL_RENDERER_PRESENTVSYNC);
 	w->pix = (Uint32 *)malloc(sizeof(Uint32) * WIDTH * HEIGHT);

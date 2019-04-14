@@ -246,6 +246,8 @@ typedef struct		s_env
 	SDL_Window		*win;
 	SDL_Renderer	*rdr;
 	Mix_Music		*musique;
+	Mix_Chunk 		*jump;
+	Mix_Chunk 		*shoot;
 	Uint32			*pix;
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
