@@ -19,7 +19,7 @@ OBJFIL		=	$(SRCFIL:.c=.o)
 	LIBFTFIL	=	libft.a
 	SRCFIL		=	main.c exit.c error.c	\
 					init.c	\
-					textures.c	\
+					textures.c sprite.c	\
 					cmd_parse.c cmd_exec.c cmd_list.c	\
 					parse_map_file.c parse_map_section.c parse_player_section.c	\
 					list_main.c list_dep.c list_do.c	\

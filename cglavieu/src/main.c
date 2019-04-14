@@ -27,6 +27,8 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	w->sequential_draw = 0;
 	w->window_mode = RESIZABLE_SCREEN;
 	w->main_pic = load_img(w->main_pic, "./img/main.bmp");
+	w->menu.screen = 0;
+	initsprite(&w->sprite, 3);
 }
 
 void			init_world(t_env **w, t_map **m, int ac)

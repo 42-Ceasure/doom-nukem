@@ -237,6 +237,17 @@ typedef struct		s_map
 	int				maxrenderedsector;
 }					t_map;
 
+typedef struct		s_menu
+{
+	int				screen;
+}					t_menu;
+
+typedef struct		s_sprite
+{
+	Uint32			*pix;
+	t_coor			coor;
+}					t_sprite;
+
 typedef struct		s_env
 {
 	int				i;
@@ -253,6 +264,8 @@ typedef struct		s_env
 	SDL_Texture		*txtr;
 	SDL_Event		event;
 	Uint32			*main_pic;
+	t_menu			menu;
+	t_sprite		*sprite;
 }					t_env;
 
 typedef struct		s_worker_arg
@@ -325,4 +338,6 @@ void				slow_down(t_env *w, t_map *m);
 void				is_moving(t_map *m);
 void				main_menu(t_env *w, t_map *m);
 Uint32				*load_img(Uint32 *img, char *s);
+void				initsprite(t_sprite **sprite, int count);
+void				hand(t_map *m, t_env *w);
 #endif

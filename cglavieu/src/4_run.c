@@ -2,6 +2,16 @@
 
 #include "doom.h"
 
+void	hello_screen(t_env *w)
+{
+	w->i = 0;
+	while (w->i < HEIGHT * WIDTH)
+	{
+		w->pix[w->i] = w->main_pic[w->i];
+		w->i++;
+	}
+}
+
 void	main_menu(t_env *w, t_map *m)
 {
 	while (1)
@@ -11,18 +21,16 @@ void	main_menu(t_env *w, t_map *m)
 			if (w->event.type == SDL_KEYDOWN)
 			{
 				if (KEY == SDLK_RETURN)
-				{
-					if (!run(w, m))
-						set_error(w, m, 4, ft_strdup("run"));
-				}
+					w->menu.screen = 1;
 			}
 			
 		}
-		w->i = 0;
-		while (w->i < HEIGHT * WIDTH)
+		if (w->menu.screen == 0)
+			hello_screen(w);
+		else
 		{
-			w->pix[w->i] = w->main_pic[w->i];
-			w->i++;
+			if (!run(w, m))
+				set_error(w, m, 4, ft_strdup("run"));
 		}
 		img_update(w);
 	}
@@ -44,7 +52,10 @@ int		run(t_env *w, t_map *m)
 		w->inkeys = SDL_GetKeyboardState(NULL);
 		key_events(w, m);
 		if (m->player.display == 0)
+		{
 			draw(w, m);
+			hand(m, w);
+		}
 		else if (m->player.display == 1)
 			draw_mini_map(w, m);
 		img_update(w);

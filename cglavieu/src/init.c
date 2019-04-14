@@ -9,25 +9,29 @@ void		img_update(t_env *w)
 	SDL_RenderPresent(w->rdr);
 }
 
-// SDL_Texture* loadTexture(const char path[], SDL_Renderer *renderer)
-// {
-//     SDL_Texture *texture = NULL;
-//     SDL_Surface *tmp = NULL;
-//     tmp = SDL_LoadBMP(path);
-//     if(NULL == tmp)
-//     {
-//         fprintf(stderr, "Erreur SDL_LoadBMP : %s\n", SDL_GetError());
-//         return NULL;
-//     }
-//     texture = SDL_CreateTextureFromSurface(renderer, tmp);
-//     SDL_FreeSurface(tmp);
-//     if(NULL == texture)
-//     {
-//         printf("Erreur SDL_CreateTextureFromSurface\n");
-//         return NULL;
-//     }
-//     return (texture);
-// }
+void	initsprite(t_sprite **sprite, int count)
+{
+	int		i;
+	SDL_Surface *tmp;
+	SDL_Surface *pix;
+
+	i = 0;
+	*sprite = malloc(sizeof(t_sprite) * count);
+	pix = SDL_LoadBMP("texture/barrel.bmp");
+	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
+	sprite[0][0].pix = (Uint32 *)malloc(sizeof(Uint32) * 64 * 64);
+	ft_memcpy(sprite[0][0].pix, tmp->pixels, (sizeof(Uint32) * 64 * 64));
+	pix = SDL_LoadBMP("texture/doombas.bmp");
+	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
+	sprite[0][1].pix = (Uint32 *)malloc(sizeof(Uint32) * 128 * 128);
+	ft_memcpy(sprite[0][1].pix, tmp->pixels, (sizeof(Uint32) * 128 * 128));
+	pix = SDL_LoadBMP("texture/doomhaut.bmp");
+	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
+	sprite[0][2].pix = (Uint32 *)malloc(sizeof(Uint32) * 131 * 131);
+	ft_memcpy(sprite[0][2].pix, tmp->pixels, (sizeof(Uint32) * 131 * 131));
+	SDL_FreeSurface(pix);
+	SDL_FreeSurface(tmp);
+}
 
 int			load_sounds(t_env *w)
 {
