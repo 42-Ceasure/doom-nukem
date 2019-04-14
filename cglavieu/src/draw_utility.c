@@ -67,7 +67,7 @@ void	clean_render(t_env *w, Uint32 color)
 	int x;
 
 	x = 0;
-	while (x < HEIGHT * WIDTH - 1)
+	while (x < HEIGHT * WIDTH)
 	{
 		w->pix[x] = color;
 		x++;

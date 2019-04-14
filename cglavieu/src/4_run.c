@@ -143,8 +143,8 @@ int			is_next_to_a_dot(t_map *m)
 	diffy = 0;
 	dist = 0;
 	dot_mem = 0;
-	i.x1 = m->player.coor.x;
-	i.y1 = m->player.coor.y;
+	i.x1 = m->player.coor.x + m->player.move_speed.x;
+	i.y1 = m->player.coor.y + m->player.move_speed.y;
 	while (i.mem < m->dots_count)
 	{
 		i.x2 = m->dot[i.mem].x;
@@ -176,8 +176,8 @@ int			is_next_to_a_dot(t_map *m)
 
 	if (dist_min < 0.1)
 	{
-		m->player.move_speed.x = (cos(slope)*dist_min);
-		m->player.move_speed.y = (sin(slope)*dist_min);
+		m->player.move_speed.x = (cos(slope)*0.1);
+		m->player.move_speed.y = (sin(slope)*0.1);
 		return (-1);
 	}
 	return (0);
@@ -208,6 +208,7 @@ void move_player(double dx, double dy, t_map *m)
 		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
 		{
 			m->player.sector = m->sector[m->player.sector].network[s];
+			is_next_to_a_dot(m);
 			if (is_on_a_map_dot(m) == -1)
 			{
 				dx = 0;
@@ -266,7 +267,6 @@ void		is_moving(t_map *m)
 				{
 					m->player.move_speed.x = 0;
 					m->player.move_speed.y = 0;
-					//is_next_to_a_dot(m);
 					break;
 				}
 			}
