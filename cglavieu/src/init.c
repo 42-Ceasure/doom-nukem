@@ -31,14 +31,14 @@ void		img_update(t_env *w)
 
 int			load_sounds(t_env *w)
 {
-	if (!(w->musique = Mix_LoadMUS("./sounds/musique.wav")))
+	if (!(w->musique = Mix_LoadMUS("./sounds/bensound-dreams.wav")))
 	{
 		printf("%s\n", Mix_GetError());
 		return (-1);
 	}
    	Mix_PlayMusic(w->musique, -1);
 	Mix_AllocateChannels(10);
-	if (!(w->jump = Mix_LoadWAV("./sounds/jump.wav")))
+	if (!(w->jump = Mix_LoadWAV("./sounds/jump_wind.wav")))
 		return (-1);
 	if (!(w->shoot = Mix_LoadWAV("./sounds/shoot.wav")))//coder un tir
 		return (-1);
