@@ -252,6 +252,7 @@ typedef struct		s_env
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
 	SDL_Event		event;
+	Uint32			*main_pic;
 }					t_env;
 
 typedef struct		s_worker_arg
@@ -313,4 +314,15 @@ void				recap_sector_dots(t_map m, int i);
 void				recap_sector_network(t_map m, int i);
 void				recap_sector(t_map m, int i);
 int					calcul_render(t_env *w, t_map *m);
+void				key_events(t_env *w, t_map *m);
+void				keydown_events(t_env *w, t_map *m);
+void				keyup_events(t_env *w, t_map *m);
+void				motion_events(t_env *w, t_map *m);
+void				move_player(double dx, double dy, t_map *m);
+void				get_height(t_map *m);
+void				is_falling(t_map *m);
+void				slow_down(t_env *w, t_map *m);
+void				is_moving(t_map *m);
+void				main_menu(t_env *w, t_map *m);
+Uint32				*load_img(Uint32 *img, char *s);
 #endif

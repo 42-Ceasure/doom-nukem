@@ -26,6 +26,7 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	w->pix = NULL;
 	w->sequential_draw = 0;
 	w->window_mode = RESIZABLE_SCREEN;
+	w->main_pic = load_img(w->main_pic, "./img/main.bmp");
 }
 
 void			init_world(t_env **w, t_map **m, int ac)
@@ -61,6 +62,15 @@ void			simple_start(t_env *w, t_map *m)
 	parse_map_file(w, m);
 }
 
+void			draw_sequential(t_env *w, t_map *m)
+{
+	w->event.motion.x = 0;
+	w->event.motion.y = 0;
+	draw(w, m);
+	SDL_Delay(5000);
+	exit_game(w, m);
+}
+
 int				main(int ac, char **av)
 {
 	t_env		*w;
@@ -75,7 +85,8 @@ int				main(int ac, char **av)
 		exec_cmd(w, m, cmd, av);
 	else
 		simple_start(w, m);
-	if (!run(w, m))
-		set_error(w, m, 4, ft_strdup("run"));
+	if (w->sequential_draw == 1)
+		draw_sequential(w, m);
+	main_menu(w, m);
 	return (0);
 }
