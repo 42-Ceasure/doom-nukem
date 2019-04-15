@@ -83,8 +83,8 @@ void	hand(t_map *m, t_env *w)
 				i = 0;
 				while (i < m->weap[m->player.handed].sprt[1].w)
 				{
-					if (m->weap[m->player.handed].sprt[1].pix[d * m->weap[m->player.handed].sprt[1].w + i] != 4294967295)
-						w->pix[(d + HEIGHT - m->weap[m->player.handed].sprt[1].h) * WIDTH + (i + WIDTH / 2 - m->weap[m->player.handed].sprt[1].w / 2)] = m->weap[m->player.handed].sprt[1].pix[d * m->weap[m->player.handed].sprt[1].w + i];
+					if ((m->weap[m->player.handed].sprt[1].pix[d * m->weap[m->player.handed].sprt[1].w + i] != m->weap[m->player.handed].sprt[0].pix[1]))
+						w->pix[d * WIDTH + i] = m->weap[m->player.handed].sprt[1].pix[d * WIDTH + i];
 					i++;
 				}
 				d++;
@@ -97,8 +97,8 @@ void	hand(t_map *m, t_env *w)
 				i = 0;
 				while (i < m->weap[m->player.handed].sprt[0].w)
 				{
-					if (m->weap[m->player.handed].sprt[0].pix[d * m->weap[m->player.handed].sprt[0].w + i] != 4294967295)
-						w->pix[(d + HEIGHT -m->weap[m->player.handed].sprt[0].h) * WIDTH + (i + WIDTH / 2 + m->weap[m->player.handed].sprt[0].w / 2)] = m->weap[m->player.handed].sprt[0].pix[d * m->weap[m->player.handed].sprt[0].w + i];
+					if (m->weap[m->player.handed].sprt[0].pix[d * m->weap[m->player.handed].sprt[0].w + i] != m->weap[m->player.handed].sprt[0].pix[0])
+						w->pix[d * WIDTH + i] = m->weap[m->player.handed].sprt[0].pix[d * WIDTH + i];
 					i++;
 				}
 				d++;

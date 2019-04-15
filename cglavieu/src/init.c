@@ -9,37 +9,37 @@ void		img_update(t_env *w)
 	SDL_RenderPresent(w->rdr);
 }
 
-void	initsprite(t_sprite **sprite, int count)
-{
-	SDL_Surface *tmp;
-	SDL_Surface *pix;
+// void	initsprite(t_sprite **sprite, int count)
+// {
+// 	SDL_Surface *tmp;
+// 	SDL_Surface *pix;
 
-	*sprite = malloc(sizeof(t_sprite) * count);
-	pix = SDL_LoadBMP("texture/barrel.bmp");
-	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
-	sprite[0][0].pix = (Uint32 *)malloc(sizeof(Uint32) * tmp->w * tmp->h);
-	sprite[0][0].w = tmp->w;
-	sprite[0][0].h = tmp->h;
-	ft_memcpy(sprite[0][0].pix, tmp->pixels, (sizeof(Uint32) * tmp->w * tmp->h));
-	SDL_FreeSurface(pix);
-	SDL_FreeSurface(tmp);
-	pix = SDL_LoadBMP("texture/aimed_traillette.bmp");
-	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
-	sprite[0][1].pix = (Uint32 *)malloc(sizeof(Uint32) * tmp->w * tmp->h);
-	sprite[0][1].w = tmp->w;
-	sprite[0][1].h = tmp->h;
-	ft_memcpy(sprite[0][1].pix, tmp->pixels, (sizeof(Uint32) * tmp->w * tmp->h));
-	SDL_FreeSurface(pix);
-	SDL_FreeSurface(tmp);
-	pix = SDL_LoadBMP("texture/mtraillette.bmp");
-	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
-	sprite[0][2].pix = (Uint32 *)malloc(sizeof(Uint32) * tmp->w * tmp->h);
-	sprite[0][2].w = tmp->w;
-	sprite[0][2].h = tmp->h;
-	ft_memcpy(sprite[0][2].pix, tmp->pixels, (sizeof(Uint32) * tmp->w * tmp->h));
-	SDL_FreeSurface(pix);
-	SDL_FreeSurface(tmp);
-}
+// 	*sprite = malloc(sizeof(t_sprite) * count);
+// 	pix = SDL_LoadBMP("texture/barrel.bmp");
+// 	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
+// 	sprite[0][0].pix = (Uint32 *)malloc(sizeof(Uint32) * tmp->w * tmp->h);
+// 	sprite[0][0].w = tmp->w;
+// 	sprite[0][0].h = tmp->h;
+// 	ft_memcpy(sprite[0][0].pix, tmp->pixels, (sizeof(Uint32) * tmp->w * tmp->h));
+// 	SDL_FreeSurface(pix);
+// 	SDL_FreeSurface(tmp);
+// 	pix = SDL_LoadBMP("texture/aim_traillette.bmp");
+// 	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
+// 	sprite[0][1].pix = (Uint32 *)malloc(sizeof(Uint32) * tmp->w * tmp->h);
+// 	sprite[0][1].w = tmp->w;
+// 	sprite[0][1].h = tmp->h;
+// 	ft_memcpy(sprite[0][1].pix, tmp->pixels, (sizeof(Uint32) * tmp->w * tmp->h));
+// 	SDL_FreeSurface(pix);
+// 	SDL_FreeSurface(tmp);
+// 	pix = SDL_LoadBMP("texture/traillette.bmp");
+// 	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
+// 	sprite[0][2].pix = (Uint32 *)malloc(sizeof(Uint32) * tmp->w * tmp->h);
+// 	sprite[0][2].w = tmp->w;
+// 	sprite[0][2].h = tmp->h;
+// 	ft_memcpy(sprite[0][2].pix, tmp->pixels, (sizeof(Uint32) * tmp->w * tmp->h));
+// 	SDL_FreeSurface(pix);
+// 	SDL_FreeSurface(tmp);
+// }
 
 int			load_sounds(t_env *w)
 {
