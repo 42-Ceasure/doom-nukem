@@ -1,7 +1,0 @@
-Section:map
-	dots:
-	sector:
-Section:player
-	player_location:
-	player_direction:
-	player_sector:
