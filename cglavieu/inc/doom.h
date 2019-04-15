@@ -299,7 +299,7 @@ typedef struct		s_env
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
 	SDL_Event		event;
-	t_texture		main_pic;
+	t_texture		main_pic[2];
 	t_menu			menu;
 	int				volume;
 }					t_env;
@@ -380,4 +380,5 @@ void				initsprite(t_sprite **sprite, int count);
 void				hand(t_map *m, t_env *w);
 void				buttondown_event(t_env *w, t_map *m);
 void				buttonup_event(t_env *w, t_map *m);
+void				hello_screen(t_env *w, int n);
 #endif

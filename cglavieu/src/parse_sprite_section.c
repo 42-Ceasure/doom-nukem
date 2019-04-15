@@ -25,6 +25,7 @@ Uint32				*faster_please(Uint32 *dst, char *src, int len)
 		dst[i3] = ft_atou(current);
 		ft_putstr("\rloading texture : ");
 		ft_putnbr((int)((double)i3 / (double)len * 100));
+		ft_putchar('\r');
 		i3++;
 		i++;
 	}

@@ -2,12 +2,12 @@
 
 #include "doom.h"
 
-void	hello_screen(t_env *w)
+void	hello_screen(t_env *w, int n)
 {
 	w->i = 0;
 	while (w->i < HEIGHT * WIDTH)
 	{
-		w->pix[w->i] = w->main_pic.pix[w->i];
+		w->pix[w->i] = w->main_pic[n].pix[w->i];
 		w->i++;
 	}
 }
@@ -28,7 +28,7 @@ void	main_menu(t_env *w, t_map *m)
 			
 		}
 		if (w->menu.screen == 0)
-			hello_screen(w);
+			hello_screen(w, 1);
 		else
 		{
 			if (!run(w, m))
