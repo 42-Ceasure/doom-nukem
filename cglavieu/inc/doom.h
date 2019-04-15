@@ -110,6 +110,7 @@ typedef struct		s_sector
 
 typedef struct		s_player
 {
+	int				handed;
 	int				aiming;
 	int				firing;
 	int				sector;
@@ -220,16 +221,50 @@ typedef struct		s_draw
 	int				point;
 }					t_draw;
 
+
+typedef struct		s_sprite
+{
+	Uint32			*pix;
+	char			*name;
+	int				w;
+	int				h;
+	int				sector;
+	t_coor			coor;
+}					t_sprite;
+
+typedef struct		s_texture
+{
+	int				w;
+	int				h;
+	Uint32			*pix;
+}					t_texture;
+
+typedef struct		s_weapon
+{
+	char			*name;
+	int				range;
+	int				firerate;
+	int				accuracy;
+	int				dispertion;
+	int				ammo;
+	int				magazine;
+	int				reloadtime;
+	t_sprite		sprite[5];
+}					t_weapon;
+
 typedef struct		s_map
 {
 	int				trippymod;
 	int				i;
 	int				s;
+	int				w;
 	int				fd;
 	char			*line;
 	int				section_number;
 	int				dots_count;
 	int				sector_count;
+	int				weapon_count;
+	int				sprite_count;
 	char			*map_name;
 	char			*map_path;
 	t_dot			*dot;
@@ -238,21 +273,15 @@ typedef struct		s_map
 	double			yaw;
 	double			gravity;
 	int				maxrenderedsector;
+	t_weapon		*weapon;
+	t_sprite		*sprite;
+	t_texture		*texture;
 }					t_map;
 
 typedef struct		s_menu
 {
 	int				screen;
 }					t_menu;
-
-typedef struct		s_sprite
-{
-	Uint32			*pix;
-	int				w;
-	int				h;
-	int				sector;
-	t_coor			coor;
-}					t_sprite;
 
 typedef struct		s_env
 {
@@ -269,9 +298,8 @@ typedef struct		s_env
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
 	SDL_Event		event;
-	Uint32			*main_pic;
+	t_texture		main_pic;
 	t_menu			menu;
-	t_sprite		*sprite;
 }					t_env;
 
 typedef struct		s_worker_arg
@@ -291,6 +319,12 @@ void				seq_cmd(t_env *w, char ***cmd, int i);
 void				set_error(t_env *w, t_map *m, int errorno, char *s);
 void				set_basics(t_env *w, t_map *m, int ac);
 void				parse_map_file(t_env *w, t_map *m);
+int					parse_map_section(t_map *m, char **tab);
+int					parse_player_section(t_map *m, char **tab);
+int					parse_weapon_section(t_map *m, char **tab);
+int					parse_sprite_section(t_map *m, char **tab);
+int					quick_look(t_env *w, t_map *m);
+int					do_parse(t_map *m);
 void				set_advanced_run(char **av, t_env *w, t_map *m);
 void				exit_game(t_env *w, t_map *m);
 int					init_sdl(t_env *w);
@@ -313,10 +347,6 @@ double				isoverlap(double a0, double a1, double b0, double b1);
 double				pointside(t_coor p, double x0,
 					double y0, double x1, double y1);
 double				yaw(double y, double z, t_map *m);
-int					quick_look(t_env *w, t_map *m);
-int					do_parse(t_map *m);
-int					parse_map_section(t_map *m, char **tab);
-int					parse_player_section(t_map *m, char **tab);
 void				init_verification(t_draw *draw);
 int					init_draw(t_draw *d, t_reader *read, t_map *m);
 void				vertical_line(int x, int *box, t_env *w, t_color color);
@@ -343,7 +373,7 @@ void				is_falling(t_map *m);
 void				slow_down(t_env *w, t_map *m);
 void				is_moving(t_map *m);
 void				main_menu(t_env *w, t_map *m);
-Uint32				*load_img(Uint32 *img, char *s);
+t_texture			load_img(t_env *w, t_map *m, char *s);
 void				initsprite(t_sprite **sprite, int count);
 void				hand(t_map *m, t_env *w);
 void				buttondown_event(t_env *w, t_map *m);

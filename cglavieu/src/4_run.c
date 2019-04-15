@@ -7,7 +7,7 @@ void	hello_screen(t_env *w)
 	w->i = 0;
 	while (w->i < HEIGHT * WIDTH)
 	{
-		w->pix[w->i] = w->main_pic[w->i];
+		w->pix[w->i] = w->main_pic.pix[w->i];
 		w->i++;
 	}
 }
@@ -22,6 +22,8 @@ void	main_menu(t_env *w, t_map *m)
 			{
 				if (KEY == SDLK_RETURN)
 					w->menu.screen = 1;
+				if (KEY == 27)
+					exit_game(w, m);
 			}
 			
 		}

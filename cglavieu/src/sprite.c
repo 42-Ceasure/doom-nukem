@@ -44,8 +44,8 @@
 // 			i = 0;
 // 			while (i < 128)
 // 			{
-// 				if (w->sprite[1].pix[d * 128 + i] != 4278231784)
-// 					w->pix[(HEIGHT - 121 + d) * WIDTH + ((WIDTH / 2 + 40) - 128 / 2 + i)] = w->sprite[1].pix[d * 128 + i];
+// 				if (m->sprite[1].pix[d * 128 + i] != 4278231784)
+// 					w->pix[(HEIGHT - 121 + d) * WIDTH + ((WIDTH / 2 + 40) - 128 / 2 + i)] = m->sprite[1].pix[d * 128 + i];
 // 				i++;
 // 			}
 // 			d++;
@@ -58,8 +58,8 @@
 // 			i = 0;
 // 			while (i < 131)
 // 			{
-// 				if (w->sprite[2].pix[d * 131 + i] != 4278231784)
-// 					w->pix[(HEIGHT - 131 + d) * WIDTH + (WIDTH / 2 - 131 / 2 + i)] = w->sprite[2].pix[d * 131 + i];
+// 				if (m->sprite[2].pix[d * 131 + i] != 4278231784)
+// 					w->pix[(HEIGHT - 131 + d) * WIDTH + (WIDTH / 2 - 131 / 2 + i)] = m->sprite[2].pix[d * 131 + i];
 // 				i++;
 // 			}
 // 			d++;
@@ -74,32 +74,35 @@ void	hand(t_map *m, t_env *w)
 
 	i = 0;
 	d = 0;
-	if (m->player.aiming == 1)
+	if (m->player.handed > -1)
 	{
-		while (d < w->sprite[1].h)
+		if (m->player.aiming == 1)
 		{
-			i = 0;
-			while (i < w->sprite[1].w)
+			while (d < m->weapon[m->player.handed].sprite[1].h)
 			{
-				if (w->sprite[1].pix[d * w->sprite[1].w + i] != 4294967295)
-					w->pix[(d + HEIGHT - w->sprite[1].h) * WIDTH + (i + WIDTH / 2 - w->sprite[1].w / 2)] = w->sprite[1].pix[d * w->sprite[1].w + i];
-				i++;
+				i = 0;
+				while (i < m->weapon[m->player.handed].sprite[1].w)
+				{
+					if (m->weapon[m->player.handed].sprite[1].pix[d * m->weapon[m->player.handed].sprite[1].w + i] != 4294967295)
+						w->pix[(d + HEIGHT - m->weapon[m->player.handed].sprite[1].h) * WIDTH + (i + WIDTH / 2 - m->weapon[m->player.handed].sprite[1].w / 2)] = m->weapon[m->player.handed].sprite[1].pix[d * m->weapon[m->player.handed].sprite[1].w + i];
+					i++;
+				}
+				d++;
 			}
-			d++;
 		}
-	}
-	else
-	{
-		while (d < w->sprite[2].h)
+		else
 		{
-			i = 0;
-			while (i < w->sprite[2].w)
+			while (d < m->weapon[m->player.handed].sprite[0].h)
 			{
-				if (w->sprite[2].pix[d * w->sprite[2].w + i] != 4294967295)
-					w->pix[(d + HEIGHT - w->sprite[2].h + 1) * WIDTH + (i + WIDTH / 2 + w->sprite[2].w / 2)] = w->sprite[2].pix[d * w->sprite[2].w + i];
-				i++;
+				i = 0;
+				while (i < m->weapon[m->player.handed].sprite[0].w)
+				{
+					if (m->weapon[m->player.handed].sprite[0].pix[d * m->weapon[m->player.handed].sprite[0].w + i] != 4294967295)
+						w->pix[(d + HEIGHT -m->weapon[m->player.handed].sprite[0].h + 1) * WIDTH + (i + WIDTH / 2 + m->weapon[m->player.handed].sprite[0].w / 2)] = m->weapon[m->player.handed].sprite[0].pix[d * m->weapon[m->player.handed].sprite[0].w + i];
+					i++;
+				}
+				d++;
 			}
-			d++;
 		}
 	}
 }

@@ -25,6 +25,22 @@ int			parse_line(t_map *m)
 			return (-1);
 		}
 	}
+	if (m->section_number == 3)
+	{
+		if (parse_weapon_section(m, tmp) == -1)
+		{
+			ft_putendl("error in parse_map_section");
+			return (-1);
+		}
+	}
+	if (m->section_number == 4)
+	{
+		if (parse_sprite_section(m, tmp) == -1)
+		{
+			ft_putendl("error in parse_map_section");
+			return (-1);
+		}
+	}
 	ft_memreg(tmp);
 	return (0);
 }
@@ -33,6 +49,7 @@ int			do_parse(t_map *m)
 {
 	m->i = 0;
 	m->s = 0;
+	m->w = 0;
 	m->section_number = 0;
 	if ((m->fd = open(m->map_path, O_RDONLY)) == -1)
 		return (-1);
@@ -72,6 +89,16 @@ void		check_line(t_map *m)
 		if (ft_strcmp(tmp[0], "\tsector") == 0)
 			M_S_C++;
 	}
+	if (m->section_number == 3)
+	{
+		if (ft_strcmp(tmp[0], "\tweapon") == 0)
+			m->weapon_count++;
+	}
+	if (m->section_number == 4)
+	{
+		if (ft_strcmp(tmp[0], "\tweapon_sprite") == 0)
+			m->sprite_count++;
+	}
 	i = 0;
 	ft_memreg(tmp);
 }
@@ -93,6 +120,10 @@ int			quick_look(t_env *w, t_map *m)
 		return (-1);
 	if ((m->dot = (t_dot *)malloc(sizeof(t_dot) * m->dots_count)) == NULL)
 		return (-1);
+	if ((m->weapon = (t_weapon *)malloc(sizeof(t_weapon) * m->weapon_count)) == NULL)
+		return (-1);
+	// if ((m->sprite = (t_sprite *)malloc(sizeof(t_sprite) * m->sprite_count)) == NULL)
+	// 	return (-1);
 	return (0);
 }
 

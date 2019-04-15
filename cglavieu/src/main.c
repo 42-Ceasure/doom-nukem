@@ -19,6 +19,9 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	m->player.fall = 1;
 	m->player.stance = 0;
 	m->player.display = 0;
+	m->player.handed = 0;
+	m->weapon_count = 0;
+	m->sprite_count = 0;
 	m->yaw = 0;
 	m->line = NULL;
 	m->gravity = BASE_GRAVITY;
@@ -26,9 +29,9 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	w->pix = NULL;
 	w->sequential_draw = 0;
 	w->window_mode = RESIZABLE_SCREEN;
-	w->main_pic = load_img(w->main_pic, "./img/main.bmp");
+	w->main_pic = load_img(w, m, "./img/main.bmp");
 	w->menu.screen = 0;
-	initsprite(&w->sprite, 3);
+	initsprite(&m->sprite, 3);
 }
 
 void			init_world(t_env **w, t_map **m, int ac)
