@@ -124,6 +124,7 @@ int				main(int ac, char **av)
 		ft_putstr("\rsequential drawing start    ");
 		draw_sequential(w, m);
 	}
+	ft_putendl("\r                                                ");
 	main_menu(w, m);
 	return (0);
 }
