@@ -78,13 +78,13 @@ void	hand(t_map *m, t_env *w)
 	{
 		if (m->player.aiming == 1)
 		{
-			while (d < m->weapon[m->player.handed].sprite[1].h)
+			while (d < m->weap[m->player.handed].sprt[1].h)
 			{
 				i = 0;
-				while (i < m->weapon[m->player.handed].sprite[1].w)
+				while (i < m->weap[m->player.handed].sprt[1].w)
 				{
-					if (m->weapon[m->player.handed].sprite[1].pix[d * m->weapon[m->player.handed].sprite[1].w + i] != 4294967295)
-						w->pix[(d + HEIGHT - m->weapon[m->player.handed].sprite[1].h) * WIDTH + (i + WIDTH / 2 - m->weapon[m->player.handed].sprite[1].w / 2)] = m->weapon[m->player.handed].sprite[1].pix[d * m->weapon[m->player.handed].sprite[1].w + i];
+					if (m->weap[m->player.handed].sprt[1].pix[d * m->weap[m->player.handed].sprt[1].w + i] != 4294967295)
+						w->pix[(d + HEIGHT - m->weap[m->player.handed].sprt[1].h) * WIDTH + (i + WIDTH / 2 - m->weap[m->player.handed].sprt[1].w / 2)] = m->weap[m->player.handed].sprt[1].pix[d * m->weap[m->player.handed].sprt[1].w + i];
 					i++;
 				}
 				d++;
@@ -92,13 +92,13 @@ void	hand(t_map *m, t_env *w)
 		}
 		else
 		{
-			while (d < m->weapon[m->player.handed].sprite[0].h)
+			while (d < m->weap[m->player.handed].sprt[0].h)
 			{
 				i = 0;
-				while (i < m->weapon[m->player.handed].sprite[0].w)
+				while (i < m->weap[m->player.handed].sprt[0].w)
 				{
-					if (m->weapon[m->player.handed].sprite[0].pix[d * m->weapon[m->player.handed].sprite[0].w + i] != 4294967295)
-						w->pix[(d + HEIGHT -m->weapon[m->player.handed].sprite[0].h + 1) * WIDTH + (i + WIDTH / 2 + m->weapon[m->player.handed].sprite[0].w / 2)] = m->weapon[m->player.handed].sprite[0].pix[d * m->weapon[m->player.handed].sprite[0].w + i];
+					if (m->weap[m->player.handed].sprt[0].pix[d * m->weap[m->player.handed].sprt[0].w + i] != 4294967295)
+						w->pix[(d + HEIGHT -m->weap[m->player.handed].sprt[0].h) * WIDTH + (i + WIDTH / 2 + m->weap[m->player.handed].sprt[0].w / 2)] = m->weap[m->player.handed].sprt[0].pix[d * m->weap[m->player.handed].sprt[0].w + i];
 					i++;
 				}
 				d++;

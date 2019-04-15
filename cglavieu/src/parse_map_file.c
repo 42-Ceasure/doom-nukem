@@ -120,7 +120,7 @@ int			quick_look(t_env *w, t_map *m)
 		return (-1);
 	if ((m->dot = (t_dot *)malloc(sizeof(t_dot) * m->dots_count)) == NULL)
 		return (-1);
-	if ((m->weapon = (t_weapon *)malloc(sizeof(t_weapon) * m->weapon_count)) == NULL)
+	if ((m->weap = (t_weapon *)malloc(sizeof(t_weapon) * m->weapon_count)) == NULL)
 		return (-1);
 	// if ((m->sprite = (t_sprite *)malloc(sizeof(t_sprite) * m->sprite_count)) == NULL)
 	// 	return (-1);

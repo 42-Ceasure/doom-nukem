@@ -2,31 +2,51 @@
 
 #include "doom.h"
 
+Uint32				*faster_please(Uint32 *dst, char *src, int len)
+{
+	int i;
+	int i2;
+	int i3;
+	char *current;
+
+	i = 0;
+	i3 = 0;
+	current = (char *)malloc(sizeof(char) * 11);
+	while (i3 < len)
+	{
+		i2 = 0;
+		while (src[i] != ',' && src[i] != '\0')
+		{
+			current[i2] = src[i];
+			i++;
+			i2++;
+		}
+		current[i2] = '\0';
+		dst[i3] = ft_atou(current);
+		i3++;
+		i++;
+	}
+	ft_putnbrendl(i3);
+	return (dst);
+}
+
 int					parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 {
 	int				i;
-	int				weapon_number;
-	int				sprite_number;
+	int				wn;
+	int				sn;
 	char			**tmp;
-	char			**tmp2;
 
-	i = 0;
 	tmp = ft_strsplit(def, ',');
-	weapon_number = ft_atoi(tmp[0]);
-	sprite_number = ft_atoi(tmp[1]);
-	m->weapon[weapon_number].sprite[sprite_number].name = ft_strdup(name);
-	m->weapon[weapon_number].sprite[sprite_number].w = ft_atoi(tmp[2]);
-	m->weapon[weapon_number].sprite[sprite_number].h = ft_atoi(tmp[3]);
-	m->weapon[weapon_number].sprite[sprite_number].pix = (Uint32 *)malloc(sizeof(Uint32) * ft_atoi(tmp[2]) * ft_atoi(tmp[3]));
-	ft_putendl("parsing sprite");
-	tmp2 = ft_strsplit(pix, ',');
-	while (i < ft_atoi(tmp[2]) * ft_atoi(tmp[3]))
-	{
-		m->weapon[weapon_number].sprite[sprite_number].pix[i] = ft_atounsigned(tmp2[i]);
-		i++;
-	}
+	wn = ft_atoi(tmp[0]);
+	sn = ft_atoi(tmp[1]);
+	m->weap[wn].sprt[sn].name = ft_strdup(name);
+	m->weap[wn].sprt[sn].w = ft_atoi(tmp[2]);
+	m->weap[wn].sprt[sn].h = ft_atoi(tmp[3]);
+	i = ft_atoi(tmp[2]) * ft_atoi(tmp[3]);
+	m->weap[wn].sprt[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i);
+	m->weap[wn].sprt[sn].pix = faster_please(m->weap[wn].sprt[sn].pix, pix, i);
 	ft_memreg(tmp);
-	ft_memreg(tmp2);
 	return (0);
 }
 

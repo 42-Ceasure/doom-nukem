@@ -34,6 +34,7 @@
 # define PL_A				m->player.angle
 # define PL_AC				m->player.anglecos
 # define PL_AS				m->player.anglesin
+# define PH					m->player.handed
 # define M_S_C				m->sector_count
 # define STAND				16.9
 # define CROUCH				9.3
@@ -249,7 +250,7 @@ typedef struct		s_weapon
 	int				ammo;
 	int				magazine;
 	int				reloadtime;
-	t_sprite		sprite[5];
+	t_sprite		sprt[5];
 }					t_weapon;
 
 typedef struct		s_map
@@ -273,7 +274,7 @@ typedef struct		s_map
 	double			yaw;
 	double			gravity;
 	int				maxrenderedsector;
-	t_weapon		*weapon;
+	t_weapon		*weap;
 	t_sprite		*sprite;
 	t_texture		*texture;
 }					t_map;
