@@ -25,7 +25,6 @@ Uint32				*faster_please(Uint32 *dst, char *src, int len)
 		dst[i3] = ft_atou(current);
 		ft_putstr("\rloading texture : ");
 		ft_putnbr((int)((double)i3 / (double)len * 100));
-		ft_putstr("                                     ");
 		i3++;
 		i++;
 	}
@@ -50,6 +49,7 @@ int					parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 	m->weap[wn].sprt[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i);
 	ft_putstr("\rstarting sprite extraction : ");
 	ft_putstr(name);
+	ft_putstr("                                                                 ");
 	m->weap[wn].sprt[sn].pix = faster_please(m->weap[wn].sprt[sn].pix, pix, i);
 	ft_putstr("\rdone                                             ");
 	ft_memreg(tmp);
