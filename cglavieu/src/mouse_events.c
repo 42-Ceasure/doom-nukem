@@ -17,7 +17,10 @@ void		buttonup_event(t_env *w, t_map *m)
 void		buttondown_event(t_env *w, t_map *m)
 {
 	if (BUTTON == SDL_BUTTON_LEFT)
+	{
 		m->player.firing = 1;
+		Mix_PlayChannel(2, w->shoot, 0);
+	}
 	if (BUTTON == SDL_BUTTON_RIGHT)
 	{
 		m->player.field_of_vision_h = WIDTH;
