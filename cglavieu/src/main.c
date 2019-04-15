@@ -31,6 +31,7 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	w->window_mode = RESIZABLE_SCREEN;
 	w->main_pic = load_img(w, m, "./img/main.bmp");
 	w->menu.screen = 0;
+	w->volume = 80;
 	initsprite(&m->sprite, 3);
 }
 

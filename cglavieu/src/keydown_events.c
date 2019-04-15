@@ -42,10 +42,17 @@ void			keydown_events(t_env *w, t_map *m)
 		m->player.fall = 1;
 	}
 	if (KEY == SDLK_KP_PLUS)
-		m->maxrenderedsector += 1;
+	{
+		w->volume += 5;
+		w->volume = (int)vmid(0,w->volume,128);
+		Mix_VolumeMusic(w->volume);
+	}
 	if (KEY == SDLK_KP_MINUS)
-		if (m->maxrenderedsector > 0)
-			m->maxrenderedsector -= 1;
+	{
+		w->volume -= 5;
+		w->volume = (int)vmid(0,w->volume,128);
+		Mix_VolumeMusic(w->volume);
+	}
 	if (KEY == SDLK_UP)
 		m->player.field_of_vision_v += 5;
 	if (KEY == SDLK_DOWN)
@@ -66,4 +73,8 @@ void			keydown_events(t_env *w, t_map *m)
 		m->player.display = 1;
 	if (KEY == SDLK_KP_9)
 		printf("hfov:%f,vfov:%f\n", m->player.field_of_vision_h, m->player.field_of_vision_v);
+	if (KEY == SDLK_1)
+		m->player.handed = 0;
+	if (KEY == SDLK_2)
+		m->player.handed = 1;
 }

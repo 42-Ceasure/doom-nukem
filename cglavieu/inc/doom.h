@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/15 03:25:15 by agay             ###   ########.fr       */
+/*   Updated: 2019/04/15 16:28:03 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,6 +301,7 @@ typedef struct		s_env
 	SDL_Event		event;
 	t_texture		main_pic;
 	t_menu			menu;
+	int				volume;
 }					t_env;
 
 typedef struct		s_worker_arg
