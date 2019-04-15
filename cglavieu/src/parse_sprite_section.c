@@ -26,7 +26,6 @@ Uint32				*faster_please(Uint32 *dst, char *src, int len)
 		i3++;
 		i++;
 	}
-	ft_putnbrendl(i3);
 	return (dst);
 }
 
@@ -45,7 +44,10 @@ int					parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 	m->weap[wn].sprt[sn].h = ft_atoi(tmp[3]);
 	i = ft_atoi(tmp[2]) * ft_atoi(tmp[3]);
 	m->weap[wn].sprt[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i);
+	ft_putstr("starting sprite extraction : ");
+	ft_putendl(name);
 	m->weap[wn].sprt[sn].pix = faster_please(m->weap[wn].sprt[sn].pix, pix, i);
+	ft_putendl("done");
 	ft_memreg(tmp);
 	return (0);
 }
