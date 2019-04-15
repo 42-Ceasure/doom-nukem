@@ -1,6 +1,34 @@
-/**/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprite.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
+/*   Updated: 2019/04/15 03:15:26 by agay             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
+
+/*void	fire(t_map, t_env *m, t_sprite *sprite)
+{
+	int		i;
+	int		d;
+
+	d = 0;
+	while (d < 36)
+	{
+		i = 0;
+		while (i < 36)
+		{
+			w->pix[(HEIGHT - 36 + d) * WIDTH + (WIDTH / 2 - 36 / 2 + i)] = sprite[3].pix[d * 36 + i];
+			i++;
+		}
+		d++;
+	}
+}*/
 
 void	hand(t_map *m, t_env *w)
 {
@@ -17,7 +45,7 @@ void	hand(t_map *m, t_env *w)
 			while (i < 128)
 			{
 				if (w->sprite[1].pix[d * 128 + i] != 4278231784)
-					w->pix[(HEIGHT - 121 + d) * WIDTH + (WIDTH / 2 - 128 / 2 + i)] = w->sprite[1].pix[d * 128 + i];
+					w->pix[(HEIGHT - 121 + d) * WIDTH + ((WIDTH / 2 + 40) - 128 / 2 + i)] = w->sprite[1].pix[d * 128 + i];
 				i++;
 			}
 			d++;

@@ -75,7 +75,7 @@ void		is_falling(t_map *m)
 void slow_down(t_env *w, t_map *m)
 {
 	if (w->inkeys[SDL_SCANCODE_W] || w->inkeys[SDL_SCANCODE_S]
-	|| w->inkeys[SDL_SCANCODE_A] || w->inkeys[SDL_SCANCODE_Q])
+	|| w->inkeys[SDL_SCANCODE_A] || w->inkeys[SDL_SCANCODE_D])
 		m->player.press = 1;
 	else
 		m->player.press = 0;

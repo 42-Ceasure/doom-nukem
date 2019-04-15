@@ -2,6 +2,18 @@
 
 #include "doom.h"
 
+void		buttonup_event(t_env *w, t_map *m)
+{
+	if (BUTTON == SDL_BUTTON_LEFT)
+		m->player.firing = 0;
+}
+
+void		buttondown_event(t_env *w, t_map *m)
+{
+	if (BUTTON == SDL_BUTTON_LEFT)
+		m->player.firing = 1;
+}
+
 void		motion_events(t_env *w, t_map *m)
 {
 	PL_A = PL_A + w->event.motion.xrel * 0.001;

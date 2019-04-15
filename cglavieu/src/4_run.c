@@ -48,6 +48,10 @@ int		run(t_env *w, t_map *m)
 				keyup_events(w, m);
 			if (w->event.type == SDL_MOUSEMOTION)
 				motion_events(w, m);
+			if (w->event.type == SDL_MOUSEBUTTONDOWN)
+				buttondown_event(w, m);
+			if (w->event.type == SDL_MOUSEBUTTONUP)
+				buttonup_event(w, m);
 		}
 		w->inkeys = SDL_GetKeyboardState(NULL);
 		key_events(w, m);
@@ -55,6 +59,8 @@ int		run(t_env *w, t_map *m)
 		{
 			draw(w, m);
 			hand(m, w);
+			if (m->player.firing == 1)
+				Mix_PlayChannel(2, w->shoot, 0);
 		}
 		else if (m->player.display == 1)
 			draw_mini_map(w, m);

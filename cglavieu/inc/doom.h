@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/13 13:51:39 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/15 03:25:15 by agay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define RESIZABLE_SCREEN	1
 # define FULL_SCREEN		0
 # define KEY 				w->event.key.keysym.sym
+# define BUTTON				w->event.button.button
 # define MRS				32
 # define PL_X				m->player.coor.x
 # define PL_MSX				m->player.move_speed.x
@@ -109,6 +110,7 @@ typedef struct		s_sector
 
 typedef struct		s_player
 {
+	int				firing;
 	int				sector;
 	t_coor			coor;
 	t_coor			move_speed;
@@ -340,4 +342,6 @@ void				main_menu(t_env *w, t_map *m);
 Uint32				*load_img(Uint32 *img, char *s);
 void				initsprite(t_sprite **sprite, int count);
 void				hand(t_map *m, t_env *w);
+void				buttondown_event(t_env *w, t_map *m);
+void				buttonup_event(t_env *w, t_map *m);
 #endif
