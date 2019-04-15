@@ -30,6 +30,43 @@
 	}
 }*/
 
+// void	hand(t_map *m, t_env *w)
+// {
+// 	int			i;
+// 	int			d;
+
+// 	i = 0;
+// 	d = 0;
+// 	if (m->player.moving != 0)
+// 	{
+// 		while (d < 121)
+// 		{
+// 			i = 0;
+// 			while (i < 128)
+// 			{
+// 				if (w->sprite[1].pix[d * 128 + i] != 4278231784)
+// 					w->pix[(HEIGHT - 121 + d) * WIDTH + ((WIDTH / 2 + 40) - 128 / 2 + i)] = w->sprite[1].pix[d * 128 + i];
+// 				i++;
+// 			}
+// 			d++;
+// 		}
+// 	}
+// 	else
+// 	{
+// 		while (d < 131)
+// 		{
+// 			i = 0;
+// 			while (i < 131)
+// 			{
+// 				if (w->sprite[2].pix[d * 131 + i] != 4278231784)
+// 					w->pix[(HEIGHT - 131 + d) * WIDTH + (WIDTH / 2 - 131 / 2 + i)] = w->sprite[2].pix[d * 131 + i];
+// 				i++;
+// 			}
+// 			d++;
+// 		}
+// 	}
+// }
+
 void	hand(t_map *m, t_env *w)
 {
 	int			i;
@@ -37,15 +74,15 @@ void	hand(t_map *m, t_env *w)
 
 	i = 0;
 	d = 0;
-	if (m->player.moving != 0)
+	if (m->player.aiming == 1)
 	{
-		while (d < 121)
+		while (d < w->sprite[1].h)
 		{
 			i = 0;
-			while (i < 128)
+			while (i < w->sprite[1].w)
 			{
-				if (w->sprite[1].pix[d * 128 + i] != 4278231784)
-					w->pix[(HEIGHT - 121 + d) * WIDTH + ((WIDTH / 2 + 40) - 128 / 2 + i)] = w->sprite[1].pix[d * 128 + i];
+				if (w->sprite[1].pix[d * w->sprite[1].w + i] != 4294967295)
+					w->pix[(d + HEIGHT - w->sprite[1].h) * WIDTH + (i + WIDTH / 2 - w->sprite[1].w / 2)] = w->sprite[1].pix[d * w->sprite[1].w + i];
 				i++;
 			}
 			d++;
@@ -53,13 +90,13 @@ void	hand(t_map *m, t_env *w)
 	}
 	else
 	{
-		while (d < 131)
+		while (d < w->sprite[2].h)
 		{
 			i = 0;
-			while (i < 131)
+			while (i < w->sprite[2].w)
 			{
-				if (w->sprite[2].pix[d * 131 + i] != 4278231784)
-					w->pix[(HEIGHT - 131 + d) * WIDTH + (WIDTH / 2 - 131 / 2 + i)] = w->sprite[2].pix[d * 131 + i];
+				if (w->sprite[2].pix[d * w->sprite[2].w + i] != 4294967295)
+					w->pix[(d + HEIGHT - w->sprite[2].h + 1) * WIDTH + (i + WIDTH / 2 + w->sprite[2].w / 2)] = w->sprite[2].pix[d * w->sprite[2].w + i];
 				i++;
 			}
 			d++;

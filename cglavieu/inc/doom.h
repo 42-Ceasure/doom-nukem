@@ -110,6 +110,7 @@ typedef struct		s_sector
 
 typedef struct		s_player
 {
+	int				aiming;
 	int				firing;
 	int				sector;
 	t_coor			coor;
@@ -247,6 +248,9 @@ typedef struct		s_menu
 typedef struct		s_sprite
 {
 	Uint32			*pix;
+	int				w;
+	int				h;
+	int				sector;
 	t_coor			coor;
 }					t_sprite;
 

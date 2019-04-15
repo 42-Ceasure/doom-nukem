@@ -6,12 +6,24 @@ void		buttonup_event(t_env *w, t_map *m)
 {
 	if (BUTTON == SDL_BUTTON_LEFT)
 		m->player.firing = 0;
+	if (BUTTON == SDL_BUTTON_RIGHT)
+	{
+		m->player.field_of_vision_h = WIDTH / 2;
+		m->player.field_of_vision_v = HEIGHT / 2;
+		m->player.aiming = 0;
+	}
 }
 
 void		buttondown_event(t_env *w, t_map *m)
 {
 	if (BUTTON == SDL_BUTTON_LEFT)
 		m->player.firing = 1;
+	if (BUTTON == SDL_BUTTON_RIGHT)
+	{
+		m->player.field_of_vision_h = WIDTH;
+		m->player.field_of_vision_v = HEIGHT;
+		m->player.aiming = 1;
+	}
 }
 
 void		motion_events(t_env *w, t_map *m)

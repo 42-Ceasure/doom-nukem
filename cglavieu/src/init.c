@@ -19,16 +19,26 @@ void	initsprite(t_sprite **sprite, int count)
 	*sprite = malloc(sizeof(t_sprite) * count);
 	pix = SDL_LoadBMP("texture/barrel.bmp");
 	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
-	sprite[0][0].pix = (Uint32 *)malloc(sizeof(Uint32) * 64 * 64);
-	ft_memcpy(sprite[0][0].pix, tmp->pixels, (sizeof(Uint32) * 64 * 64));
-	pix = SDL_LoadBMP("texture/doombas.bmp");
+	sprite[0][0].pix = (Uint32 *)malloc(sizeof(Uint32) * tmp->w * tmp->h);
+	sprite[0][0].w = tmp->w;
+	sprite[0][0].h = tmp->h;
+	ft_memcpy(sprite[0][0].pix, tmp->pixels, (sizeof(Uint32) * tmp->w * tmp->h));
+	SDL_FreeSurface(pix);
+	SDL_FreeSurface(tmp);
+	pix = SDL_LoadBMP("texture/aimed_traillette.bmp");
 	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
-	sprite[0][1].pix = (Uint32 *)malloc(sizeof(Uint32) * 128 * 128);
-	ft_memcpy(sprite[0][1].pix, tmp->pixels, (sizeof(Uint32) * 128 * 128));
-	pix = SDL_LoadBMP("texture/doomhaut.bmp");
+	sprite[0][1].pix = (Uint32 *)malloc(sizeof(Uint32) * tmp->w * tmp->h);
+	sprite[0][1].w = tmp->w;
+	sprite[0][1].h = tmp->h;
+	ft_memcpy(sprite[0][1].pix, tmp->pixels, (sizeof(Uint32) * tmp->w * tmp->h));
+	SDL_FreeSurface(pix);
+	SDL_FreeSurface(tmp);
+	pix = SDL_LoadBMP("texture/mtraillette.bmp");
 	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
-	sprite[0][2].pix = (Uint32 *)malloc(sizeof(Uint32) * 131 * 131);
-	ft_memcpy(sprite[0][2].pix, tmp->pixels, (sizeof(Uint32) * 131 * 131));
+	sprite[0][2].pix = (Uint32 *)malloc(sizeof(Uint32) * tmp->w * tmp->h);
+	sprite[0][2].w = tmp->w;
+	sprite[0][2].h = tmp->h;
+	ft_memcpy(sprite[0][2].pix, tmp->pixels, (sizeof(Uint32) * tmp->w * tmp->h));
 	SDL_FreeSurface(pix);
 	SDL_FreeSurface(tmp);
 }
@@ -44,7 +54,7 @@ int			load_sounds(t_env *w)
 	Mix_AllocateChannels(10);
 	if (!(w->jump = Mix_LoadWAV("./sounds/jump_wind.wav")))
 		return (-1);
-	if (!(w->shoot = Mix_LoadWAV("./sounds/shoot.wav")))//coder un tir
+	if (!(w->shoot = Mix_LoadWAV("./sounds/MP5.wav")))//coder un tir
 		return (-1);
 	Mix_VolumeChunk(w->jump, 100);
 	Mix_VolumeChunk(w->shoot, 100);
