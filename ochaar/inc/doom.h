@@ -237,7 +237,6 @@ typedef struct		s_map
 	int				maxrenderedsector;
 }					t_map;
 
-
 typedef struct		s_env
 {
 	int				i;

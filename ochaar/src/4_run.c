@@ -93,92 +93,42 @@ void slow_down(t_env *w, t_map *m)
 	m->player.move_speedless.y = 0.f;
 }
 
-/*int			is_on_a_dot(t_map *m, int s)
-{
- 	t_intersect i;
-	int		r1;
-	int		r2;
-	int		r3;
-	int		r4;
-	double	Kac;
-	double	Kab;
-	double	abx;
-	double	aby;
-	double	acx;
-	double	acy;
-
-	i.x1 = m->player.coor.x;
-	i.y1 = m->player.coor.y;
-	i.x2 = m->player.coor.x + m->player.move_speed.x;
-	i.y2 = m->player.coor.y + m->player.move_speed.y;
-	i.x3 = m->sector[m->player.sector].dot[s].x;
-	i.y3 = m->sector[m->player.sector].dot[s].y;
-	i.x4 = m->sector[m->player.sector].dot[s + 1].x;
-	i.y4 = m->sector[m->player.sector].dot[s + 1].y;
-	abx = i.x2 - i.x1;
-	aby = i.y2 - i.y1;
-	acx = i.x3 - i.x1;
-	acy = i.y3 - i.y1;
-	Kac = abx * acx + aby * acy;
-	Kab = abx * abx + aby * aby;
-	r1 = (i.x3 - i.x1) * (i.y2 + i.dy - i.y1);
-	r2 = (i.y3 - i.y1) * (i.x2 + i.dx - i.x1);
-	r3 = (i.x4 - i.x1) * (i.y2 + i.dy - i.y1);
-	r4 = (i.y4 - i.y1) * (i.x2 + i.dx - i.x1);
-	if (r1 == r2 || r3 == r4)
-	{
-		printf("abx:%f,acx:%f,KAC:%f, Kab;%f\n", abx, acx, Kac, Kab);
-		//printf("dotx:%f,x1:%f,x2:%f\n", i.x4, i.x1, i.x2);
-		//printf("%d\n", m->player.sector);
-		if (Kac > 0 && Kac < Kab)
-			return (-1);
-		else
-			return (0);
-	}
-	else
-		return (0);
-}*/
-
-int			is_on_a_dot(t_map *m, int s)
+int			is_on_a_map_dot(t_map *m)
 {
 	t_intersect i;
 	int		r1;
 	int		r2;
-	int		r3;
-	int		r4;
-/* sources	https://www.cap-concours.fr/administratif/culture-disciplinaire/reviser/equations-de-droites-et-systemes-d-equations-lineaires-2_m305
-			https://www.lucidar.me/fr/mathematics/check-if-a-point-belongs-on-a-line-segment/ */
+
+	i.mem = 0;
 	i.x1 = m->player.coor.x;
 	i.y1 = m->player.coor.y;
 	i.x2 = m->player.coor.x + m->player.move_speed.x;
 	i.y2 = m->player.coor.y + m->player.move_speed.y;
-	i.x3 = m->sector[m->player.sector].dot[s].x;
-	i.y3 = m->sector[m->player.sector].dot[s].y;
-	i.x4 = m->sector[m->player.sector].dot[s + 1].x;
-	i.y4 = m->sector[m->player.sector].dot[s + 1].y;
-	r1 = (i.x3 - i.x1) * (i.y2 + i.dy - i.y1);
-	r2 = (i.y3 - i.y1) * (i.x2 + i.dx - i.x1);
-	r3 = (i.x4 - i.x1) * (i.y2 + i.dy - i.y1);
-	r4 = (i.y4 - i.y1) * (i.x2 + i.dx - i.x1);
-	if (r1 == r2 || r3 == r4)
+
+	while (i.mem < m->dots_count)
 	{
-		/*printf("dotx:%f,x1:%f,x2:%f\n", i.x3, i.x1, i.x2);
-		printf("dotx:%f,x1:%f,x2:%f\n", i.x4, i.x1, i.x2);
-		printf("%d\n", m->player.sector);
-		ft_putendl("----------------------------------------");*/
-		if ((i.x3 >= vmin(i.x1, i.x2) && i.x3 <= vmax(i.x1, i.x2))
-			|| (i.x4 >= vmin(i.x1, i.x2)  && i.x4 <= vmax(i.x1, i.x2)))
-			return (-1);
-		else
-			return (0);
+		i.x3 = m->dot[i.mem].x;
+		i.y3 = m->dot[i.mem].y;
+		r1 = (i.x3 - i.x1) * (i.y2 - i.y1);
+		r2 = (i.y3 - i.y1) * (i.x2 - i.x1);
+		if (r1 == r2)
+		{
+			if ((	i.x3 > vmin(i.x1, i.x2) && i.x3 < vmax(i.x1, i.x2))
+				|| (i.y3 > vmin(i.y1, i.y2) && i.y3 < vmax(i.y1, i.y2)))
+				return (-1);
+		}
+		i.mem++;
 	}
-	else
-		return (0);
+	return (0);
 }
 
 int			is_next_to_a_dot(t_map *m)
 {
 	t_intersect	i;
+	double		test;
+	double		test2;
+	double		testutx;
+	double		testuty;
 	double		slope;
 	double		diffx;
 	double		diffy;
@@ -193,8 +143,8 @@ int			is_next_to_a_dot(t_map *m)
 	diffy = 0;
 	dist = 0;
 	dot_mem = 0;
-	i.x1 = m->player.coor.x/* + m->player.move_speed.x*/;
-	i.y1 = m->player.coor.y/* + m->player.move_speed.y*/;
+	i.x1 = m->player.coor.x + m->player.move_speed.x;
+	i.y1 = m->player.coor.y + m->player.move_speed.y;
 	while (i.mem < m->dots_count)
 	{
 		i.x2 = m->dot[i.mem].x;
@@ -218,17 +168,18 @@ int			is_next_to_a_dot(t_map *m)
 		}
 		i.mem++;
 	}
-	// m->player.move_speedless.x += m->player.anglecos / 3;
-	// m->player.move_speedless.y += m->player.anglesin / 3;
-	slope = (i.y1 - m->dot[dot_mem].y) / (i.x1 - m->dot[dot_mem].x);
-	// printf("slope:%f,slopecos:%f,slopesin:%f\n", slope, cos(slope), sin(slope));
-	if (dist_min < 2)
+	slope = atan2((i.y1 - m->dot[dot_mem].y), (i.x1 - m->dot[dot_mem].x));
+	testutx = m->player.coor.x + cos(PL_A);
+	testuty = m->player.coor.y + sin(PL_A);
+	test = atan((testuty - m->player.coor.y) / (testutx - m->player.coor.x));
+	test2 = atan2((testuty - m->player.coor.y),(testutx - m->player.coor.x));
+
+	if (dist_min < 0.1)
 	{
-		m->player.move_speed.x = 0;
-		m->player.move_speed.y = 0;
+		m->player.move_speed.x = (cos(slope)*0.1);
+		m->player.move_speed.y = (sin(slope)*0.1);
 		return (-1);
 	}
-	// printf("point:%d,dist:%f\n", dot_mem, dist_min);
 	return (0);
 }
 
@@ -254,10 +205,15 @@ void move_player(double dx, double dy, t_map *m)
 		coor.y = i.y2;
 		if(m->sector[m->player.sector].network[s] >= 0  
 		&& intersectbox(i) 
-		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) < 0)
+		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
 		{
 			m->player.sector = m->sector[m->player.sector].network[s];
-			
+			is_next_to_a_dot(m);
+			if (is_on_a_map_dot(m) == -1)
+			{
+				dx = 0;
+				dy = 0;
+			}
 			break;
 		}
 		s++;
@@ -290,7 +246,7 @@ void		is_moving(t_map *m)
 		coor.x = i.x1 + i.dx;
 		coor.y = i.y1 + i.dy;
 		if(intersectbox(i) 
-		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) < 0)
+		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
 		{
 			m->player.hole_low = 9e9;
 			m->player.hole_high = -9e9;
@@ -304,21 +260,10 @@ void		is_moving(t_map *m)
 			{
 				i.xd = m->sector[m->player.sector].dot[s + 1].x - m->sector[m->player.sector].dot[s].x;
 				i.yd = m->sector[m->player.sector].dot[s + 1].y - m->sector[m->player.sector].dot[s].y;
-
 				m->player.move_speed.x = i.xd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
-				// if (m->player.move_speed.x <= vmin(i.x3, i.x4))
-				// 	m->player.move_speed.x = 0;
-				// else if (m->player.move_speed.x >= vmax(i.x3, i.x4))
-				// 	m->player.move_speed.x = 0;
-
 				m->player.move_speed.y = i.yd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
-				// if (m->player.move_speed.y <= vmin(i.y3, i.y4))
-				// 	m->player.move_speed.y = 0;
-				// else if (m->player.move_speed.y >= vmax(i.y3, i.y4))
-				// 	m->player.move_speed.y = 0;
-
 				m->player.moving = 0;
-				if (is_on_a_dot(m, s) == -1)
+				if (is_on_a_map_dot(m) == -1)
 				{
 					m->player.move_speed.x = 0;
 					m->player.move_speed.y = 0;
@@ -328,7 +273,7 @@ void		is_moving(t_map *m)
 		}
 		s++;
 	}
-	// printf("xy:%f,%f\n", m->player.move_speed.x, m->player.move_speed.y);
+	is_next_to_a_dot(m);
 	move_player(m->player.move_speed.x, m->player.move_speed.y, m);
 	m->player.fall = 1;
 
@@ -337,8 +282,17 @@ void		is_moving(t_map *m)
 void		motion_events(t_env *w, t_map *m)
 {
 	PL_A = PL_A + w->event.motion.xrel * 0.001;
+	if (PL_A > 2 * M_PI)
+		PL_A = PL_A - 2 * M_PI;
+	if (PL_A < 0)
+		PL_A = PL_A + 2 * M_PI;
 	m->yaw = vmid(m->yaw + w->event.motion.yrel * 0.002, -4, 4);
 	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
+	if (m->player.display == 0)
+	{
+		w->event.motion.x = WIDTH / 2;
+		w->event.motion.y = HEIGHT / 2;
+	}
 	move_player(0, 0, m);
 }
 
@@ -476,9 +430,9 @@ int		run(t_env *w, t_map *m)
 				if (KEY == SDLK_p)
 				{
 					if(Mix_PausedMusic() == 1)
-           				Mix_ResumeMusic();
-        			else
-            			Mix_PauseMusic();
+						Mix_ResumeMusic();
+					else
+						Mix_PauseMusic();
 				}
 				if (KEY == SDLK_x)
 				{
