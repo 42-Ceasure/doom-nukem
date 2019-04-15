@@ -1,65 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   sprite.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: agay <marvin@42.fr>                        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/04/15 02:00:46 by agay             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/**/
 
 #include "doom.h"
-
-void	initsprite(t_sprite **sprite, int count)
-{
-	int		i;
-	SDL_Surface *tmp;
-	SDL_Surface *pix;
-
-	i = 0;
-	*sprite = malloc(sizeof(t_sprite) * count);
-	pix = SDL_LoadBMP("texture/barrel.bmp");
-	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
-	sprite[0][0].pix = (Uint32 *)malloc(sizeof(Uint32) * 64 * 64);
-	ft_memcpy(sprite[0][0].pix, tmp->pixels, (sizeof(Uint32) * 64 * 64));
-	pix = SDL_LoadBMP("texture/doombas.bmp");
-	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
-	sprite[0][1].pix = (Uint32 *)malloc(sizeof(Uint32) * 128 * 128);
-	ft_memcpy(sprite[0][1].pix, tmp->pixels, (sizeof(Uint32) * 128 * 128));
-	pix = SDL_LoadBMP("texture/doomhaut.bmp");
-	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
-	sprite[0][2].pix = (Uint32 *)malloc(sizeof(Uint32) * 131 * 131);
-	ft_memcpy(sprite[0][2].pix, tmp->pixels, (sizeof(Uint32) * 131 * 131));
-	pix = SDL_LoadBMP("texture/fire.bmp");
-	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
-	sprite[0][3].pix = (Uint32 *)malloc(sizeof(Uint32) * 36 * 36);
-	ft_memcpy(sprite[0][3].pix, tmp->pixels, (sizeof(Uint32) * 36 * 36));
-
-	SDL_FreeSurface(pix);
-	SDL_FreeSurface(tmp);
-
-}
-
-void	fire(t_map, t_env *m, t_sprite *sprite)
-{
-	int		i;
-	int		d;
-
-	i = 0;
-	d = 0;
-}
 
 void	hand(t_map *m, t_env *w)
 {
 	int			i;
 	int			d;
-	t_sprite	*sprite;
 
 	i = 0;
 	d = 0;
-	initsprite(&sprite, 4);
 	if (m->player.moving != 0)
 	{
 		while (d < 121)
@@ -67,8 +16,8 @@ void	hand(t_map *m, t_env *w)
 			i = 0;
 			while (i < 128)
 			{
-				if (sprite[1].pix[d * 128 + i] != 4278231784)
-					w->pix[(HEIGHT - 121 + d) * WIDTH + (WIDTH / 2 - 128 / 2 + i)] = sprite[1].pix[d * 128 + i];
+				if (w->sprite[1].pix[d * 128 + i] != 4278231784)
+					w->pix[(HEIGHT - 121 + d) * WIDTH + (WIDTH / 2 - 128 / 2 + i)] = w->sprite[1].pix[d * 128 + i];
 				i++;
 			}
 			d++;
@@ -81,8 +30,8 @@ void	hand(t_map *m, t_env *w)
 			i = 0;
 			while (i < 131)
 			{
-				if (sprite[2].pix[d * 131 + i] != 4278231784)
-					w->pix[(HEIGHT - 131 + d) * WIDTH + (WIDTH / 2 - 131 / 2 + i)] = sprite[2].pix[d * 131 + i];
+				if (w->sprite[2].pix[d * 131 + i] != 4278231784)
+					w->pix[(HEIGHT - 131 + d) * WIDTH + (WIDTH / 2 - 131 / 2 + i)] = w->sprite[2].pix[d * 131 + i];
 				i++;
 			}
 			d++;
