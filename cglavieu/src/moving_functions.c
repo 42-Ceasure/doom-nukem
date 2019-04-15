@@ -125,10 +125,6 @@ int			is_on_a_map_dot(t_map *m)
 int			is_next_to_a_dot(t_map *m)
 {
 	t_intersect	i;
-	double		test;
-	double		test2;
-	double		testutx;
-	double		testuty;
 	double		slope;
 	double		diffx;
 	double		diffy;
@@ -169,11 +165,6 @@ int			is_next_to_a_dot(t_map *m)
 		i.mem++;
 	}
 	slope = atan2((i.y1 - m->dot[dot_mem].y), (i.x1 - m->dot[dot_mem].x));
-	testutx = m->player.coor.x + cos(PL_A);
-	testuty = m->player.coor.y + sin(PL_A);
-	test = atan((testuty - m->player.coor.y) / (testutx - m->player.coor.x));
-	test2 = atan2((testuty - m->player.coor.y),(testutx - m->player.coor.x));
-
 	if (dist_min < 0.01)
 	{
 		m->player.move_speed.x = (cos(slope)*0.02);

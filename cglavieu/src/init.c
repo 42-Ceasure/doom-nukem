@@ -11,11 +11,9 @@ void		img_update(t_env *w)
 
 void	initsprite(t_sprite **sprite, int count)
 {
-	int		i;
 	SDL_Surface *tmp;
 	SDL_Surface *pix;
 
-	i = 0;
 	*sprite = malloc(sizeof(t_sprite) * count);
 	pix = SDL_LoadBMP("texture/barrel.bmp");
 	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
