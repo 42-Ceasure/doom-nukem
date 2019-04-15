@@ -16,19 +16,19 @@ SRCDIR		=	./src/
 
 INCFIL		=	doom.h
 OBJFIL		=	$(SRCFIL:.c=.o)
-	LIBFTFIL	=	libft.a
-	SRCFIL		=	main.c exit.c error.c	\
-					init.c	\
-					textures.c sprite.c	\
-					cmd_parse.c cmd_exec.c cmd_list.c	\
-					parse_map_file.c parse_map_section.c parse_player_section.c parse_weapon_section.c parse_sprite_section.c	\
-					list_main.c list_dep.c list_do.c	\
-					4_run.c	moving_functions.c	\
-					key_events.c keyup_events.c keydown_events.c	\
-					mouse_events.c	\
-					5_doom_short_functions.c 5_line.c	\
-					draw_main.c draw_utility.c draw_dep.c draw_minimap.c \
-					multi_thread.c
+LIBFTFIL	=	libft.a
+SRCFIL		=	main.c exit.c error.c	\
+				init.c	\
+				textures.c sprite.c	\
+				cmd_parse.c cmd_exec.c cmd_list.c	\
+				parse_map_file.c parse_map_section.c parse_player_section.c parse_weapon_section.c parse_sprite_section.c	\
+				list_main.c list_dep.c list_do.c	\
+				4_run.c	moving_functions.c	\
+				key_events.c keyup_events.c keydown_events.c	\
+				mouse_events.c	\
+				5_doom_short_functions.c 5_line.c	\
+				draw_main.c draw_utility.c draw_dep.c draw_minimap.c \
+				multi_thread.c
 
 SRC			=	$(addprefix $(SRCDIR),$(SRCFIL))
 OBJ			=	$(addprefix $(OBJDIR),$(OBJFIL))
@@ -58,12 +58,12 @@ CURL_MIX	= 	`curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2
 all				:	libft sdl sdlmix $(NAME)
 
 $(NAME)			:	$(OBJ) $(LIBFT)
-	@$(CC) $(CFLAG) -lm $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^
-	@echo "compile done"
+					@$(CC) $(CFLAG) -lm $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^
+					@echo "compile done"
 
 $(OBJDIR)%.o	:	$(SRCDIR)%.c $(INC)
-	@mkdir -p $(OBJDIR)
-	@$(CC) $(CFLAG) -I $(INCDIR) -I $(INCLIBFT) -I $(INCSDL) -o $@ -c $<
+					@mkdir -p $(OBJDIR)
+					@$(CC) $(CFLAG) -I $(INCDIR) -I $(INCLIBFT) -I $(INCSDL) -o $@ -c $<
 
 libft			:	$(LIBFT)
 
@@ -73,38 +73,38 @@ $(LIBFT)		:	$(LIBFTDIR)
 sdl				:	$(SDLBIN)
 
 $(SDLBIN)		: 		
-	$(SDL_CURL)
-	unzip sdl2.zip
-	rm sdl2.zip
-	mkdir -p $(LIBSDL_ROOT)
-	cd $(SDL_PATH) &&  ./configure --prefix=$(PWD)/$(LIBSDL_ROOT)
-	make -C $(SDL_PATH)
-	make install -C $(SDL_PATH)
+					$(SDL_CURL)
+					unzip sdl2.zip
+					rm sdl2.zip
+					mkdir -p $(LIBSDL_ROOT)
+					cd $(SDL_PATH) &&  ./configure --prefix=$(PWD)/$(LIBSDL_ROOT)
+					make -C $(SDL_PATH)
+					make install -C $(SDL_PATH)
 
 sdlmix			:	$(SDLMIXBIN)
 
-$(SDLMIXBIN)		: 		
-	$(CURL_MIX)
-	unzip sdl_mix.zip
-	rm sdl_mix.zip
-	cd $(SDLMIX_PATH) &&  ./configure --prefix=$(PWD)/$(LIBSDLMIX_ROOT)
-	make -C $(SDLMIX_PATH)
-	make install -C $(SDLMIX_PATH)
+$(SDLMIXBIN)	: 		
+					$(CURL_MIX)
+					unzip sdl_mix.zip
+					rm sdl_mix.zip
+					cd $(SDLMIX_PATH) &&  ./configure --prefix=$(PWD)/$(LIBSDLMIX_ROOT)
+					make -C $(SDLMIX_PATH)
+					make install -C $(SDLMIX_PATH)
 
 clean			:	
-	@make -C $(LIBFTDIR) clean
-	@rm -Rf  $(OBJDIR)
+					@make -C $(LIBFTDIR) clean
+					@rm -Rf  $(OBJDIR)
 
 fclean			:
-	@make -C $(LIBFTDIR) fclean
-	@rm -Rf  $(OBJDIR)
-	@rm -f $(NAME)
+					@make -C $(LIBFTDIR) fclean
+					@rm -Rf  $(OBJDIR)
+					@rm -f $(NAME)
 
 sdlclean		:
-	rm -rf $(LIBSDL_ROOT)
-	rm -rf $(SDL_PATH)
-	rm -rf $(LIBSDLMIX_ROOT)
-	rm -rf $(SDLMIX_PATH)
+					rm -rf $(LIBSDL_ROOT)
+					rm -rf $(SDL_PATH)
+					rm -rf $(LIBSDLMIX_ROOT)
+					rm -rf $(SDLMIX_PATH)
 
 re				:	fclean all
 
