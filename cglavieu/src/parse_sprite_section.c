@@ -41,9 +41,11 @@ int					parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 	wn = ft_atoi(tmp[0]);
 	sn = ft_atoi(tmp[1]);
 	m->weap[wn].sprt[sn].name = ft_strdup(name);
-	m->weap[wn].sprt[sn].w = ft_atoi(tmp[2]);
-	m->weap[wn].sprt[sn].h = ft_atoi(tmp[3]);
-	i = ft_atoi(tmp[2]) * ft_atoi(tmp[3]);
+	m->weap[wn].sprt[sn].sx = ft_atoi(tmp[2]);
+	m->weap[wn].sprt[sn].sy = ft_atoi(tmp[3]);
+	m->weap[wn].sprt[sn].w = ft_atoi(tmp[4]);
+	m->weap[wn].sprt[sn].h = ft_atoi(tmp[5]);
+	i = ft_atoi(tmp[4]) * ft_atoi(tmp[5]);
 	ft_putstr("allocating memory for texture             \r");
 	m->weap[wn].sprt[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i);
 	ft_putstr("starting sprite extraction : ");

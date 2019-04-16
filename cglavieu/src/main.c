@@ -91,6 +91,7 @@ void			draw_sequential(t_env *w, t_map *m)
 {
 	w->event.motion.x = 0;
 	w->event.motion.y = 0;
+	clean_render(w, 0x12000000);
 	draw(w, m);
 	SDL_Delay(5000);
 	exit_game(w, m);

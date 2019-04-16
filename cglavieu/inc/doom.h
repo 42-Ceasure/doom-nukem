@@ -227,6 +227,8 @@ typedef struct		s_sprite
 {
 	Uint32			*pix;
 	char			*name;
+	int				sx;
+	int				sy;
 	int				w;
 	int				h;
 	int				sector;
