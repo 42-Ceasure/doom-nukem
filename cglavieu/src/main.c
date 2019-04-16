@@ -38,17 +38,17 @@ void			set_basics(t_env *w, t_map *m, int ac)
 
 void			init_world(t_env **w, t_map **m, int ac)
 {
-	ft_putstr("\rallocate memory for world       ");
+	ft_putstr("allocate memory for world       \r");
 	if ((*w = (t_env *)malloc(sizeof(t_env))) == NULL)
 		set_error(*w, *m, 0, ft_strdup("struct world"));
-	ft_putstr("\rmemory allocated                ");
-	ft_putstr("\rallocate memory for map         ");
+	ft_putstr("memory allocated                \r");
+	ft_putstr("allocate memory for map         \r");
 	if ((*m = (t_map *)malloc(sizeof(t_map))) == NULL)
 		set_error(*w, *m, 0, ft_strdup("struct map"));
-	ft_putstr("\rmemory allocated                ");
-	ft_putstr("\rsetting basics                  ");
+	ft_putstr("memory allocated                \r");
+	ft_putstr("setting basics                  \r");
 	set_basics(*w, *m, ac);
-	ft_putstr("\rbasics set                      ");
+	ft_putstr("basics set                      \r");
 }
 
 void			exec_cmd(t_env *w, t_map *m, char ***cmd, char **av)
@@ -58,19 +58,19 @@ void			exec_cmd(t_env *w, t_map *m, char ***cmd, char **av)
 	ac = w->ac;
 	if ((cmd = parse_cmd(ac, av)) != NULL)
 	{
-		ft_putstr("\rpre-processing priority cmd ");
+		ft_putstr("pre-processing priority cmd \r");
 		l_f_priority_cmd(w, m, cmd);
-		ft_putstr("\rdone                        ");
-		ft_putstr("\rinitialisating SDL2         ");
+		ft_putstr("done                        \r");
+		ft_putstr("initialisating SDL2         \r");
 		if ((init_sdl(w)) == -1)
 			set_error(w, m, 4, ft_strdup("SDL Initialisation"));
-		ft_putstr("\rSDL2 initialised            ");
-		ft_putstr("\rstarting pars of map        ");
+		ft_putstr("SDL2 initialised            \r");
+		ft_putstr("starting pars of map        \r");
 		parse_map_file(w, m);
-		ft_putstr("\rmap parsed                  ");
-		ft_putstr("\rprocessing remaining cmd");
+		ft_putstr("map parsed                  \r");
+		ft_putstr("processing remaining cmd");
 		interpret_cmd(w, m, cmd);
-		ft_putstr("\rdone                        ");
+		ft_putstr("done                        \r");
 	}
 	else
 		set_error(w, m, 1, ft_strdup(av[1]));
@@ -78,13 +78,13 @@ void			exec_cmd(t_env *w, t_map *m, char ***cmd, char **av)
 
 void			simple_start(t_env *w, t_map *m)
 {
-	ft_putstr("\rinitialisating SDL2             ");
+	ft_putstr("initialisating SDL2             \r");
 	if ((init_sdl(w)) == -1)
 		set_error(w, m, 4, ft_strdup("SDL Initialisation"));
-	ft_putstr("\rSDL2 initialised                ");
-	ft_putstr("\rstarting parse of map           ");
+	ft_putstr("SDL2 initialised                \r");
+	ft_putstr("starting parse of map           \r");
 	parse_map_file(w, m);
-	ft_putstr("\rmap parsed                      ");
+	ft_putstr("map parsed                      \r");
 }
 
 void			draw_sequential(t_env *w, t_map *m)
@@ -105,28 +105,27 @@ int				main(int ac, char **av)
 	w = NULL;
 	m = NULL;
 	cmd = NULL;
-	ft_putstr("initialisating world              ");
+	ft_putstr("initialisating world              \r");
 	init_world(&w, &m, ac);
-	ft_putstr("\rworld initialised               ");
+	ft_putstr("world initialised               \r");
 	if (ac > 1)
 	{
-		ft_putstr("\rparsing cmd                 ");
+		ft_putstr("parsing cmd                 \r");
 		exec_cmd(w, m, cmd, av);
-		ft_putstr("\rcmd parsed                  ");
+		ft_putstr("cmd parsed                  \r");
 	}
 	else
 	{
-		ft_putstr("\rbasic start                 ");
+		ft_putstr("basic start                 \r");
 		simple_start(w, m);
-		ft_putstr("\rstart done                  ");
+		ft_putstr("start done                  \r");
 	}
 	if (w->sequential_draw == 1)
 	{
-		ft_putstr("\rsequential drawing start    ");
+		ft_putstr("sequential drawing start    \r");
 		draw_sequential(w, m);
 	}
-	ft_putstr("\r          ");
-	ft_putchar('\r');
+	ft_putstr("                              \r");
 	main_menu(w, m);
 	return (0);
 }

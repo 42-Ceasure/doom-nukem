@@ -11,7 +11,7 @@ int			parse_line(t_map *m)
 		m->section_number++;
 	if (m->section_number == 1)
 	{
-		ft_putstr("\rparsing map                 ");
+		ft_putstr("parsing map                 \r");
 		if (parse_map_section(m, tmp) == -1)
 		{
 			ft_putendl("error in parse_map_section");
@@ -20,7 +20,7 @@ int			parse_line(t_map *m)
 	}
 	if (m->section_number == 2)
 	{
-		ft_putstr("\rparsing player               ");
+		ft_putstr("parsing player               \r");
 		if (parse_player_section(m, tmp) == -1)
 		{
 			ft_putendl("error in parse_player_section");
@@ -29,7 +29,7 @@ int			parse_line(t_map *m)
 	}
 	if (m->section_number == 3)
 	{
-		ft_putstr("\rparsing weapon              ");
+		ft_putstr("parsing weapon              \r");
 		if (parse_weapon_section(m, tmp) == -1)
 		{
 			ft_putendl("error in parse_map_section");
@@ -38,7 +38,7 @@ int			parse_line(t_map *m)
 	}
 	if (m->section_number == 4)
 	{
-		ft_putstr("\rparsing sprites             ");
+		ft_putstr("parsing sprites             \r");
 		if (parse_sprite_section(m, tmp) == -1)
 		{
 			ft_putendl("error in parse_map_section");
@@ -55,11 +55,11 @@ int			do_parse(t_map *m)
 	m->s = 0;
 	m->w = 0;
 	m->section_number = 0;
-	ft_putstr("\ropening file                    ");
+	ft_putstr("opening file                    \r");
 	if ((m->fd = open(m->map_path, O_RDONLY)) == -1)
 		return (-1);
-	ft_putstr("\rfile opened                     ");
-	ft_putstr("\rreading                         ");
+	ft_putstr("file opened                     \r");
+	ft_putstr("reading                         \r");
 	while (get_next_line(m->fd, &m->line))
 	{
 		if ((parse_line(m)) == -1)
@@ -69,7 +69,7 @@ int			do_parse(t_map *m)
 		}
 		free(m->line);
 	}
-	ft_putstr("\rdone                            ");
+	ft_putstr("\rdone                            \r");
 	free(m->line);
 	close(m->fd);
 	return (0);
@@ -88,7 +88,7 @@ void		check_line(t_map *m)
 	{
 		if (ft_strcmp(tmp[0], "\tdots") == 0)
 		{
-			ft_putstr("\rreading dots            ");
+			ft_putstr("reading dots            \r");
 			i = 0;
 			tmp2 = ft_strsplit(tmp[2], ',');
 			while (tmp2[i++] != NULL)
@@ -97,7 +97,7 @@ void		check_line(t_map *m)
 		}
 		if (ft_strcmp(tmp[0], "\tsector") == 0)
 		{
-			ft_putstr("\rreading sector          ");
+			ft_putstr("reading sector          \r");
 			M_S_C++;
 		}
 	}
@@ -105,7 +105,7 @@ void		check_line(t_map *m)
 	{
 		if (ft_strcmp(tmp[0], "\tweapon") == 0)
 		{
-			ft_putstr("\rreading weapon          ");
+			ft_putstr("reading weapon          \r");
 			m->weapon_count++;
 		}
 	}
@@ -113,7 +113,7 @@ void		check_line(t_map *m)
 	{
 		if (ft_strcmp(tmp[0], "\tweapon_sprite") == 0)
 		{
-			ft_putstr("\rreading sprite          ");
+			ft_putstr("reading sprite           \r");
 			m->sprite_count++;
 		}
 	}
@@ -123,22 +123,22 @@ void		check_line(t_map *m)
 
 int			quick_look(t_env *w, t_map *m)
 {
-	ft_putstr("\ropening file                    ");
+	ft_putstr("opening file                     \r");
 	if ((m->fd = open(m->map_path, O_RDONLY)) == -1)
 		set_error(w, m, 5, m->map_path);
-	ft_putstr("\rfile oppened                    ");
-	ft_putstr("\rreading                         ");
+	ft_putstr("file oppened                     \r");
+	ft_putstr("reading                          \r");
 	while (get_next_line(m->fd, &m->line))
 	{
 		check_line(m);
 		free(m->line);
 	}
-	ft_putstr("\rdone                            ");
+	ft_putstr("done                             \r");
 	free(m->line);
 	close(m->fd);
 	if (m->dots_count == 0)
 		return (-1);
-	ft_putstr("\rallocating space                ");
+	ft_putstr("allocating space                 \r");
 	if ((m->sector = (t_sector *)malloc(sizeof(t_sector) * M_S_C)) == NULL)
 		return (-1);
 	if ((m->dot = (t_dot *)malloc(sizeof(t_dot) * m->dots_count)) == NULL)
@@ -147,7 +147,7 @@ int			quick_look(t_env *w, t_map *m)
 		return (-1);
 	// if ((m->sprite = (t_sprite *)malloc(sizeof(t_sprite) * m->sprite_count)) == NULL)
 	// 	return (-1);
-	ft_putstr("\rdone                            ");
+	ft_putstr("done                             \r");
 	return (0);
 }
 
