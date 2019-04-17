@@ -6,7 +6,7 @@ void			extract_bmp(t_env *w, t_map *m, char **cmd)
 {
 	t_texture	texture;
 	int 	i;
-	char	*str;
+	// char	*str;
 
 	i = 0;
 	texture = load_img(w, m, cmd[1]);

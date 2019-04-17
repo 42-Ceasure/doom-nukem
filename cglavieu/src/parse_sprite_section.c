@@ -7,7 +7,6 @@ Uint32				*faster_please(Uint32 *dst, char *src, int len)
 	int i;
 	int i2;
 	int i3;
-	char *current;
 
 	i = 0;
 	i3 = 0;
@@ -22,6 +21,7 @@ Uint32				*faster_please(Uint32 *dst, char *src, int len)
 			i2++;
 		}
 		current[i2] = '\0';
+		// dst[i3] = ft_atoui_base(current, 16);  /// PAS DE MALLOC !!!
 		dst[i3] = ft_atou(current);
 		ft_putstr(ft_strjoin( "loading texture : ", ft_strjoin(ft_itoa((int)((double)i3 / (double)len * 100)), "  \r")));
 		i3++;
