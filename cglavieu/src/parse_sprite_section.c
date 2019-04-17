@@ -2,11 +2,27 @@
 
 #include "doom.h"
 
+void				print_load(int i3, int len)
+{
+	char			*pre;
+	char			*nb;
+	char			*post;
+
+	nb = ft_itoa((int)((double)i3 / (double)len * 100));
+	post = ft_strjoin(nb, "  \r");
+	pre = ft_strjoin( "loading texture : ", post);
+	ft_putstr(pre);
+	free(nb);
+	free(post);
+	free(pre);
+}
+
 Uint32				*faster_please(Uint32 *dst, char *src, int len)
 {
-	int i;
-	int i2;
-	int i3;
+	int				i;
+	int				i2;
+	int				i3;
+	char			*current;
 
 	i = 0;
 	i3 = 0;
@@ -23,10 +39,11 @@ Uint32				*faster_please(Uint32 *dst, char *src, int len)
 		current[i2] = '\0';
 		// dst[i3] = ft_atoui_base(current, 16);  /// PAS DE MALLOC !!!
 		dst[i3] = ft_atou(current);
-		ft_putstr(ft_strjoin( "loading texture : ", ft_strjoin(ft_itoa((int)((double)i3 / (double)len * 100)), "  \r")));
+		print_load(i3, len);
 		i3++;
 		i++;
 	}
+	free(current);
 	return (dst);
 }
 

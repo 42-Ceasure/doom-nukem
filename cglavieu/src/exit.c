@@ -17,6 +17,10 @@ void		empty_world(t_env *w)
 {
 	if (w != NULL)
 	{
+		if (w->main_pic[0].pix != NULL)
+			free(w->main_pic[0].pix);
+		if (w->main_pic[1].pix != NULL)
+			free(w->main_pic[1].pix);
 		if (w->pix != NULL)
 			free(w->pix);
 		free(w);
@@ -32,8 +36,21 @@ void		empty_map(t_map *m)
 	{
 		if (m->map_name != NULL)
 			free(m->map_name);
+		if (m->map_name != NULL)
+			free(m->map_path);
 		if (m->dot != NULL)
 			free(m->dot);
+		while (i < m->weapon_count)
+		{
+			free(m->weap[i].sprt[0].pix);
+			free(m->weap[i].sprt[0].name);
+			free(m->weap[i].sprt[1].pix);
+			free(m->weap[i].sprt[1].name);
+			free(m->weap[i].name);
+			i++;
+		}
+		free(m->weap);
+		i = 0;
 		if (m->sector != NULL)
 		{
 			while (i < m->sector_count)
