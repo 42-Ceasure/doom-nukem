@@ -6,6 +6,7 @@ void			extract_bmp(t_env *w, t_map *m, char **cmd)
 {
 	t_texture	texture;
 	int 	i;
+	char	*str;
 
 	i = 0;
 	texture = load_img(w, m, cmd[1]);
@@ -15,6 +16,8 @@ void			extract_bmp(t_env *w, t_map *m, char **cmd)
 	ft_putchar(':');
 	while (i < texture.w * texture.h)
 	{
+		// str = ft_uitoa_base(texture.pix[i], 16)
+		// ft_putstr(str);
 		ft_putunsigned(texture.pix[i]);
 		i++;
 		if (i < texture.w * texture.h)
