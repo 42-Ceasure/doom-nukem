@@ -44,10 +44,12 @@ void		get_height(t_map *m)
 	m->player.ground = !m->player.fall;
 }
 
-void		is_falling(t_map *m)
+void		is_falling(t_map *m, t_env *w)
 {
 	double	nxtz;
 
+	w->volume++;
+	w->volume--;
 	if (m->player.fall == 1)
 	{
 		m->player.move_speed.z = m->player.move_speed.z - m->gravity;
@@ -58,6 +60,7 @@ void		is_falling(t_map *m)
 			m->player.move_speed.z = 0;
 			m->player.fall = 0;
 			m->player.ground = 1;
+			//Mix_PlayChannel(4, w->ground, 0);
 		}
 		else if (m->player.move_speed.z > 0 && nxtz > m->sector[m->player.sector].ceiling)
 		{

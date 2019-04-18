@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cglavieu <cglavieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/19 18:18:57 by cglavieu          #+#    #+#             */
-/*   Updated: 2015/05/12 18:17:44 by cglavieu         ###   ########.fr       */
+/*   Updated: 2019/04/18 14:09:03 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,7 @@ char				*ft_epur_str(const char *src);
 double				ft_atof(const char *str);
 void				ft_memreg(char **s);
 void				ft_memreg3(char ***s);
+unsigned int		ft_atoui_base(const char *str, int base);
+char				*ft_uitoa_base(unsigned int n, int base);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/15 16:28:03 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/18 13:34:47 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,7 @@ typedef struct		s_env
 	Mix_Music		*musique;
 	Mix_Chunk 		*jump;
 	Mix_Chunk 		*shoot;
+	Mix_Chunk 		*ground;
 	Uint32			*pix;
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
@@ -373,7 +374,7 @@ void				keyup_events(t_env *w, t_map *m);
 void				motion_events(t_env *w, t_map *m);
 void				move_player(double dx, double dy, t_map *m);
 void				get_height(t_map *m);
-void				is_falling(t_map *m);
+void				is_falling(t_map *m, t_env *w);
 void				slow_down(t_env *w, t_map *m);
 void				is_moving(t_map *m);
 void				main_menu(t_env *w, t_map *m);

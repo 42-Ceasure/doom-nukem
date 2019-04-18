@@ -66,7 +66,7 @@ int		run(t_env *w, t_map *m)
 			draw_mini_map(w, m);
 		img_update(w);
 		get_height(m);
-		is_falling(m);
+		is_falling(m, w);
 		is_moving(m);
 		slow_down(w, m);
 	}

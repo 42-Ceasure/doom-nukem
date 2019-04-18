@@ -10,6 +10,8 @@ void		empty_music(t_env *w)
 		Mix_FreeChunk(w->jump);
 	if (w->shoot != NULL)
 		Mix_FreeChunk(w->shoot);
+	if (w->ground != NULL)
+		Mix_FreeChunk(w->ground);
 	Mix_CloseAudio();
 }
 

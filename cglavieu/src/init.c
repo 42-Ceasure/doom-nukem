@@ -51,12 +51,15 @@ int			load_sounds(t_env *w)
    	Mix_PlayMusic(w->musique, -1);
 	Mix_VolumeMusic(w->volume);
 	Mix_AllocateChannels(10);
-	if (!(w->jump = Mix_LoadWAV("./sounds/jump.wav")))
+	if (!(w->jump = Mix_LoadWAV("./sounds/jump2.wav")))
 		return (-1);
-	if (!(w->shoot = Mix_LoadWAV("./sounds/MP5.wav")))//coder un tir
+	if (!(w->shoot = Mix_LoadWAV("./sounds/MP5.wav")))
+		return (-1);
+	if (!(w->ground = Mix_LoadWAV("./sounds/ground.wav")))
 		return (-1);
 	Mix_VolumeChunk(w->jump, 70);
 	Mix_VolumeChunk(w->shoot, 50);
+	Mix_VolumeChunk(w->ground, 70);
 	return (1);
 }
 

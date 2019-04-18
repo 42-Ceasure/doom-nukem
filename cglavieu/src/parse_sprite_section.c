@@ -37,8 +37,7 @@ Uint32				*faster_please(Uint32 *dst, char *src, int len)
 			i2++;
 		}
 		current[i2] = '\0';
-		// dst[i3] = ft_atoui_base(current, 16);  /// PAS DE MALLOC !!!
-		dst[i3] = ft_atou(current);
+		dst[i3] = ft_atoui_base(current, 10);
 		print_load(i3, len);
 		i3++;
 		i++;

@@ -29,7 +29,7 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	w->pix = NULL;
 	w->sequential_draw = 0;
 	w->window_mode = RESIZABLE_SCREEN;
-	w->main_pic[0] = load_img(w, m, "./img/main.bmp");
+	w->main_pic[0] = load_img(w, m, "./img/menu.bmp");
 	w->main_pic[1] = load_img(w, m, "./img/main1.bmp");
 	w->menu.screen = 0;
 	w->volume = 80;

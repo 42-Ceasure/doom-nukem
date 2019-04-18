@@ -6,15 +6,13 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 11:20:27 by ochaar            #+#    #+#             */
-/*   Updated: 2019/04/17 16:20:50 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/18 14:11:28 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include "libft.h"
 
-//remplacer cette fonction par ft_bzero de la libft
-void		ft_bzero(char *s1, char *s2)
+void		ft_bzero1(char *s1, char *s2)
 {
 	int i;
 
@@ -26,7 +24,6 @@ void		ft_bzero(char *s1, char *s2)
 		i++;
 	}
 }
-
 
 char		*rev_str(char *str, char *tmp, int j)
 {
@@ -54,7 +51,7 @@ char		*ft_uitoa_base(unsigned int n, int base)
 	str = (char*)malloc(sizeof(char) * 100);
 	tmp = (char*)malloc(sizeof(char) * 100);
 	dbase = "0123456789ABCDEF";
-	ft_bzero(str, tmp);
+	ft_bzero1(str, tmp);
 	j = 0;
 	while (n > 0)
 	{
@@ -66,11 +63,4 @@ char		*ft_uitoa_base(unsigned int n, int base)
 	str = rev_str(str, tmp, j);
 	free(tmp);
 	return (str);
-}
-
-int main(int argc, char **argv)
-{
-	if (argc == 2)
-		printf("%s\n", ft_uitoa_base(0xFFFFFF, atoi(argv[1])));
-	return (0);
 }
