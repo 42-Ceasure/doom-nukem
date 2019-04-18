@@ -9,6 +9,7 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	m->s = 0;
 	m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
 	m->map_name = ft_strdup("Home Sweet Home");
+	m->weap = NULL;
 	m->section_number = 0;
 	m->sector_count = 0;
 	m->sector = NULL;

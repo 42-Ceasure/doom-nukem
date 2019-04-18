@@ -42,16 +42,19 @@ void		empty_map(t_map *m)
 			free(m->map_path);
 		if (m->dot != NULL)
 			free(m->dot);
-		while (i < m->weapon_count)
+		if (m->weap != NULL)
 		{
-			free(m->weap[i].sprt[0].pix);
-			free(m->weap[i].sprt[0].name);
-			free(m->weap[i].sprt[1].pix);
-			free(m->weap[i].sprt[1].name);
-			free(m->weap[i].name);
-			i++;
+			while (i < m->weapon_count)
+			{
+				free(m->weap[i].sprt[0].pix);
+				free(m->weap[i].sprt[0].name);
+				free(m->weap[i].sprt[1].pix);
+				free(m->weap[i].sprt[1].name);
+				free(m->weap[i].name);
+				i++;
+			}
+			free(m->weap);
 		}
-		free(m->weap);
 		i = 0;
 		if (m->sector != NULL)
 		{
