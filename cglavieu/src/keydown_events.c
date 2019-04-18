@@ -77,4 +77,6 @@ void			keydown_events(t_env *w, t_map *m)
 		m->player.handed = 0;
 	if (KEY == SDLK_2)
 		m->player.handed = 1;
+	if (KEY == SDLK_3)
+		m->player.handed = 2;
 }
