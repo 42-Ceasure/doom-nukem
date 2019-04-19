@@ -33,7 +33,7 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	w->main_pic[0] = load_img(w, m, "./img/menu.bmp");
 	w->main_pic[1] = load_img(w, m, "./img/main1.bmp");
 	w->menu.screen = 0;
-	w->volume = 80;
+	w->sound.volume = 80;
 	// initsprite(&m->sprite, 3);
 }
 

@@ -4,14 +4,16 @@
 
 void		empty_music(t_env *w)
 {
-	if (w->musique != NULL)
-		Mix_FreeMusic(w->musique);
-	if (w->jump != NULL)
-		Mix_FreeChunk(w->jump);
-	if (w->shoot != NULL)
-		Mix_FreeChunk(w->shoot);
-	if (w->ground != NULL)
-		Mix_FreeChunk(w->ground);
+	if (w->sound.musique != NULL)
+		Mix_FreeMusic(w->sound.musique);
+	if (w->sound.jump != NULL)
+		Mix_FreeChunk(w->sound.jump);
+	if (w->sound.shoot != NULL)
+		Mix_FreeChunk(w->sound.shoot);
+	if (w->sound.m9 != NULL)
+		Mix_FreeChunk(w->sound.m9);
+	if (w->sound.ground != NULL)
+		Mix_FreeChunk(w->sound.ground);
 	Mix_CloseAudio();
 }
 

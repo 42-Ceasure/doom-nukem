@@ -43,15 +43,15 @@ void			keydown_events(t_env *w, t_map *m)
 	}
 	if (KEY == SDLK_KP_PLUS)
 	{
-		w->volume += 5;
-		w->volume = (int)vmid(0,w->volume,128);
-		Mix_VolumeMusic(w->volume);
+		w->sound.volume += 5;
+		w->sound.volume = (int)vmid(0,w->sound.volume,128);
+		Mix_VolumeMusic(w->sound.volume);
 	}
 	if (KEY == SDLK_KP_MINUS)
 	{
-		w->volume -= 5;
-		w->volume = (int)vmid(0,w->volume,128);
-		Mix_VolumeMusic(w->volume);
+		w->sound.volume -= 5;
+		w->sound.volume = (int)vmid(0,w->sound.volume,128);
+		Mix_VolumeMusic(w->sound.volume);
 	}
 	if (KEY == SDLK_UP)
 		m->player.field_of_vision_v += 5;

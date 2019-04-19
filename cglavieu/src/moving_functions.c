@@ -48,8 +48,8 @@ void		is_falling(t_map *m, t_env *w)
 {
 	double	nxtz;
 
-	w->volume++;
-	w->volume--;
+	w->sound.volume++;
+	w->sound.volume--;
 	if (m->player.fall == 1)
 	{
 		m->player.move_speed.z = m->player.move_speed.z - m->gravity;
