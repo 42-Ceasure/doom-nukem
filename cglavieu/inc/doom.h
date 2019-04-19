@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/18 13:34:47 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/19 17:55:27 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,6 +287,16 @@ typedef struct		s_menu
 	int				screen;
 }					t_menu;
 
+typedef struct		s_sound
+{
+	int				volume;
+	Mix_Music		*musique;
+	Mix_Chunk 		*jump;
+	Mix_Chunk 		*shoot;
+	Mix_Chunk 		*ground;
+	Mix_Chunk		*m9;
+}					t_sound;
+
 typedef struct		s_env
 {
 	int				i;
@@ -295,17 +305,13 @@ typedef struct		s_env
 	int				sequential_draw;
 	SDL_Window		*win;
 	SDL_Renderer	*rdr;
-	Mix_Music		*musique;
-	Mix_Chunk 		*jump;
-	Mix_Chunk 		*shoot;
-	Mix_Chunk 		*ground;
+	t_sound			sound;
 	Uint32			*pix;
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
 	SDL_Event		event;
-	t_texture		main_pic[2];
+	t_texture		main_pic[3];
 	t_menu			menu;
-	int				volume;
 }					t_env;
 
 typedef struct		s_worker_arg

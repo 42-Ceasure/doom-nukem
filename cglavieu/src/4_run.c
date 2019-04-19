@@ -38,6 +38,46 @@ void	main_menu(t_env *w, t_map *m)
 	}
 }
 
+void	ft_cursor(t_env *w, t_map *m)
+{
+	int i;
+
+	i = 0;
+	if (m->player.aiming != 1)
+	{
+		while (i < 5)
+		{
+			if (HEIGHT / 2 - i >= 0)
+				w->pix[(HEIGHT / 2 - i) * WIDTH + WIDTH / 2] = 0xFF0000;
+			if (WIDTH / 2 - i >= 0)
+				w->pix[(HEIGHT / 2) * WIDTH + (WIDTH / 2 - i)] = 0xFF0000;
+			if (HEIGHT / 2 + i < HEIGHT)
+				w->pix[(HEIGHT / 2 + i) * WIDTH + WIDTH / 2] = 0xFF0000;
+			if (WIDTH / 2 + i < WIDTH)
+				w->pix[HEIGHT / 2 * WIDTH + (WIDTH / 2 + i)] = 0xFF0000;
+			i++;
+		}
+	}
+}
+
+void	ft_hud(t_env *w)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < w->main_pic[2].h)
+	{
+		j = 0;
+		while (j < w->main_pic[2].w)
+		{
+			w->pix[(i + HEIGHT - w->main_pic[2].h) * WIDTH + (WIDTH / 2 - w->main_pic[2].w / 2 + j)] = w->main_pic[2].pix[i * w->main_pic[2].w + j];
+			j++;
+		}
+		i++;
+	}
+}
+
 int		run(t_env *w, t_map *m)
 {
 	while (1)
@@ -61,6 +101,8 @@ int		run(t_env *w, t_map *m)
 		{
 			draw(w, m);
 			hand(m, w);
+			ft_cursor(w, m);
+			ft_hud(w);
 		}
 		else if (m->player.display == 1)
 			draw_mini_map(w, m);

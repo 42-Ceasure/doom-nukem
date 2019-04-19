@@ -43,23 +43,26 @@ void		img_update(t_env *w)
 
 int			load_sounds(t_env *w)
 {
-	if (!(w->musique = Mix_LoadMUS("./sounds/bensound-dreams.wav")))
+	if (!(w->sound.musique = Mix_LoadMUS("./sounds/bensound-dreams.wav")))
 	{
 		printf("%s\n", Mix_GetError());
 		return (-1);
 	}
-   	Mix_PlayMusic(w->musique, -1);
-	Mix_VolumeMusic(w->volume);
+   	Mix_PlayMusic(w->sound.musique, -1);
+	Mix_VolumeMusic(w->sound.volume);
 	Mix_AllocateChannels(10);
-	if (!(w->jump = Mix_LoadWAV("./sounds/jump2.wav")))
+	if (!(w->sound.jump = Mix_LoadWAV("./sounds/jump2.wav")))
 		return (-1);
-	if (!(w->shoot = Mix_LoadWAV("./sounds/MP5.wav")))
+	if (!(w->sound.shoot = Mix_LoadWAV("./sounds/MP5.wav")))
 		return (-1);
-	if (!(w->ground = Mix_LoadWAV("./sounds/ground.wav")))
+	if (!(w->sound.ground = Mix_LoadWAV("./sounds/ground.wav")))
 		return (-1);
-	Mix_VolumeChunk(w->jump, 70);
-	Mix_VolumeChunk(w->shoot, 50);
-	Mix_VolumeChunk(w->ground, 70);
+	if (!(w->sound.m9 = Mix_LoadWAV("./sounds/magnum.wav")))
+		return (-1);
+	Mix_VolumeChunk(w->sound.jump, 70);
+	Mix_VolumeChunk(w->sound.shoot, 50);
+	Mix_VolumeChunk(w->sound.m9, 50);
+	Mix_VolumeChunk(w->sound.ground, 70);
 	return (1);
 }
 
