@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/19 11:11:38 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/19 17:55:27 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,7 +309,7 @@ typedef struct		s_env
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
 	SDL_Event		event;
-	t_texture		main_pic[2];
+	t_texture		main_pic[3];
 	t_menu			menu;
 }					t_env;
 
