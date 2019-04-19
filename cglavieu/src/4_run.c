@@ -64,6 +64,7 @@ int		run(t_env *w, t_map *m)
 		}
 		else if (m->player.display == 1)
 			draw_mini_map(w, m);
+		// vect_ab((t_coor){512,0,0},(t_coor){512,575,0},w,0x00000000);
 		img_update(w);
 		get_height(m);
 		is_falling(m, w);

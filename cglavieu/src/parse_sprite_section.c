@@ -84,5 +84,14 @@ int					parse_sprite_section(t_map *m, char **tab)
 			return (-1);
 		}	
 	}
+	if (ft_strcmp(tab[0], "\tcharacter_sprite") == 0)
+	{
+		ft_putstr("parsing character sprite      \r");
+		// if (parse_weapon_sprite(m, tab[1], tab[2], tab[3]) == -1)
+		// {
+		// 	ft_putendl("error on parsing of the weapon_sprite section");
+		// 	return (-1);
+		// }	
+	}
 	return (0);
 }

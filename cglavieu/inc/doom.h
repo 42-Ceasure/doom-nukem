@@ -116,6 +116,7 @@ typedef struct		s_player
 	int				firing;
 	int				sector;
 	t_coor			coor;
+	int				memz;
 	t_coor			move_speed;
 	t_coor			move_speedless;
 	double			angle;
