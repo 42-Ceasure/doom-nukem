@@ -60,14 +60,14 @@ void		empty_map(t_map *m)
 		i = 0;
 		if (m->sector != NULL)
 		{
-			while (i < m->sector_count)
+			/*while (i < m->sector_count)
 			{
 				if (m->sector[i].dot != NULL)
 					free(m->sector[i].dot);
 				if (m->sector[i].network != NULL)
 					free(m->sector[i].network);
 				i++;
-			}
+			}*/
 			free(m->sector);
 		}
 		free(m);

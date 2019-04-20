@@ -75,67 +75,54 @@ int			do_parse(t_map *m)
 	return (0);
 }
 
-void		check_line(t_map *m)
+void		first_line(char *dest, t_map *m)
 {
 	char	**tmp;
 	char	**tmp2;
-	int		i;
 
-	tmp = ft_strsplit(m->line, ':');
-	if (ft_strcmp(tmp[0], "Section") == 0)
-		m->section_number++;
-	if (m->section_number == 1)
-	{
-		if (ft_strcmp(tmp[0], "\tdots") == 0)
-		{
-			ft_putstr("reading dots            \r");
-			i = 0;
-			tmp2 = ft_strsplit(tmp[2], ',');
-			while (tmp2[i++] != NULL)
-				m->dots_count++;
-			ft_memreg(tmp2);
-		}
-		if (ft_strcmp(tmp[0], "\tsector") == 0)
-		{
-			ft_putstr("reading sector          \r");
-			M_S_C++;
-		}
-	}
-	if (m->section_number == 3)
-	{
-		if (ft_strcmp(tmp[0], "\tweapon") == 0)
-		{
-			ft_putstr("reading weapon          \r");
-			m->weapon_count++;
-		}
-	}
-	if (m->section_number == 4)
-	{
-		if (ft_strcmp(tmp[0], "\tweapon_sprite") == 0)
-		{
-			ft_putstr("reading sprite           \r");
-			m->sprite_count++;
-		}
-	}
-	i = 0;
+	tmp = ft_strsplit(dest, ',');
+	tmp2 = ft_strsplit(tmp[0], ':');
+	m->dots_count = ft_atoi(tmp2[1]);
+	//printf("dot=%d\n", m->dots_count);
+	ft_memreg(tmp2);
+	tmp2 = ft_strsplit(tmp[1], ':');
+	M_S_C = ft_atoi(tmp2[1]);
+	//printf("msc=%d\n", M_S_C);
+	ft_memreg(tmp2);
+	tmp2 = ft_strsplit(tmp[2], ':');
+	m->weapon_count = ft_atoi(tmp2[1]);
+	//printf("weapon=%d\n", m->weapon_count);
+	ft_memreg(tmp2);
 	ft_memreg(tmp);
 }
 
 int			quick_look(t_env *w, t_map *m)
 {
-	ft_putstr("opening file                     \r");
+	int		i;
+	char	buff[BUFF_SIZE];
+	char	*dest;
+
 	if ((m->fd = open(m->map_path, O_RDONLY)) == -1)
 		set_error(w, m, 5, m->map_path);
-	ft_putstr("file oppened                     \r");
-	ft_putstr("reading                          \r");
-	while (get_next_line(m->fd, &m->line))
-	{
-		check_line(m);
-		free(m->line);
+	i = 0;
+	while (read(m->fd, buff + i, 1) == 1)
+    {
+    	if (buff[i] == '\n')
+        	break;
+		if (i >= (BUFF_SIZE - 1))
+        {
+          write(2, "Buffer Overflow\n", 16);
+          return (-1);
+		}
+    	i++;
 	}
-	ft_putstr("done                             \r");
-	free(m->line);
 	close(m->fd);
+	buff[i] = '\0';
+	dest = malloc(sizeof(char *) * i + 1);
+  	ft_strcpy(dest, buff);
+	//printf("%s\n", dest);
+	first_line(dest, m);
+	free(dest);
 	if (m->dots_count == 0)
 		return (-1);
 	ft_putstr("allocating space                 \r");

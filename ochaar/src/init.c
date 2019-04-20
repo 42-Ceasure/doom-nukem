@@ -9,41 +9,57 @@ void		img_update(t_env *w)
 	SDL_RenderPresent(w->rdr);
 }
 
-/*SDL_Texture* loadTexture(const char path[], SDL_Renderer *renderer)
-{
-    SDL_Texture *texture = NULL;
-    SDL_Surface *tmp = NULL;
-    tmp = SDL_LoadBMP(path);
-    if(NULL == tmp)
-    {
-        fprintf(stderr, "Erreur SDL_LoadBMP : %s\n", SDL_GetError());
-        return NULL;
-    }
-    texture = SDL_CreateTextureFromSurface(renderer, tmp);
-    SDL_FreeSurface(tmp);
-    if(NULL == texture)
-    {
-        printf("Erreur SDL_CreateTextureFromSurface\n");
-        return NULL;
-    }
-    return (texture);
-}*/
+// void	initsprite(t_sprite **sprite, int count)
+// {
+// 	SDL_Surface *tmp;
+// 	SDL_Surface *pix;
+
+// 	*sprite = malloc(sizeof(t_sprite) * count);
+// 	pix = SDL_LoadBMP("texture/barrel.bmp");
+// 	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
+// 	sprite[0][0].pix = (Uint32 *)malloc(sizeof(Uint32) * tmp->w * tmp->h);
+// 	sprite[0][0].w = tmp->w;
+// 	sprite[0][0].h = tmp->h;
+// 	ft_memcpy(sprite[0][0].pix, tmp->pixels, (sizeof(Uint32) * tmp->w * tmp->h));
+// 	SDL_FreeSurface(pix);
+// 	SDL_FreeSurface(tmp);
+// 	pix = SDL_LoadBMP("texture/aim_traillette.bmp");
+// 	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
+// 	sprite[0][1].pix = (Uint32 *)malloc(sizeof(Uint32) * tmp->w * tmp->h);
+// 	sprite[0][1].w = tmp->w;
+// 	sprite[0][1].h = tmp->h;
+// 	ft_memcpy(sprite[0][1].pix, tmp->pixels, (sizeof(Uint32) * tmp->w * tmp->h));
+// 	SDL_FreeSurface(pix);
+// 	SDL_FreeSurface(tmp);
+// 	pix = SDL_LoadBMP("texture/traillette.bmp");
+// 	tmp = SDL_ConvertSurfaceFormat(pix, SDL_PIXELFORMAT_ARGB8888, 0);
+// 	sprite[0][2].pix = (Uint32 *)malloc(sizeof(Uint32) * tmp->w * tmp->h);
+// 	sprite[0][2].w = tmp->w;
+// 	sprite[0][2].h = tmp->h;
+// 	ft_memcpy(sprite[0][2].pix, tmp->pixels, (sizeof(Uint32) * tmp->w * tmp->h));
+// 	SDL_FreeSurface(pix);
+// 	SDL_FreeSurface(tmp);
+// }
 
 int			load_sounds(t_env *w)
 {
-	if (!(w->musique = Mix_LoadMUS("./sounds/musique.wav")))
+	if (!(w->musique = Mix_LoadMUS("./sounds/bensound-dreams.wav")))
 	{
 		printf("%s\n", Mix_GetError());
 		return (-1);
 	}
    	Mix_PlayMusic(w->musique, -1);
+	Mix_VolumeMusic(w->volume);
 	Mix_AllocateChannels(10);
-	if (!(w->jump = Mix_LoadWAV("./sounds/jump.wav")))
+	if (!(w->jump = Mix_LoadWAV("./sounds/jump2.wav")))
 		return (-1);
-	if (!(w->shoot = Mix_LoadWAV("./sounds/shoot.wav")))//coder un tir
+	if (!(w->shoot = Mix_LoadWAV("./sounds/MP5.wav")))
 		return (-1);
-	Mix_VolumeChunk(w->jump, 100);
-	Mix_VolumeChunk(w->shoot, 100);
+	if (!(w->ground = Mix_LoadWAV("./sounds/ground.wav")))
+		return (-1);
+	Mix_VolumeChunk(w->jump, 70);
+	Mix_VolumeChunk(w->shoot, 50);
+	Mix_VolumeChunk(w->ground, 70);
 	return (1);
 }
 
@@ -77,5 +93,8 @@ int			init_sdl(t_env *w)
 										WIDTH, HEIGHT);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_ShowCursor(SDL_DISABLE);
+	hello_screen(w, 0);
+	img_update(w);
+	SDL_Delay(1500);
 	return (0);
 }

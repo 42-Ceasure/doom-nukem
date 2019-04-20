@@ -85,7 +85,8 @@ int			parse_sectors(t_map *m, char *heights, char *dots, char *net)
 	if ((m->sector[m->s].network = (int *)malloc(sizeof(int)
 		* m->sector[m->s].wall_count)) == NULL)
 		return (-1);
-	parse_sector_dots(m, tmp);
+	if (parse_sector_dots(m, tmp) == -1)
+		return (-1);
 	parse_sector_network(m, net);
 	m->s++;
 	return (0);

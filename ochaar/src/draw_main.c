@@ -63,7 +63,7 @@ void	draw_wall(t_draw *d, t_env *w, int x)
 			box[1] = d->cyb;
 			vertical_line(x, box, w, d->color);
 		}
-		if (w->sequential_draw == 1)
+		if (w->sequential_draw == 1 && (x % 3 == 0))
 			img_update(w);
 	}
 }

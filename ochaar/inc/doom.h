@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/13 18:08:21 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/20 17:21:40 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define RESIZABLE_SCREEN	1
 # define FULL_SCREEN		0
 # define KEY 				w->event.key.keysym.sym
+# define BUTTON				w->event.button.button
 # define MRS				32
 # define PL_X				m->player.coor.x
 # define PL_MSX				m->player.move_speed.x
@@ -33,6 +34,7 @@
 # define PL_A				m->player.angle
 # define PL_AC				m->player.anglecos
 # define PL_AS				m->player.anglesin
+# define PH					m->player.handed
 # define M_S_C				m->sector_count
 # define STAND				16.9
 # define CROUCH				9.3
@@ -109,8 +111,12 @@ typedef struct		s_sector
 
 typedef struct		s_player
 {
+	int				handed;
+	int				aiming;
+	int				firing;
 	int				sector;
 	t_coor			coor;
+	int				memz;
 	t_coor			move_speed;
 	t_coor			move_speedless;
 	double			angle;
@@ -217,16 +223,52 @@ typedef struct		s_draw
 	int				point;
 }					t_draw;
 
+
+typedef struct		s_sprite
+{
+	Uint32			*pix;
+	char			*name;
+	int				sx;
+	int				sy;
+	int				w;
+	int				h;
+	int				sector;
+	t_coor			coor;
+}					t_sprite;
+
+typedef struct		s_texture
+{
+	int				w;
+	int				h;
+	Uint32			*pix;
+}					t_texture;
+
+typedef struct		s_weapon
+{
+	char			*name;
+	int				range;
+	int				firerate;
+	int				accuracy;
+	int				dispertion;
+	int				ammo;
+	int				magazine;
+	int				reloadtime;
+	t_sprite		sprt[5];
+}					t_weapon;
+
 typedef struct		s_map
 {
 	int				trippymod;
 	int				i;
 	int				s;
+	int				w;
 	int				fd;
 	char			*line;
 	int				section_number;
 	int				dots_count;
 	int				sector_count;
+	int				weapon_count;
+	int				sprite_count;
 	char			*map_name;
 	char			*map_path;
 	t_dot			*dot;
@@ -235,7 +277,25 @@ typedef struct		s_map
 	double			yaw;
 	double			gravity;
 	int				maxrenderedsector;
+	t_weapon		*weap;
+	t_sprite		*sprite;
+	t_texture		*texture;
 }					t_map;
+
+typedef struct		s_menu
+{
+	int				screen;
+}					t_menu;
+
+typedef struct		s_sound
+{
+	int				volume;
+	Mix_Music		*musique;
+	Mix_Chunk 		*jump;
+	Mix_Chunk 		*shoot;
+	Mix_Chunk 		*ground;
+	Mix_Chunk		*m9;
+}					t_sound;
 
 typedef struct		s_env
 {
@@ -245,13 +305,13 @@ typedef struct		s_env
 	int				sequential_draw;
 	SDL_Window		*win;
 	SDL_Renderer	*rdr;
-	Mix_Music		*musique;
-	Mix_Chunk 		*jump;
-	Mix_Chunk 		*shoot;
+	t_sound			sound;
 	Uint32			*pix;
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
 	SDL_Event		event;
+	t_texture		main_pic[3];
+	t_menu			menu;
 }					t_env;
 
 typedef struct		s_worker_arg
@@ -271,6 +331,12 @@ void				seq_cmd(t_env *w, char ***cmd, int i);
 void				set_error(t_env *w, t_map *m, int errorno, char *s);
 void				set_basics(t_env *w, t_map *m, int ac);
 void				parse_map_file(t_env *w, t_map *m);
+int					parse_map_section(t_map *m, char **tab);
+int					parse_player_section(t_map *m, char **tab);
+int					parse_weapon_section(t_map *m, char **tab);
+int					parse_sprite_section(t_map *m, char **tab);
+int					quick_look(t_env *w, t_map *m);
+int					do_parse(t_map *m);
 void				set_advanced_run(char **av, t_env *w, t_map *m);
 void				exit_game(t_env *w, t_map *m);
 int					init_sdl(t_env *w);
@@ -293,10 +359,6 @@ double				isoverlap(double a0, double a1, double b0, double b1);
 double				pointside(t_coor p, double x0,
 					double y0, double x1, double y1);
 double				yaw(double y, double z, t_map *m);
-int					quick_look(t_env *w, t_map *m);
-int					do_parse(t_map *m);
-int					parse_map_section(t_map *m, char **tab);
-int					parse_player_section(t_map *m, char **tab);
 void				init_verification(t_draw *draw);
 int					init_draw(t_draw *d, t_reader *read, t_map *m);
 void				vertical_line(int x, int *box, t_env *w, t_color color);
@@ -313,4 +375,20 @@ void				recap_sector_dots(t_map m, int i);
 void				recap_sector_network(t_map m, int i);
 void				recap_sector(t_map m, int i);
 int					calcul_render(t_env *w, t_map *m);
+void				key_events(t_env *w, t_map *m);
+void				keydown_events(t_env *w, t_map *m);
+void				keyup_events(t_env *w, t_map *m);
+void				motion_events(t_env *w, t_map *m);
+void				move_player(double dx, double dy, t_map *m);
+void				get_height(t_map *m);
+void				is_falling(t_map *m, t_env *w);
+void				slow_down(t_env *w, t_map *m);
+void				is_moving(t_map *m);
+void				main_menu(t_env *w, t_map *m);
+t_texture			load_img(t_env *w, t_map *m, char *s);
+void				initsprite(t_sprite **sprite, int count);
+void				hand(t_map *m, t_env *w);
+void				buttondown_event(t_env *w, t_map *m);
+void				buttonup_event(t_env *w, t_map *m);
+void				hello_screen(t_env *w, int n);
 #endif

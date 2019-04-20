@@ -10,9 +10,41 @@ int			parse_line(t_map *m)
 	if (ft_strcmp(tmp[0], "Section") == 0)
 		m->section_number++;
 	if (m->section_number == 1)
-		parse_map_section(m, tmp);
+	{
+		ft_putstr("parsing map                 \r");
+		if (parse_map_section(m, tmp) == -1)
+		{
+			ft_putendl("error in parse_map_section");
+			return (-1);
+		}
+	}
 	if (m->section_number == 2)
-		parse_player_section(m, tmp);
+	{
+		ft_putstr("parsing player               \r");
+		if (parse_player_section(m, tmp) == -1)
+		{
+			ft_putendl("error in parse_player_section");
+			return (-1);
+		}
+	}
+	if (m->section_number == 3)
+	{
+		ft_putstr("parsing weapon              \r");
+		if (parse_weapon_section(m, tmp) == -1)
+		{
+			ft_putendl("error in parse_map_section");
+			return (-1);
+		}
+	}
+	if (m->section_number == 4)
+	{
+		ft_putstr("parsing sprites             \r");
+		if (parse_sprite_section(m, tmp) == -1)
+		{
+			ft_putendl("error in parse_map_section");
+			return (-1);
+		}
+	}
 	ft_memreg(tmp);
 	return (0);
 }
@@ -21,9 +53,13 @@ int			do_parse(t_map *m)
 {
 	m->i = 0;
 	m->s = 0;
+	m->w = 0;
 	m->section_number = 0;
+	ft_putstr("opening file                    \r");
 	if ((m->fd = open(m->map_path, O_RDONLY)) == -1)
 		return (-1);
+	ft_putstr("file opened                     \r");
+	ft_putstr("reading                         \r");
 	while (get_next_line(m->fd, &m->line))
 	{
 		if ((parse_line(m)) == -1)
@@ -33,6 +69,7 @@ int			do_parse(t_map *m)
 		}
 		free(m->line);
 	}
+	ft_putstr("\rdone                            \r");
 	free(m->line);
 	close(m->fd);
 	return (0);
@@ -51,6 +88,7 @@ void		check_line(t_map *m)
 	{
 		if (ft_strcmp(tmp[0], "\tdots") == 0)
 		{
+			ft_putstr("reading dots            \r");
 			i = 0;
 			tmp2 = ft_strsplit(tmp[2], ',');
 			while (tmp2[i++] != NULL)
@@ -58,7 +96,26 @@ void		check_line(t_map *m)
 			ft_memreg(tmp2);
 		}
 		if (ft_strcmp(tmp[0], "\tsector") == 0)
+		{
+			ft_putstr("reading sector          \r");
 			M_S_C++;
+		}
+	}
+	if (m->section_number == 3)
+	{
+		if (ft_strcmp(tmp[0], "\tweapon") == 0)
+		{
+			ft_putstr("reading weapon          \r");
+			m->weapon_count++;
+		}
+	}
+	if (m->section_number == 4)
+	{
+		if (ft_strcmp(tmp[0], "\tweapon_sprite") == 0)
+		{
+			ft_putstr("reading sprite           \r");
+			m->sprite_count++;
+		}
 	}
 	i = 0;
 	ft_memreg(tmp);
@@ -66,28 +123,38 @@ void		check_line(t_map *m)
 
 int			quick_look(t_env *w, t_map *m)
 {
+	ft_putstr("opening file                     \r");
 	if ((m->fd = open(m->map_path, O_RDONLY)) == -1)
 		set_error(w, m, 5, m->map_path);
+	ft_putstr("file oppened                     \r");
+	ft_putstr("reading                          \r");
 	while (get_next_line(m->fd, &m->line))
 	{
 		check_line(m);
 		free(m->line);
 	}
+	ft_putstr("done                             \r");
 	free(m->line);
 	close(m->fd);
 	if (m->dots_count == 0)
 		return (-1);
+	ft_putstr("allocating space                 \r");
 	if ((m->sector = (t_sector *)malloc(sizeof(t_sector) * M_S_C)) == NULL)
 		return (-1);
 	if ((m->dot = (t_dot *)malloc(sizeof(t_dot) * m->dots_count)) == NULL)
 		return (-1);
+	if ((m->weap = (t_weapon *)malloc(sizeof(t_weapon) * m->weapon_count)) == NULL)
+		return (-1);
+	// if ((m->sprite = (t_sprite *)malloc(sizeof(t_sprite) * m->sprite_count)) == NULL)
+	// 	return (-1);
+	ft_putstr("done                             \r");
 	return (0);
 }
 
 void		parse_map_file(t_env *w, t_map *m)
 {
 	if (quick_look(w, m) == -1)
-		set_error(w, m, 4, ft_strdup("quick_look"));
+		set_error(w, m, 8, ft_strdup("quick_look"));
 	if (do_parse(m) == -1)
-		set_error(w, m, 4, ft_strdup("do_parse"));
+		set_error(w, m, 8, ft_strdup("do_parse"));
 }
