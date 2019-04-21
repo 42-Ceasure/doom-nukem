@@ -33,6 +33,13 @@ void			keydown_events(t_env *w, t_map *m)
 		else
 			Mix_PauseMusic();
 	}
+	if (KEY == SDLK_i)
+	{
+		if (m->player.hud != 1)
+			m->player.hud = 1;
+		else
+			m->player.hud = 0;
+	}
 	if (KEY == SDLK_x)
 	{
 		if (m->player.stance != 1)

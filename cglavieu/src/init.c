@@ -59,7 +59,13 @@ int			load_sounds(t_env *w)
 		return (-1);
 	if (!(w->sound.m9 = Mix_LoadWAV("./sounds/magnum.wav")))
 		return (-1);
+	if (!(w->sound.shotgun = Mix_LoadWAV("./sounds/shotgun.wav")))
+		return (-1);
+	if (!(w->sound.sniper = Mix_LoadWAV("./sounds/sniper.wav")))
+		return (-1);
 	Mix_VolumeChunk(w->sound.jump, 70);
+	Mix_VolumeChunk(w->sound.shotgun, 80);
+	Mix_VolumeChunk(w->sound.sniper, 50);
 	Mix_VolumeChunk(w->sound.shoot, 50);
 	Mix_VolumeChunk(w->sound.m9, 50);
 	Mix_VolumeChunk(w->sound.ground, 70);

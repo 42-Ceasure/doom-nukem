@@ -20,7 +20,15 @@ void		buttondown_event(t_env *w, t_map *m)
 	{
 		m->player.firing = 1;
 		if (m->player.handed == 0)
-			Mix_PlayChannel(3, w->sound.shoot, 0);
+		{
+			if (Mix_Playing(3) == 0)
+				Mix_PlayChannel(3, w->sound.shoot, 0);
+		}
+		else if (m->player.handed == 1)
+		{
+			if (Mix_Playing(6) == 0)
+				Mix_PlayChannel(6, w->sound.shotgun, 0);
+		}
 		else if (m->player.handed == 2)
 			Mix_PlayChannel(5, w->sound.m9, 0);
 	}

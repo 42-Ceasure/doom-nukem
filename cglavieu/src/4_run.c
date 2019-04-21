@@ -102,7 +102,8 @@ int		run(t_env *w, t_map *m)
 			draw(w, m);
 			hand(m, w);
 			ft_cursor(w, m);
-			// ft_hud(w);
+			if (m->player.hud == 1)
+				ft_hud(w);
 		}
 		else if (m->player.display == 1)
 			draw_mini_map(w, m);

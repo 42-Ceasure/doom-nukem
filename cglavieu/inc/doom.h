@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/19 17:55:27 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/21 15:15:20 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct		s_player
 	int				aiming;
 	int				firing;
 	int				sector;
+	int				hud;
 	t_coor			coor;
 	int				memz;
 	t_coor			move_speed;
@@ -293,6 +294,8 @@ typedef struct		s_sound
 	Mix_Music		*musique;
 	Mix_Chunk 		*jump;
 	Mix_Chunk 		*shoot;
+	Mix_Chunk 		*shotgun;
+	Mix_Chunk 		*sniper;
 	Mix_Chunk 		*ground;
 	Mix_Chunk		*m9;
 }					t_sound;
@@ -391,4 +394,5 @@ void				hand(t_map *m, t_env *w);
 void				buttondown_event(t_env *w, t_map *m);
 void				buttonup_event(t_env *w, t_map *m);
 void				hello_screen(t_env *w, int n);
+void				ft_hud(t_env *w);
 #endif
