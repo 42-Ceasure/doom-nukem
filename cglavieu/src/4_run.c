@@ -12,6 +12,16 @@ void	hello_screen(t_env *w, int n)
 	}
 }
 
+void	menu_screen(t_env *w, int menu, int sel)
+{
+	w->i = 0;
+	while (w->i < HEIGHT * WIDTH)
+	{
+		w->pix[w->i] = w->main_pic[menu + sel].pix[w->i];
+		w->i++;
+	}
+}
+
 void	main_menu(t_env *w, t_map *m)
 {
 	while (1)
@@ -22,6 +32,20 @@ void	main_menu(t_env *w, t_map *m)
 			{
 				if (KEY == SDLK_RETURN)
 					w->menu.screen = 1;
+				if (KEY == SDLK_UP)
+				{
+					if (w->menu.sel == 0)
+						w->menu.sel = 2;
+					else
+						w->menu.sel--;
+				}
+				if (KEY == SDLK_DOWN)
+				{
+					if (w->menu.sel < 2)
+						w->menu.sel++;
+					else
+						w->menu.sel = 0;
+				}
 				if (KEY == 27)
 					exit_game(w, m);
 			}
@@ -29,6 +53,8 @@ void	main_menu(t_env *w, t_map *m)
 		}
 		if (w->menu.screen == 0)
 			hello_screen(w, 1);
+		else if (w->menu.screen == 1)
+			menu_screen(w, w->menu.screen + 1, w->menu.sel);
 		else
 		{
 			if (!run(w, m))

@@ -259,6 +259,7 @@ typedef struct		s_weapon
 
 typedef struct		s_map
 {
+	int				launchwmap;
 	int				trippymod;
 	int				i;
 	int				s;
@@ -286,6 +287,7 @@ typedef struct		s_map
 typedef struct		s_menu
 {
 	int				screen;
+	int				sel;
 }					t_menu;
 
 typedef struct		s_sound
@@ -313,7 +315,7 @@ typedef struct		s_env
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
 	SDL_Event		event;
-	t_texture		main_pic[3];
+	t_texture		main_pic[5];
 	t_menu			menu;
 }					t_env;
 
