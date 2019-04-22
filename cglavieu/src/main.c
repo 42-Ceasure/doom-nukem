@@ -87,6 +87,9 @@ void			simple_start(t_env *w, t_map *m)
 	ft_putstr("initialisating SDL2             \r");
 	if ((init_sdl(w)) == -1)
 		set_error(w, m, 4, ft_strdup("SDL Initialisation"));
+	m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
+	m->map_name = ft_strdup("Home Sweet Home");
+	parse_map_file(w, m);
 	ft_putstr("SDL2 initialised                \r");
 }
 

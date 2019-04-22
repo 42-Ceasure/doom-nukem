@@ -36,9 +36,9 @@ void	main_menu(t_env *w, t_map *m)
 						w->menu.screen = 1;
 					else if (w->menu.screen == 1 && w->menu.sel == 0)
 					{
-						m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
-						m->map_name = ft_strdup("Home Sweet Home");
-						parse_map_file(w, m);
+						// m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
+						// m->map_name = ft_strdup("Home Sweet Home");
+						// parse_map_file(w, m);
 						w->menu.screen = 2;
 					}
 					else if (w->menu.screen == 1 && w->menu.sel == 2)
