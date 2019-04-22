@@ -31,7 +31,19 @@ void	main_menu(t_env *w, t_map *m)
 			if (w->event.type == SDL_KEYDOWN)
 			{
 				if (KEY == SDLK_RETURN)
-					w->menu.screen = 1;
+				{
+					if (w->menu.screen == 0)
+						w->menu.screen = 1;
+					else if (w->menu.screen == 1 && w->menu.sel == 0)
+					{
+						m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
+						m->map_name = ft_strdup("Home Sweet Home");
+						parse_map_file(w, m);
+						w->menu.screen = 2;
+					}
+					else if (w->menu.screen == 1 && w->menu.sel == 2)
+						exit_game(w, m);
+				}
 				if (KEY == SDLK_UP)
 				{
 					if (w->menu.sel == 0)
@@ -47,7 +59,12 @@ void	main_menu(t_env *w, t_map *m)
 						w->menu.sel = 0;
 				}
 				if (KEY == 27)
-					exit_game(w, m);
+				{
+					if (w->menu.screen == 0)
+						exit_game(w, m);
+					else if (w->menu.screen == 1)
+						w->menu.screen = 0;
+				}
 			}
 			
 		}
