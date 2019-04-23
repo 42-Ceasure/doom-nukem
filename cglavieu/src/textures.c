@@ -10,7 +10,8 @@ t_texture			load_img(t_env *w, t_map *m, char *s)
 
 	if ((load = SDL_LoadBMP(s)) == NULL)
 		set_error(w, m, 5, s);
-	if ((tmp = SDL_ConvertSurfaceFormat(load, SDL_PIXELFORMAT_ARGB8888, 0)) == NULL)
+	if ((tmp = SDL_ConvertSurfaceFormat(load, SDL_PIXELFORMAT_ARGB8888, 0))
+			== NULL)
 		set_error(w, m, 5, s);
 	SDL_FreeSurface(load);
 	texture.w = tmp->w;

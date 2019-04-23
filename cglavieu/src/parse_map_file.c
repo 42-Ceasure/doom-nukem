@@ -18,13 +18,14 @@ int		first_line(char **tab, t_map *m)
 		return (-1);
 	if ((m->dot = (t_dot *)malloc(sizeof(t_dot) * m->dots_count)) == NULL)
 		return (-1);
-	if ((m->weap = (t_weapon *)malloc(sizeof(t_weapon) * m->weapon_count)) == NULL)
+	if ((m->weap = (t_weapon *)malloc(sizeof(t_weapon)
+			* m->weapon_count)) == NULL)
 		return (-1);
 	ft_memreg(tmp);
 	return (0);
 }
 
-int			parse_line(t_map *m)
+int		parse_line(t_map *m)
 {
 	char	**tmp;
 
@@ -76,7 +77,7 @@ int			parse_line(t_map *m)
 	return (0);
 }
 
-int			do_parse(t_map *m)
+int		do_parse(t_map *m)
 {
 	m->i = 0;
 	m->s = 0;
@@ -91,7 +92,7 @@ int			do_parse(t_map *m)
 	{
 		if ((parse_line(m)) == -1)
 		{
-			write(1, "error on map collect\n", 22);
+			write(2, "error on map collect\n", 22);
 			return (-1);
 		}
 		free(m->line);
@@ -102,7 +103,7 @@ int			do_parse(t_map *m)
 	return (0);
 }
 
-void		parse_map_file(t_env *w, t_map *m)
+void	parse_map_file(t_env *w, t_map *m)
 {
 	if (do_parse(m) == -1)
 		set_error(w, m, 8, ft_strdup("do_parse"));

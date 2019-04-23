@@ -82,7 +82,7 @@ void	wall_to_wall(t_draw *d, t_reader *read, t_map *m, t_env *w)
 		}
 		draw_wall(d, w, moving_head(d, *read, m));
 		if (d->network >= 0 && d->endx >= d->startx && (read->head
-					+ m->maxrenderedsector + 1 - read->tail) % m->maxrenderedsector)
+				+ m->maxrenderedsector + 1 - read->tail) % m->maxrenderedsector)
 		{
 			read->head->sectorno = d->network;
 			read->head->sx1 = d->startx;

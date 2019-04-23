@@ -31,7 +31,7 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	w->pix = NULL;
 	w->sequential_draw = 0;
 	w->window_mode = RESIZABLE_SCREEN;
-	w->main_pic[0] = load_img(w, m, "./img/main_screen1.bmp");
+	w->main_pic[0] = load_img(w, m, "./img/main_screen1.bmp");//a proteger
 	w->main_pic[1] = load_img(w, m, "./img/main_screen2.bmp");
 	w->main_pic[2] = load_img(w, m, "./img/main_menu1.bmp");
 	w->main_pic[3] = load_img(w, m, "./img/main_menu2.bmp");
