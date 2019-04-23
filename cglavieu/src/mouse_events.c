@@ -19,18 +19,8 @@ void		buttondown_event(t_env *w, t_map *m)
 	if (BUTTON == SDL_BUTTON_LEFT)
 	{
 		m->player.firing = 1;
-		if (m->player.handed == 0)
-		{
-			if (Mix_Playing(3) == 0)
-				Mix_PlayChannel(3, w->sound.shoot, 0);
-		}
-		else if (m->player.handed == 1)
-		{
-			if (Mix_Playing(6) == 0)
-				Mix_PlayChannel(6, w->sound.shotgun, 0);
-		}
-		else if (m->player.handed == 2)
-			Mix_PlayChannel(5, w->sound.m9, 0);
+		if (Mix_Playing(3) == 0)
+			Mix_PlayChannel(3, m->weap[PH].shoot, 0);
 	}
 	if (BUTTON == SDL_BUTTON_RIGHT)
 	{

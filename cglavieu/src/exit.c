@@ -2,16 +2,20 @@
 
 #include "doom.h"
 
-void		empty_music(t_env *w)
+void		empty_music(t_env *w, t_map *m)
 {
 	if (w->sound.musique != NULL)
 		Mix_FreeMusic(w->sound.musique);
 	if (w->sound.jump != NULL)
 		Mix_FreeChunk(w->sound.jump);
-	if (w->sound.shoot != NULL)
-		Mix_FreeChunk(w->sound.shoot);
-	if (w->sound.m9 != NULL)
-		Mix_FreeChunk(w->sound.m9);
+	if (m->weap[0].shoot != NULL)
+		Mix_FreeChunk(m->weap[0].shoot);
+	if (m->weap[1].shoot != NULL)
+		Mix_FreeChunk(m->weap[1].shoot);
+	if (m->weap[2].shoot != NULL)
+		Mix_FreeChunk(m->weap[2].shoot);
+	//if (m->weap[3].shoot != NULL)
+	//	Mix_FreeChunk(m->weap[3].shoot);
 	if (w->sound.ground != NULL)
 		Mix_FreeChunk(w->sound.ground);
 	Mix_CloseAudio();
@@ -60,14 +64,14 @@ void		empty_map(t_map *m)
 		i = 0;
 		if (m->sector != NULL)
 		{
-			/*while (i < m->sector_count)
+			while (i < m->sector_count)
 			{
 				if (m->sector[i].dot != NULL)
 					free(m->sector[i].dot);
 				if (m->sector[i].network != NULL)
 					free(m->sector[i].network);
 				i++;
-			}*/
+			}
 			free(m->sector);
 		}
 		free(m);
