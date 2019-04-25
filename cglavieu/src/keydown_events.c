@@ -4,6 +4,9 @@
 
 void		affichage(t_env *w, t_map *m)
 {
+	int i;
+
+	i = 0;
 	if (KEY == SDLK_i)
 	{
 		if (m->player.hud != 1)
@@ -29,6 +32,13 @@ void		affichage(t_env *w, t_map *m)
 		m->sector[m->player.sector].ceiling -= 1;
 	if (KEY == SDLK_TAB)
 		m->player.display = 1;
+	if (KEY == SDLK_f)
+	{
+		if (m->sector[1].ceiling < 40)
+			m->sector[1].ceiling += 2;
+		else
+			m->sector[1].ceiling -= 39;
+	}
 }
 
 void		music(t_env *w)

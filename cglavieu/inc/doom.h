@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/23 11:43:25 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/25 13:02:22 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,7 @@ typedef struct		s_map
 	t_weapon		*weap;
 	t_sprite		*sprite;
 	t_texture		*texture;
+	t_texture		hud;
 }					t_map;
 
 typedef struct		s_menu
@@ -393,6 +394,5 @@ void				hand(t_map *m, t_env *w);
 void				buttondown_event(t_env *w, t_map *m);
 void				buttonup_event(t_env *w, t_map *m);
 void				hello_screen(t_env *w, int n);
-void				ft_hud(t_env *w);
 int					load_sounds(t_env *w, t_map *m);
 #endif
