@@ -11,130 +11,62 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "libft.h"
 
-static	int		ft_count_words(const char *str, char c)
+static int		ft_cnt_parts(const char *s, char c)
 {
-	int	word;
-	int	i;
+	int		cnt;
+	int		in_substring;
 
-	i = 0;
-	word = 0;
-	if (!str)
-		return (0);
-	while (str[i])
+	in_substring = 0;
+	cnt = 0;
+	while (*s != '\0')
 	{
-		if (str[i] == c && str[i + 1] != c)
-			word++;
-		i++;
+		if (in_substring == 1 && *s == c)
+			in_substring = 0;
+		if (in_substring == 0 && *s != c)
+		{
+			in_substring = 1;
+			cnt++;
+		}
+		s++;
 	}
-	if (str[0] != '\0')
-		word++;
-	return (word);
+	return (cnt);
 }
 
-static	char	*ft_word(const char *str, char c, int *i)
+static int		ft_wlen(const char *s, char c)
 {
-	char	*s;
-	int		k;
+	int		len;
 
-	if (!(s = (char *)malloc(sizeof(s) * (ft_strlen(str)))))
+	len = 0;
+	while (*s != c && *s != '\0')
+	{
+		len++;
+		s++;
+	}
+	return (len);
+}
+
+char			**ft_strsplit(char const *s, char c)
+{
+	char	**t;
+	int		nb_word;
+	int		index;
+
+	index = 0;
+	nb_word = ft_cnt_parts((const char *)s, c);
+	t = (char **)malloc(sizeof(*t) * (ft_cnt_parts((const char *)s, c) + 1));
+	if (t == NULL)
 		return (NULL);
-	k = 0;
-	while (str[*i] != c && str[*i])
+	while (nb_word--)
 	{
-		s[k] = str[*i];
-		k++;
-		*i += 1;
+		while (*s == c && *s != '\0')
+			s++;
+		t[index] = ft_strsub((const char *)s, 0, ft_wlen((const char *)s, c));
+		if (t[index] == NULL)
+			return (NULL);
+		s = s + ft_wlen(s, c);
+		index++;
 	}
-	s[k] = '\0';
-	while (str[*i] == c && str[*i])
-		*i += 1;
-	return (s);
+	t[index] = NULL;
+	return (t);
 }
-
-char			**ft_strsplit(const char *str, char c)
-{
-	int		i;
-	int		j;
-	int		wrd;
-	char	**s;
-
-	i = 0;
-	j = 0;
-	wrd = ft_count_words(str, c);
-	if (!(s = (char **)malloc(sizeof(s) * (ft_count_words(str, c) + 2))))
-		return (NULL);
-	while (str[i] == c && str[i])
-		i++;
-	while (j < wrd && str[i])
-	{
-		s[j] = ft_word(str, c, &i);
-		j++;
-	}
-	s[j] = NULL;
-	return (s);
-}
-
-// static int			ft_count(char const *s, char c)
-// {
-// 	int				i;
-// 	int				len;
-
-// 	i = 0;
-// 	len = 0;
-// 	while (s[i])
-// 	{
-// 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
-// 			len++;
-// 		i++;
-// 	}
-// 	return (len);
-// }
-
-// #include <assert.h>
-
-// static char			**ft_sublen(char const *s, char c, char **tab, int nbl)
-// {
-// 	int				i;
-// 	int				j;
-// 	size_t			start;
-// 	size_t			len;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (s[i])
-// 	{
-// 		if (s[i] != c && nbl > 0)
-// 		{
-// 			nbl--;
-// 			start = i;
-// 			len = 0;
-// 			while (s[i] != c && s[i] != '\0')
-// 			{
-// 				len++;
-// 				i++;
-// 			}
-// 			tab[j++] = ft_strsub(s, start, len);
-// 		}
-// 		i++;
-// 		assert((size_t)i <= strlen(s));
-// 	}
-// 	tab[j] = NULL;
-// 	return (tab);
-// }
-
-// char				**ft_strsplit(const char *s, char c)
-// {
-// 	int				nbl;
-// 	char			**tab;
-
-// 	nbl = 0;
-// 	if (!s)
-// 		return (NULL);
-// 	nbl = ft_count(s, c);
-// 	if (!(tab = (char **)ft_memalloc(sizeof(char *) * (nbl + 1))))
-// 		return (NULL);
-// 	tab = ft_sublen(s, c, tab, nbl);
-// 	return (tab);
-// }

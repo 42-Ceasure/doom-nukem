@@ -13,48 +13,42 @@ INCDIR		=	./inc/
 OBJDIR		=	./obj/
 LIBFTDIR	=	./libft/
 SRCDIR		=	./src/
+SDLHEADER_PATH = ./lib/SDL/include/SDL2/
+SDL_PATH = $(shell pwd)/lib/SDL
+MIX_PATH = $(shell pwd)/lib/MIX
+TTF_PATH = $(shell pwd)/lib/TTF
 
 INCFIL		=	doom.h
 OBJFIL		=	$(SRCFIL:.c=.o)
-	LIBFTFIL	=	libft.a
-	SRCFIL		=	main.c exit.c error.c	\
-					init.c	\
-					cmd_parse.c cmd_exec.c cmd_list.c	\
-					parse_map_file.c parse_map_section.c parse_player_section.c	\
-					list_main.c list_dep.c list_do.c	\
-					4_run.c	\
-					5_doom_short_functions.c 5_line.c	\
-					draw_main.c draw_utility.c draw_dep.c draw_minimap.c \
-					multi_thread.c
+LIBFTFIL	=	libft.a
+SRCFIL		=	main.c exit.c error.c	\
+				init.c	\
+				textures.c sprite.c	\
+				cmd_parse.c cmd_exec.c cmd_list.c	\
+				parse_map_file.c parse_map_section.c parse_player_section.c	parse_weapon_section.c parse_sprite_section.c \
+				list_main.c list_dep.c list_do.c	\
+				4_run.c	moving_functions.c \
+				key_events.c keyup_events.c keydown_events.c	\
+				mouse_events.c	\
+				5_doom_short_functions.c 5_line.c	\
+				draw_main.c draw_utility.c draw_dep.c draw_minimap.c \
+				multi_thread.c
 
 SRC			=	$(addprefix $(SRCDIR),$(SRCFIL))
 OBJ			=	$(addprefix $(OBJDIR),$(OBJFIL))
 LIBFT		=	$(addprefix $(LIBFTDIR),$(LIBFTFIL))
 INC			=	$(addprefix $(INCDIR),$(INCFIL))
+INCSDL		=	$(INCDIR)SDL2/
+LIBSDL_FLAG = -I $(SDLHEADER_PATH) -L $(SDL_PATH)/lib -lSDL2 -L $(MIX_PATH)/lib -lSDL2_mixer -L $(TTF_PATH)/lib -lSDL2_ttf
 
 INCLIBFT	=	$(LIBFTDIR)inc	
 
 LIBFT_FLAG	=	-L$(LIBFTDIR) -lft
 
-SDL_PATH	=	./SDL2-2.0.3/
-LIBSDL_ROOT =	./libSDL2/
-LIBSDL_PATH =	./libSDL2/lib/
-LIBSDL		=	libSDL2.a
-INCSDL		= 	$(LIBSDL_ROOT)include/
-LIBSDL_FLAG = 	-L$(LIBSDL_PATH) -lSDL2 -lSDL2_mixer
-SDLBIN		= 	$(addprefix $(LIBSDL_PATH),$(LIBSDL))
-SDL_CURL	= 	`curl https://www.libsdl.org/release/SDL2-2.0.3.zip -o sdl2.zip`
-SDLMIX_PATH	=	./SDL2_mixer-2.0.1/
-LIBSDLMIX_ROOT =	./libSDL2/
-LIBSDLMIX_PATH =	./libSDL2/lib/
-LIBSDLMIX		=	libSDL2_mixer.a
-INCSDLMIX		= 	$(LIBSDLMIX_ROOT)include/
-SDLMIXBIN		= 	$(addprefix $(LIBSDLMIX_PATH),$(LIBSDLMIX))
-CURL_MIX	= 	`curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.zip -o sdl_mix.zip`
-
-all				:	libft sdl sdlmix $(NAME)
+all				:	libft $(NAME)
 
 $(NAME)			:	$(OBJ) $(LIBFT)
+	@make sdl_if
 	@$(CC) $(CFLAG) -lm $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^
 	@echo "compile done"
 
@@ -67,26 +61,8 @@ libft			:	$(LIBFT)
 $(LIBFT)		:	$(LIBFTDIR)
 	@make -C $(LIBFTDIR)
 
-sdl				:	$(SDLBIN)
-
-$(SDLBIN)		: 		
-	$(SDL_CURL)
-	unzip sdl2.zip
-	rm sdl2.zip
-	mkdir -p $(LIBSDL_ROOT)
-	cd $(SDL_PATH) &&  ./configure --prefix=$(PWD)/$(LIBSDL_ROOT)
-	make -C $(SDL_PATH)
-	make install -C $(SDL_PATH)
-
-sdlmix			:	$(SDLMIXBIN)
-
-$(SDLMIXBIN)		: 		
-	$(CURL_MIX)
-	unzip sdl_mix.zip
-	rm sdl_mix.zip
-	cd $(SDLMIX_PATH) &&  ./configure --prefix=$(PWD)/$(LIBSDLMIX_ROOT)
-	make -C $(SDLMIX_PATH)
-	make install -C $(SDLMIX_PATH)
+sdl_if:
+	@make -C ./lib
 
 clean			:	
 	@make -C $(LIBFTDIR) clean
@@ -98,10 +74,10 @@ fclean			:
 	@rm -f $(NAME)
 
 sdlclean		:
-	rm -rf $(LIBSDL_ROOT)
-	rm -rf $(SDL_PATH)
-	rm -rf $(LIBSDLMIX_ROOT)
-	rm -rf $(SDLMIX_PATH)
+	@make -C ./lib clean
+	@make -C ./lib freetype_clean
+	@make -C ./lib ttf_clean
+	@make -C ./lib mix_clean
+	@make -C ./lib sdl_clean
 
 re				:	fclean all
-

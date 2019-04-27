@@ -1,6 +1,6 @@
 /*BIG42HEADER*/
 
-# include "doom.h"
+#include "doom.h"
 
 void	set_txtr_pix(t_env *w, int x, int y, Uint32 color)
 {
@@ -70,4 +70,3 @@ void	draw_mini_map(t_env *w, t_map *m)
 		sector++;
 	}
 }
-

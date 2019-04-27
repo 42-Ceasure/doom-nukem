@@ -7,8 +7,9 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	w->ac = ac;
 	m->i = 0;
 	m->s = 0;
-	m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
-	m->map_name = ft_strdup("Home Sweet Home");
+	m->map_path = NULL;
+	m->map_name = NULL;
+	m->weap = NULL;
 	m->section_number = 0;
 	m->sector_count = 0;
 	m->sector = NULL;
@@ -26,13 +27,18 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	m->line = NULL;
 	m->gravity = BASE_GRAVITY;
 	m->maxrenderedsector = 32;
+	m->launchwmap = 0;
 	w->pix = NULL;
 	w->sequential_draw = 0;
 	w->window_mode = RESIZABLE_SCREEN;
-	w->main_pic[0] = load_img(w, m, "./img/menu.bmp");
-	w->main_pic[1] = load_img(w, m, "./img/main1.bmp");
+	w->main_pic[0] = load_img(w, m, "./img/main_screen1.bmp");
+	w->main_pic[1] = load_img(w, m, "./img/main_screen2.bmp");
+	w->main_pic[2] = load_img(w, m, "./img/main_menu1.bmp");
+	w->main_pic[3] = load_img(w, m, "./img/main_menu2.bmp");
+	w->main_pic[4] = load_img(w, m, "./img/main_menu3.bmp");
 	w->menu.screen = 0;
-	w->volume = 80;
+	w->menu.sel = 0;
+	w->sound.volume = 80;
 	// initsprite(&m->sprite, 3);
 }
 
@@ -81,10 +87,10 @@ void			simple_start(t_env *w, t_map *m)
 	ft_putstr("initialisating SDL2             \r");
 	if ((init_sdl(w)) == -1)
 		set_error(w, m, 4, ft_strdup("SDL Initialisation"));
-	ft_putstr("SDL2 initialised                \r");
-	ft_putstr("starting parse of map           \r");
+	m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
+	m->map_name = ft_strdup("Home Sweet Home");
 	parse_map_file(w, m);
-	ft_putstr("map parsed                      \r");
+	ft_putstr("SDL2 initialised                \r");
 }
 
 void			draw_sequential(t_env *w, t_map *m)
@@ -127,6 +133,9 @@ int				main(int ac, char **av)
 		draw_sequential(w, m);
 	}
 	ft_putstr("                              \r");
-	main_menu(w, m);
+	if (m->launchwmap == 1)
+		run(w, m);
+	else
+		main_menu(w, m);
 	return (0);
 }

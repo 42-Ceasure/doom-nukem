@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/20 17:21:40 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/25 13:02:22 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct		s_player
 	int				aiming;
 	int				firing;
 	int				sector;
+	int				hud;
 	t_coor			coor;
 	int				memz;
 	t_coor			move_speed;
@@ -254,10 +255,12 @@ typedef struct		s_weapon
 	int				magazine;
 	int				reloadtime;
 	t_sprite		sprt[5];
+	Mix_Chunk 		*shoot;
 }					t_weapon;
 
 typedef struct		s_map
 {
+	int				launchwmap;
 	int				trippymod;
 	int				i;
 	int				s;
@@ -280,11 +283,13 @@ typedef struct		s_map
 	t_weapon		*weap;
 	t_sprite		*sprite;
 	t_texture		*texture;
+	t_texture		hud;
 }					t_map;
 
 typedef struct		s_menu
 {
 	int				screen;
+	int				sel;
 }					t_menu;
 
 typedef struct		s_sound
@@ -292,9 +297,7 @@ typedef struct		s_sound
 	int				volume;
 	Mix_Music		*musique;
 	Mix_Chunk 		*jump;
-	Mix_Chunk 		*shoot;
 	Mix_Chunk 		*ground;
-	Mix_Chunk		*m9;
 }					t_sound;
 
 typedef struct		s_env
@@ -310,7 +313,7 @@ typedef struct		s_env
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
 	SDL_Event		event;
-	t_texture		main_pic[3];
+	t_texture		main_pic[5];
 	t_menu			menu;
 }					t_env;
 
@@ -391,4 +394,5 @@ void				hand(t_map *m, t_env *w);
 void				buttondown_event(t_env *w, t_map *m);
 void				buttonup_event(t_env *w, t_map *m);
 void				hello_screen(t_env *w, int n);
+int					load_sounds(t_env *w, t_map *m);
 #endif

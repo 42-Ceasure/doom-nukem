@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-static int		ft_caract(const char *str)
+static int			ft_caract(const char *str)
 {
-	int		i;
+	int				i;
 
 	i = 0;
 	while (str[i] == '\n' || str[i] == '\t' || str[i] == '\r' ||
@@ -27,11 +27,32 @@ static int		ft_caract(const char *str)
 	return (i);
 }
 
-int				ft_atoi(const char *str)
+unsigned int		ft_atou(const char *str)
 {
-	int		i;
-	int		res;
-	int		neg;
+	int 			i;
+	unsigned int	res;
+
+	i = ft_caract(str);
+	res = 0;
+	if (ft_strcmp(str, "4294967295") == 0)
+		res = 4294967295;
+	else
+	{
+		while (ft_isdigit(str[i]) != 0)
+		{
+			res = res * 10;
+			res = res + (str[i] - 48);
+			i++;
+		}
+	}
+	return (res);
+}
+
+int					ft_atoi(const char *str)
+{
+	int				i;
+	int				res;
+	int				neg;
 
 	i = ft_caract(str);
 	neg = 0;

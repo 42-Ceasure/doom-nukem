@@ -44,7 +44,7 @@ void		map_cmd(t_env *w, t_map *m, char **cmd)
 	if (cmd[1] == NULL)
 		set_error(w, m, 3, ft_strdup("no map specified"));
 	free(m->map_path);
-	m->map_path = cmd[1];
+	m->map_path = ft_strdup(cmd[1]);
 	tmp = ft_strsplit(cmd[1], '/');
 	if (tmp == NULL || tmp[1] == NULL)
 		set_error(w, m, 3, ft_strdup("incorrect format"));
@@ -55,4 +55,5 @@ void		map_cmd(t_env *w, t_map *m, char **cmd)
 	ft_memreg(tmp2);
 	free(cmd[0]);
 	cmd[0] = ft_strdup("-ok");
+	m->launchwmap = 1;
 }

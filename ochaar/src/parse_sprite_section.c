@@ -2,7 +2,7 @@
 
 #include "doom.h"
 
-void				print_load(int i3, int len)
+void		print_load(int i3, int len)
 {
 	char			*pre;
 	char			*nb;
@@ -10,14 +10,14 @@ void				print_load(int i3, int len)
 
 	nb = ft_itoa((int)((double)i3 / (double)len * 100));
 	post = ft_strjoin(nb, "  \r");
-	pre = ft_strjoin( "loading texture : ", post);
+	pre = ft_strjoin("loading texture : ", post);
 	ft_putstr(pre);
 	free(nb);
 	free(post);
 	free(pre);
 }
 
-Uint32				*faster_please(Uint32 *dst, char *src, int len)
+Uint32		*faster_please(Uint32 *dst, char *src, int len)
 {
 	int				i;
 	int				i2;
@@ -26,7 +26,7 @@ Uint32				*faster_please(Uint32 *dst, char *src, int len)
 
 	i = 0;
 	i3 = 0;
-	current = (char *)malloc(sizeof(char) * 11);
+	current = (char *)malloc(sizeof(char) * 9);
 	while (i3 < len)
 	{
 		i2 = 0;
@@ -37,7 +37,7 @@ Uint32				*faster_please(Uint32 *dst, char *src, int len)
 			i2++;
 		}
 		current[i2] = '\0';
-		dst[i3] = ft_atoui_base(current, 10);
+		dst[i3] = ft_atoui_base(current, 16);
 		print_load(i3, len);
 		i3++;
 		i++;
@@ -46,7 +46,7 @@ Uint32				*faster_please(Uint32 *dst, char *src, int len)
 	return (dst);
 }
 
-int					parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
+int			parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 {
 	int				i;
 	int				wn;
@@ -66,14 +66,31 @@ int					parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 	m->weap[wn].sprt[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i);
 	ft_putstr("starting sprite extraction : ");
 	ft_putstr(name);
-	ft_putstr("\r                                                                \r");
 	m->weap[wn].sprt[sn].pix = faster_please(m->weap[wn].sprt[sn].pix, pix, i);
 	ft_putstr("done                                             \r");
 	ft_memreg(tmp);
 	return (0);
 }
 
-int					parse_sprite_section(t_map *m, char **tab)
+int			parse_hud_sprite(t_map *m, char *def, char *pix)
+{
+	int				i;
+	char			**tmp;
+
+	tmp = ft_strsplit(def, ',');
+	m->hud.w = ft_atoi(tmp[0]);
+	m->hud.h = ft_atoi(tmp[1]);
+	i = ft_atoi(tmp[0]) * ft_atoi(tmp[1]);
+	ft_putstr("allocating memory for texture             \r");
+	m->hud.pix = (Uint32 *)malloc(sizeof(Uint32) * i);
+	ft_putstr("starting sprite extraction : ");
+	m->hud.pix = faster_please(m->hud.pix, pix, i);
+	ft_putstr("done                                             \r");
+	ft_memreg(tmp);
+	return (0);
+}
+
+int			parse_sprite_section(t_map *m, char **tab)
 {
 	if (ft_strcmp(tab[0], "\tweapon_sprite") == 0)
 	{
@@ -82,7 +99,15 @@ int					parse_sprite_section(t_map *m, char **tab)
 		{
 			ft_putendl("error on parsing of the weapon_sprite section");
 			return (-1);
-		}	
+		}
+	}
+	if (ft_strcmp(tab[0], "\thp") == 0)
+	{
+		if (parse_hud_sprite(m, tab[1], tab[2]) == -1)
+		{
+			ft_putendl("error on parsing of the weapon_sprite section");
+		 	return (-1);
+		}
 	}
 	return (0);
 }

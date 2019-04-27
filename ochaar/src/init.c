@@ -41,25 +41,34 @@ void		img_update(t_env *w)
 // 	SDL_FreeSurface(tmp);
 // }
 
-int			load_sounds(t_env *w)
+int			load_sounds(t_env *w, t_map *m)
 {
-	if (!(w->musique = Mix_LoadMUS("./sounds/bensound-dreams.wav")))
+	if (!(w->sound.musique = Mix_LoadMUS("./sounds/bensound-dreams.wav")))
 	{
 		printf("%s\n", Mix_GetError());
 		return (-1);
 	}
-   	Mix_PlayMusic(w->musique, -1);
-	Mix_VolumeMusic(w->volume);
+   	Mix_PlayMusic(w->sound.musique, -1);
+	Mix_VolumeMusic(w->sound.volume);
 	Mix_AllocateChannels(10);
-	if (!(w->jump = Mix_LoadWAV("./sounds/jump2.wav")))
+	if (!(w->sound.jump = Mix_LoadWAV("./sounds/jump2.wav")))
 		return (-1);
-	if (!(w->shoot = Mix_LoadWAV("./sounds/MP5.wav")))
+	if (!(m->weap[0].shoot = Mix_LoadWAV("./sounds/MP5.wav")))
 		return (-1);
-	if (!(w->ground = Mix_LoadWAV("./sounds/ground.wav")))
+	if (!(w->sound.ground = Mix_LoadWAV("./sounds/ground.wav")))
 		return (-1);
-	Mix_VolumeChunk(w->jump, 70);
-	Mix_VolumeChunk(w->shoot, 50);
-	Mix_VolumeChunk(w->ground, 70);
+	if (!(m->weap[2].shoot = Mix_LoadWAV("./sounds/magnum.wav")))
+		return (-1);
+	if (!(m->weap[1].shoot = Mix_LoadWAV("./sounds/shotgun.wav")))
+		return (-1);
+	/*if (!(m->weap[3].shoot = Mix_LoadWAV("./sounds/sniper.wav")))
+		return (-1);*/
+	Mix_VolumeChunk(w->sound.jump, 70);
+	Mix_VolumeChunk(m->weap[1].shoot, 80);
+	//Mix_VolumeChunk(m->weap[3].shoot, 50);
+	Mix_VolumeChunk(m->weap[0].shoot, 50);
+	Mix_VolumeChunk(m->weap[2].shoot, 50);
+	Mix_VolumeChunk(w->sound.ground, 70);
 	return (1);
 }
 
@@ -82,8 +91,6 @@ int			init_sdl(t_env *w)
 										SDL_WINDOW_FULLSCREEN);
 	}
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
-		return (-1);
-	if (load_sounds(w) == -1)
 		return (-1);
 	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED |
 											SDL_RENDERER_PRESENTVSYNC);

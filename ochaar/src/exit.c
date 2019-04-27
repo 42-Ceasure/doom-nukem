@@ -2,16 +2,22 @@
 
 #include "doom.h"
 
-void		empty_music(t_env *w)
+void		empty_music(t_env *w, t_map *m)
 {
-	if (w->musique != NULL)
-		Mix_FreeMusic(w->musique);
-	if (w->jump != NULL)
-		Mix_FreeChunk(w->jump);
-	if (w->shoot != NULL)
-		Mix_FreeChunk(w->shoot);
-	if (w->ground != NULL)
-		Mix_FreeChunk(w->ground);
+	if (w->sound.musique != NULL)
+		Mix_FreeMusic(w->sound.musique);
+	if (w->sound.jump != NULL)
+		Mix_FreeChunk(w->sound.jump);
+	if (m->weap[0].shoot != NULL)
+		Mix_FreeChunk(m->weap[0].shoot);
+	if (m->weap[1].shoot != NULL)
+		Mix_FreeChunk(m->weap[1].shoot);
+	if (m->weap[2].shoot != NULL)
+		Mix_FreeChunk(m->weap[2].shoot);
+	//if (m->weap[3].shoot != NULL)
+	//	Mix_FreeChunk(m->weap[3].shoot);
+	if (w->sound.ground != NULL)
+		Mix_FreeChunk(w->sound.ground);
 	Mix_CloseAudio();
 }
 
@@ -42,16 +48,19 @@ void		empty_map(t_map *m)
 			free(m->map_path);
 		if (m->dot != NULL)
 			free(m->dot);
-		while (i < m->weapon_count)
+		if (m->weap != NULL)
 		{
-			free(m->weap[i].sprt[0].pix);
-			free(m->weap[i].sprt[0].name);
-			free(m->weap[i].sprt[1].pix);
-			free(m->weap[i].sprt[1].name);
-			free(m->weap[i].name);
-			i++;
+			while (i < m->weapon_count)
+			{
+				free(m->weap[i].sprt[0].pix);
+				free(m->weap[i].sprt[0].name);
+				free(m->weap[i].sprt[1].pix);
+				free(m->weap[i].sprt[1].name);
+				free(m->weap[i].name);
+				i++;
+			}
+			free(m->weap);
 		}
-		free(m->weap);
 		i = 0;
 		if (m->sector != NULL)
 		{
