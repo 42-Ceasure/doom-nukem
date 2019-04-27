@@ -81,6 +81,10 @@ void		empty_map(t_map *m)
 void		exit_game(t_env *w, t_map *m)
 {
 	empty_map(m);
+	TTF_CloseFont(w->police);
+	SDL_DestroyTexture(w->txtr2);
+	SDL_FreeSurface(w->texte);
+	TTF_Quit();
 	SDL_Quit();
 	empty_world(w);
 	exit(1);

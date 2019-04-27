@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/25 13:02:22 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/27 13:49:26 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "SDL2/SDL.h"
 # include "SDL2/SDL_mixer.h"
+# include "SDL2/SDL_ttf.h"
 # include "libft.h"
 # include <pthread.h>
 # include <fcntl.h>
@@ -312,9 +313,14 @@ typedef struct		s_env
 	Uint32			*pix;
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
+	SDL_Texture		*txtr2;
 	SDL_Event		event;
 	t_texture		main_pic[5];
 	t_menu			menu;
+	TTF_Font		*police;
+	SDL_Surface		*texte;
+	SDL_Color		couleur;
+	SDL_Rect		pos;
 }					t_env;
 
 typedef struct		s_worker_arg

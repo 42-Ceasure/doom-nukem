@@ -76,6 +76,9 @@ int			init_sdl(t_env *w)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 		return (-1);
+	TTF_Init();
+	w->police = TTF_OpenFont("angelina.ttf", 65);
+	w->texte = TTF_RenderText_Blended(w->police, "Salut les Zeros !", w->couleur);
 	if (w->window_mode == 1)
 	{
 		w->win = SDL_CreateWindow(NAME, SDL_WINDOWPOS_CENTERED,
@@ -98,6 +101,7 @@ int			init_sdl(t_env *w)
 	w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
 										SDL_TEXTUREACCESS_STREAMING,
 										WIDTH, HEIGHT);
+	w->txtr2 = SDL_CreateTextureFromSurface(w->rdr, w->texte);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_ShowCursor(SDL_DISABLE);
 	hello_screen(w, 0);
