@@ -66,6 +66,7 @@ int			parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 	m->weap[wn].sprt[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i);
 	ft_putstr("starting sprite extraction : ");
 	ft_putstr(name);
+	ft_putstr("\r                                                                \r");
 	m->weap[wn].sprt[sn].pix = faster_please(m->weap[wn].sprt[sn].pix, pix, i);
 	ft_putstr("done                                             \r");
 	ft_memreg(tmp);
