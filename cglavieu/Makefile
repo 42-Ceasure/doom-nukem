@@ -17,7 +17,7 @@ SRCDIR		=	./src/
 INCFIL		=	doom.h
 OBJFIL		=	$(SRCFIL:.c=.o)
 LIBFTFIL	=	libft.a
-SRCFIL		=	main.c exit.c error.c	\
+SRCFIL		=	main.c exit.c error.c process_hint.c	\
 				init.c	\
 				textures.c sprite.c	\
 				cmd_parse.c cmd_exec.c cmd_list.c	\
