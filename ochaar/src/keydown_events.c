@@ -9,10 +9,10 @@ void		affichage(t_env *w, t_map *m)
 	i = 0;
 	if (KEY == SDLK_i)
 	{
-		if (m->player.hud != 1)
-			m->player.hud = 1;
+		if (w->hud != 1)
+			w->hud = 1;
 		else
-			m->player.hud = 0;
+			w->hud = 0;
 	}
 	if (KEY == SDLK_UP)
 		m->player.field_of_vision_v += 5;

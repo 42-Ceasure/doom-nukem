@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/27 13:49:26 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/29 14:34:55 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ typedef struct		s_player
 	int				aiming;
 	int				firing;
 	int				sector;
-	int				hud;
 	t_coor			coor;
 	int				memz;
 	t_coor			move_speed;
@@ -301,26 +300,33 @@ typedef struct		s_sound
 	Mix_Chunk 		*ground;
 }					t_sound;
 
+typedef struct		s_ttf
+{
+	TTF_Font		*police;
+	SDL_Surface		*texte;
+	SDL_Surface		*texte2;
+	SDL_Color		color;
+	SDL_Texture		*txtr2;
+	SDL_Texture		*txtr;
+}					t_ttf;
+
 typedef struct		s_env
 {
 	int				i;
 	int				ac;
 	int				window_mode;
 	int				sequential_draw;
+	int				hud;
 	SDL_Window		*win;
 	SDL_Renderer	*rdr;
 	t_sound			sound;
 	Uint32			*pix;
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
-	SDL_Texture		*txtr2;
 	SDL_Event		event;
 	t_texture		main_pic[5];
 	t_menu			menu;
-	TTF_Font		*police;
-	SDL_Surface		*texte;
-	SDL_Color		couleur;
-	SDL_Rect		pos;
+	t_ttf			ttf;
 }					t_env;
 
 typedef struct		s_worker_arg
@@ -401,4 +407,6 @@ void				buttondown_event(t_env *w, t_map *m);
 void				buttonup_event(t_env *w, t_map *m);
 void				hello_screen(t_env *w, int n);
 int					load_sounds(t_env *w, t_map *m);
+void				ttf_init(t_env *w);
+SDL_Rect			init_sdl_rect(int x, int y, int w, int h);
 #endif

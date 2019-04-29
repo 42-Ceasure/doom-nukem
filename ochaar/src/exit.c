@@ -18,6 +18,8 @@ void		empty_music(t_env *w, t_map *m)
 	//	Mix_FreeChunk(m->weap[3].shoot);
 	if (w->sound.ground != NULL)
 		Mix_FreeChunk(w->sound.ground);
+	SDL_DestroyTexture(w->ttf.txtr2);
+	SDL_FreeSurface(w->ttf.texte);
 	Mix_CloseAudio();
 }
 
@@ -81,9 +83,6 @@ void		empty_map(t_map *m)
 void		exit_game(t_env *w, t_map *m)
 {
 	empty_map(m);
-	TTF_CloseFont(w->police);
-	SDL_DestroyTexture(w->txtr2);
-	SDL_FreeSurface(w->texte);
 	TTF_Quit();
 	SDL_Quit();
 	empty_world(w);

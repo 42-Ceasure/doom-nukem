@@ -32,7 +32,7 @@ SRCFIL		=	main.c exit.c error.c	\
 				mouse_events.c	\
 				5_doom_short_functions.c 5_line.c	\
 				draw_main.c draw_utility.c draw_dep.c draw_minimap.c \
-				multi_thread.c
+				multi_thread.c ttf_init.c
 
 SRC			=	$(addprefix $(SRCDIR),$(SRCFIL))
 OBJ			=	$(addprefix $(OBJDIR),$(OBJFIL))

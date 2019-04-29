@@ -115,7 +115,7 @@ void	ft_hud(t_map *m, t_env *w)
 		while (j < m->hud.w)
 		{
 			if (m->hud.pix[i * m->hud.w + j] != m->hud.pix[0])
-				w->pix[i * WIDTH + (WIDTH - (m->hud.w * 2) + j)] = m->hud.pix[i * m->hud.w + j];
+				w->pix[(i + HEIGHT - m->hud.h) * WIDTH + (j + HEIGHT / 2)] = m->hud.pix[i * m->hud.w + j];
 			j++;
 		}
 		i++;
@@ -124,7 +124,6 @@ void	ft_hud(t_map *m, t_env *w)
 
 int		run(t_env *w, t_map *m)
 {
-	SDL_QueryTexture(w->txtr2, NULL, NULL, 0, 0);
 	while (1)
 	{
 		while (SDL_PollEvent(&w->event))
@@ -147,12 +146,8 @@ int		run(t_env *w, t_map *m)
 			draw(w, m);
 			hand(m, w);
 			ft_cursor(w, m);
-			if (m->player.hud == 1)
-			{
+			if (w->hud == 1)
 				ft_hud(m, w);
-				SDL_RenderCopy(w->rdr, w->txtr2, NULL, NULL);
-				SDL_RenderPresent(w->rdr);
-			}
 		}
 		else if (m->player.display == 1)
 			draw_mini_map(w, m);

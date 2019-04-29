@@ -4,8 +4,19 @@
 
 void		img_update(t_env *w)
 {
+	SDL_Rect	size;
+	SDL_Rect	size2;
+
+	size = init_sdl_rect(0, 0, 100, 50);
+	size2 = init_sdl_rect(0, 500, 150, 80);
+	SDL_QueryTexture(w->ttf.txtr2, NULL, NULL, &size.w, &size.h);
 	SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
 	SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
+	if (w->hud == 1)
+	{
+		SDL_RenderCopy(w->rdr, w->ttf.txtr2, NULL, &size);
+		SDL_RenderCopy(w->rdr, w->ttf.txtr, NULL, &size2);
+	}
 	SDL_RenderPresent(w->rdr);
 }
 
@@ -76,9 +87,7 @@ int			init_sdl(t_env *w)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 		return (-1);
-	TTF_Init();
-	w->police = TTF_OpenFont("angelina.ttf", 65);
-	w->texte = TTF_RenderText_Blended(w->police, "Salut les Zeros !", w->couleur);
+	ttf_init(w);
 	if (w->window_mode == 1)
 	{
 		w->win = SDL_CreateWindow(NAME, SDL_WINDOWPOS_CENTERED,
@@ -101,7 +110,8 @@ int			init_sdl(t_env *w)
 	w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
 										SDL_TEXTUREACCESS_STREAMING,
 										WIDTH, HEIGHT);
-	w->txtr2 = SDL_CreateTextureFromSurface(w->rdr, w->texte);
+	w->ttf.txtr2 = SDL_CreateTextureFromSurface(w->rdr, w->ttf.texte);//proteger
+	w->ttf.txtr = SDL_CreateTextureFromSurface(w->rdr, w->ttf.texte2);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_ShowCursor(SDL_DISABLE);
 	hello_screen(w, 0);
