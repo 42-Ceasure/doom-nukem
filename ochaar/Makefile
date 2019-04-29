@@ -45,7 +45,7 @@ INCLIBFT	=	$(LIBFTDIR)inc
 
 LIBFT_FLAG	=	-L$(LIBFTDIR) -lft
 
-all				:	libft $(NAME)
+all				:	libft sdl_if $(NAME)
 
 $(NAME)			:	$(OBJ) $(LIBFT)
 	@make sdl_if

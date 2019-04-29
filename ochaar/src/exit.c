@@ -4,6 +4,9 @@
 
 void		empty_music(t_env *w, t_map *m)
 {
+	int i;
+
+	i = 0;
 	if (w->sound.musique != NULL)
 		Mix_FreeMusic(w->sound.musique);
 	if (w->sound.jump != NULL)
@@ -18,8 +21,12 @@ void		empty_music(t_env *w, t_map *m)
 	//	Mix_FreeChunk(m->weap[3].shoot);
 	if (w->sound.ground != NULL)
 		Mix_FreeChunk(w->sound.ground);
-	SDL_DestroyTexture(w->ttf.txtr2);
-	SDL_FreeSurface(w->ttf.texte);
+	while (i < 3)
+	{
+		SDL_DestroyTexture(w->ttf.txtr[i]);
+		SDL_FreeSurface(w->ttf.texte[i]);
+		i++;
+	}
 	Mix_CloseAudio();
 }
 

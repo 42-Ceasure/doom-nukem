@@ -4,18 +4,14 @@
 
 void		img_update(t_env *w)
 {
-	SDL_Rect	size;
-	SDL_Rect	size2;
-
-	size = init_sdl_rect(0, 0, 100, 50);
-	size2 = init_sdl_rect(0, 500, 150, 80);
-	SDL_QueryTexture(w->ttf.txtr2, NULL, NULL, &size.w, &size.h);
+	//SDL_QueryTexture(w->ttf.txtr[0], NULL, NULL, &w->ttf.size[0].w, &w->ttf.size[0].h);
 	SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
 	SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
 	if (w->hud == 1)
 	{
-		SDL_RenderCopy(w->rdr, w->ttf.txtr2, NULL, &size);
-		SDL_RenderCopy(w->rdr, w->ttf.txtr, NULL, &size2);
+		SDL_RenderCopy(w->rdr, w->ttf.txtr[0], NULL, &w->ttf.size[0]);
+		SDL_RenderCopy(w->rdr, w->ttf.txtr[1], NULL, &w->ttf.size[1]);
+		SDL_RenderCopy(w->rdr, w->ttf.txtr[2], NULL, &w->ttf.size[2]);
 	}
 	SDL_RenderPresent(w->rdr);
 }
@@ -110,8 +106,9 @@ int			init_sdl(t_env *w)
 	w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
 										SDL_TEXTUREACCESS_STREAMING,
 										WIDTH, HEIGHT);
-	w->ttf.txtr2 = SDL_CreateTextureFromSurface(w->rdr, w->ttf.texte);//proteger
-	w->ttf.txtr = SDL_CreateTextureFromSurface(w->rdr, w->ttf.texte2);
+	w->ttf.txtr[0] = SDL_CreateTextureFromSurface(w->rdr, w->ttf.texte[0]);//proteger
+	w->ttf.txtr[1] = SDL_CreateTextureFromSurface(w->rdr, w->ttf.texte[1]);
+	w->ttf.txtr[2] = SDL_CreateTextureFromSurface(w->rdr, w->ttf.texte[2]);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_ShowCursor(SDL_DISABLE);
 	hello_screen(w, 0);

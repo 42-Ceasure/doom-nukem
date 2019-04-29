@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/29 14:34:55 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/29 16:13:45 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,11 +303,10 @@ typedef struct		s_sound
 typedef struct		s_ttf
 {
 	TTF_Font		*police;
-	SDL_Surface		*texte;
-	SDL_Surface		*texte2;
-	SDL_Color		color;
-	SDL_Texture		*txtr2;
-	SDL_Texture		*txtr;
+	SDL_Surface		*texte[3];
+	SDL_Color		color[3];
+	SDL_Texture		*txtr[3];
+	SDL_Rect		size[3];
 }					t_ttf;
 
 typedef struct		s_env
@@ -409,4 +408,5 @@ void				hello_screen(t_env *w, int n);
 int					load_sounds(t_env *w, t_map *m);
 void				ttf_init(t_env *w);
 SDL_Rect			init_sdl_rect(int x, int y, int w, int h);
+SDL_Color			init_sdl_color(int r, int g, int b);
 #endif
