@@ -2,21 +2,6 @@
 
 #include "doom.h"
 
-void		print_load(int i3, int len)
-{
-	char			*pre;
-	char			*nb;
-	char			*post;
-
-	nb = ft_itoa((int)((double)i3 / (double)len * 100));
-	post = ft_strjoin(nb, "  \r");
-	pre = ft_strjoin("loading texture : ", post);
-	ft_putstr(pre);
-	free(nb);
-	free(post);
-	free(pre);
-}
-
 Uint32		*faster_please(Uint32 *dst, char *src, int len)
 {
 	int				i;
@@ -38,7 +23,7 @@ Uint32		*faster_please(Uint32 *dst, char *src, int len)
 		}
 		current[i2] = '\0';
 		dst[i3] = ft_atoui_base(current, 16);
-		print_load(i3, len);
+		print_load("loading texture : ", i3, len);
 		i3++;
 		i++;
 	}
@@ -62,13 +47,12 @@ int			parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 	m->weap[wn].sprt[sn].w = ft_atoi(tmp[4]);
 	m->weap[wn].sprt[sn].h = ft_atoi(tmp[5]);
 	i = ft_atoi(tmp[4]) * ft_atoi(tmp[5]);
-	ft_putstr("allocating memory for texture             \r");
+	process_hint(1, "textures");
 	m->weap[wn].sprt[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i);
-	ft_putstr("starting sprite extraction : ");
-	ft_putstr(name);
-	ft_putstr("\r                                                                \r");
+	process_hint(6, name);
+	process_hint(0, " ");
 	m->weap[wn].sprt[sn].pix = faster_please(m->weap[wn].sprt[sn].pix, pix, i);
-	ft_putstr("done                                             \r");
+	process_hint(0, " ");
 	ft_memreg(tmp);
 	return (0);
 }
@@ -82,11 +66,11 @@ int			parse_hud_sprite(t_map *m, char *def, char *pix)
 	m->hud.w = ft_atoi(tmp[0]);
 	m->hud.h = ft_atoi(tmp[1]);
 	i = ft_atoi(tmp[0]) * ft_atoi(tmp[1]);
-	ft_putstr("allocating memory for texture             \r");
+	process_hint(1, "textures");
 	m->hud.pix = (Uint32 *)malloc(sizeof(Uint32) * i);
-	ft_putstr("starting sprite extraction : ");
+	process_hint(3, "sprite extraction");
 	m->hud.pix = faster_please(m->hud.pix, pix, i);
-	ft_putstr("done                                             \r");
+	process_hint(0, " ");
 	ft_memreg(tmp);
 	return (0);
 }
@@ -95,7 +79,7 @@ int			parse_sprite_section(t_map *m, char **tab)
 {
 	if (ft_strcmp(tab[0], "\tweapon_sprite") == 0)
 	{
-		ft_putstr("parsing weapon sprite      \r");
+		process_hint(4, "weapon sprite");
 		if (parse_weapon_sprite(m, tab[1], tab[2], tab[3]) == -1)
 		{
 			ft_putendl("error on parsing of the weapon_sprite section");

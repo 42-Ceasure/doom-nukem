@@ -39,7 +39,7 @@ int		parse_line(t_map *m)
 	}
 	if (m->section_number == 1)
 	{
-		ft_putstr("parsing map                 \r");
+		process_hint(4, "map");
 		if (parse_map_section(m, tmp) == -1)
 		{
 			ft_putendl("error in parse_map_section");
@@ -48,7 +48,7 @@ int		parse_line(t_map *m)
 	}
 	if (m->section_number == 2)
 	{
-		ft_putstr("parsing player               \r");
+		process_hint(4, "player");
 		if (parse_player_section(m, tmp) == -1)
 		{
 			ft_putendl("error in parse_player_section");
@@ -57,19 +57,19 @@ int		parse_line(t_map *m)
 	}
 	if (m->section_number == 3)
 	{
-		ft_putstr("parsing weapon              \r");
+		process_hint(4, "weapon");
 		if (parse_weapon_section(m, tmp) == -1)
 		{
-			ft_putendl("error in parse_map_section");
+			ft_putendl("error in parse_weapon_section");
 			return (-1);
 		}
 	}
 	if (m->section_number == 4)
 	{
-		ft_putstr("parsing sprites             \r");
+		process_hint(4, "sprite");
 		if (parse_sprite_section(m, tmp) == -1)
 		{
-			ft_putendl("error in parse_map_section");
+			ft_putendl("error in parse_sprite_section");
 			return (-1);
 		}
 	}
@@ -83,11 +83,11 @@ int		do_parse(t_map *m)
 	m->s = 0;
 	m->w = 0;
 	m->section_number = 0;
-	ft_putstr("opening file                    \r");
+	process_hint(6, "map file");
 	if ((m->fd = open(m->map_path, O_RDONLY)) == -1)
 		return (-1);
-	ft_putstr("file opened                     \r");
-	ft_putstr("reading                         \r");
+	process_hint(0, " ");
+	process_hint(6, " ");
 	while (get_next_line(m->fd, &m->line))
 	{
 		if ((parse_line(m)) == -1)
@@ -97,7 +97,7 @@ int		do_parse(t_map *m)
 		}
 		free(m->line);
 	}
-	ft_putstr("\rdone                            \r");
+	process_hint(0, " ");
 	free(m->line);
 	close(m->fd);
 	return (0);
