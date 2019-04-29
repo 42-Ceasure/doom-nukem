@@ -68,7 +68,7 @@ int			parse_hud_sprite(t_map *m, char *def, char *pix)
 	i = ft_atoi(tmp[0]) * ft_atoi(tmp[1]);
 	process_hint(1, "textures");
 	m->hud.pix = (Uint32 *)malloc(sizeof(Uint32) * i);
-	process_hint(3, "sprite extraction");
+	process_hint(3, "hud sprite extraction");
 	m->hud.pix = faster_please(m->hud.pix, pix, i);
 	process_hint(0, " ");
 	ft_memreg(tmp);
