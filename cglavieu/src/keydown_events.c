@@ -4,9 +4,9 @@
 
 void		affichage(t_env *w, t_map *m)
 {
-	int i;
+	// int i;
 
-	i = 0;
+	// i = 0;
 	if (KEY == SDLK_i)
 	{
 		if (m->player.hud != 1)

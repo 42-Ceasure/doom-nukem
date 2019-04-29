@@ -35,11 +35,11 @@ void		l_f_priority_cmd(t_env *w, t_map *m, char ***cmd)
 	{
 		if (ft_strcmp(cmd[i][0], "-video_mode") == 0)
 			video_mode_cmd(w, m, cmd, i);
-		if (ft_strcmp(cmd[i][0], "-seq") == 0)
+		else if (ft_strcmp(cmd[i][0], "-seq") == 0)
 			seq_cmd(w, cmd, i);
-		if (ft_strcmp(cmd[i][0], "-map") == 0)
+		else if (ft_strcmp(cmd[i][0], "-map") == 0)
 			map_cmd(w, m, cmd[i]);
-		if (ft_strcmp(cmd[i][0], "-extract_bmp") == 0)
+		else if (ft_strcmp(cmd[i][0], "-extract_bmp") == 0)
 			extract_bmp(w, m, cmd[i]);
 		i++;
 	}

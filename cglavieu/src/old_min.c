@@ -2,22 +2,8 @@
 
 #include "doom.h"
 
-void			generate_config_file(int fd)
-{
-	ft_putendl_fd("/!\\ section en chantier /!\\", fd);
-}
-
 void			set_basics(t_env *w, t_map *m, int ac)
 {
-	int			fd;
-	char		*path;
-
-	path = ft_strdup("usrcfg/user_config.dn3d");
-	if ((fd = open(path, O_WRONLY | O_CREAT | O_EXCL, 0644)) != -1)
-	{
-		generate_config_file(fd);
-		close(fd);
-	}
 	w->ac = ac;
 	m->i = 0;
 	m->s = 0;
@@ -58,17 +44,17 @@ void			set_basics(t_env *w, t_map *m, int ac)
 
 void			init_world(t_env **w, t_map **m, int ac)
 {
-	process_hint(1, "world");
+	ft_putstr("allocate memory for world       \r");
 	if ((*w = (t_env *)malloc(sizeof(t_env))) == NULL)
 		set_error(*w, *m, 0, ft_strdup("struct world"));
-	process_hint(0, " ");
-	process_hint(1, "map");
+	ft_putstr("memory allocated                \r");
+	ft_putstr("allocate memory for map         \r");
 	if ((*m = (t_map *)malloc(sizeof(t_map))) == NULL)
 		set_error(*w, *m, 0, ft_strdup("struct map"));
-	process_hint(0, " ");
-	process_hint(2, "basics");
+	ft_putstr("memory allocated                \r");
+	ft_putstr("setting basics                  \r");
 	set_basics(*w, *m, ac);
-	process_hint(0, " ");
+	ft_putstr("basics set                      \r");
 }
 
 void			exec_cmd(t_env *w, t_map *m, char ***cmd, char **av)
@@ -78,19 +64,19 @@ void			exec_cmd(t_env *w, t_map *m, char ***cmd, char **av)
 	ac = w->ac;
 	if ((cmd = parse_cmd(ac, av)) != NULL)
 	{
-		process_hint(3, "priority cmd");
+		ft_putstr("pre-processing priority cmd \r");
 		l_f_priority_cmd(w, m, cmd);
-		process_hint(0, " ");
-		process_hint(2, "SDL2");
+		ft_putstr("done                        \r");
+		ft_putstr("initialisating SDL2         \r");
 		if ((init_sdl(w)) == -1)
 			set_error(w, m, 4, ft_strdup("SDL Initialisation"));
-		process_hint(0, " ");
-		process_hint(4, "map");;
+		ft_putstr("SDL2 initialised            \r");
+		ft_putstr("starting parse of map        \r");
 		parse_map_file(w, m);
-		process_hint(0, " ");
-		process_hint(3, "remaining cmd");
+		ft_putstr("map parsed                  \r");
+		ft_putstr("processing remaining cmd");
 		interpret_cmd(w, m, cmd);
-		process_hint(0, " ");
+		ft_putstr("done                        \r");
 	}
 	else
 		set_error(w, m, 1, ft_strdup(av[1]));
@@ -98,13 +84,13 @@ void			exec_cmd(t_env *w, t_map *m, char ***cmd, char **av)
 
 void			simple_start(t_env *w, t_map *m)
 {
-	process_hint(2, "SDL2");
+	ft_putstr("initialisating SDL2             \r");
 	if ((init_sdl(w)) == -1)
 		set_error(w, m, 4, ft_strdup("SDL Initialisation"));
 	m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
 	m->map_name = ft_strdup("Home Sweet Home");
-	parse_map_file(w, m);
-	process_hint(0, " ");
+	// parse_map_file(w, m);
+	ft_putstr("SDL2 initialised                \r");
 }
 
 void			draw_sequential(t_env *w, t_map *m)
@@ -126,24 +112,24 @@ int				main(int ac, char **av)
 	w = NULL;
 	m = NULL;
 	cmd = NULL;
-	process_hint(2, "world");
+	ft_putstr("initialisating world              \r");
 	init_world(&w, &m, ac);
-	process_hint(0, " ");
+	ft_putstr("world initialised               \r");
 	if (ac > 1)
 	{
-		process_hint(4, "cmd");
+		ft_putstr("parsing cmd                 \r");
 		exec_cmd(w, m, cmd, av);
-		process_hint(0, " ");
+		ft_putstr("cmd parsed                  \r");
 	}
 	else
 	{
-		process_hint(3, "basic start");
+		ft_putstr("basic start                 \r");
 		simple_start(w, m);
-		process_hint(0, " ");
+		ft_putstr("start done                  \r");
 	}
 	if (w->sequential_draw == 1)
 	{
-		process_hint(2, "sequential drawing start");
+		ft_putstr("sequential drawing start    \r");
 		draw_sequential(w, m);
 	}
 	ft_putstr("                              \r");

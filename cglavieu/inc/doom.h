@@ -22,6 +22,8 @@
 # define NAME 				"Doom-Numkem3D"
 # define WIDTH 				1024
 # define HEIGHT 			576
+// # define WIDTH 				1920
+// # define HEIGHT 			1080
 # define RESIZABLE_SCREEN	1
 # define FULL_SCREEN		0
 # define KEY 				w->event.key.keysym.sym
@@ -395,4 +397,7 @@ void				buttondown_event(t_env *w, t_map *m);
 void				buttonup_event(t_env *w, t_map *m);
 void				hello_screen(t_env *w, int n);
 int					load_sounds(t_env *w, t_map *m);
+void				process_hint(int i, char *s);
+void				print_load(char *s, int i3, int len);
+
 #endif
