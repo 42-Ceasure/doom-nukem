@@ -29,6 +29,12 @@ void		empty_world(t_env *w)
 			free(w->main_pic[0].pix);
 		if (w->main_pic[1].pix != NULL)
 			free(w->main_pic[1].pix);
+		if (w->main_pic[2].pix != NULL)
+			free(w->main_pic[2].pix);
+		if (w->main_pic[3].pix != NULL)
+			free(w->main_pic[3].pix);
+		if (w->main_pic[4].pix != NULL)
+			free(w->main_pic[4].pix);
 		if (w->pix != NULL)
 			free(w->pix);
 		free(w);
@@ -48,6 +54,8 @@ void		empty_map(t_map *m)
 			free(m->map_path);
 		if (m->dot != NULL)
 			free(m->dot);
+		if (m->hud.pix != NULL)
+			free(m->hud.pix);
 		if (m->weap != NULL)
 		{
 			while (i < m->weapon_count)
@@ -56,6 +64,8 @@ void		empty_map(t_map *m)
 				free(m->weap[i].sprt[0].name);
 				free(m->weap[i].sprt[1].pix);
 				free(m->weap[i].sprt[1].name);
+				free(m->weap[i].sprt[2].pix);
+				free(m->weap[i].sprt[2].name);
 				free(m->weap[i].name);
 				i++;
 			}

@@ -15,9 +15,11 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	path = ft_strdup("usrcfg/user_config.dn3d");
 	if ((fd = open(path, O_WRONLY | O_CREAT | O_EXCL, 0644)) != -1)
 	{
+		ft_putstr("first launch, creating config file");
 		generate_config_file(fd);
 		close(fd);
 	}
+	free(path);
 	w->ac = ac;
 	m->i = 0;
 	m->s = 0;
@@ -29,6 +31,7 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	m->sector = NULL;
 	m->dots_count = 0;
 	m->dot = NULL;
+	m->hud.pix = NULL;
 	m->player.field_of_vision_h = WIDTH / 2;
 	m->player.field_of_vision_v = HEIGHT / 2;
 	m->player.fall = 1;
