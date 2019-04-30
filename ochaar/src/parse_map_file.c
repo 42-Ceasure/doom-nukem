@@ -109,4 +109,5 @@ void	parse_map_file(t_env *w, t_map *m)
 		set_error(w, m, 8, ft_strdup("do_parse"));
 	if (load_sounds(w, m) == -1)
 		set_error(w, m, 8, ft_strdup("load_sounds"));
+	ttf_init(w, m);
 }

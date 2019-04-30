@@ -101,7 +101,7 @@ int			parse_sprite_section(t_map *m, char **tab)
 			return (-1);
 		}
 	}
-	if (ft_strcmp(tab[0], "\thp") == 0)
+	if (ft_strcmp(tab[0], "\thud") == 0)
 	{
 		if (parse_hud_sprite(m, tab[1], tab[2]) == -1)
 		{

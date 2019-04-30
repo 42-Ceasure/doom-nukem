@@ -21,7 +21,10 @@ int					parse_weapon_section(t_map *m, char **tab)
 			if (tmp[3])
 				m->weap[m->w].dispertion = ft_atoi(tmp[3]);
 			if (tmp[4])
+			{
 				m->weap[m->w].ammo = ft_atoi(tmp[4]);
+				m->weap[m->w].actu_ammo = m->weap[m->w].ammo;
+			}
 			if (tmp[5])
 				m->weap[m->w].magazine = ft_atoi(tmp[5]);
 		}

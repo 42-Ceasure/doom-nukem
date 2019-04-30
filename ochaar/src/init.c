@@ -12,6 +12,7 @@ void		img_update(t_env *w)
 		SDL_RenderCopy(w->rdr, w->ttf.txtr[0], NULL, &w->ttf.size[0]);
 		SDL_RenderCopy(w->rdr, w->ttf.txtr[1], NULL, &w->ttf.size[1]);
 		SDL_RenderCopy(w->rdr, w->ttf.txtr[2], NULL, &w->ttf.size[2]);
+		SDL_RenderCopy(w->rdr, w->ttf.txtr[3], NULL, &w->ttf.size[3]);
 	}
 	SDL_RenderPresent(w->rdr);
 }
@@ -83,7 +84,6 @@ int			init_sdl(t_env *w)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 		return (-1);
-	ttf_init(w);
 	if (w->window_mode == 1)
 	{
 		w->win = SDL_CreateWindow(NAME, SDL_WINDOWPOS_CENTERED,
@@ -106,9 +106,6 @@ int			init_sdl(t_env *w)
 	w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
 										SDL_TEXTUREACCESS_STREAMING,
 										WIDTH, HEIGHT);
-	w->ttf.txtr[0] = SDL_CreateTextureFromSurface(w->rdr, w->ttf.texte[0]);//proteger
-	w->ttf.txtr[1] = SDL_CreateTextureFromSurface(w->rdr, w->ttf.texte[1]);
-	w->ttf.txtr[2] = SDL_CreateTextureFromSurface(w->rdr, w->ttf.texte[2]);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_ShowCursor(SDL_DISABLE);
 	hello_screen(w, 0);

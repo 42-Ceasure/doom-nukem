@@ -21,12 +21,13 @@ void		empty_music(t_env *w, t_map *m)
 	//	Mix_FreeChunk(m->weap[3].shoot);
 	if (w->sound.ground != NULL)
 		Mix_FreeChunk(w->sound.ground);
-	while (i < 3)
+	while (i < 4)
 	{
 		SDL_DestroyTexture(w->ttf.txtr[i]);
 		SDL_FreeSurface(w->ttf.texte[i]);
 		i++;
 	}
+	TTF_CloseFont(w->ttf.police);
 	Mix_CloseAudio();
 }
 

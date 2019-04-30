@@ -103,11 +103,25 @@ void		keydown_events(t_env *w, t_map *m)
 	if (KEY == SDLK_KP_9)
 		printf("hfov:%f,vfov:%f\n", m->player.field_of_vision_h, m->player.field_of_vision_v);
 	if (KEY == SDLK_1)
+	{
 		m->player.handed = 0;
+		update_ttf_txtr3(w, m);
+	}
 	if (KEY == SDLK_2)
+	{
 		m->player.handed = 1;
+		update_ttf_txtr3(w, m);
+	}
 	if (KEY == SDLK_3)
+	{
 		m->player.handed = 2;
+		update_ttf_txtr3(w, m);
+	}
+	if (KEY == SDLK_r)
+	{
+		m->weap[PH].actu_ammo = m->weap[PH].ammo;
+		update_ttf_txtr3(w, m);
+	}
 	sit_down(w, m);
 	music(w);
 	affichage(w, m);

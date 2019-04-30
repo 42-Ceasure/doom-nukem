@@ -19,8 +19,13 @@ void		buttondown_event(t_env *w, t_map *m)
 	if (BUTTON == SDL_BUTTON_LEFT)
 	{
 		m->player.firing = 1;
-		if (Mix_Playing(3) == 0)
+		if (Mix_Playing(3) == 0 && m->weap[PH].actu_ammo > 0)
+		{
 			Mix_PlayChannel(3, m->weap[PH].shoot, 0);
+			if (m->weap[PH].actu_ammo > 0)
+				m->weap[PH].actu_ammo -= 1;
+		}
+		update_ttf_txtr3(w, m);
 	}
 	if (BUTTON == SDL_BUTTON_RIGHT)
 	{

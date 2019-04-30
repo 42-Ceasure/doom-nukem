@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/29 16:13:45 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/30 12:51:20 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,7 @@ typedef struct		s_weapon
 	int				accuracy;
 	int				dispertion;
 	int				ammo;
+	int				actu_ammo;
 	int				magazine;
 	int				reloadtime;
 	t_sprite		sprt[5];
@@ -303,10 +304,10 @@ typedef struct		s_sound
 typedef struct		s_ttf
 {
 	TTF_Font		*police;
-	SDL_Surface		*texte[3];
+	SDL_Surface		*texte[4];
 	SDL_Color		color[3];
-	SDL_Texture		*txtr[3];
-	SDL_Rect		size[3];
+	SDL_Texture		*txtr[4];
+	SDL_Rect		size[4];
 }					t_ttf;
 
 typedef struct		s_env
@@ -406,7 +407,8 @@ void				buttondown_event(t_env *w, t_map *m);
 void				buttonup_event(t_env *w, t_map *m);
 void				hello_screen(t_env *w, int n);
 int					load_sounds(t_env *w, t_map *m);
-void				ttf_init(t_env *w);
+void				ttf_init(t_env *w, t_map *m);
 SDL_Rect			init_sdl_rect(int x, int y, int w, int h);
 SDL_Color			init_sdl_color(int r, int g, int b);
+void				update_ttf_txtr3(t_env *w, t_map *m);
 #endif
