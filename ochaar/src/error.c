@@ -22,6 +22,8 @@ void			set_error(t_env *w, t_map *m, int errorno, char *s)
 		ft_putstr("This sector don't exist : \"");
 	if (errorno == 8)
 		ft_putstr("Parse error : \"");
+	if (errorno == 9)
+		ft_putstr("TTF error : \"");
 	if (s != NULL)
 	{
 		ft_putstr(s);

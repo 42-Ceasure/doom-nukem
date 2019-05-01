@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/05/01 13:49:01 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/05/01 15:32:12 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,7 +408,7 @@ void				buttondown_event(t_env *w, t_map *m);
 void				buttonup_event(t_env *w, t_map *m);
 void				hello_screen(t_env *w, int n);
 int					load_sounds(t_env *w, t_map *m);
-void				ttf_init(t_env *w, t_map *m);
+int					ttf_init(t_env *w, t_map *m);
 SDL_Rect			init_sdl_rect(int x, int y, int w, int h);
 SDL_Color			init_sdl_color(int r, int g, int b);
 void				update_ttf_txtr3(t_env *w, t_map *m);
