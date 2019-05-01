@@ -117,6 +117,7 @@ typedef struct		s_player
 	int				aiming;
 	int				firing;
 	int				sector;
+	int				mousesp;
 	int				hud;
 	t_coor			coor;
 	int				memz;
@@ -268,24 +269,24 @@ typedef struct		s_map
 	int				s;
 	int				w;
 	int				fd;
-	char			*line;
 	int				section_number;
 	int				dots_count;
 	int				sector_count;
 	int				weapon_count;
 	int				sprite_count;
+	int				maxrenderedsector;
+	double			yaw;
+	double			gravity;
+	char			*line;
 	char			*map_name;
 	char			*map_path;
 	t_dot			*dot;
 	t_sector		*sector;
-	t_player		player;
-	double			yaw;
-	double			gravity;
-	int				maxrenderedsector;
 	t_weapon		*weap;
 	t_sprite		*sprite;
 	t_texture		*texture;
 	t_texture		hud;
+	t_player		player;
 }					t_map;
 
 typedef struct		s_menu

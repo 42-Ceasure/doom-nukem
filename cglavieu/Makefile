@@ -58,7 +58,7 @@ CURL_MIX	= 	`curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2
 all				:	libft sdl sdlmix $(NAME)
 
 $(NAME)			:	$(OBJ) $(LIBFT)
-					@$(CC) $(CFLAG) -lm $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^
+					@$(CC) $(CFLAG) -lm $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^ -lpthread
 					@echo "compile done"
 
 $(OBJDIR)%.o	:	$(SRCDIR)%.c $(INC)

@@ -22,6 +22,6 @@ void	ft_putendl_fd(char *s, int fd)
 		while (s[i])
 			i++;
 		write(fd, s, i);
-		ft_putchar('\n');
+		ft_putchar_fd('\n', fd);
 	}
 }

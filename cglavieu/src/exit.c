@@ -2,20 +2,12 @@
 
 #include "doom.h"
 
-void		empty_music(t_env *w, t_map *m)
+void		empty_music(t_env *w)
 {
 	if (w->sound.musique != NULL)
 		Mix_FreeMusic(w->sound.musique);
 	if (w->sound.jump != NULL)
 		Mix_FreeChunk(w->sound.jump);
-	if (m->weap[0].shoot != NULL)
-		Mix_FreeChunk(m->weap[0].shoot);
-	if (m->weap[1].shoot != NULL)
-		Mix_FreeChunk(m->weap[1].shoot);
-	if (m->weap[2].shoot != NULL)
-		Mix_FreeChunk(m->weap[2].shoot);
-	//if (m->weap[3].shoot != NULL)
-	//	Mix_FreeChunk(m->weap[3].shoot);
 	if (w->sound.ground != NULL)
 		Mix_FreeChunk(w->sound.ground);
 	Mix_CloseAudio();
@@ -60,6 +52,8 @@ void		empty_map(t_map *m)
 		{
 			while (i < m->weapon_count)
 			{
+				if (m->weap[i].shoot != NULL)
+					Mix_FreeChunk(m->weap[i].shoot);
 				free(m->weap[i].sprt[0].pix);
 				free(m->weap[i].sprt[0].name);
 				free(m->weap[i].sprt[1].pix);
@@ -88,10 +82,19 @@ void		empty_map(t_map *m)
 	}
 }
 
+void		empty_sdl(t_env *w)
+{
+	SDL_DestroyTexture(w->txtr);
+	SDL_DestroyRenderer(w->rdr);
+	SDL_DestroyWindow(w->win);
+	SDL_Quit();
+}
+
 void		exit_game(t_env *w, t_map *m)
 {
+	empty_music(w);
 	empty_map(m);
-	SDL_Quit();
+	empty_sdl(w);
 	empty_world(w);
-	exit(1);
+	exit(0);
 }
