@@ -32,13 +32,19 @@ void		affichage(t_env *w, t_map *m)
 		m->sector[m->player.sector].ceiling -= 1;
 	if (KEY == SDLK_TAB)
 		m->player.display = 1;
-	if (KEY == SDLK_f)
+	/*if (KEY == SDLK_f)
 	{
 		if (m->sector[1].ceiling < 40)
-			m->sector[1].ceiling += 2;
+		{
+			while (i < 39)
+			{
+				m->sector[1].ceiling++;
+				i++;
+			}
+		}
 		else
 			m->sector[1].ceiling -= 39;
-	}
+	}*/
 }
 
 void		music(t_env *w)
@@ -119,8 +125,12 @@ void		keydown_events(t_env *w, t_map *m)
 	}
 	if (KEY == SDLK_r)
 	{
-		m->weap[PH].actu_ammo = m->weap[PH].ammo;
-		update_ttf_txtr3(w, m);
+		if (Mix_Playing(3) == 0 && m->weap[PH].actu_ammo != m->weap[PH].magazine)
+		{
+			Mix_PlayChannel(3, w->sound.reload, 0);
+			m->weap[PH].actu_ammo = m->weap[PH].magazine;
+			update_ttf_txtr3(w, m);
+		}
 	}
 	sit_down(w, m);
 	music(w);

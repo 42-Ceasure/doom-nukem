@@ -23,7 +23,12 @@ void		buttondown_event(t_env *w, t_map *m)
 		{
 			Mix_PlayChannel(3, m->weap[PH].shoot, 0);
 			if (m->weap[PH].actu_ammo > 0)
-				m->weap[PH].actu_ammo -= 1;
+			{
+				if (ft_strcmp(m->weap[PH].name, "assault_riffle") == 0)
+					m->weap[PH].actu_ammo -= 5;
+				else
+					m->weap[PH].actu_ammo -= 1;
+			}
 		}
 		update_ttf_txtr3(w, m);
 	}

@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:02:56 by ochaar            #+#    #+#             */
-/*   Updated: 2019/04/30 13:04:16 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/04/30 16:12:04 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ SDL_Color		init_sdl_color(int r, int g, int b)
 	color.r = r;
 	color.g = g;
 	color.b = b;
-	return(color);
+	return (color);
 }
 
 SDL_Rect		init_sdl_rect(int x, int y, int w, int h)
@@ -46,7 +46,7 @@ void			ttf_init(t_env *w, t_map *m)
 {
 	TTF_Init();
 	w->ttf.police = TTF_OpenFont("arial.ttf", 65);
-	w->ttf.color[0] = init_sdl_color(255,0,0);
+	w->ttf.color[0] = init_sdl_color(255, 0, 0);
 	w->ttf.texte[0] = TTF_RenderText_Solid(w->ttf.police,
 		"HP : ", w->ttf.color[0]);
 	w->ttf.texte[1] = TTF_RenderText_Solid(w->ttf.police,

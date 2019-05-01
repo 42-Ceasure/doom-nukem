@@ -97,7 +97,6 @@ int		do_parse(t_map *m)
 		}
 		free(m->line);
 	}
-	ft_putstr("\rdone                            \r");
 	free(m->line);
 	close(m->fd);
 	return (0);
