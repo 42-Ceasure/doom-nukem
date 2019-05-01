@@ -67,3 +67,28 @@ void		interpret_cmd(t_env *w, t_map *m, char ***cmd)
 	}
 	ft_memreg3(cmd);
 }
+
+void			exec_cmd(t_env *w, t_map *m, char ***cmd, char **av)
+{
+	int ac;
+
+	ac = w->ac;
+	if ((cmd = parse_cmd(ac, av)) != NULL)
+	{
+		process_hint(3, "priority cmd");
+		l_f_priority_cmd(w, m, cmd);
+		process_hint(0, " ");
+		process_hint(2, "SDL2");
+		if ((init_sdl(w)) == -1)
+			set_error(w, m, 4, ft_strdup("SDL Initialisation"));
+		process_hint(0, " ");
+		process_hint(4, "map");;
+		parse_map_file(w, m);
+		process_hint(0, " ");
+		process_hint(3, "remaining cmd");
+		interpret_cmd(w, m, cmd);
+		process_hint(0, " ");
+	}
+	else
+		set_error(w, m, 1, ft_strdup(av[1]));
+}

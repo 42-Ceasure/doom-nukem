@@ -400,5 +400,12 @@ void				hello_screen(t_env *w, int n);
 int					load_sounds(t_env *w, t_map *m);
 void				process_hint(int i, char *s);
 void				print_load(char *s, int i3, int len);
+void				exec_cmd(t_env *w, t_map *m, char ***cmd, char **av);
+void				generate_config_file(int fd);
+void				parse_config_file(t_env *w, t_map *m, char *line);
+void				set_config(t_env *w, t_map *m);
+void				set_w(t_env *w, t_map *m, int ac);
+void				set_m(t_map *m);
+void				set_m_player(t_map *m);
 
 #endif
