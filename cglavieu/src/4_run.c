@@ -26,6 +26,9 @@ void	menu_screen(t_env *w)
 
 void	main_menu(t_env *w, t_map *m)
 {
+	int stop;
+
+	stop = 0;
 	while (1)
 	{
 		while (SDL_PollEvent(&w->event))
@@ -54,24 +57,24 @@ void	main_menu(t_env *w, t_map *m)
 				if (KEY == 27)
 				{
 					if (w->menu.screen == 0)
-						exit_game(w, m);
+						stop = 1;
 					else
 						w->menu.screen--;
 				}
 			}
 			
 		}
+		if (stop == 1)
+			break;
 		if (w->menu.screen == 0)
 			hello_screen(w);
 		else if (w->menu.screen == 1)
 			menu_screen(w);
 		else
-		{
-			if (!run(w, m))
-				set_error(w, m, 4, ft_strdup("run"));
-		}
+			run(w, m);
 		img_update(w);
 	}
+	exit_game(w, m);
 }
 
 void	ft_cursor(t_env *w, t_map *m)
@@ -115,14 +118,22 @@ void	ft_hud(t_map *m, t_env *w)
 	}
 }
 
-int		run(t_env *w, t_map *m)
+void	run(t_env *w, t_map *m)
 {
+	m->stop = 0;
 	while (1)
 	{
 		while (SDL_PollEvent(&w->event))
 		{
 			if (w->event.type == SDL_KEYDOWN)
+			{
+				if (KEY == 27)
+				{
+					w->menu.screen = 1;
+					m->stop = 1;
+				}
 				keydown_events(w, m);
+			}
 			if (w->event.type == SDL_KEYUP)
 				keyup_events(w, m);
 			if (w->event.type == SDL_MOUSEMOTION)
@@ -132,6 +143,8 @@ int		run(t_env *w, t_map *m)
 			if (w->event.type == SDL_MOUSEBUTTONUP)
 				buttonup_event(w, m);
 		}
+		if (m->stop == 1)
+			break;
 		w->inkeys = SDL_GetKeyboardState(NULL);
 		key_events(w, m);
 		if (m->player.display == 0)
@@ -151,5 +164,4 @@ int		run(t_env *w, t_map *m)
 		is_moving(m);
 		slow_down(w, m);
 	}
-	return (0);
 }

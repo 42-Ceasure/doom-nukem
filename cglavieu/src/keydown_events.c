@@ -91,8 +91,8 @@ void		sit_down(t_env *w, t_map *m)
 
 void		keydown_events(t_env *w, t_map *m)
 {
-	if (KEY == 27)
-		exit_game(w, m);
+	// if (KEY == 27)
+	// 	exit_game(w, m);
 	if (KEY == SDLK_t)
 	{
 		if (m->trippymod == 1)

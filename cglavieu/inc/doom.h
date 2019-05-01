@@ -265,6 +265,7 @@ typedef struct		s_weapon
 
 typedef struct		s_map
 {
+	int				stop;
 	int				launchwmap;
 	int				trippymod;
 	int				i;
@@ -357,7 +358,7 @@ void				exit_game(t_env *w, t_map *m);
 int					init_sdl(t_env *w);
 void				img_update(t_env *w);
 void				clean_render(t_env *w, Uint32 color);
-int					run(t_env *w, t_map *m);
+void				run(t_env *w, t_map *m);
 void				draw(t_env *w, t_map *m);
 void				draw_mini_map(t_env *w, t_map *m);
 Uint32				color(Uint32 color1);

@@ -53,6 +53,7 @@ void			set_w(t_env *w, t_map *m, int ac)
 
 void			set_m(t_map *m)
 {
+	m->stop = 0;
 	m->launchwmap = 0;
 	m->trippymod = 0;
 	m->i = 0;
