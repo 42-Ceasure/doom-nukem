@@ -45,11 +45,8 @@ void			set_w(t_env *w, t_map *m, int ac)
 	w->pix = NULL;
 	w->inkeys = NULL;
 	w->txtr = NULL;
-	w->main_pic[0] = load_img(w, m, "./img/main_screen1.bmp");
-	w->main_pic[1] = load_img(w, m, "./img/main_screen2.bmp");
-	w->main_pic[2] = load_img(w, m, "./img/main_menu1.bmp");
-	w->main_pic[3] = load_img(w, m, "./img/main_menu2.bmp");
-	w->main_pic[4] = load_img(w, m, "./img/main_menu3.bmp");
+	w->main_pic[0] = load_img(w, m, "./img/main_screen.bmp");
+	w->main_pic[1] = load_img(w, m, "./img/main_menu.bmp");
 	w->menu.screen = 0;
 	w->menu.sel = 0;
 }

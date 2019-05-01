@@ -21,12 +21,6 @@ void		empty_world(t_env *w)
 			free(w->main_pic[0].pix);
 		if (w->main_pic[1].pix != NULL)
 			free(w->main_pic[1].pix);
-		if (w->main_pic[2].pix != NULL)
-			free(w->main_pic[2].pix);
-		if (w->main_pic[3].pix != NULL)
-			free(w->main_pic[3].pix);
-		if (w->main_pic[4].pix != NULL)
-			free(w->main_pic[4].pix);
 		if (w->pix != NULL)
 			free(w->pix);
 		free(w);

@@ -100,7 +100,7 @@ int			init_sdl(t_env *w)
 										WIDTH, HEIGHT);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_ShowCursor(SDL_DISABLE);
-	hello_screen(w, 0);
+	hello_screen(w);
 	img_update(w);
 	SDL_Delay(1500);
 	return (0);

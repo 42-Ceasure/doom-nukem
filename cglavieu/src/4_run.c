@@ -2,24 +2,24 @@
 
 #include "doom.h"
 
-void	hello_screen(t_env *w, int n)
+void	hello_screen(t_env *w)
 {
 	w->i = 0;
-	while (w->i < w->main_pic[n].h * w->main_pic[n].w)
+	while (w->i < w->main_pic[0].h * w->main_pic[0].w)
 	{
 		if (w->i < w->res.width * w->res.height)
-			w->pix[w->i] = w->main_pic[n].pix[w->i];
+			w->pix[w->i] = w->main_pic[0].pix[w->i];
 		w->i++;
 	}
 }
 
-void	menu_screen(t_env *w, int menu, int sel)
+void	menu_screen(t_env *w)
 {
 	w->i = 0;
-	while (w->i < w->main_pic[menu + sel].h * w->main_pic[menu + sel].w)
+	while (w->i < w->main_pic[1].h * w->main_pic[1].w)
 	{
 		if (w->i < w->res.width * w->res.height)
-			w->pix[w->i] = w->main_pic[menu + sel].pix[w->i];
+			w->pix[w->i] = w->main_pic[1].pix[w->i];
 		w->i++;
 	}
 }
@@ -34,17 +34,8 @@ void	main_menu(t_env *w, t_map *m)
 			{
 				if (KEY == SDLK_RETURN)
 				{
-					if (w->menu.screen == 0)
-						w->menu.screen = 1;
-					else if (w->menu.screen == 1 && w->menu.sel == 0)
-					{
-						// m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
-						// m->map_name = ft_strdup("Home Sweet Home");
-						// parse_map_file(w, m);
-						w->menu.screen = 2;
-					}
-					else if (w->menu.screen == 1 && w->menu.sel == 2)
-						exit_game(w, m);
+					if (w->menu.screen < 2)
+						w->menu.screen++;
 				}
 				if (KEY == SDLK_UP)
 				{
@@ -64,16 +55,16 @@ void	main_menu(t_env *w, t_map *m)
 				{
 					if (w->menu.screen == 0)
 						exit_game(w, m);
-					else if (w->menu.screen == 1)
-						w->menu.screen = 0;
+					else
+						w->menu.screen--;
 				}
 			}
 			
 		}
 		if (w->menu.screen == 0)
-			hello_screen(w, 1);
+			hello_screen(w);
 		else if (w->menu.screen == 1)
-			menu_screen(w, w->menu.screen + 1, w->menu.sel);
+			menu_screen(w);
 		else
 		{
 			if (!run(w, m))
