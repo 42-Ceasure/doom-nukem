@@ -36,8 +36,8 @@ int		ceiling_and_floor(t_draw *d, t_map *m, t_reader read, int point)
 	d->yscale1 = (m->player.field_of_vision_v) / d->t1.z;
 	d->xscale2 = m->player.field_of_vision_h / d->t2.z;
 	d->yscale2 = (m->player.field_of_vision_v) / d->t2.z;
-	d->x1 = WIDTH / 2 - (int)(d->t1.x * d->xscale1);
-	d->x2 = WIDTH / 2 - (int)(d->t2.x * d->xscale2);
+	d->x1 = d->winwidth / 2 - (int)(d->t1.x * d->xscale1);
+	d->x2 = d->winwidth / 2 - (int)(d->t2.x * d->xscale2);
 	if (d->x1 >= d->x2 || d->x2 < read.now.sx1
 			|| d->x1 > read.now.sx2)
 		return (0);
@@ -54,17 +54,17 @@ int		ceiling_and_floor(t_draw *d, t_map *m, t_reader read, int point)
 	return (1);
 }
 
-int		moving_head(t_draw *w, t_reader read, t_map *m)
+int		moving_head(t_draw *d, t_reader read, t_map *m)
 {
-	w->y1a = HEIGHT / 2 - (int)(yaw(w->yceil, w->t1.z, m) * w->yscale1);
-	w->y2a = HEIGHT / 2 - (int)(yaw(w->yceil, w->t2.z, m) * w->yscale2);
-	w->y1b = HEIGHT / 2 - (int)(yaw(w->yfloor, w->t1.z, m) * w->yscale1);
-	w->y2b = HEIGHT / 2 - (int)(yaw(w->yfloor, w->t2.z, m) * w->yscale2);
-	w->ny1a = HEIGHT / 2 - (int)(yaw(w->nyceil, w->t1.z, m) * w->yscale1);
-	w->ny2a = HEIGHT / 2 - (int)(yaw(w->nyceil, w->t2.z, m) * w->yscale2);
-	w->ny1b = HEIGHT / 2 - (int)(yaw(w->nyfloor, w->t1.z, m) * w->yscale1);
-	w->ny2b = HEIGHT / 2 - (int)(yaw(w->nyfloor, w->t2.z, m) * w->yscale2);
-	w->startx = vmax(w->x1, read.now.sx1);
-	w->endx = vmin(w->x2, read.now.sx2);
-	return (w->startx);
+	d->y1a = d->winheight / 2 - (int)(yaw(d->yceil, d->t1.z, m) * d->yscale1);
+	d->y2a = d->winheight / 2 - (int)(yaw(d->yceil, d->t2.z, m) * d->yscale2);
+	d->y1b = d->winheight / 2 - (int)(yaw(d->yfloor, d->t1.z, m) * d->yscale1);
+	d->y2b = d->winheight / 2 - (int)(yaw(d->yfloor, d->t2.z, m) * d->yscale2);
+	d->ny1a = d->winheight / 2 - (int)(yaw(d->nyceil, d->t1.z, m) * d->yscale1);
+	d->ny2a = d->winheight / 2 - (int)(yaw(d->nyceil, d->t2.z, m) * d->yscale2);
+	d->ny1b = d->winheight / 2 - (int)(yaw(d->nyfloor, d->t1.z, m) * d->yscale1);
+	d->ny2b = d->winheight / 2 - (int)(yaw(d->nyfloor, d->t2.z, m) * d->yscale2);
+	d->startx = vmax(d->x1, read.now.sx1);
+	d->endx = vmin(d->x2, read.now.sx2);
+	return (d->startx);
 }

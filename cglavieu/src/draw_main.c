@@ -108,7 +108,7 @@ void	draw(t_env *w, t_map *m)
 		if (x < m->sector_count)
 			renderedsectors[x] = 0;
 	}
-	w->i = init_draw(&d, &read, m);
+	w->i = init_draw(w, &d, &read, m);
 	while (read.head != read.tail)
 	{
 		read.now = *read.tail;

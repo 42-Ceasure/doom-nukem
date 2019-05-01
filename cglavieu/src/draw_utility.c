@@ -64,8 +64,10 @@ void	clean_render(t_env *w, Uint32 color)
 	}
 }
 
-int		init_draw(t_draw *d, t_reader *read, t_map *m)
+int		init_draw(t_env *w, t_draw *d, t_reader *read, t_map *m)
 {
+	d->winwidth = WIDTH;
+	d->winheight = HEIGHT;
 	read->head = read->queue;
 	read->tail = read->queue;
 	read->head->sectorno = m->player.sector;

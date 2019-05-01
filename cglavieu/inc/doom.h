@@ -22,10 +22,10 @@
 # define NAME 				"Doom-Numkem3D"
 # define BASEWIDTH 			1024
 # define BASEHEIGHT 		576
-# define WIDTH 				w->wwidth
-# define HEIGHT 			w->wheight
 # define RESIZABLE_SCREEN	1
 # define FULL_SCREEN		0
+# define WIDTH 				w->res.width
+# define HEIGHT 			w->res.height
 # define KEY 				w->event.key.keysym.sym
 # define BUTTON				w->event.button.button
 # define MRS				32
@@ -160,6 +160,8 @@ typedef struct		s_intersect
 
 typedef struct		s_draw
 {
+	int				winwidth;
+	int				winheight;
 	t_color			color;
 	t_color			color2;
 	t_intersect		i1;
@@ -216,8 +218,8 @@ typedef struct		s_draw
 	double			startx;
 	double			endx;
 	int				z;
-	int				ytop[WIDTH];
-	int				ybot[WIDTH];
+	int				ytop[3840];
+	int				ybot[2160];
 	unsigned int	r;
 	unsigned int	r1;
 	unsigned int	r2;
@@ -303,12 +305,17 @@ typedef struct		s_sound
 	Mix_Chunk 		*ground;
 }					t_sound;
 
+typedef struct		s_res
+{
+	int width;
+	int height;
+}					t_res;
+
 typedef struct		s_env
 {
 	int				i;
 	int				ac;
-	int				wwidth;
-	int				wheight;
+	t_res			res;
 	int				window_mode;
 	int				sequential_draw;
 	SDL_Window		*win;
@@ -368,7 +375,7 @@ double				pointside(t_coor p, double x0,
 					double y0, double x1, double y1);
 double				yaw(double y, double z, t_map *m);
 void				init_verification(t_draw *draw);
-int					init_draw(t_draw *d, t_reader *read, t_map *m);
+int					init_draw(t_env *w, t_draw *d, t_reader *read, t_map *m);
 void				vertical_line(int x, int *box, t_env *w, t_color color);
 void				ceiling_line(int x, int *box, t_env *w, Uint32 color);
 int					moving_head(t_draw *w, t_reader read, t_map *m);
