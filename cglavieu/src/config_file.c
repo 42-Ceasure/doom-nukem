@@ -23,6 +23,22 @@ void			generate_config_file(int fd)
 	free(path);
 }
 
+void			set_screen_res(t_env *w, char *ratio)
+{
+	int			n;
+
+	n = ft_atoi(ratio);
+	if (n == 0) //			16/9
+		w->wwidth = w->wheight * 16 / 9;
+	else if (n == 1)
+		w->wwidth = w->wheight * 4 / 3;
+	else
+	{
+		w->wwidth = BASEWIDTH;
+		w->wheight = BASEHEIGHT;
+	}
+}
+
 void			parse_config_file(t_env *w, t_map *m, char *line)
 {
 	char **tmp;
@@ -32,6 +48,10 @@ void			parse_config_file(t_env *w, t_map *m, char *line)
 	{
 		if (ft_strcmp(tmp[0], "\twindow_mode") == 0)
 			w->window_mode = ft_atoi(tmp[1]);
+		else if (ft_strcmp(tmp[0], "window_height") == 0)
+			w->wheight = ft_atoi(tmp[1]);
+		else if (ft_strcmp(tmp[0], "window_ratio") == 0)
+			set_screen_res(w, tmp[1]);
 		else if (ft_strcmp(tmp[0], "\tHfov") == 0)
 			m->player.field_of_vision_h = ft_atof(tmp[1]);
 		else if (ft_strcmp(tmp[0], "\tVfov") == 0)

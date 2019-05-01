@@ -20,10 +20,10 @@
 # include <fcntl.h>
 
 # define NAME 				"Doom-Numkem3D"
-# define WIDTH 				1024
-# define HEIGHT 			576
-// # define WIDTH 				1920
-// # define HEIGHT 			1080
+# define BASEWIDTH 			1024
+# define BASEHEIGHT 		576
+# define WIDTH 				w->wwidth
+# define HEIGHT 			w->wheight
 # define RESIZABLE_SCREEN	1
 # define FULL_SCREEN		0
 # define KEY 				w->event.key.keysym.sym
@@ -307,6 +307,8 @@ typedef struct		s_env
 {
 	int				i;
 	int				ac;
+	int				wwidth;
+	int				wheight;
 	int				window_mode;
 	int				sequential_draw;
 	SDL_Window		*win;
