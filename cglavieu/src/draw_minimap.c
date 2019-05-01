@@ -4,7 +4,7 @@
 
 void	set_txtr_pix(t_env *w, int x, int y, Uint32 color)
 {
-	if (y >= 0 && HEIGHT && x >= 0 && x < WIDTH)
+	if (y >= 0 && y < HEIGHT && x >= 0 && x < WIDTH)
 		w->pix[y * WIDTH + x] = color;
 }
 
@@ -62,6 +62,8 @@ void	draw_mini_map(t_env *w, t_map *m)
 		point = 0;
 		while (point < m->sector[sector].wall_count)
 		{
+			d.winwidth = WIDTH;
+			d.winheight = HEIGHT;
 			init_mini_map(m, &d, point, sector);
 			if (m->sector[sector].network[point] < 0)
 				vect_ab(d.t1, d.t2, w, 0x12FF0000);
