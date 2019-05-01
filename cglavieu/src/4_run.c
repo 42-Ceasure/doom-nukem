@@ -7,7 +7,8 @@ void	hello_screen(t_env *w, int n)
 	w->i = 0;
 	while (w->i < w->main_pic[n].h * w->main_pic[n].w)
 	{
-		w->pix[w->i] = w->main_pic[n].pix[w->i];
+		if (w->i < w->res.width * w->res.height)
+			w->pix[w->i] = w->main_pic[n].pix[w->i];
 		w->i++;
 	}
 }
@@ -17,7 +18,8 @@ void	menu_screen(t_env *w, int menu, int sel)
 	w->i = 0;
 	while (w->i < w->main_pic[menu + sel].h * w->main_pic[menu + sel].w)
 	{
-		w->pix[w->i] = w->main_pic[menu + sel].pix[w->i];
+		if (w->i < w->res.width * w->res.height)
+			w->pix[w->i] = w->main_pic[menu + sel].pix[w->i];
 		w->i++;
 	}
 }

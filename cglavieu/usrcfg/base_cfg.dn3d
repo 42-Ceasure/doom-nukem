@@ -1,7 +1,6 @@
 settings
 	window_mode:1
-	window_height:576
-	window_ratio:0
+	window_aspect:0
 	Hfov:512
 	Vfov:288
 	mouse_speed:1
