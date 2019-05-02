@@ -314,6 +314,14 @@ typedef struct		s_res
 	int height;
 }					t_res;
 
+typedef struct		s_text
+{
+	int				x;
+	int				y;
+	char			*text;
+	Uint32			color;
+}					t_text;
+
 typedef struct		s_env
 {
 	int				i;
@@ -331,6 +339,7 @@ typedef struct		s_env
 	SDL_Event		event;
 	t_texture		ascii[42];
 	t_texture		main_pic[2];
+	t_text			txt;
 	t_menu			menu;
 }					t_env;
 
@@ -424,5 +433,6 @@ void				set_m_player(t_map *m);
 void				load_core(t_env *w, t_map *m);
 t_texture			parse_texture(t_env *w, t_map *m, char **tmp);
 Uint32				*faster_please(Uint32 *dst, char *src, int len);
+void				type_text(t_env *w, t_dot dot, char *s, Uint32 color);
 
 #endif

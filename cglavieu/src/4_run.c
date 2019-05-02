@@ -27,7 +27,10 @@ void	menu_screen(t_env *w)
 void	main_menu(t_env *w, t_map *m)
 {
 	int stop;
+	t_dot dot;
 
+	dot.x = 600;
+	dot.y = 520;
 	stop = 0;
 	while (1)
 	{
@@ -67,7 +70,10 @@ void	main_menu(t_env *w, t_map *m)
 		if (stop == 1)
 			break;
 		if (w->menu.screen == 0)
+		{
 			hello_screen(w);
+			type_text(w, dot, "press enter", 0x12FF0000);
+		}
 		else if (w->menu.screen == 1)
 			menu_screen(w);
 		else

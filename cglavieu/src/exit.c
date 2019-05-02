@@ -15,6 +15,9 @@ void		empty_music(t_env *w)
 
 void		empty_world(t_env *w)
 {
+	int		i;
+
+	i = 0;
 	if (w != NULL)
 	{
 		if (w->main_pic[0].pix != NULL)
@@ -23,6 +26,11 @@ void		empty_world(t_env *w)
 			free(w->main_pic[1].pix);
 		if (w->pix != NULL)
 			free(w->pix);
+		while (i < 42)
+		{
+			free(w->ascii[i].pix);
+			i++;
+		}
 		free(w);
 	}
 }
