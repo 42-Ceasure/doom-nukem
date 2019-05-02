@@ -9,6 +9,11 @@ void		parse_core_file(t_env *w, t_map *m, char *line)
 	tmp = ft_strsplit(line, ':');
 	if (tmp[0] != NULL)
 	{
+		if (ft_strcmp(tmp[0], "\tascii") == 0 && w->asciino < 42)
+		{
+			w->ascii[w->asciino] = parse_texture(w, m, tmp);
+			w->asciino++;
+		}
 		if (ft_strcmp(tmp[0], "\tmain_pic[0]") == 0)
 		{
 			if (w->main_pic[0].pix != NULL)

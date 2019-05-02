@@ -318,6 +318,7 @@ typedef struct		s_env
 {
 	int				i;
 	int				ac;
+	int				asciino;
 	t_res			res;
 	int				window_mode;
 	int				sequential_draw;
@@ -328,6 +329,7 @@ typedef struct		s_env
 	const Uint8		*inkeys;
 	SDL_Texture		*txtr;
 	SDL_Event		event;
+	t_texture		ascii[42];
 	t_texture		main_pic[2];
 	t_menu			menu;
 }					t_env;

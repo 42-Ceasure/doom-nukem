@@ -6,24 +6,32 @@ void		extract_bmp(t_env *w, t_map *m, char **cmd)
 {
 	t_texture	texture;
 	int			i;
+	int			index;
 	char		*str;
 
-	i = 0;
-	texture = load_img(w, m, cmd[1]);
-	ft_putnbr(texture.w);
-	ft_putchar(',');
-	ft_putnbr(texture.h);
-	ft_putchar(':');
-	while (i < texture.w * texture.h)
+	index = 1;
+	while (cmd[index] != NULL)
 	{
-		str = ft_uitoa_base(texture.pix[i], 16);
-		ft_putstr(str);
-		i++;
-		if (i < texture.w * texture.h)
-			ft_putchar(',');
-		free(str);
+		i = 0;
+		texture = load_img(w, m, cmd[index]);
+		// ft_putstr("\tascii:");
+		ft_putnbr(texture.w);
+		ft_putchar(',');
+		ft_putnbr(texture.h);
+		ft_putchar(':');
+		while (i < texture.w * texture.h)
+		{
+			str = ft_uitoa_base(texture.pix[i], 16);
+			ft_putstr(str);
+			i++;
+			if (i < texture.w * texture.h)
+				ft_putchar(',');
+			free(str);
+		}
+		ft_putchar('\n');
+		free(texture.pix);
+		index++;
 	}
-	ft_putchar('\n');
 	exit_game(w, m, 1);
 }
 

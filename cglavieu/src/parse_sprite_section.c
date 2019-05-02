@@ -20,6 +20,12 @@ Uint32		*faster_please(Uint32 *dst, char *src, int len)
 			current[i2] = src[i];
 			i++;
 			i2++;
+			if (i2 == 9)
+			{
+				ft_putendl("\n");
+				ft_putnbr(i3);
+				ft_putendl("\n");
+			}
 		}
 		current[i2] = '\0';
 		dst[i3] = ft_atoui_base(current, 16);
