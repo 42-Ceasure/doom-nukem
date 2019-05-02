@@ -4,110 +4,46 @@
 
 void		affichage(t_env *w, t_map *m)
 {
-	// int i;
-
-	// i = 0;
 	if (KEY == SDLK_i)
-	{
-		if (m->player.hud != 1)
-			m->player.hud = 1;
-		else
-			m->player.hud = 0;
-	}
-	if (KEY == SDLK_UP)
-		m->player.field_of_vision_v += 5;
-	if (KEY == SDLK_DOWN)
-		m->player.field_of_vision_v -= 5;
-	if (KEY == SDLK_RIGHT)
-		m->player.field_of_vision_h += 5;
-	if (KEY == SDLK_LEFT)
-		m->player.field_of_vision_h -= 5;
-	if (KEY == SDLK_PAGEUP)
-		m->sector[m->player.sector].floor += 1;
-	if (KEY == SDLK_PAGEDOWN)
-		m->sector[m->player.sector].floor -= 1;
-	if (KEY == SDLK_HOME)
-		m->sector[m->player.sector].ceiling += 1;
-	if (KEY == SDLK_END)
-		m->sector[m->player.sector].ceiling -= 1;
+		hud(m);
 	if (KEY == SDLK_TAB)
-		m->player.display = 1;
+		minimap(m);
 	if (KEY == SDLK_f)
-	{
-		if (m->sector[1].ceiling < 40)
-			m->sector[1].ceiling += 2;
-		else
-			m->sector[1].ceiling -= 39;
-	}
+		och_door(m);
 }
 
 void		music(t_env *w)
 {
 	if (KEY == SDLK_p)
-	{
-		if (Mix_PausedMusic() == 1)
-			Mix_ResumeMusic();
-		else
-			Mix_PauseMusic();
-	}
+		pause_music();
 	if (KEY == SDLK_KP_PLUS)
-	{
-		w->sound.volume += 5;
-		w->sound.volume = (int)vmid(0, w->sound.volume, 128);
-		Mix_VolumeMusic(w->sound.volume);
-	}
+		volume_more(w);
 	if (KEY == SDLK_KP_MINUS)
-	{
-		w->sound.volume -= 5;
-		w->sound.volume = (int)vmid(0, w->sound.volume, 128);
-		Mix_VolumeMusic(w->sound.volume);
-	}
+		volume_less(w);
 }
 
 void		sit_down(t_env *w, t_map *m)
 {
 	if (KEY == SDLK_LCTRL)
-	{
-		m->player.stance = 1;
-		m->player.fall = 1;
-	}
+		crouch(m);
 	if (KEY == SDLK_z)
-	{
-		if (m->player.stance != 2)
-			m->player.stance = 2;
-		else
-			m->player.stance = 0;
-		m->player.fall = 1;
-	}
+		crawl_lock(m);
 	if (KEY == SDLK_x)
-	{
-		if (m->player.stance != 1)
-			m->player.stance = 1;
-		else
-			m->player.stance = 0;
-		m->player.fall = 1;
-	}
+		crouch_lock(m);
 }
 
 void		keydown_events(t_env *w, t_map *m)
 {
-	// if (KEY == 27)
-	// 	exit_game(w, m);
-	if (KEY == SDLK_t)
-	{
-		if (m->trippymod == 1)
-			m->trippymod = 0;
-		else
-			m->trippymod = 1;
-	}
-	if (KEY == SDLK_KP_9)
-		printf("hfov:%f,vfov:%f\n", m->player.field_of_vision_h, m->player.field_of_vision_v);
+	if (KEY == 27)
+		exit_game(w, m, 1);
 	if (KEY == SDLK_1)
-		m->player.handed = 0;
+		switch_weapon(m, 0);
 	if (KEY == SDLK_2)
-		m->player.handed = 1;
+		switch_weapon(m, 1);
 	if (KEY == SDLK_3)
-		m->player.handed = 2;
+		switch_weapon(m, 2);
+	if (KEY == SDLK_r)
+		reload_weapon(w, m);
 	sit_down(w, m);
 	music(w);
 	affichage(w, m);

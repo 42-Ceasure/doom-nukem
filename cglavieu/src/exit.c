@@ -2,7 +2,7 @@
 
 #include "doom.h"
 
-void		empty_music(t_env *w)
+void		empty_music(t_env *w, t_map *m)
 {
 	if (w->sound.musique != NULL)
 		Mix_FreeMusic(w->sound.musique);
@@ -10,6 +10,14 @@ void		empty_music(t_env *w)
 		Mix_FreeChunk(w->sound.jump);
 	if (w->sound.ground != NULL)
 		Mix_FreeChunk(w->sound.ground);
+	if (m->weap[0].shoot != NULL)
+		Mix_FreeChunk(m->weap[0].shoot);
+	if (m->weap[1].shoot != NULL)
+		Mix_FreeChunk(m->weap[1].shoot);
+	if (m->weap[2].shoot != NULL)
+		Mix_FreeChunk(m->weap[2].shoot);
+	if (w->sound.reload != NULL)
+		Mix_FreeChunk(w->sound.reload);
 	Mix_CloseAudio();
 }
 
@@ -26,11 +34,14 @@ void		empty_world(t_env *w)
 			free(w->main_pic[1].pix);
 		if (w->pix != NULL)
 			free(w->pix);
+		if (w->hud.pix != NULL)
+			free(w->hud.pix);
 		while (i < 42)
 		{
 			free(w->ascii[i].pix);
 			i++;
 		}
+		free(w->menu.y);
 		ft_memreg3(w->menu.list);
 		free(w);
 	}
@@ -95,7 +106,7 @@ void		empty_sdl(t_env *w)
 
 void		exit_game(t_env *w, t_map *m, int i)
 {
-	empty_music(w);
+	empty_music(w, m);
 	empty_map(m);
 	empty_sdl(w);
 	empty_world(w);

@@ -54,9 +54,10 @@ void			set_w(t_env *w, int ac)
 	w->main_pic[1].h = w->res.height;
 	w->main_pic[1].len = w->res.width * w->res.height;
 	w->main_pic[1].pix = (Uint32 *)malloc(sizeof(Uint32) * w->main_pic[0].len);
-	w->menu.y = 0;
 	w->menu.z = 0;
+	w->menu.y = NULL;
 	w->menu.list = NULL;
+	w->hud.pix = NULL;
 }
 
 void			set_m(t_map *m)
@@ -84,7 +85,6 @@ void			set_m(t_map *m)
 	m->weap = NULL;
 	m->sprite = NULL;
 	m->texture = NULL;
-	m->hud.pix = NULL;
 }
 
 void			set_m_player(t_map *m)

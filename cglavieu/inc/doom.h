@@ -258,6 +258,7 @@ typedef struct		s_weapon
 	int				accuracy;
 	int				dispertion;
 	int				ammo;
+	int				actu_ammo;
 	int				magazine;
 	int				reloadtime;
 	t_sprite		sprt[5];
@@ -293,10 +294,27 @@ typedef struct		s_map
 	t_player		player;
 }					t_map;
 
+// typedef struct		s_entry
+// {
+// 	int				type;
+// 	char			*champ;
+// 	int				val;
+// 	t_menu			menu;
+// }					t_entry;
+
+// typedef struct		s_menu
+// {
+// 	int				id;
+// 	t_menu			*menu;
+// 	t_entry			*entry;
+// }					t_menu;
+
 typedef struct		s_menu
 {
-	int				y;
+	int				i;
+	int				j;
 	int				z;
+	int				*y;
 	char			***list;
 }					t_menu;
 
@@ -306,6 +324,7 @@ typedef struct		s_sound
 	Mix_Music		*musique;
 	Mix_Chunk 		*jump;
 	Mix_Chunk 		*ground;
+	Mix_Chunk		*reload;
 }					t_sound;
 
 typedef struct		s_res
@@ -435,5 +454,29 @@ void				load_core(t_env *w, t_map *m);
 t_texture			parse_texture(t_env *w, t_map *m, char **tmp);
 Uint32				*faster_please(Uint32 *dst, char *src, int len);
 void				type_str(t_env *w, t_dot dot, char *s, Uint32 color);
+void				go_forward(t_map *m);
+void				go_back(t_map *m);
+void				go_left(t_map *m);
+void				go_right(t_map *m);
+void				look_left(t_map *m);
+void				look_right(t_map *m);
+void				jump(t_env *w, t_map *m);
+void				sprint(t_map *m);
+void				hud(t_map *m);
+void				minimap(t_map *m);
+void				och_door(t_map *m);
+void				pause_music(void);
+void				volume_more(t_env *w);
+void				volume_less(t_env *w);
+void				crouch(t_map *m);
+void				crawl_lock(t_map *m);
+void				crouch_lock(t_map *m);
+void				switch_weapon(t_map *m, int i);
+void				look_around(t_env *w, t_map *m);
+void				stop_shoot(t_map *m);
+void				shoot(t_map *m);
+void				stop_aim(t_env *w, t_map *m);
+void				aim(t_env *w, t_map *m);
+void				reload_weapon(t_env *w, t_map *m);
 
 #endif

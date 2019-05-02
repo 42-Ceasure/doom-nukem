@@ -1,44 +1,26 @@
-/**/
+/*BIG42HEADER*/
 
 #include "doom.h"
 
 void		buttonup_event(t_env *w, t_map *m)
 {
 	if (BUTTON == SDL_BUTTON_LEFT)
-		m->player.firing = 0;
+		stop_shoot(m);
 	if (BUTTON == SDL_BUTTON_RIGHT)
-	{
-		m->player.field_of_vision_h = WIDTH / 2;
-		m->player.field_of_vision_v = HEIGHT / 2;
-		m->player.aiming = 0;
-	}
+		stop_aim(w, m);
 }
 
 void		buttondown_event(t_env *w, t_map *m)
 {
 	if (BUTTON == SDL_BUTTON_LEFT)
-	{
-		m->player.firing = 1;
-		if (Mix_Playing(3) == 0)
-			Mix_PlayChannel(3, m->weap[PH].shoot, 0);
-	}
+		shoot(m);
 	if (BUTTON == SDL_BUTTON_RIGHT)
-	{
-		m->player.field_of_vision_h = WIDTH;
-		m->player.field_of_vision_v = HEIGHT;
-		m->player.aiming = 1;
-	}
+		aim(w, m);
 }
 
 void		motion_events(t_env *w, t_map *m)
 {
-	PL_A = PL_A + (w->event.motion.xrel * 0.001) * m->player.mousesp;
-	if (PL_A > 2 * M_PI)
-		PL_A = PL_A - 2 * M_PI;
-	if (PL_A < 0)
-		PL_A = PL_A + 2 * M_PI;
-	m->yaw = vmid(m->yaw + (w->event.motion.yrel * 0.002) * m->player.mousesp, -4, 4);
-	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
+	look_around(w, m);
 	if (m->player.display == 0)
 	{
 		w->event.motion.x = WIDTH / 2;

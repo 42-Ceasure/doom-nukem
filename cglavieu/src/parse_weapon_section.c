@@ -23,7 +23,10 @@ int					parse_weapon_section(t_map *m, char **tab)
 			if (tmp[4])
 				m->weap[m->w].ammo = ft_atoi(tmp[4]);
 			if (tmp[5])
+			{
 				m->weap[m->w].magazine = ft_atoi(tmp[5]);
+				m->weap[m->w].actu_ammo = m->weap[m->w].magazine;
+			}
 		}
 		if (tab[3])
 			m->weap[m->w].reloadtime = ft_atof(tab[3]);

@@ -53,6 +53,8 @@ int			load_sounds(t_env *w, t_map *m)
 	Mix_AllocateChannels(10);
 	if (!(w->sound.jump = Mix_LoadWAV("./sounds/jump2.wav")))
 		return (-1);
+	if (!(w->sound.reload = Mix_LoadWAV("./sounds/reload.wav")))
+		return (-1);
 	if (!(m->weap[0].shoot = Mix_LoadWAV("./sounds/MP5.wav")))
 		return (-1);
 	if (!(w->sound.ground = Mix_LoadWAV("./sounds/ground.wav")))

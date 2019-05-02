@@ -2,33 +2,38 @@
 
 #include "doom.h"
 
-char		***parse_menu_line(t_env *w, char **tmp)
+t_menu		parse_menu_line(t_env *w, char **tmp)
 {
 	char	**tmp2;
-	char	***menu;
+	t_menu	menu;
 	int		i;
-	int		menuc;
 	int		entryc;
 
 	i = 0;
 	w->i = 0;
-	menuc = 0;
-	while (tmp[menuc + 1])
-		menuc++;
-	menu = (char ***)malloc(sizeof(char **) * (menuc + 1));
-	menu[menuc] = NULL;
-	while (i < menuc)
+	menu.z = 0;
+	menu.i = 0;
+	menu.j = 0;
+	while (tmp[menu.z + 1])
+		menu.z++;
+	menu.y = (int *)malloc(sizeof(int) * (menu.z + 1));
+	menu.y[0] = 0;
+	menu.list = (char ***)malloc(sizeof(char **) * (menu.z + 1));
+	menu.list[menu.z] = NULL;
+	while (i < menu.z)
 	{
 		entryc = 1;
 		tmp2 = ft_strsplit(tmp[i + 1], ',');
 		while (tmp2[entryc] != NULL)
 			entryc++;
-		menu[i] = (char **)malloc(sizeof(char *) * (entryc + 1));
-		menu[i][entryc] = NULL;
+		printf("i:%d\n", i + 1);
+		menu.y[i + 1] = entryc -1;
+		menu.list[i] = (char **)malloc(sizeof(char *) * (entryc + 1));
+		menu.list[i][entryc] = NULL;
 		entryc--;
 		while (entryc >= 0)
 		{
-			menu[i][entryc] = ft_strdup(tmp2[entryc]);
+			menu.list[i][entryc] = ft_strdup(tmp2[entryc]);
 			entryc--;
 		}
 		ft_memreg(tmp2);
@@ -48,7 +53,7 @@ void		parse_core_file(t_env *w, t_map *m, char *line)
 	if (tmp[0] != NULL)
 	{
 		if (ft_strcmp(tmp[0], "\tmenu") == 0)
-			w->menu.list = parse_menu_line(w, tmp);
+			w->menu = parse_menu_line(w, tmp);
 		if (ft_strcmp(tmp[0], "\tascii") == 0 && w->asciino < 42)
 		{
 			w->ascii[w->asciino] = parse_texture(w, m, tmp);

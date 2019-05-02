@@ -31,55 +31,34 @@ void	menu_screen(t_env *w)
 
 void	main_menu(t_env *w, t_map *m)
 {
-	int stop;
 	t_dot dot;
 
 	dot.x = 800;
 	dot.y = 550;
-	stop = 0;
 	while (1)
 	{
 		while (SDL_PollEvent(&w->event))
 		{
 			if (w->event.type == SDL_KEYDOWN)
 			{
+				if (KEY == SDLK_ESCAPE)
+					w->menu.i = vmax(-1, w->menu.i - 1);
 				if (KEY == SDLK_RETURN)
-				{
-					if (w->menu.z < 2)
-						w->menu.z++;
-				}
+					w->menu.i = vmin(w->menu.i + 1, w->menu.z);
 				if (KEY == SDLK_UP)
-				{
-					if (w->menu.y == 0)
-						w->menu.y = 2;
-					else
-						w->menu.y--;
-				}
+					w->menu.j = vmax(0, w->menu.j - 1);
 				if (KEY == SDLK_DOWN)
-				{
-					if (w->menu.y < 2)
-						w->menu.y++;
-					else
-						w->menu.y = 0;
-				}
-				if (KEY == 27)
-				{
-					if (w->menu.z == 0)
-						stop = 1;
-					else
-						w->menu.z--;
-				}
-			}
-			
+					w->menu.j = vmin(w->menu.j + 1, w->menu.y[w->menu.i]);
+			}	
 		}
-		if (stop == 1)
+		if (w->menu.i == -1)
 			break;
-		if (w->menu.z == 0)
+		if (w->menu.i == 0)
 		{
 			hello_screen(w);
 			type_str(w, dot, "press enter...", 0x12FEA800);
 		}
-		else if (w->menu.z == 1)
+		else if (w->menu.i == 1)
 			menu_screen(w);
 		else
 			run(w, m);
@@ -110,10 +89,11 @@ void	ft_cursor(t_env *w, t_map *m)
 	}
 }
 
-void	ft_hud(t_env *w)
+void	ft_hud(t_env *w, t_map *m)
 {
-	int i;
-	int j;
+	int 	i;
+	int 	j;
+	t_dot	dot;
 
 	i = 0;
 	while (i < w->hud.h)
@@ -126,6 +106,15 @@ void	ft_hud(t_env *w)
 			j++;
 		}
 		i++;
+		dot.x = 10;
+		dot.y = 10;
+		type_str(w, dot, "HP : 100", 0x12FF0000);
+		dot.x = 10;
+		dot.y = HEIGHT - 30;
+		type_str(w, dot, "AMMO : ", 0x12000000);
+		dot.x = 8 * 14;
+		dot.y = HEIGHT - 30;
+		type_str(w, dot, ft_itoa(m->weap[PH].actu_ammo), 0x12000000);
 	}
 }
 
@@ -164,7 +153,7 @@ void	run(t_env *w, t_map *m)
 			hand(m, w);
 			ft_cursor(w, m);
 			if (m->player.hud == 1)
-				ft_hud(w);
+				ft_hud(w, m);
 		}
 		else if (m->player.display == 1)
 			draw_mini_map(w, m);
