@@ -74,7 +74,7 @@ int			load_sounds(t_env *w, t_map *m)
 
 int			init_sdl(t_env *w)
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		return (-1);
 	if (w->window_mode == 1)
 	{
