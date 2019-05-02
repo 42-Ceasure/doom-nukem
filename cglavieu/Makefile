@@ -23,7 +23,7 @@ SRCFIL				=	main.c exit.c error.c process_hint.c	\
 						cmd_parse.c cmd_exec.c cmd_list.c	\
 						parse_map_file.c parse_map_section.c parse_player_section.c parse_weapon_section.c parse_sprite_section.c	\
 						list_main.c list_dep.c list_do.c	\
-						4_run.c	moving_functions.c	\
+						4_run.c	moving_functions.c game_functions.c	\
 						key_events.c keyup_events.c keydown_events.c	\
 						mouse_events.c	\
 						5_doom_short_functions.c 5_line.c	\
