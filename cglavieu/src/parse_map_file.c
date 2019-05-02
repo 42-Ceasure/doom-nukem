@@ -25,7 +25,7 @@ int		first_line(char **tab, t_map *m)
 	return (0);
 }
 
-int		parse_line(t_map *m)
+int		parse_line(t_env *w, t_map *m)
 {
 	char	**tmp;
 
@@ -39,7 +39,7 @@ int		parse_line(t_map *m)
 	}
 	if (m->section_number == 1)
 	{
-		process_hint(4, "map");
+		process_hint_w(w, 4, "map");
 		if (parse_map_section(m, tmp) == -1)
 		{
 			ft_putendl("error in parse_map_section");
@@ -48,7 +48,7 @@ int		parse_line(t_map *m)
 	}
 	if (m->section_number == 2)
 	{
-		process_hint(4, "player");
+		process_hint_w(w, 4, "player");
 		if (parse_player_section(m, tmp) == -1)
 		{
 			ft_putendl("error in parse_player_section");
@@ -57,7 +57,7 @@ int		parse_line(t_map *m)
 	}
 	if (m->section_number == 3)
 	{
-		process_hint(4, "weapon");
+		process_hint_w(w, 4, "weapon");
 		if (parse_weapon_section(m, tmp) == -1)
 		{
 			ft_putendl("error in parse_weapon_section");
@@ -66,7 +66,7 @@ int		parse_line(t_map *m)
 	}
 	if (m->section_number == 4)
 	{
-		process_hint(4, "sprite");
+		process_hint_w(w, 4, "sprite");
 		if (parse_sprite_section(m, tmp) == -1)
 		{
 			ft_putendl("error in parse_sprite_section");
@@ -77,27 +77,27 @@ int		parse_line(t_map *m)
 	return (0);
 }
 
-int		do_parse(t_map *m)
+int		do_parse(t_env *w, t_map *m)
 {
 	m->i = 0;
 	m->s = 0;
 	m->w = 0;
 	m->section_number = 0;
-	process_hint(6, "map file");
+	process_hint_w(w, 6, "map file");
 	if ((m->fd = open(m->map_path, O_RDONLY)) == -1)
 		return (-1);
-	process_hint(0, " ");
-	process_hint(6, " ");
+	process_hint_w(w, 0, " ");
+	process_hint_w(w, 6, " ");
 	while (get_next_line(m->fd, &m->line))
 	{
-		if ((parse_line(m)) == -1)
+		if ((parse_line(w, m)) == -1)
 		{
 			write(2, "error on map collect\n", 22);
 			return (-1);
 		}
 		free(m->line);
 	}
-	process_hint(0, " ");
+	process_hint_w(w, 0, " ");
 	free(m->line);
 	close(m->fd);
 	return (0);
@@ -105,7 +105,7 @@ int		do_parse(t_map *m)
 
 void	parse_map_file(t_env *w, t_map *m)
 {
-	if (do_parse(m) == -1)
+	if (do_parse(w, m) == -1)
 		set_error(w, m, 8, ft_strdup("do_parse"));
 	if (load_sounds(w, m) == -1)
 		set_error(w, m, 8, ft_strdup("load_sounds"));

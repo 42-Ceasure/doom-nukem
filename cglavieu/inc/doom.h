@@ -267,6 +267,7 @@ typedef struct		s_weapon
 
 typedef struct		s_map
 {
+	void			*world;
 	int				stop;
 	int				launchwmap;
 	int				trippymod;
@@ -343,6 +344,7 @@ typedef struct		s_text
 
 typedef struct		s_env
 {
+	t_map			*m;
 	int				i;
 	int				ac;
 	int				asciino;
@@ -361,6 +363,7 @@ typedef struct		s_env
 	t_texture		hud;
 	t_text			txt;
 	t_menu			menu;
+	t_dot			txthead;
 }					t_env;
 
 typedef struct		s_worker_arg
@@ -385,7 +388,7 @@ int					parse_player_section(t_map *m, char **tab);
 int					parse_weapon_section(t_map *m, char **tab);
 int					parse_sprite_section(t_map *m, char **tab);
 int					quick_look(t_env *w, t_map *m);
-int					do_parse(t_map *m);
+int					do_parse(t_env *w, t_map *m);
 void				set_advanced_run(char **av, t_env *w, t_map *m);
 void				exit_game(t_env *w, t_map *m, int i);
 int					init_sdl(t_env *w);
@@ -442,6 +445,7 @@ void				buttonup_event(t_env *w, t_map *m);
 void				hello_screen(t_env *w);
 int					load_sounds(t_env *w, t_map *m);
 void				process_hint(int i, char *s);
+void				process_hint_w(t_env *w, int i, char *s);
 void				print_load(char *s, int i3, int len);
 void				exec_cmd(t_env *w, t_map *m, char ***cmd, char **av);
 void				generate_config_file(int fd);
@@ -478,5 +482,6 @@ void				shoot(t_map *m);
 void				stop_aim(t_env *w, t_map *m);
 void				aim(t_env *w, t_map *m);
 void				reload_weapon(t_env *w, t_map *m);
+void				launch(t_env *w, t_map *m);
 
 #endif

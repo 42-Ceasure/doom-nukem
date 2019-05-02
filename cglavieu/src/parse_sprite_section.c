@@ -53,12 +53,12 @@ int			parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 	m->weap[wn].sprt[sn].w = ft_atoi(tmp[4]);
 	m->weap[wn].sprt[sn].h = ft_atoi(tmp[5]);
 	i = ft_atoi(tmp[4]) * ft_atoi(tmp[5]);
-	process_hint(1, "textures");
+	process_hint_w(m->world, 1, "textures");
 	m->weap[wn].sprt[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i);
-	process_hint(6, name);
-	process_hint(0, " ");
+	process_hint_w(m->world, 6, name);
+	process_hint_w(m->world, 0, " ");
 	m->weap[wn].sprt[sn].pix = faster_please(m->weap[wn].sprt[sn].pix, pix, i);
-	process_hint(0, " ");
+	process_hint_w(m->world, 0, " ");
 	ft_memreg(tmp);
 	return (0);
 }
@@ -72,11 +72,11 @@ int			parse_hud_sprite(t_map *m, char *def, char *pix)
 	m->hud.w = ft_atoi(tmp[0]);
 	m->hud.h = ft_atoi(tmp[1]);
 	i = ft_atoi(tmp[0]) * ft_atoi(tmp[1]);
-	process_hint(1, "textures");
+	process_hint_w(m->world, 1, "textures");
 	m->hud.pix = (Uint32 *)malloc(sizeof(Uint32) * i);
-	process_hint(3, "hud sprite extraction");
+	process_hint_w(m->world, 3, "hud sprite extraction");
 	m->hud.pix = faster_please(m->hud.pix, pix, i);
-	process_hint(0, " ");
+	process_hint_w(m->world, 0, " ");
 	ft_memreg(tmp);
 	return (0);
 }
@@ -85,7 +85,7 @@ int			parse_sprite_section(t_map *m, char **tab)
 {
 	if (ft_strcmp(tab[0], "\tweapon_sprite") == 0)
 	{
-		process_hint(4, "weapon sprite");
+		process_hint_w(m->world, 4, "weapon sprite");
 		if (parse_weapon_sprite(m, tab[1], tab[2], tab[3]) == -1)
 		{
 			ft_putendl("error on parsing of the weapon_sprite section");

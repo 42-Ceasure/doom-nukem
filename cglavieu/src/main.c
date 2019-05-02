@@ -19,6 +19,8 @@ void			init_world(t_env **w, t_map **m, int ac)
 
 void			set_basics(t_env *w, t_map *m, int ac)
 {
+	w->m = m;
+	m->world = w;
 	set_config(w, m);
 	set_w(w, ac);
 	set_m(m);
@@ -83,7 +85,7 @@ int				main(int ac, char **av)
 	if (m->launchwmap == 1)
 		run(w, m);
 	else
-		main_menu(w, m);
+		launch(w, m);
 	exit_game(w, m, 0);
 	return (0);
 }

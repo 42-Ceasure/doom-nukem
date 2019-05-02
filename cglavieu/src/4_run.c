@@ -4,18 +4,13 @@
 
 void	hello_screen(t_env *w)
 {
-	t_dot	dot;
-
 	w->i = 0;
-	dot.x = 50;
-	dot.y = 50;
 	while (w->i < w->main_pic[0].h * w->main_pic[0].w)
 	{
 		if (w->i < w->res.width * w->res.height)
 			w->pix[w->i] = w->main_pic[0].pix[w->i];
 		w->i++;
 	}
-	type_str(w, dot, "\ttest :\nCe programme a\nete realise par\n\tagay\n\tcglavieu\n\tochaar", 0x12FFFFFF);
 }
 
 void	menu_screen(t_env *w)
@@ -31,10 +26,8 @@ void	menu_screen(t_env *w)
 
 void	main_menu(t_env *w, t_map *m)
 {
-	t_dot dot;
-
-	dot.x = 800;
-	dot.y = 550;
+	w->txthead.x = 800;
+	w->txthead.y = 550;
 	while (1)
 	{
 		while (SDL_PollEvent(&w->event))
@@ -52,19 +45,18 @@ void	main_menu(t_env *w, t_map *m)
 			}	
 		}
 		if (w->menu.i == -1)
-			break;
+			exit_game(w, m, 1);
 		if (w->menu.i == 0)
 		{
 			hello_screen(w);
-			type_str(w, dot, "press enter...", 0x12FEA800);
+			type_str(w, w->txthead, "press enter...", 0x12FEA800);
 		}
 		else if (w->menu.i == 1)
 			menu_screen(w);
 		else
-			run(w, m);
+			break;
 		img_update(w);
 	}
-	exit_game(w, m, 1);
 }
 
 void	ft_cursor(t_env *w, t_map *m)
@@ -102,7 +94,7 @@ void	ft_hud(t_env *w, t_map *m)
 		j = 0;
 		while (j < w->hud.w)
 		{
-			if (w->hud.pix[i * w->hud.w + j] != 0xFF000000)
+			if (w->hud.pix[i * w->hud.w + j] != 0xFF00FF00)
 				w->pix[(i + HEIGHT - w->hud.h) * WIDTH + (j + HEIGHT / 2)] = w->hud.pix[i * w->hud.w + j];
 			j++;
 		}
@@ -132,7 +124,7 @@ void	run(t_env *w, t_map *m)
 			{
 				if (KEY == 27)
 				{
-					w->menu.z = 1;
+					w->menu.i = 1;
 					m->stop = 1;
 				}
 				keydown_events(w, m);
@@ -166,5 +158,16 @@ void	run(t_env *w, t_map *m)
 		is_falling(m, w);
 		is_moving(m);
 		slow_down(w, m);
+	}
+}
+
+void	launch(t_env *w, t_map *m)
+{	
+	while (1)
+	{
+		if (w->menu.i != 2)
+			main_menu(w, m);
+		else
+			run(w, m);
 	}
 }
