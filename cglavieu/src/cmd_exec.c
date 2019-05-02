@@ -14,7 +14,7 @@ void		extract_bmp(t_env *w, t_map *m, char **cmd)
 	{
 		i = 0;
 		texture = load_img(w, m, cmd[index]);
-		// ft_putstr("\tascii:");
+		ft_putstr("\tascii:");
 		ft_putnbr(texture.w);
 		ft_putchar(',');
 		ft_putnbr(texture.h);

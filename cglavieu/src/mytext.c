@@ -14,6 +14,8 @@ void		ft_putmychar(t_env *w, int i, int x, int y)
 		c = (int)(w->txt.text[i] - 48);
 	else if (ft_isalpha(w->txt.text[i]) == 1)
 		c = (int)(ft_toupper(w->txt.text[i]) - 55);
+	// else if (w->txt.text[i] == )
+	// 	;
 	else
 		c = 41;
 	while (iy < w->ascii[c].h)
@@ -29,7 +31,7 @@ void		ft_putmychar(t_env *w, int i, int x, int y)
 	}
 }
 
-void		type_w(t_env *w)
+void		type_s(t_env *w)
 {
 	int		i;
 	int		x;
@@ -60,5 +62,5 @@ t_text		type_set(int x, int y, char *s, Uint32 color)
 void		type_text(t_env *w, t_dot dot, char *s, Uint32 color)
 {
 	w->txt = type_set(dot.x, dot.y, s, color);
-	type_w(w);
+	type_s(w);
 }
