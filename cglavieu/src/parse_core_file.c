@@ -2,6 +2,41 @@
 
 #include "doom.h"
 
+char		***parse_menu_line(t_env *w, char **tmp)
+{
+	char	**tmp2;
+	char	***menu;
+	int		i;
+	int		menuc;
+	int		entryc;
+
+	i = 0;
+	w->i = 0;
+	menuc = 0;
+	while (tmp[menuc + 1])
+		menuc++;
+	menu = (char ***)malloc(sizeof(char **) * (menuc + 1));
+	menu[menuc] = NULL;
+	while (i < menuc)
+	{
+		entryc = 1;
+		tmp2 = ft_strsplit(tmp[i + 1], ',');
+		while (tmp2[entryc] != NULL)
+			entryc++;
+		menu[i] = (char **)malloc(sizeof(char *) * (entryc + 1));
+		menu[i][entryc] = NULL;
+		entryc--;
+		while (entryc >= 0)
+		{
+			menu[i][entryc] = ft_strdup(tmp2[entryc]);
+			entryc--;
+		}
+		ft_memreg(tmp2);
+		i++;
+	}
+	return (menu);
+}
+
 void		parse_core_file(t_env *w, t_map *m, char *line)
 {
 	char	**tmp;
@@ -12,6 +47,8 @@ void		parse_core_file(t_env *w, t_map *m, char *line)
 	tmp = ft_strsplit(line, ':');
 	if (tmp[0] != NULL)
 	{
+		if (ft_strcmp(tmp[0], "\tmenu") == 0)
+			w->menu.list = parse_menu_line(w, tmp);
 		if (ft_strcmp(tmp[0], "\tascii") == 0 && w->asciino < 42)
 		{
 			w->ascii[w->asciino] = parse_texture(w, m, tmp);

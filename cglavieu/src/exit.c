@@ -31,6 +31,7 @@ void		empty_world(t_env *w)
 			free(w->ascii[i].pix);
 			i++;
 		}
+		ft_memreg3(w->menu.list);
 		free(w);
 	}
 }

@@ -296,8 +296,9 @@ typedef struct		s_map
 
 typedef struct		s_menu
 {
-	int				screen;
-	int				sel;
+	int				y;
+	int				z;
+	char			***list;
 }					t_menu;
 
 typedef struct		s_sound

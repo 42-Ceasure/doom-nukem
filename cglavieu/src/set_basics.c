@@ -54,8 +54,9 @@ void			set_w(t_env *w, int ac)
 	w->main_pic[1].h = w->res.height;
 	w->main_pic[1].len = w->res.width * w->res.height;
 	w->main_pic[1].pix = (Uint32 *)malloc(sizeof(Uint32) * w->main_pic[0].len);
-	w->menu.screen = 0;
-	w->menu.sel = 0;
+	w->menu.y = 0;
+	w->menu.z = 0;
+	w->menu.list = NULL;
 }
 
 void			set_m(t_map *m)

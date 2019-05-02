@@ -45,41 +45,41 @@ void	main_menu(t_env *w, t_map *m)
 			{
 				if (KEY == SDLK_RETURN)
 				{
-					if (w->menu.screen < 2)
-						w->menu.screen++;
+					if (w->menu.z < 2)
+						w->menu.z++;
 				}
 				if (KEY == SDLK_UP)
 				{
-					if (w->menu.sel == 0)
-						w->menu.sel = 2;
+					if (w->menu.y == 0)
+						w->menu.y = 2;
 					else
-						w->menu.sel--;
+						w->menu.y--;
 				}
 				if (KEY == SDLK_DOWN)
 				{
-					if (w->menu.sel < 2)
-						w->menu.sel++;
+					if (w->menu.y < 2)
+						w->menu.y++;
 					else
-						w->menu.sel = 0;
+						w->menu.y = 0;
 				}
 				if (KEY == 27)
 				{
-					if (w->menu.screen == 0)
+					if (w->menu.z == 0)
 						stop = 1;
 					else
-						w->menu.screen--;
+						w->menu.z--;
 				}
 			}
 			
 		}
 		if (stop == 1)
 			break;
-		if (w->menu.screen == 0)
+		if (w->menu.z == 0)
 		{
 			hello_screen(w);
 			type_str(w, dot, "press enter...", 0x12FEA800);
 		}
-		else if (w->menu.screen == 1)
+		else if (w->menu.z == 1)
 			menu_screen(w);
 		else
 			run(w, m);
@@ -140,7 +140,7 @@ void	run(t_env *w, t_map *m)
 			{
 				if (KEY == 27)
 				{
-					w->menu.screen = 1;
+					w->menu.z = 1;
 					m->stop = 1;
 				}
 				keydown_events(w, m);
