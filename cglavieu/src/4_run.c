@@ -121,7 +121,7 @@ void	ft_hud(t_env *w)
 		j = 0;
 		while (j < w->hud.w)
 		{
-			if (w->hud.pix[i * w->hud.w + j] != w->hud.pix[0])
+			if (w->hud.pix[i * w->hud.w + j] != 0xFF000000)
 				w->pix[(i + HEIGHT - w->hud.h) * WIDTH + (j + HEIGHT / 2)] = w->hud.pix[i * w->hud.w + j];
 			j++;
 		}
