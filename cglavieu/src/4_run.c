@@ -110,19 +110,19 @@ void	ft_cursor(t_env *w, t_map *m)
 	}
 }
 
-void	ft_hud(t_map *m, t_env *w)
+void	ft_hud(t_env *w)
 {
 	int i;
 	int j;
 
 	i = 0;
-	while (i < m->hud.h)
+	while (i < w->hud.h)
 	{
 		j = 0;
-		while (j < m->hud.w)
+		while (j < w->hud.w)
 		{
-			if (m->hud.pix[i * m->hud.w + j] != m->hud.pix[0])
-				w->pix[i * WIDTH + (WIDTH - (m->hud.w * 2) + j)] = m->hud.pix[i * m->hud.w + j];
+			if (w->hud.pix[i * w->hud.w + j] != w->hud.pix[0])
+				w->pix[(i + HEIGHT - w->hud.h) * WIDTH + (j + HEIGHT / 2)] = w->hud.pix[i * w->hud.w + j];
 			j++;
 		}
 		i++;
@@ -164,7 +164,7 @@ void	run(t_env *w, t_map *m)
 			hand(m, w);
 			ft_cursor(w, m);
 			if (m->player.hud == 1)
-				ft_hud(m, w);
+				ft_hud(w);
 		}
 		else if (m->player.display == 1)
 			draw_mini_map(w, m);

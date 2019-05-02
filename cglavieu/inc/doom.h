@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/04/25 13:02:22 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/05/02 13:52:32 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,6 +339,7 @@ typedef struct		s_env
 	SDL_Event		event;
 	t_texture		ascii[42];
 	t_texture		main_pic[2];
+	t_texture		hud;
 	t_text			txt;
 	t_menu			menu;
 }					t_env;
