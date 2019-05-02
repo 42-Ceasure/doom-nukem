@@ -4,13 +4,18 @@
 
 void	hello_screen(t_env *w)
 {
+	t_dot	dot;
+
 	w->i = 0;
+	dot.x = 50;
+	dot.y = 50;
 	while (w->i < w->main_pic[0].h * w->main_pic[0].w)
 	{
 		if (w->i < w->res.width * w->res.height)
 			w->pix[w->i] = w->main_pic[0].pix[w->i];
 		w->i++;
 	}
+	type_str(w, dot, "\ttest :\nCe programme a\nete realise par\n\tagay\n\tcglavieu\n\tochaar", 0x12FFFFFF);
 }
 
 void	menu_screen(t_env *w)
@@ -29,7 +34,7 @@ void	main_menu(t_env *w, t_map *m)
 	int stop;
 	t_dot dot;
 
-	dot.x = 600;
+	dot.x = 800;
 	dot.y = 550;
 	stop = 0;
 	while (1)
@@ -72,7 +77,7 @@ void	main_menu(t_env *w, t_map *m)
 		if (w->menu.screen == 0)
 		{
 			hello_screen(w);
-			type_text(w, dot, "press enter", 0x12FEA800);
+			type_str(w, dot, "press enter...", 0x12FEA800);
 		}
 		else if (w->menu.screen == 1)
 			menu_screen(w);

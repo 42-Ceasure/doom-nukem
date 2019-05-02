@@ -433,6 +433,6 @@ void				set_m_player(t_map *m);
 void				load_core(t_env *w, t_map *m);
 t_texture			parse_texture(t_env *w, t_map *m, char **tmp);
 Uint32				*faster_please(Uint32 *dst, char *src, int len);
-void				type_text(t_env *w, t_dot dot, char *s, Uint32 color);
+void				type_str(t_env *w, t_dot dot, char *s, Uint32 color);
 
 #endif

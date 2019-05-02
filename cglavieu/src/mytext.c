@@ -2,22 +2,12 @@
 
 #include "doom.h"
 
-void		ft_putmychar(t_env *w, int i, int x, int y)
+void		ft_printmychar(t_env *w, int x, int y, int c)
 {
-	int		c;
-	int		ix;
-	int		iy;
+	int ix;
+	int iy;
 
-	ix = 0;
 	iy = 0;
-	if (ft_isdigit(w->txt.text[i]) == 1)
-		c = (int)(w->txt.text[i] - 48);
-	else if (ft_isalpha(w->txt.text[i]) == 1)
-		c = (int)(ft_toupper(w->txt.text[i]) - 55);
-	// else if (w->txt.text[i] == )
-	// 	;
-	else
-		c = 41;
 	while (iy < w->ascii[c].h)
 	{
 		ix = 0;
@@ -31,6 +21,51 @@ void		ft_putmychar(t_env *w, int i, int x, int y)
 	}
 }
 
+void		ft_putmychar(t_env *w, int i, int *xmain, int *ymain)
+{
+	int		print;
+	int		c;
+	int		x;
+	int		y;
+
+	print = 0;
+	x = *xmain;
+	y = *ymain;
+	if (w->txt.text[i] == '\n')
+	{
+		print = 1;
+		*xmain = w->txt.x;
+		*ymain = *ymain + w->ascii[0].h + 5;
+	}
+	else if (w->txt.text[i] == '\t')
+	{
+		c = 41;
+		ft_printmychar(w, x, y, c);
+		ft_printmychar(w, x, y, c);
+	}
+	else if (w->txt.text[i] == ',')
+		c = 36;
+	else if (w->txt.text[i] == ':')
+		c = 37;
+	else if (w->txt.text[i] == '!')
+		c = 38;
+	else if (w->txt.text[i] == '?')
+		c = 39;
+	else if (w->txt.text[i] == '.')
+		c = 40;
+	else if (w->txt.text[i] == ' ')
+		c = 41;
+	else if (ft_isdigit(w->txt.text[i]) == 1)
+		c = (int)(w->txt.text[i] - 48);
+	else if (ft_isalpha(w->txt.text[i]) == 1)
+		c = (int)(ft_toupper(w->txt.text[i]) - 55);
+	else
+		print = 1;
+	if (print == 0)
+		ft_printmychar(w, x, y, c);
+	*xmain = *xmain + w->ascii[0].w;
+}
+
 void		type_s(t_env *w)
 {
 	int		i;
@@ -42,8 +77,7 @@ void		type_s(t_env *w)
 	y = w->txt.y;
 	while (w->txt.text[i])
 	{
-		ft_putmychar(w, i, x, y);
-		x = x + w->ascii[0].w;
+		ft_putmychar(w, i, &x, &y);
 		i++;
 	}
 }
@@ -59,7 +93,7 @@ t_text		type_set(int x, int y, char *s, Uint32 color)
 	return (txt);
 }
 
-void		type_text(t_env *w, t_dot dot, char *s, Uint32 color)
+void		type_str(t_env *w, t_dot dot, char *s, Uint32 color)
 {
 	w->txt = type_set(dot.x, dot.y, s, color);
 	type_s(w);

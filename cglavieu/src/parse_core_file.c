@@ -7,7 +7,7 @@ void		parse_core_file(t_env *w, t_map *m, char *line)
 	char	**tmp;
 	t_dot	dot;
 
-	dot.x = 600;
+	dot.x = 800;
 	dot.y = 550;
 	tmp = ft_strsplit(line, ':');
 	if (tmp[0] != NULL)
@@ -23,7 +23,7 @@ void		parse_core_file(t_env *w, t_map *m, char *line)
 				free(w->main_pic[0].pix);
 			w->main_pic[0] = parse_texture(w, m, tmp);
 			hello_screen(w);
-			type_text(w, dot, "loading game...", 0x12FEA800);
+			type_str(w, dot, "loading game...", 0x12FEA800);
 			img_update(w);
 		}
 		if (ft_strcmp(tmp[0], "\tmain_pic[1]") == 0)
