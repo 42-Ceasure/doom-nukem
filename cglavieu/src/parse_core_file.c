@@ -26,7 +26,6 @@ t_menu		parse_menu_line(t_env *w, char **tmp)
 		tmp2 = ft_strsplit(tmp[i + 1], ',');
 		while (tmp2[entryc] != NULL)
 			entryc++;
-		printf("i:%d\n", i + 1);
 		menu.y[i + 1] = entryc -1;
 		menu.list[i] = (char **)malloc(sizeof(char *) * (entryc + 1));
 		menu.list[i][entryc] = NULL;
