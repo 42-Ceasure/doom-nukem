@@ -33,7 +33,7 @@ void		not_a_command(t_env *w, t_map *m, char ***cmd, char *s)
 void		exit_cmd(t_env *w, t_map *m, char ***cmd)
 {
 	ft_memreg3(cmd);
-	exit_game(w, m);
+	exit_game(w, m, 1);
 }
 
 void		map_cmd(t_env *w, t_map *m, char **cmd)

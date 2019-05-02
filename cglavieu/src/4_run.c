@@ -74,7 +74,7 @@ void	main_menu(t_env *w, t_map *m)
 			run(w, m);
 		img_update(w);
 	}
-	exit_game(w, m);
+	exit_game(w, m, 1);
 }
 
 void	ft_cursor(t_env *w, t_map *m)

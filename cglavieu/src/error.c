@@ -31,7 +31,7 @@ void			set_error(t_env *w, t_map *m, int errorno, char *s)
 		ft_putstr("NULL");
 	ft_putendl("\"\nProgram closing now.");
 	// if (errorno != 8)
-	exit_game(w, m);
+	exit_game(w, m, 1);
 // 	else
 // 		exit(0);
 }

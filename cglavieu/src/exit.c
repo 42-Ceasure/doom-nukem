@@ -84,11 +84,12 @@ void		empty_sdl(t_env *w)
 	SDL_Quit();
 }
 
-void		exit_game(t_env *w, t_map *m)
+void		exit_game(t_env *w, t_map *m, int i)
 {
 	empty_music(w);
 	empty_map(m);
 	empty_sdl(w);
 	empty_world(w);
-	exit(0);
+	if (i == 1)
+		exit(0);
 }

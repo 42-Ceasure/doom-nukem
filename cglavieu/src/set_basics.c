@@ -31,7 +31,7 @@ void			set_config(t_env *w, t_map *m)
 	free(path);
 }
 
-void			set_w(t_env *w, t_map *m, int ac)
+void			set_w(t_env *w, int ac)
 {
 	w->i = 0;
 	w->ac = ac;
@@ -45,8 +45,14 @@ void			set_w(t_env *w, t_map *m, int ac)
 	w->pix = NULL;
 	w->inkeys = NULL;
 	w->txtr = NULL;
-	w->main_pic[0] = load_img(w, m, "./img/main_screen1.bmp");
-	w->main_pic[1] = load_img(w, m, "./img/main_menu.bmp");
+	w->main_pic[0].w = w->res.width;
+	w->main_pic[0].h = w->res.height;
+	w->main_pic[0].len = w->res.width * w->res.height;
+	w->main_pic[0].pix = (Uint32 *)malloc(sizeof(Uint32) * w->main_pic[0].len);
+	w->main_pic[1].w = w->res.width;
+	w->main_pic[1].h = w->res.height;
+	w->main_pic[1].len = w->res.width * w->res.height;
+	w->main_pic[1].pix = (Uint32 *)malloc(sizeof(Uint32) * w->main_pic[0].len);
 	w->menu.screen = 0;
 	w->menu.sel = 0;
 }

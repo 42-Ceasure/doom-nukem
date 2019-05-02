@@ -20,7 +20,7 @@ void			init_world(t_env **w, t_map **m, int ac)
 void			set_basics(t_env *w, t_map *m, int ac)
 {
 	set_config(w, m);
-	set_w(w, m, ac);
+	set_w(w, ac);
 	set_m(m);
 	set_m_player(m);
 }
@@ -43,7 +43,7 @@ void			draw_sequential(t_env *w, t_map *m)
 	clean_render(w, 0x12000000);
 	draw(w, m);
 	SDL_Delay(5000);
-	exit_game(w, m);
+	exit_game(w, m, 1);
 }
 
 int				main(int ac, char **av)
@@ -80,5 +80,6 @@ int				main(int ac, char **av)
 		run(w, m);
 	else
 		main_menu(w, m);
+	exit_game(w, m, 0);
 	return (0);
 }

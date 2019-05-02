@@ -15,6 +15,7 @@
 
 # include "SDL2/SDL.h"
 # include "SDL2/SDL_mixer.h"
+# include "SDL2/SDL_ttf.h"
 # include "libft.h"
 # include <pthread.h>
 # include <fcntl.h>
@@ -246,6 +247,7 @@ typedef struct		s_texture
 {
 	int				w;
 	int				h;
+	int				len;
 	Uint32			*pix;
 }					t_texture;
 
@@ -354,7 +356,7 @@ int					parse_sprite_section(t_map *m, char **tab);
 int					quick_look(t_env *w, t_map *m);
 int					do_parse(t_map *m);
 void				set_advanced_run(char **av, t_env *w, t_map *m);
-void				exit_game(t_env *w, t_map *m);
+void				exit_game(t_env *w, t_map *m, int i);
 int					init_sdl(t_env *w);
 void				img_update(t_env *w);
 void				clean_render(t_env *w, Uint32 color);
@@ -414,7 +416,7 @@ void				exec_cmd(t_env *w, t_map *m, char ***cmd, char **av);
 void				generate_config_file(int fd);
 void				parse_config_file(t_env *w, t_map *m, char *line);
 void				set_config(t_env *w, t_map *m);
-void				set_w(t_env *w, t_map *m, int ac);
+void				set_w(t_env *w, int ac);
 void				set_m(t_map *m);
 void				set_m_player(t_map *m);
 

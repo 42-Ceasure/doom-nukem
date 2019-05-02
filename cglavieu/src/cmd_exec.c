@@ -23,7 +23,7 @@ void		extract_bmp(t_env *w, t_map *m, char **cmd)
 			ft_putchar(',');
 	}
 	ft_putchar('\n');
-	exit_game(w, m);
+	exit_game(w, m, 1);
 }
 
 void		l_f_priority_cmd(t_env *w, t_map *m, char ***cmd)
