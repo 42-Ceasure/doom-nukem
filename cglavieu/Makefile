@@ -56,19 +56,7 @@ INCSDLMIX			=	$(LIBSDLMIX_ROOT)include/
 SDLMIXBIN			=	$(addprefix $(LIBSDLMIX_PATH),$(LIBSDLMIX))
 CURL_MIX			=	`curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.zip -o sdl_mix.zip`
 
-# FTYPES_PATH			=	./freetype-2.4.8/
-
-# CURL_FTYPES			=	`curl https://www.libsdl.org/projects/SDL_ttf/libs/ft248.zip -o ftypes.zip`
-
-SDLTTF_PATH			=	./SDL2_ttf-2.0.14/
-LIBSDLTTF_ROOT		=	./libSDL2/
-LIBSDLTTF_PATH		=	./libSDL2/lib/
-LIBSDLTTF			=	libSDL2_ttf.a
-INCSDLTTF			=	$(LIBSDLTTF_ROOT)include/
-SDLTTFBIN			= 	$(addprefix $(LIBSDLTTF_PATH),$(LIBSDLTTF))
-CURL_TTF			=	`curl https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.14.zip -o sdl_ttf.zip`
-
-all					:	libft sdl sdlmix sdlttf $(NAME)
+all					:	libft sdl sdlmix $(NAME)
 
 $(NAME)				:	$(OBJ) $(LIBFT)
 						@$(CC) $(CFLAG) -lm $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^ -lpthread
@@ -104,16 +92,6 @@ $(SDLMIXBIN)		:
 						make -C $(SDLMIX_PATH)
 						make install -C $(SDLMIX_PATH)
 
-sdlttf				:	$(SDLTTFBIN)
-
-$(SDLTTFBIN)		:
-						$(CURL_TTF)
-						unzip sdl_ttf.zip
-						rm sdl_ttf.zip
-						cd $(SDLTTF_PATH) && ./configure --prefix=$(PWD)/$(LIBSDLTTF_ROOT)
-						make -C $(SDLTTF_PATH)
-						make install -C $(SDLTTF_PATH)
-
 clean				:	
 						@make -C $(LIBFTDIR) clean
 						@rm -Rf  $(OBJDIR)
@@ -128,8 +106,6 @@ sdlclean			:
 						rm -rf $(SDL_PATH)
 						rm -rf $(LIBSDLMIX_ROOT)
 						rm -rf $(SDLMIX_PATH)
-						rm -rf $(LIBSDLTTF_ROOT)
-						rm -rf $(SDLTTF_PATH)
 
 re					:	fclean all
 
