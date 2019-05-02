@@ -93,6 +93,7 @@ void	ft_hud(t_env *w, t_map *m)
 {
 	int 	i;
 	int 	j;
+	char	*s;
 	t_dot	dot;
 
 	i = 0;
@@ -114,7 +115,9 @@ void	ft_hud(t_env *w, t_map *m)
 		type_str(w, dot, "AMMO : ", 0x12000000);
 		dot.x = 8 * 14;
 		dot.y = HEIGHT - 30;
-		type_str(w, dot, ft_itoa(m->weap[PH].actu_ammo), 0x12000000);
+		s = ft_itoa(m->weap[PH].actu_ammo);
+		type_str(w, dot, s, 0x12000000);
+		free(s);
 	}
 }
 
