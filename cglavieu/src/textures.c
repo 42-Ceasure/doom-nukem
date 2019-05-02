@@ -2,6 +2,22 @@
 
 #include "doom.h"
 
+t_texture			parse_texture(t_env *w, t_map *m, char **tmp)
+{
+	t_texture		texture;
+	char			**tmp2;
+
+	tmp2 = ft_strsplit(tmp[1], ',');
+	texture.w = ft_atoi(tmp2[0]);
+	texture.h = ft_atoi(tmp2[1]);
+	texture.len = texture.w * texture.h;
+	if ((texture.pix = (Uint32 *)malloc(sizeof(Uint32) * texture.len)) == NULL)
+		set_error(w, m, 0, ft_strdup("pixels"));
+	texture.pix = faster_please(texture.pix, tmp[2], texture.len);
+	ft_memreg(tmp2);
+	return (texture);
+}
+
 t_texture			load_img(t_env *w, t_map *m, char *s)
 {
 	t_texture		texture;

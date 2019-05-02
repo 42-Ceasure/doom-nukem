@@ -419,5 +419,8 @@ void				set_config(t_env *w, t_map *m);
 void				set_w(t_env *w, int ac);
 void				set_m(t_map *m);
 void				set_m_player(t_map *m);
+void				load_core(t_env *w, t_map *m);
+t_texture			parse_texture(t_env *w, t_map *m, char **tmp);
+Uint32				*faster_please(Uint32 *dst, char *src, int len);
 
 #endif

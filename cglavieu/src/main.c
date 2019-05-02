@@ -32,6 +32,10 @@ void			simple_start(t_env *w, t_map *m)
 		set_error(w, m, 4, ft_strdup("SDL Initialisation"));
 	m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
 	m->map_name = ft_strdup("Home Sweet Home");
+	process_hint(0, " ");
+	process_hint(4, "core file");
+	load_core(w, m);
+	process_hint(0, " ");
 	parse_map_file(w, m);
 	process_hint(0, " ");
 }

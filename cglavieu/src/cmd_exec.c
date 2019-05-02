@@ -21,6 +21,7 @@ void		extract_bmp(t_env *w, t_map *m, char **cmd)
 		i++;
 		if (i < texture.w * texture.h)
 			ft_putchar(',');
+		free(str);
 	}
 	ft_putchar('\n');
 	exit_game(w, m, 1);
@@ -82,7 +83,11 @@ void			exec_cmd(t_env *w, t_map *m, char ***cmd, char **av)
 		if ((init_sdl(w)) == -1)
 			set_error(w, m, 4, ft_strdup("SDL Initialisation"));
 		process_hint(0, " ");
-		process_hint(4, "map");;
+		process_hint(4, "core file");
+		if (m->launchwmap != 1)
+			load_core(w, m);
+		process_hint(0, " ");
+		process_hint(4, "map");
 		parse_map_file(w, m);
 		process_hint(0, " ");
 		process_hint(3, "remaining cmd");
