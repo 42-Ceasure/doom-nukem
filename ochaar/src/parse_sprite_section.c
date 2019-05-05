@@ -82,11 +82,23 @@ int			parse_hud_sprite(t_map *m, char *def, char *pix)
 	m->hud.w = ft_atoi(tmp[0]);
 	m->hud.h = ft_atoi(tmp[1]);
 	i = ft_atoi(tmp[0]) * ft_atoi(tmp[1]);
-	ft_putstr("allocating memory for texture             \r");
 	m->hud.pix = (Uint32 *)malloc(sizeof(Uint32) * i);
-	ft_putstr("starting sprite extraction : ");
 	m->hud.pix = faster_please(m->hud.pix, pix, i);
-	ft_putstr("done                                             \r");
+	ft_memreg(tmp);
+	return (0);
+}
+
+int			parse_fire_sprite(t_map *m, char *def, char *pix)
+{
+	int				i;
+	char			**tmp;
+
+	tmp = ft_strsplit(def, ',');
+	m->fire.w = ft_atoi(tmp[0]);
+	m->fire.h = ft_atoi(tmp[1]);
+	i = ft_atoi(tmp[0]) * ft_atoi(tmp[1]);
+	m->fire.pix = (Uint32 *)malloc(sizeof(Uint32) * i);
+	m->fire.pix = faster_please(m->fire.pix, pix, i);
 	ft_memreg(tmp);
 	return (0);
 }
@@ -105,6 +117,14 @@ int			parse_sprite_section(t_map *m, char **tab)
 	if (ft_strcmp(tab[0], "\thud") == 0)
 	{
 		if (parse_hud_sprite(m, tab[1], tab[2]) == -1)
+		{
+			ft_putendl("error on parsing of the hud_sprite section");
+			return (-1);
+		}
+	}
+	if (ft_strcmp(tab[0], "\tfire") == 0)
+	{
+		if (parse_fire_sprite(m, tab[1], tab[2]) == -1)
 		{
 			ft_putendl("error on parsing of the weapon_sprite section");
 			return (-1);

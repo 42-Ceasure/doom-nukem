@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/05/01 15:32:12 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/05/05 16:42:08 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,6 +285,7 @@ typedef struct		s_map
 	t_sprite		*sprite;
 	t_texture		*texture;
 	t_texture		hud;
+	t_texture		fire;
 }					t_map;
 
 typedef struct		s_menu
