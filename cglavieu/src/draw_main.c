@@ -76,7 +76,7 @@ void	wall_to_wall(t_draw *d, t_reader *read, t_map *m, t_env *w)
 	{
 		check_invisible(d, *read, m);
 		if ((d->t1.z <= 0 && d->t2.z <= 0)
-				|| ceiling_and_floor(d, m, *read, d->point++) == 0)
+			|| ceiling_and_floor(d, m, *read, d->point++) == 0)
 		{
 			d->point = (d->t1.z <= 0 && d->t2.z <= 0) ? d->point + 1 : d->point;
 			continue;
