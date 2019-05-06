@@ -92,6 +92,15 @@ void	ft_hud(t_env *w, t_map *m)
 	free(s);
 }
 
+void	game_img(t_env *w, t_map *m)
+{
+	draw(w, m);
+	hand(w, m);
+	ft_cursor(w, m);
+	if (m->player.hud == 1)
+		ft_hud(w, m);
+}
+
 void	sequential_frame(t_env *w, t_map *m)
 {
 	w->sequential_frame = 1;
@@ -103,19 +112,20 @@ void	sequential_frame(t_env *w, t_map *m)
 	clean_render(w, 0xFF000000);
 	type_str(w, w->txthead, "sequential frame rendering started.", 0xFFFFFFFF);
 	img_update(w);
-	draw(w, m);
-	SDL_Delay(1000);
-	hand(w, m);
-	SDL_Delay(1000);
-	ft_cursor(w, m);
-	SDL_Delay(1000);
-	if (m->player.hud == 1)
-		ft_hud(w, m);
+	game_img(w, m);
 	w->sequential_frame = 0;
 	w->txthead.x = 313;
 	type_str(w, w->txthead, "back to normal in 3 seconds...", 0xFF000000);
 	img_update(w);
-	SDL_Delay(5000);
+	SDL_Delay(1000);
+	game_img(w, m);
+	type_str(w, w->txthead, "back to normal in 2 seconds...", 0xFF000000);
+	img_update(w);
+	SDL_Delay(1000);
+	game_img(w, m);
+	type_str(w, w->txthead, "back to normal in 1 seconds...", 0xFF000000);
+	img_update(w);
+	SDL_Delay(1000);
 }
 
 void	run(t_env *w, t_map *m)
@@ -148,13 +158,7 @@ void	run(t_env *w, t_map *m)
 		w->inkeys = SDL_GetKeyboardState(NULL);
 		key_events(w, m);
 		if (m->player.display == 0)
-		{
-			draw(w, m);
-			hand(w, m);
-			ft_cursor(w, m);
-			if (m->player.hud == 1)
-				ft_hud(w, m);
-		}
+			game_img(w, m);
 		else if (m->player.display == 1)
 			draw_mini_map(w, m);
 		// vect_ab((t_coor){512,0,0},(t_coor){512,575,0},w,0x00000000);

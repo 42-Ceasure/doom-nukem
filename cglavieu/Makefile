@@ -108,4 +108,3 @@ sdlclean			:
 						rm -rf $(SDLMIX_PATH)
 
 re					:	fclean all
-
