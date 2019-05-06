@@ -115,15 +115,15 @@ void	sequential_frame(t_env *w, t_map *m)
 	game_img(w, m);
 	w->sequential_frame = 0;
 	w->txthead.x = 313;
-	type_str(w, w->txthead, "back to normal in 3 seconds...", 0xFF000000);
+	type_str(w, w->txthead, "back to normal in 3 seconds...", 0xFF0000FF);
 	img_update(w);
 	SDL_Delay(1000);
 	game_img(w, m);
-	type_str(w, w->txthead, "back to normal in 2 seconds...", 0xFF000000);
+	type_str(w, w->txthead, "back to normal in 2 seconds...", 0xFFFFFFFF);
 	img_update(w);
 	SDL_Delay(1000);
 	game_img(w, m);
-	type_str(w, w->txthead, "back to normal in 1 seconds...", 0xFF000000);
+	type_str(w, w->txthead, "back to normal in 1 seconds...", 0xFFFF0000);
 	img_update(w);
 	SDL_Delay(1000);
 }
