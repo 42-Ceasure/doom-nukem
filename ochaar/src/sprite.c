@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/05/05 17:52:36 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/05/06 13:05:53 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	place_sprite(t_map *m, t_env *w, int nb, int decal)
 			if (m->weap[PH].sprt[nb].pix[d * m->weap[PH].sprt[nb].w + i]
 				!= m->weap[PH].sprt[nb].pix[0])
 				w->pix[(d + m->weap[PH].sprt[nb].sy - decal) * WIDTH
-					+ (i + m->weap[PH].sprt[nb].sx)] = m->weap[PH].sprt[nb].pix[d
-						* m->weap[PH].sprt[nb].w + i];
+					+ (i + m->weap[PH].sprt[nb].sx)] = m->weap[PH].sprt
+						[nb].pix[d * m->weap[PH].sprt[nb].w + i];
 			i++;
 		}
 		d++;
@@ -101,7 +101,29 @@ void	fire(t_map *m, t_env *w)
 		while (j < m->fire.w)
 		{
 			if (m->fire.pix[i * m->fire.w + j] != m->fire.pix[0])
-				w->pix[(i - m->fire.h / 2 + HEIGHT / 2) * WIDTH + (j - m->fire.w / 2 + WIDTH / 2)] = m->fire.pix[i * m->fire.w + j];
+				w->pix[(i - m->fire.h / 2 + HEIGHT / 2) * WIDTH + (j - m->fire.w
+					/ 2 + WIDTH / 2)] = m->fire.pix[i * m->fire.w + j];
+			j++;
+		}
+		i++;
+	}
+}
+
+void	fire_no_aim(t_map *m, t_env *w)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < m->fire.h)
+	{
+		j = 0;
+		while (j < m->fire.w)
+		{
+			if (m->fire.pix[i * m->fire.w + j] != m->fire.pix[0])
+				w->pix[(i - m->fire.h / 2 + HEIGHT / 2 + 60) * WIDTH + (j
+				- m->fire.w / 2 + WIDTH / 2 + 60)] = m->fire.pix[i
+				* m->fire.w + j];
 			j++;
 		}
 		i++;
@@ -110,32 +132,31 @@ void	fire(t_map *m, t_env *w)
 
 void	hand(t_map *m, t_env *w)
 {
-	if (PH > -1)
+	if (m->player.aiming == 1)
 	{
-		if (m->player.aiming == 1)
+		if (m->player.firing == 1)
+		{
+			fire(m, w);
+			place_sprite(m, w, 1, 5);
+			m->player.firing = 0;
+		}
+		else
+			place_sprite(m, w, 1, 0);
+	}
+	else
+	{
+		if (m->player.moving != 0)
+			place_sprite(m, w, 2, 0);
+		else
 		{
 			if (m->player.firing == 1)
 			{
-				fire(m, w);
-				place_sprite(m, w, 1, 5);
+				fire_no_aim(m, w);
+				place_sprite(m, w, 0, 5);
+				m->player.firing = 0;
 			}
 			else
-				place_sprite(m, w, 1, 0);
-		}
-		else
-		{
-			if (m->player.moving != 0)
-				place_sprite(m, w, 2, 0);
-			else
-			{
-				if (m->player.firing == 1)
-				{
-					//fire(m, w);
-					place_sprite(m, w, 0, 5);
-				}
-				else
-					place_sprite(m, w, 0, 0);
-			}
+				place_sprite(m, w, 0, 0);
 		}
 	}
 }
