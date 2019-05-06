@@ -360,7 +360,6 @@ typedef struct		s_env
 	SDL_Event		event;
 	t_texture		ascii[42];
 	t_texture		main_pic[2];
-	t_texture		hud;
 	t_text			txt;
 	t_menu			menu;
 	t_dot			txthead;
@@ -373,6 +372,7 @@ typedef struct		s_worker_arg
 }					t_worker_arg;
 
 char				***parse_cmd(int ac, char **av);
+t_texture			pre_init_texture(int w, int h);
 void				l_f_priority_cmd(t_env *w, t_map *m, char ***cmd);
 void				interpret_cmd(t_env *w, t_map *m, char ***cmd);
 void				map_cmd(t_env *w, t_map *m, char **cmd);

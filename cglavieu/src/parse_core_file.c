@@ -59,21 +59,15 @@ void		parse_core_file(t_env *w, t_map *m, char *line)
 		}
 		if (ft_strcmp(tmp[0], "\tmain_pic[0]") == 0)
 		{
-			if (w->main_pic[0].pix != NULL)
-				free(w->main_pic[0].pix);
 			w->main_pic[0] = parse_texture(w, m, tmp);
 			hello_screen(w);
 			type_str(w, w->txthead, "loading game...", 0x12FEA800);
 			img_update(w);
 		}
 		if (ft_strcmp(tmp[0], "\tmain_pic[1]") == 0)
-		{
-			if (w->main_pic[1].pix != NULL)
-				free(w->main_pic[1].pix);
 			w->main_pic[1] = parse_texture(w, m, tmp);
-		}
 		if (ft_strcmp(tmp[0], "\thud") == 0)
-			w->hud = parse_texture(w, m, tmp);
+			m->hud = parse_texture(w, m, tmp);
 	}
 	ft_memreg(tmp);
 }

@@ -63,24 +63,6 @@ int			parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 	return (0);
 }
 
-int			parse_hud_sprite(t_map *m, char *def, char *pix)
-{
-	int				i;
-	char			**tmp;
-
-	tmp = ft_strsplit(def, ',');
-	m->hud.w = ft_atoi(tmp[0]);
-	m->hud.h = ft_atoi(tmp[1]);
-	i = ft_atoi(tmp[0]) * ft_atoi(tmp[1]);
-	process_hint_w(m->world, 1, "textures");
-	m->hud.pix = (Uint32 *)malloc(sizeof(Uint32) * i);
-	process_hint_w(m->world, 3, "hud sprite extraction");
-	m->hud.pix = faster_please(m->hud.pix, pix, i);
-	process_hint_w(m->world, 0, " ");
-	ft_memreg(tmp);
-	return (0);
-}
-
 int			parse_sprite_section(t_map *m, char **tab)
 {
 	if (ft_strcmp(tab[0], "\tweapon_sprite") == 0)
@@ -92,13 +74,7 @@ int			parse_sprite_section(t_map *m, char **tab)
 			return (-1);
 		}
 	}
-	if (ft_strcmp(tab[0], "\thp") == 0)
-	{
-		if (parse_hud_sprite(m, tab[1], tab[2]) == -1)
-		{
-			ft_putendl("error on parsing of the weapon_sprite section");
-		 	return (-1);
-		}
-	}
+	// if (ft_strcmp(tab[0], "\thp") == 0)
+	// 	m->hud = parse_texture(m->world, m, tab);
 	return (0);
 }

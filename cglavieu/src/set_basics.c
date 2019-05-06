@@ -36,6 +36,7 @@ void			set_w(t_env *w, int ac)
 	w->i = 0;
 	w->ac = ac;
 	w->asciino = 0;
+
 	w->sequential_draw = 0;
 	w->win = NULL;
 	w->rdr = NULL;
@@ -43,21 +44,16 @@ void			set_w(t_env *w, int ac)
 	w->sound.musique = NULL;
 	w->sound.jump = NULL;
 	w->sound.ground = NULL;
+	w->sound.reload = NULL;
 	w->pix = NULL;
 	w->inkeys = NULL;
 	w->txtr = NULL;
-	w->main_pic[0].w = w->res.width;
-	w->main_pic[0].h = w->res.height;
-	w->main_pic[0].len = w->res.width * w->res.height;
-	w->main_pic[0].pix = (Uint32 *)malloc(sizeof(Uint32) * w->main_pic[0].len);
-	w->main_pic[1].w = w->res.width;
-	w->main_pic[1].h = w->res.height;
-	w->main_pic[1].len = w->res.width * w->res.height;
-	w->main_pic[1].pix = (Uint32 *)malloc(sizeof(Uint32) * w->main_pic[0].len);
+	w->main_pic[0] = pre_init_texture(w->res.width, w->res.height);
+	w->main_pic[1] = pre_init_texture(w->res.width, w->res.height);
+	w->ascii[0] = pre_init_texture(0, 0);
 	w->menu.z = 0;
 	w->menu.y = NULL;
 	w->menu.list = NULL;
-	w->hud.pix = NULL;
 }
 
 void			set_m(t_map *m)
@@ -85,6 +81,7 @@ void			set_m(t_map *m)
 	m->weap = NULL;
 	m->sprite = NULL;
 	m->texture = NULL;
+	m->hud = pre_init_texture(0, 0);
 }
 
 void			set_m_player(t_map *m)

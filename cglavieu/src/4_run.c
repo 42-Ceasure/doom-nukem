@@ -89,13 +89,13 @@ void	ft_hud(t_env *w, t_map *m)
 	t_dot	dot;
 
 	i = 0;
-	while (i < w->hud.h)
+	while (i < m->hud.h)
 	{
 		j = 0;
-		while (j < w->hud.w)
+		while (j < m->hud.w)
 		{
-			if (w->hud.pix[i * w->hud.w + j] != 0xFF00FF00)
-				w->pix[(i + HEIGHT - w->hud.h) * WIDTH + (j + HEIGHT / 2)] = w->hud.pix[i * w->hud.w + j];
+			if (m->hud.pix[i * m->hud.w + j] != 0xFF00FF00)
+				w->pix[(i + HEIGHT - m->hud.h) * WIDTH + (j + HEIGHT / 2)] = m->hud.pix[i * m->hud.w + j];
 			j++;
 		}
 		i++;

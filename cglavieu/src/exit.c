@@ -28,9 +28,7 @@ void		empty_world(t_env *w)
 			free(w->main_pic[1].pix);
 		if (w->pix != NULL)
 			free(w->pix);
-		if (w->hud.pix != NULL)
-			free(w->hud.pix);
-		while (i < 42)
+		while (i < w->asciino)
 		{
 			free(w->ascii[i].pix);
 			i++;

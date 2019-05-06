@@ -51,62 +51,34 @@ void			process_hint_w(t_env *w, int i, char *s)
 {
 	char		*pre;
 	char		*post;
-	int 		delay;
 	t_dot		dot;
 
 	w->txthead.x = 6;
 	w->txthead.y = 550;
 	dot.x = 800;
 	dot.y = 550;
-	ft_putstr("                                                        \r");
 	post = ft_strjoin(s, "\r");
 	pre = NULL;
 	if (i == 0)
-	{
-		delay = 10;
 		pre = ft_strjoin("done", post);
-	}
 	if (i == 1)
-	{
-		delay = 200;
 		pre = ft_strjoin("allocating memory for ", post);
-	}
 	if (i == 2)
-	{
-		delay = 200;
 		pre = ft_strjoin("initialisating ", post);
-	}
 	if (i == 3)
-	{
-		delay = 200;
 		pre = ft_strjoin("processing ", post);
-	}
 	if (i == 4)
-	{
-		delay = 10;
 		pre = ft_strjoin("parsing ", post);
-	}
 	if (i == 5)
-	{
-		delay = 200;
 		pre = ft_strjoin("running ", post);
-	}
 	if (i == 6)
-	{
-		delay = 200;
 		pre = ft_strjoin("loading ", post);
-	}
 	if (i == 7)
-	{
-		delay = 200;
 		pre = ft_strjoin("extracting ", post);
-	}
-	ft_putstr(pre);
 	hello_screen(w);
 	type_str(w, w->txthead, pre, 0x12FEA800);
 	type_str(w, dot, "loading game...", 0x12FEA800);
 	img_update(w);
-	SDL_Delay(delay);
 	free(post);
 	if (pre != NULL)
 		free(pre);
