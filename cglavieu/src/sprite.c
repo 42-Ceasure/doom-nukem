@@ -67,45 +67,60 @@
 // 	}
 // }
 
-void	hand(t_map *m, t_env *w)
+void	set_fire(t_env *w, t_map *m)
 {
-	if (PH > -1)
+	m->player.refresh = 18;
+	if (PH > -1 && m->player.firing)
 	{
 		if (m->player.aiming == 1)
 		{
-			if (m->player.firing == 1)
-			{
+			if (m->player.handed == 0)
 				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2,
-					HEIGHT / 2 - m->fire.h / 2 + 5);
-				safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
+					HEIGHT / 2 - m->fire.h / 2 + 35);
+			else if (m->player.handed == 1 || m->player.handed == 2)
+				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2,
+					HEIGHT / 2 - m->fire.h / 2 + 20);
+			safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
 					m->weap[PH].sprt[1].sy - 5);
-				m->player.firing = 0;
-			}
-			else
-				safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
-					m->weap[PH].sprt[1].sy);
 		}
 		else
 		{
-			if (m->player.moving != 0)
-				safe_sprite_to_screen(w, m->weap[PH].sprt[2], m->weap[PH].sprt[2].sx,
-					m->weap[PH].sprt[2].sy);
+			if (m->player.handed == 0 || m->player.handed == 2)
+				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2 + 56,
+					HEIGHT / 2 - m->fire.h / 2 + 60);
+			else if (m->player.handed == 1)
+				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2 + 45,
+					HEIGHT / 2 - m->fire.h / 2 + 60);
+			safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
+					m->weap[PH].sprt[0].sy - 5);
+		}
+		m->player.firing = 0;
+	}
+}
+
+void	hand(t_env *w, t_map *m)
+{
+	if (PH > -1)
+	{
+		if (m->player.firing == 1)
+			set_fire(w, m);
+		else 
+		{
+			if (m->player.aiming == 1)
+				safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
+					m->weap[PH].sprt[1].sy);
 			else
 			{
-				if (m->player.firing == 1)
-				{
-					//printf("x%d,%d\n", m->fire.w / 2 -  + 60, m->fire.h / 2 - HEIGHT / 2 + 60);
-					safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2 + 56,
-					HEIGHT / 2 - m->fire.h / 2 + 60);
-					safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
-					m->weap[PH].sprt[0].sy - 5);
-					m->player.firing = 0;
-				}
+				if (m->player.moving != 0 && m->player.refresh == 0)
+					safe_sprite_to_screen(w, m->weap[PH].sprt[2], m->weap[PH].sprt[2].sx,
+						m->weap[PH].sprt[2].sy);
 				else
 					safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
-					m->weap[PH].sprt[0].sy);
+						m->weap[PH].sprt[0].sy);
 			}
 		}
+		if (m->player.refresh > 0)
+			m->player.refresh--;
 	}
 }
 

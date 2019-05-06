@@ -124,7 +124,7 @@ void	run(t_env *w, t_map *m)
 		if (m->player.display == 0)
 		{
 			draw(w, m);
-			hand(m, w);
+			hand(w, m);
 			ft_cursor(w, m);
 			if (m->player.hud == 1)
 				ft_hud(w, m);

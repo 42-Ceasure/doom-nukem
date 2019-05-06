@@ -116,6 +116,8 @@ typedef struct		s_player
 	int				handed;
 	int				aiming;
 	int				firing;
+	int				refresh;
+	int				recoil;
 	int				sector;
 	int				mousesp;
 	int				hud;
@@ -441,7 +443,7 @@ void				is_moving(t_map *m);
 void				main_menu(t_env *w, t_map *m);
 t_texture			load_img(t_env *w, t_map *m, char *s);
 void				initsprite(t_sprite **sprite, int count);
-void				hand(t_map *m, t_env *w);
+void				hand(t_env *w, t_map *m);
 void				buttondown_event(t_env *w, t_map *m);
 void				buttonup_event(t_env *w, t_map *m);
 void				hello_screen(t_env *w);

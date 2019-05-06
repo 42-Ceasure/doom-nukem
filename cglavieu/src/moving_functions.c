@@ -124,57 +124,57 @@ int			is_on_a_map_dot(t_map *m)
 	return (0);
 }
 
-// int			is_next_to_a_dot(t_map *m)
-// {
-// 	t_intersect	i;
-// 	double		slope;
-// 	double		diffx;
-// 	double		diffy;
-// 	double		dist;
-// 	double		dist_min;
-// 	int			dot_mem;
+int			is_next_to_a_dot(t_map *m)
+{
+	t_intersect	i;
+	double		slope;
+	double		diffx;
+	double		diffy;
+	double		dist;
+	double		dist_min;
+	int			dot_mem;
 
-// 	i.mem = 0;
-// 	dist_min = 0;
-// 	slope = 0;
-// 	diffx = 0;
-// 	diffy = 0;
-// 	dist = 0;
-// 	dot_mem = 0;
-// 	i.x1 = m->player.coor.x + m->player.move_speed.x;
-// 	i.y1 = m->player.coor.y + m->player.move_speed.y;
-// 	while (i.mem < m->dots_count)
-// 	{
-// 		i.x2 = m->dot[i.mem].x;
-// 		i.y2 = m->dot[i.mem].y;
-// 		slope = (i.y2 - i.y1) / (i.x2 - i.x1);
-// 		diffx = (i.x1 - i.x2);
-// 		diffy = (i.y1 - i.y2);
-// 		if (vabs(diffx) > vabs(diffy))
-// 			dist = vabs(diffx / cos(slope));
-// 		else
-// 			dist = vabs(diffy / sin(slope));
-// 		if (dist_min == 0)
-// 		{
-// 			dist_min = dist;
-// 			dot_mem = i.mem;
-// 		}
-// 		else if (dist < dist_min)
-// 		{
-// 			dist_min = dist;
-// 			dot_mem = i.mem;
-// 		}
-// 		i.mem++;
-// 	}
-// 	slope = atan2((i.y1 - m->dot[dot_mem].y), (i.x1 - m->dot[dot_mem].x));
-// 	if (dist_min < 0.01)
-// 	{
-// 		m->player.move_speed.x = (cos(slope)*0.02);
-// 		m->player.move_speed.y = (sin(slope)*0.02);
-// 		return (-1);
-// 	}
-// 	return (0);
-// }
+	i.mem = 0;
+	dist_min = 0;
+	slope = 0;
+	diffx = 0;
+	diffy = 0;
+	dist = 0;
+	dot_mem = 0;
+	i.x1 = m->player.coor.x + m->player.move_speed.x;
+	i.y1 = m->player.coor.y + m->player.move_speed.y;
+	while (i.mem < m->dots_count)
+	{
+		i.x2 = m->dot[i.mem].x;
+		i.y2 = m->dot[i.mem].y;
+		slope = (i.y2 - i.y1) / (i.x2 - i.x1);
+		diffx = (i.x1 - i.x2);
+		diffy = (i.y1 - i.y2);
+		if (vabs(diffx) > vabs(diffy))
+			dist = vabs(diffx / cos(slope));
+		else
+			dist = vabs(diffy / sin(slope));
+		if (dist_min == 0)
+		{
+			dist_min = dist;
+			dot_mem = i.mem;
+		}
+		else if (dist < dist_min)
+		{
+			dist_min = dist;
+			dot_mem = i.mem;
+		}
+		i.mem++;
+	}
+	slope = atan2((i.y1 - m->dot[dot_mem].y), (i.x1 - m->dot[dot_mem].x));
+	if (dist_min < 0.01)
+	{
+		m->player.move_speed.x = (cos(slope)*0.02);
+		m->player.move_speed.y = (sin(slope)*0.02);
+		return (-1);
+	}
+	return (0);
+}
 
 void move_player(double dx, double dy, t_map *m)
 {
@@ -258,13 +258,13 @@ void		is_moving(t_map *m)
 				m->player.moving = 0;
 			}
 		}
-		s++;
-	}
-	if (is_on_a_map_dot(m) == -1)
-	{
-		m->player.move_speed.x = 0;
-		m->player.move_speed.y = 0;
+		if (is_on_a_map_dot(m) == -1)
+		{
+			m->player.move_speed.x = 0;
+			m->player.move_speed.y = 0;
 		// break;
+		}
+		s++;
 	}
 	// is_next_to_a_dot(m);
 	move_player(m->player.move_speed.x, m->player.move_speed.y, m);
