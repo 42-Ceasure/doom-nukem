@@ -116,6 +116,8 @@ typedef struct		s_player
 	int				handed;
 	int				aiming;
 	int				firing;
+	int				snake;
+	double			swipe;
 	int				refresh;
 	int				recoil;
 	int				sector;
@@ -408,6 +410,7 @@ Uint32				color(Uint32 color1);
 void				vect_ab(t_coor p1, t_coor p2, t_env *w, Uint32 color);
 void				set_txtr_pix(t_env *w, int x, int y, Uint32 color);
 double				vect_cross_prod(double x0, double y0, double x1, double y1);
+double				sign(double a);
 double				vabs(double a);
 double				vmin(double a, double b);
 double				vmax(double a, double b);

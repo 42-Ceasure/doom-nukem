@@ -69,7 +69,10 @@
 
 void	set_fire(t_env *w, t_map *m)
 {
+	m->player.swipe = -m->player.swipe;
 	m->player.refresh = 18;
+	m->player.yaw = m->player.yaw - 0.031;
+	PL_A = PL_A + m->player.swipe;
 	if (PH > -1 && m->player.firing)
 	{
 		if (m->player.aiming == 1)

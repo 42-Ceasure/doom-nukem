@@ -89,6 +89,8 @@ void			set_m_player(t_map *m)
 	m->player.handed = 0;
 	m->player.aiming = 0;
 	m->player.firing = 0;
+	m->player.snake = 0;
+	m->player.swipe = 0.025;
 	m->player.refresh = 0;
 	m->player.recoil = 0;
 	m->player.sector = 0;
