@@ -48,4 +48,3 @@ void		keydown_events(t_env *w, t_map *m)
 	music(w);
 	affichage(w, m);
 }
-

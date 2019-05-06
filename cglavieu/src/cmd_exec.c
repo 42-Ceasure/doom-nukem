@@ -105,4 +105,3 @@ void			exec_cmd(t_env *w, t_map *m, char ***cmd, char **av)
 	else
 		set_error(w, m, 1, ft_strdup(av[1]));
 }
-

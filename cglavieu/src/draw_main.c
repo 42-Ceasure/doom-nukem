@@ -121,4 +121,3 @@ void	draw(t_env *w, t_map *m)
 		++renderedsectors[read.now.sectorno];
 	}
 }
-

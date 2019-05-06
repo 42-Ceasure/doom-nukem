@@ -72,4 +72,3 @@ void		safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y)
 // {
 	
 // }
-

@@ -238,4 +238,3 @@ void		reload_weapon(t_env *w, t_map *m)
 		m->weap[PH].actu_ammo = m->weap[PH].magazine;
 	}
 }
-
