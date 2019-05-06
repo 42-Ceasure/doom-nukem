@@ -1,0 +1,8 @@
+libSDL2/
+onj/
+SDL2-2.0.3/
+SDL2_mixer-2.0.1/
+
+user_config.dn3d
+
+*.[oa]
