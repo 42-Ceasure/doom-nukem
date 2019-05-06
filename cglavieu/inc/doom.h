@@ -355,6 +355,7 @@ typedef struct		s_env
 	t_res			res;
 	int				window_mode;
 	int				sequential_draw;
+	int				sequential_frame;
 	SDL_Window		*win;
 	SDL_Renderer	*rdr;
 	t_sound			sound;
@@ -487,6 +488,7 @@ void				stop_aim(t_env *w, t_map *m);
 void				aim(t_env *w, t_map *m);
 void				reload_weapon(t_env *w, t_map *m);
 void				launch(t_env *w, t_map *m);
+void				sequential_frame(t_env *w, t_map *m);
 void				safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);
 void				safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y);
 

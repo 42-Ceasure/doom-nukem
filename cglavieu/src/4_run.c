@@ -78,7 +78,7 @@ void	ft_hud(t_env *w, t_map *m)
 
 	x = WIDTH / 2 - m->hud.w / 2;
 	y = HEIGHT - m->hud.h;
-	safe_texture_to_screen(w, m->hud, x, y + 12);
+	safe_texture_to_screen(w, m->hud, x, y);
 	dot.x = 10;
 	dot.y = 10;
 	type_str(w, dot, "HP : 100", 0x12FF0000);
@@ -90,6 +90,32 @@ void	ft_hud(t_env *w, t_map *m)
 	s = ft_itoa(m->weap[PH].actu_ammo);
 	type_str(w, dot, s, 0x12000000);
 	free(s);
+}
+
+void	sequential_frame(t_env *w, t_map *m)
+{
+	w->sequential_frame = 1;
+	w->txthead.x = 265;
+	w->txthead.y = 236;
+	type_str(w, w->txthead, "sequential frame rendering started.", 0xFF000000);
+	img_update(w);
+	SDL_Delay(1500);
+	clean_render(w, 0xFF000000);
+	type_str(w, w->txthead, "sequential frame rendering started.", 0xFFFFFFFF);
+	img_update(w);
+	draw(w, m);
+	SDL_Delay(1000);
+	hand(w, m);
+	SDL_Delay(1000);
+	ft_cursor(w, m);
+	SDL_Delay(1000);
+	if (m->player.hud == 1)
+		ft_hud(w, m);
+	w->sequential_frame = 0;
+	w->txthead.x = 313;
+	type_str(w, w->txthead, "back to normal in 3 seconds...", 0xFF000000);
+	img_update(w);
+	SDL_Delay(5000);
 }
 
 void	run(t_env *w, t_map *m)

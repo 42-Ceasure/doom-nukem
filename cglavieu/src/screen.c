@@ -26,8 +26,11 @@ void		safe_texture_to_screen(t_env *w, t_texture texture, int x, int y)
 						w->pix[(y + oy) * WIDTH + (x + ox)] = texture.pix[tmpix];
 				}
 			}
+			i++;
 			ox++;
 		}
+		if (w->sequential_frame == 1 && (oy % 2 == 0))
+				img_update(w);
 		oy++;
 	}
 }
@@ -56,8 +59,11 @@ void		safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y)
 						w->pix[(y + oy) * WIDTH + (x + ox)] = sprite.pix[tmpix];
 				}
 			}
+			i++;
 			ox++;
 		}
+		if (w->sequential_frame == 1 && (oy % 2 == 0))
+			img_update(w);
 		oy++;
 	}
 }
