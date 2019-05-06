@@ -96,3 +96,4 @@ void		load_core(t_env *w, t_map *m)
 	else
 		set_error(w, m, 5, path);
 }
+

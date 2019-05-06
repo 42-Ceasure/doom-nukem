@@ -196,3 +196,4 @@ void	hand(t_env *w, t_map *m)
 // 	}
 // 	d = 0;
 // }
+

@@ -118,3 +118,4 @@ void			set_m_player(t_map *m)
 	m->player.accel = 0;
 	m->player.display = 0;
 }
+

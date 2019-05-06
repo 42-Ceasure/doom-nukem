@@ -84,3 +84,4 @@ void			process_hint_w(t_env *w, int i, char *s)
 		free(pre);
 
 }
+

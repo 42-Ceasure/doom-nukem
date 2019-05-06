@@ -269,5 +269,4 @@ void		is_moving(t_map *m)
 	// is_next_to_a_dot(m);
 	move_player(m->player.move_speed.x, m->player.move_speed.y, m);
 	m->player.fall = 1;
-
 }
