@@ -200,16 +200,19 @@ void		stop_shoot(t_map *m)
 
 void		shoot(t_map *m)
 {
-	if (Mix_Playing(3) == 0 && m->weap[PH].actu_ammo > 0)
+	if (Mix_Playing(3) == 0 && ft_strcmp(m->weap[PH].name, "shotgun_simple") == 0
+		&& m->weap[PH].actu_ammo > 0)
 	{
+		m->player.firing = 1;
 		Mix_PlayChannel(3, m->weap[PH].shoot, 0);
-		if (m->weap[PH].actu_ammo > 0)
-		{
-			if (ft_strcmp(m->weap[PH].name, "assault_riffle") == 0)
-				m->weap[PH].actu_ammo -= 5;
-			else
-				m->weap[PH].actu_ammo -= 1;
-		}
+		m->weap[PH].actu_ammo -= 1;
+	}
+	else if (m->weap[PH].actu_ammo > 0 && ft_strcmp(m->weap[PH].name,
+		"shotgun_simple") != 0)
+	{
+		m->player.firing = 1;
+		Mix_PlayChannel(3, m->weap[PH].shoot, 0);
+		m->weap[PH].actu_ammo -= 1;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/04/15 14:24:42 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/05/06 16:07:20 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,42 @@
 
 void	hand(t_map *m, t_env *w)
 {
-	int			i;
-	int			d;
-
-	i = 0;
-	d = 0;
 	if (PH > -1)
 	{
 		if (m->player.aiming == 1)
-			safe_sprite_to_screen(w, m->weap[PH].sprt[1]);
+		{
+			if (m->player.firing == 1)
+			{
+				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2,
+					HEIGHT / 2 - m->fire.h / 2 + 5);
+				safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
+					m->weap[PH].sprt[1].sy - 5);
+				m->player.firing = 0;
+			}
+			else
+				safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
+					m->weap[PH].sprt[1].sy);
+		}
 		else
 		{
 			if (m->player.moving != 0)
-				safe_sprite_to_screen(w, m->weap[PH].sprt[2]);
+				safe_sprite_to_screen(w, m->weap[PH].sprt[2], m->weap[PH].sprt[2].sx,
+					m->weap[PH].sprt[2].sy);
 			else
-				safe_sprite_to_screen(w, m->weap[PH].sprt[0]);
+			{
+				if (m->player.firing == 1)
+				{
+					//printf("x%d,%d\n", m->fire.w / 2 -  + 60, m->fire.h / 2 - HEIGHT / 2 + 60);
+					safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2 + 56,
+					HEIGHT / 2 - m->fire.h / 2 + 60);
+					safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
+					m->weap[PH].sprt[0].sy - 5);
+					m->player.firing = 0;
+				}
+				else
+					safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
+					m->weap[PH].sprt[0].sy);
+			}
 		}
 	}
 }

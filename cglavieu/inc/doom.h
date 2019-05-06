@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/05/02 13:52:32 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/05/06 15:33:04 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,6 +293,7 @@ typedef struct		s_map
 	t_sprite		*sprite;
 	t_texture		*texture;
 	t_texture		hud;
+	t_texture		fire;
 	t_player		player;
 }					t_map;
 
@@ -485,6 +486,6 @@ void				aim(t_env *w, t_map *m);
 void				reload_weapon(t_env *w, t_map *m);
 void				launch(t_env *w, t_map *m);
 void				safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);
-void				safe_sprite_to_screen(t_env *w, t_sprite sprite);
+void				safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y);
 
 #endif

@@ -68,6 +68,8 @@ void		parse_core_file(t_env *w, t_map *m, char *line)
 			w->main_pic[1] = parse_texture(w, m, tmp);
 		if (ft_strcmp(tmp[0], "\thud") == 0)
 			m->hud = parse_texture(w, m, tmp);
+		if (ft_strcmp(tmp[0], "\tfire") == 0)
+			m->fire = parse_texture(w, m, tmp);
 	}
 	ft_memreg(tmp);
 }
