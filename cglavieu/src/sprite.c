@@ -77,49 +77,13 @@ void	hand(t_map *m, t_env *w)
 	if (PH > -1)
 	{
 		if (m->player.aiming == 1)
-		{
-			while (d < m->weap[PH].sprt[1].h)
-			{
-				i = 0;
-				while (i < m->weap[PH].sprt[1].w)
-				{
-					if (m->weap[PH].sprt[1].pix[d * m->weap[PH].sprt[1].w + i] != m->weap[PH].sprt[1].pix[0])
-						w->pix[(d + m->weap[PH].sprt[1].sy) * WIDTH + (i + m->weap[PH].sprt[1].sx)] = m->weap[PH].sprt[1].pix[d * m->weap[PH].sprt[1].w + i];
-					i++;
-				}
-				d++;
-			}
-		}
+			safe_sprite_to_screen(w, m->weap[PH].sprt[1]);
 		else
 		{
 			if (m->player.moving != 0)
-			{
-				while (d < m->weap[PH].sprt[2].h)
-				{
-					i = 0;
-					while (i < m->weap[PH].sprt[2].w)
-					{
-						if (m->weap[PH].sprt[2].pix[d * m->weap[PH].sprt[2].w + i] != m->weap[PH].sprt[2].pix[0])
-							w->pix[(d + m->weap[PH].sprt[2].sy) * WIDTH + (i + m->weap[PH].sprt[2].sx)] = m->weap[PH].sprt[2].pix[d * m->weap[PH].sprt[2].w + i];
-						i++;
-					}
-					d++;
-				}
-			}
+				safe_sprite_to_screen(w, m->weap[PH].sprt[2]);
 			else
-			{
-				while (d < m->weap[PH].sprt[0].h)
-				{
-					i = 0;
-					while (i < m->weap[PH].sprt[0].w)
-					{
-						if (m->weap[PH].sprt[0].pix[d * m->weap[PH].sprt[0].w + i] != m->weap[PH].sprt[0].pix[0])
-							w->pix[(d + m->weap[PH].sprt[0].sy) * WIDTH + (i + m->weap[PH].sprt[0].sx)] = m->weap[PH].sprt[0].pix[d * m->weap[PH].sprt[0].w + i];
-						i++;
-					}
-					d++;
-				}
-			}
+				safe_sprite_to_screen(w, m->weap[PH].sprt[0]);
 		}
 	}
 }

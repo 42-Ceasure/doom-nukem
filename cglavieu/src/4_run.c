@@ -4,24 +4,12 @@
 
 void	hello_screen(t_env *w)
 {
-	w->i = 0;
-	while (w->i < w->main_pic[0].h * w->main_pic[0].w)
-	{
-		if (w->i < w->res.width * w->res.height)
-			w->pix[w->i] = w->main_pic[0].pix[w->i];
-		w->i++;
-	}
+	safe_texture_to_screen(w, w->main_pic[0], 0, 0);
 }
 
 void	menu_screen(t_env *w)
 {
-	w->i = 0;
-	while (w->i < w->main_pic[1].h * w->main_pic[1].w)
-	{
-		if (w->i < w->res.width * w->res.height)
-			w->pix[w->i] = w->main_pic[1].pix[w->i];
-		w->i++;
-	}
+	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
 }
 
 void	main_menu(t_env *w, t_map *m)
@@ -83,34 +71,25 @@ void	ft_cursor(t_env *w, t_map *m)
 
 void	ft_hud(t_env *w, t_map *m)
 {
-	int 	i;
-	int 	j;
 	char	*s;
 	t_dot	dot;
+	int		x;
+	int		y;
 
-	i = 0;
-	while (i < m->hud.h)
-	{
-		j = 0;
-		while (j < m->hud.w)
-		{
-			if (m->hud.pix[i * m->hud.w + j] != 0xFF00FF00)
-				w->pix[(i + HEIGHT - m->hud.h) * WIDTH + (j + HEIGHT / 2)] = m->hud.pix[i * m->hud.w + j];
-			j++;
-		}
-		i++;
-		dot.x = 10;
-		dot.y = 10;
-		type_str(w, dot, "HP : 100", 0x12FF0000);
-		dot.x = 10;
-		dot.y = HEIGHT - 30;
-		type_str(w, dot, "AMMO : ", 0x12000000);
-		dot.x = 8 * 14;
-		dot.y = HEIGHT - 30;
-		s = ft_itoa(m->weap[PH].actu_ammo);
-		type_str(w, dot, s, 0x12000000);
-		free(s);
-	}
+	x = WIDTH / 2 - m->hud.w / 2;
+	y = HEIGHT - m->hud.h;
+	safe_texture_to_screen(w, m->hud, x, y + 12);
+	dot.x = 10;
+	dot.y = 10;
+	type_str(w, dot, "HP : 100", 0x12FF0000);
+	dot.x = 10;
+	dot.y = HEIGHT - 30;
+	type_str(w, dot, "AMMO : ", 0x12000000);
+	dot.x = 8 * 14;
+	dot.y = HEIGHT - 30;
+	s = ft_itoa(m->weap[PH].actu_ammo);
+	type_str(w, dot, s, 0x12000000);
+	free(s);
 }
 
 void	run(t_env *w, t_map *m)

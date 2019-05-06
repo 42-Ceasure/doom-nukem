@@ -53,6 +53,7 @@ int			parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 	m->weap[wn].sprt[sn].w = ft_atoi(tmp[4]);
 	m->weap[wn].sprt[sn].h = ft_atoi(tmp[5]);
 	i = ft_atoi(tmp[4]) * ft_atoi(tmp[5]);
+	m->weap[wn].sprt[sn].len = i;
 	process_hint_w(m->world, 1, "textures");
 	m->weap[wn].sprt[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i);
 	process_hint_w(m->world, 6, name);

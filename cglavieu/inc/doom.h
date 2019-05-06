@@ -238,6 +238,7 @@ typedef struct		s_sprite
 	int				sy;
 	int				w;
 	int				h;
+	int				len;
 	int				sector;
 	t_coor			coor;
 }					t_sprite;
@@ -483,5 +484,7 @@ void				stop_aim(t_env *w, t_map *m);
 void				aim(t_env *w, t_map *m);
 void				reload_weapon(t_env *w, t_map *m);
 void				launch(t_env *w, t_map *m);
+void				safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);
+void				safe_sprite_to_screen(t_env *w, t_sprite sprite);
 
 #endif
