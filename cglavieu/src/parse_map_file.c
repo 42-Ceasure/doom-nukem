@@ -46,7 +46,7 @@ int		parse_line(t_env *w, t_map *m)
 			return (-1);
 		}
 	}
-	if (m->section_number == 2)
+	else if (m->section_number == 2)
 	{
 		process_hint_w(w, 4, "player");
 		if (parse_player_section(m, tmp) == -1)
@@ -55,7 +55,7 @@ int		parse_line(t_env *w, t_map *m)
 			return (-1);
 		}
 	}
-	if (m->section_number == 3)
+	else if (m->section_number == 3)
 	{
 		process_hint_w(w, 4, "weapon");
 		if (parse_weapon_section(m, tmp) == -1)
@@ -64,7 +64,7 @@ int		parse_line(t_env *w, t_map *m)
 			return (-1);
 		}
 	}
-	if (m->section_number == 4)
+	else if (m->section_number == 4)
 	{
 		process_hint_w(w, 4, "sprite");
 		if (parse_sprite_section(m, tmp) == -1)
@@ -73,6 +73,13 @@ int		parse_line(t_env *w, t_map *m)
 			return (-1);
 		}
 	}
+	else if (m->section_number == 5 && m->launchwmap == 1)
+	{
+		process_hint_w(w, 4, "core");
+		parse_core_section(w, m, m->line, 1);
+	}
+	else if (m->section_number == 5 && m->launchwmap == 0)
+		w->stopread = 1;
 	ft_memreg(tmp);
 	return (0);
 }
@@ -88,7 +95,7 @@ int		do_parse(t_env *w, t_map *m)
 		return (-1);
 	process_hint_w(w, 0, " ");
 	process_hint_w(w, 6, " ");
-	while (get_next_line(m->fd, &m->line))
+	while (get_next_line(m->fd, &m->line) && w->stopread == 0)
 	{
 		if ((parse_line(w, m)) == -1)
 		{

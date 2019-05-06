@@ -36,7 +36,7 @@ void			set_w(t_env *w, int ac)
 	w->i = 0;
 	w->ac = ac;
 	w->asciino = 0;
-
+	w->stopread = 0;
 	w->sequential_draw = 0;
 	w->win = NULL;
 	w->rdr = NULL;

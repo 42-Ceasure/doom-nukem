@@ -41,7 +41,7 @@ t_menu		parse_menu_line(t_env *w, char **tmp)
 	return (menu);
 }
 
-void		parse_core_file(t_env *w, t_map *m, char *line)
+void		parse_core_section(t_env *w, t_map *m, char *line, int mode)
 {
 	char	**tmp;
 
@@ -50,21 +50,21 @@ void		parse_core_file(t_env *w, t_map *m, char *line)
 	tmp = ft_strsplit(line, ':');
 	if (tmp[0] != NULL)
 	{
-		if (ft_strcmp(tmp[0], "\tmenu") == 0)
+		if (ft_strcmp(tmp[0], "\tmenu") == 0 && mode == 0)
 			w->menu = parse_menu_line(w, tmp);
 		if (ft_strcmp(tmp[0], "\tascii") == 0 && w->asciino < 42)
 		{
 			w->ascii[w->asciino] = parse_texture(w, m, tmp);
 			w->asciino++;
 		}
-		if (ft_strcmp(tmp[0], "\tmain_pic[0]") == 0)
+		if (ft_strcmp(tmp[0], "\tmain_pic[0]") == 0 && mode == 0)
 		{
 			w->main_pic[0] = parse_texture(w, m, tmp);
 			hello_screen(w);
 			type_str(w, w->txthead, "loading game...", 0x12FEA800);
 			img_update(w);
 		}
-		if (ft_strcmp(tmp[0], "\tmain_pic[1]") == 0)
+		if (ft_strcmp(tmp[0], "\tmain_pic[1]") == 0 && mode == 0)
 			w->main_pic[1] = parse_texture(w, m, tmp);
 		if (ft_strcmp(tmp[0], "\thud") == 0)
 			m->hud = parse_texture(w, m, tmp);
@@ -86,7 +86,7 @@ void		load_core(t_env *w, t_map *m)
 	{
 		while (get_next_line(fd, &line))
 		{
-			parse_core_file(w, m, line);
+			parse_core_section(w, m, line, 0);
 			free(line);
 		}
 		free(line);

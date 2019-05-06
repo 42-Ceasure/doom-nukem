@@ -43,7 +43,10 @@ void		keydown_events(t_env *w, t_map *m)
 	if (KEY == SDLK_r)
 		reload_weapon(w, m);
 	if (KEY == SDLK_k)
+	{
+		w->sequential_frame = 1;
 		sequential_frame(w, m);
+	}
 	sit_down(w, m);
 	music(w);
 	affichage(w, m);

@@ -352,6 +352,7 @@ typedef struct		s_env
 	int				i;
 	int				ac;
 	int				asciino;
+	int				stopread;
 	t_res			res;
 	int				window_mode;
 	int				sequential_draw;
@@ -392,6 +393,7 @@ int					parse_map_section(t_map *m, char **tab);
 int					parse_player_section(t_map *m, char **tab);
 int					parse_weapon_section(t_map *m, char **tab);
 int					parse_sprite_section(t_map *m, char **tab);
+void				parse_core_section(t_env *w, t_map *m, char *line, int mode);
 int					quick_look(t_env *w, t_map *m);
 int					do_parse(t_env *w, t_map *m);
 void				set_advanced_run(char **av, t_env *w, t_map *m);

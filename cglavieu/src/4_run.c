@@ -103,7 +103,6 @@ void	game_img(t_env *w, t_map *m)
 
 void	sequential_frame(t_env *w, t_map *m)
 {
-	w->sequential_frame = 1;
 	w->txthead.x = 265;
 	w->txthead.y = 236;
 	type_str(w, w->txthead, "sequential frame rendering started.", 0xFF000000);
@@ -111,6 +110,9 @@ void	sequential_frame(t_env *w, t_map *m)
 	SDL_Delay(1500);
 	clean_render(w, 0xFF000000);
 	type_str(w, w->txthead, "sequential frame rendering started.", 0xFFFFFFFF);
+	img_update(w);
+	SDL_Delay(500);
+	clean_render(w, 0xFF000000);
 	img_update(w);
 	game_img(w, m);
 	w->sequential_frame = 0;
@@ -139,8 +141,13 @@ void	run(t_env *w, t_map *m)
 			{
 				if (KEY == 27)
 				{
-					w->menu.i = 1;
-					m->stop = 1;
+					if (m->launchwmap == 0)
+					{
+						w->menu.i = 1;
+						m->stop = 1;
+					}
+					else
+						exit_game(w, m, 1);
 				}
 				keydown_events(w, m);
 			}
