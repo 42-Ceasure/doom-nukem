@@ -350,6 +350,15 @@ typedef struct		s_text
 	Uint32			color;
 }					t_text;
 
+typedef	struct		s_dtime
+{
+	int				fps;
+	Uint32			ctime;
+	Uint32			otime;
+	Uint32			etime;
+	Uint32			shootime;
+}					t_dtime;
+
 typedef struct		s_env
 {
 	t_map			*m;
@@ -373,6 +382,7 @@ typedef struct		s_env
 	t_text			txt;
 	t_menu			menu;
 	t_dot			txthead;
+	t_dtime			dtime;
 }					t_env;
 
 typedef struct		s_worker_arg
@@ -490,7 +500,7 @@ void				crouch_lock(t_map *m);
 void				switch_weapon(t_map *m, int i);
 void				look_around(t_env *w, t_map *m);
 void				set_shoot(t_map *m, int i);
-void				shoot(t_map *m);
+void				shoot(t_env *w, t_map *m);
 void				stop_aim(t_env *w, t_map *m);
 void				aim(t_env *w, t_map *m);
 void				reload_weapon(t_env *w, t_map *m);

@@ -54,6 +54,11 @@ void			set_w(t_env *w, int ac)
 	w->menu.z = 0;
 	w->menu.y = NULL;
 	w->menu.list = NULL;
+	w->dtime.fps = 0;
+	w->dtime.ctime = 0;
+	w->dtime.otime = 0;
+	w->dtime.etime = 0;
+	w->dtime.shootime = 0;
 }
 
 void			set_m(t_map *m)

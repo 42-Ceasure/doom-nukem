@@ -210,10 +210,12 @@ void		set_shoot(t_map *m, int i)
 		m->player.shooting = 1;
 }
 
-void		shoot(t_map *m)
+void		shoot(t_env *w, t_map *m)
 {
-	if (Mix_Playing(3) == 0 && Mix_Playing(1) == 0 && m->weap[PH].actu_ammo > 0)
+	if ((w->dtime.shootime > (Uint32)m->weap[PH].firerate)
+		&& m->weap[PH].actu_ammo > 0)
 	{
+		w->dtime.shootime = 0;
 		m->player.firing = 1;
 		Mix_PlayChannel(3, m->weap[PH].shoot, 0);
 		m->weap[PH].actu_ammo -= 1;
