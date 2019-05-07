@@ -261,7 +261,7 @@ typedef struct		s_weapon
 	int				range;
 	int				firerate;
 	int				accuracy;
-	int				dispertion;
+	double			dispertion;
 	int				ammo;
 	int				actu_ammo;
 	int				magazine;

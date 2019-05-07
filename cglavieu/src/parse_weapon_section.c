@@ -19,7 +19,7 @@ int					parse_weapon_section(t_map *m, char **tab)
 			if (tmp[2])
 				m->weap[m->w].accuracy = ft_atoi(tmp[2]);
 			if (tmp[3])
-				m->weap[m->w].dispertion = ft_atoi(tmp[3]);
+				m->weap[m->w].dispertion = ft_atof(tmp[3]);
 			if (tmp[4])
 				m->weap[m->w].ammo = ft_atoi(tmp[4]);
 			if (tmp[5])
