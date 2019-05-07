@@ -24,6 +24,7 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	m->weapon_count = 0;
 	m->sprite_count = 0;
 	m->yaw = 0;
+	m->asc = 0;
 	m->line = NULL;
 	m->gravity = BASE_GRAVITY;
 	m->maxrenderedsector = 32;

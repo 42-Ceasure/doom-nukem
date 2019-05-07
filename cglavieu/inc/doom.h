@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/05/06 15:33:04 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/05/07 14:56:06 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,6 +280,7 @@ typedef struct		s_map
 	int				s;
 	int				w;
 	int				fd;
+	int				asc;
 	int				section_number;
 	int				dots_count;
 	int				sector_count;

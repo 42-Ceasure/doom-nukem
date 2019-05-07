@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/05/06 16:07:20 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/05/07 16:00:40 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ void	set_fire(t_env *w, t_map *m)
 {
 	m->player.swipe = -m->player.swipe;
 	m->player.refresh = 18;
-	m->player.yaw = m->player.yaw - 0.031;
+	if (ft_strcmp(m->weap[PH].name, "shotgun_simple") == 0)
+		m->player.yaw = m->player.yaw - 0.151;
+	else
+		m->player.yaw = m->player.yaw - 0.011;
 	PL_A = PL_A + m->player.swipe;
 	if (PH > -1 && m->player.firing)
 	{

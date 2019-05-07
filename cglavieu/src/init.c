@@ -57,20 +57,14 @@ int			load_sounds(t_env *w, t_map *m)
 		return (-1);
 	if (!(m->weap[0].shoot = Mix_LoadWAV("./sounds/MP5.wav")))
 		return (-1);
-	if (!(w->sound.ground = Mix_LoadWAV("./sounds/ground.wav")))
-		return (-1);
 	if (!(m->weap[2].shoot = Mix_LoadWAV("./sounds/magnum.wav")))
 		return (-1);
 	if (!(m->weap[1].shoot = Mix_LoadWAV("./sounds/shotgun.wav")))
 		return (-1);
-	/*if (!(m->weap[3].shoot = Mix_LoadWAV("./sounds/sniper.wav")))
-		return (-1);*/
 	Mix_VolumeChunk(w->sound.jump, 70);
 	Mix_VolumeChunk(m->weap[1].shoot, 80);
-	//Mix_VolumeChunk(m->weap[3].shoot, 50);
 	Mix_VolumeChunk(m->weap[0].shoot, 50);
 	Mix_VolumeChunk(m->weap[2].shoot, 50);
-	Mix_VolumeChunk(w->sound.ground, 70);
 	return (1);
 }
 

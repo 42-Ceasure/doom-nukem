@@ -125,10 +125,19 @@ void		minimap(t_map *m)
 
 void		och_door(t_map *m)
 {
-	if (m->sector[1].ceiling < 40)
-		m->sector[1].ceiling += 2;
+	if (m->sector[1].ceiling == 40)
+		m->asc = 0;
+	if (m->sector[1].ceiling > 0 && m->asc == 0)
+	{
+		m->sector[1].ceiling -= 2;
+		m->sector[1].floor -= 2;
+	}
 	else
-		m->sector[1].ceiling -= 39;
+	{
+		m->asc = 1;
+		m->sector[1].ceiling += 2;
+		m->sector[1].floor += 2;
+	}
 }
 
 void		pause_music(void)
@@ -200,15 +209,15 @@ void		stop_shoot(t_map *m)
 
 void		shoot(t_map *m)
 {
-	if (Mix_Playing(3) == 0 && ft_strcmp(m->weap[PH].name, "shotgun_simple") == 0
-		&& m->weap[PH].actu_ammo > 0)
+	if (Mix_Playing(3) == 0 && Mix_Playing(1) == 0 && ft_strcmp(m->weap[PH].name,
+		"shotgun_simple") == 0 && m->weap[PH].actu_ammo > 0)
 	{
 		m->player.firing = 1;
 		Mix_PlayChannel(3, m->weap[PH].shoot, 0);
 		m->weap[PH].actu_ammo -= 1;
 	}
-	else if (m->weap[PH].actu_ammo > 0 && ft_strcmp(m->weap[PH].name,
-		"shotgun_simple") != 0)
+	else if (Mix_Playing(1) == 0 && m->weap[PH].actu_ammo > 0
+		&& ft_strcmp(m->weap[PH].name, "shotgun_simple") != 0)
 	{
 		m->player.firing = 1;
 		Mix_PlayChannel(3, m->weap[PH].shoot, 0);
@@ -234,7 +243,7 @@ void		reload_weapon(t_env *w, t_map *m)
 {
 	if (Mix_Playing(3) == 0 && m->weap[PH].actu_ammo != m->weap[PH].magazine)
 	{
-		Mix_PlayChannel(3, w->sound.reload, 0);
+		Mix_PlayChannel(1, w->sound.reload, 0);
 		m->weap[PH].actu_ammo = m->weap[PH].magazine;
 	}
 }
