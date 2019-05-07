@@ -71,10 +71,8 @@ void	set_fire(t_env *w, t_map *m)
 {
 	m->player.swipe = -m->player.swipe;
 	m->player.refresh = 18;
-	if (ft_strcmp(m->weap[PH].name, "shotgun_simple") == 0)
-		m->player.yaw = m->player.yaw - 0.151;
-	else
-		m->player.yaw = m->player.yaw - 0.011;
+	m->yaw = vmid(m->yaw - 0.011, -4, 4);
+	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
 	PL_A = PL_A + m->player.swipe;
 	if (PH > -1 && m->player.firing)
 	{
