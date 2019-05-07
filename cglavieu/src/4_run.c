@@ -130,6 +130,12 @@ void	sequential_frame(t_env *w, t_map *m)
 	SDL_Delay(1000);
 }
 
+void	is_shooting(t_map *m)
+{
+	if (m->player.shooting == 1)
+		shoot(m);
+}
+
 void	run(t_env *w, t_map *m)
 {
 	m->stop = 0;
@@ -171,6 +177,7 @@ void	run(t_env *w, t_map *m)
 		// vect_ab((t_coor){512,0,0},(t_coor){512,575,0},w,0x00000000);
 		img_update(w);
 		get_height(m);
+		is_shooting(m);
 		is_falling(m, w);
 		is_moving(m);
 		slow_down(w, m);

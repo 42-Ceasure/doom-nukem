@@ -115,6 +115,7 @@ typedef struct		s_player
 {
 	int				handed;
 	int				aiming;
+	int				shooting;
 	int				firing;
 	int				snake;
 	double			swipe;
@@ -488,7 +489,7 @@ void				crawl_lock(t_map *m);
 void				crouch_lock(t_map *m);
 void				switch_weapon(t_map *m, int i);
 void				look_around(t_env *w, t_map *m);
-void				stop_shoot(t_map *m);
+void				set_shoot(t_map *m, int i);
 void				shoot(t_map *m);
 void				stop_aim(t_env *w, t_map *m);
 void				aim(t_env *w, t_map *m);

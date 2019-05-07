@@ -202,9 +202,12 @@ void		look_around(t_env *w, t_map *m)
 	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
 }
 
-void		stop_shoot(t_map *m)
+void		set_shoot(t_map *m, int i)
 {
-	m->player.firing = 0;
+	if (i == 0)
+		m->player.shooting = 0;
+	else
+		m->player.shooting = 1;
 }
 
 void		shoot(t_map *m)

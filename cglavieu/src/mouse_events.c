@@ -5,7 +5,7 @@
 void		buttonup_event(t_env *w, t_map *m)
 {
 	if (BUTTON == SDL_BUTTON_LEFT)
-		stop_shoot(m);
+		set_shoot(m, 0);
 	if (BUTTON == SDL_BUTTON_RIGHT)
 		stop_aim(w, m);
 }
@@ -13,7 +13,7 @@ void		buttonup_event(t_env *w, t_map *m)
 void		buttondown_event(t_env *w, t_map *m)
 {
 	if (BUTTON == SDL_BUTTON_LEFT)
-		shoot(m);
+		set_shoot(m, 1);
 	if (BUTTON == SDL_BUTTON_RIGHT)
 		aim(w, m);
 }
