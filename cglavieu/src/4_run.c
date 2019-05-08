@@ -142,11 +142,7 @@ void	sequential_frame(t_env *w, t_map *m)
 void	get_that_time(t_env *w)
 {
 	w->invert = -w->invert;
-//--------------------------------------------------------------------------------
 	w->random = 1.3 * (double)rand() / (double)RAND_MAX - 0.3;
-//--------------------------------------------------------------------------------
-	// w->random = (double)rand() / (double)RAND_MAX;
-//--------------------------------------------------------------------------------
 	w->dtime.otime = w->dtime.ctime;
 	w->dtime.ctime = SDL_GetTicks();
 	w->dtime.fps = (w->dtime.ctime - w->dtime.otime) / 1000;
