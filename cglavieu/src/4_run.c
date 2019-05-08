@@ -143,13 +143,9 @@ void	get_that_time(t_env *w)
 {
 	w->invert = -w->invert;
 //--------------------------------------------------------------------------------
-	// w->random = 2 * (double)rand() / (double)RAND_MAX - 1;
-	// if (w->random == 0)											// rand -1 -> 1  
-	// 	w->random = w->invert;						
+	w->random = 1.3 * (double)rand() / (double)RAND_MAX - 0.3;
 //--------------------------------------------------------------------------------
-	w->random = (double)rand() / (double)RAND_MAX;
-	if (w->random == 0)											// rand  0 -> 1  
-		w->random = 1;
+	// w->random = (double)rand() / (double)RAND_MAX;
 //--------------------------------------------------------------------------------
 	w->dtime.otime = w->dtime.ctime;
 	w->dtime.ctime = SDL_GetTicks();

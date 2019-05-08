@@ -124,6 +124,8 @@ void	hand(t_env *w, t_map *m)
 		}
 		if (m->player.refresh > 0)
 			m->player.refresh--;
+		if (m->player.switching > 0)
+			m->player.switching--;
 	}
 }
 

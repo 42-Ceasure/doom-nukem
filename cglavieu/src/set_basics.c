@@ -98,6 +98,7 @@ void			set_m_player(t_map *m)
 	m->player.shooting = 0;
 	m->player.firing = 0;
 	m->player.refresh = 0;
+	m->player.switching = 0;
 	m->player.recoil = 0;
 	m->player.sector = 0;
 	m->player.hud = 0;

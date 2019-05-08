@@ -118,6 +118,7 @@ typedef struct		s_player
 	int				shooting;
 	int				firing;
 	int				refresh;
+	int				switching;
 	int				recoil;
 	int				sector;
 	int				mousesp;
