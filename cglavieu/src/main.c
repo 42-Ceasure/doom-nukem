@@ -87,7 +87,7 @@ int				main(int ac, char **av)
 	ft_putstr("                              \r");
 	over = clock();
 	w->loading_time = ((double)(over - go_go_go)) / CLOCKS_PER_SEC;
-	printf("game loaded in %f seconds !\n", w->loading_time);
+	printf("game     loaded in %f seconds !\n", w->loading_time);
 	if (m->launchwmap == 1)
 		run(w, m);
 	else

@@ -354,6 +354,8 @@ typedef struct		s_text
 typedef	struct		s_dtime
 {
 	int				fps;
+	Uint32			start;
+	Uint32			end;
 	Uint32			ctime;
 	Uint32			otime;
 	Uint32			etime;

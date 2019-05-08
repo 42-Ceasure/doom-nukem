@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define BUFF_SIZE 700000
+# define BUFF_SIZE 3000000
 
 size_t				ft_strlen(char const *s);
 size_t				ft_strlcat(char *dst, char const *src, size_t size);
@@ -55,6 +55,10 @@ int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
+int					get_next_line10k(int const fd, char **line);
+int					get_next_line500k(int const fd, char **line);
+int					get_next_line1000k(int const fd, char **line);
+int					get_next_line(int const fd, char **line);
 int					get_next_line(int const fd, char **line);
 void				*ft_memalloc(size_t size);
 void				*ft_memchr(const void *s, int c, size_t n);

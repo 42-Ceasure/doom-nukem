@@ -52,21 +52,21 @@ static void				ft_norme(char **buff, char **line, char **save, int ret)
 		ft_strdel(save);
 }
 
-int					get_next_line(int const fd, char **line)
+int					get_next_line500k(int const fd, char **line)
 {
 	int				ret;
 	char			*temp;
 	static char		*save;
 	char			*buff;
 
-	buff = ft_strnew(BUFF_SIZE + 1);
+	buff = ft_strnew(1080000 + 1);
 	save = (save == NULL) ? ft_strnew(1) : save;
-	if (buff == NULL || BUFF_SIZE <= 0 || line == NULL)
+	if (buff == NULL || 1080000 <= 0 || line == NULL)
 		return (-1);
 	ret = 42;
 	while ((ft_strchr(save, '\n') == NULL) && ret > 0)
 	{
-		if ((ret = read(fd, buff, BUFF_SIZE)) == -1)
+		if ((ret = read(fd, buff, 1080000)) == -1)
 			return (-1);
 		buff[ret] = '\0';
 		temp = save;

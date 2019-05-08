@@ -98,6 +98,5 @@ int			init_sdl(t_env *w)
 										WIDTH, HEIGHT);
 	clean_render(w, 0x12000000);
 	img_update(w);
-	SDL_Delay(1500);
 	return (0);
 }

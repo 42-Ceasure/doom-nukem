@@ -95,7 +95,7 @@ int		do_parse(t_env *w, t_map *m)
 		return (-1);
 	process_hint_w(w, 0, " ");
 	process_hint_w(w, 6, " ");
-	while (get_next_line(m->fd, &m->line) && w->stopread == 0)
+	while (get_next_line1000k(m->fd, &m->line) && w->stopread == 0)
 	{
 		if ((parse_line(w, m)) == -1)
 		{
@@ -112,8 +112,14 @@ int		do_parse(t_env *w, t_map *m)
 
 void	parse_map_file(t_env *w, t_map *m)
 {
+	double	loading;
+
+	w->dtime.start = SDL_GetTicks();
 	if (do_parse(w, m) == -1)
 		set_error(w, m, 8, ft_strdup("do_parse"));
 	if (load_sounds(w, m) == -1)
 		set_error(w, m, 8, ft_strdup("load_sounds"));
+	w->dtime.end = SDL_GetTicks();
+	loading = w->dtime.end - w->dtime.start;
+	printf("map      loaded in %f seconds !\n", loading / 1000);
 }

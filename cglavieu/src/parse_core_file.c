@@ -79,12 +79,14 @@ void		load_core(t_env *w, t_map *m)
 	int 	fd;
 	char 	*line;
 	char 	*path;
+	double	loading;
 
+	w->dtime.start = SDL_GetTicks();
 	line = NULL;
 	path = ft_strdup("core/core.dn3d");
 	if ((fd = open(path, O_RDONLY)) != -1)
 	{
-		while (get_next_line(fd, &line))
+		while (get_next_line500k(fd, &line))
 		{
 			parse_core_section(w, m, line, 0);
 			free(line);
@@ -95,4 +97,7 @@ void		load_core(t_env *w, t_map *m)
 	}
 	else
 		set_error(w, m, 5, path);
+	w->dtime.end = SDL_GetTicks();
+	loading = w->dtime.end - w->dtime.start;
+	printf("core     loaded in %f seconds !\n", loading / 1000);
 }

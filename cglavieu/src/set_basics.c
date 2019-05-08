@@ -7,7 +7,9 @@ void			set_config(t_env *w, t_map *m)
 	int			fd;
 	char		*line;
 	char		*path;
+	double		loading;
 
+	w->dtime.start = SDL_GetTicks();
 	line = NULL;
 	path = ft_strdup("usrcfg/user_config.dn3d");
 	if ((fd = open(path, O_WRONLY | O_CREAT | O_EXCL, 0644)) != -1)
@@ -18,7 +20,7 @@ void			set_config(t_env *w, t_map *m)
 	}
 	if ((fd = open(path, O_RDONLY)) != -1)
 	{
-		while (get_next_line(fd, &line))
+		while (get_next_line10k(fd, &line))
 		{
 			parse_config_file(w, m, line);
 			free(line);
@@ -29,6 +31,9 @@ void			set_config(t_env *w, t_map *m)
 	else
 		set_error(w, m, 5, path);
 	free(path);
+	w->dtime.end = SDL_GetTicks();
+	loading = w->dtime.end - w->dtime.start;
+	printf("settings loaded in %f seconds !\n", loading / 1000);
 }
 
 void			set_w(t_env *w, int ac)
@@ -58,6 +63,8 @@ void			set_w(t_env *w, int ac)
 	w->menu.y = NULL;
 	w->menu.list = NULL;
 	w->dtime.fps = 0;
+	w->dtime.start = 0;
+	w->dtime.end = 0;
 	w->dtime.ctime = 0;
 	w->dtime.otime = 0;
 	w->dtime.etime = 0;
