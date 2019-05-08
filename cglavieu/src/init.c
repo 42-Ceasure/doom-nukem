@@ -59,7 +59,7 @@ int			load_sounds(t_env *w, t_map *m)
 		return (-1);
 	if (!(m->weap[0].shoot = Mix_LoadWAV("./sounds/M4.wav")))
 		return (-1);
-	if (!(m->weap[2].shoot = Mix_LoadWAV("./sounds/m9.wav")))
+	if (!(m->weap[2].shoot = Mix_LoadWAV("./sounds/magnum.wav")))
 		return (-1);
 	if (!(m->weap[1].shoot = Mix_LoadWAV("./sounds/mp510.wav")))
 		return (-1);

@@ -53,6 +53,7 @@ void			set_w(t_env *w, int ac)
 	w->sound.jump = NULL;
 	w->sound.ground = NULL;
 	w->sound.reload = NULL;
+	w->sound.clic = NULL;
 	w->pix = NULL;
 	w->inkeys = NULL;
 	w->txtr = NULL;

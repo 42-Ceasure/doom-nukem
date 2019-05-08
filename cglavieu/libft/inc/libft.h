@@ -82,6 +82,7 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				*ft_itoa(int n);
+char				*ft_light_itoa(int n, char *str);
 char				*ft_strctrim(const char *s, char c);
 char				**ft_strsplit(const char *s, char c);
 char				*ft_epur_tabul(const char *src);

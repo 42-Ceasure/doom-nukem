@@ -12,6 +12,26 @@
 
 #include "libft.h"
 
+char		*ft_light_itoa(int n, char *str)
+{
+	int		save;
+	int		neg;
+	int		i;
+
+	save = n;
+	neg = (n < 0 ? -1 : 1);
+	i = 1 + (n < 0);
+	while (n /= 10)
+		i++;
+	str[i--] = '\0';
+	str[i--] = neg * (save % 10) + 48;
+	while (save /= 10)
+		str[i--] = neg * (save % 10) + 48;
+	if (neg < 0)
+		str[i] = '-';
+	return (str);
+}
+
 char		*ft_itoa(int n)
 {
 	char	*str;
