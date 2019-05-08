@@ -117,8 +117,6 @@ typedef struct		s_player
 	int				aiming;
 	int				shooting;
 	int				firing;
-	int				snake;
-	double			swipe;
 	int				refresh;
 	int				recoil;
 	int				sector;
@@ -335,6 +333,7 @@ typedef struct		s_sound
 	Mix_Chunk 		*jump;
 	Mix_Chunk 		*ground;
 	Mix_Chunk		*reload;
+	Mix_Chunk		*clic;
 }					t_sound;
 
 typedef struct		s_res
