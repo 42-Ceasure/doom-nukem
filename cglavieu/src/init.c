@@ -96,8 +96,6 @@ int			init_sdl(t_env *w)
 	w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
 										SDL_TEXTUREACCESS_STREAMING,
 										WIDTH, HEIGHT);
-	SDL_SetRelativeMouseMode(SDL_TRUE);
-	SDL_ShowCursor(SDL_DISABLE);
 	clean_render(w, 0x12000000);
 	img_update(w);
 	SDL_Delay(1500);

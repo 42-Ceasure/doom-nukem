@@ -14,6 +14,8 @@ void	menu_screen(t_env *w)
 
 void	main_menu(t_env *w, t_map *m)
 {
+	SDL_SetRelativeMouseMode(SDL_FALSE);
+	SDL_ShowCursor(SDL_ENABLE);
 	w->txthead.x = 800;
 	w->txthead.y = 550;
 	while (1)
@@ -157,6 +159,8 @@ void	get_that_time(t_env *w)
 
 void	run(t_env *w, t_map *m)
 {
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+	SDL_ShowCursor(SDL_DISABLE);
 	m->stop = 0;
 	while (1)
 	{
