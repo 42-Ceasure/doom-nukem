@@ -72,7 +72,7 @@ void	set_fire(t_env *w, t_map *m)
 	m->player.refresh = m->weap[PH].recoil;
 	m->yaw = vmid(m->yaw - m->weap[PH].dispertion, -4, 4);
 	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
-	PL_A = PL_A + m->weap[PH].dispertion * w->random;
+	PL_A = PL_A + m->weap[PH].dispertion / 2 * w->random;
 	if (PH > -1 && m->player.firing)
 	{
 		if (m->player.aiming == 1)
