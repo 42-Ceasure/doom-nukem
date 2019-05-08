@@ -85,7 +85,7 @@ void	set_fire(t_env *w, t_map *m)
 				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2,
 					HEIGHT / 2 - m->fire.h / 2 + 20);
 			safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
-					m->weap[PH].sprt[1].sy + (m->player.refresh / 2));
+					m->weap[PH].sprt[1].sy + (m->player.refresh / 1.5));
 		}
 		else
 		{
@@ -112,7 +112,7 @@ void	hand(t_env *w, t_map *m)
 		{
 			if (m->player.aiming == 1)
 				safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
-					m->weap[PH].sprt[1].sy + (m->player.refresh / 2));
+					m->weap[PH].sprt[1].sy + (m->player.refresh / 1.5));
 			else
 			{
 				if (m->player.moving != 0 && m->player.refresh == 0)
