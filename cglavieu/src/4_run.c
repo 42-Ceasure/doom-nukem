@@ -94,10 +94,17 @@ void	ft_hud(t_env *w, t_map *m)
 	free(s);
 }
 
+void	is_shooting(t_env *w, t_map *m)
+{
+	if (m->player.shooting == 1)
+		shoot(w, m);
+	hand(w, m);
+}
+
 void	game_img(t_env *w, t_map *m)
 {
 	draw(w, m);
-	hand(w, m);
+	is_shooting(w, m);
 	ft_cursor(w, m);
 	if (m->player.hud == 1)
 		ft_hud(w, m);
@@ -130,12 +137,6 @@ void	sequential_frame(t_env *w, t_map *m)
 	type_str(w, w->txthead, "back to normal in 1 seconds...", 0xFFFF0000);
 	img_update(w);
 	SDL_Delay(1000);
-}
-
-void	is_shooting(t_env *w, t_map *m)
-{
-	if (m->player.shooting == 1)
-		shoot(w, m);
 }
 
 void	get_that_time(t_env *w)
@@ -197,10 +198,8 @@ void	run(t_env *w, t_map *m)
 			game_img(w, m);
 		else if (m->player.display == 1)
 			draw_mini_map(w, m);
-		// vect_ab((t_coor){512,0,0},(t_coor){512,575,0},w,0x00000000);
 		img_update(w);
 		get_height(m);
-		is_shooting(w, m);
 		is_falling(m, w);
 		is_moving(m);
 		slow_down(w, m);
