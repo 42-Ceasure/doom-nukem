@@ -57,9 +57,9 @@ int			load_sounds(t_env *w, t_map *m)
 		return (-1);
 	if (!(w->sound.clic = Mix_LoadWAV("./sounds/clic.wav")))
 		return (-1);
-	if (!(m->weap[0].shoot = Mix_LoadWAV("./sounds/MP5.wav")))
+	if (!(m->weap[0].shoot = Mix_LoadWAV("./sounds/M4.wav")))
 		return (-1);
-	if (!(m->weap[2].shoot = Mix_LoadWAV("./sounds/magnum.wav")))
+	if (!(m->weap[2].shoot = Mix_LoadWAV("./sounds/m9.wav")))
 		return (-1);
 	if (!(m->weap[1].shoot = Mix_LoadWAV("./sounds/shotgun.wav")))
 		return (-1);
