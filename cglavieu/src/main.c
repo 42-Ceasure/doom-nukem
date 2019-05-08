@@ -57,7 +57,10 @@ int				main(int ac, char **av)
 	t_env		*w;
 	t_map		*m;
 	char		***cmd;
+	clock_t		go_go_go;
+	clock_t		over;
 
+	go_go_go = clock();
 	w = NULL;
 	m = NULL;
 	cmd = NULL;
@@ -82,6 +85,9 @@ int				main(int ac, char **av)
 		draw_sequential(w, m);
 	}
 	ft_putstr("                              \r");
+	over = clock();
+	w->loading_time = ((double)(over - go_go_go)) / CLOCKS_PER_SEC;
+	printf("game loaded in %f seconds !\n", w->loading_time);
 	if (m->launchwmap == 1)
 		run(w, m);
 	else

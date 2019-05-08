@@ -249,3 +249,14 @@ void		reload_weapon(t_env *w, t_map *m)
 		m->weap[PH].actu_ammo = m->weap[PH].magazine;
 	}
 }
+
+void	get_that_time(t_env *w)
+{
+	w->invert = -w->invert;
+	w->random = 1.3 * (double)rand() / (double)RAND_MAX - 0.3;
+	w->dtime.otime = w->dtime.ctime;
+	w->dtime.ctime = SDL_GetTicks();
+	w->dtime.fps = (w->dtime.ctime - w->dtime.otime) / 1000;
+	w->dtime.etime = w->dtime.etime + w->dtime.ctime - w->dtime.otime;
+	w->dtime.shootime = w->dtime.shootime + w->dtime.ctime - w->dtime.otime;
+}

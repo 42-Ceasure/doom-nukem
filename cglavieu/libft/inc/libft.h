@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define BUFF_SIZE 420000
+# define BUFF_SIZE 700000
 
 size_t				ft_strlen(char const *s);
 size_t				ft_strlcat(char *dst, char const *src, size_t size);

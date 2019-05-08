@@ -33,6 +33,7 @@ void			set_config(t_env *w, t_map *m)
 
 void			set_w(t_env *w, int ac)
 {
+	w->loading_time = 0;
 	w->i = 0;
 	w->ac = ac;
 	w->asciino = 0;

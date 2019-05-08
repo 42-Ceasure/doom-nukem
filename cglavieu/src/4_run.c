@@ -139,17 +139,6 @@ void	sequential_frame(t_env *w, t_map *m)
 	SDL_Delay(1000);
 }
 
-void	get_that_time(t_env *w)
-{
-	w->invert = -w->invert;
-	w->random = 1.3 * (double)rand() / (double)RAND_MAX - 0.3;
-	w->dtime.otime = w->dtime.ctime;
-	w->dtime.ctime = SDL_GetTicks();
-	w->dtime.fps = (w->dtime.ctime - w->dtime.otime) / 1000;
-	w->dtime.etime = w->dtime.etime + w->dtime.ctime - w->dtime.otime;
-	w->dtime.shootime = w->dtime.shootime + w->dtime.ctime - w->dtime.otime;
-}
-
 void	run(t_env *w, t_map *m)
 {
 	SDL_SetRelativeMouseMode(SDL_TRUE);

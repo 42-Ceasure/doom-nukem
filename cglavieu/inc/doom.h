@@ -363,6 +363,7 @@ typedef	struct		s_dtime
 typedef struct		s_env
 {
 	t_map			*m;
+	double			loading_time;
 	int				i;
 	int				ac;
 	int				asciino;
@@ -511,5 +512,6 @@ void				launch(t_env *w, t_map *m);
 void				sequential_frame(t_env *w, t_map *m);
 void				safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);
 void				safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y);
+void				get_that_time(t_env *w);
 
 #endif
