@@ -189,6 +189,7 @@ void		crouch_lock(t_map *m)
 void		switch_weapon(t_map *m, int i)
 {
 	m->player.handed = i;
+	m->player.switching = 18;
 }
 
 void		look_around(t_env *w, t_map *m)
@@ -212,16 +213,18 @@ void		set_shoot(t_map *m, int i)
 
 void		shoot(t_env *w, t_map *m)
 {
-	if ((w->dtime.shootime > (Uint32)m->weap[PH].firerate)
-		&& m->weap[PH].actu_ammo > 0 && Mix_Playing(1) == 0)
+	if (w->dtime.shootime > (Uint32)m->weap[PH].firerate)
 	{
 		w->dtime.shootime = 0;
-		m->player.firing = 1;
-		Mix_PlayChannel(3, m->weap[PH].shoot, 0);
-		m->weap[PH].actu_ammo -= 1;
+		if (m->weap[PH].actu_ammo > 0 && Mix_Playing(1) == 0)
+		{
+			m->player.firing = 1;
+			Mix_PlayChannel(3, m->weap[PH].shoot, 0);
+			m->weap[PH].actu_ammo -= 1;
+		}
+		else if (m->weap[PH].actu_ammo == 0)
+			Mix_PlayChannel(4, w->sound.clic, 0);
 	}
-	else if (Mix_Playing(4) == 0 && m->weap[PH].actu_ammo == 0)
-		Mix_PlayChannel(4, w->sound.clic, 0);
 }
 
 void		stop_aim(t_env *w, t_map *m)
