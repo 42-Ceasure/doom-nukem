@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/05/07 14:56:06 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/05/08 12:03:02 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,6 +335,7 @@ typedef struct		s_sound
 	Mix_Chunk 		*jump;
 	Mix_Chunk 		*ground;
 	Mix_Chunk		*reload;
+	Mix_Chunk		*clic;
 }					t_sound;
 
 typedef struct		s_res

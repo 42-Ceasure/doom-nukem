@@ -12,6 +12,8 @@ void		empty_music(t_env *w)
 		Mix_FreeChunk(w->sound.ground);;
 	if (w->sound.reload != NULL)
 		Mix_FreeChunk(w->sound.reload);
+	if (w->sound.clic != NULL)
+		Mix_FreeChunk(w->sound.clic);
 	Mix_CloseAudio();
 }
 
