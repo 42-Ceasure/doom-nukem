@@ -69,11 +69,12 @@
 
 void	set_fire(t_env *w, t_map *m)
 {
-	m->player.swipe = -m->player.swipe;
+	// m->player.swipe = m->player.swipe * w->random;
+	printf("swipe=%f\n", m->player.swipe);
 	m->player.refresh = m->weap[PH].recoil;
 	m->yaw = vmid(m->yaw - m->weap[PH].dispertion, -4, 4);
 	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
-	PL_A = PL_A + m->player.swipe;
+	PL_A = PL_A + m->weap[PH].dispertion * w->random;
 	if (PH > -1 && m->player.firing)
 	{
 		if (m->player.aiming == 1)

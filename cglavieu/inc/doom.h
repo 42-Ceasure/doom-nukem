@@ -367,6 +367,8 @@ typedef struct		s_env
 	int				ac;
 	int				asciino;
 	int				stopread;
+	int				invert;
+	double			random;
 	t_res			res;
 	int				window_mode;
 	int				sequential_draw;

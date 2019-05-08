@@ -138,6 +138,11 @@ void	is_shooting(t_env *w, t_map *m)
 
 void	get_that_time(t_env *w)
 {
+	w->invert = -w->invert;
+	w->random = 2 * (double)rand() / (double)RAND_MAX - 1;
+	if (w->random == 0)
+		w->random = w->invert;
+	printf("rand=%f\n", w->random);
 	w->dtime.otime = w->dtime.ctime;
 	w->dtime.ctime = SDL_GetTicks();
 	w->dtime.fps = (w->dtime.ctime - w->dtime.otime) / 1000;
