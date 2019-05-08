@@ -27,6 +27,8 @@ int					parse_weapon_section(t_map *m, char **tab)
 				m->weap[m->w].magazine = ft_atoi(tmp[5]);
 				m->weap[m->w].actu_ammo = m->weap[m->w].magazine;
 			}
+			if (tmp[6])
+				m->weap[m->w].recoil = ft_atoi(tmp[6]);
 		}
 		if (tab[3])
 			m->weap[m->w].reloadtime = ft_atof(tab[3]);

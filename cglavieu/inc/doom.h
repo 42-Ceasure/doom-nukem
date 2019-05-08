@@ -267,6 +267,7 @@ typedef struct		s_weapon
 	int				actu_ammo;
 	int				magazine;
 	int				reloadtime;
+	int				recoil;
 	t_sprite		sprt[5];
 	Mix_Chunk 		*shoot;
 }					t_weapon;

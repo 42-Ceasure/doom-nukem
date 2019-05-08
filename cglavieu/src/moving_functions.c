@@ -257,12 +257,12 @@ void		is_moving(t_map *m)
 				m->player.move_speed.y = i.yd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
 				m->player.moving = 0;
 			}
-		}
-		if (is_on_a_map_dot(m) == -1)
-		{
-			m->player.move_speed.x = 0;
-			m->player.move_speed.y = 0;
-		// break;
+			if (is_on_a_map_dot(m) == -1)
+			{
+				m->player.move_speed.x = 0;
+				m->player.move_speed.y = 0;
+			// break;
+			}
 		}
 		s++;
 	}

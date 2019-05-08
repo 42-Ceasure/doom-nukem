@@ -70,7 +70,7 @@
 void	set_fire(t_env *w, t_map *m)
 {
 	m->player.swipe = -m->player.swipe;
-	m->player.refresh = 18;
+	m->player.refresh = m->weap[PH].recoil;
 	m->yaw = vmid(m->yaw - m->weap[PH].dispertion, -4, 4);
 	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
 	PL_A = PL_A + m->player.swipe;
@@ -80,23 +80,23 @@ void	set_fire(t_env *w, t_map *m)
 		{
 			if (m->player.handed == 0)
 				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2,
-					HEIGHT / 2 - m->fire.h / 2 + 35);
+					HEIGHT / 2 - m->fire.h / 2 + 45);
 			else if (m->player.handed == 1 || m->player.handed == 2)
 				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2,
 					HEIGHT / 2 - m->fire.h / 2 + 20);
 			safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
-					m->weap[PH].sprt[1].sy - 5);
+					m->weap[PH].sprt[1].sy + (m->player.refresh / 2));
 		}
 		else
 		{
 			if (m->player.handed == 0 || m->player.handed == 2)
 				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2 + 56,
-					HEIGHT / 2 - m->fire.h / 2 + 60);
+					HEIGHT / 2 - m->fire.h / 2 + 67);
 			else if (m->player.handed == 1)
 				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2 + 45,
 					HEIGHT / 2 - m->fire.h / 2 + 60);
 			safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
-					m->weap[PH].sprt[0].sy - 5);
+					m->weap[PH].sprt[0].sy + m->player.refresh);
 		}
 		m->player.firing = 0;
 	}
@@ -112,7 +112,7 @@ void	hand(t_env *w, t_map *m)
 		{
 			if (m->player.aiming == 1)
 				safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
-					m->weap[PH].sprt[1].sy);
+					m->weap[PH].sprt[1].sy + (m->player.refresh / 2));
 			else
 			{
 				if (m->player.moving != 0 && m->player.refresh == 0)
@@ -120,7 +120,7 @@ void	hand(t_env *w, t_map *m)
 						m->weap[PH].sprt[2].sy);
 				else
 					safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
-						m->weap[PH].sprt[0].sy);
+						m->weap[PH].sprt[0].sy + m->player.refresh);
 			}
 		}
 		if (m->player.refresh > 0)

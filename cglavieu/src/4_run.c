@@ -57,13 +57,13 @@ void	ft_cursor(t_env *w, t_map *m)
 		while (i < 5)
 		{
 			if (HEIGHT / 2 - i >= 0)
-				w->pix[(HEIGHT / 2 + 5 - i) * WIDTH + WIDTH / 2] = 0xFF0000;
+				w->pix[(HEIGHT / 2 - i) * WIDTH + WIDTH / 2] = 0xFF0000;
 			if (WIDTH / 2 - i >= 0)
-				w->pix[(HEIGHT / 2 + 5) * WIDTH + (WIDTH / 2 - i)] = 0xFF0000;
+				w->pix[(HEIGHT / 2) * WIDTH + (WIDTH / 2 - i)] = 0xFF0000;
 			if (HEIGHT / 2 + i < HEIGHT)
-				w->pix[(HEIGHT / 2 + 5 + i) * WIDTH + WIDTH / 2] = 0xFF0000;
+				w->pix[(HEIGHT / 2 + i) * WIDTH + WIDTH / 2] = 0xFF0000;
 			if (WIDTH / 2 + i < WIDTH)
-				w->pix[(HEIGHT / 2 + 5) * WIDTH + (WIDTH / 2 + i)] = 0xFF0000;
+				w->pix[(HEIGHT / 2) * WIDTH + (WIDTH / 2 + i)] = 0xFF0000;
 			i++;
 		}
 	}
