@@ -91,6 +91,13 @@ void	ft_hud(t_env *w, t_map *m)
 	dot.y = HEIGHT - 30;
 	s = ft_itoa(m->weap[PH].actu_ammo);
 	type_str(w, dot, s, 0x12000000);
+	dot.x = WIDTH - 130;
+	dot.y = 10;
+	type_str(w, dot, "FPS : ", 0x12000000);
+	dot.x = WIDTH - 50;
+	dot.y = 10;
+	s = ft_itoa(w->dtime.fps);
+	type_str(w, dot, s, 0x12000000);
 	free(s);
 }
 

@@ -252,11 +252,15 @@ void		reload_weapon(t_env *w, t_map *m)
 
 void	get_that_time(t_env *w)
 {
+	int		result;
+
 	w->invert = -w->invert;
 	w->random = 1.3 * (double)rand() / (double)RAND_MAX - 0.3;
 	w->dtime.otime = w->dtime.ctime;
 	w->dtime.ctime = SDL_GetTicks();
-	w->dtime.fps = (w->dtime.ctime - w->dtime.otime) / 1000;
-	w->dtime.etime = w->dtime.etime + w->dtime.ctime - w->dtime.otime;
-	w->dtime.shootime = w->dtime.shootime + w->dtime.ctime - w->dtime.otime;
+	result = w->dtime.ctime - w->dtime.otime;
+	if (result > 16)
+		w->dtime.fps = 1000 / result;
+	w->dtime.etime = w->dtime.etime + result;
+	w->dtime.shootime = w->dtime.shootime + result;
 }
