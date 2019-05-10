@@ -129,8 +129,19 @@ void	hand(t_env *w, t_map *m)
 			m->player.refresh--;
 	}
 	else
-		safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
-			m->weap[PH].sprt[0].sy + m->player.switching);
+	{
+/*------------------------------------------------------------------------------------*/
+		if (m->player.switching < 150)
+			safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
+				m->weap[PH].sprt[0].sy + m->player.switching);
+		else
+			safe_sprite_to_screen(w, m->weap[PH].sprt[2], m->weap[PH].sprt[2].sx,
+						m->weap[PH].sprt[2].sy + m->player.switching - 150);
+/*------------------------------------------------------------------------------------*/
+		// safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
+		// 	m->weap[PH].sprt[0].sy + m->player.switching);
+/*------------------------------------------------------------------------------------*/
+	}
 	if (m->player.switching > 0)
 		m->player.switching = m->player.switching - 10;
 }
