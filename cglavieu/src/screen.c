@@ -17,9 +17,9 @@ void		safe_texture_to_screen(t_env *w, t_texture texture, int x, int y)
 		ox = 0;
 		while (ox < texture.w)
 		{
-			if (x + ox < WIDTH)
+			if (x + ox >= 0 && x + ox < WIDTH)
 			{
-				if (y + oy < HEIGHT)
+				if (y + oy >= 0 && y + oy < HEIGHT)
 				{
 					tmpix = oy * texture.w + ox;
 					if (texture.pix[tmpix] != 0xFF00FF00)
@@ -50,9 +50,9 @@ void		safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y)
 		ox = 0;
 		while (ox < sprite.w)
 		{
-			if (x + ox < WIDTH)
+			if (x + ox >= 0 && x + ox < WIDTH)
 			{
-				if (y + oy < HEIGHT)
+				if (y + oy >= 0 && y + oy < HEIGHT)
 				{
 					tmpix = oy * sprite.w + ox;
 					if (sprite.pix[tmpix] != 0xFF00FF00)
@@ -83,9 +83,9 @@ void		safe_char_to_screen(t_env *w, t_texture texture, int x, int y)
 		ox = 0;
 		while (ox < texture.w)
 		{
-			if (x + ox < WIDTH)
+			if (x + ox >= 0 && x + ox < WIDTH)
 			{
-				if (y + oy < HEIGHT)
+				if (y + oy >= 0 && y + oy < HEIGHT)
 				{
 					tmpix = oy * texture.w + ox;
 					if (texture.pix[tmpix] != texture.pix[0])
