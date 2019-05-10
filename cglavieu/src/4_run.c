@@ -103,7 +103,6 @@ void	ft_hud(t_env *w, t_map *m)
 	dot.x = 10;
 	dot.y = 10;
 	type_str(w, dot, "HP : 100", 0x12FF0000);
-	dot.x = 10;
 	dot.y = HEIGHT - 30;
 	type_str(w, dot, "AMMO : ", 0x12000000);
 	if (m->player.intactu_ammo != m->weap[PH].actu_ammo)
@@ -117,7 +116,6 @@ void	ft_hud(t_env *w, t_map *m)
 	type_str(w, dot, "FPS : ", 0x12000000);
 	if (w->dtime.stime == 0)
 		ft_light_itoa(w->dtime.fps, m->player.fps);
-
 	type_str(w, w->txtnxtto, m->player.fps, 0x12000000);
 }
 
