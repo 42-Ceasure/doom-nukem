@@ -2,31 +2,47 @@
 
 #include "doom.h"
 
+
+
 void			set_config(t_env *w, t_map *m)
 {
-	int			fd;
-	char		*line;
+	int			linesc;
+	int			buffer;
 	char		*path;
+	char		**tmp;
 	double		loading;
 
+	buffer = 64;
 	w->dtime.start = SDL_GetTicks();
-	line = NULL;
-	path = ft_strdup("usrcfg/user_config.dn3d");
-	if ((fd = open(path, O_WRONLY | O_CREAT | O_EXCL, 0644)) != -1)
+	path = ft_strdup("core/core.dn3d");
+	if ((m->fd = open(path, O_RDONLY)) != -1)
 	{
-		ft_putstr("first launch, creating config file");
-		generate_config_file(fd);
-		close(fd);
-	}
-	if ((fd = open(path, O_RDONLY)) != -1)
-	{
-		while (get_next_line10k(fd, &line))
+		while(precise_get_next_line(m->fd, &m->line, buffer))
 		{
-			parse_config_file(w, m, line);
-			free(line);
+			tmp = ft_strsplit(m->line, ';');
+			if (ft_strncmp(m->line, "buffer", 6) == 0)
+				buffer = ft_atoi(tmp[1]);
+			else if (ft_strncmp(m->line, "lines", 5) == 0)
+				linesc = ft_atoi(tmp[1]);
+			else if (ft_strncmp(m->line, "setting", 7) == 0)
+				parse_config_line(w, m, tmp[1]);
+			else if (ft_strncmp(m->line, "alloc", 5) == 0)
+				parse_allocating_line(w, m, tmp[1]);
+			else if (ft_strncmp(m->line, "menu", 4) == 0)
+				parse_menu_line(w, tmp[1]);
+			else if (ft_strncmp(m->line, "weapon", 6) == 0)
+				parse_weapon_line(m, tmp[1]);
+			else if (ft_strncmp(m->line, "texture", 7) == 0)
+				parse_texture_line(w, m, tmp[1]);
+			else if (ft_strncmp(m->line, "sprite", 6) == 0)
+				parse_sprite_line(w, m, tmp[1]);
+			// else if (ft_strncmp(m->line, "", ) == 0)
+			// 	;
+			ft_memreg(tmp);
+			free(m->line);
+			w->i++;
 		}
-		free(line);
-		close(fd);
+		close(m->fd);
 	}
 	else
 		set_error(w, m, 5, path);
@@ -43,7 +59,8 @@ void			set_w(t_env *w, int ac)
 	w->loading_time = 0;
 	w->i = 0;
 	w->ac = ac;
-	w->asciino = 0;
+	w->asciichk = 0;
+	w->asciino = -1;
 	w->stopread = 0;
 	w->invert = 1;
 	w->random = 0;
@@ -61,9 +78,10 @@ void			set_w(t_env *w, int ac)
 	w->txtr = NULL;
 	w->main_pic[0] = pre_init_texture(w->res.width, w->res.height);
 	w->main_pic[1] = pre_init_texture(w->res.width, w->res.height);
-	w->ascii[0] = pre_init_texture(0, 0);
 	w->menu.z = 0;
 	w->menu.y = NULL;
+	w->menu.i = 0;
+	w->menu.j = 0;
 	w->menu.list = NULL;
 	w->dtime.fps = 0;
 	w->dtime.start = 0;
@@ -93,7 +111,7 @@ void			set_m(t_map *m)
 	m->section_number = 0;
 	m->dots_count = 0;
 	m->sector_count = 0;
-	m->weapon_count = 0;
+	m->weapon_count = -1;
 	m->sprite_count = 0;
 	m->maxrenderedsector = 32;
 	m->yaw = 0;

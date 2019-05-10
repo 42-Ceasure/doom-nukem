@@ -2,13 +2,15 @@
 
 #include "doom.h"
 
-t_menu		parse_menu_line(t_env *w, char **tmp)
+t_menu		parse_menu_line(t_env *w, char *line)
 {
+	char 	**tmp;
 	char	**tmp2;
 	t_menu	menu;
 	int		i;
 	int		entryc;
 
+	tmp = ft_strsplit(line, ':');
 	i = 0;
 	w->i = 0;
 	menu.z = 0;
@@ -38,6 +40,7 @@ t_menu		parse_menu_line(t_env *w, char **tmp)
 		ft_memreg(tmp2);
 		i++;
 	}
+	ft_memreg(tmp);
 	return (menu);
 }
 
@@ -50,8 +53,8 @@ void		parse_core_section(t_env *w, t_map *m, char *line, int mode)
 	tmp = ft_strsplit(line, ':');
 	if (tmp[0] != NULL)
 	{
-		if (ft_strcmp(tmp[0], "\tmenu") == 0 && mode == 0)
-			w->menu = parse_menu_line(w, tmp);
+		// if (ft_strcmp(tmp[0], "\tmenu") == 0 && mode == 0)
+		// 	w->menu = parse_menu_line(w, tmp);
 		if (ft_strcmp(tmp[0], "\tascii") == 0 && w->asciino < 42)
 		{
 			w->ascii[w->asciino] = parse_texture(w, m, tmp);
@@ -86,7 +89,7 @@ void		load_core(t_env *w, t_map *m)
 	path = ft_strdup("core/core.dn3d");
 	if ((fd = open(path, O_RDONLY)) != -1)
 	{
-		while (get_next_line500k(fd, &line))
+		while (get_next_line(fd, &line))
 		{
 			parse_core_section(w, m, line, 0);
 			free(line);

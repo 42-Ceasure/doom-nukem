@@ -34,6 +34,7 @@ void	main_menu(t_env *w, t_map *m)
 	w->txthead.y = 550;
 	while (1)
 	{
+		printf("i:%d,j:%d\n", w->menu.i, w->menu.j);
 		while (SDL_PollEvent(&w->event))
 		{
 			if (w->event.type == SDL_KEYDOWN)
@@ -41,11 +42,11 @@ void	main_menu(t_env *w, t_map *m)
 				if (KEY == SDLK_ESCAPE)
 					w->menu.i = vmax(-1, w->menu.i - 1);
 				if (KEY == SDLK_RETURN)
-					w->menu.i = vmin(w->menu.i + 1, w->menu.z);
+					w->menu.i = vmin(w->menu.i + 1, 2);
 				if (KEY == SDLK_UP)
 					w->menu.j = vmax(0, w->menu.j - 1);
 				if (KEY == SDLK_DOWN)
-					w->menu.j = vmin(w->menu.j + 1, w->menu.y[w->menu.i]);
+					w->menu.j = vmin(w->menu.j + 1, 2);
 			}
 			if (w->event.type == SDL_WINDOWEVENT)
 			{

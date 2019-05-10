@@ -21,25 +21,25 @@ void			set_basics(t_env *w, t_map *m, int ac)
 {
 	w->m = m;
 	m->world = w;
-	set_config(w, m);
 	set_w(w, ac);
 	set_m(m);
 	set_m_player(m);
+	set_config(w, m);
 }
 
 void			simple_start(t_env *w, t_map *m)
 {
-	process_hint(2, "SDL2");
-	if ((init_sdl(w)) == -1)
-		set_error(w, m, 4, ft_strdup("SDL Initialisation"));
+	// process_hint(2, "SDL2");
+	// if ((init_sdl(w)) == -1)
+	// 	set_error(w, m, 4, ft_strdup("SDL Initialisation"));
 	m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
 	m->map_name = ft_strdup("Home Sweet Home");
-	process_hint(0, " ");
-	process_hint(4, "core file");
-	load_core(w, m);
-	process_hint(0, " ");
+	// process_hint(0, " ");
+	// process_hint(4, "core file");
+	// load_core(w, m);
+	// process_hint(0, " ");
 	parse_map_file(w, m);
-	process_hint(0, " ");
+	// process_hint(0, " ");
 }
 
 void			draw_sequential(t_env *w, t_map *m)

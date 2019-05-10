@@ -44,9 +44,11 @@ int			parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 	int				sn;
 	char			**tmp;
 
+	// printf("name:%s,def:%s\n", name, def);
 	tmp = ft_strsplit(def, ',');
 	wn = ft_atoi(tmp[0]);
 	sn = ft_atoi(tmp[1]);
+	// printf("wn:%d,sn:%d\n", wn, sn);
 	m->weap[wn].sprt[sn].name = ft_strdup(name);
 	m->weap[wn].sprt[sn].sx = ft_atoi(tmp[2]);
 	m->weap[wn].sprt[sn].sy = ft_atoi(tmp[3]);
@@ -60,6 +62,7 @@ int			parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 	process_hint_w(m->world, 0, " ");
 	m->weap[wn].sprt[sn].pix = faster_please(m->weap[wn].sprt[sn].pix, pix, i);
 	process_hint_w(m->world, 0, " ");
+	// printf("%u\n", m->weap[wn].sprt[sn].pix[0]);
 	ft_memreg(tmp);
 	return (0);
 }

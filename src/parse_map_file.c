@@ -18,9 +18,9 @@ int		first_line(char **tab, t_map *m)
 		return (-1);
 	if ((m->dot = (t_dot *)malloc(sizeof(t_dot) * m->dots_count)) == NULL)
 		return (-1);
-	if ((m->weap = (t_weapon *)malloc(sizeof(t_weapon)
-			* m->weapon_count)) == NULL)
-		return (-1);
+	// if ((m->weap = (t_weapon *)malloc(sizeof(t_weapon)
+	// 		* m->weapon_count)) == NULL)
+	// 	return (-1);
 	ft_memreg(tmp);
 	return (0);
 }
@@ -55,32 +55,32 @@ int		parse_line(t_env *w, t_map *m)
 			return (-1);
 		}
 	}
-	else if (m->section_number == 3)
-	{
-		process_hint_w(w, 4, "weapon");
-		if (parse_weapon_section(m, tmp) == -1)
-		{
-			ft_putendl("error in parse_weapon_section");
-			return (-1);
-		}
-	}
-	else if (m->section_number == 4)
-	{
-		process_hint_w(w, 4, "sprite");
-		if (parse_sprite_section(m, tmp) == -1)
-		{
-			ft_putendl("error in parse_sprite_section");
-			return (-1);
-		}
-	}
-	else if (m->section_number == 5 && m->launchwmap == 1)
-	{
-		process_hint_w(w, 4, "core");
-		parse_core_section(w, m, m->line, 1);
-	}
-	else if (m->section_number == 5 && m->launchwmap == 0)
-		w->stopread = 1;
-	ft_memreg(tmp);
+	// else if (m->section_number == 3)
+	// {
+	// 	process_hint_w(w, 4, "weapon");
+	// 	if (parse_weapon_section(m, tmp) == -1)
+	// 	{
+	// 		ft_putendl("error in parse_weapon_section");
+	// 		return (-1);
+	// 	}
+	// }
+	// else if (m->section_number == 4)
+	// {
+	// 	process_hint_w(w, 4, "sprite");
+	// 	if (parse_sprite_section(m, tmp) == -1)
+	// 	{
+	// 		ft_putendl("error in parse_sprite_section");
+	// 		return (-1);
+	// 	}
+	// }
+	// else if (m->section_number == 5 && m->launchwmap == 1)
+	// {
+	// 	process_hint_w(w, 4, "core");
+	// 	parse_core_section(w, m, m->line, 1);
+	// }
+	// else if (m->section_number == 5 && m->launchwmap == 0)
+	// 	w->stopread = 1;
+	// ft_memreg(tmp);
 	return (0);
 }
 
@@ -95,7 +95,7 @@ int		do_parse(t_env *w, t_map *m)
 		return (-1);
 	process_hint_w(w, 0, " ");
 	process_hint_w(w, 6, " ");
-	while (get_next_line1000k(m->fd, &m->line) && w->stopread == 0)
+	while (get_next_line(m->fd, &m->line) && w->stopread == 0)
 	{
 		if ((parse_line(w, m)) == -1)
 		{
