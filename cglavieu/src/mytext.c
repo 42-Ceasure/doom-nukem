@@ -66,6 +66,10 @@ void		type_s(t_env *w)
 		ft_putmychar(w, i, &x, &y);
 		i++;
 	}
+	w->txtnxtline.x = w->txt.x;
+	w->txtnxtline.y = y + w->ascii[0].h + 5;
+	w->txtnxtto.x = x;
+	w->txtnxtto.y = y;
 }
 
 t_text		type_set(int x, int y, char *s, Uint32 color)

@@ -73,6 +73,12 @@ void			set_w(t_env *w, int ac)
 	w->dtime.etime = 0;
 	w->dtime.shootime = 0;
 	w->dtime.stime = 0;
+	w->txthead.x = 0;
+	w->txthead.y = 0;
+	w->txtnxtline.x = 0;
+	w->txtnxtline.y = 0;
+	w->txtnxtto.x = 0;
+	w->txtnxtto.y = 0;
 }
 
 void			set_m(t_map *m)

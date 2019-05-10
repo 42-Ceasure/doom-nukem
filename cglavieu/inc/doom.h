@@ -394,6 +394,8 @@ typedef struct		s_env
 	t_text			txt;
 	t_menu			menu;
 	t_dot			txthead;
+	t_dot			txtnxtline;
+	t_dot			txtnxtto;
 	t_dtime			dtime;
 }					t_env;
 

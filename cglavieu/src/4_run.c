@@ -12,11 +12,18 @@ void	menu_screen(t_env *w)
 	t_dot dot;
 
 	dot.x = 50;
-	dot.y = 300;
+	dot.y = 50;
 	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
-	type_str(w, dot, "le menu n\'est pas encore construit,\n\
-vous etes libres d\'appuyer sur enter\n\n\
-ochaar, on peut desormais cliquer sur la croix pour quitter !", 0x12FEA800);
+	type_str(w, dot, "le menu n'est pas encore construit,", 0x12FEA800);
+	type_str(w, w->txtnxtline, "vous etes libres d'appuyer sur enter\n", 0x12FEA800);
+	type_str(w, w->txtnxtline, "ochaar, on peut desormais cliquer sur la croix pour quitter !", 0x12FEA800);
+	type_str(w, w->txtnxtline, "\n\n\n\n", 0x127FFF00);
+	type_str(w, w->txtnxtline, "txtnxtline permet d'ecrire du texte a la ligne apres", 0x127FFF00);
+	type_str(w, w->txtnxtline, "le dernier texte affiche", 0x127FFF00);
+	type_str(w, w->txtnxtline, "j'en fais un usage excessif ici.", 0x127FFF00);
+	type_str(w, w->txtnxtline, "p.s. ca, c'est ma couleur preferee 7fff00", 0x127FFF00);
+	type_str(w, w->txtnxtline, "\ntest du ", 0x127FFF00);
+	type_str(w, w->txtnxtto, "txtnxtto", 0x127FFF00);
 }
 
 void	main_menu(t_env *w, t_map *m)
@@ -99,23 +106,19 @@ void	ft_hud(t_env *w, t_map *m)
 	dot.x = 10;
 	dot.y = HEIGHT - 30;
 	type_str(w, dot, "AMMO : ", 0x12000000);
-	dot.x = 8 * 14;
-	dot.y = HEIGHT - 30;
 	if (m->player.intactu_ammo != m->weap[PH].actu_ammo)
 	{
 		m->player.intactu_ammo = m->weap[PH].actu_ammo;
 		ft_light_itoa(m->weap[PH].actu_ammo, m->player.stractu_ammo);
 	}
-	type_str(w, dot, m->player.stractu_ammo, 0x12000000);
+	type_str(w, w->txtnxtto, m->player.stractu_ammo, 0x12000000);
 	dot.x = WIDTH - 130;
 	dot.y = 10;
 	type_str(w, dot, "FPS : ", 0x12000000);
-	dot.x = WIDTH - 50;
-	dot.y = 10;
 	if (w->dtime.stime == 0)
 		ft_light_itoa(w->dtime.fps, m->player.fps);
 
-	type_str(w, dot, m->player.fps, 0x12000000);
+	type_str(w, w->txtnxtto, m->player.fps, 0x12000000);
 }
 
 void	is_shooting(t_env *w, t_map *m)
