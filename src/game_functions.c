@@ -39,6 +39,7 @@ void		go_back(t_map *m)
 
 void		go_left(t_map *m)
 {
+	m->player.movespeed = 1;
 	m->player.move_speedless.x += m->player.anglesin / 3;
 	m->player.move_speedless.y -= m->player.anglecos / 3;
 	if (m->player.height <= 9.3)
@@ -55,6 +56,7 @@ void		go_left(t_map *m)
 
 void		go_right(t_map *m)
 {
+	m->player.movespeed = 1;
 	m->player.move_speedless.x -= m->player.anglesin / 3;
 	m->player.move_speedless.y += m->player.anglecos / 3;
 	if (m->player.height <= 9.3)

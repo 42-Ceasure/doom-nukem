@@ -205,9 +205,9 @@ void	run(t_env *w, t_map *m)
 		key_events(w, m);
 		m->player.bal = m->player.bal + sens;
 		if (m->player.bal > 80)
-			sens = -7 * m->player.movespeed;
+			sens = -4 * m->player.movespeed;
 		if (m->player.bal < -40)
-			sens = 8 * m->player.movespeed;
+			sens = 5 * m->player.movespeed;
 		if (m->player.display == 0)
 			game_img(w, m);
 		else if (m->player.display == 1)
