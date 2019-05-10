@@ -103,7 +103,7 @@ void	set_fire(t_env *w, t_map *m)
 
 void	hand(t_env *w, t_map *m)
 {
-	if (PH > -1)
+	if (PH > -1 && m->player.switching <= 0)
 	{
 		if (m->player.firing == 1)
 			set_fire(w, m);
@@ -124,9 +124,20 @@ void	hand(t_env *w, t_map *m)
 		}
 		if (m->player.refresh > 0)
 			m->player.refresh--;
-		if (m->player.switching > 0)
-			m->player.switching--;
 	}
+	else
+	{
+		if (m->player.switching < 100)
+			safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
+				m->weap[PH].sprt[0].sy + m->player.switching);
+		else
+			safe_sprite_to_screen(w, m->weap[PH].sprt[2], m->weap[PH].sprt[2].sx,
+				m->weap[PH].sprt[2].sy + m->player.switching - 100);
+	}
+	if (m->player.switching > 0 && m->player.switching > 50)
+		m->player.switching = m->player.switching - 10;
+	if (m->player.switching > 0)
+		m->player.switching = m->player.switching - 10;
 }
 
 // void	sprite(t_env *w, t_map *m)

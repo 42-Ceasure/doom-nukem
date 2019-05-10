@@ -189,7 +189,7 @@ void		crouch_lock(t_map *m)
 void		switch_weapon(t_map *m, int i)
 {
 	m->player.handed = i;
-	m->player.switching = 18;
+	m->player.switching = 250;
 }
 
 void		look_around(t_env *w, t_map *m)
