@@ -38,6 +38,8 @@ void			set_config(t_env *w, t_map *m)
 
 void			set_w(t_env *w, int ac)
 {
+	w->light_nb = (char *)malloc(sizeof(char) * 12);
+	ft_light_itoa(0, w->light_nb);
 	w->loading_time = 0;
 	w->i = 0;
 	w->ac = ac;
@@ -70,6 +72,7 @@ void			set_w(t_env *w, int ac)
 	w->dtime.otime = 0;
 	w->dtime.etime = 0;
 	w->dtime.shootime = 0;
+	w->dtime.stime = 0;
 }
 
 void			set_m(t_map *m)
@@ -102,6 +105,11 @@ void			set_m(t_map *m)
 
 void			set_m_player(t_map *m)
 {
+	m->player.fps = (char *)malloc(sizeof(char) * 12);
+	ft_light_itoa(0, m->player.fps);
+	m->player.stractu_ammo = (char *)malloc(sizeof(char) * 12);
+	ft_light_itoa(0, m->player.stractu_ammo);
+	m->player.intactu_ammo = 0;
 	m->player.handed = 0;
 	m->player.aiming = 0;
 	m->player.shooting = 0;

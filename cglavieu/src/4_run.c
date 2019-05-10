@@ -9,7 +9,14 @@ void	hello_screen(t_env *w)
 
 void	menu_screen(t_env *w)
 {
+	t_dot dot;
+
+	dot.x = 50;
+	dot.y = 300;
 	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
+	type_str(w, dot, "le menu n\'est pas encore construit,\n\
+vous etes libres d\'appuyer sur enter\n\n\
+ochaar, on peut desormais cliquer sur la croix pour quitter !", 0x12FEA800);
 }
 
 void	main_menu(t_env *w, t_map *m)
@@ -32,7 +39,12 @@ void	main_menu(t_env *w, t_map *m)
 					w->menu.j = vmax(0, w->menu.j - 1);
 				if (KEY == SDLK_DOWN)
 					w->menu.j = vmin(w->menu.j + 1, w->menu.y[w->menu.i]);
-			}	
+			}
+			if (w->event.type == SDL_WINDOWEVENT)
+			{
+				if (WINDOW == SDL_WINDOWEVENT_CLOSE)
+					exit_game(w, m, 1);
+			}
 		}
 		if (w->menu.i == -1)
 			exit_game(w, m, 1);
@@ -46,6 +58,7 @@ void	main_menu(t_env *w, t_map *m)
 		else
 			break;
 		img_update(w);
+		get_that_time(w);
 	}
 }
 
@@ -73,7 +86,6 @@ void	ft_cursor(t_env *w, t_map *m)
 
 void	ft_hud(t_env *w, t_map *m)
 {
-	char	*s;
 	t_dot	dot;
 	int		x;
 	int		y;
@@ -89,16 +101,21 @@ void	ft_hud(t_env *w, t_map *m)
 	type_str(w, dot, "AMMO : ", 0x12000000);
 	dot.x = 8 * 14;
 	dot.y = HEIGHT - 30;
-	s = ft_itoa(m->weap[PH].actu_ammo);
-	type_str(w, dot, s, 0x12000000);
+	if (m->player.intactu_ammo != m->weap[PH].actu_ammo)
+	{
+		m->player.intactu_ammo = m->weap[PH].actu_ammo;
+		ft_light_itoa(m->weap[PH].actu_ammo, m->player.stractu_ammo);
+	}
+	type_str(w, dot, m->player.stractu_ammo, 0x12000000);
 	dot.x = WIDTH - 130;
 	dot.y = 10;
 	type_str(w, dot, "FPS : ", 0x12000000);
 	dot.x = WIDTH - 50;
 	dot.y = 10;
-	s = ft_itoa(w->dtime.fps);
-	type_str(w, dot, s, 0x12000000);
-	free(s);
+	if (w->dtime.stime == 0)
+		ft_light_itoa(w->dtime.fps, m->player.fps);
+
+	type_str(w, dot, m->player.fps, 0x12000000);
 }
 
 void	is_shooting(t_env *w, t_map *m)

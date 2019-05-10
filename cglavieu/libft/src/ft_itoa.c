@@ -12,32 +12,43 @@
 
 #include "libft.h"
 
-char		*ft_light_itoa(int n, char *str)
+void				ft_light_itoa(int n, char *str)
 {
-	int		save;
-	int		neg;
-	int		i;
+	int				sign;
+	long			mem;
+	unsigned int	nb;
+	int 			i;
 
-	save = n;
-	neg = (n < 0 ? -1 : 1);
-	i = 1 + (n < 0);
-	while (n /= 10)
+	i = 1;
+	sign = 0;
+	if (n < 0)
+	{
+		mem = -n;
+		sign = 1;
+	}
+	else
+		mem = n;
+	nb = (unsigned int)mem;
+	while (mem /= 10)
 		i++;
-	str[i--] = '\0';
-	str[i--] = neg * (save % 10) + 48;
-	while (save /= 10)
-		str[i--] = neg * (save % 10) + 48;
-	if (neg < 0)
-		str[i] = '-';
-	return (str);
+	str[i + sign] = '\0';
+	i--;
+	while (i + sign > -1)
+	{
+		str[i + sign] = (nb % 10 + 48);
+		nb = nb / 10;
+		i--;
+	}
+	if (sign == 1)
+		str[0] = '-';
 }
 
-char		*ft_itoa(int n)
+char				*ft_itoa(int n)
 {
-	char	*str;
-	int		save;
-	int		neg;
-	int		i;
+	char			*str;
+	int				save;
+	int				neg;
+	int				i;
 
 	save = n;
 	neg = (n < 0 ? -1 : 1);

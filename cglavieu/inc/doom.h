@@ -28,6 +28,7 @@
 # define HEIGHT 			w->res.height
 # define KEY 				w->event.key.keysym.sym
 # define BUTTON				w->event.button.button
+# define WINDOW				w->event.window.event
 # define MRS				32
 # define PL_X				m->player.coor.x
 # define PL_MSX				m->player.move_speed.x
@@ -113,6 +114,9 @@ typedef struct		s_sector
 
 typedef struct		s_player
 {
+	char			*fps;
+	char			*stractu_ammo;
+	int				intactu_ammo;
 	int				handed;
 	int				aiming;
 	int				shooting;
@@ -356,15 +360,17 @@ typedef	struct		s_dtime
 	int				fps;
 	Uint32			start;
 	Uint32			end;
-	Uint32			ctime;
-	Uint32			otime;
-	Uint32			etime;
-	Uint32			shootime;
+	Uint32			ctime;		/* current time */
+	Uint32			otime;		/* old time */
+	Uint32			etime;		/* elapsed time (from start of program) */
+	Uint32			shootime;	/* time between each shot of a given weapon */
+	Uint32			stime;		/* second ticker */
 }					t_dtime;
 
 typedef struct		s_env
 {
 	t_map			*m;
+	char			*light_nb;
 	double			loading_time;
 	int				i;
 	int				ac;
@@ -514,6 +520,7 @@ void				launch(t_env *w, t_map *m);
 void				sequential_frame(t_env *w, t_map *m);
 void				safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);
 void				safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y);
+void				safe_char_to_screen(t_env *w, t_texture texture, int x, int y);
 void				get_that_time(t_env *w);
 
 #endif

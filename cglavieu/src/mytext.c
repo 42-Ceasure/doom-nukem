@@ -2,25 +2,6 @@
 
 #include "doom.h"
 
-void		ft_printmychar(t_env *w, int x, int y, int c)
-{
-	int ix;
-	int iy;
-
-	iy = 0;
-	while (iy < w->ascii[c].h)
-	{
-		ix = 0;
-		while (ix < w->ascii[c].w)
-		{
-			if (w->ascii[c].pix[iy * w->ascii[c].w + ix] != w->ascii[c].pix[0])
-				w->pix[(iy + y) * WIDTH + (ix + x)] = w->txt.color;
-			ix++;
-		}
-		iy++;
-	}
-}
-
 void		ft_putmychar(t_env *w, int i, int *xmain, int *ymain)
 {
 	int		print;
@@ -39,9 +20,12 @@ void		ft_putmychar(t_env *w, int i, int *xmain, int *ymain)
 	}
 	else if (w->txt.text[i] == '\t')
 	{
+		print = 1;
 		c = 41;
-		ft_printmychar(w, x, y, c);
-		ft_printmychar(w, x, y, c);
+		safe_char_to_screen(w, w->ascii[c], x, y);
+		safe_char_to_screen(w, w->ascii[c], x + w->ascii[0].w, y);
+		safe_char_to_screen(w, w->ascii[c], x + 2 * w->ascii[0].w, y);
+		*xmain = *xmain + 3 * w->ascii[0].w;
 	}
 	else if (w->txt.text[i] == ',')
 		c = 36;
@@ -62,8 +46,10 @@ void		ft_putmychar(t_env *w, int i, int *xmain, int *ymain)
 	else
 		print = 1;
 	if (print == 0)
-		ft_printmychar(w, x, y, c);
-	*xmain = *xmain + w->ascii[0].w;
+	{
+		safe_char_to_screen(w, w->ascii[c], x, y);
+		*xmain = *xmain + w->ascii[0].w;
+	}
 }
 
 void		type_s(t_env *w)
@@ -75,7 +61,7 @@ void		type_s(t_env *w)
 	i = 0;
 	x = w->txt.x;
 	y = w->txt.y;
-	while (w->txt.text[i])
+	while (w->txt.text[i] != '\0')
 	{
 		ft_putmychar(w, i, &x, &y);
 		i++;

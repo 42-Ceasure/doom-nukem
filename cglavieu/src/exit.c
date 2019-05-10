@@ -24,6 +24,7 @@ void		empty_world(t_env *w)
 	i = 0;
 	if (w != NULL)
 	{
+		free(w->light_nb);
 		if (w->main_pic[0].pix != NULL)
 			free(w->main_pic[0].pix);
 		if (w->main_pic[1].pix != NULL)
@@ -48,6 +49,8 @@ void		empty_map(t_map *m)
 	i = 0;
 	if (m != NULL)
 	{
+		free(m->player.fps);
+		free(m->player.stractu_ammo);
 		if (m->map_name != NULL)
 			free(m->map_name);
 		if (m->map_name != NULL)
