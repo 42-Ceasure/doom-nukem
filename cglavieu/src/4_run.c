@@ -204,7 +204,7 @@ void	run(t_env *w, t_map *m)
 		w->inkeys = SDL_GetKeyboardState(NULL);
 		key_events(w, m);
 		m->player.bal = m->player.bal + sens;
-		if (m->player.bal > 800)
+		if (m->player.bal > 80)
 			sens = -6 * m->player.movespeed;
 		if (m->player.bal < -40)
 			sens = 8 * m->player.movespeed;
