@@ -1,9 +1,0 @@
-Section:map
-	dots:0:0,10
-	dots:10:10,0
-	sector:0,20:0,1,2,3,0:x,x,x,x,x
-Section:player
-	player_location:5,4
-	player_direction:90
-	player_sector:0
-
