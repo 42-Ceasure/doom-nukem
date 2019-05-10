@@ -111,6 +111,7 @@ void			set_m(t_map *m)
 
 void			set_m_player(t_map *m)
 {
+	m->player.bal = 0;
 	m->player.fps = (char *)malloc(sizeof(char) * 12);
 	ft_light_itoa(0, m->player.fps);
 	m->player.stractu_ammo = (char *)malloc(sizeof(char) * 12);
@@ -129,6 +130,7 @@ void			set_m_player(t_map *m)
 	m->player.coor.y = 0;
 	m->player.coor.z = 0;
 	m->player.memz = 0;
+	m->player.movespeed = 0;
 	m->player.move_speed.x = 0;
 	m->player.move_speed.y = 0;
 	m->player.move_speed.z = 0;
@@ -141,6 +143,7 @@ void			set_m_player(t_map *m)
 	m->player.yaw = 0;
 	m->player.stance = 0;
 	m->player.fall = 1;
+	m->player.jump = 0;
 	m->player.ground = 0;
 	m->player.moving = 0;
 	m->player.height = 0;

@@ -103,7 +103,7 @@ void	set_fire(t_env *w, t_map *m)
 
 void	hand(t_env *w, t_map *m)
 {
-	if (PH > -1 && m->player.switching <= 0)
+	if (PH > -1 && m->player.switching == 0)
 	{
 		if (m->player.firing == 1)
 			set_fire(w, m);
@@ -114,7 +114,10 @@ void	hand(t_env *w, t_map *m)
 					m->weap[PH].sprt[1].sy + (m->player.refresh / 1.5));
 			else
 			{
-				if (m->player.moving != 0 && m->player.refresh == 0)
+				if (m->player.moving != 0 && m->player.jump == 0 && m->player.refresh == 0)
+					safe_sprite_to_screen(w, m->weap[PH].sprt[2], m->weap[PH].sprt[2].sx + m->player.bal,
+						m->weap[PH].sprt[2].sy + 60 - vabs(m->player.bal / 2));
+				else if (m->player.moving != 0 && m->player.refresh == 0)
 					safe_sprite_to_screen(w, m->weap[PH].sprt[2], m->weap[PH].sprt[2].sx,
 						m->weap[PH].sprt[2].sy);
 				else
@@ -126,16 +129,8 @@ void	hand(t_env *w, t_map *m)
 			m->player.refresh--;
 	}
 	else
-	{
-		if (m->player.switching < 100)
-			safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
-				m->weap[PH].sprt[0].sy + m->player.switching);
-		else
-			safe_sprite_to_screen(w, m->weap[PH].sprt[2], m->weap[PH].sprt[2].sx,
-				m->weap[PH].sprt[2].sy + m->player.switching - 100);
-	}
-	if (m->player.switching > 0 && m->player.switching > 50)
-		m->player.switching = m->player.switching - 10;
+		safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
+			m->weap[PH].sprt[0].sy + m->player.switching);
 	if (m->player.switching > 0)
 		m->player.switching = m->player.switching - 10;
 }

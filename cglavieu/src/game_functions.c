@@ -5,6 +5,7 @@
 
 void		go_forward(t_map *m)
 {
+	m->player.movespeed = 1;
 	m->player.move_speedless.x += m->player.anglecos / 3;
 	m->player.move_speedless.y += m->player.anglesin / 3;
 	if (m->player.height <= 9.3)
@@ -21,6 +22,7 @@ void		go_forward(t_map *m)
 
 void		go_back(t_map *m)
 {
+	m->player.movespeed = 0;
 	m->player.move_speedless.x -= m->player.anglecos / 5;
 	m->player.move_speedless.y -= m->player.anglesin / 5;
 	if (m->player.height <= 9.3)
@@ -88,11 +90,13 @@ void		jump(t_env *w, t_map *m)
 		Mix_PlayChannel(2, w->sound.jump, 0);
 		m->player.move_speed.z = m->player.move_speed.z + 0.8;
 		m->player.fall = 1;
+		m->player.jump = 1;
 	}
 }
 
 void		sprint(t_map *m)
 {
+	m->player.movespeed = 1.5;
 	m->player.move_speedless.x += m->player.anglecos / 1.5;
 	m->player.move_speedless.y += m->player.anglesin / 1.5;
 	if (m->player.height <= 9.3)
@@ -189,7 +193,7 @@ void		crouch_lock(t_map *m)
 void		switch_weapon(t_map *m, int i)
 {
 	m->player.handed = i;
-	m->player.switching = 250;
+	m->player.switching = 300;
 }
 
 void		look_around(t_env *w, t_map *m)

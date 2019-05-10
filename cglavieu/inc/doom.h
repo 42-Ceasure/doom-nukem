@@ -114,6 +114,7 @@ typedef struct		s_sector
 
 typedef struct		s_player
 {
+	int				bal;
 	char			*fps;
 	char			*stractu_ammo;
 	int				intactu_ammo;
@@ -129,6 +130,7 @@ typedef struct		s_player
 	int				hud;
 	t_coor			coor;
 	int				memz;
+	double				movespeed;
 	t_coor			move_speed;
 	t_coor			move_speedless;
 	double			angle;
@@ -138,6 +140,7 @@ typedef struct		s_player
 	double			field_of_vision_h;
 	double			field_of_vision_v;
 	double			stance;
+	int				jump;
 	int				fall;
 	int				ground;
 	int				moving;
