@@ -69,7 +69,7 @@
 
 void	set_fire(t_env *w, t_map *m)
 {
-	m->player.refresh = m->weap[PH].recoil;
+	m->player.refresh = m->weap[PH].recoil * 2;
 	m->yaw = vmid(m->yaw - m->weap[PH].dispertion, -4, 4);
 	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
 	PL_A = PL_A + m->weap[PH].dispertion / 2 * w->random;
@@ -84,7 +84,7 @@ void	set_fire(t_env *w, t_map *m)
 				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2,
 					HEIGHT / 2 - m->fire.h / 2 + 20);
 			safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
-					m->weap[PH].sprt[1].sy + (m->player.refresh / 1.5));
+					m->weap[PH].sprt[1].sy + (m->weap[PH].recoil / 1.5));
 		}
 		else
 		{
@@ -95,7 +95,7 @@ void	set_fire(t_env *w, t_map *m)
 				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2 + 45,
 					HEIGHT / 2 - m->fire.h / 2 + 60);
 			safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
-					m->weap[PH].sprt[0].sy + m->player.refresh);
+					m->weap[PH].sprt[0].sy + m->weap[PH].recoil);
 		}
 		m->player.firing = 0;
 	}
@@ -111,7 +111,7 @@ void	hand(t_env *w, t_map *m)
 		{
 			if (m->player.aiming == 1)
 				safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
-					m->weap[PH].sprt[1].sy + (m->player.refresh / 1.5));
+					m->weap[PH].sprt[1].sy + (m->weap[PH].recoil / 1.5));
 			else
 			{
 				if (m->player.moving != 0 && m->player.jump == 0 && m->player.refresh == 0)
@@ -122,7 +122,7 @@ void	hand(t_env *w, t_map *m)
 						m->weap[PH].sprt[2].sy);
 				else
 					safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
-						m->weap[PH].sprt[0].sy + m->player.refresh);
+						m->weap[PH].sprt[0].sy + m->weap[PH].recoil);
 			}
 		}
 		if (m->player.refresh > 0)
