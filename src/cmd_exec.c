@@ -2,6 +2,38 @@
 
 #include "doom.h"
 
+void		video_mode_cmd(t_env *w, t_map *m, char ***cmd, int i)
+{
+	if (cmd[i][1] != NULL)
+	{
+		if (ft_strcmp(cmd[i][1], "FULL_SCREEN") == 0)
+			w->window_mode = FULL_SCREEN;
+		else if (ft_strcmp(cmd[i][1], "RESIZABLE_SCREN") == 0)
+			w->window_mode = RESIZABLE_SCREEN;
+		else
+			set_error(w, m, 3, ft_strdup(cmd[i][1]));
+	}
+}
+
+void		map_cmd(t_env *w, t_map *m, char **cmd)
+{
+	char	**tmp;
+	char	**tmp2;
+
+	if (cmd[1] == NULL)
+		set_error(w, m, 3, ft_strdup("no map specified"));
+	free(m->map_path);
+	m->map_path = ft_strdup(cmd[1]);
+	tmp = ft_strsplit(cmd[1], '/');
+	if (tmp == NULL || tmp[1] == NULL)
+		set_error(w, m, 3, ft_strdup("incorrect format"));
+	tmp2 = ft_strsplit(tmp[1], '.');
+	free(m->map_name);
+	m->map_name = ft_strdup(tmp2[0]);
+	ft_memreg(tmp);
+	ft_memreg(tmp2);
+}
+
 void		extract_bmp(t_env *w, t_map *m, char **cmd)
 {
 	t_texture	texture;
@@ -35,73 +67,35 @@ void		extract_bmp(t_env *w, t_map *m, char **cmd)
 	exit_game(w, m, 1);
 }
 
-void		l_f_priority_cmd(t_env *w, t_map *m, char ***cmd)
+void		not_a_command(t_env *w, t_map *m, char ***cmd, char *s)
 {
-	int		i;
-
-	i = 0;
-	while (cmd[i] != NULL)
-	{
-		if (ft_strcmp(cmd[i][0], "-video_mode") == 0)
-			video_mode_cmd(w, m, cmd, i);
-		else if (ft_strcmp(cmd[i][0], "-seq") == 0)
-			seq_cmd(w, cmd, i);
-		else if (ft_strcmp(cmd[i][0], "-map") == 0)
-			map_cmd(w, m, cmd[i]);
-		else if (ft_strcmp(cmd[i][0], "-extract_bmp") == 0)
-			extract_bmp(w, m, cmd[i]);
-		i++;
-	}
-}
-
-void		interpret_cmd(t_env *w, t_map *m, char ***cmd)
-{
-	int		i;
-
-	i = 0;
-	while (cmd[i] != NULL)
-	{
-		if (ft_strcmp(cmd[i][0], "-ok") == 0)
-		{
-			i++;
-			continue;
-		}
-		else if (ft_strcmp(cmd[i][0], "-list") == 0)
-			recap_parsing(w, m, cmd[i]);
-		else if (ft_strcmp(cmd[i][0], "-exit") == 0)
-			exit_cmd(w, m, cmd);
-		else
-			not_a_command(w, m, cmd, ft_strdup(cmd[i][0]));
-		i++;
-	}
 	ft_memreg3(cmd);
+	set_error(w, m, 2, ft_strdup(s));
 }
 
-void			exec_cmd(t_env *w, t_map *m, char ***cmd, char **av)
+void			interpret_cmd(t_env *w, t_map *m, char ***cmd, char **av)
 {
-	int ac;
+	int 	ac;
+	int		i;
 
+	i = 0;
 	ac = w->ac;
 	if ((cmd = parse_cmd(ac, av)) != NULL)
 	{
-		process_hint(3, "priority cmd");
-		l_f_priority_cmd(w, m, cmd);
-		process_hint(0, " ");
-		process_hint(2, "SDL2");
-		if ((init_sdl(w)) == -1)
-			set_error(w, m, 4, ft_strdup("SDL Initialisation"));
-		process_hint(0, " ");
-		process_hint(4, "core file");
-		if (m->launchwmap != 1)
-			load_core(w, m);
-		process_hint(0, " ");
-		process_hint(4, "map");
-		parse_map_file(w, m);
-		process_hint(0, " ");
-		process_hint(3, "remaining cmd");
-		interpret_cmd(w, m, cmd);
-		process_hint(0, " ");
+		while (cmd[i] != NULL)
+		{
+			if (ft_strcmp(cmd[i][0], "-video_mode") == 0)
+				video_mode_cmd(w, m, cmd, i);
+			else if (ft_strcmp(cmd[i][0], "-map") == 0)
+				map_cmd(w, m, cmd[i]);
+			else if (ft_strcmp(cmd[i][0], "-extract_bmp") == 0)
+				extract_bmp(w, m, cmd[i]);
+			else
+				not_a_command(w, m, cmd, ft_strdup(cmd[i][0]));
+			i++;
+		}
 	}
 	else
 		set_error(w, m, 1, ft_strdup(av[1]));
+	ft_memreg3(cmd);
 }

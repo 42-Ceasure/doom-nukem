@@ -14,16 +14,6 @@ void	menu_screen(t_env *w)
 	dot.x = WIDTH / 2 - 50;
 	dot.y = 200;
 	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
-	/*type_str(w, dot, "le menu n'est pas encore construit,", 0x12FEA800);
-	type_str(w, w->txtnxtline, "vous etes libres d'appuyer sur enter\n", 0x12FEA800);
-	type_str(w, w->txtnxtline, "ochaar, on peut desormais cliquer sur la croix pour quitter !", 0x12FEA800);
-	type_str(w, w->txtnxtline, "\n\n\n\n", 0x127FFF00);
-	type_str(w, w->txtnxtline, "txtnxtline permet d'ecrire du texte a la ligne apres", 0x127FFF00);
-	type_str(w, w->txtnxtline, "le dernier texte affiche", 0x127FFF00);
-	type_str(w, w->txtnxtline, "j'en fais un usage excessif ici.", 0x127FFF00);
-	type_str(w, w->txtnxtline, "p.s. ca, c'est ma couleur preferee 7fff00", 0x127FFF00);
-	type_str(w, w->txtnxtline, "\ntest du ", 0x127FFF00);
-	type_str(w, w->txtnxtto, "txtnxtto", 0x127FFF00);*/
 	if (w->menu.j == 1)
 	{
 		type_str(w, dot, "  NEW GAME\n\n", 0xFFFF0000);
@@ -174,6 +164,9 @@ void	launch(t_env *w, t_map *m)
 		else if (w->menu.i == 2)
 			settings(w);
 		else
+		{
+			parse_map_file(w, m);
 			run(w, m);
+		}
 	}
 }

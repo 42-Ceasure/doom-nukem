@@ -2,61 +2,12 @@
 
 #include "doom.h"
 
-
-
-void			set_config(t_env *w, t_map *m)
-{
-	int			linesc;
-	int			buffer;
-	char		*path;
-	char		**tmp;
-	double		loading;
-
-	buffer = 64;
-	w->dtime.start = SDL_GetTicks();
-	path = ft_strdup("core/core.dn3d");
-	if ((m->fd = open(path, O_RDONLY)) != -1)
-	{
-		while(precise_get_next_line(m->fd, &m->line, buffer))
-		{
-			tmp = ft_strsplit(m->line, ';');
-			if (ft_strncmp(m->line, "buffer", 6) == 0)
-				buffer = ft_atoi(tmp[1]);
-			else if (ft_strncmp(m->line, "lines", 5) == 0)
-				linesc = ft_atoi(tmp[1]);
-			else if (ft_strncmp(m->line, "setting", 7) == 0)
-				parse_config_line(w, m, tmp[1]);
-			else if (ft_strncmp(m->line, "alloc", 5) == 0)
-				parse_allocating_line(w, m, tmp[1]);
-			else if (ft_strncmp(m->line, "menu", 4) == 0)
-				parse_menu_line(w, tmp[1]);
-			else if (ft_strncmp(m->line, "weapon", 6) == 0)
-				parse_weapon_line(m, tmp[1]);
-			else if (ft_strncmp(m->line, "texture", 7) == 0)
-				parse_texture_line(w, m, tmp[1]);
-			else if (ft_strncmp(m->line, "sprite", 6) == 0)
-				parse_sprite_line(w, m, tmp[1]);
-			// else if (ft_strncmp(m->line, "", ) == 0)
-			// 	;
-			ft_memreg(tmp);
-			free(m->line);
-			w->i++;
-		}
-		close(m->fd);
-	}
-	else
-		set_error(w, m, 5, path);
-	free(path);
-	w->dtime.end = SDL_GetTicks();
-	loading = w->dtime.end - w->dtime.start;
-	printf("settings loaded in %f seconds !\n", loading / 1000);
-}
-
 void			set_w(t_env *w, int ac)
 {
 	w->light_nb = (char *)malloc(sizeof(char) * 12);
 	ft_light_itoa(0, w->light_nb);
 	w->loading_time = 0;
+	w->window_mode = -1;
 	w->i = 0;
 	w->ac = ac;
 	w->asciichk = 0;
@@ -117,8 +68,8 @@ void			set_m(t_map *m)
 	m->yaw = 0;
 	m->gravity = BASE_GRAVITY;
 	m->line = NULL;
-	m->map_name = NULL;
-	m->map_path = NULL;
+	m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
+	m->map_name = ft_strdup("Home Sweet Home");
 	m->dot = NULL;
 	m->sector = NULL;
 	m->weap = NULL;

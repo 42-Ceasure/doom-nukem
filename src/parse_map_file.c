@@ -13,14 +13,10 @@ int		first_line(char **tab, t_map *m)
 	M_S_C = ft_atoi(tmp[0]);
 	ft_memreg(tmp);
 	tmp = ft_strsplit(tab[3], ',');
-	m->weapon_count = ft_atoi(tmp[0]);
 	if ((m->sector = (t_sector *)malloc(sizeof(t_sector) * M_S_C)) == NULL)
 		return (-1);
 	if ((m->dot = (t_dot *)malloc(sizeof(t_dot) * m->dots_count)) == NULL)
 		return (-1);
-	// if ((m->weap = (t_weapon *)malloc(sizeof(t_weapon)
-	// 		* m->weapon_count)) == NULL)
-	// 	return (-1);
 	ft_memreg(tmp);
 	return (0);
 }
@@ -55,32 +51,7 @@ int		parse_line(t_env *w, t_map *m)
 			return (-1);
 		}
 	}
-	// else if (m->section_number == 3)
-	// {
-	// 	process_hint_w(w, 4, "weapon");
-	// 	if (parse_weapon_section(m, tmp) == -1)
-	// 	{
-	// 		ft_putendl("error in parse_weapon_section");
-	// 		return (-1);
-	// 	}
-	// }
-	// else if (m->section_number == 4)
-	// {
-	// 	process_hint_w(w, 4, "sprite");
-	// 	if (parse_sprite_section(m, tmp) == -1)
-	// 	{
-	// 		ft_putendl("error in parse_sprite_section");
-	// 		return (-1);
-	// 	}
-	// }
-	// else if (m->section_number == 5 && m->launchwmap == 1)
-	// {
-	// 	process_hint_w(w, 4, "core");
-	// 	parse_core_section(w, m, m->line, 1);
-	// }
-	// else if (m->section_number == 5 && m->launchwmap == 0)
-	// 	w->stopread = 1;
-	// ft_memreg(tmp);
+	ft_memreg(tmp);
 	return (0);
 }
 

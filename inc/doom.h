@@ -410,10 +410,13 @@ typedef struct		s_worker_arg
 	int				start;
 }					t_worker_arg;
 
+void				interpret_cmd(t_env *w, t_map *m, char ***cmd, char **av);
+
+
+
 char				***parse_cmd(int ac, char **av);
 t_texture			pre_init_texture(int w, int h);
 void				l_f_priority_cmd(t_env *w, t_map *m, char ***cmd);
-void				interpret_cmd(t_env *w, t_map *m, char ***cmd);
 void				map_cmd(t_env *w, t_map *m, char **cmd);
 void				not_a_command(t_env *w, t_map *m, char ***cmd, char *s);
 void				exit_cmd(t_env *w, t_map *m, char ***cmd);
@@ -495,7 +498,6 @@ int					load_sounds(t_env *w, t_map *m);
 void				process_hint(int i, char *s);
 void				process_hint_w(t_env *w, int i, char *s);
 void				print_load(char *s, int i3, int len);
-void				exec_cmd(t_env *w, t_map *m, char ***cmd, char **av);
 void				set_config(t_env *w, t_map *m);
 void				set_w(t_env *w, int ac);
 void				set_m(t_map *m);
