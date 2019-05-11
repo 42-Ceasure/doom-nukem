@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/05/08 12:03:02 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/05/11 16:17:45 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,6 +330,7 @@ typedef struct		s_menu
 	int				i;
 	int				j;
 	int				z;
+	int				k;
 	int				*y;
 	char			***list;
 }					t_menu;
