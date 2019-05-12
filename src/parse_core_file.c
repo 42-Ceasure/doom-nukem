@@ -190,7 +190,7 @@ void			load_core(t_env *w, t_map *m)
 	char		**tmp;
 	double		loading;
 
-	buffer = 256;
+	buffer = 128;
 	w->dtime.start = SDL_GetTicks();
 	path = ft_strdup("core/core.dn3d");
 	if ((m->fd = open(path, O_RDONLY)) != -1)
@@ -223,7 +223,7 @@ void			load_core(t_env *w, t_map *m)
 			// 	;
 			if (ft_strncmp(m->line, "texture\t\t;ascii", 15) != 0
 				&& ft_strncmp(m->line, "texture\t\t;main_pic", 18) != 0)
-				buffer = 256;
+				buffer = 128;
 			ft_memreg(tmp);
 			free(m->line);
 			w->i++;
