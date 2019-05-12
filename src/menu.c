@@ -38,21 +38,34 @@ void	affichage_set(t_env *w)
 {
 	t_dot	dot;
 
-	type_str(w, w->txthead, "W\n", 0xFFFFFFFF);
-	type_str(w, w->txtnxtline, "S\n", 0xFFFFFFFF);
-	type_str(w, w->txtnxtline, "D\n", 0xFFFFFFFF);
-	type_str(w, w->txtnxtline, "A\n", 0xFFFFFFFF);
-	type_str(w, w->txtnxtline, ft_itoa(w->m->player.mousesp), 0xFFFFFFFF);
+	dot.x = WIDTH - 100;
+	dot.y = 10;
+	type_str(w, dot, ft_itoa(w->window_mode), 0xFFFFFFFF);
+	dot.y += 50;
+	type_str(w, dot, ft_itoa(w->window_res), 0xFFFFFFFF);
+	dot.y += 50;
+	type_str(w, dot, ft_itoa(w->m->player.field_of_vision_h), 0xFFFFFFFF);
+	dot.y += 50;
+	type_str(w, dot, ft_itoa(w->m->player.field_of_vision_v), 0xFFFFFFFF);
+	dot.y += 50;
+	type_str(w, dot, ft_itoa(w->m->player.mousesp), 0xFFFFFFFF);
 	dot.x = w->txthead.x;
 	dot.y = w->txthead.y;
+}
+
+void	change_key(t_env *w)
+{
+	//printf("%d", w->menu.k);
 	if (w->menu.k == 0)
-		type_str(w, w->txthead, " W\n", 0xFFFFFFFF);
-	else if (w->menu.k == 1)
-		type_str(w, dot, " S\n", 0xFFFFFFFF);
-	else if (w->menu.k == 2)
-		type_str(w, dot, " D\n", 0xFFFFFFFF);
-	else if (w->menu.k == 3)
-		type_str(w, dot, " A\n", 0xFFFFFFFF);
+		change_settings(w->m, w);
+	if (w->menu.k == 1)
+		change_settings(w->m, w);
+	if (w->menu.k == 2)
+		change_settings(w->m, w);
+	if (w->menu.k == 3)
+		change_settings(w->m, w);
+	if (w->menu.k == 4)
+		change_settings(w->m, w);
 }
 
 void	settings(t_env *w)
@@ -62,12 +75,11 @@ void	settings(t_env *w)
 	dot.x = 10;
 	dot.y = 10;
 	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
-	type_str(w, dot, "MOVE FORWARD :\n", 0xFFFFFFFF);
-	type_str(w, w->txtnxtline, "MOVE BACKWARD :\n", 0xFFFFFFFF);
-	type_str(w, w->txtnxtline, "MOVE RIGHT :\n", 0xFFFFFFFF);
-	type_str(w, w->txtnxtline, "MOVE LEFT :\n", 0xFFFFFFFF);
+	type_str(w, dot, "WINDOW MODE :\n", 0xFFFFFFFF);
+	type_str(w, w->txtnxtline, "WINDOW RESOLUTION :\n", 0xFFFFFFFF);
+	type_str(w, w->txtnxtline, "FOV HORIZONTAL :\n", 0xFFFFFFFF);
+	type_str(w, w->txtnxtline, "FOV VERTIAL :\n", 0xFFFFFFFF);
 	type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
-	dot.x = WIDTH - 60;
 	while (1)
 	{
 		while (SDL_PollEvent(&w->event))
@@ -77,16 +89,14 @@ void	settings(t_env *w)
 				if (KEY == SDLK_ESCAPE)
 					w->menu.i = vmax(-1, w->menu.i - 1);
 				if (KEY == SDLK_RETURN)
-				{
-					printf("k=%d\n", w->menu.k);
-				}
+					change_key(w);
 				if (KEY == SDLK_UP)
 					w->menu.k = vmax(0, w->menu.k - 1);
 				if (KEY == SDLK_DOWN)
 					w->menu.k = vmin(w->menu.k + 1, 3);
 			}
 		}
-		//affichage_set(w);
+		affichage_set(w);
 		if (w->menu.i != 2)
 			break;
 		img_update(w);
