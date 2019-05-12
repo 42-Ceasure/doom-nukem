@@ -229,6 +229,8 @@ void		is_moving(t_map *m)
 	i.y1 = m->player.coor.y;
 	i.x2 = m->player.coor.x + m->player.move_speed.x;
 	i.y2 = m->player.coor.y + m->player.move_speed.y;
+	coor.x = i.x2;
+	coor.y = i.y2;
 	i.dx = m->player.move_speed.x;
 	i.dy = m->player.move_speed.y;
 	while (s < m->sector[m->player.sector].wall_count)
@@ -237,8 +239,6 @@ void		is_moving(t_map *m)
 		i.y3 = m->sector[m->player.sector].dot[s].y;
 		i.x4 = m->sector[m->player.sector].dot[s + 1].x;
 		i.y4 = m->sector[m->player.sector].dot[s + 1].y;
-		coor.x = i.x1 + i.dx;
-		coor.y = i.y1 + i.dy;
 		if(intersectbox(i) 
 		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
 		{

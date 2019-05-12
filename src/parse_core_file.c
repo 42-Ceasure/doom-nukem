@@ -136,6 +136,8 @@ void			parse_allocating_line(t_env *w, t_map *m, char *line)
 		if ((w->ascii = (t_texture *)malloc(sizeof(t_texture)
 			* w->asciino)) == NULL)
 				set_error(w, m, 0, ft_strdup("ascii"));
+		if (load_sounds(w, m) == -1)
+			set_error(w, m, 8, ft_strdup("load_sounds"));
 	}
 }
 

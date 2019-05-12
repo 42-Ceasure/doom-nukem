@@ -64,7 +64,7 @@ double pointside(t_coor p, double x0, double y0, double x1, double y1)
 
 t_coor intersect(t_intersect i) 
 {
-	t_coor coor; 
+	t_coor coor;
 	double tmp1;
 	double tmp2;
 	double tmp3;

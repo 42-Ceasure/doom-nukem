@@ -88,8 +88,6 @@ void	parse_map_file(t_env *w, t_map *m)
 	w->dtime.start = SDL_GetTicks();
 	if (do_parse(w, m) == -1)
 		set_error(w, m, 8, ft_strdup("do_parse"));
-	if (load_sounds(w, m) == -1)
-		set_error(w, m, 8, ft_strdup("load_sounds"));
 	w->dtime.end = SDL_GetTicks();
 	loading = w->dtime.end - w->dtime.start;
 	printf("map      loaded in %f seconds !\n", loading / 1000);
