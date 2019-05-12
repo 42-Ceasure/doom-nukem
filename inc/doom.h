@@ -47,6 +47,17 @@
 # define BASE_GRAVITY		0.05
 # define NB_THREAD			16
 
+typedef struct		s_filer
+{
+	int	buffer;
+	int stop;
+	int fd;
+	int fd2;
+	char *buff;
+	char *line;
+	char **tmp;
+}					t_filer;
+
 typedef struct		s_vect
 {
 	int				x1;
@@ -130,7 +141,7 @@ typedef struct		s_player
 	int				hud;
 	t_coor			coor;
 	int				memz;
-	double				movespeed;
+	double			movespeed;
 	t_coor			move_speed;
 	t_coor			move_speedless;
 	double			angle;
@@ -385,6 +396,7 @@ typedef struct		s_env
 	double			random;
 	t_res			res;
 	int				window_mode;
+	int				window_res;
 	int				sequential_draw;
 	int				sequential_frame;
 	SDL_Window		*win;
@@ -431,6 +443,8 @@ void				parse_weapon_line(t_map *m, char *line);
 int					parse_weapon_sprite(t_map *m, char *name, char *def, char *pix);
 void				parse_texture_line(t_env *w, t_map *m, char *line);
 void				parse_sprite_line(t_env *w, t_map *m, char *line);
+void 				replace_line(char *path, char *balise, char *content);
+void				change_settings(t_map *m, t_env *w);
 void				parse_map_file(t_env *w, t_map *m);
 int					parse_map_section(t_map *m, char **tab);
 int					parse_player_section(t_map *m, char **tab);

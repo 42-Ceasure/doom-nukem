@@ -44,33 +44,6 @@ t_menu		parse_menu_line(t_env *w, char *line)
 	return (menu);
 }
 
-void			set_screen_res(t_env *w, char *aspect)
-{
-	int			n;
-
-	n = ft_atoi(aspect);
-	if (n == 0) //			16/9
-	{
-		w->res.width = BASEWIDTH;
-		w->res.height = BASEHEIGHT;
-	}
-	else if (n == 1)
-	{
-		w->res.width = 1920;
-		w->res.height = 1080;
-	}
-	else if (n == 2)
-	{
-		w->res.width = 800;
-		w->res.height = 600;
-	}
-	else
-	{
-		w->res.width = BASEWIDTH;
-		w->res.height = BASEHEIGHT;
-	}
-}
-
 void			parse_weapon_line(t_map *m, char *line)
 {
 	char			**tmp;
@@ -166,6 +139,31 @@ void			parse_allocating_line(t_env *w, t_map *m, char *line)
 	}
 }
 
+void			set_screen_res(t_env *w, char *aspect)
+{
+	w->window_res = ft_atoi(aspect);
+	if (w->window_res == 0) //			16/9
+	{
+		w->res.width = BASEWIDTH;
+		w->res.height = BASEHEIGHT;
+	}
+	else if (w->window_res == 1)
+	{
+		w->res.width = 1920;
+		w->res.height = 1080;
+	}
+	else if (w->window_res == 2)
+	{
+		w->res.width = 800;
+		w->res.height = 600;
+	}
+	else
+	{
+		w->res.width = BASEWIDTH;
+		w->res.height = BASEHEIGHT;
+	}
+}
+
 void			parse_settings_line(t_env *w, t_map *m, char *line)
 {
 	char **tmp;
@@ -190,7 +188,7 @@ void			load_core(t_env *w, t_map *m)
 	char		**tmp;
 	double		loading;
 
-	buffer = 64;
+	buffer = 256;
 	w->dtime.start = SDL_GetTicks();
 	path = ft_strdup("core/core.dn3d");
 	if ((m->fd = open(path, O_RDONLY)) != -1)
@@ -201,6 +199,8 @@ void			load_core(t_env *w, t_map *m)
 			if (ft_strncmp(m->line, "buffer", 6) == 0)
 			{
 				buffer = ft_atoi(tmp[1]);
+				ft_memreg(tmp);
+				free(m->line);
 				continue;
 			}
 			else if (ft_strncmp(m->line, "lines", 5) == 0)
@@ -219,10 +219,9 @@ void			load_core(t_env *w, t_map *m)
 				parse_sprite_line(w, m, tmp[1]);
 			// else if (ft_strncmp(m->line, "", ) == 0)
 			// 	;
-			if (ft_strncmp(m->line, "texture\t\t;ascii", 15) == 0
-				|| ft_strncmp(m->line, "texture\t\t;main_pic", 18) == 0)
-				continue;
-			buffer = 64;
+			if (ft_strncmp(m->line, "texture\t\t;ascii", 15) != 0
+				&& ft_strncmp(m->line, "texture\t\t;main_pic", 18) != 0)
+				buffer = 256;
 			ft_memreg(tmp);
 			free(m->line);
 			w->i++;
