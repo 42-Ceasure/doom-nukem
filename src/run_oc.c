@@ -32,6 +32,7 @@ void	ft_hud(t_env *w, t_map *m)
 
 	x = WIDTH / 2 - m->hud.w / 2;
 	y = HEIGHT - m->hud.h;
+	safe_texture_to_screen(w, w->test, 480, HEIGHT - 64);
 	safe_texture_to_screen(w, m->hud, x, y);
 	dot.x = 10;
 	dot.y = 10;

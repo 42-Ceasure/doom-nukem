@@ -103,6 +103,8 @@ void			parse_texture_line(t_env *w, t_map *m, char *line)
 		m->hud = parse_texture(w, m, tmp);
 	if (ft_strcmp(tmp[0], "fire") == 0)
 		m->fire = parse_texture(w, m, tmp);
+	if (ft_strcmp(tmp[0], "pistol") == 0)
+		w->test = parse_texture(w, m, tmp);
 	ft_memreg(tmp);
 }
 
