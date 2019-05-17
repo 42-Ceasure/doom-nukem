@@ -111,7 +111,7 @@ void	hand(t_env *w, t_map *m)
 		{
 			if (m->player.aiming == 1)
 				safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
-					m->weap[PH].sprt[1].sy + (m->weap[PH].recoil / 1.5));
+					m->weap[PH].sprt[1].sy);
 			else
 			{
 				if (m->player.moving != 0 && m->player.jump == 0 && m->player.refresh == 0)
@@ -122,7 +122,7 @@ void	hand(t_env *w, t_map *m)
 						m->weap[PH].sprt[2].sy);
 				else
 					safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
-						m->weap[PH].sprt[0].sy + m->weap[PH].recoil);
+						m->weap[PH].sprt[0].sy);
 			}
 		}
 		if (m->player.refresh > 0)
