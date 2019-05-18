@@ -96,7 +96,7 @@ void slow_down(t_env *w, t_map *m)
 	m->player.move_speedless.y = 0.f;
 }
 
-int			is_on_a_map_dot(t_map *m)
+int			is_on_a_map_dot(t_map *m, int sector)
 {
 	t_intersect i;
 	int		r1;
@@ -108,10 +108,10 @@ int			is_on_a_map_dot(t_map *m)
 	i.x2 = m->player.coor.x + m->player.move_speed.x * 12;
 	i.y2 = m->player.coor.y + m->player.move_speed.y * 12;
 	// printf("%f,%f\n", (m->player.move_speed.x * 12), (m->player.move_speed.y * 12));
-	while (i.mem < m->dots_count)
+	while (i.mem < m->sector[sector].wall_count)
 	{
-		i.x3 = m->dot[i.mem].x;
-		i.y3 = m->dot[i.mem].y;
+		i.x3 = m->sector[sector].dot[i.mem].x;
+		i.y3 = m->sector[sector].dot[i.mem].y;
 		r1 = (i.x3 - i.x1) * (i.y2 - i.y1);
 		r2 = (i.y3 - i.y1) * (i.x2 - i.x1);
 		if (r1 == r2)
@@ -258,7 +258,7 @@ void		is_moving(t_map *m)
 				m->player.move_speed.y = i.yd * (i.dx * i.xd + i.dy * i.yd) / (i.xd * i.xd + i.yd * i.yd);
 				m->player.moving = 0;
 			}
-			if (is_on_a_map_dot(m) == -1)
+			if (is_on_a_map_dot(m, m->player.sector) == -1)
 			{
 				m->player.move_speed.x = 0;
 				m->player.move_speed.y = 0;
