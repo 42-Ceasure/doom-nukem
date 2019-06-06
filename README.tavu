@@ -27,6 +27,10 @@ KISSES
 
 <3
 
+Les sprites sont toujours visibles a travers les murs, les coordonnes x,y depandent du debut de la map
+et pas du secteur(a modif). Vous pouvez avoir un bon exemple avec la map2.
+Si vous voulez modifier les sprites ils sont dans le core et sont parsés.
+
 OOMTA (our own mini table ascii) :
 
 number	char		number	char		number	char
