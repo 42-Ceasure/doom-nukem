@@ -94,6 +94,32 @@ void	wall_to_wall(t_draw *d, t_reader *read, t_map *m, t_env *w)
 	}
 }
 
+void    init_visible(t_map *m)
+{
+    int         i;
+    int         d;
+ 
+    i = 0;
+    d = 0;
+    m->visible = malloc(sizeof(t_visible) * m->sector_count);
+    while (i < m->sector_count)
+    {
+        m->visible[i].wall = malloc(sizeof(int) * m->sector[i].wall_count);
+        i++;
+    }
+    i = 0;
+    while (i < m->sector_count)
+    {
+        while (d < m->sector[i].wall_count)
+        {
+            m->visible[i].wall[d] = 0;
+            d++;
+        }
+        d = 0;
+        i++;
+    }
+}
+
 void	draw(t_env *w, t_map *m)
 {
 	int			x;
@@ -102,6 +128,7 @@ void	draw(t_env *w, t_map *m)
 	int			renderedsectors[m->sector_count];
 
 	x = -1;
+	init_visible(m);
 	while (x++ < WIDTH)
 	{
 		d.ytop[x] = 0;
@@ -119,5 +146,11 @@ void	draw(t_env *w, t_map *m)
 			continue;
 		wall_to_wall(&d, &read, m, w);
 		++renderedsectors[read.now.sectorno];
+	}
+	x = 0;
+	while (x < m->sprite_count)
+	{
+		sprite(w, m, x);
+		x++;
 	}
 }

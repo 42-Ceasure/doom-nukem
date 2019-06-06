@@ -63,7 +63,7 @@ void			set_m(t_map *m)
 	m->dots_count = 0;
 	m->sector_count = 0;
 	m->weapon_count = -1;
-	m->sprite_count = 0;
+	m->sprite_count = -1;
 	m->maxrenderedsector = 32;
 	m->yaw = 0;
 	m->gravity = BASE_GRAVITY;
@@ -73,7 +73,7 @@ void			set_m(t_map *m)
 	m->dot = NULL;
 	m->sector = NULL;
 	m->weap = NULL;
-	m->sprite = NULL;
+	//m->sprite = NULL;
 	m->texture = NULL;
 	m->hud = pre_init_texture(0, 0);
 }

@@ -6,68 +6,13 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/05/07 16:00:40 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/06 18:02:47 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-/*void	fire(t_map, t_env *m, t_sprite *sprite)
-{
-	int		i;
-	int		d;
-
-	d = 0;
-	while (d < 36)
-	{
-		i = 0;
-		while (i < 36)
-		{
-			w->pix[(HEIGHT - 36 + d) * WIDTH + (WIDTH / 2 - 36 / 2 + i)] = sprite[3].pix[d * 36 + i];
-			i++;
-		}
-		d++;
-	}
-}*/
-
-// void	hand(t_map *m, t_env *w)
-// {
-// 	int			i;
-// 	int			d;
-
-// 	i = 0;
-// 	d = 0;
-// 	if (m->player.moving != 0)
-// 	{
-// 		while (d < 121)
-// 		{
-// 			i = 0;
-// 			while (i < 128)
-// 			{
-// 				if (m->sprite[1].pix[d * 128 + i] != 4278231784)
-// 					w->pix[(HEIGHT - 121 + d) * WIDTH + ((WIDTH / 2 + 40) - 128 / 2 + i)] = m->sprite[1].pix[d * 128 + i];
-// 				i++;
-// 			}
-// 			d++;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		while (d < 131)
-// 		{
-// 			i = 0;
-// 			while (i < 131)
-// 			{
-// 				if (m->sprite[2].pix[d * 131 + i] != 4278231784)
-// 					w->pix[(HEIGHT - 131 + d) * WIDTH + (WIDTH / 2 - 131 / 2 + i)] = m->sprite[2].pix[d * 131 + i];
-// 				i++;
-// 			}
-// 			d++;
-// 		}
-// 	}
-// }
-
-void	set_fire(t_env *w, t_map *m)
+void		set_fire(t_env *w, t_map *m)
 {
 	m->player.refresh = m->weap[PH].recoil * 2;
 	m->yaw = vmid(m->yaw - m->weap[PH].dispertion, -4, 4);
@@ -101,7 +46,7 @@ void	set_fire(t_env *w, t_map *m)
 	}
 }
 
-void	hand(t_env *w, t_map *m)
+void		hand(t_env *w, t_map *m)
 {
 	if (PH > -1 && m->player.switching == 0)
 	{
@@ -130,91 +75,79 @@ void	hand(t_env *w, t_map *m)
 	}
 	else
 	{
-/*------------------------------------------------------------------------------------*/
-		// if (m->player.switching < 150)
-		// 	safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
-		// 		m->weap[PH].sprt[0].sy + m->player.switching);
-		// else
-		// 	safe_sprite_to_screen(w, m->weap[PH].sprt[2], m->weap[PH].sprt[2].sx,
-		// 				m->weap[PH].sprt[2].sy + m->player.switching - 150);
-/*------------------------------------------------------------------------------------*/
 		safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
 			m->weap[PH].sprt[0].sy + m->player.switching);
-/*------------------------------------------------------------------------------------*/
 	}
 	if (m->player.switching > 0)
 		m->player.switching = m->player.switching - 10;
 }
 
-// void	sprite(t_env *w, t_map *m)
-// {
-// 	int		x;
-// 	int		y;
-// 	double	v1x;
-// 	double	v2x;
-// 	double	v2y;
-// 	// double	yb;
-// 	double	v1y;
-// 	double	t1x;
-// 	double	t2x;
-// 	double	t1z;
-// 	double	t2z;
-// 	double	xscale1;
-// 	double	xscale2;
-// 	double	x1;
-// 	double	x2;
-// 	double	y1b;
-// 	double	y2b;
-// 	double	yscale1;
-// 	double	yscale2;
-// 	// double	cyb;
-// 	int		d;
-// 	int		i;
-// 	// t_draw		work;
-// 	//t_sprite	handh;
+t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x)
+{
+	t_cal_sprt	tmp;
 
-// 	d = 0;
-// 	hand(m, w);
-// 	while (d < WIDTH)
-// 	{
-// 		work.ytop[d] = 0;
-// 		work.ybot[d] = 40;
-// 		d++;
-// 	}
-// 	d = 0;
-// 	x = 40;
-// 	y = 4;
-// 	v1x = x - PL_X;
-// 	v2x = (x + 64) - PL_X;
-// 	v1y = y - PL_Y;
-// 	v2y = (y + 64) - PL_Y;
-// 	t1x = v1x * PL_AS - v1y * PL_AC;
-// 	t2x = v2x * PL_AS - v2y * PL_AC;
-// 	t1z = v1x * PL_AC + v1y * PL_AS;
-// 	t2z = v2x * PL_AC + v2y * PL_AS;
-// 	xscale1 = m->player.field_of_vision_h / t1z;
-// 	xscale2 = m->player.field_of_vision_h / t2z;
-// 	yscale1 = m->player.field_of_vision_v / t1z;
-// 	yscale2 = m->player.field_of_vision_v / t2z;
-// 	x1 = WIDTH / 2 - (int)(t1x * xscale1);
-// 	x2 = WIDTH / 2 - (int)(t2x * xscale2);
-// 	y1b = HEIGHT / 2 - (int)(yaw((m->sector[3].floor - m->player.coor.z), t1z, m) * yscale1);
-// 	y2b = HEIGHT / 2 - (int)(yaw((m->sector[3].floor - m->player.coor.z), t2z, m) * yscale2);
-// 	if (t1z > 0)
-// 	{
-// 		while (d < 64)
-// 		{
-// 			i = 0;
-// 			yb = (d - x1) * (y2b - y1b) / (x2 - x1) + y1b;
-// 			// cyb = vmid(yb, work.ytop[d], work.ybot[d]);
-// 			while (i < 64)
-// 			{
-// 				//if (sprite.pix[d * 64 + i] != 4288151688 && (cyb >= 0 && cyb + d < HEIGHT) && (x1 >= 0 && x1 + i < WIDTH))
-// 				//w->pix[(int)(cyb + d) * WIDTH + (int)(x1 + i)] = sprite.pix[d * 64 + i];
-// 				i++;
-// 			}
-// 			d++;
-// 		}
-// 	}
-// 	d = 0;
-// }
+	tmp.v1x = m->sprite[x].sx - PL_X;
+	tmp.v1y = m->sprite[x].sy - PL_Y;
+	tmp.t1x = tmp.v1x * PL_AS - tmp.v1y * PL_AC;
+	tmp.t1z = tmp.v1x * PL_AC + tmp.v1y * PL_AS;
+	tmp.xscale1 = m->player.field_of_vision_h / tmp.t1z;
+	tmp.yscale1 = m->player.field_of_vision_v / tmp.t1z;
+	tmp.x1 = WIDTH / 2 - (int)(tmp.t1x * tmp.xscale1);
+	tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprite[x].sector].floor
+		- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;
+	tmp.diffx = fabs(m->player.coor.x - m->sprite[x].sx);
+	tmp.diffy = fabs(m->player.coor.y - m->sprite[x].sy);
+	tmp.range = sqrt((tmp.diffx * tmp.diffx) + (tmp.diffy * tmp.diffy)) / 10;
+	tmp.range = 2 / tmp.range;
+	return (tmp);
+}
+
+void		sprite(t_env *w, t_map *m, int x)
+{
+	t_cal_sprt	data;
+	int			d;
+	int			i;
+	int			g;		//variable booleen pour afficher sprite
+
+	d = 0;
+	data = calcul_sprite(w, m, x);
+	if (data.range > 1)
+		data.range = 1;
+	g = 1;
+    //if (z > m->sector[m->player.sector].ceiling)		illogique?
+    //    g = 0;
+/*	i = 0;
+    while (i < m->sector_count)
+    {
+        while (h < m->sector[i].wall_count)
+        {
+            if (m->visible[i].wall[h] == 1 && m->sector[i].network[h] < 0)
+                if (pointside(p, m->sector[i].dot[h].x , m->sector[i].dot[h].y, m->sector[i].dot[h + 1].x, m->sector[i].dot[h + 1].y) <= 0)
+                    g = 0;
+            h++;
+        }
+        h = 0;						sprite visible?
+        i++;
+    }*/
+	if (data.t1z > 0 && g == 1)
+	{
+		while (d < m->sprite[x].h)
+		{
+			i = 0;
+			while (i < m->sprite[x].w)
+			{
+				if (m->sprite[x].pix[d * m->sprite[x].w + i] != 0xFF00FF00
+					&& (data.y1a >= 0 && data.y1a < HEIGHT) && (data.x1
+						>= 0 && data.x1 < WIDTH))
+					w->pix[(int)(data.y1a) * WIDTH + (int)(data.x1)] =
+						m->sprite[x].pix[d * m->sprite[x].w + i];
+				data.x1 += 1 * data.range;
+				i++;
+			}
+			data.x1 -= m->sprite[x].w * data.range;
+			data.y1a += 1 * data.range;
+			d++;
+		}
+		printf("%f\n", data.range);
+	}
+}

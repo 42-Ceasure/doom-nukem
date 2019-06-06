@@ -30,7 +30,7 @@ void		safe_texture_to_screen(t_env *w, t_texture texture, int x, int y)
 			ox++;
 		}
 		if (w->sequential_frame == 1 && (oy % 2 == 0))
-				img_update(w);
+			img_update(w);
 		oy++;
 	}
 }
@@ -95,7 +95,7 @@ void		safe_char_to_screen(t_env *w, t_texture texture, int x, int y)
 			i++;
 			ox++;
 		}
-		if (w->sequential_frame == 1 && (oy % 2 == 0))
+		if (w->sequential_frame == 1 && (oy % 6 == 0))
 				img_update(w);
 		oy++;
 	}

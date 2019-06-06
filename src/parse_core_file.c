@@ -103,8 +103,6 @@ void			parse_texture_line(t_env *w, t_map *m, char *line)
 		m->hud = parse_texture(w, m, tmp);
 	if (ft_strcmp(tmp[0], "fire") == 0)
 		m->fire = parse_texture(w, m, tmp);
-	if (ft_strcmp(tmp[0], "pistol") == 0)
-		w->test = parse_texture(w, m, tmp);
 	ft_memreg(tmp);
 }
 
@@ -119,6 +117,11 @@ void			parse_sprite_line(t_env *w, t_map *m, char *line)
 		if (parse_weapon_sprite(m, tab[1], tab[2], tab[3]) == -1)
 			set_error(w, m, 8, ft_strdup("weapon sprite"));
 	}
+	if (ft_strcmp(tab[0], "item") == 0)
+	{
+		if (parse_sprite_section(m, tab[1], tab[2], tab[3]) == -1)
+			set_error(w, m, 8, ft_strdup("sprites"));
+	}
 }
 
 void			parse_allocating_line(t_env *w, t_map *m, char *line)
@@ -130,7 +133,9 @@ void			parse_allocating_line(t_env *w, t_map *m, char *line)
 		m->weapon_count = ft_atoi(tmp[1]);
 	if (ft_strcmp(tmp[0], "ascii") == 0)
 		w->asciino = ft_atoi(tmp[1]);
-	if (w->asciino > 0 && m->weapon_count > 0)
+	if (ft_strcmp(tmp[0], "sprite") == 0)
+		m->sprite_count = ft_atoi(tmp[1]);
+	if (w->asciino > 0 && m->weapon_count > 0 && m->sprite_count > 0)
 	{
 		if ((m->weap = (t_weapon *)malloc(sizeof(t_weapon)
 			* m->weapon_count)) == NULL)
@@ -138,6 +143,9 @@ void			parse_allocating_line(t_env *w, t_map *m, char *line)
 		if ((w->ascii = (t_texture *)malloc(sizeof(t_texture)
 			* w->asciino)) == NULL)
 				set_error(w, m, 0, ft_strdup("ascii"));
+		if ((m->sprite = (t_sprite *)malloc(sizeof(t_sprite)
+			* m->sprite_count)) == NULL)
+				set_error(w, m, 0, ft_strdup("sprite"));
 		if (load_sounds(w, m) == -1)
 			set_error(w, m, 8, ft_strdup("load_sounds"));
 	}

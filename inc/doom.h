@@ -6,12 +6,12 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/05/14 15:12:09 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/06 17:29:05 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOOM_NUKEM_H
-# define DOOM_NUKEM_H
+#ifndef DOOM_H
+# define DOOM_H
 
 # include "SDL2/SDL.h"
 # include "SDL2/SDL_mixer.h"
@@ -251,6 +251,20 @@ typedef struct		s_draw
 	int				point;
 }					t_draw;
 
+typedef struct		s_calc_sprite
+{
+	double			v1x;
+	double			v1y;
+	double			t1x;
+	double			t1z;
+	double			xscale1;
+	double			x1;
+	double			y1a;
+	double			yscale1;
+	double			diffx;
+	double			diffy;
+	double			range;
+}					t_cal_sprt;
 
 typedef struct		s_sprite
 {
@@ -289,6 +303,11 @@ typedef struct		s_weapon
 	Mix_Chunk 		*shoot;
 }					t_weapon;
 
+typedef struct		s_visible
+{
+	int				*wall;
+}					t_visible;
+
 typedef struct		s_map
 {
 	void			*world;
@@ -312,6 +331,7 @@ typedef struct		s_map
 	char			*map_name;
 	char			*map_path;
 	t_dot			*dot;
+	t_visible		*visible;
 	t_sector		*sector;
 	t_weapon		*weap;
 	t_sprite		*sprite;
@@ -408,7 +428,6 @@ typedef struct		s_env
 	SDL_Event		event;
 	t_texture		*ascii;
 	t_texture		main_pic[2];
-	t_texture		test;
 	t_text			txt;
 	t_menu			menu;
 	t_dot			txthead;
@@ -416,6 +435,7 @@ typedef struct		s_env
 	t_dot			txtnxtto;
 	t_dtime			dtime;
 }					t_env;
+
 
 typedef struct		s_worker_arg
 {
@@ -450,7 +470,7 @@ void				parse_map_file(t_env *w, t_map *m);
 int					parse_map_section(t_map *m, char **tab);
 int					parse_player_section(t_map *m, char **tab);
 int					parse_weapon_section(t_map *m, char **tab);
-int					parse_sprite_section(t_map *m, char **tab);
+int					parse_sprite_section(t_map *m, char *name, char *def, char *pix);
 void				parse_core_section(t_env *w, t_map *m, char *line, int mode);
 int					quick_look(t_env *w, t_map *m);
 int					do_parse(t_env *w, t_map *m);
@@ -551,5 +571,6 @@ void				safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);
 void				safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y);
 void				safe_char_to_screen(t_env *w, t_texture texture, int x, int y);
 void				get_that_time(t_env *w);
+void				sprite(t_env *w, t_map *m, int x);
 
 #endif

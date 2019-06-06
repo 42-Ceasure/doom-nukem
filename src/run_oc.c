@@ -32,7 +32,7 @@ void	ft_hud(t_env *w, t_map *m)
 
 	x = WIDTH / 2 - m->hud.w / 2;
 	y = HEIGHT - m->hud.h;
-	safe_texture_to_screen(w, w->test, 480, HEIGHT - 64);
+	//safe_texture_to_screen(w, w->test, 480, HEIGHT - 64);
 	safe_texture_to_screen(w, m->hud, x, y);
 	dot.x = 10;
 	dot.y = 10;
@@ -75,11 +75,11 @@ void	sequential_frame(t_env *w, t_map *m)
 	w->txthead.y = 236;
 	type_str(w, w->txthead, "sequential frame rendering started.", 0xFF000000);
 	img_update(w);
-	SDL_Delay(1500);
+	//SDL_Delay(1500);
 	clean_render(w, 0xFF000000);
 	type_str(w, w->txthead, "sequential frame rendering started.", 0xFFFFFFFF);
 	img_update(w);
-	SDL_Delay(500);
+	//SDL_Delay(500);
 	clean_render(w, 0xFF000000);
 	img_update(w);
 	game_img(w, m);

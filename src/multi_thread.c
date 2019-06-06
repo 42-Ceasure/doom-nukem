@@ -34,11 +34,11 @@ int		calcul_render(t_env *w, t_map *m)
 		};
 		thr[i] = pthread_create(&calc_thread[i], NULL, (void*)thread, args + i);
 		if (thr[i])
-			set_error(w, m, 8, "lol");
+			set_error(w, m, 8, "threadon't exist");
 		i++;
 	}
 	while (i--)
 		pthread_join(calc_thread[i], NULL);
-	//render?
+	img_update(w);
 	return (0);
 }
