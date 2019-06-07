@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/06/06 17:29:05 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/07 10:26:02 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,7 +263,6 @@ typedef struct		s_calc_sprite
 	double			yscale1;
 	double			diffx;
 	double			diffy;
-	double			range;
 }					t_cal_sprt;
 
 typedef struct		s_sprite
@@ -276,6 +275,8 @@ typedef struct		s_sprite
 	int				h;
 	int				len;
 	int				sector;
+	int				take;
+	double			range;
 	t_coor			coor;
 }					t_sprite;
 
@@ -552,6 +553,7 @@ void				sprint(t_map *m);
 void				hud(t_map *m);
 void				minimap(t_map *m);
 void				och_door(t_map *m);
+void				ramassage(t_map *m);
 void				pause_music(void);
 void				volume_more(t_env *w);
 void				volume_less(t_env *w);

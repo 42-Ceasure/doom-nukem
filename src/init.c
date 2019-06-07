@@ -16,7 +16,7 @@ int			load_sounds(t_env *w, t_map *m)
 		printf("%s\n", Mix_GetError());
 		return (-1);
 	}
-   	Mix_PlayMusic(w->sound.musique, -1);
+   	//Mix_PlayMusic(w->sound.musique, -1);
 	Mix_VolumeMusic(w->sound.volume);
 	Mix_AllocateChannels(10);
 	if (!(w->sound.jump = Mix_LoadWAV("./sounds/jump2.wav")))

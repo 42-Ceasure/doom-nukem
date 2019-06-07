@@ -146,6 +146,19 @@ void		och_door(t_map *m)
 	}
 }
 
+void		ramassage(t_map *m)
+{
+	int i;
+
+	i = 0;
+	while (i < m->sprite_count)
+	{
+		if (m->sprite[i].range >= 1)
+			m->sprite[i].take = 1;
+		i++;
+	}
+}
+
 void		pause_music(void)
 {
 	if (Mix_PausedMusic() == 1)

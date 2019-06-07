@@ -1,6 +1,6 @@
 dots:8,sector:3,weapons:3
 Section:map
-	dots:0:0,20.5
+	dots:0:0,20
 	dots:20:0,20
 	dots:30:0,20
 	dots:80:0,20
@@ -9,5 +9,5 @@ Section:map
 	sector:0,30:4,5,7,6:1,x,x,x
 Section:player
 	player_location:5,5
-	player_direction:0
+	player_direction:90
 	player_sector:0

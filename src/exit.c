@@ -59,6 +59,16 @@ void		empty_map(t_map *m)
 			free(m->dot);
 		if (m->hud.pix != NULL)
 			free(m->hud.pix);
+		if (m->sprite != NULL)
+		{
+			while (i < m->sprite_count)
+			{
+				free(m->sprite[i].name);
+				free(m->sprite[i].pix);
+				i++;
+			}
+		}
+		i = 0;
 		if (m->weap != NULL)
 		{
 			while (i < m->weapon_count)

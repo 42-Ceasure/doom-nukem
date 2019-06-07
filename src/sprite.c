@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/06/06 18:02:47 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/07 16:14:32 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x)
 {
 	t_cal_sprt	tmp;
 
+	//printf("%f\n", m->sector[0].dot[0].x);
 	tmp.v1x = m->sprite[x].sx - PL_X;
 	tmp.v1y = m->sprite[x].sy - PL_Y;
 	tmp.t1x = tmp.v1x * PL_AS - tmp.v1y * PL_AC;
@@ -97,8 +98,6 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x)
 		- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;
 	tmp.diffx = fabs(m->player.coor.x - m->sprite[x].sx);
 	tmp.diffy = fabs(m->player.coor.y - m->sprite[x].sy);
-	tmp.range = sqrt((tmp.diffx * tmp.diffx) + (tmp.diffy * tmp.diffy)) / 10;
-	tmp.range = 2 / tmp.range;
 	return (tmp);
 }
 
@@ -111,8 +110,10 @@ void		sprite(t_env *w, t_map *m, int x)
 
 	d = 0;
 	data = calcul_sprite(w, m, x);
-	if (data.range > 1)
-		data.range = 1;
+	m->sprite[x].range = sqrt((data.diffx * data.diffx) + (data.diffy * data.diffy)) / 10;
+	m->sprite[x].range = 1 / m->sprite[x].range;
+	if (m->sprite[x].range > 1)
+		m->sprite[x].range = 1;
 	g = 1;
     //if (z > m->sector[m->player.sector].ceiling)		illogique?
     //    g = 0;
@@ -129,6 +130,8 @@ void		sprite(t_env *w, t_map *m, int x)
         h = 0;						sprite visible?
         i++;
     }*/
+	if (m->sprite[x].take == 1)
+		g = 0;
 	if (data.t1z > 0 && g == 1)
 	{
 		while (d < m->sprite[x].h)
@@ -139,15 +142,14 @@ void		sprite(t_env *w, t_map *m, int x)
 				if (m->sprite[x].pix[d * m->sprite[x].w + i] != 0xFF00FF00
 					&& (data.y1a >= 0 && data.y1a < HEIGHT) && (data.x1
 						>= 0 && data.x1 < WIDTH))
-					w->pix[(int)(data.y1a) * WIDTH + (int)(data.x1)] =
-						m->sprite[x].pix[d * m->sprite[x].w + i];
-				data.x1 += 1 * data.range;
+					w->pix[(int)(data.y1a) * WIDTH + (int)(data.x1)]
+						= m->sprite[x].pix[d * m->sprite[x].w + i];
+				data.x1 += 1 * m->sprite[x].range;
 				i++;
 			}
-			data.x1 -= m->sprite[x].w * data.range;
-			data.y1a += 1 * data.range;
+			data.x1 -= m->sprite[x].w * m->sprite[x].range;
+			data.y1a += 1 * m->sprite[x].range;
 			d++;
 		}
-		printf("%f\n", data.range);
 	}
 }

@@ -10,6 +10,8 @@ void		affichage(t_env *w, t_map *m)
 		minimap(m);
 	if (KEY == SDLK_f)
 	 	och_door(m);
+	if (KEY == SDLK_m)
+		ramassage(m);
 }
 
 void		music(t_env *w)
