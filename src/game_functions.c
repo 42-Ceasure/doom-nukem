@@ -153,7 +153,7 @@ void		ramassage(t_map *m)
 	i = 0;
 	while (i < m->sprite_count)
 	{
-		if (m->sprite[i].range >= 1)
+		if (m->sprite[i].range >= 1 && ft_strcmp(m->sprite[i].type, "item") == 0)
 			m->sprite[i].take = 1;
 		i++;
 	}

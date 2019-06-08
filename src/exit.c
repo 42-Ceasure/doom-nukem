@@ -63,7 +63,7 @@ void		empty_map(t_map *m)
 		{
 			while (i < m->sprite_count)
 			{
-				free(m->sprite[i].name);
+				free(m->sprite[i].type);
 				free(m->sprite[i].pix);
 				i++;
 			}

@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/06/07 16:14:32 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/08 14:39:28 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,26 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x)
 {
 	t_cal_sprt	tmp;
 
-	//printf("%f\n", m->sector[0].dot[0].x);
 	tmp.v1x = m->sprite[x].sx - PL_X;
 	tmp.v1y = m->sprite[x].sy - PL_Y;
 	tmp.t1x = tmp.v1x * PL_AS - tmp.v1y * PL_AC;
 	tmp.t1z = tmp.v1x * PL_AC + tmp.v1y * PL_AS;
 	tmp.xscale1 = m->player.field_of_vision_h / tmp.t1z;
 	tmp.yscale1 = m->player.field_of_vision_v / tmp.t1z;
-	tmp.x1 = WIDTH / 2 - (int)(tmp.t1x * tmp.xscale1);
-	tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprite[x].sector].floor
-		- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;
+	tmp.x1 = WIDTH / 2 - (tmp.t1x * tmp.xscale1 + (m->sprite[x].w / 2
+		* m->sprite[x].range));
+	if (ft_strcmp(m->sprite[x].type, "decor") == 0)
+		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprite[x].sector].ceiling
+			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;
+	if (ft_strcmp(m->sprite[x].type, "item") == 0)
+		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprite[x].sector].floor
+			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;
 	tmp.diffx = fabs(m->player.coor.x - m->sprite[x].sx);
 	tmp.diffy = fabs(m->player.coor.y - m->sprite[x].sy);
 	return (tmp);
 }
 
-void		sprite(t_env *w, t_map *m, int x)
+void		draw_sprite(t_env *w, t_map *m, int x)
 {
 	t_cal_sprt	data;
 	int			d;

@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/06/07 10:26:02 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/08 14:39:23 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,7 @@ typedef struct		s_sprite
 {
 	Uint32			*pix;
 	char			*name;
+	char			*type;
 	int				sx;
 	int				sy;
 	int				w;
@@ -573,6 +574,6 @@ void				safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);
 void				safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y);
 void				safe_char_to_screen(t_env *w, t_texture texture, int x, int y);
 void				get_that_time(t_env *w);
-void				sprite(t_env *w, t_map *m, int x);
+void				draw_sprite(t_env *w, t_map *m, int x);
 
 #endif

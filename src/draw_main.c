@@ -150,7 +150,7 @@ void	draw(t_env *w, t_map *m)
 	x = 0;
 	while (x < m->sprite_count)
 	{
-		sprite(w, m, x);
+		draw_sprite(w, m, x);
 		x++;
 	}
 }
