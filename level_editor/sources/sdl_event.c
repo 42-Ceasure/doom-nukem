@@ -46,8 +46,11 @@ static void	sdl_event_key(t_win *win)
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_KP_1])
 	{
-		win->mode = 0;
-		win->drawing = 1;
+		if (win->moving == 0)
+		{
+			win->mode = 0;
+			win->drawing = 1;
+		}
 	}
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_KP_2])
@@ -56,7 +59,62 @@ static void	sdl_event_key(t_win *win)
 		win->drawing = 0;
 	}
 
-	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_Z])
+	/*if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_Z])
+	{
+		t_lst	*tmp;
+		t_lst	*previous;
+
+		tmp = win->lst;
+		previous = win->lst;
+		if (win->lst != NULL)
+		{
+			if (tmp->next == NULL)
+			{
+				win->x1 = tmp->x;
+				win->y1 = tmp->y;
+				free (tmp);
+				tmp = NULL;
+				win->lst = NULL;
+				return ;
+			}
+			if (tmp->next->next == NULL)
+			{
+				win->x1 = tmp->x;
+				win->y1 = tmp->y;
+			}
+			while (previous->next->next)
+			{
+				previous = previous->next;
+				win->x1 = previous->x;
+				win->y1 = previous->y;
+			}
+			while (tmp->next)
+				tmp = tmp->next;
+			previous->next = NULL;
+			free (tmp);
+			tmp = NULL;
+		}
+	}*/
+}
+
+static void	sdl_event_mouse(t_win *win)
+{
+	int		x;
+	int		y;
+	int		sector;
+	int		close;
+	t_lst	*tmp;
+
+	x = 0;
+	y = 0;
+	sector = 0;
+	close = 0;
+	tmp = win->lst;
+
+	//if (win->event.type == SDL_MOUSEWHEEL)
+
+	if(win->event.button.button == SDL_BUTTON_RIGHT
+		&& win->event.type == SDL_MOUSEBUTTONUP && win->moving == 0)
 	{
 		t_lst	*tmp;
 		t_lst	*previous;
@@ -92,26 +150,14 @@ static void	sdl_event_key(t_win *win)
 			tmp = NULL;
 		}
 	}
-}
-
-static void	sdl_event_mouse(t_win *win)
-{
-	int		x;
-	int		y;
-	int		sector;
-	int		close;
-
-	x = 0;
-	y = 0;
-	sector = 0;
-	close = 0;
-	if (SDL_GetMouseState(&x, &y) == 3)
+	/*SDL_WaitEvent(&win->event);
+	if (win->event.type == SDL_MOUSEBUTTONUP)
 	{
-		printf("test\n");
-		win->drawing = 0;
-	}
+		if(win->event.button.button == SDL_BUTTON_LEFT)
+		{*/
 	if ((SDL_GetMouseState(&x, &y) == 1) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
+		printf("test\n");
 		if (win->mode == 0)
 		{
 			win->x1 = ft_round(x);
@@ -125,7 +171,13 @@ static void	sdl_event_mouse(t_win *win)
 			win->moving = 0;
 			win->x0 = -1;
 			win->y0 = -1;
-			//if (
+			if (win->lst)
+			{
+				while (tmp->next)
+					tmp = tmp->next;
+				win->x1 = tmp->x;
+				win->y1 = tmp->y;
+			}
 		}
 	}
 	SDL_GetMouseState(&x, &y);
@@ -135,7 +187,6 @@ static void	sdl_event_mouse(t_win *win)
 
 void		sdl_event(t_win *win)
 {
-	//SDL_PollEvent(&win->event);
 	sdl_event_key(win);
 	sdl_event_mouse(win);
 }

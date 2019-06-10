@@ -98,7 +98,7 @@ void    init_visible(t_map *m)
 {
     int         i;
     int         d;
- 
+
     i = 0;
     d = 0;
     m->visible = malloc(sizeof(t_visible) * m->sector_count);

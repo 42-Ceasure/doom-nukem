@@ -88,7 +88,7 @@ struct					s_win
 	SDL_Surface			*txtsensi;
 	SDL_Surface			*txttext;
 	SDL_Surface			*gun;
-	SDL_Event			event;
+
 	SDL_Color			color_font_r;
 	SDL_Color			color_font_o;
 	SDL_Rect			dst;
@@ -151,6 +151,7 @@ struct					s_win
 	int					moving;
 	struct s_lst		*lst;
 	struct s_lst		*tmp;
+	SDL_Event			event;
 };
 
 #endif

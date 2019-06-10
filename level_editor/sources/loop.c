@@ -87,17 +87,31 @@ void		draw_segments(t_win *win)
 		ft_draw_line(win, win->x1, win->y1, win->x2, win->y2);
 }
 
+int			check_point(t_win *win, int x, int y)
+{
+	if ((x == win->x0 || x == win->x0 + 1 || x == win->x0 - 1)
+		&& (y == win->y0 || y == win->y0 + 1 || y == win->y0 - 1))
+			return (1);
+	if ((x == win->x0 || x == win->x0 + 2 || x == win->x0 - 2)
+		&& (y == win->y0 || y == win->y0 + 2 || y == win->y0 - 2))
+			return (1);
+	return (0);
+}
+
 void		loop_play(t_win *win)
 {
 	int		close;
+	int		ret;
 	t_lst	*tmp;
 
 	tmp = NULL;
+	ret = 0;
 	close = 0;
 	win->surface = SDL_CreateRGBSurface(0, WIN_X, WIN_Y, 32, 0, 0, 0, 0);
 	while (42)
 	{
-		SDL_PollEvent(&win->event);
+		SDL_WaitEvent(&win->event);
+		//SDL_PollEvent(&win->event);
 		sdl_event(win);
 		if (win->left_click == 1 && win->mode == 0)
 		{
@@ -112,11 +126,9 @@ void		loop_play(t_win *win)
 			tmp = win->lst;
 			while (tmp && win->moving == 0)
 			{
-				/*printf("%d x \n", tmp->x);
-				printf("%d y \n", tmp->y);
-				printf("%d x0 \n", win->x0);
-				printf("%d y0 \n", win->y0);*/
-				if (tmp->x == win->x0 && tmp->y == win->y0)
+				ret = check_point(win, tmp->x, tmp->y);
+
+				if (ret)
 				{
 					win->tmp = tmp;
 					win->moving = 1;
