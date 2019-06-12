@@ -4,17 +4,17 @@
 
 void		buttonup_event(t_env *w, t_map *m)
 {
-	if (BUTTON == SDL_BUTTON_LEFT)
+	if (BUTTON == SDL_BUTTON_LEFT && m->sprite[PH].take == 1)
 		set_shoot(m, 0);
-	if (BUTTON == SDL_BUTTON_RIGHT)
+	if (BUTTON == SDL_BUTTON_RIGHT && m->sprite[PH].take == 1)
 		stop_aim(w, m);
 }
 
 void		buttondown_event(t_env *w, t_map *m)
 {
-	if (BUTTON == SDL_BUTTON_LEFT)
+	if (BUTTON == SDL_BUTTON_LEFT && m->sprite[PH].take == 1)
 		set_shoot(m, 1);
-	if (BUTTON == SDL_BUTTON_RIGHT)
+	if (BUTTON == SDL_BUTTON_RIGHT && m->sprite[PH].take == 1)
 		aim(w, m);
 }
 

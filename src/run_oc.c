@@ -32,18 +32,23 @@ void	ft_hud(t_env *w, t_map *m)
 
 	x = WIDTH / 2 - m->hud.w / 2;
 	y = HEIGHT - m->hud.h;
-	//safe_texture_to_screen(w, w->test, 480, HEIGHT - 64);
 	safe_texture_to_screen(w, m->hud, x, y);
 	dot.x = 10;
 	dot.y = 10;
 	type_str(w, dot, "HP : 100", 0x12FF0000);
 	dot.y = HEIGHT - 30;
 	type_str(w, dot, "AMMO : ", 0x12000000);
-	if (m->player.intactu_ammo != m->weap[PH].actu_ammo)
+	if (m->player.intactu_ammo != m->weap[PH].actu_ammo && m->sprite[PH].take == 1)
 	{
 		m->player.intactu_ammo = m->weap[PH].actu_ammo;
 		ft_light_itoa(m->weap[PH].actu_ammo, m->player.stractu_ammo);
 	}
+	/*if (m->sprite[0].take == 1)
+		safe_sprite_to_screen(w, m->sprite[0], 480 - 128, HEIGHT - 64);
+	if (m->sprite[1].take == 1)
+		safe_sprite_to_screen(w, m->sprite[1], 480 - 64, HEIGHT - 64);
+	if (m->sprite[2].take == 1)
+		safe_sprite_to_screen(w, m->sprite[2], 480, HEIGHT - 64);*/
 	type_str(w, w->txtnxtto, m->player.stractu_ammo, 0x12000000);
 	dot.x = WIDTH - 130;
 	dot.y = 10;
@@ -98,6 +103,32 @@ void	sequential_frame(t_env *w, t_map *m)
 	SDL_Delay(1000);
 }
 
+void    init_visible(t_map *m)
+{
+    int         i;
+    int         d;
+ 
+    i = 0;
+    d = 0;
+    m->visible = malloc(sizeof(t_visible) * m->sector_count);
+    while (i < m->sector_count)
+    {
+        m->visible[i].wall = malloc(sizeof(int) * m->sector[i].wall_count);
+        i++;
+    }
+    i = 0;
+    while (i < m->sector_count)
+    {
+        while (d < m->sector[i].wall_count)
+        {
+            m->visible[i].wall[d] = 0;
+            d++;
+        }
+        d = 0;
+        i++;
+    }
+}
+
 void	run(t_env *w, t_map *m)
 {
 	int 	sens;
@@ -106,6 +137,7 @@ void	run(t_env *w, t_map *m)
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_ShowCursor(SDL_DISABLE);
 	m->stop = 0;
+	init_visible(m);
 	while (1)
 	{
 		while (SDL_PollEvent(&w->event))

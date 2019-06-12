@@ -16,6 +16,7 @@ void	check_invisible(t_draw *d, t_reader read, t_map *m)
 	d->t2.z = d->v2.x * d->pcos + d->v2.y * d->psin;
 	if (d->t1.z <= 0 || d->t2.z <= 0)
 	{
+		m->visible[read.now.sectorno].wall[d->point] = 1;
 		init_verification(d);
 		if (d->t1.z < d->nearz)
 		{
@@ -38,8 +39,7 @@ int		ceiling_and_floor(t_draw *d, t_map *m, t_reader read, int point)
 	d->yscale2 = (m->player.field_of_vision_v) / d->t2.z;
 	d->x1 = d->winwidth / 2 - (int)(d->t1.x * d->xscale1);
 	d->x2 = d->winwidth / 2 - (int)(d->t2.x * d->xscale2);
-	if (d->x1 >= d->x2 || d->x2 < read.now.sx1
-			|| d->x1 > read.now.sx2)
+	if (d->x1 >= d->x2 || d->x2 < read.now.sx1 || d->x1 > read.now.sx2)
 		return (0);
 	d->yceil = m->sector[read.now.sectorno].ceiling - m->player.coor.z;
 	d->yfloor = m->sector[read.now.sectorno].floor - m->player.coor.z;

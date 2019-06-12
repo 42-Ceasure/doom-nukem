@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/06/08 14:39:23 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/12 12:53:59 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,6 +277,7 @@ typedef struct		s_sprite
 	int				len;
 	int				sector;
 	int				take;
+	int				vis;
 	double			range;
 	t_coor			coor;
 }					t_sprite;

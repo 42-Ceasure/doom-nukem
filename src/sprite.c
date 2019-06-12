@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/06/08 14:39:28 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/12 15:25:12 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void		set_fire(t_env *w, t_map *m)
 
 void		hand(t_env *w, t_map *m)
 {
-	if (PH > -1 && m->player.switching == 0)
+	if (PH > -1 && m->player.switching == 0 && m->sprite[PH].take == 1)
 	{
 		if (m->player.firing == 1)
 			set_fire(w, m);
-		else 
+		else
 		{
 			if (m->player.aiming == 1)
 				safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
@@ -73,7 +73,7 @@ void		hand(t_env *w, t_map *m)
 		if (m->player.refresh > 0)
 			m->player.refresh--;
 	}
-	else
+	else if (m->sprite[PH].take == 1)
 	{
 		safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
 			m->weap[PH].sprt[0].sy + m->player.switching);
@@ -85,7 +85,7 @@ void		hand(t_env *w, t_map *m)
 t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x)
 {
 	t_cal_sprt	tmp;
-
+	
 	tmp.v1x = m->sprite[x].sx - PL_X;
 	tmp.v1y = m->sprite[x].sy - PL_Y;
 	tmp.t1x = tmp.v1x * PL_AS - tmp.v1y * PL_AC;
@@ -102,58 +102,151 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x)
 			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;
 	tmp.diffx = fabs(m->player.coor.x - m->sprite[x].sx);
 	tmp.diffy = fabs(m->player.coor.y - m->sprite[x].sy);
+	m->sprite[x].range = sqrt((tmp.diffx * tmp.diffx) + (tmp.diffy * tmp.diffy)) / 10;
+	m->sprite[x].range = 1 / m->sprite[x].range;
+	if (m->sprite[x].range > 1)
+		m->sprite[x].range = 1;
 	return (tmp);
+}
+
+int     cross(double x1, double x2, double x3, double x4, double y1, double y2, double y3, double y4)
+{
+    double      a1;
+    double      b1;
+    double      a2;
+    double      b2;
+    double      res;
+
+	res = 0.0;
+    if (x1 != x2 && x4 != x3)
+    {
+        a1 = (y2 - y1) / (x2 - x1);
+        a2 = (y4 - y3) / (x4 - x3);
+        if (a1 == a2)
+            return (0);
+        b1 = y1 - (a1 * x1);
+        b2 = y3 - (a2 * x3);
+        res = (b2 - b1) / (a1 - a2);
+        if (((res >= x1 && res <= x2) || (res >= x2 && res <= x1))
+			&& ((res > x3 && res < x4) || (res > x4 && res < x3)))
+            return (1);
+    }
+    else
+    {
+        if (x1 == x2 && x3 == x4)
+            return (0);
+        else if (x1 == x2)
+        {
+            a2 = (y4 - y3) / (x4 - x3);
+            b2 = y3 - (a2 * x3);
+            res = a2 * x1 + b2;
+        }
+        else if (x3 == x4)
+        {
+            a1 = (y2 - y1) / (x2 - x1);
+            b1 = y1 - (a1 * x1);
+            res = a1 * x3 + b1;
+        }
+        if (((res >= y1 && res <= y2) || (res >= y2 && res <= y1))
+			&& ((res > y3 && res < y4) || (res > y4 && res < x3)))
+                return (1);
+    }
+    return (0);
+}
+
+void		is_visible(t_map *m, int x, int y, int i)
+{
+	int		h;
+	int		j;
+	t_coor	p;
+
+	p.x = x;
+	p.y = y;
+	j = 0;
+	while (j < m->sector_count)
+	{
+		h = 0;
+		while (h < m->sector[j].wall_count)
+		{
+			if (m->visible[j].wall[h] == 1 && m->sector[j].network[h] < 0)
+			{
+				if (pointside(p, m->sector[j].dot[h].x , m->sector[j].dot[h].y,
+					m->sector[j].dot[h + 1].x, m->sector[j].dot[h + 1].y) <= 0)
+					if (cross(m->player.coor.x, x, m->sector[j].dot[h].x, m->sector[j].dot[h + 1].x,
+						m->player.coor.y, y, m->sector[j].dot[h].y, m->sector[j].dot[h + 1].y) == 1)
+						m->sprite[i].vis = 0;
+			}
+			h++;
+		}
+		j++;
+	}
 }
 
 void		draw_sprite(t_env *w, t_map *m, int x)
 {
 	t_cal_sprt	data;
-	int			d;
-	int			i;
-	int			g;		//variable booleen pour afficher sprite
+	int			y_tex;
+	int			x_tex;
 
-	d = 0;
-	data = calcul_sprite(w, m, x);
-	m->sprite[x].range = sqrt((data.diffx * data.diffx) + (data.diffy * data.diffy)) / 10;
-	m->sprite[x].range = 1 / m->sprite[x].range;
-	if (m->sprite[x].range > 1)
-		m->sprite[x].range = 1;
-	g = 1;
-    //if (z > m->sector[m->player.sector].ceiling)		illogique?
-    //    g = 0;
-/*	i = 0;
-    while (i < m->sector_count)
-    {
-        while (h < m->sector[i].wall_count)
-        {
-            if (m->visible[i].wall[h] == 1 && m->sector[i].network[h] < 0)
-                if (pointside(p, m->sector[i].dot[h].x , m->sector[i].dot[h].y, m->sector[i].dot[h + 1].x, m->sector[i].dot[h + 1].y) <= 0)
-                    g = 0;
-            h++;
-        }
-        h = 0;						sprite visible?
-        i++;
-    }*/
+	y_tex = 0;
+	x_tex = 0;
 	if (m->sprite[x].take == 1)
-		g = 0;
-	if (data.t1z > 0 && g == 1)
+		return;
+	data = calcul_sprite(w, m, x);
+	m->sprite[x].vis = 1;
+	is_visible(m, m->sprite[x].sx, m->sprite[x].sy, x);
+	if (m->sector[m->sprite[x].sector].floor > m->player.coor.z) //verifie si la hauteur du sprite est plus haute que le joueur
+		m->sprite[x].vis = 0;
+	//remplacer le .floor par un int z une fois que la map sera parse
+	if (data.t1z > 0 && m->sprite[x].vis == 1)
 	{
-		while (d < m->sprite[x].h)
+		while (y_tex < m->sprite[x].h)
 		{
-			i = 0;
-			while (i < m->sprite[x].w)
+			x_tex = 0;
+			while (x_tex < m->sprite[x].w)
 			{
-				if (m->sprite[x].pix[d * m->sprite[x].w + i] != 0xFF00FF00
+				if (m->sprite[x].pix[y_tex * m->sprite[x].w + x_tex] != 0xFF00FF00
 					&& (data.y1a >= 0 && data.y1a < HEIGHT) && (data.x1
 						>= 0 && data.x1 < WIDTH))
 					w->pix[(int)(data.y1a) * WIDTH + (int)(data.x1)]
-						= m->sprite[x].pix[d * m->sprite[x].w + i];
+						= m->sprite[x].pix[y_tex * m->sprite[x].w + x_tex];
 				data.x1 += 1 * m->sprite[x].range;
-				i++;
+				x_tex++;
 			}
 			data.x1 -= m->sprite[x].w * m->sprite[x].range;
 			data.y1a += 1 * m->sprite[x].range;
-			d++;
+			y_tex++;
 		}
 	}
+
+	// faire du scale avec keep ratio
+	// nex_height = m->sprite[x].h * 2;
+	// new_width = (nex_height * m->sprite[x].w) / m->sprite[x].h;
+
+	// faire du scale sans keep ratio
+	/*nex_height = 200;
+	new_width = 200;
+	step_x_tex = (float)m->sprite[x].h / (float)nex_height;
+	step_y_tex = (float)m->sprite[x].w / (float)new_width; 
+	data.y1a = 0;
+	data.x1 = 0;
+	if (data.t1z > 0 && g == 1)
+	{
+		while (data.y1a < nex_height)
+		{
+			x_tex = 0;
+			while (data.x1 < new_width)
+			{
+				if (m->sprite[x].pix[(int)y_tex * m->sprite[x].w + (int)x_tex] != 0xFF00FF00
+					&& (data.y1a >= 0 && data.y1a < HEIGHT) && (data.x1 >= 0 && data.x1 < WIDTH))
+					w->pix[(int)(data.y1a) * WIDTH + (int)(data.x1)] = m->sprite[x].pix[(int)y_tex
+						* m->sprite[x].w + (int)x_tex];
+				data.x1 += 1;
+				x_tex += step_y_tex;
+			}
+			data.x1 -= new_width;
+			data.y1a += 1;
+			y_tex += step_x_tex;
+		}
+	}*/
 }
