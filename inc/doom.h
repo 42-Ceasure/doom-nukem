@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/06/12 12:53:59 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/13 14:17:12 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,8 +270,8 @@ typedef struct		s_sprite
 	Uint32			*pix;
 	char			*name;
 	char			*type;
-	int				sx;
-	int				sy;
+	float			sx;
+	float			sy;
 	int				w;
 	int				h;
 	int				len;
@@ -318,6 +318,7 @@ typedef struct		s_map
 	int				launchwmap;
 	int				trippymod;
 	int				i;
+	int				k;
 	int				s;
 	int				w;
 	int				fd;
@@ -576,5 +577,6 @@ void				safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y);
 void				safe_char_to_screen(t_env *w, t_texture texture, int x, int y);
 void				get_that_time(t_env *w);
 void				draw_sprite(t_env *w, t_map *m, int x);
+void				draw_ennemy(t_env *w, t_map *m, int x);
 
 #endif

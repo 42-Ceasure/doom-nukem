@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/06/12 15:25:12 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/13 15:49:56 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x)
 	if (ft_strcmp(m->sprite[x].type, "decor") == 0)
 		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprite[x].sector].ceiling
 			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;
-	if (ft_strcmp(m->sprite[x].type, "item") == 0)
+	if (ft_strcmp(m->sprite[x].type, "item") == 0 || ft_strcmp(m->sprite[x].type, "ennemy") == 0)
 		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprite[x].sector].floor
 			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;
 	tmp.diffx = fabs(m->player.coor.x - m->sprite[x].sx);
@@ -194,7 +194,7 @@ void		draw_sprite(t_env *w, t_map *m, int x)
 		return;
 	data = calcul_sprite(w, m, x);
 	m->sprite[x].vis = 1;
-	is_visible(m, m->sprite[x].sx, m->sprite[x].sy, x);
+	//is_visible(m, m->sprite[x].sx, m->sprite[x].sy, x);
 	if (m->sector[m->sprite[x].sector].floor > m->player.coor.z) //verifie si la hauteur du sprite est plus haute que le joueur
 		m->sprite[x].vis = 0;
 	//remplacer le .floor par un int z une fois que la map sera parse
@@ -249,4 +249,18 @@ void		draw_sprite(t_env *w, t_map *m, int x)
 			y_tex += step_x_tex;
 		}
 	}*/
+}
+
+void		draw_ennemy(t_env *w, t_map *m, int x)
+{
+	double	diffx;
+	double	diffy;
+
+	diffx = m->player.coor.x - m->sprite[x].sx;
+	diffy = m->player.coor.y - m->sprite[x].sy;
+	m->sprite[5].sx += diffx * 0.005;
+	m->sprite[5].sy += diffy * 0.005;
+	m->sprite[6].sx += diffx * 0.005;
+	m->sprite[6].sy += diffy * 0.005;
+	draw_sprite(w, m, x);
 }

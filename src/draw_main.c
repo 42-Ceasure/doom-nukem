@@ -123,7 +123,20 @@ void	draw(t_env *w, t_map *m)
 	x = 0;
 	while (x < m->sprite_count)
 	{
-		draw_sprite(w, m, x);
+		if (ft_strcmp(m->sprite[x].type, "ennemy") != 0)
+			draw_sprite(w, m, x);
+		else
+		{
+			if (w->dtime.stime == 0)
+				m->k++;
+			if (m->k % 2 == 0)
+				x = 6;
+			else
+				x = 5;
+			draw_ennemy(w, m, x);
+			//printf("%d\n", x);
+			x++;
+		}
 		x++;
 	}
 }
