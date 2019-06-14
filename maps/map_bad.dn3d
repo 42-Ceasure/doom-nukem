@@ -1,7 +1,7 @@
 dots:5,sector:1,weapons:3
 Section:map
 	dots:0:0,20
-	dots:10:10
+	dots:19:10
 	dots:20:0,20
 	sector:0,30:0,1,4,2,3:x,x,x,x,x
 Section:player

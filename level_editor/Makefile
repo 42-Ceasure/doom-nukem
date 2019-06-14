@@ -13,14 +13,14 @@
 NAME	=	editor
 
 SRCS	=	sources/main.c \
-			sources/map.c \
 			sources/init.c \
 			sources/grid.c \
 			sources/loop.c \
 			sources/sdl_event.c \
 			sources/list.c \
 			sources/draw_line.c \
-			sources/draw_line2.c
+			sources/draw_line2.c \
+			sources/undo.c
 
 CC		=	gcc
 

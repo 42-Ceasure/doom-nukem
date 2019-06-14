@@ -44,124 +44,76 @@ static void	sdl_event_key(t_win *win)
 		|| win->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 		clear_n_exit(win, 0);
 
-	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_KP_1])
+	/*if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_H])
 	{
-		if (win->moving == 0)
-		{
-			win->mode = 0;
-			win->drawing = 1;
-		}
-	}
-
-	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_KP_2])
-	{
-		win->mode = 1;
-		win->drawing = 0;
-	}
-
-	/*if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_Z])
-	{
-		t_lst	*tmp;
-		t_lst	*previous;
-
-		tmp = win->lst;
-		previous = win->lst;
-		if (win->lst != NULL)
-		{
-			if (tmp->next == NULL)
-			{
-				win->x1 = tmp->x;
-				win->y1 = tmp->y;
-				free (tmp);
-				tmp = NULL;
-				win->lst = NULL;
-				return ;
-			}
-			if (tmp->next->next == NULL)
-			{
-				win->x1 = tmp->x;
-				win->y1 = tmp->y;
-			}
-			while (previous->next->next)
-			{
-				previous = previous->next;
-				win->x1 = previous->x;
-				win->y1 = previous->y;
-			}
-			while (tmp->next)
-				tmp = tmp->next;
-			previous->next = NULL;
-			free (tmp);
-			tmp = NULL;
-		}
+		win->helptxt = TTF_RenderText_Blended(win->police,
+			"test", win->color_font_r);
+		SDL_BlitSurface(win->helptxt, NULL, win->surface, &win->dst6);
 	}*/
 }
 
 static void	sdl_event_mouse(t_win *win)
 {
-	int		x;
-	int		y;
-	int		sector;
-	int		close;
-	t_lst	*tmp;
+	int			x;
+	int			y;
+	int			sector;
+	int			close;
+	t_lst		*tmp;
+	t_lstlst	*tmp2;
 
 	x = 0;
 	y = 0;
 	sector = 0;
 	close = 0;
 	tmp = win->lst;
+	tmp2 = win->lstlst;
 
-	//if (win->event.type == SDL_MOUSEWHEEL)
-
-	if(win->event.button.button == SDL_BUTTON_RIGHT
-		&& win->event.type == SDL_MOUSEBUTTONUP && win->moving == 0)
+	if (win->event.type == SDL_MOUSEWHEEL)
 	{
-		t_lst	*tmp;
-		t_lst	*previous;
-
-		tmp = win->lst;
-		previous = win->lst;
-		if (win->lst != NULL)
+		if (win->mode == 0)
 		{
-			if (tmp->next == NULL)
+			win->mode = 1;
+			win->drawing = 0;
+			//SDL_FreeSurface(win->helptxt);
+			win->helptxt = TTF_RenderText_Blended(win->police,
+				"Moving Mode", win->color_font_r);
+		}
+		else
+		{
+			if (win->moving == 0)
 			{
-				win->x1 = tmp->x;
-				win->y1 = tmp->y;
-				free (tmp);
-				tmp = NULL;
-				win->lst = NULL;
-				return ;
+				win->mode = 0;
+				//win->drawing = 1;
+				if (tmp2)
+				{
+					while (tmp2->next)
+						tmp2 = tmp2->next;
+					if (tmp2->closed == 0)
+						win->drawing = 1;
+				}
+				//SDL_FreeSurface(win->helptxt);
+				win->helptxt = TTF_RenderText_Blended(win->police,
+					"Drawing Mode", win->color_font_r);
 			}
-			if (tmp->next->next == NULL)
-			{
-				win->x1 = tmp->x;
-				win->y1 = tmp->y;
-			}
-			while (previous->next->next)
-			{
-				previous = previous->next;
-				win->x1 = previous->x;
-				win->y1 = previous->y;
-			}
-			while (tmp->next)
-				tmp = tmp->next;
-			previous->next = NULL;
-			free (tmp);
-			tmp = NULL;
 		}
 	}
-	/*SDL_WaitEvent(&win->event);
-	if (win->event.type == SDL_MOUSEBUTTONUP)
+
+	if (win->event.button.button == SDL_BUTTON_RIGHT
+		&& win->event.type == SDL_MOUSEBUTTONUP && win->moving == 0)
 	{
-		if(win->event.button.button == SDL_BUTTON_LEFT)
-		{*/
-	if ((SDL_GetMouseState(&x, &y) == 1) & SDL_BUTTON(SDL_BUTTON_LEFT))
+		if (win->mode == 0)
+			undo(win);
+	}
+
+	if (win->event.button.button == SDL_BUTTON_LEFT
+		&& win->event.type == SDL_MOUSEBUTTONUP)
 	{
-		printf("test\n");
+		SDL_GetMouseState(&x, &y);
 		if (win->mode == 0)
 		{
 			win->x1 = ft_round(x);
 			win->y1 = ft_round(y);
+			win->just_close = 0;
 		}
 		win->x0 = ft_round(x);
 		win->y0 = ft_round(y);

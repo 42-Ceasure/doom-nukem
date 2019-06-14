@@ -43,34 +43,22 @@ static void	init_dst(t_win *win)
 static int	init_assets(t_win *win)
 {
 	win->police = TTF_OpenFont("resources/fonts/tf2build.ttf", 30);
-	//win->intro = IMG_Load("resources/textures/all/intro.png");
-	//win->menu = IMG_Load("resources/textures/all/menu.png");
-	win->gun = IMG_Load("resources/textures/all/gun.png");
 
 	win->map_ui = IMG_Load("resources/textures/map_ui.jpg");
 
+	win->helptxt = TTF_RenderText_Blended(win->police,
+		"Drawing Mode", win->color_font_r);
+
+	/*win->helptxt = TTF_RenderText_Blended(win->police,
+		"test", win->color_font_r);*/
+
 	win->lst = NULL;
 
-	/*if (win->police == NULL)
-		clear_n_exit(win, 13);
-	if (win->intro == NULL || win->menu == NULL || win->gun == NULL
-		|| win->ceiling == NULL || win->floor == NULL || win->side1 == NULL
-			|| win->side2 == NULL || win->side3 == NULL || win->side4 == NULL)
-		clear_n_exit(win, 14);
-	if (win->theme == NULL || win->headshot == NULL || win->medic == NULL)
-		clear_n_exit(win, 15);*/
 	return (0);
 }
 
 static int	init_struct(t_win *win)
 {
-	win->dir_player = 270.0;
-	win->vertical_mouse = 0.0;
-	win->move_speed = 0;
-	win->h_win_tmp = 0;
-	win->w_win_tmp = 0;
-	win->tex = 0;
-	win->text = 1;
 	win->delta_clock = 0;
 	win->current_fps = 0;
 	win->start_clock = SDL_GetTicks();
@@ -78,10 +66,16 @@ static int	init_struct(t_win *win)
 
 	win->drawing = 0;
 	win->sector = 0;
+	win->link = 0;
 	win->left_click = 0;
 	win->mode = 0;
 	win->moving = 0;
 	win->tmp = NULL;
+	win->lst = NULL;
+	win->lstlst = NULL;
+	win->just_close = 0;
+
+
 
 
 	return (0);
@@ -93,9 +87,6 @@ static int	init_sdl(t_win *win)
 		clear_n_exit(win, 8);
 	if (TTF_Init() == -1)
 		clear_n_exit(win, 9);
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT,
-		MIX_DEFAULT_CHANNELS, 1024) == -1)
-		clear_n_exit(win, 10);
 	Mix_AllocateChannels(10);
 	if ((win->window = SDL_CreateWindow("editor", SDL_WINDOWPOS_CENTERED, \
 		SDL_WINDOWPOS_CENTERED, WIN_X, WIN_Y, SDL_WINDOW_SHOWN | \

@@ -34,18 +34,27 @@ typedef struct	s_lst
 	struct s_lst	*next;
 }				t_lst;
 
+typedef struct	s_lstlst
+{
+	int				sector;
+	int				closed;
+	struct s_lst	*head;
+	struct s_lstlst	*next;
+}				t_lstlst;
+
 char		**map(t_win *win);
 int			init(t_win *win);
 void		draw_grid(t_win *win);
 int			clear_n_exit(t_win *win, int error);
 void		loop_play(t_win *win);
 void		sdl_event(t_win *win);
-void		init_grid(t_win *win);
 t_lst		*lstnew(int x, int y, int sector);
-int			check_list(t_win *win, t_lst *lst, int x, int y, int sector);
+t_lstlst	*lstlstnew(t_win *win);
+int			check_list(t_win *win, t_lst *lst, int x, int y);
 void		ft_draw_line(t_win *win, int x1, int y1, int x2, int y2);
 void		put_pixel_to_surface(SDL_Surface *srfc, int x, int y, Uint32 color);
 void		print_line(t_win *win, int x1, int y1, int x2, int y2);
 void 		line(t_win *win, int x0, int y0, int x1, int y1);
+void		undo(t_win *win);
 
 #endif

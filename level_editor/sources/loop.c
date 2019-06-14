@@ -15,11 +15,12 @@
 int			print_game(t_win *win)
 {
 	//SDL_BlitSurface(win->map_ui, &win->dst2, win->surface, NULL);
+
+	SDL_BlitSurface(win->helptxt, NULL, win->surface, &win->dst);
+
 	win->texture = SDL_CreateTextureFromSurface(win->renderer, win->surface);
 	SDL_SetRenderTarget(win->renderer, NULL);
 	SDL_GetWindowSize(win->window, &win->w_win, &win->h_win);
-
-	//SDL_BlitSurface(win->map_ui, NULL, win->surface, &win->dst2);
 
 	//set_window(win);
 	if ((SDL_RenderCopy(win->renderer, win->texture, NULL, &win->dst2)) < 0)
@@ -66,69 +67,94 @@ void		draw_points(t_win *win, int i, int j)
 
 void		draw_segments(t_win *win)
 {
+	t_lst		*tmp;
+	t_lstlst	*tmp2;
+
+
+	tmp2 = win->lstlst;
+	while (tmp2)
+	{
+		tmp = tmp2->head;
+		while (tmp->next)
+		{
+			line(win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
+			tmp = tmp->next;
+		}
+		tmp = tmp2->head;
+		while (tmp)
+		{
+			draw_points(win, tmp->x, tmp->y);
+			tmp = tmp->next;
+		}
+		if (win->drawing == 1)
+			ft_draw_line(win, win->x1, win->y1, win->x2, win->y2);
+		tmp2 = tmp2->next;
+	}
+}
+
+void		last_is_first(t_lst *lst)
+{
 	t_lst	*tmp;
 
-	tmp = win->lst;
+	tmp = lst;
 	while (tmp->next)
-	{
-
-		line(win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
-
-		//draw_points(win, tmp->x, tmp->y);
 		tmp = tmp->next;
-	}
-	tmp = win->lst;
-	while (tmp)
-	{
-		draw_points(win, tmp->x, tmp->y);
-		tmp = tmp->next;
-	}
-	if (win->drawing == 1)
-		ft_draw_line(win, win->x1, win->y1, win->x2, win->y2);
+	tmp->x = lst->x;
+	tmp->y = lst->y;
 }
 
-int			check_point(t_win *win, int x, int y)
-{
-	if ((x == win->x0 || x == win->x0 + 1 || x == win->x0 - 1)
-		&& (y == win->y0 || y == win->y0 + 1 || y == win->y0 - 1))
-			return (1);
-	if ((x == win->x0 || x == win->x0 + 2 || x == win->x0 - 2)
-		&& (y == win->y0 || y == win->y0 + 2 || y == win->y0 - 2))
-			return (1);
-	return (0);
-}
 
-void		loop_play(t_win *win)
+void		on_click(t_win *win)
 {
-	int		close;
-	int		ret;
-	t_lst	*tmp;
+	int			closed;
+	t_lst		*tmp;
+	t_lstlst	*tmp2;
 
 	tmp = NULL;
-	ret = 0;
-	close = 0;
-	win->surface = SDL_CreateRGBSurface(0, WIN_X, WIN_Y, 32, 0, 0, 0, 0);
-	while (42)
+	tmp2 = NULL;
+	closed = 0;
+	if (win->left_click == 1 && win->mode == 0)
 	{
-		SDL_WaitEvent(&win->event);
-		//SDL_PollEvent(&win->event);
-		sdl_event(win);
-		if (win->left_click == 1 && win->mode == 0)
+
+		if (win->lstlst == NULL)
+			win->lstlst = lstlstnew(win);
+
+		if (win->sector == win->link)
 		{
-			win->drawing = 1;
-			if (win->lst == NULL)
-				win->lst = lstnew(win->x1, win->y1, 0);
-			else
-				close = check_list(win, win->lst, win->x1, win->y1, win->sector);
+			tmp2 = win->lstlst;
+			while (tmp2->next)
+				tmp2 = tmp2->next;
+			tmp2->next = lstlstnew(win);
 		}
-		if (win->left_click == 1 && win->mode == 1)
+
+		win->drawing = 1;
+		if (win->lst == NULL)
 		{
-			tmp = win->lst;
+			win->lst = lstnew(win->x1, win->y1, win->sector);
+			tmp2 = win->lstlst;
+			while (tmp2->next)
+				tmp2 = tmp2->next;
+			tmp2->head = win->lst;
+		}
+		else
+			closed = check_list(win, win->lst, win->x1, win->y1);
+		if (closed)
+		{
+			tmp2 = win->lstlst;
+			while (tmp2->next)
+				tmp2 = tmp2->next;
+			tmp2->closed = 1;
+		}
+	}
+	if (win->left_click == 1 && win->mode == 1)
+	{
+		tmp2 = win->lstlst;
+		while (tmp2)
+		{
+			tmp = tmp2->head;
 			while (tmp && win->moving == 0)
 			{
-				ret = check_point(win, tmp->x, tmp->y);
-
-				if (ret)
+				if (tmp->x == win->x0 && tmp->y == win->y0)
 				{
 					win->tmp = tmp;
 					win->moving = 1;
@@ -140,13 +166,27 @@ void		loop_play(t_win *win)
 			{
 				win->tmp->x = win->x2;
 				win->tmp->y = win->y2;
+				if (tmp2->closed == 1)
+					last_is_first(tmp2->head);
 			}
+			tmp2 = tmp2->next;
 		}
-		if (win->moving == 0)
-			win->left_click = 0;
+	}
+	if (win->moving == 0)
+		win->left_click = 0;
+}
+
+void		loop_play(t_win *win)
+{
+	win->surface = SDL_CreateRGBSurface(0, WIN_X, WIN_Y, 32, 0, 0, 0, 0);
+	while (42)
+	{
+		SDL_WaitEvent(&win->event);
+		sdl_event(win);
+		on_click(win);
 		clear_window(win);
 		draw_grid(win);
-		if (win->lst != NULL)
+		if (win->lstlst != NULL)
 			draw_segments(win);
 		print_game(win);
 	}

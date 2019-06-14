@@ -18,7 +18,7 @@ typedef struct s_mthrds	t_mthrds;
 typedef struct s_thrd	t_thrd;
 typedef struct s_render	t_render;
 
-struct					s_render
+/*struct					s_render
 {
 	Uint32				color;
 	Uint32				color_h;
@@ -57,7 +57,7 @@ struct					s_render
 	double				floor_y_wall;
 	double				current_floor_x;
 	double				current_floor_y;
-};
+};*/
 
 struct					s_thrd
 {
@@ -81,13 +81,7 @@ struct					s_win
 	SDL_Surface			*ceiling;
 
 	SDL_Surface			*map_ui;
-
-	SDL_Surface			*txtfps;
-	SDL_Surface			*txtintro;
-	SDL_Surface			*txtammo;
-	SDL_Surface			*txtsensi;
-	SDL_Surface			*txttext;
-	SDL_Surface			*gun;
+	SDL_Surface			*helptxt;
 
 	SDL_Color			color_font_r;
 	SDL_Color			color_font_o;
@@ -107,36 +101,6 @@ struct					s_win
 	Uint32				delta_clock;
 	Uint32				current_fps;
 	Uint8				*keystate;
-	char				**map;
-	unsigned int		firing;
-	int					resize;
-	int					tex;
-	int					map_width;
-	int					map_height;
-	int					h_win;
-	int					w_win;
-	int					h_win_tmp;
-	int					w_win_tmp;
-	int					minimap;
-	int					minimap_style;
-	int					reloading;
-	int					ammo1;
-	int					ammo2;
-	int					text;
-	int					aff;
-	int					tmp_time;
-	int					act_time;
-	int					mx;
-	int					my;
-	int					secu;
-	double				pos_x;
-	double				pos_y;
-	double				move_speed;
-	double				vertical_mouse;
-	double				sensibility_hor;
-	double				sensibility_ver;
-	double				sensibility_move;
-	double				dir_player;
 
 	int					drawing;
 	int					left_click;
@@ -150,8 +114,13 @@ struct					s_win
 	int					mode;
 	int					moving;
 	struct s_lst		*lst;
+	struct s_lstlst		*lstlst;
 	struct s_lst		*tmp;
 	SDL_Event			event;
+	int					h_win;
+	int					w_win;
+	int					link;
+	int					just_close;
 };
 
 #endif
