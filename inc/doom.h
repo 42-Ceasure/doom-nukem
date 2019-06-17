@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/06/17 16:55:25 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/17 18:27:50 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -593,7 +593,9 @@ void				sequential_frame(t_env *w, t_map *m);
 void				safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);
 void				safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y);
 void				safe_char_to_screen(t_env *w, t_texture texture, int x, int y);
-int					final_texture_to_screen(t_env *w, t_sprite texture, int x, int y, int width, int height);
+int					final_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y, int width, int height);
+int					final_texture_to_screen(t_env *w, t_texture texture, int x, int y, int width, int height);
+int					final_char_to_screen(t_env *w, t_texture texture, int x, int y, int width, int height);
 void				get_that_time(t_env *w);
 void				draw_sprite(t_env *w, t_map *m, int x);
 void				draw_ennemy(t_env *w, t_map *m, int x);

@@ -18,7 +18,7 @@ INCFIL				=	doom.h
 OBJFIL				=	$(SRCFIL:.c=.o)
 LIBFTFIL			=	libft.a
 SRCFIL				=	main.c exit.c error.c process_hint.c screen.c	\
-						init.c set_basics.c	\
+						screen_resized.c init.c set_basics.c	\
 						textures.c sprite.c parse_core_file.c mytext.c	\
 						cmd_parse.c cmd_exec.c modif_file.c	\
 						parse_map_file.c parse_map_section.c parse_player_section.c parse_weapon_section.c parse_sprite_section.c	\

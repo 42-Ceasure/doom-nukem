@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/06/17 17:29:15 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/17 18:31:29 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ t_cal_sprt	calcul_sprite_ennemy(t_env *w, t_map *m, int x)
 	{
 		m->sprite[x].range *= 2;
 	}
-	printf("%f\n", m->sprite[x].range);
+	// printf("%f\n", m->sprite[x].range);
 	return (tmp);
 }
 
@@ -230,7 +230,7 @@ void		draw_sprite(t_env *w, t_map *m, int x)
 		m->sprite[x].vis = 0;
 	//remplacer le .floor par un int z une fois que la map sera parse
 	if (data.t1z > 0 && m->sprite[x].vis == 1)
-		final_texture_to_screen(w, m->sprite[x], data.x1, data.y1a,m->sprite[x].w * m->sprite[x].range, 0);
+		final_sprite_to_screen(w, m->sprite[x], data.x1, data.y1a,m->sprite[x].w * m->sprite[x].range, 0);
 }
 
 void		draw_ennemy(t_env *w, t_map *m, int x)
