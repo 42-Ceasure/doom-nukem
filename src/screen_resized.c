@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:15:26 by nvienot           #+#    #+#             */
-/*   Updated: 2019/06/17 18:27:29 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/06/17 19:01:00 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int		final_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y, int width, 
 	double	y_tex;
 	int 	maxx;
 	int		maxy;
+	int 	x_tmp;
 	Uint32	tmpix;
 
 	x_tex = 0;
@@ -101,6 +102,25 @@ int		final_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y, int width, 
 	step_y_tex = (double)sprite.h / (double)height;
 	maxx = width + x;
 	maxy = height + y;
+	x_tmp = x;
+	if (maxx > WIDTH)
+		maxx = WIDTH;
+	if (maxy > HEIGHT)
+		maxy = HEIGHT;
+	if (maxx < 0 || maxy < 0)
+		return(0);
+	if (x > WIDTH || y > HEIGHT)
+		return(0);
+	if (x < 0)
+	{
+		x_tex = (0 - x) * step_x_tex;
+		x = 0;
+	}
+	if (y < 0)
+	{
+		y_tex = (0 - y) * step_y_tex;
+		y = 0;
+	}
 	while (y < maxy && (int)x_tex * (int)y_tex < sprite.len)
 	{
 		x_tex = 0;
@@ -118,7 +138,7 @@ int		final_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y, int width, 
 			x_tex += step_x_tex;
 			x++;
 		}
-		x -= width;
+		x = x_tmp;
 		y_tex += step_y_tex;
 		if (w->sequential_frame == 1 && (y % 2 == 0))
 			img_update(w);
