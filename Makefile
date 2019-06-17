@@ -28,7 +28,7 @@ SRCFIL				=	main.c exit.c error.c process_hint.c screen.c	\
 						mouse_events.c	\
 						5_doom_short_functions.c 5_line.c	\
 						draw_main.c draw_utility.c draw_dep.c draw_minimap.c \
-						multi_thread.c menu.c
+						multi_thread.c menu.c moving_ennemy.c
 
 SRC					=	$(addprefix $(SRCDIR),$(SRCFIL))
 OBJ					=	$(addprefix $(OBJDIR),$(OBJFIL))

@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/06/13 15:49:56 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/17 17:29:15 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,43 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x)
 	if (ft_strcmp(m->sprite[x].type, "decor") == 0)
 		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprite[x].sector].ceiling
 			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;
-	if (ft_strcmp(m->sprite[x].type, "item") == 0 || ft_strcmp(m->sprite[x].type, "ennemy") == 0)
+	if (ft_strcmp(m->sprite[x].type, "item") == 0)
 		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprite[x].sector].floor
 			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;
 	tmp.diffx = fabs(m->player.coor.x - m->sprite[x].sx);
 	tmp.diffy = fabs(m->player.coor.y - m->sprite[x].sy);
 	m->sprite[x].range = sqrt((tmp.diffx * tmp.diffx) + (tmp.diffy * tmp.diffy)) / 10;
 	m->sprite[x].range = 1 / m->sprite[x].range;
-	if (m->sprite[x].range > 1)
-		m->sprite[x].range = 1;
+	if (m->player.aiming == 1)
+		m->sprite[x].range *= 2;
+	return (tmp);
+}
+
+t_cal_sprt	calcul_sprite_ennemy(t_env *w, t_map *m, int x)
+{
+	t_cal_sprt	tmp;
+	
+	tmp.v1x = m->ennemy.coor.x - PL_X;
+	tmp.v1y = m->ennemy.coor.y - PL_Y;
+	tmp.t1x = tmp.v1x * PL_AS - tmp.v1y * PL_AC;
+	tmp.t1z = tmp.v1x * PL_AC + tmp.v1y * PL_AS;
+	tmp.xscale1 = m->player.field_of_vision_h / tmp.t1z;
+	tmp.yscale1 = m->player.field_of_vision_v / tmp.t1z;
+	tmp.x1 = WIDTH / 2 - (tmp.t1x * tmp.xscale1 + (m->sprite[x].w / 2
+		* m->sprite[x].range));
+	tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->ennemy.sector].floor
+			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - (m->sprite[x].h * m->sprite[x].range);
+	tmp.diffx = fabs(m->player.coor.x - m->ennemy.coor.x);
+	tmp.diffy = fabs(m->player.coor.y - m->ennemy.coor.y);
+	m->sprite[x].range = sqrt((tmp.diffx * tmp.diffx) + (tmp.diffy * tmp.diffy)) / 10;
+	m->sprite[x].range = 1 / m->sprite[x].range;
+	if (m->sprite[x].range > 6)
+		m->sprite[x].range = 6;
+	if (m->player.aiming == 1)
+	{
+		m->sprite[x].range *= 2;
+	}
+	printf("%f\n", m->sprite[x].range);
 	return (tmp);
 }
 
@@ -192,63 +220,17 @@ void		draw_sprite(t_env *w, t_map *m, int x)
 	x_tex = 0;
 	if (m->sprite[x].take == 1)
 		return;
-	data = calcul_sprite(w, m, x);
+	if (ft_strcmp(m->sprite[x].type, "ennemy") != 0)
+		data = calcul_sprite(w, m, x);
+	else
+		data = calcul_sprite_ennemy(w, m, x);
 	m->sprite[x].vis = 1;
 	//is_visible(m, m->sprite[x].sx, m->sprite[x].sy, x);
 	if (m->sector[m->sprite[x].sector].floor > m->player.coor.z) //verifie si la hauteur du sprite est plus haute que le joueur
 		m->sprite[x].vis = 0;
 	//remplacer le .floor par un int z une fois que la map sera parse
 	if (data.t1z > 0 && m->sprite[x].vis == 1)
-	{
-		while (y_tex < m->sprite[x].h)
-		{
-			x_tex = 0;
-			while (x_tex < m->sprite[x].w)
-			{
-				if (m->sprite[x].pix[y_tex * m->sprite[x].w + x_tex] != 0xFF00FF00
-					&& (data.y1a >= 0 && data.y1a < HEIGHT) && (data.x1
-						>= 0 && data.x1 < WIDTH))
-					w->pix[(int)(data.y1a) * WIDTH + (int)(data.x1)]
-						= m->sprite[x].pix[y_tex * m->sprite[x].w + x_tex];
-				data.x1 += 1 * m->sprite[x].range;
-				x_tex++;
-			}
-			data.x1 -= m->sprite[x].w * m->sprite[x].range;
-			data.y1a += 1 * m->sprite[x].range;
-			y_tex++;
-		}
-	}
-
-	// faire du scale avec keep ratio
-	// nex_height = m->sprite[x].h * 2;
-	// new_width = (nex_height * m->sprite[x].w) / m->sprite[x].h;
-
-	// faire du scale sans keep ratio
-	/*nex_height = 200;
-	new_width = 200;
-	step_x_tex = (float)m->sprite[x].h / (float)nex_height;
-	step_y_tex = (float)m->sprite[x].w / (float)new_width; 
-	data.y1a = 0;
-	data.x1 = 0;
-	if (data.t1z > 0 && g == 1)
-	{
-		while (data.y1a < nex_height)
-		{
-			x_tex = 0;
-			while (data.x1 < new_width)
-			{
-				if (m->sprite[x].pix[(int)y_tex * m->sprite[x].w + (int)x_tex] != 0xFF00FF00
-					&& (data.y1a >= 0 && data.y1a < HEIGHT) && (data.x1 >= 0 && data.x1 < WIDTH))
-					w->pix[(int)(data.y1a) * WIDTH + (int)(data.x1)] = m->sprite[x].pix[(int)y_tex
-						* m->sprite[x].w + (int)x_tex];
-				data.x1 += 1;
-				x_tex += step_y_tex;
-			}
-			data.x1 -= new_width;
-			data.y1a += 1;
-			y_tex += step_x_tex;
-		}
-	}*/
+		final_texture_to_screen(w, m->sprite[x], data.x1, data.y1a,m->sprite[x].w * m->sprite[x].range, 0);
 }
 
 void		draw_ennemy(t_env *w, t_map *m, int x)
@@ -256,11 +238,10 @@ void		draw_ennemy(t_env *w, t_map *m, int x)
 	double	diffx;
 	double	diffy;
 
-	diffx = m->player.coor.x - m->sprite[x].sx;
-	diffy = m->player.coor.y - m->sprite[x].sy;
-	m->sprite[5].sx += diffx * 0.005;
-	m->sprite[5].sy += diffy * 0.005;
-	m->sprite[6].sx += diffx * 0.005;
-	m->sprite[6].sy += diffy * 0.005;
+	diffx = m->player.coor.x - m->ennemy.coor.x;
+	diffy = m->player.coor.y - m->ennemy.coor.y;
+	m->ennemy.move_speed.x = diffx * 0.005;
+	m->ennemy.move_speed.y = diffy * 0.005;
+	m->ennemy.movespeed = 1;
 	draw_sprite(w, m, x);
 }

@@ -44,12 +44,10 @@ void		get_height(t_map *m)
 	m->player.ground = !m->player.fall;
 }
 
-void		is_falling(t_map *m, t_env *w)
+void		is_falling(t_map *m)
 {
 	double	nxtz;
 
-	w->sound.volume++;
-	w->sound.volume--;
 	if (m->player.fall == 1)
 	{
 		m->player.move_speed.z = m->player.move_speed.z - m->gravity;
@@ -75,7 +73,7 @@ void		is_falling(t_map *m, t_env *w)
 	}
 }
 
-void slow_down(t_env *w, t_map *m)
+void 		slow_down(t_env *w, t_map *m)
 {
 	if (w->inkeys[SDL_SCANCODE_W] || w->inkeys[SDL_SCANCODE_S]
 	|| w->inkeys[SDL_SCANCODE_A] || w->inkeys[SDL_SCANCODE_D])

@@ -122,4 +122,16 @@ void			set_m_player(t_map *m)
 	m->player.press = 0;
 	m->player.accel = 0;
 	m->player.display = 0;
+	m->ennemy.move_speed.x = 0;
+	m->ennemy.move_speed.y = 0;
+	m->ennemy.move_speed.z = 0;
+	m->ennemy.move_speedless.x = 0;
+	m->ennemy.move_speedless.y = 0;
+	m->ennemy.move_speedless.z = 0;
+	m->ennemy.fall = 1;
+	m->ennemy.ground = 0;
+	m->ennemy.moving = 0;
+	m->ennemy.height = 0;
+	m->ennemy.hole_low = 0;
+	m->ennemy.hole_high = 0;
 }

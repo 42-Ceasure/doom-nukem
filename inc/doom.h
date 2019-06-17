@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/06/13 14:17:12 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/17 16:55:25 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,21 @@ typedef struct		s_draw
 	int				point;
 }					t_draw;
 
+typedef	struct		s_ennemy
+{
+	double			height;
+	int				fall;
+	int				ground;
+	int				sector;
+	int				moving;
+	double			hole_low;
+	double			hole_high;
+	double			movespeed;
+	t_coor			coor;
+	t_coor			move_speed;
+	t_coor			move_speedless;
+}					t_ennemy;
+
 typedef struct		s_calc_sprite
 {
 	double			v1x;
@@ -343,6 +358,7 @@ typedef struct		s_map
 	t_texture		hud;
 	t_texture		fire;
 	t_player		player;
+	t_ennemy		ennemy;
 }					t_map;
 
 // typedef struct		s_entry
@@ -523,9 +539,11 @@ void				keyup_events(t_env *w, t_map *m);
 void				motion_events(t_env *w, t_map *m);
 void				move_player(double dx, double dy, t_map *m);
 void				get_height(t_map *m);
-void				is_falling(t_map *m, t_env *w);
+void				is_falling(t_map *m);
+void				is_fall(t_map *m);
 void				slow_down(t_env *w, t_map *m);
 void				is_moving(t_map *m);
+void				is_moving_enne(t_map *m);
 void				main_menu(t_env *w, t_map *m);
 t_texture			load_img(t_env *w, t_map *m, char *s);
 void				initsprite(t_sprite **sprite, int count);
@@ -575,6 +593,7 @@ void				sequential_frame(t_env *w, t_map *m);
 void				safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);
 void				safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y);
 void				safe_char_to_screen(t_env *w, t_texture texture, int x, int y);
+int					final_texture_to_screen(t_env *w, t_sprite texture, int x, int y, int width, int height);
 void				get_that_time(t_env *w);
 void				draw_sprite(t_env *w, t_map *m, int x);
 void				draw_ennemy(t_env *w, t_map *m, int x);
