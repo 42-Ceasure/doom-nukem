@@ -114,8 +114,37 @@ int			is_on_a_map_dot(t_map *m, int sector)
 		r2 = (i.y3 - i.y1) * (i.x2 - i.x1);
 		if (r1 == r2)
 		{
-			if ((	i.x3 > vmin(i.x1, i.x2) && i.x3 < vmax(i.x1, i.x2))
+			if ((i.x3 > vmin(i.x1, i.x2) && i.x3 < vmax(i.x1, i.x2))
 				|| (i.y3 > vmin(i.y1, i.y2) && i.y3 < vmax(i.y1, i.y2)))
+				return (-1);
+		}
+		i.mem++;
+	}
+	return (0);
+}
+
+int			is_on_a_map_dot_2(t_map *m, int sector, double x, double y)
+{
+	t_intersect i;
+	int		r1;
+	int		r2;
+
+	i.mem = 0;
+	i.x1 = m->player.coor.x;
+	i.y1 = m->player.coor.y;
+	x = m->player.coor.x + m->player.move_speed.x * 12;
+	y = m->player.coor.y + m->player.move_speed.y * 12;
+	// printf("%f,%f\n", (m->player.move_speed.x * 12), (m->player.move_speed.y * 12));
+	while (i.mem < m->sector[sector].wall_count)
+	{
+		i.x3 = m->sector[sector].dot[i.mem].x;
+		i.y3 = m->sector[sector].dot[i.mem].y;
+		r1 = (i.x3 - i.x1) * (y - i.y1);
+		r2 = (i.y3 - i.y1) * (x - i.x1);
+		if (r1 == r2)
+		{
+			if ((i.x3 > vmin(i.x1, x) && i.x3 < vmax(i.x1, x))
+				|| (i.y3 > vmin(i.y1, y) && i.y3 < vmax(i.y1, y)))
 				return (-1);
 		}
 		i.mem++;
@@ -178,42 +207,50 @@ int			is_next_to_a_dot(t_map *m)
 void move_player(double dx, double dy, t_map *m)
 {
 	int s;
+	// double x;
+	// double y;
 	t_intersect i;
 	t_coor coor;
 	
 
 	i.x1 = m->player.coor.x;
 	i.y1 = m->player.coor.y;
-	i.x2 = m->player.coor.x + dx;
-	i.y2 = m->player.coor.y + dy;
-	s = 0;
-	while (s < m->sector[m->player.sector].wall_count)
-	{
-		i.x3 = m->sector[m->player.sector].dot[s].x;
-		i.y3 = m->sector[m->player.sector].dot[s].y;
-		i.x4 = m->sector[m->player.sector].dot[s + 1].x;
-		i.y4 = m->sector[m->player.sector].dot[s + 1].y;
-		coor.x = i.x2;
-		coor.y = i.y2;
-		if(m->sector[m->player.sector].network[s] >= 0  
-		&& intersectbox(i) 
-		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
+	// x = m->player.coor.x + dx + 4;
+	// y = m->player.coor.x + dy + 4;
+	// printf("x = %f, y = %f\n", x, y);
+	// if (is_on_a_map_dot_2(m, m->player.sector, x, y) == 0)
+	// {
+		i.x2 = m->player.coor.x + dx;
+		i.y2 = m->player.coor.y + dy;
+		s = 0;
+		while (s < m->sector[m->player.sector].wall_count)
 		{
-			m->player.sector = m->sector[m->player.sector].network[s];
-			// is_next_to_a_dot(m);
-			// if (is_on_a_map_dot(m) == -1)
-			// {
-			// 	dx = 0;
-			// 	dy = 0;
-			// }
-			break;
+			i.x3 = m->sector[m->player.sector].dot[s].x;
+			i.y3 = m->sector[m->player.sector].dot[s].y;
+			i.x4 = m->sector[m->player.sector].dot[s + 1].x;
+			i.y4 = m->sector[m->player.sector].dot[s + 1].y;
+			coor.x = i.x2;
+			coor.y = i.y2;
+			if(m->sector[m->player.sector].network[s] >= 0  
+			&& intersectbox(i) 
+			&& pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
+			{
+				m->player.sector = m->sector[m->player.sector].network[s];
+				// is_next_to_a_dot(m);
+				// if (is_on_a_map_dot(m) == -1)
+				// {
+				// 	dx = 0;
+				// 	dy = 0;
+				// }
+				break;
+			}
+			s++;
 		}
-		s++;
-	}
-	m->player.coor.x = m->player.coor.x + dx;
-	m->player.coor.y = m->player.coor.y + dy;
-	m->player.anglesin = sin(m->player.angle);
-	m->player.anglecos = cos(m->player.angle);
+		m->player.coor.x = m->player.coor.x + dx;
+		m->player.coor.y = m->player.coor.y + dy;
+		m->player.anglesin = sin(m->player.angle);
+		m->player.anglecos = cos(m->player.angle);
+	// }
 }
 
 void		is_moving(t_map *m)
