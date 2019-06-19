@@ -138,6 +138,10 @@ void	run(t_env *w, t_map *m)
 	SDL_ShowCursor(SDL_DISABLE);
 	m->stop = 0;
 	init_visible(m);
+	m->ennemy.coor.x = m->sprite[5].sx;
+	m->ennemy.coor.y = m->sprite[5].sy;
+	m->ennemy.sector = m->sprite[5].sector;
+	m->ennemy.coor.z = m->sector[m->ennemy.sector].floor + STAND;
 	while (1)
 	{
 		while (SDL_PollEvent(&w->event))
@@ -180,9 +184,12 @@ void	run(t_env *w, t_map *m)
 			draw_mini_map(w, m);
 		img_update(w);
 		get_height(m);
-		is_falling(m, w);
+		is_falling(m);
 		is_moving(m);
 		slow_down(w, m);
+		is_fall(m);
+		if (m->sprite[5].range < 1)
+			is_moving_enne(m);
 		get_that_time(w);
 	}
 }

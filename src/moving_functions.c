@@ -44,12 +44,10 @@ void		get_height(t_map *m)
 	m->player.ground = !m->player.fall;
 }
 
-void		is_falling(t_map *m, t_env *w)
+void		is_falling(t_map *m)
 {
 	double	nxtz;
 
-	w->sound.volume++;
-	w->sound.volume--;
 	if (m->player.fall == 1)
 	{
 		m->player.move_speed.z = m->player.move_speed.z - m->gravity;
@@ -75,7 +73,7 @@ void		is_falling(t_map *m, t_env *w)
 	}
 }
 
-void slow_down(t_env *w, t_map *m)
+void 		slow_down(t_env *w, t_map *m)
 {
 	if (w->inkeys[SDL_SCANCODE_W] || w->inkeys[SDL_SCANCODE_S]
 	|| w->inkeys[SDL_SCANCODE_A] || w->inkeys[SDL_SCANCODE_D])
@@ -116,7 +114,7 @@ int			is_on_a_map_dot(t_map *m, int sector)
 		r2 = (i.y3 - i.y1) * (i.x2 - i.x1);
 		if (r1 == r2)
 		{
-			if ((	i.x3 > vmin(i.x1, i.x2) && i.x3 < vmax(i.x1, i.x2))
+			if ((i.x3 > vmin(i.x1, i.x2) && i.x3 < vmax(i.x1, i.x2))
 				|| (i.y3 > vmin(i.y1, i.y2) && i.y3 < vmax(i.y1, i.y2)))
 				return (-1);
 		}
@@ -227,8 +225,10 @@ void		is_moving(t_map *m)
 	s = 0;
 	i.x1 = m->player.coor.x;
 	i.y1 = m->player.coor.y;
-	i.x2 = m->player.coor.x + m->player.move_speed.x;
-	i.y2 = m->player.coor.y + m->player.move_speed.y;
+	// i.x2 = m->player.coor.x + m->player.move_speed.x;
+	// i.y2 = m->player.coor.y + m->player.move_speed.y;
+	i.x2 = m->player.coor.x + m->player.move_speed.x * 10;
+	i.y2 = m->player.coor.y + m->player.move_speed.y * 10;
 	coor.x = i.x2;
 	coor.y = i.y2;
 	i.dx = m->player.move_speed.x;

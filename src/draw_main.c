@@ -134,7 +134,6 @@ void	draw(t_env *w, t_map *m)
 			else
 				x = 5;
 			draw_ennemy(w, m, x);
-			//printf("%d\n", x);
 			x++;
 		}
 		x++;
