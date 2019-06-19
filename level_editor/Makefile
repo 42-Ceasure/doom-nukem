@@ -20,7 +20,11 @@ SRCS	=	sources/main.c \
 			sources/list.c \
 			sources/draw_line.c \
 			sources/draw_line2.c \
-			sources/undo.c
+			sources/undo.c \
+			sources/delete_mode.c \
+			sources/neighbour.c \
+			sources/triangulate.c \
+			sources/test.c
 
 CC		=	gcc
 

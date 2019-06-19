@@ -20,7 +20,7 @@ void line(t_win *win, int x0, int y0, int x1, int y1)
 
   for(;;)
   {
-    put_pixel_to_surface(win->surface, x0, y0, 255255255);
+    put_pixel_to_surface(win->surface, x0, y0, win->color);
     if (x0==x1 && y0==y1) break;
     e2 = err;
     if (e2 >-dx) { err -= dy; x0 += sx; }

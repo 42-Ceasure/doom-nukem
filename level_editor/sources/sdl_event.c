@@ -21,6 +21,8 @@ static int	ft_round(int n)
 	tmp = n;
 	a = 0;
 	b = 0;
+	if (n == 0)
+		return (0);
 	while (n % 10 > 0)
 	{
 		n = n - 1;
@@ -43,6 +45,19 @@ static void	sdl_event_key(t_win *win)
 	if (win->event.type == SDL_QUIT
 		|| win->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 		clear_n_exit(win, 0);
+
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_P])
+	{
+		win->triangles = recursive_triangulate(win, win->lstlst->head, win->triangles);
+
+		//check_neighbour(win);
+	}
+
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_I])
+	{
+		test(win);
+	}
+
 
 	/*if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_H])
 	{
@@ -70,31 +85,55 @@ static void	sdl_event_mouse(t_win *win)
 
 	if (win->event.type == SDL_MOUSEWHEEL)
 	{
+		if (win->moving == 0)
+		{
+			if (win->event.wheel.y > 0)
+				win->mode -= 1;
+			if (win->event.wheel.y < 0)
+				win->mode += 1;
+		}
+
+		if (win->mode > 3)
+			win->mode = 0;
+		if (win->mode < 0)
+			win->mode = 3;
+
 		if (win->mode == 0)
 		{
-			win->mode = 1;
-			win->drawing = 0;
+
+			if (tmp2)
+			{
+				while (tmp2->next)
+					tmp2 = tmp2->next;
+				if (tmp2->closed == 0)
+					win->drawing = 1;
+			}
+			//win->drawing = 0;
 			//SDL_FreeSurface(win->helptxt);
 			win->helptxt = TTF_RenderText_Blended(win->police,
-				"Moving Mode", win->color_font_r);
+				"Drawing Mode", win->color_font_r);
 		}
-		else
+
+		if (win->mode == 1)
 		{
-			if (win->moving == 0)
-			{
-				win->mode = 0;
-				//win->drawing = 1;
-				if (tmp2)
-				{
-					while (tmp2->next)
-						tmp2 = tmp2->next;
-					if (tmp2->closed == 0)
-						win->drawing = 1;
-				}
+				win->drawing = 0;
 				//SDL_FreeSurface(win->helptxt);
 				win->helptxt = TTF_RenderText_Blended(win->police,
-					"Drawing Mode", win->color_font_r);
-			}
+					"Moving Mode", win->color_font_r);
+		}
+
+		if (win->mode == 2)
+		{
+			win->drawing = 0;
+			win->helptxt = TTF_RenderText_Blended(win->police,
+				"Placing Mode", win->color_font_r);
+		}
+
+		if (win->mode == 3)
+		{
+			win->drawing = 0;
+			win->helptxt = TTF_RenderText_Blended(win->police,
+				"Delete Mode", win->color_font_r);
 		}
 	}
 

@@ -26,21 +26,27 @@
 # include "w3d_defines.h"
 # include "w3d_structs.h"
 
-typedef struct	s_lst
+typedef struct		s_lst
 {
 	int				x;
 	int				y;
 	int				sector;
 	struct s_lst	*next;
-}				t_lst;
+}					t_lst;
 
-typedef struct	s_lstlst
+typedef struct		s_lstlst
 {
 	int				sector;
 	int				closed;
 	struct s_lst	*head;
 	struct s_lstlst	*next;
-}				t_lstlst;
+}					t_lstlst;
+
+typedef struct		s_dot
+{
+	int				x;
+	int				y;
+}					t_dot;
 
 char		**map(t_win *win);
 int			init(t_win *win);
@@ -56,5 +62,12 @@ void		put_pixel_to_surface(SDL_Surface *srfc, int x, int y, Uint32 color);
 void		print_line(t_win *win, int x1, int y1, int x2, int y2);
 void 		line(t_win *win, int x0, int y0, int x1, int y1);
 void		undo(t_win *win);
+void		delete_sector(t_win *win);
+//int			check_neighbour(t_win *win);
+int			point_in_triangle(t_dot p0, t_dot p1, t_dot p2, t_dot m);
+t_lstlst	*recursive_triangulate(t_win *win, t_lst *polygone, t_lstlst *triangles);
+
+
+void	test(t_win *win);
 
 #endif

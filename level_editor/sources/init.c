@@ -63,7 +63,6 @@ static int	init_struct(t_win *win)
 	win->current_fps = 0;
 	win->start_clock = SDL_GetTicks();
 
-
 	win->drawing = 0;
 	win->sector = 0;
 	win->link = 0;
@@ -74,7 +73,9 @@ static int	init_struct(t_win *win)
 	win->lst = NULL;
 	win->lstlst = NULL;
 	win->just_close = 0;
-
+	win->color = 255255255;
+	win->overed_sector = -1;
+	win->triangles = NULL;
 
 
 

@@ -115,12 +115,15 @@ struct					s_win
 	int					moving;
 	struct s_lst		*lst;
 	struct s_lstlst		*lstlst;
+	struct s_lstlst		*triangles;
 	struct s_lst		*tmp;
 	SDL_Event			event;
 	int					h_win;
 	int					w_win;
 	int					link;
 	int					just_close;
+	int					color;
+	int					overed_sector;
 };
 
 #endif

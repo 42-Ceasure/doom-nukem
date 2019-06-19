@@ -77,6 +77,15 @@ void		draw_segments(t_win *win)
 		tmp = tmp2->head;
 		while (tmp->next)
 		{
+			if (win->mode == 3 && tmp2->sector == win->overed_sector)
+					win->color = 100100100;
+			else
+			{
+				if (tmp2->closed)
+					win->color = 1242520;
+				else
+					win->color = 255255255;
+			}
 			line(win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
 			tmp = tmp->next;
 		}
@@ -90,6 +99,7 @@ void		draw_segments(t_win *win)
 			ft_draw_line(win, win->x1, win->y1, win->x2, win->y2);
 		tmp2 = tmp2->next;
 	}
+	win->overed_sector = -1;
 }
 
 void		last_is_first(t_lst *lst)
@@ -113,9 +123,12 @@ void		on_click(t_win *win)
 	tmp = NULL;
 	tmp2 = NULL;
 	closed = 0;
+
+	if (win->mode == 3)
+		delete_sector(win);
+
 	if (win->left_click == 1 && win->mode == 0)
 	{
-
 		if (win->lstlst == NULL)
 			win->lstlst = lstlstnew(win);
 
@@ -126,6 +139,32 @@ void		on_click(t_win *win)
 				tmp2 = tmp2->next;
 			tmp2->next = lstlstnew(win);
 		}
+
+
+
+/*		if (win->lstlst->closed == 1)
+		{
+			t_dot	p0;
+			t_dot	p1;
+			t_dot	p2;
+			t_dot	m;
+
+			tmp2 = win->lstlst;
+			tmp = tmp2->head;
+
+			p0.x = tmp->x;
+			p0.y = tmp->y;
+			p1.x = tmp->next->x;
+			p1.y = tmp->next->y;
+			p2.x = tmp->next->next->x;
+			p2.y = tmp->next->next->y;
+			m.x = win->x2;
+			m.y = win->y2;
+			if (point_in_triangle(p0, p1, p2, m) == 1)
+				printf("ok\n");
+		}*/
+
+
 
 		win->drawing = 1;
 		if (win->lst == NULL)
