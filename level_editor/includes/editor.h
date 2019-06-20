@@ -63,11 +63,12 @@ void		print_line(t_win *win, int x1, int y1, int x2, int y2);
 void 		line(t_win *win, int x0, int y0, int x1, int y1);
 void		undo(t_win *win);
 void		delete_sector(t_win *win);
-//int			check_neighbour(t_win *win);
+int			check_neighbour(t_win *win);
 int			point_in_triangle(t_dot p0, t_dot p1, t_dot p2, t_dot m);
+int			len_list(t_lst *lst);
 t_lstlst	*recursive_triangulate(t_win *win, t_lst *polygone, t_lstlst *triangles);
 
 
-void	test(t_win *win);
+//void	test(t_win *win);
 
 #endif

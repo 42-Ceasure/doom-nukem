@@ -49,13 +49,16 @@ static void	sdl_event_key(t_win *win)
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_P])
 	{
 		win->triangles = recursive_triangulate(win, win->lstlst->head, win->triangles);
-
-		//check_neighbour(win);
 	}
 
-	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_I])
+	/*if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_I])
 	{
 		test(win);
+	}*/
+
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_K])
+	{
+		check_neighbour(win);
 	}
 
 

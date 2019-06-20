@@ -48,13 +48,16 @@ int		check_list(t_win *win, t_lst *lst, int x, int y)
 	if (x == tmp->x && y == tmp->y)
 		return (1);
 	//tmp = lst;
+
+	new = lstnew(x, y, win->sector);
+
 	if (x == win->lst->x && y == win->lst->y && win->lst->next != NULL)
 	{
 		sector_confirm(win);
 		closed = 1;
 	}
-	tmp = lst;
-	new = lstnew(x, y, win->sector);
+	//tmp = lst;
+	//new = lstnew(x, y, win->sector);
 	tmp = lst;
 	while (tmp->next)
 		tmp = tmp->next;

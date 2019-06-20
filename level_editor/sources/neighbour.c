@@ -12,7 +12,7 @@
 
 #include "editor.h"
 
-/*int		len_list(t_lstlst *lstlst)
+int		len_listlist(t_lstlst *lstlst)
 {
 	int		i;
 	t_lstlst *tmp2;
@@ -21,44 +21,42 @@
 	tmp2 = lstlst;
 	while (tmp2)
 	{
+		//printf("%d tmp2 sector \n", tmp2->sector);
 		i++;
 		tmp2 = tmp2->next;
 	}
 	return (i);
 }
 
-int		len_list(t_lstlst *lstlst)
-{
-	t_lst	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = lstlst->head;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	return (i);
-}
-
-int		check_segment(t_win *win, int x1, int y1, int sector)
+int		check_segment(t_win *win, int x1, int y1, int x2, int y2, int sector)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
+	int			headx;
+	int			heady;
 
 	tmp2 = win->lstlst;
 	while (tmp2)
 	{
 		tmp = tmp2->head;
+		if (tmp)
+		{
+			headx = tmp->x;
+			heady = tmp->y;
+		}
 		while (tmp)
 		{
 			//printf("%d sector \n", sector);
 			//printf("%d tmp sector \n", tmp->sector);
-			if (x1 == tmp->x && y1 == tmp->y && sector != tmp->sector)
-				return (1);
-			if (x1 == tmp->y && y1 == tmp->x && sector != tmp->sector)
-				return (1);
+
+			if (tmp->next)
+			{
+
+				if ((x1 == tmp->x && y1 == tmp->y) && (x2 == tmp->next->x && y2 == tmp->next->y) && sector != tmp->sector)
+					return (1);
+				if ((y1 == tmp->next->y && x1 == tmp->next->x) && (y2 == tmp->y && x2 == tmp->x) && sector != tmp->sector)
+					return (1);
+			}
 			tmp = tmp->next;
 		}
 		tmp2 = tmp2->next;
@@ -72,11 +70,17 @@ int		check_neighbour(t_win *win)
 	t_lst		*tmp;
 	int			x1;
 	int			y1;
+	int			x2;
+	int			y2;
 	int			sector;
 	int			ret;
 	int			neighbour;
 
+	int			headx;
+	int			heady;
+
 	int			i;
+	//int			j;
 
 	neighbour = 0;
 	if (win->lstlst == NULL)
@@ -84,22 +88,42 @@ int		check_neighbour(t_win *win)
 	tmp2 = win->lstlst;
 	while (tmp2)
 	{
-		i = len_list(tmp2);
-		printf("%d len \n", i);
 		tmp = tmp2->head;
+		if (tmp)
+		{
+			headx = tmp->x;
+			heady = tmp->y;
+		}
+		i = len_list(tmp);
+		//printf("%d len list \n", i);
+
+		//j = len_listlist(tmp2);
+		//printf("%d len listlist\n", j);
+
+
 		while (tmp)
 		{
+			ret = 0;
 			x1 = tmp->x;
 			y1 = tmp->y;
 			sector = tmp->sector;
-			ret = check_segment(win, x1, y1, sector);
+			if (tmp->next)
+			{
+				x2 = tmp->next->x;
+				y2 = tmp->next->y;
+			}
+			else
+			{
+				x2 = headx;
+				y2 = heady;
+			}
+			ret = check_segment(win, x1, y1, x2, y2, sector);
 			if (ret == 1)
 				neighbour += 1;
-			ret = 0;
 			tmp = tmp->next;
 		}
 		tmp2 = tmp2->next;
 	}
-	//printf("%d neighbour \n", neighbour);
+	printf("%d neighbour \n", neighbour);
 	return (neighbour);
-}*/
+}
