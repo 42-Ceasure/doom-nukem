@@ -46,7 +46,6 @@ void	ft_hud(t_env *w, t_map *m)
 		m->player.intactu_ammo = m->weap[PH].actu_ammo;
 		ft_light_itoa(m->weap[PH].actu_ammo, m->player.stractu_ammo);
 	}
-	printf("%s\n", m->player.stractu_ammo);
 	/*if (m->sprite[0].take == 1)
 		safe_sprite_to_screen(w, m->sprite[0], 480 - 128, HEIGHT - 64);
 	if (m->sprite[1].take == 1)

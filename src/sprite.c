@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/06/21 11:26:49 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/21 15:15:27 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,13 @@ t_cal_sprt	calcul_sprite_ennemy(t_env *w, t_map *m, int x, int ratio)
 	m->ennemy.range = 1 / m->ennemy.range;
 	if (m->ennemy.range > 6)
 		m->ennemy.range = 6;
+	tmp.zoom = m->ennemy.range;
 	if (m->player.aiming == 1)
-		m->ennemy.range *= 2;
+		tmp.zoom *= 2;
 	tmp.x1 = WIDTH / 2 - (tmp.t1x * tmp.xscale1 + (m->sprite[x].w / 2
-		* m->ennemy.range * ratio));
+		* tmp.zoom * ratio));
 	tmp.y1a = HEIGHT / 2 - (int)(yaw((m->ennemy.coor.z - 10
-			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - (m->sprite[x].h * m->ennemy.range * ratio);
+			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - (m->sprite[x].h * tmp.zoom * ratio);
 	return (tmp);
 }
 
@@ -226,7 +227,7 @@ void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 	else
 	{
 		data = calcul_sprite_ennemy(w, m, x, ratio);
-		range = m->ennemy.range;
+		range = data.zoom;
 	}
 	m->sprite[x].vis = 1;
 	//is_visible(m, m->sprite[x].sx, m->sprite[x].sy, x);
@@ -234,7 +235,7 @@ void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 		m->sprite[x].vis = 0;
 	//remplacer le .floor par un int z une fois que la map sera parse
 	if (data.t1z > 0 && m->sprite[x].vis == 1)
-		final_sprite_to_screen(w, m->sprite[x], data.x1, data.y1a,m->sprite[x].w * range * ratio, 0);
+		final_sprite_to_screen(w, m->sprite[x], data.x1, data.y1a, m->sprite[x].w * range * ratio, 0);
 }
 
 void		draw_ennemy(t_env *w, t_map *m, int x)

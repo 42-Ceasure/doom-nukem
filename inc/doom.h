@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/06/21 11:26:16 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/21 15:12:52 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,7 @@ typedef struct		s_calc_sprite
 	double			yscale1;
 	double			diffx;
 	double			diffy;
+	double			zoom;
 }					t_cal_sprt;
 
 typedef struct		s_sprite
