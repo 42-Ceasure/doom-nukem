@@ -4,7 +4,9 @@
 
 CC					=	gcc
 
-CFLAG				=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
+CFLAG				=	-Wall -Wextra -Werror -O3
+# NV : Test sans fsanitize -> crash dans loadcore
+# CFLAG				=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
 DBGFLAG				=	-g -O0 -fsanitize=address
 
 NAME				=	doom-nukem

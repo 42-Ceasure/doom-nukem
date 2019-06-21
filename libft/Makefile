@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
+#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/19 18:35:47 by cglavieu          #+#    #+#              #
-#    Updated: 2019/04/18 14:09:47 by ochaar           ###   ########.fr        #
+#    Updated: 2019/06/21 16:18:08 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-
-CFLAG		=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
+# NV : Test sans fsanitize -> crash dans loadcore
+CFLAG		=	-Wall -Wextra -Werror -O3
+# CFLAG		=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
 DBGFLAG		=	-g -O0 -fsanitize=address
 
 NAME = libft.a

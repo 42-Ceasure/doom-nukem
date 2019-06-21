@@ -76,8 +76,11 @@ void			process_hint_w(t_env *w, int i, char *s)
 	if (i == 7)
 		pre = ft_strjoin("extracting ", post);
 	hello_screen(w);
-	type_str(w, w->txthead, pre, 0x12FEA800);
-	type_str(w, dot, "loading game...", 0x12FEA800);
+	// ft_putendl("4");
+	// [NV] ATTENTION PROBLEME DE SEGFAULT ICI SANS FSANITIZE ??
+	// type_str(w, w->txthead, pre, 0x12FEA800);
+	// type_str(w, dot, "loading game...", 0x12FEA800);
+	// ft_putendl("5");
 	img_update(w);
 	free(post);
 	if (pre != NULL)
