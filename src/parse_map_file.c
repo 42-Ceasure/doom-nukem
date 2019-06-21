@@ -89,6 +89,7 @@ void	parse_map_file(t_env *w, t_map *m)
 	if (do_parse(w, m) == -1)
 		set_error(w, m, 8, ft_strdup("do_parse"));
 	m->ennemy.sector = m->sprite[5].sector;
+	m->ennemy.range = 0.5;
 	m->ennemy.coor.x = m->sprite[5].sx;
 	m->ennemy.coor.y = m->sprite[5].sy;
 	m->ennemy.coor.z = m->sector[m->sprite[5].sector].floor;

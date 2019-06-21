@@ -94,6 +94,52 @@ void	wall_to_wall(t_draw *d, t_reader *read, t_map *m, t_env *w)
 	}
 }
 
+void	count_sprite(t_env *w, t_map *m)
+{
+	int x;
+
+	x = 0;
+	while (x < m->sprite_count)
+	{
+		if (ft_strcmp(m->sprite[x].type, "ennemy") != 0)
+			draw_sprite(w, m, x, 1);
+		else
+		{
+			if (w->dtime.walk == 0)
+				m->k++;
+			if (m->ennemy.range < 1)
+			{
+				if (m->k % 3 == 0)
+					x = 5;
+				if (m->k % 3 == 1)
+					x = 6;
+				if (m->k % 3 == 2)
+					x = 7;
+			}
+			else
+			{
+				if (m->k % 2 == 0)
+				{
+					x = 8;
+					m->i = 1;
+				}
+				else
+				{
+					x = 9;
+					if (m->i == 1)
+					{
+						m->player.hp -= 10;
+						m->i = 0;
+					}
+				}
+			}
+			draw_ennemy(w, m, x);
+			x += 4;
+		}
+		x++;
+	}
+}
+
 void	draw(t_env *w, t_map *m)
 {
 	int			x;
@@ -120,22 +166,5 @@ void	draw(t_env *w, t_map *m)
 		wall_to_wall(&d, &read, m, w);
 		++renderedsectors[read.now.sectorno];
 	}
-	x = 0;
-	while (x < m->sprite_count)
-	{
-		if (ft_strcmp(m->sprite[x].type, "ennemy") != 0)
-			draw_sprite(w, m, x);
-		else
-		{
-			if (w->dtime.stime == 0)
-				m->k++;
-			if (m->k % 2 == 0)
-				x = 6;
-			else
-				x = 5;
-			draw_ennemy(w, m, x);
-			x++;
-		}
-		x++;
-	}
+	count_sprite(w, m);
 }

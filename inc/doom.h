@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/06/17 18:27:50 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/06/21 11:26:16 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ typedef struct		s_player
 	int				sector;
 	int				mousesp;
 	int				hud;
+	int				hp;
+	char			*strhp;
 	t_coor			coor;
 	int				memz;
 	double			movespeed;
@@ -258,6 +260,7 @@ typedef	struct		s_ennemy
 	int				ground;
 	int				sector;
 	int				moving;
+	double			range;
 	double			hole_low;
 	double			hole_high;
 	double			movespeed;
@@ -420,6 +423,8 @@ typedef	struct		s_dtime
 	Uint32			etime;		/* elapsed time (from start of program) */
 	Uint32			shootime;	/* time between each shot of a given weapon */
 	Uint32			stime;		/* second ticker */
+	Uint32			walk;		/* time of walk animation */
+	Uint32			dead;		/* time of dead animation */
 }					t_dtime;
 
 typedef struct		s_env
@@ -597,7 +602,7 @@ int					final_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y, int widt
 int					final_texture_to_screen(t_env *w, t_texture texture, int x, int y, int width, int height);
 int					final_char_to_screen(t_env *w, t_texture texture, int x, int y, int width, int height);
 void				get_that_time(t_env *w);
-void				draw_sprite(t_env *w, t_map *m, int x);
+void				draw_sprite(t_env *w, t_map *m, int x, int ratio);
 void				draw_ennemy(t_env *w, t_map *m, int x);
 
 #endif

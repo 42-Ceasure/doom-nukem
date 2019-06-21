@@ -40,6 +40,8 @@ void			set_w(t_env *w, int ac)
 	w->dtime.ctime = 0;
 	w->dtime.otime = 0;
 	w->dtime.etime = 0;
+	w->dtime.walk = 0;
+	w->dtime.dead = 0;
 	w->dtime.shootime = 0;
 	w->dtime.stime = 0;
 	w->txthead.x = 0;
@@ -86,6 +88,8 @@ void			set_m_player(t_map *m)
 	ft_light_itoa(0, m->player.fps);
 	m->player.stractu_ammo = (char *)malloc(sizeof(char) * 12);
 	ft_light_itoa(0, m->player.stractu_ammo);
+	m->player.strhp = (char *)malloc(sizeof(char) * 12);
+	ft_light_itoa(0, m->player.strhp);
 	m->player.intactu_ammo = 0;
 	m->player.handed = 0;
 	m->player.aiming = 0;
@@ -96,6 +100,7 @@ void			set_m_player(t_map *m)
 	m->player.recoil = 0;
 	m->player.sector = 0;
 	m->player.hud = 0;
+	m->player.hp = 100;
 	m->player.coor.x = 0;
 	m->player.coor.y = 0;
 	m->player.coor.z = 0;

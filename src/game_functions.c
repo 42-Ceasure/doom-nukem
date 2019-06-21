@@ -282,6 +282,9 @@ void	get_that_time(t_env *w)
 	w->dtime.etime = w->dtime.etime + result;
 	w->dtime.shootime = w->dtime.shootime + result;
 	w->dtime.stime = w->dtime.stime + result;
+	w->dtime.walk += result;
 	if (w->dtime.stime > 1000)
 		w->dtime.stime = 0;
+	if (w->dtime.walk > 500)
+		w->dtime.walk = 0;
 }

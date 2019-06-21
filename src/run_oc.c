@@ -35,7 +35,10 @@ void	ft_hud(t_env *w, t_map *m)
 	safe_texture_to_screen(w, m->hud, x, y);
 	dot.x = 10;
 	dot.y = 10;
-	type_str(w, dot, "HP : 100", 0x12FF0000);
+	type_str(w, dot, "HP : ", 0x12FF0000);
+	if (m->player.hp >= 0 && m->k % 2 == 1)
+		ft_light_itoa(m->player.hp, m->player.strhp);
+	type_str(w, w->txtnxtto, m->player.strhp, 0x12FF0000);
 	dot.y = HEIGHT - 30;
 	type_str(w, dot, "AMMO : ", 0x12000000);
 	if (m->player.intactu_ammo != m->weap[PH].actu_ammo && m->sprite[PH].take == 1)
@@ -43,6 +46,7 @@ void	ft_hud(t_env *w, t_map *m)
 		m->player.intactu_ammo = m->weap[PH].actu_ammo;
 		ft_light_itoa(m->weap[PH].actu_ammo, m->player.stractu_ammo);
 	}
+	printf("%s\n", m->player.stractu_ammo);
 	/*if (m->sprite[0].take == 1)
 		safe_sprite_to_screen(w, m->sprite[0], 480 - 128, HEIGHT - 64);
 	if (m->sprite[1].take == 1)
@@ -138,9 +142,6 @@ void	run(t_env *w, t_map *m)
 	SDL_ShowCursor(SDL_DISABLE);
 	m->stop = 0;
 	init_visible(m);
-	m->ennemy.coor.x = m->sprite[5].sx;
-	m->ennemy.coor.y = m->sprite[5].sy;
-	m->ennemy.sector = m->sprite[5].sector;
 	m->ennemy.coor.z = m->sector[m->ennemy.sector].floor + STAND;
 	while (1)
 	{
@@ -188,7 +189,7 @@ void	run(t_env *w, t_map *m)
 		is_moving(m);
 		slow_down(w, m);
 		is_fall(m);
-		if (m->sprite[5].range < 1)
+		if (m->ennemy.range < 1)
 			is_moving_enne(m);
 		get_that_time(w);
 	}
