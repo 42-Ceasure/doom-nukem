@@ -1,24 +1,35 @@
-#
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
+#    Updated: 2019/06/22 16:02:34 by nvienot          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-.PHONY: clean, fclean, re
+DEBUG = 0
+CC = gcc
+ifeq ($(DEBUG), 0)
+    CFLAG       =   -Wall -Wextra -Werror -O2
+    MESSAGE     =   "Doom-nukem compiled on normal rules ! Have fun"
+else
+    CFLAG       =   -Wall -Wextra -Werror -g -O0 -fsanitize=address
+    MESSAGE     =   "[DEBUG] Doom-nukem compiled on debug rules ! Good job"
+endif
 
-CC					=	gcc
+NAME                =   doom-nukem
 
-CFLAG				=	-Wall -Wextra -Werror -O3
-# NV : Test sans fsanitize -> crash dans loadcore
-# CFLAG				=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
-DBGFLAG				=	-g -O0 -fsanitize=address
+INCDIR              =   ./inc/
+OBJDIR              =   ./obj/
+LIBFTDIR            =   ./libft/
+SRCDIR              =   ./src/
 
-NAME				=	doom-nukem
-
-INCDIR				=	./inc/
-OBJDIR				=	./obj/
-LIBFTDIR			=	./libft/
-SRCDIR				=	./src/
-
-INCFIL				=	doom.h
-OBJFIL				=	$(SRCFIL:.c=.o)
-LIBFTFIL			=	libft.a
+INCFIL              =   doom.h
+OBJFIL              =   $(SRCFIL:.c=.o)
+LIBFTFIL            =   libft.a
 SRCFIL				=	main.c exit.c error.c process_hint.c screen.c	\
 						screen_resized.c init.c set_basics.c	\
 						textures.c sprite.c parse_core_file.c mytext.c	\
@@ -32,50 +43,48 @@ SRCFIL				=	main.c exit.c error.c process_hint.c screen.c	\
 						draw_main.c draw_utility.c draw_dep.c draw_minimap.c \
 						multi_thread.c menu.c moving_ennemy.c
 
-SRC					=	$(addprefix $(SRCDIR),$(SRCFIL))
-OBJ					=	$(addprefix $(OBJDIR),$(OBJFIL))
-LIBFT				=	$(addprefix $(LIBFTDIR),$(LIBFTFIL))
-INC					=	$(addprefix $(INCDIR),$(INCFIL))
+SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
+OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))
+LIBFT               =   $(addprefix $(LIBFTDIR),$(LIBFTFIL))
+INC                 =   $(addprefix $(INCDIR),$(INCFIL))
+INCLIBFT            =   $(LIBFTDIR)inc  
+LIBFT_FLAG          =   -L$(LIBFTDIR) -lft
 
-INCLIBFT			=	$(LIBFTDIR)inc	
+SDL_PATH            =   ./SDL2-2.0.3/
+LIBSDL_ROOT         =   ./libSDL2/
+LIBSDL_PATH         =   ./libSDL2/lib/
+LIBSDL              =   libSDL2.a
+INCSDL              =   $(LIBSDL_ROOT)include/
+LIBSDL_FLAG         =   -L$(LIBSDL_PATH) -lSDL2 -lSDL2_mixer
+SDLBIN              =   $(addprefix $(LIBSDL_PATH),$(LIBSDL))
+SDL_CURL            =   `curl https://www.libsdl.org/release/SDL2-2.0.3.zip -o sdl2.zip`
 
-LIBFT_FLAG			=	-L$(LIBFTDIR) -lft
+SDLMIX_PATH         =   ./SDL2_mixer-2.0.1/
+LIBSDLMIX_ROOT      =   ./libSDL2/
+LIBSDLMIX_PATH      =   ./libSDL2/lib/
+LIBSDLMIX           =   libSDL2_mixer.a
+INCSDLMIX           =   $(LIBSDLMIX_ROOT)include/
+SDLMIXBIN           =   $(addprefix $(LIBSDLMIX_PATH),$(LIBSDLMIX))
+CURL_MIX            =   `curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.zip -o sdl_mix.zip`
 
-SDL_PATH			=	./SDL2-2.0.3/
-LIBSDL_ROOT 		=	./libSDL2/
-LIBSDL_PATH 		=	./libSDL2/lib/
-LIBSDL				=	libSDL2.a
-INCSDL				=	$(LIBSDL_ROOT)include/
-LIBSDL_FLAG 		=	-L$(LIBSDL_PATH) -lSDL2 -lSDL2_mixer
-SDLBIN				=	$(addprefix $(LIBSDL_PATH),$(LIBSDL))
-SDL_CURL			=	`curl https://www.libsdl.org/release/SDL2-2.0.3.zip -o sdl2.zip`
+all                 :   libft sdl sdlmix $(NAME)
 
-SDLMIX_PATH			=	./SDL2_mixer-2.0.1/
-LIBSDLMIX_ROOT		=	./libSDL2/
-LIBSDLMIX_PATH		=	./libSDL2/lib/
-LIBSDLMIX			=	libSDL2_mixer.a
-INCSDLMIX			=	$(LIBSDLMIX_ROOT)include/
-SDLMIXBIN			=	$(addprefix $(LIBSDLMIX_PATH),$(LIBSDLMIX))
-CURL_MIX			=	`curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.zip -o sdl_mix.zip`
-
-all					:	libft sdl sdlmix $(NAME)
-
-$(NAME)				:	$(OBJ) $(LIBFT)
+$(NAME)             :   $(OBJ) $(LIBFT)
 						@$(CC) $(CFLAG) -lm $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^ -lpthread
-						@echo "compile done"
-
-$(OBJDIR)%.o		:	$(SRCDIR)%.c $(INC)
+						@echo $(MESSAGE)
+						
+$(OBJDIR)%.o        :   $(SRCDIR)%.c $(INC)
 						@mkdir -p $(OBJDIR)
 						@$(CC) $(CFLAG) -I $(INCDIR) -I $(INCLIBFT) -I $(INCSDL) -o $@ -c $<
 
-libft				:	$(LIBFT)
+libft               :   $(LIBFT)
 
-$(LIBFT)			:	$(LIBFTDIR)
+$(LIBFT)            :   $(LIBFTDIR)
 						@make -C $(LIBFTDIR)
 
-sdl					:	$(SDLBIN)
+sdl                 :   $(SDLBIN)
 
-$(SDLBIN)			: 		
+$(SDLBIN)           :       
 						$(SDL_CURL)
 						unzip sdl2.zip
 						rm sdl2.zip
@@ -84,9 +93,9 @@ $(SDLBIN)			:
 						make -C $(SDL_PATH)
 						make install -C $(SDL_PATH)
 
-sdlmix				:	$(SDLMIXBIN)
+sdlmix              :   $(SDLMIXBIN)
 
-$(SDLMIXBIN)		: 		
+$(SDLMIXBIN)        :       
 						$(CURL_MIX)
 						unzip sdl_mix.zip
 						rm sdl_mix.zip
@@ -94,19 +103,20 @@ $(SDLMIXBIN)		:
 						make -C $(SDLMIX_PATH)
 						make install -C $(SDLMIX_PATH)
 
-clean				:	
+clean               :   
 						@make -C $(LIBFTDIR) clean
 						@rm -Rf  $(OBJDIR)
 
-fclean				:
+fclean              :
 						@make -C $(LIBFTDIR) fclean
 						@rm -Rf  $(OBJDIR)
 						@rm -f $(NAME)
-
-sdlclean			:
+						@echo "Cleaning doom-nukem... Done !"
+						
+sdlclean            :
 						rm -rf $(LIBSDL_ROOT)
 						rm -rf $(SDL_PATH)
 						rm -rf $(LIBSDLMIX_ROOT)
 						rm -rf $(SDLMIX_PATH)
 
-re					:	fclean all
+re                  :   fclean all

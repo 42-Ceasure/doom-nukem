@@ -6,15 +6,21 @@
 #    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/19 18:35:47 by cglavieu          #+#    #+#              #
-#    Updated: 2019/06/21 16:18:08 by nvienot          ###   ########.fr        #
+#    Updated: 2019/06/22 16:01:20 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+DEBUG = 0
+
 CC = gcc
-# NV : Test sans fsanitize -> crash dans loadcore
-CFLAG		=	-Wall -Wextra -Werror -O3
-# CFLAG		=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
-DBGFLAG		=	-g -O0 -fsanitize=address
+
+ifeq ($(DEBUG), 0)
+    CFLAG		=	-Wall -Wextra -Werror -O2
+	MESSAGE		= 	"Libft compiled on normal rules !"
+else
+    CFLAG		=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
+	MESSAGE		= 	"[DEBUG] Libft compiled on debug rules !"
+endif
 
 NAME = libft.a
 
@@ -90,20 +96,21 @@ OBJFILL = $(addprefix $(OBJDIR),$(OBJ))
 
 INC = ./inc/
 
-all: 		$(NAME)
+all: 			$(NAME)
 
-$(NAME): 	$(OBJFILL)
-			@ar rc $@ $^
-			@echo "compile of libft done."
+$(NAME): 		$(OBJFILL)
+				@ar rc $@ $^
+				@echo $(MESSAGE)
 
 $(OBJDIR)%.o:	$(SRCDIR)%.c
-			@mkdir -p $(OBJDIR)
-			@$(CC) $(CFLAG) -I $(INC) -c $< -o $@
+				@mkdir -p $(OBJDIR)
+				@$(CC) $(CFLAG) -I $(INC) -c $< -o $@
 
 clean:
-			@rm -rf $(OBJDIR)
+				@rm -rf $(OBJDIR)
 
-fclean:		clean
-			@rm -f $(NAME)
+fclean:			clean
+				@echo "Cleaning libft... Done !"
+				@rm -f $(NAME)
 
-re: 		fclean all
+re: 			fclean all
