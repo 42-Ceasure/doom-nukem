@@ -6,13 +6,11 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:15:26 by nvienot           #+#    #+#             */
-/*   Updated: 2019/06/17 19:44:36 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/06/24 18:52:56 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
-
-// testing implementation resizing from branch textures
 
 int		final_texture_to_screen(t_env *w, t_texture texture, int x, int y, int width, int height)
 {
@@ -23,7 +21,7 @@ int		final_texture_to_screen(t_env *w, t_texture texture, int x, int y, int widt
 	int 	maxx;
 	int		maxy;
 	int 	x_tmp;
-	Uint32	tmpix;
+	int		tmpix;
 
 	x_tex = 0;
 	y_tex = 0;
@@ -45,7 +43,6 @@ int		final_texture_to_screen(t_env *w, t_texture texture, int x, int y, int widt
 	step_y_tex = (double)texture.h / (double)height;
 	maxx = width + x;
 	maxy = height + y;
-	//testing
 	x_tmp = x;
 	if (maxx > WIDTH)
 		maxx = WIDTH;
@@ -65,7 +62,6 @@ int		final_texture_to_screen(t_env *w, t_texture texture, int x, int y, int widt
 		y_tex = (0 - y) * step_y_tex;
 		y = 0;
 	}
-	//end testing
 	while (y < maxy && (int)x_tex * (int)y_tex < texture.len)
 	{
 		x_tex = 0;
@@ -124,7 +120,6 @@ int		final_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y, int width, 
 	step_y_tex = (double)sprite.h / (double)height;
 	maxx = width + x;
 	maxy = height + y;
-	//testing
 	x_tmp = x;
 	if (maxx > WIDTH)
 		maxx = WIDTH;
@@ -144,7 +139,6 @@ int		final_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y, int width, 
 		y_tex = (0 - y) * step_y_tex;
 		y = 0;
 	}
-	//end testing
 	while (y < maxy && (int)x_tex * (int)y_tex < sprite.len)
 	{
 		x_tex = 0;
@@ -202,7 +196,6 @@ int		final_char_to_screen(t_env *w, t_texture texture, int x, int y, int width, 
 	step_y_tex = (double)texture.h / (double)height;
 	maxx = width + x;
 	maxy = height + y;
-	//testing
 	x_tmp = x;
 	if (maxx > WIDTH)
 		maxx = WIDTH;
@@ -222,7 +215,6 @@ int		final_char_to_screen(t_env *w, t_texture texture, int x, int y, int width, 
 		y_tex = (0 - y) * step_y_tex;
 		y = 0;
 	}
-	//end testing
 	while (y < maxy && (int)x_tex * (int)y_tex < texture.len)
 	{
 		x_tex = 0;
