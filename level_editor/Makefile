@@ -24,7 +24,9 @@ SRCS	=	sources/main.c \
 			sources/delete_mode.c \
 			sources/neighbour.c \
 			sources/triangulate.c \
-			sources/test.c
+			sources/test.c \
+			sources/hud.c \
+			sources/placing.c
 
 CC		=	gcc
 

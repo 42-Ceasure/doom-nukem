@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abechet <abechet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/26 20:44:25 by nvienot           #+#    #+#             */
-/*   Updated: 2019/05/22 18:13:13 by nvienot          ###   ########.fr       */
+/*   Created: 2019/04/26 20:44:25 by abechet           #+#    #+#             */
+/*   Updated: 2019/05/22 18:13:13 by abechet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ static void	init_dst(t_win *win)
 	win->dst7.y = WIN_Y - 50;
 	win->dst8.x = WIN_X - 60;
 	win->dst8.y = WIN_Y - 45;
+	win->dst9.x = 0;
+	win->dst9.y = 0;
+
 	win->color_font_r.r = 255;
 	win->color_font_o.r = 246;
 	win->color_font_o.g = 100;
@@ -45,6 +48,9 @@ static int	init_assets(t_win *win)
 	win->police = TTF_OpenFont("resources/fonts/tf2build.ttf", 30);
 
 	win->map_ui = IMG_Load("resources/textures/map_ui.jpg");
+
+	win->asset_sprite = IMG_Load("resources/textures/feather.png");
+	win->player_start = IMG_Load("resources/textures/feather.png");
 
 	win->helptxt = TTF_RenderText_Blended(win->police,
 		"Drawing Mode", win->color_font_r);
@@ -76,8 +82,9 @@ static int	init_struct(t_win *win)
 	win->color = 255255255;
 	win->overed_sector = -1;
 	win->triangles = NULL;
-
-
+	win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+	win->asset = 0;
+	win->drawtriangles = 0;
 
 	return (0);
 }

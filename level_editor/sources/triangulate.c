@@ -74,9 +74,6 @@ t_coor intersect(t_intersect i)
 
 int		near_vertex(int n, int i, int di)
 {
-	//voisin sommet
-
-
 	if (n != 0)
 		return ((n + (i + di) % n) % n);
 	return (-10000);
@@ -90,7 +87,6 @@ int		point_in_triangle(t_dot p0, t_dot p1, t_dot p2, t_dot m)
 		return (1);
 	return (0);
 }
-
 
 int		*indice(t_win *win, int i, int j, int k)
 {
@@ -140,7 +136,6 @@ t_dot	get_point_in_list(t_lst *polygone, int index)
 		}
 		p.x = tmp->x;
 		p.y = tmp->y;
-		//printf("x%d y=%d\n", p.x, p.y);
 	}
 	return (p);
 }
@@ -157,7 +152,6 @@ t_lst	*polylstnew(t_dot d)
 	return (tmp);
 }
 
-
 t_lst	*new_poly(t_lst *polygone, int start, int end)
 {
 	int			n;
@@ -169,7 +163,7 @@ t_lst	*new_poly(t_lst *polygone, int start, int end)
 	tmp = NULL;
 	n = len_list(polygone);
 	i = start;
-	while (i < end)
+	while (i != end)
 	{
 		if (p == NULL)
 		{
@@ -185,7 +179,6 @@ t_lst	*new_poly(t_lst *polygone, int start, int end)
 			p->next = polylstnew(get_point_in_list(polygone, i));
 		}
 		i = near_vertex(n, i, 1);
-		//printf("%d\n",i);
 		if (i == -10000)
 			return (p);
 	}
@@ -211,26 +204,24 @@ int		left_vertex(t_lst *polygone)
 	t_lst	*tmp;
 	t_dot	p;
 
-	tmp = NULL;
-	if (polygone)
-		tmp = polygone;
-
-	n = len_list(polygone);
-	if (tmp)
-		x = tmp->x;
 	j = 0;
+	tmp = polygone;
+	if (!tmp)
+		return (j);
+	x = tmp->x;
+	n = len_list(tmp);
 	i = 1;
 	while (i < n)
 	{
-		p = get_point_in_list(polygone, i);
-		if (p.x != -1 && p.y != -1)
-		{
+		p = get_point_in_list(tmp, i);
+		//if (p.x != -1 && p.y != -1)
+		//{
 			if (p.x < x)
 			{
 				x = p.x;
 				j = i;
 			}
-		}
+		//}
 		i++;
 	}
 	return (j);
@@ -241,9 +232,6 @@ int		left_vertex(t_lst *polygone)
 
 int		vertex_max_dist(t_lst *polygone, t_dot p0, t_dot p1, t_dot p2, int *tab)
 {
-
-	// free tab a la fin
-
 	int		n;
 	int		i;
 	int		j;
@@ -252,21 +240,21 @@ int		vertex_max_dist(t_lst *polygone, t_dot p0, t_dot p1, t_dot p2, int *tab)
 	double	distance;
 
 	n = len_list(polygone);
+	//printf("n =%d\n", n);
 	distance = 0.0;
 	j = 0;
 	i = 0;
 	while (i < n)
 	{
-		if (i == tab[0] || i == tab[1] || i == tab[2])
-		//if (i != tab[0] && i != tab[1] && i != tab[2])
+		if (i != tab[0] && i != tab[1] && i != tab[2])
 		{
 			m = get_point_in_list(polygone, i);
-			//printf("%d\n", m.x);
-			if (m.x == -1 && m.y == -1)
-				return (-1);
+			// if (m.x == -1 && m.y == -1)
+			// 	return (-1);
 			if (point_in_triangle(p0, p1, p2, m) == 1)
 			{
 				d = fabs(pointside(m, p1.x, p1.y, p2.x, p2.y));
+				printf("d =%d\n", d);
 				if (d > distance)
 				{
 					distance = d;
@@ -277,6 +265,7 @@ int		vertex_max_dist(t_lst *polygone, t_dot p0, t_dot p1, t_dot p2, int *tab)
 		i++;
 	}
 	return (j);
+	// free tab a la fin
 }
 
 t_lstlst	*triangles_new(t_lst *polygone)
@@ -286,6 +275,29 @@ t_lstlst	*triangles_new(t_lst *polygone)
 	if (!(tmp = (t_lstlst *)malloc(sizeof(t_lstlst))))
 		return (NULL);
 	tmp->head = polygone;
+	tmp->next = NULL;
+	return (tmp);
+}
+
+t_lstlst	*fill_link(t_dot p0, t_dot p1, t_dot p2)
+{
+	t_lstlst	*tmp;
+
+	t_lst		*l0;
+	t_lst		*l1;
+	t_lst		*l2;
+
+	l0 = polylstnew(p0);
+	l1 = polylstnew(p1);
+	l2 = polylstnew(p2);
+	if (!(tmp = (t_lstlst *)malloc(sizeof(t_lstlst))))
+		return (NULL);
+	tmp->head = l0;
+	//tmp->head->next = NULL;
+
+	tmp->head->next = l1;
+	tmp->head->next->next = l2;
+	tmp->head->next->next->next = NULL;
 	tmp->next = NULL;
 	return (tmp);
 }
@@ -307,21 +319,14 @@ t_lstlst	*recursive_triangulate(t_win *win, t_lst *polygone, t_lstlst *triangles
 	t_lstlst	*tmp2;
 
 	tmp2 = NULL;
+	triangles = NULL;
 	n = len_list(polygone);
-	printf("n=%d\n",n);
 	j0 = left_vertex(polygone);
 	j1 = near_vertex(n, j0, 1);
 	j2 = near_vertex(n, j0, -1);
-	printf("j0=%d\n", j0);
-	printf("j1=%d\n", j1);
-	printf("j2=%d\n", j2);
-
+	printf("j0 %d  j1%d  j2%d\n", j0,j1,j2);
 	if (j1 == -10000 || j2 == -10000)
-	{
-		printf("near vertex j1 ou j2 \n ");
 		clear_n_exit(win, 1);
-	}
-	//printf("j=%d\n", j0);
 	tab = indice(win, j0, j1, j2);
 	p0 = get_point_in_list(polygone, j0);
 	p1 = get_point_in_list(polygone, j1);
@@ -333,12 +338,9 @@ t_lstlst	*recursive_triangulate(t_win *win, t_lst *polygone, t_lstlst *triangles
 		clear_n_exit(win, 1);
 	}
 	k = vertex_max_dist(polygone, p0, p1, p2, tab);
-	printf("k=%d\n",k);
+	//printf("%d k = \n", k);
 	if (k == -1)
-	{
-		printf("vertex max");
 		clear_n_exit(win, 1);
-	}
 	if (k == 0)
 	{
 		if ((polygone1 = new_poly(polygone, j1, j2)) == NULL)
@@ -346,25 +348,47 @@ t_lstlst	*recursive_triangulate(t_win *win, t_lst *polygone, t_lstlst *triangles
 			printf("polygone1_1");
 			clear_n_exit(win, 1);
 		}
-		printf("n poly=%d\n", len_list(polygone1));
-		if (len_list(polygone1) == 3)
+
+		if (len_list(polygone1) != 3)
 		{
-			if (triangles == NULL)
+			if (win->triangles == NULL)
 			{
-				triangles = triangles_new(polygone1);
-				tmp2 = triangles;
+				//printf("test01\n");
+				win->triangles = fill_link(p0, p1, p2);
 			}
 			else
 			{
-				while (triangles->next)
-					triangles = triangles->next;
-				triangles->next = triangles_new(polygone1);
+				//printf("test02\n");
+
+				tmp2 = win->triangles;
+				while (tmp2->next)
+					tmp2 = tmp2->next;
+				tmp2->next = fill_link(p0, p1, p2);
+			}
+		}
+
+		printf("%d \n", len_list(polygone1));
+		if (len_list(polygone1) == 3)
+		{
+			if (win->triangles == NULL)
+			{
+				win->triangles = triangles_new(polygone1);
+				//tmp2 = win->triangles;
+				printf("test1 \n ");
+			}
+			else
+			{
+				tmp2 = win->triangles;
+				while (tmp2->next)
+					tmp2 = tmp2->next;
+				tmp2->next = triangles_new(polygone1);
+				//printf("test2 \n ");
 			}
 		}
 		else
 		{
 			printf("recursive\n");
-			recursive_triangulate(win, polygone1, triangles);
+			recursive_triangulate(win, polygone1, win->triangles);
 		}
 	}
 	else
@@ -381,37 +405,43 @@ t_lstlst	*recursive_triangulate(t_win *win, t_lst *polygone, t_lstlst *triangles
 		}
 		if (len_list(polygone1) == 3)
 		{
-			if (triangles == NULL)
+			if (win->triangles == NULL)
 			{
-				triangles = triangles_new(polygone1);
-				tmp2 = triangles;
+				win->triangles = triangles_new(polygone1);
+				//tmp2 = win->triangles;
+				printf("test3 \n ");
 			}
 			else
 			{
-				while (triangles->next)
-					triangles = triangles->next;
-				triangles->next = triangles_new(polygone1);
+				tmp2 = win->triangles;
+				while (tmp2->next)
+					tmp2 = tmp2->next;
+				tmp2->next = triangles_new(polygone1);
+				printf("test4 \n ");
 			}
 		}
 		else
-			recursive_triangulate(win, polygone1, triangles);
+			recursive_triangulate(win, polygone1, win->triangles);
 		if (len_list(polygone2) == 3)
 		{
-			if (triangles == NULL)
+			if (win->triangles == NULL)
 			{
-				triangles = triangles_new(polygone2);
-				tmp2 = triangles;
+				win->triangles = triangles_new(polygone2);
+				//tmp2 = win->triangles;
+				printf("test5 \n ");
 			}
 			else
 			{
-				while (triangles->next)
-					triangles = triangles->next;
-				triangles->next = triangles_new(polygone2);
+				tmp2 = win->triangles;
+				while (tmp2->next)
+					tmp2 = tmp2->next;
+				tmp2->next = triangles_new(polygone2);
+				printf("test6 \n ");
 			}
 		}
 		else
-			recursive_triangulate(win, polygone2, triangles);
+			recursive_triangulate(win, polygone2, win->triangles);
 	}
 	printf("ok\n");
-	return (tmp2);
+	return (win->triangles);
 }

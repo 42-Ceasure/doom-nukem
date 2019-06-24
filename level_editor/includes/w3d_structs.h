@@ -83,6 +83,14 @@ struct					s_win
 	SDL_Surface			*map_ui;
 	SDL_Surface			*helptxt;
 
+	SDL_Surface			*asset_sprite;
+	SDL_Surface			*player_start;
+	SDL_Surface			*weapon1;
+	SDL_Surface			*weapon2;
+	SDL_Surface			*ennemy;
+	SDL_Surface			*lamp;
+
+
 	SDL_Color			color_font_r;
 	SDL_Color			color_font_o;
 	SDL_Rect			dst;
@@ -93,6 +101,10 @@ struct					s_win
 	SDL_Rect			dst6;
 	SDL_Rect			dst7;
 	SDL_Rect			dst8;
+	SDL_Rect			dst9;
+
+	SDL_Cursor			*cursor;
+
 	Mix_Music			*theme;
 	Mix_Chunk			*headshot;
 	Mix_Chunk			*medic;
@@ -124,6 +136,8 @@ struct					s_win
 	int					just_close;
 	int					color;
 	int					overed_sector;
+	int					asset;
+	int					drawtriangles;
 };
 
 #endif

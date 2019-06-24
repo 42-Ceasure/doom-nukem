@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sdl_event.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abechet <abechet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/23 17:28:53 by nvienot           #+#    #+#             */
-/*   Updated: 2019/05/22 17:54:55 by nvienot          ###   ########.fr       */
+/*   Created: 2019/04/23 17:28:53 by abechet           #+#    #+#             */
+/*   Updated: 2019/05/22 17:54:55 by abechet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,17 @@ static void	sdl_event_key(t_win *win)
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_P])
 	{
-		win->triangles = recursive_triangulate(win, win->lstlst->head, win->triangles);
+		if (win->lstlst)
+		{
+			if (win->lstlst->head)
+				recursive_triangulate(win, win->lstlst->head, win->triangles);
+		}
+	}
+
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_L])
+	{
+		if (win->triangles)
+			win->drawtriangles = 1;
 	}
 
 	/*if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_I])
@@ -103,7 +113,7 @@ static void	sdl_event_mouse(t_win *win)
 
 		if (win->mode == 0)
 		{
-
+			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 			if (tmp2)
 			{
 				while (tmp2->next)
@@ -119,14 +129,16 @@ static void	sdl_event_mouse(t_win *win)
 
 		if (win->mode == 1)
 		{
-				win->drawing = 0;
-				//SDL_FreeSurface(win->helptxt);
-				win->helptxt = TTF_RenderText_Blended(win->police,
-					"Moving Mode", win->color_font_r);
+			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
+			win->drawing = 0;
+			//SDL_FreeSurface(win->helptxt);
+			win->helptxt = TTF_RenderText_Blended(win->police,
+				"Moving Mode", win->color_font_r);
 		}
 
 		if (win->mode == 2)
 		{
+			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
 			win->drawing = 0;
 			win->helptxt = TTF_RenderText_Blended(win->police,
 				"Placing Mode", win->color_font_r);
@@ -134,6 +146,7 @@ static void	sdl_event_mouse(t_win *win)
 
 		if (win->mode == 3)
 		{
+			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
 			win->drawing = 0;
 			win->helptxt = TTF_RenderText_Blended(win->police,
 				"Delete Mode", win->color_font_r);
@@ -145,6 +158,8 @@ static void	sdl_event_mouse(t_win *win)
 	{
 		if (win->mode == 0)
 			undo(win);
+		if (win->mode == 3)
+			pick_asset(win);
 	}
 
 	if (win->event.button.button == SDL_BUTTON_LEFT

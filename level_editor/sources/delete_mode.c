@@ -80,7 +80,8 @@ void	delete_sector(t_win *win)
 					previous = previous->next;
 			}
 			tmp = current->head;
-			free_list(tmp);
+			if (tmp)
+				free_list(tmp);
 			current->head = NULL;
 			free(current);
 			current = NULL;

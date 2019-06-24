@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abechet <abechet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 20:15:25 by abechet           #+#    #+#             */
-/*   Updated: 2019/05/22 17:47:31 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/05/22 17:47:31 by abechet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int			print_game(t_win *win)
 {
 	//SDL_BlitSurface(win->map_ui, &win->dst2, win->surface, NULL);
+
+	SDL_SetCursor(win->cursor);
 
 	SDL_BlitSurface(win->helptxt, NULL, win->surface, &win->dst);
 
@@ -27,6 +29,8 @@ int			print_game(t_win *win)
 		clear_n_exit(win, 17);
 	SDL_RenderPresent(win->renderer);
 	SDL_DestroyTexture(win->texture);
+
+	//SDL_SetCursor(win->cursor);
 	return (0);
 }
 
@@ -101,6 +105,49 @@ void		draw_segments(t_win *win)
 	}
 	win->overed_sector = -1;
 }
+
+
+
+
+void		draw_triangulate(t_win *win)
+{
+	t_lst		*tmp;
+	t_lstlst	*tmp2;
+
+
+	tmp2 = win->triangles;
+	//printf("%d \n ", len_listlist(win->triangles));
+	//printf("%d \n ", len_list(win->triangles->head));
+	while (tmp2)
+	{
+		tmp = tmp2->head;
+		while (tmp->next)
+		{
+			win->color = 100100100;
+			/*printf("%d\n", tmp->x);
+			printf("%d\n", tmp->x);
+			printf("%d\n", tmp->next->x);
+			printf("%d\n", tmp->next->y);*/
+			line(win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
+
+
+			tmp = tmp->next;
+		}
+		if (tmp2)
+		{
+			if (tmp)
+				line(win, tmp->x, tmp->y, tmp2->head->x, tmp2->head->y);
+		}
+		/*tmp = tmp2->head;
+		while (tmp)
+		{
+			draw_points(win, tmp->x, tmp->y);
+			tmp = tmp->next;
+		}*/
+		tmp2 = tmp2->next;
+	}
+}
+
 
 void		last_is_first(t_lst *lst)
 {
@@ -225,8 +272,11 @@ void		loop_play(t_win *win)
 		on_click(win);
 		clear_window(win);
 		draw_grid(win);
-		if (win->lstlst != NULL)
+		if (win->lstlst)
 			draw_segments(win);
+		if (win->triangles)
+			draw_triangulate(win);
+		mode(win);
 		print_game(win);
 	}
 }

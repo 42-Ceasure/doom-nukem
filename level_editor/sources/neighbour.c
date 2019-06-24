@@ -124,6 +124,6 @@ int		check_neighbour(t_win *win)
 		}
 		tmp2 = tmp2->next;
 	}
-	printf("%d neighbour \n", neighbour);
+	printf("%d neighbours \n", neighbour);
 	return (neighbour);
 }
