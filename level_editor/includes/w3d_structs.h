@@ -84,6 +84,7 @@ struct					s_win
 	SDL_Surface			*helptxt;
 
 	SDL_Surface			*asset_sprite;
+	SDL_Surface			*asset_tmp;
 	SDL_Surface			*player_start;
 	SDL_Surface			*weapon1;
 	SDL_Surface			*weapon2;
@@ -92,7 +93,6 @@ struct					s_win
 
 
 	SDL_Color			color_font_r;
-	SDL_Color			color_font_o;
 	SDL_Rect			dst;
 	SDL_Rect			dst2;
 	SDL_Rect			dst3;
@@ -124,11 +124,14 @@ struct					s_win
 	int					y2;
 	int					sector;
 	int					mode;
+	int					changemode;
 	int					moving;
 	struct s_lst		*lst;
 	struct s_lstlst		*lstlst;
 	struct s_lstlst		*triangles;
 	struct s_lst		*tmp;
+	struct s_lstasset	*lstasset;
+	struct s_lstasset	*tmpasset;
 	SDL_Event			event;
 	int					h_win;
 	int					w_win;
@@ -138,6 +141,9 @@ struct					s_win
 	int					overed_sector;
 	int					asset;
 	int					drawtriangles;
+	int					place;
+	int					number;
+	char				**tab;
 };
 
 #endif

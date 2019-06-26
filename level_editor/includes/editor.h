@@ -31,6 +31,7 @@ typedef struct		s_lst
 	int				x;
 	int				y;
 	int				sector;
+	int				nb;
 	struct s_lst	*next;
 }					t_lst;
 
@@ -47,6 +48,15 @@ typedef struct		s_dot
 	int				x;
 	int				y;
 }					t_dot;
+
+typedef struct		s_lstasset
+{
+	int				x;
+	int				y;
+	int				sector;
+	int				asset_type;
+	struct s_lstasset	*next;
+}					t_lstasset;
 
 char		**map(t_win *win);
 int			init(t_win *win);
@@ -71,9 +81,10 @@ void		placing(t_win *win);
 void		pick_asset(t_win *win);
 void		mode(t_win *win);
 int			len_listlist(t_lstlst *lstlst);
-//void		safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);
-
-
-//void	test(t_win *win);
+void		asset_overing(t_win *win);
+void		delete_asset(t_win *win);
+void		overing(t_win *win);
+void		save_map(t_win *win);
+int			final_texture_to_screen(SDL_Surface *surface, SDL_Surface *texture, int x, int y, int width, int height);
 
 #endif

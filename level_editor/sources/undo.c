@@ -92,8 +92,8 @@ void	undo(t_win *win)
 	if (tmp)
 	{
 
-		printf("%d win \n", win->sector);
-		printf("%d link \n", tmp->sector);
+		//printf("%d win \n", win->sector);
+		//printf("%d link \n", tmp->sector);
 
 		if (win->sector == tmp->sector)
 		{

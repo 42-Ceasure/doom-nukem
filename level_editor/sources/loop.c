@@ -18,7 +18,8 @@ int			print_game(t_win *win)
 
 	SDL_SetCursor(win->cursor);
 
-	SDL_BlitSurface(win->helptxt, NULL, win->surface, &win->dst);
+	if (win->changemode == 1)
+		SDL_BlitSurface(win->helptxt, NULL, win->surface, &win->dst);
 
 	win->texture = SDL_CreateTextureFromSurface(win->renderer, win->surface);
 	SDL_SetRenderTarget(win->renderer, NULL);
@@ -82,13 +83,13 @@ void		draw_segments(t_win *win)
 		while (tmp->next)
 		{
 			if (win->mode == 3 && tmp2->sector == win->overed_sector)
-					win->color = 100100100;
+					win->color = 0xFF0000;
 			else
 			{
 				if (tmp2->closed)
-					win->color = 1242520;
+					win->color = 0x00FF00;
 				else
-					win->color = 255255255;
+					win->color = 0x20B2AA;
 			}
 			line(win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
 			tmp = tmp->next;
@@ -148,6 +149,54 @@ void		draw_triangulate(t_win *win)
 	}
 }
 
+void		draw_asset_points(t_win *win, int i, int j, int color)
+{
+	put_pixel_to_surface(win->surface, i, j, color);
+	put_pixel_to_surface(win->surface, i + 1, j, color);
+	put_pixel_to_surface(win->surface, i - 1, j, color);
+	put_pixel_to_surface(win->surface, i + 2, j, color);
+	put_pixel_to_surface(win->surface, i - 2, j, color);
+
+	put_pixel_to_surface(win->surface, i, j - 1, color);
+	put_pixel_to_surface(win->surface, i + 1, j - 1, color);
+	put_pixel_to_surface(win->surface, i - 1, j - 1, color);
+	put_pixel_to_surface(win->surface, i - 2, j - 2, color);
+	put_pixel_to_surface(win->surface, i + 2, j - 2, color);
+
+	put_pixel_to_surface(win->surface, i, j + 1, color);
+	put_pixel_to_surface(win->surface, i + 1, j + 1, color);
+	put_pixel_to_surface(win->surface, i - 1, j + 1, color);
+	put_pixel_to_surface(win->surface, i + 2, j + 2, color);
+	put_pixel_to_surface(win->surface, i - 2, j + 2, color);
+}
+
+void		draw_assets(t_win *win)
+{
+	t_lstasset	*tmp;
+	int			color;
+
+	color = 707070;
+	tmp = win->lstasset;
+	while (tmp)
+	{
+		if (tmp->asset_type == 0)
+			color = 707070;
+		if (tmp->asset_type == 1)
+			color = 0xC0C0C0;
+		if (tmp->asset_type == 2)
+			color = 0x800000;
+		if (tmp->asset_type == 3)
+			color = 0xFF0000;
+		if (tmp->asset_type == 4)
+			color = 0xFFFF00;
+
+			// color = 848484; green
+			//color = 104104104;  blue
+		draw_asset_points(win, tmp->x, tmp->y, color);
+		tmp = tmp->next;
+	}
+}
+
 
 void		last_is_first(t_lst *lst)
 {
@@ -166,15 +215,26 @@ void		on_click(t_win *win)
 	int			closed;
 	t_lst		*tmp;
 	t_lstlst	*tmp2;
+	t_lstasset	*tmp3;
 
 	tmp = NULL;
 	tmp2 = NULL;
+	tmp3 = NULL;
 	closed = 0;
 
-	if (win->mode == 3)
-		delete_sector(win);
+	if (win->left_click)
+		win->changemode = 0;
 
-	if (win->left_click == 1 && win->mode == 0)
+	if (win->mode == 3)
+		overing(win);
+
+	if (win->left_click && win->mode == 3)
+	{
+		delete_sector(win);
+		delete_asset(win);
+	}
+
+	if (win->left_click && win->mode == 0)
 	{
 		if (win->lstlst == NULL)
 			win->lstlst = lstlstnew(win);
@@ -186,8 +246,6 @@ void		on_click(t_win *win)
 				tmp2 = tmp2->next;
 			tmp2->next = lstlstnew(win);
 		}
-
-
 
 /*		if (win->lstlst->closed == 1)
 		{
@@ -212,7 +270,6 @@ void		on_click(t_win *win)
 		}*/
 
 
-
 		win->drawing = 1;
 		if (win->lst == NULL)
 		{
@@ -235,6 +292,8 @@ void		on_click(t_win *win)
 	if (win->left_click == 1 && win->mode == 1)
 	{
 		tmp2 = win->lstlst;
+		tmp3 = win->lstasset;
+
 		while (tmp2)
 		{
 			tmp = tmp2->head;
@@ -257,6 +316,29 @@ void		on_click(t_win *win)
 			}
 			tmp2 = tmp2->next;
 		}
+
+		while (tmp3 && win->moving == 0)
+		{
+			if (tmp3->x == win->x0 && tmp3->y == win->y0)
+			{
+				win->tmpasset = tmp3;
+				win->moving = 2;
+			}
+			else
+				tmp3 = tmp3->next;
+		}
+		if (win->moving == 2)
+		{
+			if (win->tmpasset)
+			{
+				win->tmpasset->x = win->x2;
+				win->tmpasset->y = win->y2;
+			}
+		}
+	}
+	if (win->left_click == 1 && win->mode == 2)
+	{
+		win->place = 1;
 	}
 	if (win->moving == 0)
 		win->left_click = 0;
@@ -276,7 +358,11 @@ void		loop_play(t_win *win)
 			draw_segments(win);
 		if (win->triangles)
 			draw_triangulate(win);
+		if (win->lstasset)
+			draw_assets(win);
 		mode(win);
+		if (win->mode != 2)
+			asset_overing(win);
 		print_game(win);
 	}
 }

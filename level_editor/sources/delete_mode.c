@@ -61,48 +61,43 @@ void	delete_sector(t_win *win)
 	tmp = NULL;
 	current = NULL;
 	previous = NULL;
-
-	overing(win);
-
-	if (win->left_click)
+	next = NULL;
+	if (win->lstlst && win->overed_sector != -1)
 	{
-		if (win->lstlst && win->overed_sector != -1)
+		current = win->lstlst;
+		while (current->sector != win->overed_sector)
+			current = current->next;
+		next = current->next;
+		if (win->overed_sector != 0)
+			previous = win->lstlst;
+		if (previous && previous->next)
 		{
-			current = win->lstlst;
-			while (current->sector != win->overed_sector)
-				current = current->next;
-			next = current->next;
-			if (win->overed_sector != 0)
-				previous = win->lstlst;
-			if (previous)
-			{
-				while (previous->next->sector != win->overed_sector)
-					previous = previous->next;
-			}
-			tmp = current->head;
-			if (tmp)
-				free_list(tmp);
-			current->head = NULL;
-			free(current);
-			current = NULL;
-			if (previous)
-				previous->next = next;
-			if (previous == NULL && next == NULL)
-			{
-				win->lstlst = NULL;
-				win->lst = NULL;
-				win->tmp = NULL;
-				win->sector = 0;
-				win->link = 0;
-			}
-			if (previous == NULL && next != NULL)
-				win->lstlst = next;
-			while (next)
-			{
-				next->sector -= 1;
-				next = next->next;
-			}
-			win->overed_sector = -1;
+			while (previous->next->sector != win->overed_sector)
+				previous = previous->next;
 		}
+		tmp = current->head;
+		if (tmp)
+			free_list(tmp);
+		current->head = NULL;
+		free(current);
+		current = NULL;
+		if (previous)
+			previous->next = next;
+		if (previous == NULL && next == NULL)
+		{
+			win->lstlst = NULL;
+			win->lst = NULL;
+			win->tmp = NULL;
+			win->sector = 0;
+			win->link = 0;
+		}
+		if (previous == NULL && next != NULL)
+			win->lstlst = next;
+		while (next)
+		{
+			next->sector -= 1;
+			next = next->next;
+		}
+		win->overed_sector = -1;
 	}
 }

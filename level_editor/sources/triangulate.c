@@ -214,14 +214,14 @@ int		left_vertex(t_lst *polygone)
 	while (i < n)
 	{
 		p = get_point_in_list(tmp, i);
-		//if (p.x != -1 && p.y != -1)
-		//{
+		if (p.x != -1 && p.y != -1)
+		{
 			if (p.x < x)
 			{
 				x = p.x;
 				j = i;
 			}
-		//}
+		}
 		i++;
 	}
 	return (j);
@@ -254,7 +254,7 @@ int		vertex_max_dist(t_lst *polygone, t_dot p0, t_dot p1, t_dot p2, int *tab)
 			if (point_in_triangle(p0, p1, p2, m) == 1)
 			{
 				d = fabs(pointside(m, p1.x, p1.y, p2.x, p2.y));
-				printf("d =%d\n", d);
+				//printf("d =%d\n", d);
 				if (d > distance)
 				{
 					distance = d;

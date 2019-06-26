@@ -80,7 +80,6 @@ int		check_neighbour(t_win *win)
 	int			heady;
 
 	int			i;
-	//int			j;
 
 	neighbour = 0;
 	if (win->lstlst == NULL)
@@ -95,11 +94,6 @@ int		check_neighbour(t_win *win)
 			heady = tmp->y;
 		}
 		i = len_list(tmp);
-		//printf("%d len list \n", i);
-
-		//j = len_listlist(tmp2);
-		//printf("%d len listlist\n", j);
-
 
 		while (tmp)
 		{
@@ -124,6 +118,6 @@ int		check_neighbour(t_win *win)
 		}
 		tmp2 = tmp2->next;
 	}
-	printf("%d neighbours \n", neighbour);
+	//printf("%d neighbours \n", neighbour);
 	return (neighbour);
 }

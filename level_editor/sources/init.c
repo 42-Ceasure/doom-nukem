@@ -14,8 +14,8 @@
 
 static void	init_dst(t_win *win)
 {
-	win->dst.x = 3;
-	win->dst.y = 3;
+	win->dst.x = 250;
+	win->dst.y = 20;
 	win->dst2.x = 0;
 	win->dst2.y = 0;
 	win->dst2.w = WIN_X;
@@ -35,22 +35,24 @@ static void	init_dst(t_win *win)
 	win->dst9.x = 0;
 	win->dst9.y = 0;
 
-	win->color_font_r.r = 255;
-	win->color_font_o.r = 246;
-	win->color_font_o.g = 100;
-	win->color_font_o.b = 15;
+	win->color_font_r.r = 119;
+	win->color_font_r.g = 136;
+	win->color_font_r.b = 153;
+
 	win->w_win = WIN_X;
 	win->h_win = WIN_Y;
 }
 
 static int	init_assets(t_win *win)
 {
-	win->police = TTF_OpenFont("resources/fonts/tf2build.ttf", 30);
+	win->police = TTF_OpenFont("resources/fonts/din.ttf", 25);
 
 	win->map_ui = IMG_Load("resources/textures/map_ui.jpg");
 
 	win->asset_sprite = IMG_Load("resources/textures/feather.png");
+	win->asset_tmp = NULL;
 	win->player_start = IMG_Load("resources/textures/feather.png");
+	win->weapon1 = IMG_Load("resources/textures/gun1.png");
 
 	win->helptxt = TTF_RenderText_Blended(win->police,
 		"Drawing Mode", win->color_font_r);
@@ -76,8 +78,10 @@ static int	init_struct(t_win *win)
 	win->mode = 0;
 	win->moving = 0;
 	win->tmp = NULL;
+	win->tmpasset = NULL;
 	win->lst = NULL;
 	win->lstlst = NULL;
+	win->lstasset = NULL;
 	win->just_close = 0;
 	win->color = 255255255;
 	win->overed_sector = -1;
@@ -85,17 +89,20 @@ static int	init_struct(t_win *win)
 	win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 	win->asset = 0;
 	win->drawtriangles = 0;
+	win->place = 0;
+	win->tab = NULL;
+	win->changemode = 0;
+	win->number = 0;
 
 	return (0);
 }
 
 static int	init_sdl(t_win *win)
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		clear_n_exit(win, 8);
 	if (TTF_Init() == -1)
 		clear_n_exit(win, 9);
-	Mix_AllocateChannels(10);
 	if ((win->window = SDL_CreateWindow("editor", SDL_WINDOWPOS_CENTERED, \
 		SDL_WINDOWPOS_CENTERED, WIN_X, WIN_Y, SDL_WINDOW_SHOWN | \
 			SDL_WINDOW_RESIZABLE)) == NULL)
