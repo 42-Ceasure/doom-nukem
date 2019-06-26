@@ -99,11 +99,11 @@ void	count_sprite(t_env *w, t_map *m)
 	int x;
 
 	x = 0;
-	while (x < m->sprite_count)
+	while (x < 10)
 	{
 		if (ft_strcmp(m->sprite[x].type, "ennemy") != 0)
 			draw_sprite(w, m, x, 1);
-		else
+		else if (m->ennemy.dead == 0)
 		{
 			if (w->dtime.walk == 0)
 				m->k++;
@@ -135,6 +135,21 @@ void	count_sprite(t_env *w, t_map *m)
 			}
 			draw_ennemy(w, m, x);
 			x += 4;
+		}
+		else
+		{
+			if (w->dtime.dead == 0)
+				m->ennemy.count++;
+			if (m->ennemy.count % 3 == 0 && m->ennemy.is_dead == 0)
+				x = 10;
+			else if (m->ennemy.count % 3 == 1 && m->ennemy.is_dead == 0)
+				x = 11;
+			else
+			{
+				x = 12;
+				m->ennemy.is_dead = 1;
+			}
+			draw_ennemy(w, m, x);
 		}
 		x++;
 	}

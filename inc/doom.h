@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/06/21 15:12:52 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/25 17:40:12 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,9 @@ typedef	struct		s_ennemy
 	int				ground;
 	int				sector;
 	int				moving;
+	int				count;
+	int				is_dead;
+	int				dead;
 	double			range;
 	double			hole_low;
 	double			hole_high;
@@ -605,5 +608,7 @@ int					final_char_to_screen(t_env *w, t_texture texture, int x, int y, int widt
 void				get_that_time(t_env *w);
 void				draw_sprite(t_env *w, t_map *m, int x, int ratio);
 void				draw_ennemy(t_env *w, t_map *m, int x);
+void				jet_pack(t_map *m);
+Uint32				*get_pix_scaled(t_env *w, t_sprite sprite, int width, int height);
 
 #endif

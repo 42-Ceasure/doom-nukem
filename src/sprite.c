@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/06/21 15:15:27 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/26 12:00:53 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void		set_fire(t_env *w, t_map *m)
 			safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
 					m->weap[PH].sprt[0].sy + m->weap[PH].recoil);
 		}
-		m->player.firing = 0;
 	}
 }
 
@@ -100,6 +99,7 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x)
 	if (ft_strcmp(m->sprite[x].type, "item") == 0)
 		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprite[x].sector].floor
 			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;
+	//printf("%f\n",m->ennemy.coor.z);
 	tmp.diffx = fabs(m->player.coor.x - m->sprite[x].sx);
 	tmp.diffy = fabs(m->player.coor.y - m->sprite[x].sy);
 	m->sprite[x].range = sqrt((tmp.diffx * tmp.diffx) + (tmp.diffy * tmp.diffy)) / 10;
@@ -130,7 +130,7 @@ t_cal_sprt	calcul_sprite_ennemy(t_env *w, t_map *m, int x, int ratio)
 		tmp.zoom *= 2;
 	tmp.x1 = WIDTH / 2 - (tmp.t1x * tmp.xscale1 + (m->sprite[x].w / 2
 		* tmp.zoom * ratio));
-	tmp.y1a = HEIGHT / 2 - (int)(yaw((m->ennemy.coor.z - 10
+	tmp.y1a = HEIGHT / 2 - (int)(yaw((m->ennemy.coor.z - m->ennemy.height
 			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - (m->sprite[x].h * tmp.zoom * ratio);
 	return (tmp);
 }
@@ -211,14 +211,14 @@ void		is_visible(t_map *m, int x, int y, int i)
 void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 {
 	t_cal_sprt	data;
-	int			y_tex;
-	int			x_tex;
+	int			tmpix;
 	double		range;
+	Uint32		*pixscaled;
 
-	y_tex = 0;
-	x_tex = 0;
+	tmpix = 0;	
 	if (m->sprite[x].take == 1)
 		return;
+	m->sprite[x].vis = 1;
 	if (ft_strcmp(m->sprite[x].type, "ennemy") != 0)
 	{
 		data = calcul_sprite(w, m, x);
@@ -228,10 +228,20 @@ void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 	{
 		data = calcul_sprite_ennemy(w, m, x, ratio);
 		range = data.zoom;
+		pixscaled = get_pix_scaled(w, m->sprite[x], (m->sprite[x].w * range * ratio), 0);
+		tmpix = (((WIDTH / 2 - (int)data.x1)) + ((HEIGHT / 2 - (int)data.y1a) * (int)(m->sprite[x].w * range * ratio)));
+		if (m->player.firing == 1)
+		{
+			if ((data.x1 <= WIDTH / 2 && data.x1 >= WIDTH / 2 - m->sprite[x].w * range * ratio)
+				&& (data.y1a <= HEIGHT / 2 && data.y1a >= HEIGHT / 2 - m->sprite[x].h * range * ratio)
+					&& pixscaled[tmpix] != 0xFF00FF00)
+						m->ennemy.dead = 1;
+		}
+		m->player.firing = 0;
+		free(pixscaled);
 	}
-	m->sprite[x].vis = 1;
 	//is_visible(m, m->sprite[x].sx, m->sprite[x].sy, x);
-	if (m->sector[m->sprite[x].sector].floor > m->player.coor.z) //verifie si la hauteur du sprite est plus haute que le joueur
+	if (m->sector[m->ennemy.sector].floor > m->player.coor.z) //verifie si la hauteur du sprite est plus haute que le joueur
 		m->sprite[x].vis = 0;
 	//remplacer le .floor par un int z une fois que la map sera parse
 	if (data.t1z > 0 && m->sprite[x].vis == 1)

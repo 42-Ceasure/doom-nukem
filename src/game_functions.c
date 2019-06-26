@@ -96,6 +96,11 @@ void		jump(t_env *w, t_map *m)
 	}
 }
 
+void		jet_pack(t_map *m)
+{
+	m->player.move_speed.z = m->player.move_speed.z + 0.2;
+}
+
 void		sprint(t_map *m)
 {
 	m->player.movespeed = 1.5;
@@ -278,14 +283,16 @@ void	get_that_time(t_env *w)
 	w->dtime.otime = w->dtime.ctime;
 	w->dtime.ctime = SDL_GetTicks();
 	result = w->dtime.ctime - w->dtime.otime;
-	if (result != 0)
-		w->dtime.fps = 1000 / result;
+	w->dtime.fps = 1000 / result;
 	w->dtime.etime = w->dtime.etime + result;
 	w->dtime.shootime = w->dtime.shootime + result;
 	w->dtime.stime = w->dtime.stime + result;
 	w->dtime.walk += result;
+	w->dtime.dead += result;
 	if (w->dtime.stime > 1000)
 		w->dtime.stime = 0;
 	if (w->dtime.walk > 500)
 		w->dtime.walk = 0;
+	if (w->dtime.dead > 200)
+		w->dtime.dead = 0;
 }

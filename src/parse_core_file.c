@@ -136,8 +136,6 @@ void			parse_allocating_line(t_env *w, t_map *m, char *line)
 		w->asciino = ft_atoi(tmp[1]);
 	if (ft_strcmp(tmp[0], "sprite") == 0)
 		m->sprite_count = ft_atoi(tmp[1]);
-	if (ft_strcmp(tmp[0], "texture") == 0)
-		m->sprite_count = ft_atoi(tmp[1]);
 	if (w->asciino > 0 && m->weapon_count > 0 && m->sprite_count > 0)
 	{
 		if ((m->weap = (t_weapon *)malloc(sizeof(t_weapon)
