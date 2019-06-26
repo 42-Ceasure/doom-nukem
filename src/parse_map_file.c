@@ -96,6 +96,7 @@ void	parse_map_file(t_env *w, t_map *m)
 	m->ennemy.dead = 0;
 	m->ennemy.is_dead = 0;
 	m->ennemy.count = 0;
+	m->ennemy.nb_ammo = 0;
 	w->dtime.end = SDL_GetTicks();
 	loading = w->dtime.end - w->dtime.start;
 	printf("map      loaded in %f seconds !\n", loading / 1000);

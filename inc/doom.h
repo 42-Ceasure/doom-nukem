@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/06/26 14:19:50 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/26 16:35:23 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,7 @@ typedef	struct		s_ennemy
 {
 	double			height;
 	int				fall;
+	int				nb_ammo;
 	int				ground;
 	int				sector;
 	int				moving;

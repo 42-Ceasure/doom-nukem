@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/06/26 14:40:03 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/26 17:22:33 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void		set_fire(t_env *w, t_map *m)
 {
 	m->player.refresh = m->weap[PH].recoil * 2;
-	m->yaw = vmid(m->yaw - m->weap[PH].dispertion, -4, 4);
+	// MODIF
+	m->yaw = vmid(m->yaw - m->weap[PH].dispertion, -1.5, 1.5);
 	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
 	PL_A = PL_A + m->weap[PH].dispertion / 2 * w->random;
 	if (PH > -1 && m->player.firing)
@@ -99,7 +100,6 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x)
 	if (ft_strcmp(m->sprite[x].type, "item") == 0)
 		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprite[x].sector].floor
 			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;
-	//printf("%f\n",m->ennemy.coor.z);
 	tmp.diffx = fabs(m->player.coor.x - m->sprite[x].sx);
 	tmp.diffy = fabs(m->player.coor.y - m->sprite[x].sy);
 	m->sprite[x].range = sqrt((tmp.diffx * tmp.diffx) + (tmp.diffy * tmp.diffy)) / 10;
@@ -230,12 +230,21 @@ void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 		range = data.zoom;
 		pixscaled = get_pix_scaled(w, m->sprite[x], (m->sprite[x].w * range * ratio), 0);
 		tmpix = (((WIDTH / 2 - (int)data.x1)) + ((HEIGHT / 2 - (int)data.y1a) * (int)(m->sprite[x].w * range * ratio)));
-		if (m->player.firing == 1)
+		if (m->player.firing == 1 && m->weap[PH].range * m->ennemy.range >= 200)
 		{
 			if ((data.x1 <= WIDTH / 2 && data.x1 >= WIDTH / 2 - m->sprite[x].w * range * ratio)
 				&& (data.y1a <= HEIGHT / 2 && data.y1a >= HEIGHT / 2 - m->sprite[x].h * range * ratio)
 					&& pixscaled[tmpix] != 0xFF00FF00)
+			{
+				if (m->weap[PH].ammo == 1)
+					m->ennemy.dead = 1;
+				else
+				{
+					m->ennemy.nb_ammo++;
+					if (m->ennemy.nb_ammo % 4 == 0)
 						m->ennemy.dead = 1;
+				}
+			}
 		}
 		m->player.firing = 0;
 		free(pixscaled);
