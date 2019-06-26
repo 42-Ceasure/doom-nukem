@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/06/25 17:40:12 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/26 14:19:50 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -607,6 +607,7 @@ int					final_texture_to_screen(t_env *w, t_texture texture, int x, int y, int w
 int					final_char_to_screen(t_env *w, t_texture texture, int x, int y, int width, int height);
 void				get_that_time(t_env *w);
 void				draw_sprite(t_env *w, t_map *m, int x, int ratio);
+void				count_sprite(t_env *w, t_map *m);
 void				draw_ennemy(t_env *w, t_map *m, int x);
 void				jet_pack(t_map *m);
 Uint32				*get_pix_scaled(t_env *w, t_sprite sprite, int width, int height);

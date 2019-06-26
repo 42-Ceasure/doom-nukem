@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/06/26 12:00:53 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/26 14:40:03 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,11 +252,15 @@ void		draw_ennemy(t_env *w, t_map *m, int x)
 {
 	double	diffx;
 	double	diffy;
+	double	diffz;
 
 	diffx = m->player.coor.x - m->ennemy.coor.x;
 	diffy = m->player.coor.y - m->ennemy.coor.y;
+	diffz = m->player.coor.z - m->ennemy.coor.z;
 	m->ennemy.move_speed.x = diffx * 0.005;
 	m->ennemy.move_speed.y = diffy * 0.005;
+	if (m->ennemy.dead != 1)
+		m->ennemy.move_speed.z = diffz * 0.005;
 	m->ennemy.movespeed = 1;
 	draw_sprite(w, m, x, 5);
 }

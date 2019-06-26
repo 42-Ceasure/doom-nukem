@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 13:33:43 by ochaar            #+#    #+#             */
-/*   Updated: 2019/06/22 18:09:58 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/26 14:50:49 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void		is_moving_enne(t_map *m)
 				m->ennemy.hole_high = vmin(m->sector[m->ennemy.sector].ceiling, m->sector[m->sector[m->ennemy.sector].network[s]].ceiling);
 			}
 			if (m->ennemy.hole_high < m->ennemy.coor.z + HEADMARGIN
-			|| m->ennemy.hole_low > m->ennemy.coor.z - m->ennemy.height + KNEEH)
+			|| m->ennemy.hole_low > m->ennemy.coor.z - m->ennemy.height + 14)
 			{
 				i.xd = m->sector[m->ennemy.sector].dot[s + 1].x - m->sector[m->ennemy.sector].dot[s].x;
 				i.yd = m->sector[m->ennemy.sector].dot[s + 1].y - m->sector[m->ennemy.sector].dot[s].y;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
+#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/06/22 16:02:34 by nvienot          ###   ########.fr        #
+#    Updated: 2019/06/26 14:20:44 by ochaar           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRCFIL				=	main.c exit.c error.c process_hint.c screen.c	\
 						key_events.c keyup_events.c keydown_events.c	\
 						mouse_events.c	\
 						5_doom_short_functions.c 5_line.c	\
-						draw_main.c draw_utility.c draw_dep.c draw_minimap.c \
+						draw_main.c draw_utility.c draw_dep.c draw_minimap.c draw_sprite.c\
 						multi_thread.c menu.c moving_ennemy.c
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
