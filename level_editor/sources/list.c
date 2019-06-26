@@ -28,7 +28,6 @@ t_lstlst	*lstlstnew(t_win * win)
 
 void	sector_confirm(t_win *win)
 {
-	printf("close right\n");
 	win->lst = NULL;
 	win->sector += 1;
 	win->drawing = 0;

@@ -61,6 +61,12 @@ static void	sdl_event_key(t_win *win)
 			win->drawtriangles = 1;
 	}
 
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_F5])
+	{
+		if (win->lstlst)
+			save_map(win);
+	}
+
 	/*if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_I])
 	{
 		test(win);
@@ -68,7 +74,8 @@ static void	sdl_event_key(t_win *win)
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_K])
 	{
-		check_neighbour(win);
+		if (win->lstlst)
+			check_neighbour(win);
 	}
 
 
@@ -98,6 +105,7 @@ static void	sdl_event_mouse(t_win *win)
 
 	if (win->event.type == SDL_MOUSEWHEEL)
 	{
+		win->changemode = 1;
 		if (win->moving == 0)
 		{
 			if (win->event.wheel.y > 0)
@@ -138,7 +146,7 @@ static void	sdl_event_mouse(t_win *win)
 
 		if (win->mode == 2)
 		{
-			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
+			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 			win->drawing = 0;
 			win->helptxt = TTF_RenderText_Blended(win->police,
 				"Placing Mode", win->color_font_r);
@@ -158,7 +166,7 @@ static void	sdl_event_mouse(t_win *win)
 	{
 		if (win->mode == 0)
 			undo(win);
-		if (win->mode == 3)
+		if (win->mode == 2)
 			pick_asset(win);
 	}
 
@@ -175,9 +183,11 @@ static void	sdl_event_mouse(t_win *win)
 		win->x0 = ft_round(x);
 		win->y0 = ft_round(y);
 		win->left_click = 1;
-		if (win->left_click == 1 && win->mode == 1 && win->moving == 1)
+		if (win->left_click == 1 && win->mode == 1 && (win->moving == 1 || win->moving == 2))
 		{
 			win->moving = 0;
+			win->tmp = NULL;
+			win->tmpasset = NULL;
 			win->x0 = -1;
 			win->y0 = -1;
 			if (win->lst)

@@ -26,7 +26,9 @@ SRCS	=	sources/main.c \
 			sources/triangulate.c \
 			sources/test.c \
 			sources/hud.c \
-			sources/placing.c
+			sources/placing.c \
+			sources/delete_asset.c \
+			sources/data.c
 
 CC		=	gcc
 
