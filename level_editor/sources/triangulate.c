@@ -81,10 +81,20 @@ int		near_vertex(int n, int i, int di)
 
 int		point_in_triangle(t_dot p0, t_dot p1, t_dot p2, t_dot m)
 {
-	if (pointside(m, p0.x, p0.y, p1.x, p1.y) >= 0
-	 	&& pointside(m, p1.x, p1.y, p2.x, p2.y) >= 0
-			&& pointside(m, p2.x, p2.y, p0.x, p0.y) >= 0)
-		return (1);
+	if (p2.y < p1.y)
+	{
+		if (pointside(m, p0.x, p0.y, p1.x, p1.y) < 0
+		 	&& pointside(m, p1.x, p1.y, p2.x, p2.y) < 0
+				&& pointside(m, p2.x, p2.y, p0.x, p0.y) < 0)
+			return (1);
+	}
+	else
+	{
+		if (pointside(m, p0.x, p0.y, p1.x, p1.y) > 0
+	 		&& pointside(m, p1.x, p1.y, p2.x, p2.y) > 0
+				&& pointside(m, p2.x, p2.y, p0.x, p0.y) > 0)
+			return (1);
+	}
 	return (0);
 }
 
@@ -121,7 +131,7 @@ t_dot	get_point_in_list(t_lst *polygone, int index)
 	t_lst	*tmp;
 	int		i;
 
-	i = 1;
+	i = 0;
 	p.x = -1;
 	p.y = -1;
 	tmp = polygone;
@@ -349,40 +359,25 @@ t_lstlst	*recursive_triangulate(t_win *win, t_lst *polygone, t_lstlst *triangles
 			clear_n_exit(win, 1);
 		}
 
-		if (len_list(polygone1) != 3)
+		if (win->triangles == NULL)
+			win->triangles = fill_link(p0, p1, p2);
+		else
 		{
-			if (win->triangles == NULL)
-			{
-				//printf("test01\n");
-				win->triangles = fill_link(p0, p1, p2);
-			}
-			else
-			{
-				//printf("test02\n");
-
-				tmp2 = win->triangles;
-				while (tmp2->next)
-					tmp2 = tmp2->next;
-				tmp2->next = fill_link(p0, p1, p2);
-			}
+			tmp2 = win->triangles;
+			while (tmp2->next)
+				tmp2 = tmp2->next;
+			tmp2->next = fill_link(p0, p1, p2);
 		}
-
-		printf("%d \n", len_list(polygone1));
 		if (len_list(polygone1) == 3)
 		{
 			if (win->triangles == NULL)
-			{
 				win->triangles = triangles_new(polygone1);
-				//tmp2 = win->triangles;
-				printf("test1 \n ");
-			}
 			else
 			{
 				tmp2 = win->triangles;
 				while (tmp2->next)
 					tmp2 = tmp2->next;
 				tmp2->next = triangles_new(polygone1);
-				//printf("test2 \n ");
 			}
 		}
 		else
@@ -406,18 +401,13 @@ t_lstlst	*recursive_triangulate(t_win *win, t_lst *polygone, t_lstlst *triangles
 		if (len_list(polygone1) == 3)
 		{
 			if (win->triangles == NULL)
-			{
 				win->triangles = triangles_new(polygone1);
-				//tmp2 = win->triangles;
-				printf("test3 \n ");
-			}
 			else
 			{
 				tmp2 = win->triangles;
 				while (tmp2->next)
 					tmp2 = tmp2->next;
 				tmp2->next = triangles_new(polygone1);
-				printf("test4 \n ");
 			}
 		}
 		else
@@ -425,23 +415,48 @@ t_lstlst	*recursive_triangulate(t_win *win, t_lst *polygone, t_lstlst *triangles
 		if (len_list(polygone2) == 3)
 		{
 			if (win->triangles == NULL)
-			{
 				win->triangles = triangles_new(polygone2);
-				//tmp2 = win->triangles;
-				printf("test5 \n ");
-			}
 			else
 			{
 				tmp2 = win->triangles;
 				while (tmp2->next)
 					tmp2 = tmp2->next;
 				tmp2->next = triangles_new(polygone2);
-				printf("test6 \n ");
 			}
 		}
 		else
 			recursive_triangulate(win, polygone2, win->triangles);
 	}
-	printf("ok\n");
 	return (win->triangles);
+}
+
+void		recursive_check(t_win *win)
+{
+	t_lstlst	*tmp2;
+	int			i;
+
+	i = 0;
+	tmp2 = win->lstlst;
+	while (tmp2)
+	{
+		if (len_list(tmp2->head) <= 3)
+			i = 1;
+		printf("%d len \n", len_list(tmp2->head));
+
+		tmp2 = tmp2->next;
+	}
+
+	printf("%d i \n", i);
+	//printf("%d len \n", len_list(tmp2->head));
+
+	tmp2 = win->lstlst;
+	if (i == 0)
+	{
+		clear_window(win);
+		while (tmp2)
+		{
+			recursive_triangulate(win, tmp2->head, win->triangles);
+			tmp2 = tmp2->next;
+		}
+	}
 }

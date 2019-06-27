@@ -13,7 +13,7 @@
 #include "editor.h"
 
 
-/*double testsign(double a)
+double testsign(double a)
 {
 	return (((a) > 0) - ((a) < 0));
 }
@@ -37,33 +37,23 @@ int		testpoint_in_triangle(t_dot p0, t_dot p1, t_dot p2, t_dot m)
 	return (0);
 }
 
-
 void	test(t_win *win)
 {
-	double i;
 	t_dot p0;
 	t_dot p1;
 	t_dot p2;
 	t_dot m;
 
-	i = 0;
 	p0.x = win->lstlst->head->x;
 	p0.y = win->lstlst->head->y;
 	p1.x = win->lstlst->head->next->x;
-	p1.x = win->lstlst->head->next->x;
+	p1.y = win->lstlst->head->next->y;
 	p2.x = win->lstlst->head->next->next->x;
-	p2.x = win->lstlst->head->next->next->x;
+	p2.y = win->lstlst->head->next->next->y;
 
 	m.x = win->x2;
 	m.y = win->y2;
 
-
-	//printf("%f sign \n", testsign(i));
 	if (win->lstlst)
-	{
-
 		printf("%d \n ", testpoint_in_triangle(p0, p1, p2, m));
-		//printf("%d x \n", tmp->x);
-		//printf("%d y \n", tmp->y);
-	}
-}*/
+}

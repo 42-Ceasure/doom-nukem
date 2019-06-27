@@ -12,11 +12,6 @@
 
 #include "editor.h"
 
-/*void		write_in_file(t_win *win, char **tab)
-{
-
-}*/
-
 void	ft_swap(int *a, int *b)
 {
 	int		tmp;
@@ -31,7 +26,7 @@ void	sort_int_tab(int *tab, int size)
 	int i;
 
 	i = 0;
-	while (i < size -1)
+	while (i < size - 1)
 	{
 		if (tab[i] > tab[i + 1])
 		{
@@ -146,6 +141,8 @@ void		same_line_dots(t_win *win, int y, int index)
 
 	i = i - l;
 
+	win->index_dot = i;
+
 	sort_int_tab(dot_tab, i);
 
 	j = 0;
@@ -214,10 +211,6 @@ void		same_line_dots(t_win *win, int y, int index)
 	printf("%s \n", win->tab[index]);
 }
 
-
-
-
-
 void	dots_in_tab(t_win *win)
 {
 	int			x;
@@ -246,9 +239,7 @@ void	dots_in_tab(t_win *win)
 		}
 		tmp2 = tmp2->next;
 	}
-	//printf("%d y min \n", y);
-
-	same_line_dots(win, y, j); //index a calculer suivant le nombre de dot
+	same_line_dots(win, y, j);
 	y++;
 	while (y < WIN_Y)
 	{
@@ -290,6 +281,7 @@ void	create_tab(t_win *win, int len_dots)
 	len_assets = len_listasset(win->lstasset);
 	len_sectors = len_listlist(win->lstlst);
 	i = len_assets + len_sectors + len_dots;
+	// le len dot est faux puisqu'il compte les points sur les meme lignes
 	if (!(win->tab = (char **)malloc(sizeof(char *) * i + 1)))
 		clear_n_exit(win, 1);
 
@@ -303,14 +295,17 @@ void	create_tab(t_win *win, int len_dots)
 
 void		save_map(t_win *win)
 {
+	int			len;
 	int			len_dots;
 	int			i;
 	int			j;
+	int			z;
 	t_lst		*tmp;
 	t_lstlst	*tmp2;
 
 	i = 0;
 	j = 0;
+	z = -1;
 	len_dots = 0;
 	tmp = NULL;
 	tmp2 = win->lstlst;
@@ -320,12 +315,23 @@ void		save_map(t_win *win)
 			tmp = tmp2->head;
 		i = len_list(tmp);
 		len_dots = len_dots + i;
+		if (tmp2)
+		{
+			if (tmp2->closed)
+				z = tmp2->sector;
+		}
 		tmp2 = tmp2->next;
 	}
-	//j = same_line_dots(win->lstlst);
-	//len_dots -= j;
 
-	create_tab(win, len_dots);
+	len = len_listlist(win->lstlst);
+	if (len - 1 == z)
+	{
+		create_tab(win, len_dots);
+		sectors_in_tab(win);
+	}
+
+	//printf("%d len \n", len);
+	//printf("%d z \n", z);
 
 	//write_in_file(win, tab);
 

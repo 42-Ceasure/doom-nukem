@@ -28,7 +28,8 @@ SRCS	=	sources/main.c \
 			sources/hud.c \
 			sources/placing.c \
 			sources/delete_asset.c \
-			sources/data.c
+			sources/data.c \
+			sources/data2.c
 
 CC		=	gcc
 

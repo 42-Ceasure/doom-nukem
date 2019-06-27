@@ -16,10 +16,11 @@ int			print_game(t_win *win)
 {
 	//SDL_BlitSurface(win->map_ui, &win->dst2, win->surface, NULL);
 
-	SDL_SetCursor(win->cursor);
-
-	if (win->changemode == 1)
+	if (win->changemode)
+	{
+		SDL_SetCursor(win->cursor);
 		SDL_BlitSurface(win->helptxt, NULL, win->surface, &win->dst);
+	}
 
 	win->texture = SDL_CreateTextureFromSurface(win->renderer, win->surface);
 	SDL_SetRenderTarget(win->renderer, NULL);
@@ -115,38 +116,26 @@ void		draw_triangulate(t_win *win)
 	t_lst		*tmp;
 	t_lstlst	*tmp2;
 
-
 	tmp2 = win->triangles;
-	//printf("%d \n ", len_listlist(win->triangles));
-	//printf("%d \n ", len_list(win->triangles->head));
+	win->color = 100100100;
 	while (tmp2)
 	{
 		tmp = tmp2->head;
-		while (tmp->next)
-		{
-			win->color = 100100100;
-			/*printf("%d\n", tmp->x);
-			printf("%d\n", tmp->x);
-			printf("%d\n", tmp->next->x);
-			printf("%d\n", tmp->next->y);*/
-			line(win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
-
-
-			tmp = tmp->next;
-		}
-		if (tmp2)
-		{
-			if (tmp)
-				line(win, tmp->x, tmp->y, tmp2->head->x, tmp2->head->y);
-		}
-		/*tmp = tmp2->head;
 		while (tmp)
 		{
-			draw_points(win, tmp->x, tmp->y);
-			tmp = tmp->next;
-		}*/
+			if (tmp->next)
+			{
+				line(win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
+				tmp = tmp->next;
+			}
+			else
+				break;
+		}
+		if (tmp)
+			line(win, tmp->x, tmp->y, tmp2->head->x, tmp2->head->y);
 		tmp2 = tmp2->next;
 	}
+	printf("%d len \n ", len_listlist(win->triangles));
 }
 
 void		draw_asset_points(t_win *win, int i, int j, int color)
@@ -349,15 +338,20 @@ void		loop_play(t_win *win)
 	win->surface = SDL_CreateRGBSurface(0, WIN_X, WIN_Y, 32, 0, 0, 0, 0);
 	while (42)
 	{
+		//SDL_SetCursor(win->cursor);
+
 		SDL_WaitEvent(&win->event);
+		//SDL_PollEvent(&win->event2);
 		sdl_event(win);
 		on_click(win);
 		clear_window(win);
 		draw_grid(win);
-		if (win->lstlst)
-			draw_segments(win);
+		//if (win->lstlst)
+			//draw_segments(win);
 		if (win->triangles)
 			draw_triangulate(win);
+		if (win->lstlst)
+			draw_segments(win);
 		if (win->lstasset)
 			draw_assets(win);
 		mode(win);

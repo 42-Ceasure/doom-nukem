@@ -49,10 +49,7 @@ static void	sdl_event_key(t_win *win)
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_P])
 	{
 		if (win->lstlst)
-		{
-			if (win->lstlst->head)
-				recursive_triangulate(win, win->lstlst->head, win->triangles);
-		}
+			recursive_check(win);
 	}
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_L])
@@ -67,17 +64,16 @@ static void	sdl_event_key(t_win *win)
 			save_map(win);
 	}
 
-	/*if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_I])
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_I])
 	{
 		test(win);
-	}*/
+	}
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_K])
 	{
 		if (win->lstlst)
 			check_neighbour(win);
 	}
-
 
 	/*if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_H])
 	{

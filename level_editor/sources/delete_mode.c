@@ -31,6 +31,7 @@ void	overing(t_win *win)
 			}
 			tmp2 = tmp2->next;
 		}
+		//printf("%d \n", win->overed_sector);
 	}
 }
 
@@ -50,7 +51,6 @@ void	free_list(t_lst *lst)
 	}
 }
 
-
 void	delete_sector(t_win *win)
 {
 	t_lst		*tmp;
@@ -68,11 +68,10 @@ void	delete_sector(t_win *win)
 		while (current->sector != win->overed_sector)
 			current = current->next;
 		next = current->next;
-		if (win->overed_sector != 0)
-			previous = win->lstlst;
-		if (previous && previous->next)
+		if (win->overed_sector > 0)
 		{
-			while (previous->next->sector != win->overed_sector)
+			previous = win->lstlst;
+			while (previous->sector < win->overed_sector - 1)
 				previous = previous->next;
 		}
 		tmp = current->head;

@@ -18,47 +18,6 @@ typedef struct s_mthrds	t_mthrds;
 typedef struct s_thrd	t_thrd;
 typedef struct s_render	t_render;
 
-/*struct					s_render
-{
-	Uint32				color;
-	Uint32				color_h;
-	Uint32				color_v;
-	int					x;
-	int					draw_start;
-	int					draw_end;
-	int					line_height;
-	int					hit;
-	int					side;
-	int					floor_tex_x;
-	int					floor_tex_y;
-	double				ray_angle;
-	double				ray_angle_rad;
-	double				alph_angle_rad;
-	double				alph_angle;
-	double				player_x;
-	double				player_y;
-	double				hor_x;
-	double				hor_y;
-	double				ver_x;
-	double				ver_y;
-	double				final_x;
-	double				final_y;
-	double				step_x;
-	double				step_y;
-	double				dist_ver;
-	double				dist_wall;
-	double				dist_hor;
-	double				dist;
-	double				current_dist;
-	double				dist_player;
-	double				dist_floor;
-	double				wall_height;
-	double				floor_x_wall;
-	double				floor_y_wall;
-	double				current_floor_x;
-	double				current_floor_y;
-};*/
-
 struct					s_thrd
 {
 	int					id;
@@ -90,7 +49,6 @@ struct					s_win
 	SDL_Surface			*weapon2;
 	SDL_Surface			*ennemy;
 	SDL_Surface			*lamp;
-
 
 	SDL_Color			color_font_r;
 	SDL_Rect			dst;
@@ -143,6 +101,7 @@ struct					s_win
 	int					drawtriangles;
 	int					place;
 	int					number;
+	int					index_dot;
 	char				**tab;
 };
 
