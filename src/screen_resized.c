@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   screen_resized.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:15:26 by nvienot           #+#    #+#             */
-/*   Updated: 2019/06/26 11:43:39 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/27 15:35:54 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,19 +249,19 @@ int		final_char_to_screen(t_env *w, t_texture texture, int x, int y, int width, 
 	return (1);
 }
 
-Uint32		*get_pix_scaled(t_env *w, t_sprite sprite, int width, int height)
+int		get_tmpix_scaled(t_env *w, t_sprite sprite, int width, int height, int x, int y)
 {
 	double 	step_x_tex;
 	double 	step_y_tex;
-	double	x_tex;
-	double	y_tex;
-	int		x = 0;
-	int 	y = 0;
-	int		tmpix;
-	Uint32	*tmpix2;
+	// double	x_tex;
+	// double	y_tex;
+	// int		x = 0;
+	// int 	y = 0;
+	// int		tmpix;
+	// Uint32	*tmpix2;
 
 	w->i = 0;
-	y_tex = 0;
+	// y_tex = 0;
 	if (width == 0 && height == 0)
 	{
 		width = sprite.w;
@@ -276,21 +276,21 @@ Uint32		*get_pix_scaled(t_env *w, t_sprite sprite, int width, int height)
 	}
 	step_x_tex = (double)sprite.w / (double)width;
 	step_y_tex = (double)sprite.h / (double)height;
-	if ((tmpix2 = (Uint32*)malloc(sizeof(Uint32) * width * height + 1)) == NULL)
-		return (NULL);
-	while (y < height)
-	{
-		x = 0;
-		x_tex = 0;
-		while (x < width)
-		{
-			tmpix = (int)y_tex * sprite.w + (int)x_tex;
-			tmpix2[y * width + x] = sprite.pix[tmpix];
-			x_tex += step_x_tex;
-			x++;
-		}
-		y_tex += step_y_tex;
-		y++;
-	}
-	return (tmpix2);
+	// if ((tmpix2 = (Uint32*)malloc(sizeof(Uint32) * width * height + 1)) == NULL)
+	// 	return (NULL);
+	// while (y < height)
+	// {
+	// 	x = 0;
+	// 	x_tex = 0;
+	// 	while (x < width)
+	// 	{
+	// 		tmpix = (int)y_tex * sprite.w + (int)x_tex;
+	// 		tmpix2[y * width + x] = sprite.pix[tmpix];
+	// 		x_tex += step_x_tex;
+	// 		x++;
+	// 	}
+	// 	y_tex += step_y_tex;
+	// 	y++;
+	// }
+	return ((int)(step_x_tex * x) + ((int)(step_y_tex * y) * sprite.w));
 }
