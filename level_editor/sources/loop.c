@@ -14,25 +14,18 @@
 
 int			print_game(t_win *win)
 {
-	//SDL_BlitSurface(win->map_ui, &win->dst2, win->surface, NULL);
-
 	if (win->changemode)
 	{
 		SDL_SetCursor(win->cursor);
 		SDL_BlitSurface(win->helptxt, NULL, win->surface, &win->dst);
 	}
-
 	win->texture = SDL_CreateTextureFromSurface(win->renderer, win->surface);
 	SDL_SetRenderTarget(win->renderer, NULL);
 	SDL_GetWindowSize(win->window, &win->w_win, &win->h_win);
-
-	//set_window(win);
 	if ((SDL_RenderCopy(win->renderer, win->texture, NULL, &win->dst2)) < 0)
 		clear_n_exit(win, 17);
 	SDL_RenderPresent(win->renderer);
 	SDL_DestroyTexture(win->texture);
-
-	//SDL_SetCursor(win->cursor);
 	return (0);
 }
 
@@ -70,12 +63,10 @@ void		draw_points(t_win *win, int i, int j)
 	put_pixel_to_surface(win->surface, i - 1, j + 1, 250240230);
 }
 
-
 void		draw_segments(t_win *win)
 {
 	t_lst		*tmp;
 	t_lstlst	*tmp2;
-
 
 	tmp2 = win->lstlst;
 	while (tmp2)
@@ -108,16 +99,13 @@ void		draw_segments(t_win *win)
 	win->overed_sector = -1;
 }
 
-
-
-
 void		draw_triangulate(t_win *win)
 {
 	t_lst		*tmp;
 	t_lstlst	*tmp2;
 
 	tmp2 = win->triangles;
-	win->color = 100100100;
+	win->color = 0xFF00FF;
 	while (tmp2)
 	{
 		tmp = tmp2->head;
@@ -135,7 +123,6 @@ void		draw_triangulate(t_win *win)
 			line(win, tmp->x, tmp->y, tmp2->head->x, tmp2->head->y);
 		tmp2 = tmp2->next;
 	}
-	printf("%d len \n ", len_listlist(win->triangles));
 }
 
 void		draw_asset_points(t_win *win, int i, int j, int color)
@@ -178,14 +165,10 @@ void		draw_assets(t_win *win)
 			color = 0xFF0000;
 		if (tmp->asset_type == 4)
 			color = 0xFFFF00;
-
-			// color = 848484; green
-			//color = 104104104;  blue
 		draw_asset_points(win, tmp->x, tmp->y, color);
 		tmp = tmp->next;
 	}
 }
-
 
 void		last_is_first(t_lst *lst)
 {
@@ -197,7 +180,6 @@ void		last_is_first(t_lst *lst)
 	tmp->x = lst->x;
 	tmp->y = lst->y;
 }
-
 
 void		on_click(t_win *win)
 {
@@ -212,7 +194,11 @@ void		on_click(t_win *win)
 	closed = 0;
 
 	if (win->left_click)
+	{
 		win->changemode = 0;
+		if (win->triangles)
+			free_triangles(win);
+	}
 
 	if (win->mode == 3)
 		overing(win);
@@ -235,30 +221,6 @@ void		on_click(t_win *win)
 				tmp2 = tmp2->next;
 			tmp2->next = lstlstnew(win);
 		}
-
-/*		if (win->lstlst->closed == 1)
-		{
-			t_dot	p0;
-			t_dot	p1;
-			t_dot	p2;
-			t_dot	m;
-
-			tmp2 = win->lstlst;
-			tmp = tmp2->head;
-
-			p0.x = tmp->x;
-			p0.y = tmp->y;
-			p1.x = tmp->next->x;
-			p1.y = tmp->next->y;
-			p2.x = tmp->next->next->x;
-			p2.y = tmp->next->next->y;
-			m.x = win->x2;
-			m.y = win->y2;
-			if (point_in_triangle(p0, p1, p2, m) == 1)
-				printf("ok\n");
-		}*/
-
-
 		win->drawing = 1;
 		if (win->lst == NULL)
 		{
@@ -338,18 +300,18 @@ void		loop_play(t_win *win)
 	win->surface = SDL_CreateRGBSurface(0, WIN_X, WIN_Y, 32, 0, 0, 0, 0);
 	while (42)
 	{
-		//SDL_SetCursor(win->cursor);
-
 		SDL_WaitEvent(&win->event);
-		//SDL_PollEvent(&win->event2);
 		sdl_event(win);
 		on_click(win);
 		clear_window(win);
 		draw_grid(win);
-		//if (win->lstlst)
-			//draw_segments(win);
+
+		if (win->lstlst && win->just_close)
+			recursive_check(win);
+
 		if (win->triangles)
 			draw_triangulate(win);
+		//free_triangles(win);
 		if (win->lstlst)
 			draw_segments(win);
 		if (win->lstasset)

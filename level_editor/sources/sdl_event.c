@@ -38,7 +38,6 @@ static int	ft_round(int n)
 	return (tmp);
 }
 
-
 static void	sdl_event_key(t_win *win)
 {
 	win->keystate = (Uint8 *)SDL_GetKeyboardState(0);

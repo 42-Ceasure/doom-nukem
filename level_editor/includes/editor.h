@@ -89,6 +89,7 @@ int			final_texture_to_screen(SDL_Surface *surface, SDL_Surface *texture, int x,
 void		sectors_in_tab(t_win *win);
 void		clear_window(t_win *win);
 void		recursive_check(t_win *win);
+void		free_triangles(t_win *win);
 
 void		test(t_win *win);
 
