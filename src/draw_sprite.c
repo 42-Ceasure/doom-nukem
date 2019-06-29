@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/06/26 14:19:25 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/06/29 17:00:25 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,17 @@ int		swipe_sprite(t_env *w, t_map *m, int x)
 				m->player.hp -= 10;
 				m->i = 0;
 			}
+		}
+	}
+	if (m->ennemy.touche == 1)
+	{
+		x = 10;
+		if (w->dtime.dead == 0)
+			m->ennemy.count++;
+		if (m->ennemy.count % 3 == 2)
+		{
+			m->ennemy.touche = 0;
+			m->ennemy.count = 0;
 		}
 	}
 	draw_ennemy(w, m, x);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/06/27 15:30:23 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/06/29 16:57:02 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,6 +264,7 @@ typedef	struct		s_ennemy
 	int				count;
 	int				is_dead;
 	int				dead;
+	int				touche;
 	double			range;
 	double			hole_low;
 	double			hole_high;
@@ -271,6 +272,7 @@ typedef	struct		s_ennemy
 	t_coor			coor;
 	t_coor			move_speed;
 	t_coor			move_speedless;
+	Mix_Chunk		*dammage;
 }					t_ennemy;
 
 typedef struct		s_calc_sprite

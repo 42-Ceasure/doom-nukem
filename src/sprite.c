@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/06/27 15:31:58 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/06/29 16:58:46 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,9 +213,7 @@ void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 	t_cal_sprt	data;
 	int			tmpix;
 	double		range;
-	// Uint32		*pixscaled;
 
-	tmpix = 0;	
 	if (m->sprite[x].take == 1)
 		return;
 	m->sprite[x].vis = 1;
@@ -229,26 +227,25 @@ void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 		data = calcul_sprite_ennemy(w, m, x, ratio);
 		range = data.zoom;
 		tmpix = get_tmpix_scaled(w, m->sprite[x], (m->sprite[x].w * range * ratio), 0, (WIDTH / 2 - (int)data.x1), (HEIGHT / 2 - (int)data.y1a));
-		// pixscaled = get_pix_scaled(w, m->sprite[x], (m->sprite[x].w * range * ratio), 0);
-		// tmpix = (((WIDTH / 2 - (int)data.x1)) + ((HEIGHT / 2 - (int)data.y1a) * (int)(m->sprite[x].w * range * ratio)));
 		if (m->player.firing == 1 && m->weap[PH].range * m->ennemy.range >= 200)
 		{
 			if ((data.x1 <= WIDTH / 2 && data.x1 >= WIDTH / 2 - m->sprite[x].w * range * ratio)
 				&& (data.y1a <= HEIGHT / 2 && data.y1a >= HEIGHT / 2 - m->sprite[x].h * range * ratio)
-					&& m->sprite[x].pix[tmpix] != 0xFF00FF00)
+					&& m->sprite[x].pix[tmpix] != 0xFF00FF00 && m->ennemy.is_dead != 1)
 			{
 				if (m->weap[PH].ammo == 1)
 					m->ennemy.dead = 1;
 				else
 				{
 					m->ennemy.nb_ammo++;
+					m->ennemy.touche = 1;
+					Mix_PlayChannel(6, m->ennemy.dammage, 0);
 					if (m->ennemy.nb_ammo % 4 == 0)
 						m->ennemy.dead = 1;
 				}
 			}
 		}
 		m->player.firing = 0;
-		// free(pixscaled);
 	}
 	//is_visible(m, m->sprite[x].sx, m->sprite[x].sy, x);
 	if (m->sector[m->ennemy.sector].floor > m->player.coor.z) //verifie si la hauteur du sprite est plus haute que le joueur
