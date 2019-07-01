@@ -102,6 +102,9 @@ struct					s_win
 	int					place;
 	int					number;
 	int					index_dot;
+	int					same_dots;
+	int					tab_index;
+	int					tab_malloced;
 	char				**tab;
 };
 

@@ -94,6 +94,9 @@ static int	init_struct(t_win *win)
 	win->changemode = 0;
 	win->number = 0;
 	win->index_dot = 0;
+	win->same_dots = 0;
+	win->tab_index = 0;
+	win->tab_malloced = 0;
 
 	return (0);
 }

@@ -30,6 +30,7 @@ SRCS	=	sources/main.c \
 			sources/delete_asset.c \
 			sources/data.c \
 			sources/data2.c \
+			sources/data3.c \
 			sources/free.c
 
 CC		=	gcc

@@ -12,7 +12,7 @@
 
 #include "editor.h"
 
-int		len_listlist(t_lstlst *lstlst)
+/*int		len_listlist(t_lstlst *lstlst)
 {
 	int		i;
 	t_lstlst *tmp2;
@@ -26,7 +26,7 @@ int		len_listlist(t_lstlst *lstlst)
 		tmp2 = tmp2->next;
 	}
 	return (i);
-}
+}*/
 
 int		check_segment(t_win *win, int x1, int y1, int x2, int y2, int sector)
 {

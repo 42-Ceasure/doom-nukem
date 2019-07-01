@@ -84,12 +84,20 @@ int			len_listlist(t_lstlst *lstlst);
 void		asset_overing(t_win *win);
 void		delete_asset(t_win *win);
 void		overing(t_win *win);
+
 void		save_map(t_win *win);
+void		map_save(t_win *win);
+
 int			final_texture_to_screen(SDL_Surface *surface, SDL_Surface *texture, int x, int y, int width, int height);
+
 void		sectors_in_tab(t_win *win);
+void		sectors_in_tab2(t_win *win);
+
 void		clear_window(t_win *win);
 void		recursive_check(t_win *win);
 void		free_triangles(t_win *win);
+int			int_len(int nb);
+void		sort_int_tab(int *tab, int size);
 
 void		test(t_win *win);
 

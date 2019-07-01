@@ -12,7 +12,7 @@
 
 #include "editor.h"
 
-void	ft_swap(int *a, int *b)
+/*void	ft_swap(int *a, int *b)
 {
 	int		tmp;
 
@@ -35,7 +35,7 @@ void	sort_int_tab(int *tab, int size)
 		}
 		i++;
 	}
-}
+}*/
 
 int		len_listasset(t_lstasset *lstasset)
 {
@@ -65,6 +65,7 @@ int		int_len(int nb)
 	i++;
 	return (i);
 }
+
 
 void		same_line_dots(t_win *win, int y, int index)
 {
@@ -99,10 +100,8 @@ void		same_line_dots(t_win *win, int y, int index)
 		}
 		tmp2 = tmp2->next;
 	}
-
 	if (!(dot_tab = (int *)malloc(sizeof(int) * i)))
 		clear_n_exit(win, 1);
-
 	tmp = NULL;
 	tmp2 = win->lstlst;
 	while (tmp2)
@@ -127,11 +126,8 @@ void		same_line_dots(t_win *win, int y, int index)
 				if (z == 0)
 				{
 					dot_tab[j] = tmp->x;
-					tmp->nb = win->number;
-					win->number++;
 					j++;
 				}
-				//printf("%d dot tab = \n", dot_tab[j]);
 			}
 			tmp = tmp->next;
 		}
@@ -140,7 +136,12 @@ void		same_line_dots(t_win *win, int y, int index)
 
 	i = i - l;
 
-	win->index_dot = i;
+	win->same_dots += l;
+	win->index_dot  += i;
+
+	//if (win->tab_malloced == 0)
+	//	create_tab(win, win->index_dot);
+
 
 	sort_int_tab(dot_tab, i);
 
@@ -148,13 +149,11 @@ void		same_line_dots(t_win *win, int y, int index)
 	while (j < i)
 	{
 		k = k + int_len(dot_tab[j]);
-		//printf("%d k = \n", k);
 		j++;
 	}
 	k = k + int_len(y);
 	k = k + i - 1;
 	k = k + 7;
-
 	/*
 		i = nombre d'int de la ligne
 		i - 1 = nombre de virgule
@@ -163,7 +162,6 @@ void		same_line_dots(t_win *win, int y, int index)
 		1 pour : apres le y
 		1 pour \0
 	*/
-
 	if (!(win->tab[index] = (char *)malloc(sizeof(char) * k)))
 		clear_n_exit(win, 1);
 
@@ -238,8 +236,10 @@ void	dots_in_tab(t_win *win)
 		}
 		tmp2 = tmp2->next;
 	}
-	same_line_dots(win, y, j);
-	y++;
+	//same_line_dots(win, y, j);
+	//y++;
+
+	y--;
 	while (y < WIN_Y)
 	{
 		y++;
@@ -255,9 +255,7 @@ void	dots_in_tab(t_win *win)
 				if (tmp->y == y)
 				{
 					j++;
-					//y = tmp->y;
 					boole = 1;
-
 				}
 				tmp = tmp->next;
 			}
@@ -266,7 +264,7 @@ void	dots_in_tab(t_win *win)
 		if (boole)
 			same_line_dots(win, y, j);
 	}
-
+	win->tab_index = j;
 }
 
 void	create_tab(t_win *win, int len_dots)
@@ -283,12 +281,7 @@ void	create_tab(t_win *win, int len_dots)
 	// le len dot est faux puisqu'il compte les points sur les meme lignes
 	if (!(win->tab = (char **)malloc(sizeof(char *) * i + 1)))
 		clear_n_exit(win, 1);
-
-
-	//printf("%d dots \n", len_dots);
-	//printf("%d sectors \n", len_sectors);
-	//printf("%d assets \n", len_assets);
-
+	win->tab_malloced = 1;
 	dots_in_tab(win);
 }
 
@@ -326,11 +319,28 @@ void		save_map(t_win *win)
 	if (len - 1 == z)
 	{
 		create_tab(win, len_dots);
+		//number_of_cases(win);
 		sectors_in_tab(win);
+		//sectors_in_tab2(win);
 	}
+
+	win->number = 0;
+	win->same_dots = 0;
+	win->index_dot = 0;
+	win->tab_index = 0;
 
 	//printf("%d len \n", len);
 	//printf("%d z \n", z);
+
+	i = 0;
+	while (i < 20)
+	{
+		printf("%s \n", win->tab[i]);
+		i++;
+	}
+
+	win->tab = NULL;
+	win->tab_malloced = 0;
 
 	//write_in_file(win, tab);
 

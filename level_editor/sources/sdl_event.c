@@ -60,7 +60,8 @@ static void	sdl_event_key(t_win *win)
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_F5])
 	{
 		if (win->lstlst)
-			save_map(win);
+			map_save(win);
+			//save_map(win);
 	}
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_I])
