@@ -31,6 +31,51 @@ Les sprites sont toujours visibles a travers les murs, les coordonnes x,y depand
 et pas du secteur(a modif). Vous pouvez avoir un bon exemple avec la map2.
 Si vous voulez modifier les sprites ils sont dans le core et sont parsés.
 
+[NV] Textures en cours
+[Press T on textures branch to check work on texturing]
+
+x. Wall textures
+	1.	Gerer scale en y [OK]
+	2.	Gerer perspective/fixer en y (position player + camera) [OK]
+	3.	Gerer scale en x [OK]
+	4.	Gerer perspective/fixer en x (position player + camera) [OK]
+	5.	Bien gérer les différences de hauteur par secteur [OK]
+		Attention problème perspective quand player hauteur > mur hauteur. [TO DO]
+	7.	Gérer la continuité des textures d'un mur a un autre si c'est la même [IN PROGRESS]
+	8.	Gérer la continuité des textures d'un mur a un autre si différente [NOT STARTED]
+	9.	Gerer les differentes wall_textures facilement (detection mur, choix texture, continuite) [NOT STARTED]
+	10.	Implémenter parser de wall_textures et récupération de toutes les wall_textures depuis core avec index [IN PROGRESS]
+x. General
+	1.	Faire choix sur façon de lier un mur avec une texture [TO DO]
+	2.	Parser tous les types de textures et les récupérer [OK]
+	3.	Creer fonction texture_to_screen avec rescale [OK]
+		[DONE] Fonction a re-tester, comportement anormal. -> Reglé, probleme de floating point a cause de get_that_time dans menu.c
+x. Ceiling / Floor textures [OK]
+x. Skybox [IN PROGRESS]
+x. Textures transparente vision secteur suivant etc… [NOT STARTED]
+x. Parsing textures [NOT STARTED]
+x. Multithreading [IN PROGRESS]
+
+[TO FIX] Safe rescale
+[TO FIX] Impression image menu alors que pas encore parsee
+[TO FIX] Proteger fonctions draw et safe_screen si pas de texture
+[TO FIX] Attention overflow dans light shading
+[TO FIX] Sanitize
+[TO FIX] Premiere ligne en x non affichee
+[TO FIX] Makefile
+[TO FIX] Fonction puttxt debut prog / process_hint_w
+[TO FIX] Get_that_time dans menu cause floating point quand fenetre recouverte ??? OK C BON
+
+Needed on each sector :
+- Wall texture [index]
+- Ceil texture [index]
+- Floor texture [index] [yes/no]
+- Higher texture [index]
+- Lower texture [index]
+- Skybox [index] [yes/no]
+
+[END NV]
+
 OOMTA (our own mini table ascii) :
 
 number	char		number	char		number	char
