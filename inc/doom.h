@@ -46,6 +46,9 @@
 # define KNEEH				7.9
 # define BASE_GRAVITY		0.05
 # define NB_THREAD			16
+# define TEXT_WALL_HEIGHT	10
+# define TEXT_WALL_WIDTH	10
+# define PI					3.14159
 
 typedef struct		s_filer
 {
@@ -121,6 +124,7 @@ typedef struct		s_sector
 	double			ceiling;
 	t_dot			*dot;
 	int				*network;
+	int				texturing[6];
 }					t_sector;
 
 typedef struct		s_player
@@ -195,6 +199,8 @@ typedef struct		s_draw
 	t_coor			v2;
 	t_coor			t1;
 	t_coor			t2;
+	t_coor			tt1;
+	t_coor			tt2;
 	t_coor			ip1;
 	t_coor			ip2;
 	t_coor			lol1;
@@ -252,6 +258,10 @@ typedef struct		s_draw
 	double			sx2;
 	double			height;
 	int				point;
+	double			start_x_tex;
+	double			end_x_tex;
+	double			wall_width;
+	int				nosector;
 }					t_draw;
 
 typedef	struct		s_ennemy
@@ -362,6 +372,7 @@ typedef struct		s_map
 	int				sector_count;
 	int				weapon_count;
 	int				sprite_count;
+	int				texture_count;
 	int				sprite_map_count;
 	int				ennemy_count;
 	int				maxrenderedsector;
@@ -479,6 +490,9 @@ typedef struct		s_env
 	t_dot			txtnxtline;
 	t_dot			txtnxtto;
 	t_dtime			dtime;
+	int				textured;
+	t_texture		*texturing;
+	int				texturingno;
 }					t_env;
 
 
@@ -627,5 +641,10 @@ void				count_sprite(t_env *w, t_map *m);
 void				draw_ennemy(t_env *w, t_map *m, int x, int ratio);
 void				jet_pack(t_map *m);
 int					get_tmpix_scaled(t_env *w, t_sprite sprite, int width, int height, int x, int y);
+void				vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
+void				ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
+void				skybox(int x, int *box, t_env *w, t_draw *d, t_texture text);
+
+
 
 #endif

@@ -33,7 +33,8 @@ void		replace_line(char *path, char *balise, char *content)
 			else
 				ft_putendl_fd(f.line, f.fd);
 			if (ft_strncmp(f.line, "texture\t\t;ascii", 15) != 0
-				&& ft_strncmp(f.line, "texture\t\t;main_pic", 18) != 0)
+				&& ft_strncmp(f.line, "texture\t\t;main_pic", 18) != 0
+					&& ft_strncmp(f.line, "texture\t\t;texturing", 19) != 0)
 				f.buffer = 256;
 			ft_memreg(f.tmp);
 			free(f.line);
@@ -61,7 +62,8 @@ void		replace_line(char *path, char *balise, char *content)
 			else
 				ft_putendl_fd(f.line, f.fd2);
 			if (ft_strncmp(f.line, "texture\t\t;ascii", 15) != 0
-				&& ft_strncmp(f.line, "texture\t\t;main_pic", 18) != 0)
+				&& ft_strncmp(f.line, "texture\t\t;main_pic", 18) != 0
+					&& ft_strncmp(f.line, "texture\t\t;texturing", 19) != 0)
 				f.buffer = 256;
 			ft_memreg(f.tmp);
 			free(f.line);

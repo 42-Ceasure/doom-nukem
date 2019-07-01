@@ -4,7 +4,7 @@
 
 void	check_invisible(t_draw *d, t_reader read, t_map *m)
 {
-	d->v1.x = m->sector[read.now.sectorno].dot[d->point + 0].x - PL_X;
+d->v1.x = m->sector[read.now.sectorno].dot[d->point + 0].x - PL_X;
 	d->v1.y = m->sector[read.now.sectorno].dot[d->point + 0].y - PL_Y;
 	d->v2.x = m->sector[read.now.sectorno].dot[d->point + 1].x - PL_X;
 	d->v2.y = m->sector[read.now.sectorno].dot[d->point + 1].y - PL_Y;
@@ -14,12 +14,16 @@ void	check_invisible(t_draw *d, t_reader read, t_map *m)
 	d->t1.z = d->v1.x * d->pcos + d->v1.y * d->psin;
 	d->t2.x = d->v2.x * d->psin - d->v2.y * d->pcos;
 	d->t2.z = d->v2.x * d->pcos + d->v2.y * d->psin;
+	d->tt1.x = d->t1.x;
+	d->tt1.z = d->t1.z;
+	d->tt2.x = d->t2.x;
+	d->tt2.z = d->t2.z;
 	if (d->t1.z <= 0 || d->t2.z <= 0)
 	{
-		m->visible[read.now.sectorno].wall[d->point] = 1;
 		init_verification(d);
 		if (d->t1.z < d->nearz)
 		{
+			// voir bisquit ???
 			d->t1.x = (d->ip1.y > 0) ? d->ip1.x : d->ip2.x;
 			d->t1.z = (d->ip1.y > 0) ? d->ip1.y : d->ip2.y;
 		}

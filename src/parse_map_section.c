@@ -39,6 +39,22 @@ int			parse_sector_network(t_map *m, char *net)
 	return (0);
 }
 
+int			parse_sector_texturing(t_map *m, char *text)
+{
+	int		i;
+	char	**tmp;
+
+	i = 0;
+	tmp = ft_strsplit(text, ',');
+	while (i < 6)
+	{
+		m->sector[m->s].texturing[i] = ft_atoi(tmp[i]);
+		i++;
+	}
+	ft_memreg(tmp);
+	return (0);
+}
+
 int			parse_sector_dots(t_map *m, char **dots)
 {
 	int		i;
@@ -65,7 +81,7 @@ int			parse_sector_dots(t_map *m, char **dots)
 	return (0);
 }
 
-int			parse_sectors(t_map *m, char *heights, char *dots, char *net)
+int			parse_sectors(t_map *m, char *heights, char *dots, char *net,  char *text)
 {
 	int		i;
 	char	**tmp;
@@ -88,6 +104,7 @@ int			parse_sectors(t_map *m, char *heights, char *dots, char *net)
 	if (parse_sector_dots(m, tmp) == -1)
 		return (-1);
 	parse_sector_network(m, net);
+	parse_sector_texturing(m, text);
 	m->s++;
 	return (0);
 }
@@ -104,7 +121,7 @@ int			parse_map_section(t_map *m, char **tab)
 	}
 	if (ft_strcmp(tab[0], "\tsector") == 0)
 	{
-		if (parse_sectors(m, tab[1], tab[2], tab[3]) == -1)
+		if (parse_sectors(m, tab[1], tab[2], tab[3], tab[4]) == -1)
 		{
 			ft_putendl("error on parsing of the \"sector\" section");
 			return (-1);

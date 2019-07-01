@@ -50,6 +50,8 @@ void			set_w(t_env *w, int ac)
 	w->txtnxtline.y = 0;
 	w->txtnxtto.x = 0;
 	w->txtnxtto.y = 0;
+	w->texturingno = 0;
+	w->textured = 0;
 }
 
 void			set_m(t_map *m)

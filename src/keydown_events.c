@@ -12,6 +12,8 @@ void		affichage(t_env *w, t_map *m)
 	// 	och_door(m);
 	if (KEY == SDLK_f)
 		ramassage(m);
+	if (KEY == SDLK_t)
+		w->textured = (w->textured == 0) ? 1 : 0;
 }
 
 void		music(t_env *w)

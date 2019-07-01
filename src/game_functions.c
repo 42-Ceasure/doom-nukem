@@ -287,7 +287,8 @@ void	get_that_time(t_env *w)
 	w->dtime.otime = w->dtime.ctime;
 	w->dtime.ctime = SDL_GetTicks();
 	result = w->dtime.ctime - w->dtime.otime;
-	w->dtime.fps = 1000 / result;
+	if (result != 0)
+		w->dtime.fps = 1000 / result;
 	w->dtime.etime = w->dtime.etime + result;
 	w->dtime.shootime = w->dtime.shootime + result;
 	w->dtime.stime = w->dtime.stime + result;

@@ -36,6 +36,12 @@ void		empty_world(t_env *w)
 			free(w->ascii[i].pix);
 			i++;
 		}
+		i = 0;
+		while (i < w->texturingno)
+		{
+			free(w->texturing[i].pix);
+			i++;
+		}
 		free(w->menu.y);
 		ft_memreg3(w->menu.list);
 		free(w);
@@ -115,7 +121,7 @@ void		empty_sdl(t_env *w)
 
 void		exit_game(t_env *w, t_map *m, int i)
 {
-	empty_music(w);
+	// empty_music(w);
 	empty_map(m);
 	empty_sdl(w);
 	empty_world(w);
