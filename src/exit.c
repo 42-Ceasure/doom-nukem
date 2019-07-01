@@ -121,7 +121,7 @@ void		empty_sdl(t_env *w)
 
 void		exit_game(t_env *w, t_map *m, int i)
 {
-	// empty_music(w);
+	empty_music(w);
 	empty_map(m);
 	empty_sdl(w);
 	empty_world(w);
