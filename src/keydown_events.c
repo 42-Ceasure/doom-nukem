@@ -8,9 +8,9 @@ void		affichage(t_env *w, t_map *m)
 		hud(m);
 	if (KEY == SDLK_TAB)
 		minimap(m);
+	//if (KEY == SDLK_f)
+	// 	och_door(m);
 	if (KEY == SDLK_f)
-	 	och_door(m);
-	if (KEY == SDLK_m)
 		ramassage(m);
 }
 

@@ -22,6 +22,10 @@ void	ft_cursor(t_env *w, t_map *m)
 			i++;
 		}
 	}
+	if (m->player.hp < 0)
+		m->player.hp = 0;
+	else if (m->player.hp > 100)
+		m->player.hp = 100;
 }
 
 void	ft_hud(t_env *w, t_map *m)
@@ -36,21 +40,20 @@ void	ft_hud(t_env *w, t_map *m)
 	dot.x = 10;
 	dot.y = 10;
 	type_str(w, dot, "HP : ", 0x12FF0000);
-	if (m->player.hp >= 0 && m->k % 2 == 1)
-		ft_light_itoa(m->player.hp, m->player.strhp);
+	ft_light_itoa(m->player.hp, m->player.strhp);
 	type_str(w, w->txtnxtto, m->player.strhp, 0x12FF0000);
 	dot.y = HEIGHT - 30;
 	type_str(w, dot, "AMMO : ", 0x12000000);
-	if (m->player.intactu_ammo != m->weap[PH].actu_ammo && m->sprite[PH].take == 1)
+	if (m->player.intactu_ammo != m->weap[PH].actu_ammo && m->player.take[PH] == 1)
 	{
 		m->player.intactu_ammo = m->weap[PH].actu_ammo;
 		ft_light_itoa(m->weap[PH].actu_ammo, m->player.stractu_ammo);
 	}
-	if (m->sprite[0].take == 1)
-		final_sprite_to_screen(w, m->sprite[0], 319, HEIGHT - 44, 64, 0);
-	if (m->sprite[1].take == 1)
-		final_sprite_to_screen(w, m->sprite[1], 399, HEIGHT - 64, 64, 0);
-	if (m->sprite[2].take == 1)
+	if (m->player.take[0] == 1)
+		final_sprite_to_screen(w, m->sprite[0], 319, HEIGHT - 58, 64, 48);
+	if (m->player.take[1] == 1)
+		final_sprite_to_screen(w, m->sprite[1], 399, HEIGHT - 60, 64, 48);
+	if (m->player.take[2] == 1)
 		final_sprite_to_screen(w, m->sprite[2], 480, HEIGHT - 54, 64, 0);
 	type_str(w, w->txtnxtto, m->player.stractu_ammo, 0x12000000);
 	dot.x = WIDTH - 130;
@@ -141,7 +144,6 @@ void	run(t_env *w, t_map *m)
 	SDL_ShowCursor(SDL_DISABLE);
 	m->stop = 0;
 	init_visible(m);
-	m->ennemy.coor.z = m->sector[m->ennemy.sector].floor;
 	while (1)
 	{
 		while (SDL_PollEvent(&w->event))
@@ -187,9 +189,9 @@ void	run(t_env *w, t_map *m)
 		is_falling(m);
 		is_moving(m);
 		slow_down(w, m);
-		is_fall(m);
-		if (m->ennemy.range < 1 && m->ennemy.dead == 0)
-			is_moving_enne(m);
+		is_fall(m, 0);
+		if (m->ennemy[0].range < 1 && m->ennemy[0].dead == 0)
+			is_moving_enne(m, 0);
 		get_that_time(w);
 	}
 }

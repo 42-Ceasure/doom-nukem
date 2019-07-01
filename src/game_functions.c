@@ -156,10 +156,13 @@ void		ramassage(t_map *m)
 	int i;
 
 	i = 0;
-	while (i < m->sprite_count)
+	while (i < m->sprite_map_count)
 	{
-		if (m->sprite[i].range >= 1 && ft_strcmp(m->sprite[i].type, "item") == 0)
-			m->sprite[i].take = 1;
+		if (m->sprt[i].range >= 1 && ft_strcmp(m->sprite[m->sprt[i].index].type, "item") == 0)
+		{
+			m->player.take[m->sprt[i].index] = 1;
+			m->sprt[i].vis = 0;
+		}
 		i++;
 	}
 }

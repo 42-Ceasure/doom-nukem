@@ -76,13 +76,9 @@ int			parse_sprite_section(t_map *m, char *name, char *def, char *pix)
 	tmp = ft_strsplit(def, ',');
 	sn = ft_atoi(tmp[0]);
 	m->sprite[sn].type = ft_strdup(name);
-	m->sprite[sn].sector = ft_atoi(tmp[1]);
-	m->sprite[sn].sx = ft_atoi(tmp[2]);
-	m->sprite[sn].sy = ft_atoi(tmp[3]);
-	m->sprite[sn].w = ft_atoi(tmp[4]);
-	m->sprite[sn].h = ft_atoi(tmp[5]);
-	m->sprite[sn].take = 0;
-	i = ft_atoi(tmp[4]) * ft_atoi(tmp[5]);
+	m->sprite[sn].w = ft_atoi(tmp[1]);
+	m->sprite[sn].h = ft_atoi(tmp[2]);
+	i = ft_atoi(tmp[1]) * ft_atoi(tmp[2]);
 	m->sprite[sn].len = i;
 	process_hint_w(m->world, 1, "sprite");
 	m->sprite[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i);

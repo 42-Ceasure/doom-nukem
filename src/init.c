@@ -31,10 +31,10 @@ int			load_sounds(t_env *w, t_map *m)
 		return (-1);
 	if (!(m->weap[1].shoot = Mix_LoadWAV("./sounds/mp510.wav")))
 		return (-1);
-	if (!(m->ennemy.dammage = Mix_LoadWAV("./sounds/oof.wav")))
-		return (-1);
+	/*if (!(m->ennemy[0].dammage = Mix_LoadWAV("./sounds/oof.wav")))
+		return (-1);*/
 	Mix_VolumeChunk(w->sound.jump, 70);
-	Mix_VolumeChunk(m->ennemy.dammage, 110);
+	//Mix_VolumeChunk(m->ennemy[0].dammage, 110);
 	Mix_VolumeChunk(m->weap[1].shoot, 80);
 	Mix_VolumeChunk(m->weap[0].shoot, 30);
 	Mix_VolumeChunk(m->weap[2].shoot, 50);

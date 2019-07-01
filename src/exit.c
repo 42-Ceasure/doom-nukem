@@ -51,6 +51,8 @@ void		empty_map(t_map *m)
 	{
 		free(m->player.fps);
 		free(m->player.stractu_ammo);
+		//if (m->ennemy[0].dammage != NULL)
+		//	Mix_FreeChunk(m->ennemy[0].dammage);
 		if (m->map_name != NULL)
 			free(m->map_name);
 		if (m->map_name != NULL)

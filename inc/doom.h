@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/06/29 16:57:02 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/01 19:11:43 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ typedef struct		s_player
 	int				mousesp;
 	int				hud;
 	int				hp;
+	int				take[3];
 	char			*strhp;
 	t_coor			coor;
 	int				memz;
@@ -265,6 +266,7 @@ typedef	struct		s_ennemy
 	int				is_dead;
 	int				dead;
 	int				touche;
+	int				index;
 	double			range;
 	double			hole_low;
 	double			hole_high;
@@ -295,17 +297,24 @@ typedef struct		s_sprite
 	Uint32			*pix;
 	char			*name;
 	char			*type;
-	float			sx;
-	float			sy;
+	int				sy;
+	int				sx;
 	int				w;
 	int				h;
 	int				len;
-	int				sector;
-	int				take;
-	int				vis;
-	double			range;
 	t_coor			coor;
 }					t_sprite;
+
+typedef struct		s_map_sprite
+{
+	char			*name;
+	float			sx;
+	float			sy;
+	int				sector;
+	int				index;
+	int				vis;
+	double			range;
+}					t_map_sprite;
 
 typedef struct		s_texture
 {
@@ -353,6 +362,8 @@ typedef struct		s_map
 	int				sector_count;
 	int				weapon_count;
 	int				sprite_count;
+	int				sprite_map_count;
+	int				ennemy_count;
 	int				maxrenderedsector;
 	double			yaw;
 	double			gravity;
@@ -363,12 +374,14 @@ typedef struct		s_map
 	t_visible		*visible;
 	t_sector		*sector;
 	t_weapon		*weap;
-	t_sprite		*sprite;
+	t_sprite		*sprite;	//a placer dans t_env
+	t_map_sprite	*sprt;
+	t_sprite		*map;
 	t_texture		*texture;
 	t_texture		hud;
 	t_texture		fire;
 	t_player		player;
-	t_ennemy		ennemy;
+	t_ennemy		*ennemy;
 }					t_map;
 
 // typedef struct		s_entry
@@ -552,10 +565,10 @@ void				motion_events(t_env *w, t_map *m);
 void				move_player(double dx, double dy, t_map *m);
 void				get_height(t_map *m);
 void				is_falling(t_map *m);
-void				is_fall(t_map *m);
+void				is_fall(t_map *m, int x);
 void				slow_down(t_env *w, t_map *m);
 void				is_moving(t_map *m);
-void				is_moving_enne(t_map *m);
+void				is_moving_enne(t_map *m, int x);
 void				main_menu(t_env *w, t_map *m);
 t_texture			load_img(t_env *w, t_map *m, char *s);
 void				initsprite(t_sprite **sprite, int count);
@@ -611,7 +624,7 @@ int					final_char_to_screen(t_env *w, t_texture texture, int x, int y, int widt
 void				get_that_time(t_env *w);
 void				draw_sprite(t_env *w, t_map *m, int x, int ratio);
 void				count_sprite(t_env *w, t_map *m);
-void				draw_ennemy(t_env *w, t_map *m, int x);
+void				draw_ennemy(t_env *w, t_map *m, int x, int ratio);
 void				jet_pack(t_map *m);
 int					get_tmpix_scaled(t_env *w, t_sprite sprite, int width, int height, int x, int y);
 

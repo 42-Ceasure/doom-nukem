@@ -120,7 +120,7 @@ void			parse_sprite_line(t_env *w, t_map *m, char *line)
 	}
 	if (ft_strcmp(tab[0], "weapon_sprite") != 0)
 	{
-		if (parse_sprite_section(m, tab[0], tab[2], tab[3]) == -1)
+		if (parse_sprite_section(m, tab[0], tab[1], tab[2]) == -1)
 			set_error(w, m, 8, ft_strdup("sprites"));
 	}
 }
@@ -148,7 +148,7 @@ void			parse_allocating_line(t_env *w, t_map *m, char *line)
 			* m->sprite_count)) == NULL)
 				set_error(w, m, 0, ft_strdup("sprite"));
 		if (load_sounds(w, m) == -1)
-			set_error(w, m, 8, ft_strdup("load_sounds"));
+		 	set_error(w, m, 8, ft_strdup("load_sounds"));
 	}
 }
 
