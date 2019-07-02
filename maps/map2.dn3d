@@ -1,4 +1,4 @@
-dots:8,sector:3,sprite:6,ennemy:1
+dots:8,sector:3,sprite:8,ennemy:4
 Section:map
 	dots:0:0,40
 	dots:20:0,40
@@ -18,5 +18,10 @@ Section:sprite
 	cartouche:3,4,1,25,35
 	M4A1:4,0,2,25,70
 	M4A1:5,0,2,20,85
+	M9:6,2,0,20,10
+	pompe:7,1,1,5,40
 Section:ennemy
 	monstre:0,5,2,20,90
+	monstre:1,5,2,25,70
+	monstre:2,5,1,12,42
+	monstre:3,5,0,30,15

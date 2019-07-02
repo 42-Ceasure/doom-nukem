@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/01 20:28:36 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/02 11:49:39 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,74 +117,50 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x, int ratio)
 void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 {
 	t_cal_sprt	data;
-	//int			tmpix;
 	double		range;
 
-	if (ft_strcmp(m->sprite[m->sprt[x].index].type, "ennemy") != 0)
-	{
-		data = calcul_sprite(w, m, x, ratio);
-		range = data.zoom;
-	}
-	/*else
-	{
-		data = calcul_sprite_ennemy(w, m, x, ratio);
-		range = data.zoom;
-		tmpix = get_tmpix_scaled(w, m->sprite[x], (m->sprite[x].w * range * ratio), 0, (WIDTH / 2 - (int)data.x1), (HEIGHT / 2 - (int)data.y1a));
-		if (m->player.firing == 1 && m->weap[PH].range * m->ennemy.range >= 200)
-		{
-			if ((data.x1 <= WIDTH / 2 && data.x1 >= WIDTH / 2 - m->sprite[x].w * range * ratio)
-				&& (data.y1a <= HEIGHT / 2 && data.y1a >= HEIGHT / 2 - m->sprite[x].h * range * ratio)
-					&& m->sprite[x].pix[tmpix] != 0xFF00FF00 && m->ennemy.is_dead != 1)
-			{
-				if (m->weap[PH].ammo == 1)
-					m->ennemy.dead = 1;
-				else
-				{
-					m->ennemy.nb_ammo++;
-					m->ennemy.touche = 1;
-					Mix_PlayChannel(6, m->ennemy.dammage, 0);
-					if (m->ennemy.nb_ammo % 4 == 0)
-						m->ennemy.dead = 1;
-				}
-			}
-		}
-		m->player.firing = 0;
-	}*/
+	data = calcul_sprite(w, m, x, ratio);
+	range = data.zoom;
 	//is_visible(m, m->sprite[x].sx, m->sprite[x].sy, x);
 	/*if (m->sector[m->ennemy.sector].floor > m->player.coor.z) //verifie si la hauteur du sprite est plus haute que le joueur
 		m->sprite[x].vis = 0;*/
 	//remplacer le .floor par un int z une fois que la map sera parse
 	if (data.t1z > 0 && m->sprt[x].vis == 1)
-		final_sprite_to_screen(w, m->sprite[m->sprt[x].index], data.x1, data.y1a, m->sprite[m->sprt[x].index].w * range * ratio, 0);
+	{
+		if (ft_strcmp(m->sprite[m->sprt[x].index].type, "auto") == 0)
+			final_sprite_to_screen(w, m->sprite[m->sprt[x].index], data.x1, data.y1a, 0, 100 * range * ratio);
+		else
+			final_sprite_to_screen(w, m->sprite[m->sprt[x].index], data.x1, data.y1a, m->sprite[m->sprt[x].index].w * range * ratio, 0);
+	}
 }
 
 void	swipe_sprite(t_env *w, t_map *m, int x)
 {
 	if (w->dtime.walk == 0)
-		m->k++;
+		m->ennemy[x].cpt++;
 	if (m->ennemy[x].range < 1)
 	{
-		if (m->k % 3 == 0)
+		if (m->ennemy[x].cpt % 3 == 0)
 			m->ennemy[x].index = 5;
-		if (m->k % 3 == 1)
+		if (m->ennemy[x].cpt % 3 == 1)
 			m->ennemy[x].index = 6;
-		if (m->k % 3 == 2)
+		if (m->ennemy[x].cpt % 3 == 2)
 			m->ennemy[x].index = 7;
 	}
 	else
 	{
-		if (m->k % 2 == 0)
+		if (m->ennemy[x].cpt % 2 == 0)
 		{
 			m->ennemy[x].index = 8;
-			m->i = 1;
+			m->ennemy[x].die = 1;
 		}
 		else
 		{
 			m->ennemy[x].index = 9;
-			if (m->i == 1)
+			if (m->ennemy[x].die == 1)
 			{
 				m->player.hp -= 10;
-				m->i = 0;
+				m->ennemy[x].die = 0;
 			}
 		}
 	}
@@ -215,7 +191,6 @@ void	count_sprite(t_env *w, t_map *m)
 		{
 			m->player.hp += 30;
 			m->sprt[x].vis = 0;
-			printf("%d\n", x);
 		}
 		x++;
 	}
@@ -241,4 +216,5 @@ void	count_sprite(t_env *w, t_map *m)
 		}
 		x++;
 	}
+	m->player.firing = 0;
 }

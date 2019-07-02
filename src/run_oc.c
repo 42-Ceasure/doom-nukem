@@ -138,6 +138,7 @@ void    init_visible(t_map *m)
 void	run(t_env *w, t_map *m)
 {
 	int 	sens;
+	int		i;
 
 	sens = 1;
 	SDL_SetRelativeMouseMode(SDL_TRUE);
@@ -189,9 +190,16 @@ void	run(t_env *w, t_map *m)
 		is_falling(m);
 		is_moving(m);
 		slow_down(w, m);
-		is_fall(m, 0);
-		if (m->ennemy[0].range < 1 && m->ennemy[0].dead == 0)
-			is_moving_enne(m, 0);
+		i = 0;
+		while (i < m->ennemy_count)
+		{
+			is_fall(m, i);
+			if (m->ennemy[i].range < 1 && m->ennemy[i].dead == 0)
+			{
+				is_moving_enne(m, i);
+			}
+			i++;
+		}
 		get_that_time(w);
 	}
 }

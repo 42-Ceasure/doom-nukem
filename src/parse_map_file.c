@@ -67,22 +67,26 @@ int		parse_ennemy_map(t_map *m, char **tab)
 		m->ennemy[nb].range = 0.5;
 		m->ennemy[nb].dead = 0;
 		m->ennemy[nb].is_dead = 0;
+		m->ennemy[nb].die = 1;
 		m->ennemy[nb].count = 0;
+		m->ennemy[nb].cpt = 0;
 		m->ennemy[nb].nb_ammo = 0;
 		m->ennemy[nb].touche = 0;
-		m->ennemy[0].dammage = NULL;
-		m->ennemy[0].move_speed.x = 0;
-		m->ennemy[0].move_speed.y = 0;
-		m->ennemy[0].move_speed.z = 0;
-		m->ennemy[0].move_speedless.x = 0;
-		m->ennemy[0].move_speedless.y = 0;
-		m->ennemy[0].move_speedless.z = 0;
-		m->ennemy[0].fall = 1;
-		m->ennemy[0].ground = 0;
-		m->ennemy[0].moving = 0;
-		m->ennemy[0].height = 0;
-		m->ennemy[0].hole_low = 0;
-		m->ennemy[0].hole_high = 0;
+		if (!(m->ennemy[nb].dammage = Mix_LoadWAV("./sounds/oof.wav")))
+			return (-1);
+		Mix_VolumeChunk(m->ennemy[nb].dammage, 110);
+		m->ennemy[nb].move_speed.x = 0;
+		m->ennemy[nb].move_speed.y = 0;
+		m->ennemy[nb].move_speed.z = 0;
+		m->ennemy[nb].move_speedless.x = 0;
+		m->ennemy[nb].move_speedless.y = 0;
+		m->ennemy[nb].move_speedless.z = 0;
+		m->ennemy[nb].fall = 1;
+		m->ennemy[nb].ground = 0;
+		m->ennemy[nb].moving = 0;
+		m->ennemy[nb].height = 0;
+		m->ennemy[nb].hole_low = 0;
+		m->ennemy[nb].hole_high = 0;
 	}
 	return (0);
 }
@@ -170,9 +174,6 @@ void	parse_map_file(t_env *w, t_map *m)
 	w->dtime.start = SDL_GetTicks();
 	if (do_parse(w, m) == -1)
 		set_error(w, m, 8, ft_strdup("do_parse"));
-	/*m->ennemy.sector = m->sprite[5].sector;
-	m->ennemy.range = 0.5;
-	*/
 	w->dtime.end = SDL_GetTicks();
 	loading = w->dtime.end - w->dtime.start;
 	printf("map      loaded in %f seconds !\n", loading / 1000);

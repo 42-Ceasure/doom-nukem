@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 13:33:43 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/01 18:22:22 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/02 11:07:06 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,6 @@ void		is_moving_enne(t_map *m, int x)
 		}
 		s++;
 	}
-	move_ennemy(m->ennemy[x].move_speed.x, m->ennemy[x].move_speed.y, m, 0);
+	move_ennemy(m->ennemy[x].move_speed.x, m->ennemy[x].move_speed.y, m, x);
 	m->ennemy[x].fall = 1;
 }

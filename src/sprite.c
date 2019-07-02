@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/07/01 20:27:57 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/02 12:38:47 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,21 +133,20 @@ void		draw_ennemy(t_env *w, t_map *m, int x, int ratio)
 	{
 		if ((data.x1 <= WIDTH / 2 && data.x1 >= WIDTH / 2 - m->sprite[m->ennemy[x].index].w * range * ratio)
 			&& (data.y1a <= HEIGHT / 2 && data.y1a >= HEIGHT / 2 - m->sprite[m->ennemy[x].index].h * range * ratio)
-				&& m->sprite[m->ennemy[x].index].pix[tmpix] != 0xFF00FF00 && m->ennemy[0].is_dead != 1)
+				&& m->sprite[m->ennemy[x].index].pix[tmpix] != 0xFF00FF00 && m->ennemy[x].is_dead != 1)
 		{
 			if (m->weap[PH].ammo == 1)
-				m->ennemy[0].dead = 1;
+				m->ennemy[x].dead = 1;
 			else
 			{
-				m->ennemy[0].nb_ammo++;
-				m->ennemy[0].touche = 1;
-				//Mix_PlayChannel(6, m->ennemy[0].dammage, 0);
-				if (m->ennemy[0].nb_ammo % 4 == 0)
-					m->ennemy[0].dead = 1;
+				m->ennemy[x].nb_ammo++;
+				m->ennemy[x].touche = 1;
+				if (m->ennemy[x].nb_ammo % 4 == 0)
+					m->ennemy[x].dead = 1;
 			}
+			Mix_PlayChannel(6, m->ennemy[x].dammage, 0);
 		}
 	}
-	m->player.firing = 0;
 	if (data.t1z > 0)
 		final_sprite_to_screen(w, m->sprite[m->ennemy[x].index], data.x1, data.y1a, m->sprite[m->ennemy[x].index].w * range * ratio, 0);
 }

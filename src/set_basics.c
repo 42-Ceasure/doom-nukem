@@ -60,7 +60,6 @@ void			set_m(t_map *m)
 	m->launchwmap = 0;
 	m->trippymod = 0;
 	m->i = 0;
-	m->k = 0;
 	m->s = 0;
 	m->w = 0;
 	m->fd = 0;

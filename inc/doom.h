@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/01 19:11:43 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/02 11:27:18 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,8 @@ typedef	struct		s_ennemy
 	int				sector;
 	int				moving;
 	int				count;
+	int				cpt;
+	int				die;
 	int				is_dead;
 	int				dead;
 	int				touche;
@@ -362,7 +364,6 @@ typedef struct		s_map
 	int				launchwmap;
 	int				trippymod;
 	int				i;
-	int				k;
 	int				s;
 	int				w;
 	int				fd;
