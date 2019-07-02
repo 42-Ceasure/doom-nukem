@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:15:26 by nvienot           #+#    #+#             */
-/*   Updated: 2019/06/27 15:35:54 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/02 17:42:14 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ int		final_texture_to_screen(t_env *w, t_texture texture, int x, int y, int widt
 	if (x > WIDTH || y > HEIGHT)
 		return(0);
 	if (x < 0)
-	{
 		x_tex = (0 - x) * step_x_tex;
-		x = 0;
-	}
+	// {
+		// x = 0;
+	// }
 	if (y < 0)
 	{
 		y_tex = (0 - y) * step_y_tex;
@@ -125,7 +125,6 @@ int		final_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y, int width, 
 	maxx = width + x;
 	maxy = height + y;
 	//testing
-	x_tmp = x;
 	if (maxx > WIDTH)
 		maxx = WIDTH;
 	if (maxy > HEIGHT)
@@ -134,17 +133,14 @@ int		final_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y, int width, 
 		return(0);
 	if (x > WIDTH || y > HEIGHT)
 		return(0);
+	x_tmp = x;
 	if (x < 0)
-	{
 		x_tex = (0 - x) * step_x_tex;
-		x = 0;
-	}
 	if (y < 0)
 	{
 		y_tex = (0 - y) * step_y_tex;
 		y = 0;
 	}
-	//end testing
 	while (y < maxy && (int)x_tex * (int)y_tex < sprite.len)
 	{
 		x_tex = 0;
@@ -213,10 +209,10 @@ int		final_char_to_screen(t_env *w, t_texture texture, int x, int y, int width, 
 	if (x > WIDTH || y > HEIGHT)
 		return(0);
 	if (x < 0)
-	{
 		x_tex = (0 - x) * step_x_tex;
-		x = 0;
-	}
+	// {
+		// x = 0;
+	// }
 	if (y < 0)
 	{
 		y_tex = (0 - y) * step_y_tex;
@@ -249,19 +245,11 @@ int		final_char_to_screen(t_env *w, t_texture texture, int x, int y, int width, 
 	return (1);
 }
 
-int		get_tmpix_scaled(t_env *w, t_sprite sprite, int width, int height, int x, int y)
+int		get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y)
 {
 	double 	step_x_tex;
 	double 	step_y_tex;
-	// double	x_tex;
-	// double	y_tex;
-	// int		x = 0;
-	// int 	y = 0;
-	// int		tmpix;
-	// Uint32	*tmpix2;
 
-	w->i = 0;
-	// y_tex = 0;
 	if (width == 0 && height == 0)
 	{
 		width = sprite.w;
@@ -276,21 +264,5 @@ int		get_tmpix_scaled(t_env *w, t_sprite sprite, int width, int height, int x, i
 	}
 	step_x_tex = (double)sprite.w / (double)width;
 	step_y_tex = (double)sprite.h / (double)height;
-	// if ((tmpix2 = (Uint32*)malloc(sizeof(Uint32) * width * height + 1)) == NULL)
-	// 	return (NULL);
-	// while (y < height)
-	// {
-	// 	x = 0;
-	// 	x_tex = 0;
-	// 	while (x < width)
-	// 	{
-	// 		tmpix = (int)y_tex * sprite.w + (int)x_tex;
-	// 		tmpix2[y * width + x] = sprite.pix[tmpix];
-	// 		x_tex += step_x_tex;
-	// 		x++;
-	// 	}
-	// 	y_tex += step_y_tex;
-	// 	y++;
-	// }
 	return ((int)(step_x_tex * x) + ((int)(step_y_tex * y) * sprite.w));
 }

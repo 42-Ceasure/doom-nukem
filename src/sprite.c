@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/07/02 12:38:47 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/02 16:45:00 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void		draw_ennemy(t_env *w, t_map *m, int x, int ratio)
 	m->ennemy[x].movespeed = 1;
 	data = calcul_sprite_ennemy(w, m, x, ratio);
 	range = data.zoom;
-	tmpix = get_tmpix_scaled(w, m->sprite[m->ennemy[x].index], (m->sprite[m->ennemy[x].index].w * range * ratio), 0, (WIDTH / 2 - (int)data.x1), (HEIGHT / 2 - (int)data.y1a));
+	tmpix = get_tmpix_scaled(m->sprite[m->ennemy[x].index], (m->sprite[m->ennemy[x].index].w * range * ratio), 0, (WIDTH / 2 - (int)data.x1), (HEIGHT / 2 - (int)data.y1a));
 	if (m->player.firing == 1 && m->weap[PH].range * m->ennemy[x].range >= 200)
 	{
 		if ((data.x1 <= WIDTH / 2 && data.x1 >= WIDTH / 2 - m->sprite[m->ennemy[x].index].w * range * ratio)

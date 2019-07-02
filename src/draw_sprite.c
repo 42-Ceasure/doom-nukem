@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/02 11:49:39 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/02 20:15:37 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int     cross(double x1, double x2, double x3, double x4, double y1, double y2, 
     return (0);
 }
 
-/*void		is_visible(t_map *m, int x, int y, int i)
+void		is_visible(t_map *m, int x, int y, int i)
 {
 	int		h;
 	int		j;
@@ -77,13 +77,13 @@ int     cross(double x1, double x2, double x3, double x4, double y1, double y2, 
 					m->sector[j].dot[h + 1].x, m->sector[j].dot[h + 1].y) <= 0)
 					if (cross(m->player.coor.x, x, m->sector[j].dot[h].x, m->sector[j].dot[h + 1].x,
 						m->player.coor.y, y, m->sector[j].dot[h].y, m->sector[j].dot[h + 1].y) == 1)
-						m->sprite[i].vis = 0;
+						m->sprt[i].vis = 0;
 			}
 			h++;
 		}
 		j++;
 	}
-}*/
+}
 
 t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x, int ratio)
 {
@@ -107,10 +107,10 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x, int ratio)
 	/*if (ft_strcmp(m->sprite[x].type, "decor") == 0)
 		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprite[x].sector].ceiling
 			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;*/
-	if (ft_strcmp(m->sprite[m->sprt[x].index].type, "item") == 0
-		|| ft_strcmp(m->sprite[m->sprt[x].index].type, "auto") == 0)
-		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprt[x].sector].floor
-			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - (m->sprite[m->sprt[x].index].h * tmp.zoom * ratio);
+	if (ft_strcmp(m->sprite[m->sprt[x].index].type, "item") == 0)
+		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprt[x].sector].floor - m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - (m->sprite[m->sprt[x].index].h * tmp.zoom * ratio);		
+	else if (ft_strcmp(m->sprite[m->sprt[x].index].type, "auto") == 0)
+		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprt[x].sector].floor - m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - (100 * tmp.zoom * ratio);
 	return (tmp);
 }
 
@@ -121,7 +121,7 @@ void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 
 	data = calcul_sprite(w, m, x, ratio);
 	range = data.zoom;
-	//is_visible(m, m->sprite[x].sx, m->sprite[x].sy, x);
+	// is_visible(m, m->sprt[x].sx, m->sprt[x].sy, x);
 	/*if (m->sector[m->ennemy.sector].floor > m->player.coor.z) //verifie si la hauteur du sprite est plus haute que le joueur
 		m->sprite[x].vis = 0;*/
 	//remplacer le .floor par un int z une fois que la map sera parse
@@ -181,40 +181,90 @@ void	swipe_sprite(t_env *w, t_map *m, int x)
 void	count_sprite(t_env *w, t_map *m)
 {
 	int x;
+	int diffx, diffy;
 
 	x = 0;
 	while (x < m->sprite_map_count)
 	{
-		draw_sprite(w, m, x, 1);
-		if (m->sprt[x].range >= 2 && ft_strcmp(m->sprite[m->sprt[x].index].type, "auto") == 0
-			&& m->sprt[x].vis == 1 && m->player.hp < 100)
+		if (m->sprt[x].vis == 1 && m->sprt[x].taken != 1)
+		{
+			draw_sprite(w, m, x, 1);
+		}
+		diffx = fabs(m->player.coor.x - m->sprt[x].sx);
+		diffy = fabs(m->player.coor.y - m->sprt[x].sy);
+		m->sprt[x].range = 1 / (sqrt((diffx * diffx) + (diffy * diffy)) / 10);
+		// m->sprt[x].range = 1 / m->sprt[x].range;
+		// printf("dasdsadasdas range = %f\n", m->sprt[3].range);
+		if (m->sprt[x].range >= 1 && ft_strcmp(m->sprite[m->sprt[x].index].type, "auto") == 0
+			&& m->sprt[x].taken != 1 && m->player.hp < 100)
 		{
 			m->player.hp += 30;
-			m->sprt[x].vis = 0;
+			m->sprt[x].taken = 1;
 		}
 		x++;
 	}
 	x = 0;
 	while (x < m->ennemy_count)
 	{
-		if (m->ennemy[x].dead == 0)
-			swipe_sprite(w, m, x);
-		else
+		if (m->ennemy[x].vis == 1)
 		{
-			if (w->dtime.dead == 0)
-				m->ennemy[x].count++;
-			if (m->ennemy[x].count % 3 == 0 && m->ennemy[x].is_dead == 0)
-				m->ennemy[x].index = 10;
-			else if (m->ennemy[x].count % 3 == 1 && m->ennemy[x].is_dead == 0)
-				m->ennemy[x].index = 11;
+			if (m->ennemy[x].dead == 0)
+				swipe_sprite(w, m, x);
 			else
 			{
-				m->ennemy[x].index = 12;
-				m->ennemy[x].is_dead = 1;
+				if (w->dtime.dead == 0)
+					m->ennemy[x].count++;
+				if (m->ennemy[x].count % 3 == 0 && m->ennemy[x].is_dead == 0)
+					m->ennemy[x].index = 10;
+				else if (m->ennemy[x].count % 3 == 1 && m->ennemy[x].is_dead == 0)
+					m->ennemy[x].index = 11;
+				else
+				{
+					m->ennemy[x].index = 12;
+					m->ennemy[x].is_dead = 1;
+				}
+				draw_ennemy(w, m, x, 5);
 			}
-			draw_ennemy(w, m, x, 5);
 		}
 		x++;
 	}
 	m->player.firing = 0;
+}
+
+void	test_sprite(t_map *m, double xx, double yy)
+{
+	int x;
+
+	x = 0;
+	while (x < m->sprite_map_count)
+	{
+		if (m->sprt[x].sx == (int)xx && m->sprt[x].sy == (int)yy)
+			m->sprt[x].vis = 1;
+		x++;
+	}
+	x = 0;
+	while (x < m->ennemy_count)
+	{
+		if ((int)m->ennemy[x].coor.x == (int)xx && (int)m->ennemy[x].coor.y == (int)yy)
+			m->ennemy[x].vis = 1;
+		x++;
+	}
+}
+
+void	clear_sprite(t_map *m)
+{
+	int x;
+
+	x = 0;
+	while (x < m->sprite_map_count)
+	{
+		m->sprt[x].vis = 0;
+		x++;
+	}
+	x = 0;
+	while (x < m->ennemy_count)
+	{
+		m->ennemy[x].vis = 0;
+		x++;
+	}
 }

@@ -161,7 +161,7 @@ void		ramassage(t_map *m)
 		if (m->sprt[i].range >= 1 && ft_strcmp(m->sprite[m->sprt[i].index].type, "item") == 0)
 		{
 			m->player.take[m->sprt[i].index] = 1;
-			m->sprt[i].vis = 0;
+			m->sprt[i].taken = 1;
 		}
 		i++;
 	}

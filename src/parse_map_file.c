@@ -44,6 +44,7 @@ int		parse_sprite_map(t_map *m, char **tab)
 		m->sprt[nb].sx = ft_atof(tmp[3]);
 		m->sprt[nb].sy = ft_atof(tmp[4]);
 		m->sprt[nb].vis = 1;
+		m->sprt[nb].taken = 0;
 		m->sprt[nb].range = 0.5;
 	}
 	return (0);

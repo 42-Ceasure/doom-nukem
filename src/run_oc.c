@@ -144,7 +144,6 @@ void	run(t_env *w, t_map *m)
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_ShowCursor(SDL_DISABLE);
 	m->stop = 0;
-	init_visible(m);
 	while (1)
 	{
 		while (SDL_PollEvent(&w->event))
