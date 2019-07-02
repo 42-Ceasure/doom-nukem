@@ -195,9 +195,7 @@ void	run(t_env *w, t_map *m)
 		{
 			is_fall(m, i);
 			if (m->ennemy[i].range < 1 && m->ennemy[i].dead == 0)
-			{
 				is_moving_enne(m, i);
-			}
 			i++;
 		}
 		get_that_time(w);

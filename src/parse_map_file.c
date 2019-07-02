@@ -63,7 +63,7 @@ int		parse_ennemy_map(t_map *m, char **tab)
 		m->ennemy[nb].sector = ft_atoi(tmp[2]);
 		m->ennemy[nb].coor.x = ft_atof(tmp[3]);
 		m->ennemy[nb].coor.y = ft_atof(tmp[4]);
-		m->ennemy[nb].coor.z = m->sector[m->ennemy[nb].sector].floor;
+		m->ennemy[nb].coor.z = m->sector[m->ennemy[nb].sector].floor + STAND;
 		m->ennemy[nb].range = 0.5;
 		m->ennemy[nb].dead = 0;
 		m->ennemy[nb].is_dead = 0;
