@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/02 20:00:15 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/03 14:04:00 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ typedef struct		s_player
 	char			*fps;
 	char			*stractu_ammo;
 	int				intactu_ammo;
+	int				bullet[2];
+	char			*strbullet;
 	int				handed;
 	int				aiming;
 	int				shooting;
@@ -345,7 +347,7 @@ typedef struct		s_weapon
 	int				firerate;
 	int				accuracy;
 	double			dispertion;
-	int				ammo;
+	int				ammo_type;
 	int				actu_ammo;
 	int				magazine;
 	int				reloadtime;
@@ -652,7 +654,6 @@ int					get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y);
 void				vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
 void				ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
 void				skybox(int x, int *box, t_env *w, t_draw *d, t_texture text);
-void    			init_visible(t_map *m);
 
 
 

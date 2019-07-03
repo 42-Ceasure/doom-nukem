@@ -20,7 +20,6 @@ void	check_invisible(t_draw *d, t_reader read, t_map *m)
 	d->tt2.z = d->t2.z;
 	if (d->t1.z <= 0 || d->t2.z <= 0)
 	{
-		// m->visible[read.now.sectorno].wall[d->point] = 1;
 		init_verification(d);
 		if (d->t1.z < d->nearz)
 		{

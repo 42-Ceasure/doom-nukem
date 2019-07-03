@@ -75,6 +75,17 @@ void		empty_map(t_map *m)
 				free(m->sprite[i].pix);
 				i++;
 			}
+			free(m->sprite);
+		}
+		i = 0;
+		if (m->sprt != NULL)
+		{
+			while (i < m->sprite_map_count)
+			{
+				free(m->sprt[i].name);
+				i++;
+			}
+			free(m->sprt);
 		}
 		i = 0;
 		if (m->weap != NULL)

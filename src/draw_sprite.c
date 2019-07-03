@@ -3,87 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/02 20:15:37 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/03 17:08:44 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
-
-int     cross(double x1, double x2, double x3, double x4, double y1, double y2, double y3, double y4)
-{
-    double      a1;
-    double      b1;
-    double      a2;
-    double      b2;
-    double      res;
-
-	res = 0.0;
-    if (x1 != x2 && x4 != x3)
-    {
-        a1 = (y2 - y1) / (x2 - x1);
-        a2 = (y4 - y3) / (x4 - x3);
-        if (a1 == a2)
-            return (0);
-        b1 = y1 - (a1 * x1);
-        b2 = y3 - (a2 * x3);
-        res = (b2 - b1) / (a1 - a2);
-        if (((res >= x1 && res <= x2) || (res >= x2 && res <= x1))
-			&& ((res > x3 && res < x4) || (res > x4 && res < x3)))
-            return (1);
-    }
-    else
-    {
-        if (x1 == x2 && x3 == x4)
-            return (0);
-        else if (x1 == x2)
-        {
-            a2 = (y4 - y3) / (x4 - x3);
-            b2 = y3 - (a2 * x3);
-            res = a2 * x1 + b2;
-        }
-        else if (x3 == x4)
-        {
-            a1 = (y2 - y1) / (x2 - x1);
-            b1 = y1 - (a1 * x1);
-            res = a1 * x3 + b1;
-        }
-        if (((res >= y1 && res <= y2) || (res >= y2 && res <= y1))
-			&& ((res > y3 && res < y4) || (res > y4 && res < x3)))
-                return (1);
-    }
-    return (0);
-}
-
-void		is_visible(t_map *m, int x, int y, int i)
-{
-	int		h;
-	int		j;
-	t_coor	p;
-
-	p.x = x;
-	p.y = y;
-	j = 0;
-	while (j < m->sector_count)
-	{
-		h = 0;
-		while (h < m->sector[j].wall_count)
-		{
-			if (m->visible[j].wall[h] == 1 && m->sector[j].network[h] < 0)
-			{
-				if (pointside(p, m->sector[j].dot[h].x , m->sector[j].dot[h].y,
-					m->sector[j].dot[h + 1].x, m->sector[j].dot[h + 1].y) <= 0)
-					if (cross(m->player.coor.x, x, m->sector[j].dot[h].x, m->sector[j].dot[h + 1].x,
-						m->player.coor.y, y, m->sector[j].dot[h].y, m->sector[j].dot[h + 1].y) == 1)
-						m->sprt[i].vis = 0;
-			}
-			h++;
-		}
-		j++;
-	}
-}
 
 t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x, int ratio)
 {
@@ -121,10 +48,6 @@ void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 
 	data = calcul_sprite(w, m, x, ratio);
 	range = data.zoom;
-	// is_visible(m, m->sprt[x].sx, m->sprt[x].sy, x);
-	/*if (m->sector[m->ennemy.sector].floor > m->player.coor.z) //verifie si la hauteur du sprite est plus haute que le joueur
-		m->sprite[x].vis = 0;*/
-	//remplacer le .floor par un int z une fois que la map sera parse
 	if (data.t1z > 0 && m->sprt[x].vis == 1)
 	{
 		if (ft_strcmp(m->sprite[m->sprt[x].index].type, "auto") == 0)
@@ -141,22 +64,22 @@ void	swipe_sprite(t_env *w, t_map *m, int x)
 	if (m->ennemy[x].range < 1)
 	{
 		if (m->ennemy[x].cpt % 3 == 0)
-			m->ennemy[x].index = 5;
-		if (m->ennemy[x].cpt % 3 == 1)
 			m->ennemy[x].index = 6;
-		if (m->ennemy[x].cpt % 3 == 2)
+		if (m->ennemy[x].cpt % 3 == 1)
 			m->ennemy[x].index = 7;
+		if (m->ennemy[x].cpt % 3 == 2)
+			m->ennemy[x].index = 8;
 	}
 	else
 	{
 		if (m->ennemy[x].cpt % 2 == 0)
 		{
-			m->ennemy[x].index = 8;
+			m->ennemy[x].index = 9;
 			m->ennemy[x].die = 1;
 		}
 		else
 		{
-			m->ennemy[x].index = 9;
+			m->ennemy[x].index = 10;
 			if (m->ennemy[x].die == 1)
 			{
 				m->player.hp -= 10;
@@ -166,7 +89,7 @@ void	swipe_sprite(t_env *w, t_map *m, int x)
 	}
 	if (m->ennemy[x].touche == 1)
 	{
-		m->ennemy[x].index = 10;
+		m->ennemy[x].index = 11;
 		if (w->dtime.dead == 0)
 			m->ennemy[x].count++;
 		if (m->ennemy[x].count % 3 == 2)
@@ -181,25 +104,30 @@ void	swipe_sprite(t_env *w, t_map *m, int x)
 void	count_sprite(t_env *w, t_map *m)
 {
 	int x;
-	int diffx, diffy;
 
 	x = 0;
 	while (x < m->sprite_map_count)
 	{
-		if (m->sprt[x].vis == 1 && m->sprt[x].taken != 1)
-		{
+		if (m->sprt[x].taken != 1)
 			draw_sprite(w, m, x, 1);
-		}
-		diffx = fabs(m->player.coor.x - m->sprt[x].sx);
-		diffy = fabs(m->player.coor.y - m->sprt[x].sy);
-		m->sprt[x].range = 1 / (sqrt((diffx * diffx) + (diffy * diffy)) / 10);
-		// m->sprt[x].range = 1 / m->sprt[x].range;
-		// printf("dasdsadasdas range = %f\n", m->sprt[3].range);
-		if (m->sprt[x].range >= 1 && ft_strcmp(m->sprite[m->sprt[x].index].type, "auto") == 0
-			&& m->sprt[x].taken != 1 && m->player.hp < 100)
+		if (m->sprt[x].range >= 2 && ft_strcmp(m->sprite[m->sprt[x].index].type, "auto") == 0
+			&& m->sprt[x].taken != 1)
 		{
-			m->player.hp += 30;
-			m->sprt[x].taken = 1;
+			if (ft_strcmp(m->sprt[x].name, "\thealth") == 0 && m->player.hp < 100)
+			{
+				m->player.hp += 30;
+				m->sprt[x].taken = 1;
+			}
+			else if (ft_strcmp(m->sprt[x].name, "\tcartouche") == 0)
+			{
+				m->player.bullet[1] += 6;
+				m->sprt[x].taken = 1;
+			}
+			else if (ft_strcmp(m->sprt[x].name, "\tammo") == 0)
+			{
+				m->player.bullet[0] += 30;
+				m->sprt[x].taken = 1;
+			}
 		}
 		x++;
 	}
@@ -215,12 +143,12 @@ void	count_sprite(t_env *w, t_map *m)
 				if (w->dtime.dead == 0)
 					m->ennemy[x].count++;
 				if (m->ennemy[x].count % 3 == 0 && m->ennemy[x].is_dead == 0)
-					m->ennemy[x].index = 10;
-				else if (m->ennemy[x].count % 3 == 1 && m->ennemy[x].is_dead == 0)
 					m->ennemy[x].index = 11;
+				else if (m->ennemy[x].count % 3 == 1 && m->ennemy[x].is_dead == 0)
+					m->ennemy[x].index = 12;
 				else
 				{
-					m->ennemy[x].index = 12;
+					m->ennemy[x].index = 13;
 					m->ennemy[x].is_dead = 1;
 				}
 				draw_ennemy(w, m, x, 5);

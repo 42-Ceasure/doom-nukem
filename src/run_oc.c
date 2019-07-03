@@ -43,19 +43,25 @@ void	ft_hud(t_env *w, t_map *m)
 	ft_light_itoa(m->player.hp, m->player.strhp);
 	type_str(w, w->txtnxtto, m->player.strhp, 0x12FF0000);
 	dot.y = HEIGHT - 30;
-	type_str(w, dot, "AMMO : ", 0x12000000);
+	type_str(w, dot, "AMMO :   ,", 0x12000000);
+	if (PH == 1)
+		ft_light_itoa(m->player.bullet[1], m->player.strbullet);
+	else
+		ft_light_itoa(m->player.bullet[0], m->player.strbullet);
+	type_str(w, w->txtnxtto, m->player.strbullet, 0x12000000);
 	if (m->player.intactu_ammo != m->weap[PH].actu_ammo && m->player.take[PH] == 1)
 	{
 		m->player.intactu_ammo = m->weap[PH].actu_ammo;
 		ft_light_itoa(m->weap[PH].actu_ammo, m->player.stractu_ammo);
 	}
+	dot.x = 115;
+	type_str(w, dot, m->player.stractu_ammo, 0x12000000);
 	if (m->player.take[0] == 1)
 		final_sprite_to_screen(w, m->sprite[0], 319, HEIGHT - 58, 64, 48);
 	if (m->player.take[1] == 1)
 		final_sprite_to_screen(w, m->sprite[1], 399, HEIGHT - 60, 64, 48);
 	if (m->player.take[2] == 1)
 		final_sprite_to_screen(w, m->sprite[2], 480, HEIGHT - 54, 64, 0);
-	type_str(w, w->txtnxtto, m->player.stractu_ammo, 0x12000000);
 	dot.x = WIDTH - 130;
 	dot.y = 10;
 	type_str(w, dot, "FPS : ", 0x12000000);
@@ -107,32 +113,6 @@ void	sequential_frame(t_env *w, t_map *m)
 	type_str(w, w->txthead, "back to normal in 1 seconds...", 0xFFFF0000);
 	img_update(w);
 	SDL_Delay(1000);
-}
-
-void    init_visible(t_map *m)
-{
-    int         i;
-    int         d;
- 
-    i = 0;
-    d = 0;
-    m->visible = malloc(sizeof(t_visible) * m->sector_count);
-    while (i < m->sector_count)
-    {
-        m->visible[i].wall = malloc(sizeof(int) * m->sector[i].wall_count);
-        i++;
-    }
-    i = 0;
-    while (i < m->sector_count)
-    {
-        while (d < m->sector[i].wall_count)
-        {
-            m->visible[i].wall[d] = 0;
-            d++;
-        }
-        d = 0;
-        i++;
-    }
 }
 
 void	run(t_env *w, t_map *m)
@@ -193,8 +173,8 @@ void	run(t_env *w, t_map *m)
 		while (i < m->ennemy_count)
 		{
 			is_fall(m, i);
-			if (m->ennemy[i].range < 1 && m->ennemy[i].dead == 0)
-				is_moving_enne(m, i);
+			//if (m->ennemy[i].range < 1 && m->ennemy[i].dead == 0)
+			is_moving_enne(m, i);
 			i++;
 		}
 		get_that_time(w);
