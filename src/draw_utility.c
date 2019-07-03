@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:04:35 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/03 22:58:25 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/03 23:36:19 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,10 +194,8 @@ void	ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text)
 			txtx = (mapx * text.w / 6);
 			txtz = (mapz * text.w / 6);
 			tmpix = (Uint32)(txtz % text.h) * text.w + ((Uint32)txtx % text.w);
-			if (tmpix > 0)
+			if (tmpix > 0 && text.pix[tmpix] != 0xFF00FF00)
 				w->pix[y * WIDTH + x] = text.pix[tmpix];
-			else
-				w->pix[y * WIDTH + x] = 0;
 			y++;
 		}
 	}
