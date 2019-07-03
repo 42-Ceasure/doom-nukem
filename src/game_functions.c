@@ -161,7 +161,7 @@ void		ramassage(t_map *m)
 		if (m->sprt[i].range >= 1 && ft_strcmp(m->sprite[m->sprt[i].index].type, "item") == 0)
 		{
 			m->player.take[m->sprt[i].index] = 1;
-			m->sprt[i].vis = 0;
+			m->sprt[i].taken = 1;
 		}
 		i++;
 	}
@@ -273,8 +273,24 @@ void		reload_weapon(t_env *w, t_map *m)
 {
 	if (Mix_Playing(3) == 0 && m->weap[PH].actu_ammo != m->weap[PH].magazine)
 	{
-		Mix_PlayChannel(1, w->sound.reload, 0);
-		m->weap[PH].actu_ammo = m->weap[PH].magazine;
+		if (PH == 1 && m->player.bullet[1] > 0)
+		{
+			while (m->weap[PH].actu_ammo < m->weap[PH].magazine && m->player.bullet[1] > 0)
+			{
+				m->player.bullet[1]--;
+				m->weap[PH].actu_ammo++;
+			}
+			Mix_PlayChannel(1, w->sound.reload, 0);
+		}
+		else if (m->player.bullet[0] > 0)
+		{
+			while (m->weap[PH].actu_ammo < m->weap[PH].magazine && m->player.bullet[0] > 0)
+			{
+				m->player.bullet[0]--;
+				m->weap[PH].actu_ammo++;
+			}
+			Mix_PlayChannel(1, w->sound.reload, 0);
+		}
 	}
 }
 

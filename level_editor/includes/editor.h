@@ -39,6 +39,7 @@ typedef struct		s_lstlst
 {
 	int				sector;
 	int				closed;
+	int				sector_nb;
 	struct s_lst	*head;
 	struct s_lstlst	*next;
 }					t_lstlst;
@@ -98,7 +99,9 @@ void		recursive_check(t_win *win);
 void		free_triangles(t_win *win);
 int			int_len(int nb);
 void		sort_int_tab(int *tab, int size);
+int		which_sector_neighbour(t_win *win, int x1, int y1, int x2, int y2, int sector);
 
 void		test(t_win *win);
+//void		check2(t_win *win);
 
 #endif

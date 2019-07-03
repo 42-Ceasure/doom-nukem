@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:04:35 by nvienot           #+#    #+#             */
-/*   Updated: 2019/06/26 19:39:51 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/02 19:38:42 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,8 @@ void	ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text)
             rtz = mapz * d->psin - mapx * d->pcos;
             mapx = rtx + w->m->player.coor.x;
 			mapz = rtz + w->m->player.coor.y;
+			// attention appele 1 milliard de fois
+			test_sprite(w->m, mapx, mapz);
 			txtx = (mapx * text.w / 6);
 			txtz = (mapz * text.w / 6);
 			tmpix = (Uint32)(txtz % text.h) * text.w + ((Uint32)txtx % text.w);

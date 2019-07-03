@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/02 11:27:18 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/03 14:04:00 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ typedef struct		s_player
 	char			*fps;
 	char			*stractu_ammo;
 	int				intactu_ammo;
+	int				bullet[2];
+	char			*strbullet;
 	int				handed;
 	int				aiming;
 	int				shooting;
@@ -279,6 +281,7 @@ typedef	struct		s_ennemy
 	int				dead;
 	int				touche;
 	int				index;
+	int				vis;
 	double			range;
 	double			hole_low;
 	double			hole_high;
@@ -320,11 +323,12 @@ typedef struct		s_sprite
 typedef struct		s_map_sprite
 {
 	char			*name;
-	float			sx;
-	float			sy;
+	int				sx;
+	int				sy;
 	int				sector;
 	int				index;
 	int				vis;
+	int				taken;
 	double			range;
 }					t_map_sprite;
 
@@ -343,7 +347,7 @@ typedef struct		s_weapon
 	int				firerate;
 	int				accuracy;
 	double			dispertion;
-	int				ammo;
+	int				ammo_type;
 	int				actu_ammo;
 	int				magazine;
 	int				reloadtime;
@@ -639,9 +643,14 @@ int					final_char_to_screen(t_env *w, t_texture texture, int x, int y, int widt
 void				get_that_time(t_env *w);
 void				draw_sprite(t_env *w, t_map *m, int x, int ratio);
 void				count_sprite(t_env *w, t_map *m);
+// void				count_sprite(t_env *w, t_map *m, double x, double y);
+
+void				test_sprite(t_map *m, double xx, double yy);
+void				clear_sprite(t_map *m);
+
 void				draw_ennemy(t_env *w, t_map *m, int x, int ratio);
 void				jet_pack(t_map *m);
-int					get_tmpix_scaled(t_env *w, t_sprite sprite, int width, int height, int x, int y);
+int					get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y);
 void				vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
 void				ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
 void				skybox(int x, int *box, t_env *w, t_draw *d, t_texture text);

@@ -53,8 +53,9 @@ static void	sdl_event_key(t_win *win)
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_L])
 	{
-		if (win->triangles)
-			win->drawtriangles = 1;
+		win->mode += 1;
+		//if (win->triangles)
+		//	win->drawtriangles = 1;
 	}
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_F5])

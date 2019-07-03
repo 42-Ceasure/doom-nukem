@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/07/02 12:38:47 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/03 14:52:43 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void		set_fire(t_env *w, t_map *m)
 					m->weap[PH].sprt[0].sy + m->weap[PH].recoil);
 		}
 	}
-	//m->player.firing = 0;
 }
 
 void		hand(t_env *w, t_map *m)
@@ -116,26 +115,33 @@ void		draw_ennemy(t_env *w, t_map *m, int x, int ratio)
 	double	diffz;
 	t_cal_sprt	data;
 	int			tmpix;
-	double		range;
 
-	diffx = m->player.coor.x - m->ennemy[x].coor.x;
-	diffy = m->player.coor.y - m->ennemy[x].coor.y;
-	diffz = m->player.coor.z - m->ennemy[x].coor.z;
+	if (m->ennemy[x].range < 1 && m->ennemy[x].dead == 0)
+	{
+		diffx = m->player.coor.x - m->ennemy[x].coor.x;
+		diffy = m->player.coor.y - m->ennemy[x].coor.y;
+		diffz = m->player.coor.z - m->ennemy[x].coor.z;
+	}
+	else
+	{
+		diffx = 0;
+		diffy = 0;
+		diffz = 0;
+	}
 	m->ennemy[x].move_speed.x = diffx * 0.005;
 	m->ennemy[x].move_speed.y = diffy * 0.005;
 	if (m->ennemy[x].dead != 1)
 		m->ennemy[x].move_speed.z = diffz * 0.005;
 	m->ennemy[x].movespeed = 1;
 	data = calcul_sprite_ennemy(w, m, x, ratio);
-	range = data.zoom;
-	tmpix = get_tmpix_scaled(w, m->sprite[m->ennemy[x].index], (m->sprite[m->ennemy[x].index].w * range * ratio), 0, (WIDTH / 2 - (int)data.x1), (HEIGHT / 2 - (int)data.y1a));
+	tmpix = get_tmpix_scaled(m->sprite[m->ennemy[x].index], (m->sprite[m->ennemy[x].index].w * data.zoom * ratio), 0, (WIDTH / 2 - (int)data.x1), (HEIGHT / 2 - (int)data.y1a));
 	if (m->player.firing == 1 && m->weap[PH].range * m->ennemy[x].range >= 200)
 	{
-		if ((data.x1 <= WIDTH / 2 && data.x1 >= WIDTH / 2 - m->sprite[m->ennemy[x].index].w * range * ratio)
-			&& (data.y1a <= HEIGHT / 2 && data.y1a >= HEIGHT / 2 - m->sprite[m->ennemy[x].index].h * range * ratio)
+		if ((data.x1 <= WIDTH / 2 && data.x1 >= WIDTH / 2 - m->sprite[m->ennemy[x].index].w * data.zoom * ratio)
+			&& (data.y1a <= HEIGHT / 2 && data.y1a >= HEIGHT / 2 - m->sprite[m->ennemy[x].index].h * data.zoom * ratio)
 				&& m->sprite[m->ennemy[x].index].pix[tmpix] != 0xFF00FF00 && m->ennemy[x].is_dead != 1)
 		{
-			if (m->weap[PH].ammo == 1)
+			if (m->weap[PH].ammo_type == 1)
 				m->ennemy[x].dead = 1;
 			else
 			{
@@ -148,5 +154,5 @@ void		draw_ennemy(t_env *w, t_map *m, int x, int ratio)
 		}
 	}
 	if (data.t1z > 0)
-		final_sprite_to_screen(w, m->sprite[m->ennemy[x].index], data.x1, data.y1a, m->sprite[m->ennemy[x].index].w * range * ratio, 0);
+		final_sprite_to_screen(w, m->sprite[m->ennemy[x].index], data.x1, data.y1a, m->sprite[m->ennemy[x].index].w * data.zoom * ratio, 0);
 }

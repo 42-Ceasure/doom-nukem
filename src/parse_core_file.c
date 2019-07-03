@@ -62,7 +62,7 @@ void			parse_weapon_line(t_map *m, char *line)
 		if (tmp[3])
 			m->weap[m->w].dispertion = ft_atof(tmp[3]);
 		if (tmp[4])
-			m->weap[m->w].ammo = ft_atoi(tmp[4]);
+			m->weap[m->w].ammo_type = ft_atoi(tmp[4]);
 		if (tmp[5])
 		{
 			m->weap[m->w].magazine = ft_atoi(tmp[5]);

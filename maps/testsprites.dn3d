@@ -1,0 +1,35 @@
+dots:10,sector:4,sprite:8,ennemy:11
+Section:map
+	dots:0:0,40
+	dots:20:0,20,40
+	dots:60:0,20,40
+	dots:100:0,40
+	sector:0,50:0,1,4,3,2:x,x,2,x,x:3,5,3,2,2,0
+	sector:0,50:2,3,6,5:x,x,x,x:3,5,3,2,2,0
+	sector:0,50:3,4,7,6:0,x,3,x:3,5,3,2,2,0
+	sector:0,50:5,6,7,9,8:x,2,x,x,x:3,5,3,2,2,0
+Section:player
+	player_location:5,5
+	player_direction:90
+	player_sector:0
+Section:sprite
+	health:0,3,0,5,10
+	health:1,3,0,30,10
+	cartouche:2,4,2,30,30
+	cartouche:3,4,3,35,75
+	M4A1:4,0,3,10,80
+	M4A1:5,0,0,20,10
+	M9:6,2,2,30,50
+	pompe:7,1,0,7,4
+Section:ennemy
+	monstre:0,5,0,10,10
+	monstre:1,5,0,11,10
+	monstre:2,5,0,12,20
+	monstre:3,5,0,13,10
+	monstre:4,5,0,10,14
+	monstre:5,5,0,10,15
+	monstre:6,5,0,10,16
+	monstre:7,5,0,10,17
+	monstre:8,5,0,18,10
+	monstre:9,5,0,10,20
+	monstre:10,5,0,10,30
