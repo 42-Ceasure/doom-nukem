@@ -4,10 +4,10 @@ Section:map
 	dots:20:0,20,40
 	dots:60:0,20,40
 	dots:100:0,40
-	sector:0,50:0,1,4,3,2:x,x,2,x,x:3,5,3,2,2,0
-	sector:0,50:2,3,6,5:x,x,x,x:3,5,3,2,2,0
-	sector:0,50:3,4,7,6:0,x,3,x:3,5,3,2,2,0
-	sector:0,50:5,6,7,9,8:x,2,x,x,x:3,5,3,2,2,0
+	sector:0,50:0,1,4,3,2:x,x,2,x,x:3,5,8,2,2,7
+	sector:0,50:2,3,6,5:x,x,x,x:3,5,3,2,2,7
+	sector:0,50:3,4,7,6:0,x,3,x:3,5,3,2,2,7
+	sector:0,50:5,6,7,9,8:x,2,x,x,x:3,5,3,2,2,7
 Section:player
 	player_location:5,5
 	player_direction:90

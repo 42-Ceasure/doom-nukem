@@ -1,16 +1,12 @@
-<<<<<<< HEAD
-dots:10,sector:4,sprite:8,ennemy:4
-=======
-dots:8,sector:3,sprite:9,ennemy:4
->>>>>>> e3828583e4dcfe19aa819d66f179107f0b4d60d7
+dots:10,sector:4,sprite:9,ennemy:4
 Section:map
 	dots:0:40,80
 	dots:20:0,40,80
 	dots:60:0,40,80
 	dots:100:40,80
-	sector:0,50:2,3,6,5:x,1,x,x:3,5,3,2,2,0
-	sector:0,50:3,4,7,6:2,x,3,0:6,5,3,2,2,0
-	sector:0,50:0,1,4,3:x,x,1,x:3,5,3,2,2,0
+	sector:0,50:2,3,6,5:x,1,x,x:3,5,3,2,2,7
+	sector:0,50:3,4,7,6:2,x,3,0:6,5,3,2,2,7
+	sector:0,50:0,1,4,3:x,x,1,x:3,5,3,2,2,7
 	sector:0,70:6,7,9,8:1,x,x,x:2,5,2,2,2,7
 Section:player
 	player_location:5,5

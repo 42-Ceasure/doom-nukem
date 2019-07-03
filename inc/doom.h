@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/03 14:04:00 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/03 22:58:43 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -654,7 +654,7 @@ int					get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y);
 void				vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
 void				ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
 void				skybox(int x, int *box, t_env *w, t_draw *d, t_texture text);
-
+void				skybox2(t_env *w, t_texture text);
 
 
 #endif

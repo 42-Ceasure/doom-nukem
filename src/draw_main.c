@@ -60,10 +60,11 @@ void	draw_wall(t_draw *d, t_env *w, int x)
 		calculate(d, x);
 		box[0] = d->ytop[x];
 		box[1] = d->cya - 1;
-		if (w->textured == 2 && w->m->sector[d->nosector].texturing[5] == 0)
+		if (w->textured == 1 && w->m->sector[d->nosector].texturing[5] == 0)
 			ceiling_line_textured(x, box, w, d, w->texturing[w->m->sector[d->nosector].texturing[1]]);
-		else if (w->textured == 2 && w->m->sector[d->nosector].texturing[5] != 0)
-			skybox(x, box, w, d, w->texturing[w->m->sector[d->nosector].texturing[5]]);
+		else if (w->textured == 1 && w->m->sector[d->nosector].texturing[5] != 0)
+			box[1] = d->cya - 1;
+			// skybox(x, box, w, d, w->texturing[w->m->sector[d->nosector].texturing[5]]);
 		else
 			ceiling_line(x, box, w, 0x12677179);
 		box[0] = d->cyb + 1;

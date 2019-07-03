@@ -6,11 +6,43 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:04:35 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/02 19:38:42 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/03 22:58:25 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+
+void	skybox2(t_env *w, t_texture text)
+{
+	int		y1;
+	int		y2;
+	int		x = 0;
+	double	width;
+	double	height;
+
+	int 		tmpix;
+
+	y2 = HEIGHT;
+	while (x < WIDTH)
+	{
+		y1 = 0;
+		while (y1 <= y2)
+		{
+			width = (x * (text.w / 4)) / WIDTH + ((w->m->player.angle * (180 / PI)) * text.w) / 360;
+			height = (((y1 + w->m->yaw / 0.004 + text.h) * text.h) / HEIGHT / 2);
+			// Better? : 
+			// width = x + (w->m->player.angle * (180 / PI)/ 2 * text.w) / 360;
+			// height = (((y + text.h) + w->m->yaw / 0.004) * text.h) / HEIGHT / 2;
+			tmpix = (int)((int)height % text.h) * text.w + ((int)width % text.w);
+			if (tmpix > 0 && tmpix < text.h * text.w)
+				w->pix[y1 * WIDTH + x] = text.pix[tmpix];
+			else
+				w->pix[y1 * WIDTH + x] = 0;
+			y1++;
+		}
+		x++;
+	}
+}
 
 void	skybox(int x, int *box, t_env *w, t_draw *d, t_texture text)
 {
@@ -222,7 +254,7 @@ void	vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text
 					y_tex = 0;
 				if (x_tex < 0)
 					x_tex = 0;
-				if (text.h >= 0 && text.w >= 0)
+				if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
 					w->pix[y * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
 				y_tex_pos++;
 				y++;
@@ -237,7 +269,7 @@ void	vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text
 					y_tex = 0;
 				if (x_tex < 0)
 					x_tex = 0;
-				if (text.h >= 0 && text.w >= 0)
+				if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
 					w->pix[y * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
 				y_tex_pos++;
 				y++;

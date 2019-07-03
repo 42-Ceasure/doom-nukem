@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:47:14 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/01 14:47:31 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/03 19:52:36 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -753,11 +753,11 @@ void		write_sectors_neighbours(t_win *win, FILE *fp, t_lstlst *tmp2)
 			tmp = tmp->next;
 		while (tmp0->nb != tab_sector[i + 1])
 			tmp0 = tmp0->next;
-		printf("%d tmp->nb \n", tmp->nb);
-		printf("%d tab sector \n", tab_sector[i]);
+		// printf("%d tmp->nb \n", tmp->nb);
+		// printf("%d tab sector \n", tab_sector[i]);
 
-		printf("%d tmp0->nb \n", tmp0->nb);
-		printf("%d tab sector i+1 \n", tab_sector[i+1]);
+		// printf("%d tmp0->nb \n", tmp0->nb);
+		// printf("%d tab sector i+1 \n", tab_sector[i+1]);
 
 		ret = which_sector_neighbour(win, tmp->x, tmp->y, tmp0->x, tmp0->y, tmp2->sector);
 		if (ret == -1)
