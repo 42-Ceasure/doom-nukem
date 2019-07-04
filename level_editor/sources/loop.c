@@ -165,6 +165,10 @@ void		draw_assets(t_win *win)
 			color = 0xFF0000;
 		if (tmp->asset_type == 4)
 			color = 0xFFFF00;
+		if (tmp->asset_type == 5)
+			color = 0xD3D3D3;
+		if (tmp->asset_type == 6)
+			color = 0xFF69B4;
 		draw_asset_points(win, tmp->x, tmp->y, color);
 		tmp = tmp->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   triangulate.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:24:13 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/03 19:56:18 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/06/18 10:24:22 by abechet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,16 @@ int		point_in_triangle(t_dot p0, t_dot p1, t_dot p2, t_dot m)
 {
 	if (p2.y < p1.y)
 	{
-		//printf("anti\n");
-		if (pointside(m, p0.x, p0.y, p1.x, p1.y) < 0
-		 	&& pointside(m, p1.x, p1.y, p2.x, p2.y) < 0
-				&& pointside(m, p2.x, p2.y, p0.x, p0.y) < 0)
+		if (pointside(m, p0.x, p0.y, p1.x, p1.y) <= 0
+		 	&& pointside(m, p1.x, p1.y, p2.x, p2.y) <=0
+				&& pointside(m, p2.x, p2.y, p0.x, p0.y) <= 0)
 			return (1);
 	}
 	else
 	{
-		//printf("horraire\n");
-		if (pointside(m, p0.x, p0.y, p1.x, p1.y) > 0
-	 		&& pointside(m, p1.x, p1.y, p2.x, p2.y) > 0
-				&& pointside(m, p2.x, p2.y, p0.x, p0.y) > 0)
+		if (pointside(m, p0.x, p0.y, p1.x, p1.y) >= 0
+	 		&& pointside(m, p1.x, p1.y, p2.x, p2.y) >= 0
+				&& pointside(m, p2.x, p2.y, p0.x, p0.y) >= 0)
 			return (1);
 	}
 	return (0);
@@ -196,7 +194,7 @@ t_lst	*new_poly(t_lst *polygone, int start, int end)
 			p = p->next;
 		p->next = polylstnew(get_point_in_list(polygone, i));
 	}
-	
+
 	// free la liste quelque part
 
 	return (tmp);

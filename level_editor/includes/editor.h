@@ -99,7 +99,8 @@ void		recursive_check(t_win *win);
 void		free_triangles(t_win *win);
 int			int_len(int nb);
 void		sort_int_tab(int *tab, int size);
-int		which_sector_neighbour(t_win *win, int x1, int y1, int x2, int y2, int sector);
+int			which_sector_neighbour(t_win *win, int x1, int y1, int x2, int y2, int sector);
+t_dot		get_point_in_list(t_lst *polygone, int index);
 
 void		test(t_win *win);
 //void		check2(t_win *win);

@@ -15,7 +15,7 @@
 void		pick_asset(t_win *win)
 {
 	win->asset += 1;
-	if (win->asset > 4)
+	if (win->asset > 6)
 		win->asset = 0;
 	if (win->asset == 0)
 		win->asset_sprite = IMG_Load("resources/textures/feather.png");
@@ -26,7 +26,11 @@ void		pick_asset(t_win *win)
 	if (win->asset == 3)
 		win->asset_sprite = IMG_Load("resources/textures/ennemy.png");
 	if (win->asset == 4)
-		win->asset_sprite = IMG_Load("resources/textures/lamp.png");
+		win->asset_sprite = IMG_Load("resources/textures/m4_ammo.png");
+	if (win->asset == 5)
+		win->asset_sprite = IMG_Load("resources/textures/m9.png");
+	if (win->asset == 6)
+		win->asset_sprite = IMG_Load("resources/textures/health.png");
 }
 
 void		placing(t_win *win)
@@ -52,6 +56,16 @@ void		placing(t_win *win)
 		win->dst9.y = win->y2 - 35;
 	}
 	if (win->asset == 4)
+	{
+		win->dst9.x = win->x2 - 25;
+		win->dst9.y = win->y2 - 35;
+	}
+	if (win->asset == 5)
+	{
+		win->dst9.x = win->x2 - 25;
+		win->dst9.y = win->y2 - 35;
+	}
+	if (win->asset == 6)
 	{
 		win->dst9.x = win->x2 - 25;
 		win->dst9.y = win->y2 - 35;
@@ -109,7 +123,11 @@ void		asset_overing(t_win *win)
 			if (tmp->asset_type == 3)
 				win->asset_tmp = IMG_Load("resources/textures/ennemy.png");
 			if (tmp->asset_type == 4)
-				win->asset_tmp = IMG_Load("resources/textures/lamp.png");
+				win->asset_tmp = IMG_Load("resources/textures/m4_ammo.png");
+			if (tmp->asset_type == 5)
+				win->asset_tmp = IMG_Load("resources/textures/m9.png");
+			if (tmp->asset_type == 6)
+				win->asset_tmp = IMG_Load("resources/textures/health.png");
 
 			final_texture_to_screen(win->surface, win->asset_tmp, tmp->x - 25, tmp->y - 75, 64, 64);
 			//SDL_BlitSurface(win->asset_sprite, NULL, win->surface, &win->dst9);
@@ -118,17 +136,38 @@ void		asset_overing(t_win *win)
 	}
 }
 
+int			check_first_player_start(t_win *win)
+{
+	t_lstasset	*tmp;
+	int			ret;
 
-
+	ret = 0;
+	tmp = win->lstasset;
+	while (tmp)
+	{
+		if (tmp->asset_type == 0)
+			ret = -1;
+		tmp = tmp->next;
+	}
+	return (ret);
+}
 
 void		mode(t_win *win)
 {
+	int		ret;
+
+	ret = 0;
 	if (win->mode == 2)
 	{
 		placing(win);
 		final_texture_to_screen(win->surface, win->asset_sprite, win->dst9.x - 10, win->dst9.y - 75, 96, 96);
 		//SDL_BlitSurface(win->asset_sprite, NULL, win->surface, &win->dst9);
 		if (win->place == 1)
-			place_asset(win);
+		{
+			if (win->asset == 0)
+				ret = check_first_player_start(win);
+			if (ret == 0)
+				place_asset(win);
+		}
 	}
 }

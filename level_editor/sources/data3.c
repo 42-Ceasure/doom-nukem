@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:47:14 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/03 23:41:09 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/01 14:47:31 by abechet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -664,7 +664,7 @@ void		write_dots(t_win *win, FILE *fp)
 		str = "\tdots:";
 		fputs(str, fp);
 
-		str = ft_itoa(y);
+		str = ft_itoa(y / 5);
 		fputs(str, fp);
 
 		str = ":";
@@ -672,7 +672,7 @@ void		write_dots(t_win *win, FILE *fp)
 
 		x = x_min_on_line(win, y);
 		//printf("%d x min \n", x);
-		str = ft_itoa(x);
+		str = ft_itoa(x / 5);
 		fputs(str, fp);
 
 		while (index < i)
@@ -682,7 +682,7 @@ void		write_dots(t_win *win, FILE *fp)
 
 			x = next_x_on_line(win, y, x);
 			//printf("%d next x \n", x);
-			str = ft_itoa(x);
+			str = ft_itoa(x / 5);
 			fputs(str, fp);
 			index++;
 		}
@@ -753,12 +753,6 @@ void		write_sectors_neighbours(t_win *win, FILE *fp, t_lstlst *tmp2)
 			tmp = tmp->next;
 		while (tmp0->nb != tab_sector[i + 1])
 			tmp0 = tmp0->next;
-		// printf("%d tmp->nb \n", tmp->nb);
-		// printf("%d tab sector \n", tab_sector[i]);
-
-		// printf("%d tmp0->nb \n", tmp0->nb);
-		// printf("%d tab sector i+1 \n", tab_sector[i+1]);
-
 		ret = which_sector_neighbour(win, tmp->x, tmp->y, tmp0->x, tmp0->y, tmp2->sector);
 		if (ret == -1)
 		{
@@ -777,8 +771,23 @@ void		write_sectors_neighbours(t_win *win, FILE *fp, t_lstlst *tmp2)
 		}
 		i++;
 	}
-
 }
+
+void		write_sectors_textures(t_win *win, FILE *fp, t_lstlst *tmp2)
+{
+	char		*str;
+	t_lst		*tmp;
+
+	if (win->lstlst)
+		tmp = tmp2->head;
+
+	str = ":";
+	fputs(str, fp);
+
+	str = "3,5,3,2,2,0";
+	fputs(str, fp);
+}
+
 
 void		write_sectors(t_win *win, FILE *fp)
 {
@@ -791,14 +800,9 @@ void		write_sectors(t_win *win, FILE *fp)
 
 	index = 0;
 	i = len_listlist(win->lstlst);
-
-	//printf("%d i \n", i);
-
 	tmp2 = win->lstlst;
-
 	while (index < i)
 	{
-
 		str = "\tsector:0,50:";
 		fputs(str, fp);
 
@@ -818,6 +822,7 @@ void		write_sectors(t_win *win, FILE *fp)
 		fputs(str, fp);
 
 		write_sectors_neighbours(win, fp, tmp2);
+		write_sectors_textures(win, fp, tmp2);
 
 		str = "\n";
 		fputs(str, fp);
@@ -830,14 +835,33 @@ void		write_player(t_win *win, FILE *fp)
 {
 	char		*str;
 
-	if (win->lstlst)
-	{
+	t_lstasset	*tmp;
 
-		str = "Section:player\n";
-		fputs(str, fp);
+	tmp = win->lstasset;
+	while (tmp)
+	{
+		if (tmp->asset_type == 0)
+			break;
+		tmp = tmp->next;
 	}
 
-	str = "\tplayer_location:5,5\n";
+	str = "Section:player\n";
+	fputs(str, fp);
+
+
+	str = "\tplayer_location:";
+	fputs(str, fp);
+
+	str = ft_itoa(tmp->x / 5); //a verifier
+	fputs(str, fp);
+
+	str = ",";
+	fputs(str, fp);
+
+	str = ft_itoa(tmp->y / 5); // a verifier
+	fputs(str, fp);
+
+	str = "\n";
 	fputs(str, fp);
 
 	str = "\tplayer_direction:90\n";
@@ -931,29 +955,276 @@ void		check4(t_win *win)
 	}
 }
 
+void		write_m4(t_win *win, FILE *fp, t_lstasset *tmp, int i)
+{
+	char		*str;
+
+	if (win->lstasset)
+	{
+
+		str = "\tM4A1:";
+		fputs(str, fp);
+
+	}
+
+	str = ft_itoa(i);
+	fputs(str, fp);
+
+	str = ",0,0,";
+	fputs(str, fp);
+
+	//str = ft_itoa(sector); sector
+	//fputs(str, fp);
+
+	//str = ",";
+	//fputs(str, fp);
+
+	str = ft_itoa(tmp->x / 5);
+	fputs(str, fp);
+
+	str = ",";
+	fputs(str, fp);
+
+	str = ft_itoa(tmp->y / 5);
+	fputs(str, fp);
+}
+
+void		write_shotgun(t_win *win, FILE *fp, t_lstasset *tmp, int i)
+{
+	char	*str;
+
+	if (win->lstasset)
+	{
+		str = "\tpompe:";
+		fputs(str, fp);
+	}
+
+	str = ft_itoa(i);
+	fputs(str, fp);
+
+	str = ",1,0,";
+	fputs(str, fp);
+
+	//str = ft_itoa(sector); sector
+	//fputs(str, fp);
+
+	//str = ",";
+	//fputs(str, fp);
+
+	str = ft_itoa(tmp->x / 5);
+	fputs(str, fp);
+
+	str = ",";
+	fputs(str, fp);
+
+	str = ft_itoa(tmp->y / 5);
+	fputs(str, fp);
+}
+
+void		write_m4_ammo(t_win *win, FILE *fp, t_lstasset *tmp, int i)
+{
+	char	*str;
+
+	if (win->lstasset)
+	{
+		str = "\tammo:";
+		fputs(str, fp);
+	}
+
+	str = ft_itoa(i);
+	fputs(str, fp);
+
+	str = ",5,0,";
+	fputs(str, fp);
+
+	//str = ft_itoa(sector); sector
+	//fputs(str, fp);
+
+	//str = ",";
+	//fputs(str, fp);
+
+	str = ft_itoa(tmp->x / 5);
+	fputs(str, fp);
+
+	str = ",";
+	fputs(str, fp);
+
+	str = ft_itoa(tmp->y / 5);
+	fputs(str, fp);
+}
+
+void		write_m9(t_win *win, FILE *fp, t_lstasset *tmp, int i)
+{
+	char	*str;
+
+	if (win->lstasset)
+	{
+		str = "\tM9:";
+		fputs(str, fp);
+	}
+
+	str = ft_itoa(i);
+	fputs(str, fp);
+
+	str = ",2,0,";
+	fputs(str, fp);
+
+	//str = ft_itoa(sector); sector
+	//fputs(str, fp);
+
+	//str = ",";
+	//fputs(str, fp);
+
+	str = ft_itoa(tmp->x / 5);
+	fputs(str, fp);
+
+	str = ",";
+	fputs(str, fp);
+
+	str = ft_itoa(tmp->y / 5);
+	fputs(str, fp);
+}
+
+void		write_health(t_win *win, FILE *fp, t_lstasset *tmp, int i)
+{
+	char	*str;
+
+	if (win->lstasset)
+	{
+		str = "\thealth:";
+		fputs(str, fp);
+	}
+
+	str = ft_itoa(i);
+	fputs(str, fp);
+
+	str = ",3,0,";
+	fputs(str, fp);
+
+	//str = ft_itoa(sector); sector
+	//fputs(str, fp);
+
+	//str = ",";
+	//fputs(str, fp);
+
+	str = ft_itoa(tmp->x / 5);
+	fputs(str, fp);
+
+	str = ",";
+	fputs(str, fp);
+
+	str = ft_itoa(tmp->y / 5);
+	fputs(str, fp);
+}
+
+void		write_ennemy(t_win *win, FILE *fp, t_lstasset *tmp, int i)
+{
+	char		*str;
+
+	if (win->lstasset)
+	{
+		str = "\tmonstre:";
+		fputs(str, fp);
+	}
+
+	str = ft_itoa(i);
+	fputs(str, fp);
+
+	str = ",6,0,";
+	fputs(str, fp);
+
+	//str = ft_itoa(sector); sector
+	//fputs(str, fp);
+
+	//str = ",";
+	//fputs(str, fp);
+
+	str = ft_itoa(tmp->x / 5);
+	fputs(str, fp);
+
+	str = ",";
+	fputs(str, fp);
+
+	str = ft_itoa(tmp->y / 5);
+	fputs(str, fp);
+}
+
+void		write_sprites(t_win *win, FILE *fp)
+{
+	t_lstasset	*tmp;
+	char		*str;
+	int			i;
+
+	i = 0;
+	tmp = win->lstasset;
+	str = "Section:sprite\n";
+	fputs(str, fp);
+
+	while (tmp)
+	{
+		if (tmp->asset_type == 1)
+			write_m4(win, fp, tmp, i);
+		if (tmp->asset_type == 2)
+			write_shotgun(win, fp, tmp, i);
+		if (tmp->asset_type == 4)
+			write_m4_ammo(win, fp, tmp, i);
+		if (tmp->asset_type == 5)
+			write_m9(win, fp, tmp, i);
+		if (tmp->asset_type == 6)
+			write_health(win, fp, tmp, i);
+		if (tmp->asset_type != 0 && tmp->asset_type != 3)
+		{
+			i++;
+			str = "\n";
+			fputs(str, fp);
+		}
+		tmp = tmp->next;
+	}
+}
+
+void		write_ennemies(t_win *win, FILE *fp)
+{
+	t_lstasset	*tmp;
+	char		*str;
+	int			i;
+
+	i = 0;
+	tmp = win->lstasset;
+
+	str = "Section:ennemy\n";
+	fputs(str, fp);
+
+	while (tmp)
+	{
+		if (tmp->asset_type == 3)
+		{
+			write_ennemy(win, fp, tmp, i);
+			str = "\n";
+			fputs(str, fp);
+			i++;
+		}
+		tmp = tmp->next;
+	}
+}
 
 void		write_in_file(t_win *win)
 {
-
-	//check4(win);
-	//check3(win, 1);
-	//int			*tab;
-
-
 	FILE		*fp;
 	const char	*name;
 	char		*buf;
 	int			index;
 
 	index = 0;
-	name = "editor_map";
-	fp = fopen(name, "a");
+	name = "custom_map.dn3d";
+	fp = fopen(name, "w");
 	buf = NULL;
 
 	first_line(win, fp);
 	write_dots(win, fp);
 	write_sectors(win, fp);
 	write_player(win, fp);
+	write_sprites(win, fp);
+	write_ennemies(win, fp);
 
 	fclose(fp);
 }
@@ -961,21 +1232,93 @@ void		write_in_file(t_win *win)
 
 void		fill_buffer(t_win *win)
 {
-	//char	*buffer[1000];
-
-
-	//printf("%d total exclusive \n", total_exclusive_points(win));
-
 	sort_points(win);
 
 	write_in_file(win);
-
-	//check(win);
-
-	//printf("%d points in sector 1 \n", number_of_points_in_sector(win, 1));
-
-	// open etc
 }
+
+int			triangulate_player_start(t_win *win, int x, int y)
+{
+	t_lstlst	*tmp2;
+	t_lst		*tmp;
+
+	int			ret;
+
+	t_dot		p0;
+	t_dot		p1;
+	t_dot		p2;
+	t_dot		m;
+
+	m.x = x;
+	m.y = y;
+
+	ret = -2;
+
+	tmp2 = win->triangles;
+	while (tmp2)
+	{
+		//printf("%d triangle sector \n", tmp2->sector);
+		tmp = tmp2->head;
+		p0 = get_point_in_list(tmp, 0);
+		p1 = get_point_in_list(tmp, 1);
+		p2 = get_point_in_list(tmp, 2);
+
+		ret = point_in_triangle(p0, p1, p2, m);
+		if (ret == 1)
+		{
+			ret = 0;
+			return (ret);
+		}
+		else
+			ret = -2;
+		tmp2 = tmp2->next;
+	}
+	return (ret);
+}
+
+
+int			check_player_start(t_win *win)
+{
+	t_lstasset	*tmp;
+	int			ret;
+
+	ret = -1;
+	tmp = win->lstasset;
+
+	while (tmp)
+	{
+		if (tmp->asset_type == 0)
+		{
+			ret = 0;
+			break;
+		}
+		tmp = tmp->next;
+	}
+
+	if (ret == 0)
+		ret = triangulate_player_start(win, tmp->x, tmp->y);
+	return (ret);
+}
+
+int			correct_map(t_win *win)
+{
+	int			ret;
+
+	ret = 0;
+
+	//check croisements
+
+	//check overlapping sectors and sectors in sectors
+
+	ret = check_player_start(win);
+	if (ret == -1)
+		printf("map need a player start \n");
+	if (ret == -2)
+		printf("player start need to be inside a sector \n");
+
+	return (ret);
+}
+
 
 void		map_save(t_win *win)
 {
@@ -988,9 +1331,6 @@ void		map_save(t_win *win)
 	tmp = NULL;
 	tmp2 = win->lstlst;
 
-	//need check triangulation et croisements
-
-	//check : all sector closed
 	while (tmp2)
 	{
 		if (tmp2)
@@ -1003,8 +1343,12 @@ void		map_save(t_win *win)
 		tmp2 = tmp2->next;
 	}
 	len = len_listlist(win->lstlst);
-	if (len - 1 == z)
-		fill_buffer(win);
+	if (correct_map(win) == 0)
+	{
+		if (len - 1 == z)
+			fill_buffer(win);
+		printf("map saved \n");
+	}
 	win->number = 0;
 	win->same_dots = 0;
 	win->index_dot = 0;
