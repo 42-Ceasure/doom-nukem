@@ -90,3 +90,8 @@ double yaw(double y, double z, t_map *m)
 {
 	return (y + z * m->player.yaw);
 }
+
+double	pythagore(double a, double b)
+{
+	return (sqrt(a * a + b * b));
+}

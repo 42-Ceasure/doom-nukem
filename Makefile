@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
+#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/06/26 14:20:44 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/04 17:26:56 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ ifeq ($(DEBUG), 0)
     CFLAG       =   -Wall -Wextra -Werror -O2
     MESSAGE     =   "Doom-nukem compiled on normal rules ! Have fun"
 else
-    CFLAG       =   -Wall -Wextra -Werror -g -O0 -fsanitize=address
+    CFLAG       =   -Wall -Wextra -Werror -g -O0 -fsanitize=undefined
     MESSAGE     =   "[DEBUG] Doom-nukem compiled on debug rules ! Good job"
 endif
 

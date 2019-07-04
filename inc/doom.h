@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/03 22:58:43 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/04 19:15:39 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -655,6 +655,6 @@ void				vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture t
 void				ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
 void				skybox(int x, int *box, t_env *w, t_draw *d, t_texture text);
 void				skybox2(t_env *w, t_texture text);
-
-
+double				pythagore(double a, double b);
+void				test_sprite2(t_map *m, double xx, double yy);
 #endif

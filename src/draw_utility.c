@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:04:35 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/04 00:06:43 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/04 23:37:00 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,22 +175,15 @@ void	ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text)
 				continue;
 			}
 			hei = y < d->cya ? d->yceil : d->yfloor;
-			if (w->m->player.aiming == 0)
-			{
-				mapz = hei * HEIGHT * hfov / ((HEIGHT / 2 - y) - w->m->player.yaw * HEIGHT * vfov);
-				mapx = mapz * (WIDTH / 2 - x) / (WIDTH * hfov);
-			}
-			else
-			{
-				mapz = hei * (HEIGHT) * hfov / (((HEIGHT) / 2 - y) - w->m->player.yaw * (HEIGHT) * vfov);
-				mapx = mapz * ((WIDTH) / 2 - x) / (WIDTH) * hfov;
-			}
+			mapz = hei * HEIGHT * hfov / ((HEIGHT / 2 - y) - w->m->player.yaw * HEIGHT * vfov);
+			mapx = mapz * (WIDTH / 2 - x) / (WIDTH * hfov);
 			rtx = mapz * d->pcos + mapx * d->psin;
             rtz = mapz * d->psin - mapx * d->pcos;
             mapx = rtx + w->m->player.coor.x;
 			mapz = rtz + w->m->player.coor.y;
 			// attention appele 1 milliard de fois
-			test_sprite(w->m, mapx, mapz);
+			// test_sprite(w->m, mapx, mapz);
+			test_sprite2(w->m, mapx, mapz);
 			txtx = (mapx * text.w / 6);
 			txtz = (mapz * text.w / 6);
 			tmpix = (Uint32)(txtz % text.h) * text.w + ((Uint32)txtx % text.w);
