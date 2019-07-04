@@ -79,7 +79,7 @@ void	is_shooting(t_env *w, t_map *m)
 
 void	game_img(t_env *w, t_map *m)
 {
-	skybox2(w, w->texturing[7]);
+	skybox2(w, w->texturing[2]);
 	draw(w, m);
 	is_shooting(w, m);
 	ft_cursor(w, m);

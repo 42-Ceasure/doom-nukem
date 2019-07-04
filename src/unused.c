@@ -75,7 +75,7 @@ int			is_on_a_dot(t_map *m, int s)
 	{
 		printf("dotx:%f,x1:%f,x2:%f\n", i.x3, i.x1, i.x2);
 		printf("dotx:%f,x1:%f,x2:%f\n", i.x4, i.x1, i.x2);
-		printf("%d\n", m->player.sector);
+		// printf("%d\n", m->player.sector);
 		ft_putendl("----------------------------------------");
 		if ((	i.x3 > vmin(i.x1, i.x2) && i.x3 < vmax(i.x1, i.x2))
 			|| (i.y3 > vmin(i.y1, i.y2) && i.y3 < vmax(i.y1, i.y2))

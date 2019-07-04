@@ -7,7 +7,7 @@ void	*thread(t_worker_arg *arg)
 	const t_env	*w = arg->w;
 	int			x;
 
-	printf("%d\n", w->i);
+	// printf("%d\n", w->i);
 	x = arg->start * (WIDTH / NB_THREAD);
 	while (x < (arg->start + 1) * (WIDTH / NB_THREAD))
 	{
