@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/04 19:15:39 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/05 16:20:51 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,8 +302,6 @@ typedef struct		s_calc_sprite
 	double			x1;
 	double			y1a;
 	double			yscale1;
-	double			diffx;
-	double			diffy;
 	double			zoom;
 }					t_cal_sprt;
 
@@ -356,11 +354,6 @@ typedef struct		s_weapon
 	Mix_Chunk 		*shoot;
 }					t_weapon;
 
-typedef struct		s_visible
-{
-	int				*wall;
-}					t_visible;
-
 typedef struct		s_map
 {
 	void			*world;
@@ -387,7 +380,6 @@ typedef struct		s_map
 	char			*map_name;
 	char			*map_path;
 	t_dot			*dot;
-	t_visible		*visible;
 	t_sector		*sector;
 	t_weapon		*weap;
 	t_sprite		*sprite;	//a placer dans t_env

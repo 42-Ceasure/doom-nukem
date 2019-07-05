@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/04 19:16:53 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/05 16:11:52 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x, int ratio)
 	tmp.t1z = tmp.v1x * PL_AC + tmp.v1y * PL_AS;
 	tmp.xscale1 = m->player.field_of_vision_h / tmp.t1z;
 	tmp.yscale1 = m->player.field_of_vision_v / tmp.t1z;
-	tmp.diffx = fabs(m->player.coor.x - m->sprt[x].sx);
-	tmp.diffy = fabs(m->player.coor.y - m->sprt[x].sy);
-	m->sprt[x].range = sqrt((tmp.diffx * tmp.diffx) + (tmp.diffy * tmp.diffy)) / 10;
-	m->sprt[x].range = 1 / m->sprt[x].range;
 	tmp.zoom = m->sprt[x].range;
 	if (m->player.aiming == 1)
 		tmp.zoom *= 2;
@@ -101,59 +97,125 @@ void	swipe_sprite(t_env *w, t_map *m, int x)
 	draw_ennemy(w, m, x, 5);
 }
 
+void	ft_swap(double *a, double *b)
+{
+	double		tmp;
+	double		tmp2;
+	double		tmp3;
+
+	tmp = a[0];
+	tmp2 = a[1];
+	tmp3 = a[2];
+	a[0] = b[0];
+	a[1] = b[1];
+	a[2] = b[2];
+	b[0] = tmp;
+	b[1] = tmp2;
+	b[2] = tmp3;
+}
+
+double	**sort_double_tab(double **tab, int size)
+{
+	int i;
+
+	i = 0;
+	while (i < size - 1)
+	{
+		if (tab[i][0] > tab[i + 1][0])
+		{
+			ft_swap(tab[i], tab[i + 1]);
+			sort_double_tab(tab, size);
+		}
+		i++;
+	}
+	return (tab);
+}
+
 void	count_sprite(t_env *w, t_map *m)
 {
-	int x;
+	int 	x;
+	int 	i;
+	double		**tab;
+	double	diffx;
+	double	diffy;
 
 	x = 0;
+	tab = (double**)malloc(sizeof(double*) * (m->sprite_map_count + m->ennemy_count) + 1);
 	while (x < m->sprite_map_count)
 	{
-		if (m->sprt[x].taken != 1)
-			draw_sprite(w, m, x, 1);
-		if (m->sprt[x].range >= 2 && ft_strcmp(m->sprite[m->sprt[x].index].type, "auto") == 0
-			&& m->sprt[x].taken != 1)
-		{
-			if (ft_strcmp(m->sprt[x].name, "\thealth") == 0 && m->player.hp < 100)
-			{
-				m->player.hp += 30;
-				m->sprt[x].taken = 1;
-			}
-			else if (ft_strcmp(m->sprt[x].name, "\tcartouche") == 0)
-			{
-				m->player.bullet[1] += 6;
-				m->sprt[x].taken = 1;
-			}
-			else if (ft_strcmp(m->sprt[x].name, "\tammo") == 0)
-			{
-				m->player.bullet[0] += 30;
-				m->sprt[x].taken = 1;
-			}
-		}
+		tab[x] = (double*)malloc(sizeof(double) * 3 + 1);
+		diffx = fabs(m->player.coor.x - m->sprt[x].sx);
+		diffy = fabs(m->player.coor.y - m->sprt[x].sy);
+		m->sprt[x].range = 1 / (sqrt((diffx * diffx) + (diffy * diffy)) / 10);
+		tab[x][0] = m->sprt[x].range;
+		tab[x][1] = x;
+		tab[x][2] = 0;
 		x++;
 	}
-	x = 0;
-	while (x < m->ennemy_count)
+	i = 0;
+	while (i < m->ennemy_count)
 	{
-		if (m->ennemy[x].vis == 1)
+		tab[x + i] = (double*)malloc(sizeof(double) * 3 + 1);
+		diffx = fabs(m->player.coor.x - m->ennemy[i].coor.x);
+		diffy = fabs(m->player.coor.y - m->ennemy[i].coor.y);
+		m->ennemy[i].range = 1 / (sqrt((diffx * diffx) + (diffy * diffy)) / 10);
+		tab[x + i][0] = m->ennemy[i].range;
+		tab[x + i][1] = i;
+		tab[x + i][2] = 1;
+		i++;
+	}
+	tab = sort_double_tab(tab, m->sprite_map_count + m->ennemy_count);
+	x = 0;
+	while (x < m->sprite_map_count + m->ennemy_count)
+	{
+		if ((int)tab[x][2] == 0)
 		{
-			if (m->ennemy[x].dead == 0)
-				swipe_sprite(w, m, x);
-			else
+			if (m->sprt[(int)tab[x][1]].taken != 1)
+				draw_sprite(w, m, (int)tab[x][1], 1);
+			if (m->sprt[(int)tab[x][1]].range >= 2 && ft_strcmp(m->sprite[m->sprt[(int)tab[x][1]].index].type, "auto") == 0
+				&& m->sprt[(int)tab[x][1]].taken != 1)
 			{
-				if (w->dtime.dead == 0)
-					m->ennemy[x].count++;
-				if (m->ennemy[x].count % 3 == 0 && m->ennemy[x].is_dead == 0)
-					m->ennemy[x].index = 11;
-				else if (m->ennemy[x].count % 3 == 1 && m->ennemy[x].is_dead == 0)
-					m->ennemy[x].index = 12;
-				else
+				if (ft_strcmp(m->sprt[(int)tab[x][1]].name, "\thealth") == 0 && m->player.hp < 100)
 				{
-					m->ennemy[x].index = 13;
-					m->ennemy[x].is_dead = 1;
+					m->player.hp += 30;
+					m->sprt[(int)tab[x][1]].taken = 1;
 				}
-				draw_ennemy(w, m, x, 5);
+				else if (ft_strcmp(m->sprt[(int)tab[x][1]].name, "\tcartouche") == 0)
+				{
+					m->player.bullet[1] += 6;
+					m->sprt[(int)tab[x][1]].taken = 1;
+				}
+				else if (ft_strcmp(m->sprt[(int)tab[x][1]].name, "\tammo") == 0)
+				{
+					m->player.bullet[0] += 30;
+					m->sprt[(int)tab[x][1]].taken = 1;
+				}
 			}
 		}
+		else
+		{
+			if (m->ennemy[(int)tab[x][1]].vis == 1)
+			{
+				if (m->ennemy[(int)tab[x][1]].dead == 0)
+					swipe_sprite(w, m, (int)tab[x][1]);
+				else
+				{
+					if (w->dtime.dead == 0)
+						m->ennemy[(int)tab[x][1]].count++;
+					if (m->ennemy[(int)tab[x][1]].count % 3 == 0 && m->ennemy[(int)tab[x][1]].is_dead == 0)
+						m->ennemy[(int)tab[x][1]].index = 11;
+					else if (m->ennemy[(int)tab[x][1]].count % 3 == 1 && m->ennemy[(int)tab[x][1]].is_dead == 0)
+						m->ennemy[(int)tab[x][1]].index = 12;
+					else
+					{
+						m->ennemy[(int)tab[x][1]].index = 13;
+						m->ennemy[(int)tab[x][1]].is_dead = 1;
+					}
+					draw_ennemy(w, m, (int)tab[x][1], 5);
+				}
+			}
+		}
+		free(tab[x]);
 		x++;
 	}
 	m->player.firing = 0;

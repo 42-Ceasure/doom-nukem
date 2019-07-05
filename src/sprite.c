@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/07/03 14:52:43 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/05 16:19:56 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,6 @@ t_cal_sprt	calcul_sprite_ennemy(t_env *w, t_map *m, int x, int ratio)
 	tmp.t1z = tmp.v1x * PL_AC + tmp.v1y * PL_AS;
 	tmp.xscale1 = m->player.field_of_vision_h / tmp.t1z;
 	tmp.yscale1 = m->player.field_of_vision_v / tmp.t1z;
-	tmp.diffx = fabs(m->player.coor.x - m->ennemy[x].coor.x);
-	tmp.diffy = fabs(m->player.coor.y - m->ennemy[x].coor.y);
-	m->ennemy[x].range = sqrt((tmp.diffx * tmp.diffx) + (tmp.diffy * tmp.diffy)) / 10;
-	m->ennemy[x].range = 1 / m->ennemy[x].range;
 	if (m->ennemy[x].range > 6)
 		m->ennemy[x].range = 6;
 	tmp.zoom = m->ennemy[x].range;

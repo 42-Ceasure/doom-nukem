@@ -2,8 +2,10 @@
 
 #include "doom.h"
 
-void		empty_music(t_env *w)
+void		empty_music(t_env *w, t_map *m)
 {
+	int i;
+
 	if (w->sound.musique != NULL)
 		Mix_FreeMusic(w->sound.musique);
 	if (w->sound.jump != NULL)
@@ -14,6 +16,16 @@ void		empty_music(t_env *w)
 		Mix_FreeChunk(w->sound.reload);
 	if (w->sound.clic != NULL)
 		Mix_FreeChunk(w->sound.clic);
+	if (m->ennemy != NULL)
+	{
+		i = 0;
+		while (i < m->ennemy_count)
+		{
+			Mix_FreeChunk(m->ennemy[i].dammage);
+			i++;
+		}
+		free(m->ennemy);
+	}
 	Mix_CloseAudio();
 }
 
@@ -57,8 +69,6 @@ void		empty_map(t_map *m)
 	{
 		free(m->player.fps);
 		free(m->player.stractu_ammo);
-		//if (m->ennemy[0].dammage != NULL)
-		//	Mix_FreeChunk(m->ennemy[0].dammage);
 		if (m->map_name != NULL)
 			free(m->map_name);
 		if (m->map_name != NULL)
@@ -132,7 +142,7 @@ void		empty_sdl(t_env *w)
 
 void		exit_game(t_env *w, t_map *m, int i)
 {
-	empty_music(w);
+	empty_music(w, m);
 	empty_map(m);
 	empty_sdl(w);
 	empty_world(w);
