@@ -69,6 +69,8 @@ void		empty_map(t_map *m)
 	{
 		free(m->player.fps);
 		free(m->player.stractu_ammo);
+		free(m->player.strhp);
+		free(m->player.strbullet);
 		if (m->map_name != NULL)
 			free(m->map_name);
 		if (m->map_name != NULL)

@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/05 16:20:51 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/07 16:11:30 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +298,8 @@ typedef struct		s_calc_sprite
 	double			v1y;
 	double			t1x;
 	double			t1z;
+	double			diffx;
+	double			diffy;
 	double			xscale1;
 	double			x1;
 	double			y1a;
@@ -649,4 +651,9 @@ void				skybox(int x, int *box, t_env *w, t_draw *d, t_texture text);
 void				skybox2(t_env *w, t_texture text);
 double				pythagore(double a, double b);
 void				test_sprite2(t_map *m, double xx, double yy);
+void				ennemy_animation(t_env *w, t_map *m, double **tab, int x);
+double				**fill_tab_ennemy(t_map *m, double **tab);
+double				**fill_tab_sprite(t_map *m, double **tab);
+double				**sort_double_tab(double **tab, int size);
+
 #endif
