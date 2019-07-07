@@ -79,7 +79,7 @@ void	is_shooting(t_env *w, t_map *m)
 
 void	game_img(t_env *w, t_map *m)
 {
-	skybox2(w, w->texturing[2]);
+	// skybox2(w, w->texturing[2]);
 	draw(w, m);
 	is_shooting(w, m);
 	ft_cursor(w, m);
@@ -93,11 +93,11 @@ void	sequential_frame(t_env *w, t_map *m)
 	w->txthead.y = 236;
 	type_str(w, w->txthead, "sequential frame rendering started.", 0xFF000000);
 	img_update(w);
-	//SDL_Delay(1500);
+	SDL_Delay(1500);
 	clean_render(w, 0xFF000000);
 	type_str(w, w->txthead, "sequential frame rendering started.", 0xFFFFFFFF);
 	img_update(w);
-	//SDL_Delay(500);
+	SDL_Delay(500);
 	clean_render(w, 0xFF000000);
 	img_update(w);
 	game_img(w, m);

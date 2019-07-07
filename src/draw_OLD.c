@@ -51,7 +51,7 @@ void draw(t_env *w, t_map *m)
 		point = 0;
 		while (point < m->sector[read.now.sectorno].wall_count)
 		{
-			// work.wall_width = pythagore((m->sector[read.now.sectorno].dot[point + 1].x \
+			work.wall_width = pythagore((m->sector[read.now.sectorno].dot[point + 1].x \
 			- m->sector[read.now.sectorno].dot[point].x), (m->sector[read.now.sectorno].dot[point + 1].y \
 				- m->sector[read.now.sectorno].dot[point].y));
 
@@ -67,10 +67,10 @@ void draw(t_env *w, t_map *m)
 			work.t2.x = work.v2.x * work.psin - work.v2.y * work.pcos;
 			work.t2.z = work.v2.x * work.pcos + work.v2.y * work.psin;
 
-			// work.tt1.x = work.t1.x;
-			// work.tt1.z = work.t1.z;
-			// work.tt2.x = work.t2.x;
-			// work.tt2.z = work.t2.z;
+			work.tt1.x = work.t1.x;
+			work.tt1.z = work.t1.z;
+			work.tt2.x = work.t2.x;
+			work.tt2.z = work.t2.z;
 
 			if (work.t1.z <= 0 && work.t2.z <= 0) 
 			{
@@ -170,16 +170,23 @@ void draw(t_env *w, t_map *m)
 
 //////////////////////////// plafond \\\\\\\\\\\\\\\\\\\\\\\\\
 
-				if (w->textured == 1 && w->m->sector[d->nosector].texturing[5] == 0)
-					ceiling_line_textured(x, box, w, d, w->texturing[w->m->sector[d->nosector].texturing[1]]);
-				// else if (w->textured == 1 && w->m->sector[d->nosector].texturing[5] != 0)
-					// skybox(x, box, w, d, w->texturing[w->m->sector[d->nosector].texturing[5]]);
+				work.starty = work.ytop[x];
+				work.stopy = work.cya - 1;
+				if (w->textured == 1 && m->sector[work.nosector].texturing[5] == 0)
+					ceiling_line_textured(x, w, work, w->texturing[m->sector[work.nosector].texturing[1]]);
+				// else if (w->textured == 1 && w->m->sector[work.nosector].texturing[5] != 0)
+					// skybox(x, box, w, d, w->texturing[w->m->sector[work.nosector].texturing[5]]);
 				else if (w->textured != 1)
 					ceiling_line(x, work, w, 0x12677179);
 
 ///////////////////////////// sol \\\\\\\\\\\\\\\\\\\\\\\\\\
 
-				vertical_line(x, work.cyb + 1, work.ybot[x], w, work.color2);
+				work.starty = work.cyb + 1;
+				work.stopy = work.ybot[x];
+				if (w->textured == 1)
+					ceiling_line_textured(x, w, work, w->texturing[m->sector[work.nosector].texturing[0]]);
+				else
+					vertical_line(x, work, w, work.color2);
 
 ////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -195,55 +202,48 @@ void draw(t_env *w, t_map *m)
 						work.z = 255;
 					work.color.top = 0;
 					work.color.bottom = 0;
-					if (x == work.x1 || x == work.x2)
-					{
-						work.color.middle = 0;
-						vertical_line(x, work.cya, work.cnya - 1, w, work.color);
-					}
+
+/////////////////
+
+					work.color.middle = (x == work.x1 || x == work.x2) ? 0 : work.r1;
+					work.starty = work.cya;
+					work.stopy = work.cnya - 1;
+					if (w->textured == 1)
+						vertical_line_textured(x, w, work, w->texturing[m->sector[work.nosector].texturing[3]]);
 					else
-					{
-						work.color.middle = work.r1;
-						vertical_line(x, work.cya, work.cnya - 1, w, work.color);
-					}
+						vertical_line(x, work, w, work.color);
+
+/////////////////
+
 					work.ytop[x] = vmid(vmax(work.cya, work.cnya), work.ytop[x], HEIGHT - 1);
-					if (x == work.x1 || x == work.x2)
-					{
-							work.color.middle = 0;
-						vertical_line(x, work.cnyb + 1, work.cyb, w, work.color);
-						} 
+					work.color.middle = (x == work.x1 || x == work.x2) ? 0 : work.r2;
+					work.starty = work.cnyb + 1;
+					work.stopy = work.cyb;
+					if (work.stopy > work.starty && w->textured > 0)
+						work.starty = work.ytop[x];
+					// affiche trop -> toute la hauteur au lieu de juste bout de chaise
+					// temporaire + ne faire que quand besoin non?
+					if (w->textured == 1)
+						vertical_line_textured(x, w, work, w->texturing[m->sector[work.nosector].texturing[4]]);
 					else
-					{
-						work.color.middle = work.r2;
-						vertical_line(x, work.cnyb + 1, work.cyb, w, work.color);
-					}
+						vertical_line(x, work, w, work.color);
+
+/////////////////
+
 					work.ybot[x] = vmid(vmin(work.cyb, work.cnyb), 0, work.ybot[x]);
 				}
 				else
 				{
 					work.r = 0x12010101 * (255 - work.z);
-					if (x == work.x1 || x == work.x2)
-					{
-						if (m->trippymod == 1)
-							set_wall_trippy(w, x, work.cya, work.cyb, 0);	
-						else
-						{
-							work.color.middle = 0;
-							vertical_line(x, work.cya, work.cyb, w, work.color);
-						}
-					}
+
+////////////////
+					work.color.middle = (x == work.x1 || x == work.x2) ? 0 : work.r;
+					work.starty = work.cya;
+					work.stopy = work.cyb;
+					if (w->textured == 1)
+						vertical_line_textured(x, w, work, w->texturing[m->sector[work.nosector].texturing[2]]);
 					else
-					{
-						if (m->trippymod == 1)
-						{
-							work.r = 0x129EFD38 * (255 - work.z);
-							set_wall_trippy(w, x, work.cya, work.cyb, work.r);
-						}
-						else
-						{
-							work.color.middle = work.r;
-							vertical_line(x, work.cya, work.cyb, w, work.color);
-						}
-					}
+						vertical_line(x, work, w, work.color);
 				}
 				x++;
 				if (w->sequential_draw == 1)
@@ -262,7 +262,6 @@ void draw(t_env *w, t_map *m)
 		++renderedsectors[read.now.sectorno];
 	}
 	count_sprite(w, m);
-
 }
 
 

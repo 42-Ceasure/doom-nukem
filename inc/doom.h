@@ -189,7 +189,7 @@ typedef struct		s_intersect
 	double			yd;
 }					t_intersect;
 
-typedef struct		s_draw
+typedef struct		s_work
 {
 	int				winwidth;
 	int				winheight;
@@ -264,7 +264,9 @@ typedef struct		s_draw
 	double			end_x_tex;
 	double			wall_width;
 	int				nosector;
-}					t_draw;
+	int				starty;
+	int				stopy;
+}					t_work;
 
 typedef	struct		s_ennemy
 {
@@ -561,14 +563,14 @@ double				isoverlap(double a0, double a1, double b0, double b1);
 double				pointside(t_coor p, double x0,
 					double y0, double x1, double y1);
 double				yaw(double y, double z, t_map *m);
-void				init_verification(t_draw *draw);
-int					init_draw(t_env *w, t_draw *d, t_reader *read, t_map *m);
-void				vertical_line(int x, int *box, t_env *w, t_color color);
-void				ceiling_line(int x, int *box, t_env *w, Uint32 color);
-int					moving_head(t_draw *w, t_reader read, t_map *m);
-int					ceiling_and_floor(t_draw *d, t_map *m,
+void				init_verification(t_work *draw);
+int					init_draw(t_env *w, t_work *d, t_reader *read, t_map *m);
+void				vertical_line(int x, t_work work, t_env *w, t_color color);
+void				ceiling_line(int x, t_work work, t_env *w, Uint32 color);
+void				moving_head(t_work *w, t_reader read, t_map *m);
+int					ceiling_and_floor(t_work *d, t_map *m,
 					t_reader read, int point);
-void				check_invisible(t_draw *d, t_reader read, t_map *m);
+int					check_invisible(t_work *d, t_reader read, t_map *m);
 void				recap_parsing(t_env *w, t_map *m, char **str);
 void				recap_map_list_sector(t_env *w, t_map *m, char **str);
 void				recap_map_list_sectors(t_map m, char *str);
@@ -651,9 +653,9 @@ void				clear_sprite(t_map *m);
 void				draw_ennemy(t_env *w, t_map *m, int x, int ratio);
 void				jet_pack(t_map *m);
 int					get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y);
-void				vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
-void				ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
-void				skybox(int x, int *box, t_env *w, t_draw *d, t_texture text);
+void				vertical_line_textured(int x, t_env *w, t_work work, t_texture text);
+void				ceiling_line_textured(int x, t_env *w, t_work work, t_texture text);
+void				skybox(int x, t_env *w, t_work work, t_texture text);
 void				skybox2(t_env *w, t_texture text);
 double				pythagore(double a, double b);
 void				test_sprite2(t_map *m, double xx, double yy);

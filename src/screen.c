@@ -105,8 +105,6 @@ void		safe_char_to_screen(t_env *w, t_texture texture, int x, int y)
 			i++;
 			ox++;
 		}
-		if (w->sequential_frame == 1 && (oy % 6 == 0))
-				img_update(w);
 		oy++;
 	}
 }

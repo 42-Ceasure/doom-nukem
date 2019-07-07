@@ -31,7 +31,7 @@ void	set_txtr_dot(t_env *w, int x, int y, Uint32 color)
 	}
 }
 
-void	init_mini_map(t_map *m, t_draw *d, int point, int sector)
+void	init_mini_map(t_map *m, t_work *d, int point, int sector)
 {
 	d->v1.x = (m->sector[sector].dot[point].x - PL_X);
 	d->v1.y = (m->sector[sector].dot[point].y - PL_Y);
@@ -45,7 +45,7 @@ void	init_mini_map(t_map *m, t_draw *d, int point, int sector)
 
 void	draw_mini_map(t_env *w, t_map *m)
 {
-	t_draw	d;
+	t_work	d;
 	int		sector;
 	int		point;
 
