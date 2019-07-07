@@ -244,8 +244,7 @@ void			load_core(t_env *w, t_map *m)
 			// else if (ft_strncmp(m->line, "", ) == 0)
 			// 	;
 			if (ft_strncmp(m->line, "texture\t\t;ascii", 15) != 0
-				&& ft_strncmp(m->line, "texture\t\t;main_pic", 18) != 0
-					&& ft_strncmp(m->line, "texture\t\t;texturing", 19) != 0)
+				&& ft_strncmp(m->line, "texture\t\t;main_pic", 18) != 0)
 				buffer = 128;
 			ft_memreg(tmp);
 			free(m->line);

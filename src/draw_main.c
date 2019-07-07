@@ -26,14 +26,17 @@ void	set_network(t_draw *d, t_env *w, int x)
 	// CHECK ON Y TOP POUR PB DE SAUT
 	d->color.middle = (x == d->x1 || x == d->x2) ? 0 : d->r2;
 	d->ytop[x] = vmid(vmax(d->cya, d->cnya), d->ytop[x], HEIGHT - 1);
-	box[0] = d->cnyb + 1;
+	box[0] = d->cnyb;
 	box[1] = d->cyb;
-	if (box[1] > box[0] && w->textured > 0)
-		box[0] = d->ytop[x];
+	// if (box[1] > box[0] && w->textured > 0)
+	// 	box[0] = d->ytop[x];
 	// affiche trop -> toute la hauteur au lieu de juste bout de chaise
 	// temporaire + ne faire que quand besoin non?
 	if (w->textured == 1)
-		vertical_line_textured(x, box, w, d, w->texturing[w->m->sector[d->nosector].texturing[4]]);
+	{
+		// printf("dsahjbds");
+		extruded_line_textured(x, box, w, d, w->texturing[w->m->sector[d->nosector].texturing[4]]);
+	}
 	else
 		vertical_line(x, box, w, d->color);
 	d->ybot[x] = vmid(vmin(d->cyb, d->cnyb), 0, d->ybot[x]);
@@ -59,6 +62,8 @@ void	draw_wall(t_draw *d, t_env *w, int x)
 		calculate(d, x);
 		box[0] = d->ytop[x];
 		box[1] = d->cya - 1;
+
+		// on passe plusieurs fois ??
 		if (w->textured == 1 && w->m->sector[d->nosector].texturing[5] == 0)
 			ceiling_line_textured(x, box, w, d, w->texturing[w->m->sector[d->nosector].texturing[1]]);
 		// else if (w->textured == 1 && w->m->sector[d->nosector].texturing[5] != 0)
@@ -71,8 +76,10 @@ void	draw_wall(t_draw *d, t_env *w, int x)
 			ceiling_line_textured(x, box, w, d, w->texturing[w->m->sector[d->nosector].texturing[0]]);
 		else
 			vertical_line(x, box, w, d->color2);
+		// pourquoi supp ou egal
 		if (d->network >= 0)
 			set_network(d, w, x);
+		// if (d->network < 0)
 		else
 		{
 			d->r = 0x010101 * (255 - +d->z);
@@ -103,7 +110,8 @@ void	wall_to_wall(t_draw *d, t_reader *read, t_map *m, t_env *w)
 		if ((d->t1.z <= 0 && d->t2.z <= 0)
 			|| ceiling_and_floor(d, m, *read, d->point++) == 0)
 		{
-			d->point = (d->t1.z <= 0 && d->t2.z <= 0) ? d->point + 1 : d->point;
+			d->point = (d->tt1.z <= 0 && d->tt2.z <= 0) ? d->point + 1 : d->point;
+			printf("salut\n");
 			continue;
 		}
 		draw_wall(d, w, moving_head(d, *read, m));
@@ -125,10 +133,11 @@ void	draw(t_env *w, t_map *m)
 	t_draw		d;
 	t_reader	read;
 	int			renderedsectors[m->sector_count];
+	int 		test = 0;
 
 	x = -1;
 	clear_sprite(m);
-	while (x++ < WIDTH)
+	while (x++ <= WIDTH)
 	{
 		d.ytop[x] = 0;
 		d.ybot[x] = HEIGHT - 1;
@@ -145,6 +154,8 @@ void	draw(t_env *w, t_map *m)
 			continue;
 		wall_to_wall(&d, &read, m, w);
 		++renderedsectors[read.now.sectorno];
+		test++;
 	}
+	printf("test = %d\n", test);
 	count_sprite(w, m);
 }

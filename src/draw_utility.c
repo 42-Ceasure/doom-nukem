@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:04:35 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/06 02:00:48 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/07 03:49:07 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ void	vertical_line(int x, int *box, t_env *w, t_color color)
 
 void	ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text)
 {
-	int		y = 0;
 	int		y1;
 	int		y2;
 	double	hei;
@@ -149,13 +148,13 @@ void	ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text)
 	unsigned	txtz;
 	double 		vfov;
 	double 		hfov;
+	int 		tmpix;
+	int test = 0;
 
-	Uint32 		tmpix;
 	y1 = box[0];
 	y2 = box[1];
 	y1 = vmid(y1, 0, HEIGHT - 1);
 	y2 = vmid(y2, 0, HEIGHT - 1);
-	y = y1;
 	vfov = (1.0 * .5f);
 	hfov = 1.0 * 0.9f * HEIGHT / WIDTH;
 	if (w->m->player.aiming == 1)
@@ -163,19 +162,26 @@ void	ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text)
 		hfov *= 2;
 		vfov *= 2;
 	}
-	if (y2 == y1)
-		w->pix[y1 * WIDTH + x] = 0x12677179;
-	else if (y2 > y1)
+	// if (y2 == y1)
+	// 	w->pix[y1 * WIDTH + x] = 0x12677179;
+	if (y2 >= y1)
 	{
-		while (y <= y2)
+		while (y1 <= y2)
 		{
-			if (y >= d->cya && y <= d->cyb) 
+			if (y1 >= d->cya && y1 <= d->cyb) 
 			{
-				y = d->cyb;
+				// printf("y1 = %d, cya = %d, cyb = %d\n", y1, d->cya, d->cyb);
+
+				y1 = d->cyb + 1;
+				
+				// printf("test = %d\n", test);
+				test++;
+				// a check ???
+				// printf("SALUT");
 				continue;
 			}
-			hei = y < d->cya ? d->yceil : d->yfloor;
-			mapz = hei * HEIGHT * hfov / ((HEIGHT / 2 - y) - w->m->player.yaw * HEIGHT * vfov);
+			hei = y1 < d->cya ? d->yceil : d->yfloor;
+			mapz = hei * HEIGHT * hfov / ((HEIGHT / 2 - y1) - w->m->player.yaw * HEIGHT * vfov);
 			mapx = mapz * (WIDTH / 2 - x) / (WIDTH * hfov);
 			rtx = mapz * d->pcos + mapx * d->psin;
             rtz = mapz * d->psin - mapx * d->pcos;
@@ -187,16 +193,99 @@ void	ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text)
 			txtx = (mapx * text.w / 6);
 			txtz = (mapz * text.w / 6);
 			tmpix = (Uint32)(txtz % text.h) * text.w + ((Uint32)txtx % text.w);
-			if (tmpix > 0 && text.pix[tmpix] != 0xFF00FF00)
-				w->pix[y * WIDTH + x] = text.pix[tmpix];
-			y++;
+			if (tmpix >= 0 && text.pix[tmpix] != 0xFF00FF00)
+				w->pix[y1 * WIDTH + x] = text.pix[tmpix];
+			y1++;
+		}
+	}
+}
+
+void	extruded_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text)
+{
+	int		y1;
+	int		y2;
+	int		wall_height_from_bottom;
+	int 	x_tex;
+	int		y_tex;
+	double 	wall_height_scale;
+	double 	wall_width_scale;
+	double	y_tex_start;
+	double	y_tex_pos;
+	
+	y_tex_pos = 0;
+	y1 = box[0];
+	y2 = box[1];
+	// OK
+	y1 = vmid(y1, 0, HEIGHT - 1);
+	y2 = vmid(y2, 0, HEIGHT - 1);
+	// if (y1 > 0)
+	// 	wall_height_from_bottom = d->nyb - box[0];
+	// else
+		wall_height_from_bottom = d->yb - box[0];
+	if (y2 > y1)
+	{
+		if (y1 > 0)
+			wall_height_scale = (d->nyfloor - d->yfloor) / TEXT_WALL_HEIGHT;
+		else
+			wall_height_scale = (d->yceil - d->yfloor) / TEXT_WALL_HEIGHT;
+		// wall_height_scale = (d->nyfloor - d->yfloor) / TEXT_WALL_HEIGHT;
+
+		// wall_height_scale = 30 / TEXT_WALL_HEIGHT;	
+		wall_width_scale = TEXT_WALL_WIDTH / 2 / d->wall_width;
+		if (fabs(d->t2.x - d->t1.x) > fabs(d->t2.z - d->t1.z))
+        {	
+			d->start_x_tex = (d->t1.x - d->tt1.x) * text.w / wall_width_scale / (d->tt2.x - d->tt1.x);
+			d->end_x_tex = (d->t2.x - d->tt1.x) * text.w / wall_width_scale / (d->tt2.x - d->tt1.x);
+		}
+		else
+        {
+			d->start_x_tex = (d->t1.z - d->tt1.z) * text.w / wall_width_scale / (d->tt2.z - d->tt1.z);
+			d->end_x_tex = (d->t2.z - d->tt1.z) * text.w / wall_width_scale / (d->tt2.z - d->tt1.z);
+		}
+		// OK
+		// if (y1 > 0)
+		// 	y_tex_start = (d->ny2a - d->ny1a) * ((d->x2 - d->x1) - (x - d->x1)) / (d->x2 - d->x1) - d->ny2a;
+		// else
+		y_tex_start = (d->y2a - d->y1a) * ((d->x2 - d->x1) - (x - d->x1)) / (d->x2 - d->x1) - d->y2a;
+		x_tex = ((d->start_x_tex * ((d->x2 - x) * d->t2.z) + d->end_x_tex * ((x - d->x1) * d->t1.z)) / ((d->x2 - x) * d->t2.z + (x-d->x1) * d->t1.z));
+		//OK
+		if ((d->y1a < 0 || d->y2a < 0) && y1 == 0)
+		{
+			wall_height_from_bottom += y_tex_start;
+			y_tex_pos += y_tex_start;
+			while (y1 <= y2)
+			{
+				y_tex = (y_tex_pos / wall_height_from_bottom * wall_height_scale) * text.h;
+				if (y_tex < 0)
+					y_tex = 0;
+				if (x_tex < 0)
+					x_tex = 0;
+				if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
+					w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+				y_tex_pos++;
+				y1++;
+			}
+		}
+		else
+		{
+			while (y1 <= y2)
+			{
+				y_tex = (y_tex_pos / wall_height_from_bottom * wall_height_scale) * text.h;
+				if (y_tex < 0)
+					y_tex = 0;
+				if (x_tex < 0)
+					x_tex = 0;
+				if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
+					w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+				y_tex_pos++;
+				y1++;
+			}
 		}
 	}
 }
 
 void	vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text)
 {
-	int		y;
 	int		y1;
 	int		y2;
 	double	wall_height_from_bottom;
@@ -206,7 +295,6 @@ void	vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text
 	int 	x_tex;
 	int		y_tex;
 	double	y_tex_pos;
-	double	alpha;
 	
 	y_tex_pos = 0;
 	y1 = box[0];
@@ -214,12 +302,12 @@ void	vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text
 	wall_height_from_bottom = d->yb - y1;
 	y1 = vmid(y1, 0, HEIGHT - 1);
 	y2 = vmid(y2, 0, HEIGHT - 1);
-	y = y1;
-	if (y2 == y1)
-		w->pix[y1 * WIDTH + x] = d->color.middle;
-	else if (y2 > y1)
+	if (y2 > y1)
 	{
 		wall_height_scale = (d->yceil - d->yfloor) / TEXT_WALL_HEIGHT;
+		// wall_height_scale = (d->nyfloor - d->yfloor) / TEXT_WALL_HEIGHT;
+		// wall_height_scale = (d->yceil - d->nyceil) / TEXT_WALL_HEIGHT;
+
 		wall_width_scale = TEXT_WALL_WIDTH / 2 / d->wall_width;
 		if (fabs(d->t2.x - d->t1.x) > fabs(d->t2.z - d->t1.z))
         {	
@@ -232,13 +320,12 @@ void	vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text
 			d->end_x_tex = (d->t2.z - d->tt1.z) * text.w / wall_width_scale / (d->tt2.z - d->tt1.z);
 		}
 		y_tex_start = (d->y2a - d->y1a) * ((d->x2 - d->x1) - (x - d->x1)) / (d->x2 - d->x1) - d->y2a;
-		alpha = (x - d->x1) / (d->x2 - d->x1);
 		x_tex = ((d->start_x_tex * ((d->x2 - x) * d->t2.z) + d->end_x_tex * ((x - d->x1) * d->t1.z)) / ((d->x2 - x) * d->t2.z + (x-d->x1) * d->t1.z));
 		if ((d->y1a < 0 || d->y2a < 0) && y1 == 0)
 		{
 			wall_height_from_bottom += y_tex_start;
 			y_tex_pos += y_tex_start;
-			while (y <= y2)
+			while (y1 <= y2)
 			{
 				y_tex = (y_tex_pos / wall_height_from_bottom * wall_height_scale) * text.h;
 				if (y_tex < 0)
@@ -246,14 +333,14 @@ void	vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text
 				if (x_tex < 0)
 					x_tex = 0;
 				if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
-					w->pix[y * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+					w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
 				y_tex_pos++;
-				y++;
+				y1++;
 			}
 		}
 		else
 		{
-			while (y <= y2)
+			while (y1 <= y2)
 			{
 				y_tex = (y_tex_pos / wall_height_from_bottom * wall_height_scale) * text.h;
 				if (y_tex < 0)
@@ -261,9 +348,9 @@ void	vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text
 				if (x_tex < 0)
 					x_tex = 0;
 				if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
-					w->pix[y * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+					w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
 				y_tex_pos++;
-				y++;
+				y1++;
 			}
 		}
 	}

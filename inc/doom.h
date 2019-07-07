@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2019/07/07 16:11:30 by ochaar           ###   ########.fr       */
+=======
+/*   Updated: 2019/07/06 23:56:59 by nvienot          ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -651,9 +655,13 @@ void				skybox(int x, int *box, t_env *w, t_draw *d, t_texture text);
 void				skybox2(t_env *w, t_texture text);
 double				pythagore(double a, double b);
 void				test_sprite2(t_map *m, double xx, double yy);
+<<<<<<< Updated upstream
 void				ennemy_animation(t_env *w, t_map *m, double **tab, int x);
 double				**fill_tab_ennemy(t_map *m, double **tab);
 double				**fill_tab_sprite(t_map *m, double **tab);
 double				**sort_double_tab(double **tab, int size);
+=======
+void				extruded_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
+>>>>>>> Stashed changes
 
 #endif
