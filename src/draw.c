@@ -302,8 +302,9 @@ void draw(t_env *w, t_map *m)
 						vertical_line(x, work, w, work.color);
 				}
 				x++;
-				if (w->sequential_draw == 1)
-					img_update(w);
+				if ((w->sequential_draw == 1 && (x % 3 == 0))
+					|| (w->sequential_frame == 1 && (x % 8 == 0)))
+						img_update(w);
 			}
 			if (work.network >= 0 && work.endx >= work.startx && (read.head + m->maxrenderedsector + 1 - read.tail) % m->maxrenderedsector)
 			{
