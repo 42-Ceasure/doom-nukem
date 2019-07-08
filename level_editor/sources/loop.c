@@ -14,11 +14,13 @@
 
 int			print_game(t_win *win)
 {
-	if (win->changemode)
+	if (win->changemode && win->check_textures == 0)
 	{
 		SDL_SetCursor(win->cursor);
 		SDL_BlitSurface(win->helptxt, NULL, win->surface, &win->dst);
 	}
+	if (win->check_textures)
+		SDL_BlitSurface(win->texturetxt, NULL, win->surface, &win->dst10);
 	win->texture = SDL_CreateTextureFromSurface(win->renderer, win->surface);
 	SDL_SetRenderTarget(win->renderer, NULL);
 	SDL_GetWindowSize(win->window, &win->w_win, &win->h_win);
@@ -169,6 +171,8 @@ void		draw_assets(t_win *win)
 			color = 0xD3D3D3;
 		if (tmp->asset_type == 6)
 			color = 0xFF69B4;
+		if (tmp->asset_type == 7)
+			color = 0xBDB76B;
 		draw_asset_points(win, tmp->x, tmp->y, color);
 		tmp = tmp->next;
 	}
@@ -310,8 +314,8 @@ void		loop_play(t_win *win)
 		clear_window(win);
 		draw_grid(win);
 
-		if (win->lstlst && win->just_close)
-			recursive_check(win);
+		//if (win->lstlst && win->just_close)
+		//	recursive_check(win);
 
 		if (win->triangles)
 			draw_triangulate(win);

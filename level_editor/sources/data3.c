@@ -602,6 +602,18 @@ int			number_of_sprite(t_win *win)
 void		first_line(t_win *win, FILE *fp)
 {
 	char		*str;
+	t_lstlst	*tmp2;
+	int			i;
+
+	i = 0;
+
+	tmp2 = win->triangles;
+	while (tmp2)
+	{
+		if (tmp2->sector != -1)
+			i++;
+		tmp2 = tmp2->next;
+	}
 
 	str = "dots:";
 	fputs(str, fp);
@@ -609,7 +621,7 @@ void		first_line(t_win *win, FILE *fp)
 	fputs(str, fp);
 	str = ",sector:";
 	fputs(str, fp);
-	str = ft_itoa(len_listlist(win->lstlst));
+	str = ft_itoa(i);
 	fputs(str, fp);
 	str = ",sprite:";
 	fputs(str, fp);
@@ -692,7 +704,7 @@ void		write_dots(t_win *win, FILE *fp)
 	}
 }
 
-int			*tab_sector2(t_win *win, int sector)
+int			*tab_sector3(t_win *win, int sector)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
@@ -703,7 +715,8 @@ int			*tab_sector2(t_win *win, int sector)
 	dot_tab = NULL;
 	i = 0;
 	index = 0;
-	tmp2 = win->lstlst;
+	//tmp2 = win->lstlst;
+	tmp2 = win->triangles;
 	while (tmp2)
 	{
 		if (tmp2->sector == sector)
@@ -729,31 +742,336 @@ int			*tab_sector2(t_win *win, int sector)
 	return (dot_tab);
 }
 
+int		check_triangles_segment(t_win *win, int x1, int y1, int x2, int y2, int sector)
+{
+	t_lstlst	*tmp2;
+	t_lst		*tmp;
+	int			headx;
+	int			heady;
+
+	tmp2 = win->triangles;
+	while (tmp2)
+	{
+		tmp = tmp2->head;
+		if (tmp)
+		{
+			headx = tmp->x;
+			heady = tmp->y;
+		}
+		while (tmp)
+		{
+			if (tmp->next)
+			{
+				printf("%d tmp nb \n", tmp->nb);
+				printf("%d tmp next nb \n", tmp->next->nb);
+				if ((x1 == tmp->x && y1 == tmp->y)
+					&& (x2 == tmp->next->x && y2 == tmp->next->y)
+						&& sector != tmp->sector)
+					return (1);
+				if ((y1 == tmp->next->y && x1 == tmp->next->x)
+					&& (y2 == tmp->y && x2 == tmp->x)
+						&& sector != tmp->sector)
+					return (1);
+			}
+			tmp = tmp->next;
+		}
+		tmp2 = tmp2->next;
+	}
+	return (0);
+}
+
+void		sort_triangles_points(t_win *win)
+{
+	t_lstlst	*tmp2;
+	t_lst		*tmp;
+	int			x;
+	int			y;
+	int			same;
+	int			used;
+	int			i;
+	int			index;
+	int			*dot_tab;
+
+	x = WIN_X;
+	y = WIN_Y;
+	tmp = NULL;
+	same = 0;
+	used = 0;
+	index = 0;
+
+	y = y_min_point(win);
+	while (y < WIN_Y)
+	{
+		i = number_of_dot_per_line_with_same(win, y);
+		//printf("%d i \n", i);
+		if (i > 0)
+		{
+			index = 0;
+			dot_tab = create_y_dot_tab(win, y, i);
+			while (index < i)
+			{
+				//printf("%d dot tab \n", dot_tab[index]);
+				tmp2 = win->triangles;
+				while (tmp2)
+				{
+					tmp = tmp2->head;
+					while (tmp)
+					{
+						if (tmp->y == y && tmp->x == dot_tab[index])
+						{
+							tmp->nb = win->number;
+							//printf("%d nb \n", win->number);
+						}
+						tmp = tmp->next;
+					}
+					tmp2 = tmp2->next;
+				}
+				index++;
+				if (dot_tab[index] !=  dot_tab[index-1])
+					win->number++;
+			}
+		}
+		y++;
+	}
+}
+
+/*int		which_triangles_sector_neighbour(t_win *win, int x1, int y1, int x2, int y2, int sector)
+{
+	t_lstlst	*tmp2;
+	t_lst		*tmp;
+	int			headx;
+	int			heady;
+
+	tmp2 = win->triangles;
+	while (tmp2)
+	{
+		tmp = tmp2->head;
+		if (tmp)
+		{
+			headx = tmp->x;
+			heady = tmp->y;
+		}
+		while (tmp)
+		{
+			//printf("%d tmp sector \n", tmp->sector);
+			//printf("%d sector \n", sector);
+
+			if (tmp->sector != -1)
+			{
+				if (tmp->next)
+				{
+					//printf("%d tmp nb \n", tmp->nb);
+					//printf("%d tmp next nb \n", tmp->next->nb);
+					if ((x1 == tmp->x && y1 == tmp->y)
+						&& (x2 == tmp->next->x && y2 == tmp->next->y)
+							&& sector != tmp->sector)
+							{
+								printf("%d tmp sector \n", tmp->sector);
+								printf("%d sector \n", sector);
+								printf(" ping 1 \n");
+								return (tmp->sector);
+							}
+					if ((y1 == tmp->next->y && x1 == tmp->next->x)
+						&& (y2 == tmp->y && x2 == tmp->x)
+							&& sector != tmp->sector)
+							{
+								printf("%d tmp sector \n", tmp->sector);
+								printf("%d sector \n", sector);
+								printf(" ping 2 \n");
+								return (tmp->sector);
+							}
+				}
+				else
+				{
+					if ((x1 == tmp->x && y1 == tmp->y)
+						&& (x2 == headx && y2 == heady)
+							&& sector != tmp->sector)
+							{
+								printf("%d tmp sector \n", tmp->sector);
+								printf("%d sector \n", sector);
+								printf(" ping 3 \n");
+								return (tmp->sector);
+							}
+					if ((y1 == heady && x1 == headx)
+						&& (y2 == tmp->y && x2 == tmp->x)
+							&& sector != tmp->sector)
+							{
+								printf("%d tmp sector \n", tmp->sector);
+								printf("%d sector \n", sector);
+								printf(" ping 4 \n");
+								return (tmp->sector);
+							}
+				}
+			}
+			tmp = tmp->next;
+		}
+		tmp2 = tmp2->next;
+	}
+	return (-1);
+}
+
+
+int		which_triangles_sector_neighbour2(t_win *win, int nb, int nb0, int sector)
+{
+	t_lstlst	*tmp2;
+	t_lst		*tmp;
+	int			headnb;
+
+	tmp2 = win->triangles;
+	while (tmp2)
+	{
+		tmp = tmp2->head;
+		if (tmp)
+			headnb = tmp->nb;
+		while (tmp)
+		{
+			//printf("%d tmp2 sector \n", tmp2->sector);
+			//printf("%d sector \n", sector);
+			//printf("%d tmp sector \n", tmp->sector);
+			if (tmp->sector != -1)
+			{
+				if (tmp->next)
+				{
+					if ((nb == tmp->nb)
+						&& (nb0 == tmp->next->nb)
+							&& sector != tmp->sector)
+							{
+								printf("%d tmp2 sector \n", tmp2->sector);
+								printf("%d sector \n", sector);
+								printf("%d tmp sector \n", tmp->sector);
+								printf("%d nb \n", nb);
+								printf("%d nb0 \n", nb0);
+								printf("%d tmp nb \n", tmp->nb);
+								printf("%d tmp nb0 \n", tmp->next->nb);
+								printf(" ping 1 \n");
+								return (tmp->sector);
+							}
+					if ((nb == tmp->next->nb)
+						&& (nb0 == tmp->nb)
+							&& sector != tmp->sector)
+							{
+								printf("%d tmp2 sector \n", tmp2->sector);
+								printf("%d sector \n", sector);
+								printf("%d tmp sector \n", tmp->sector);
+								printf("%d nb \n", nb);
+								printf("%d nb0 \n", nb0);
+								printf("%d tmp nb \n", tmp->nb);
+								printf("%d tmp nb0 \n", tmp->next->nb);
+								printf(" ping 2 \n");
+								return (tmp->sector);
+							}
+				}
+				else
+				{
+					if ((nb == tmp->nb)
+						&& (nb0 == headnb)
+							&& sector != tmp->sector)
+							{
+								printf("%d tmp2 sector \n", tmp2->sector);
+								printf("%d sector \n", sector);
+								printf("%d tmp sector \n", tmp->sector);
+								printf("%d nb \n", nb);
+								printf("%d nb0 \n", nb0);
+								printf("%d tmp nb \n", tmp->nb);
+								printf("%d tmp nb0 \n", headnb);
+								printf(" ping 3 \n");
+								return (tmp->sector);
+							}
+					if ((nb == headnb)
+						&& (nb0 == tmp->nb)
+							&& sector != tmp->sector)
+							{
+								printf("%d tmp2 sector \n", tmp2->sector);
+								printf("%d sector \n", sector);
+								printf("%d tmp sector \n", tmp->sector);
+								printf("%d nb \n", nb);
+								printf("%d nb0 \n", nb0);
+								printf("%d tmp nb \n", tmp->nb);
+								printf("%d tmp nb0 \n", headnb);
+								printf(" ping 4 \n");
+								return (tmp->sector);
+							}
+				}
+			}
+			tmp = tmp->next;
+		}
+		tmp2 = tmp2->next;
+	}
+	return (-1);
+}*/
+
+int			triangles_neighbours(t_win *win, t_lstlst *tmp2, int i)
+{
+	t_lstlst	*tmp3;
+	//t_lst		*tmp;
+	int			*tab_sector1;
+	int			*tab_sector2;
+	int			index;
+
+	tab_sector1 = tab_sector3(win, tmp2->sector);
+	tmp3 = win->triangles;
+	while (tmp3)
+	{
+		index = 0;
+		if (tmp3->sector != -1 && tmp3->sector != tmp2->sector)
+		{
+			tab_sector2 = tab_sector3(win, tmp3->sector);
+			if (i == 0)
+			{
+				if (tab_sector1[0] == tab_sector2[0] || tab_sector1[0] == tab_sector2[1]
+					|| tab_sector1[0] == tab_sector2[2])
+						index++;
+				if (tab_sector1[1] == tab_sector2[0] || tab_sector1[1] == tab_sector2[1]
+					|| tab_sector1[1] == tab_sector2[2])
+						index++;
+			}
+			if (i == 1)
+			{
+				if (tab_sector1[1] == tab_sector2[0] || tab_sector1[1] == tab_sector2[1]
+					|| tab_sector1[1] == tab_sector2[2])
+					index++;
+				if (tab_sector1[2] == tab_sector2[0] || tab_sector1[2] == tab_sector2[1]
+					|| tab_sector1[2] == tab_sector2[2])
+					index++;
+			}
+
+			if (i == 2)
+			{
+				if (tab_sector1[2] == tab_sector2[0] || tab_sector1[2] == tab_sector2[1]
+					|| tab_sector1[2] == tab_sector2[2])
+					index++;
+				if (tab_sector1[0] == tab_sector2[0] || tab_sector1[0] == tab_sector2[1]
+					|| tab_sector1[0] == tab_sector2[2])
+					index++;
+			}
+			if (index == 2)
+				return (tmp3->sector);
+		}
+		tmp3 = tmp3->next;
+	}
+	return (-1);
+}
+
+
 void		write_sectors_neighbours(t_win *win, FILE *fp, t_lstlst *tmp2)
 {
 	char		*str;
 	t_lst		*tmp;
-	t_lst		*tmp0;
+	//t_lst		*tmp0;
 	int			*tab_sector;
 	int			ret;
 	int			i;
 	int			len;
 
 	i = 0;
-	tab_sector = tab_sector2(win, tmp2->sector);
+	tab_sector = tab_sector3(win, tmp2->sector);
 	ret = -1;
 	tmp = tmp2->head;
 	len = len_list(tmp);
 
-	while (i < len - 1)
+	while (i < len)
 	{
-		tmp = tmp2->head;
-		tmp0 = tmp2->head;
-		while (tmp->nb != tab_sector[i])
-			tmp = tmp->next;
-		while (tmp0->nb != tab_sector[i + 1])
-			tmp0 = tmp0->next;
-		ret = which_sector_neighbour(win, tmp->x, tmp->y, tmp0->x, tmp0->y, tmp2->sector);
+		ret = triangles_neighbours(win, tmp2, i);
 		if (ret == -1)
 		{
 			str = "x";
@@ -764,13 +1082,14 @@ void		write_sectors_neighbours(t_win *win, FILE *fp, t_lstlst *tmp2)
 			str = ft_itoa(ret);
 			fputs(str, fp);
 		}
-		if (i < len - 2)
+		if (i < len - 1)
 		{
 			str = ",";
 			fputs(str, fp);
 		}
 		i++;
 	}
+	//return (ret);
 }
 
 void		write_sectors_textures(t_win *win, FILE *fp, t_lstlst *tmp2)
@@ -778,7 +1097,8 @@ void		write_sectors_textures(t_win *win, FILE *fp, t_lstlst *tmp2)
 	char		*str;
 	t_lst		*tmp;
 
-	if (win->lstlst)
+	//if (win->triangles)
+	if	(win->lstlst)
 		tmp = tmp2->head;
 
 	str = ":";
@@ -796,38 +1116,49 @@ void		write_sectors(t_win *win, FILE *fp)
 	int			index;
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
+	//int			ret;
 
 
 	index = 0;
-	i = len_listlist(win->lstlst);
-	tmp2 = win->lstlst;
+	//i = len_listlist(win->lstlst);
+	i = len_listlist(win->triangles);
+
+	//tmp2 = win->lstlst;
+	tmp2 = win->triangles;
+
 	while (index < i)
 	{
-		str = "\tsector:0,50:";
-		fputs(str, fp);
-
-		tmp = tmp2->head;
-		while (tmp->next)
+		/*printf("%d sector \n", tmp2->sector);
+		printf("%d index \n", index);
+		printf("%d i \n", i);*/
+		if (tmp2->sector != -1)
 		{
-			str = ft_itoa(tmp->nb);
+			str = "\tsector:0,50:";
 			fputs(str, fp);
-			tmp = tmp->next;
-			if (tmp->next)
+			tmp = tmp2->head;
+			while (tmp)
 			{
-				str = ",";
+				str = ft_itoa(tmp->nb);
 				fputs(str, fp);
+				tmp = tmp->next;
+				if (tmp)
+				{
+					str = ",";
+					fputs(str, fp);
+				}
 			}
+			str = ":";
+			fputs(str, fp);
+
+			write_sectors_neighbours(win, fp, tmp2);
+			write_sectors_textures(win, fp, tmp2);
+
+			str = "\n";
+			fputs(str, fp);
 		}
-		str = ":";
-		fputs(str, fp);
-
-		write_sectors_neighbours(win, fp, tmp2);
-		write_sectors_textures(win, fp, tmp2);
-
-		str = "\n";
-		fputs(str, fp);
-		tmp2 = tmp2->next;
 		index++;
+
+		tmp2 = tmp2->next;
 	}
 }
 
@@ -852,13 +1183,13 @@ void		write_player(t_win *win, FILE *fp)
 	str = "\tplayer_location:";
 	fputs(str, fp);
 
-	str = ft_itoa(tmp->x / 5); //a verifier
+	str = ft_itoa(tmp->x / 5);
 	fputs(str, fp);
 
 	str = ",";
 	fputs(str, fp);
 
-	str = ft_itoa(tmp->y / 5); // a verifier
+	str = ft_itoa(tmp->y / 5);
 	fputs(str, fp);
 
 	str = "\n";
@@ -942,15 +1273,28 @@ void		check4(t_win *win)
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
 
-	tmp2 = win->lstlst;
+	tmp2 = win->triangles;
 	while (tmp2)
 	{
 		tmp = tmp2->head;
+
+		if (tmp->nb != tmp->next->nb && tmp->next->nb != tmp->next->next->nb
+			&& tmp->next->next->nb != tmp->nb)
+		{
+			tmp2->sector = win->triangle_sector;
+			win->triangle_sector += 1;
+			//printf("%d sector \n", tmp2->sector);
+		}
+		else
+			tmp2->sector = -1;
 		while (tmp)
 		{
+			tmp->sector = tmp2->sector;
+			//printf("%d sector \n", tmp2->sector);
 			printf("%d nb \n", tmp->nb);
 			tmp = tmp->next;
 		}
+		printf(" tmp2 next \n");
 		tmp2 = tmp2->next;
 	}
 }
@@ -1003,6 +1347,38 @@ void		write_shotgun(t_win *win, FILE *fp, t_lstasset *tmp, int i)
 	fputs(str, fp);
 
 	str = ",1,0,";
+	fputs(str, fp);
+
+	//str = ft_itoa(sector); sector
+	//fputs(str, fp);
+
+	//str = ",";
+	//fputs(str, fp);
+
+	str = ft_itoa(tmp->x / 5);
+	fputs(str, fp);
+
+	str = ",";
+	fputs(str, fp);
+
+	str = ft_itoa(tmp->y / 5);
+	fputs(str, fp);
+}
+
+void		write_shotgun_ammo(t_win *win, FILE *fp, t_lstasset *tmp, int i)
+{
+	char	*str;
+
+	if (win->lstasset)
+	{
+		str = "\tcartouche:";
+		fputs(str, fp);
+	}
+
+	str = ft_itoa(i);
+	fputs(str, fp);
+
+	str = ",4,0,";
 	fputs(str, fp);
 
 	//str = ft_itoa(sector); sector
@@ -1172,6 +1548,8 @@ void		write_sprites(t_win *win, FILE *fp)
 			write_m9(win, fp, tmp, i);
 		if (tmp->asset_type == 6)
 			write_health(win, fp, tmp, i);
+		if (tmp->asset_type == 7)
+			write_shotgun_ammo(win, fp, tmp, i);
 		if (tmp->asset_type != 0 && tmp->asset_type != 3)
 		{
 			i++;
@@ -1229,9 +1607,9 @@ void		write_in_file(t_win *win)
 	fclose(fp);
 }
 
-
 void		fill_buffer(t_win *win)
 {
+	win->number = 0;
 	sort_points(win);
 
 	write_in_file(win);
@@ -1257,7 +1635,6 @@ int			triangulate_player_start(t_win *win, int x, int y)
 	tmp2 = win->triangles;
 	while (tmp2)
 	{
-		//printf("%d triangle sector \n", tmp2->sector);
 		tmp = tmp2->head;
 		p0 = get_point_in_list(tmp, 0);
 		p1 = get_point_in_list(tmp, 1);
@@ -1276,7 +1653,6 @@ int			triangulate_player_start(t_win *win, int x, int y)
 	return (ret);
 }
 
-
 int			check_player_start(t_win *win)
 {
 	t_lstasset	*tmp;
@@ -1284,7 +1660,6 @@ int			check_player_start(t_win *win)
 
 	ret = -1;
 	tmp = win->lstasset;
-
 	while (tmp)
 	{
 		if (tmp->asset_type == 0)
@@ -1294,7 +1669,6 @@ int			check_player_start(t_win *win)
 		}
 		tmp = tmp->next;
 	}
-
 	if (ret == 0)
 		ret = triangulate_player_start(win, tmp->x, tmp->y);
 	return (ret);
@@ -1319,6 +1693,45 @@ int			correct_map(t_win *win)
 	return (ret);
 }
 
+void		everything_is_a_triangle(t_win *win)
+{
+	recursive_check(win);
+	sort_triangles_points(win);
+	check4(win);
+}
+
+int			pick_all_textures(t_win *win)
+{
+	/*t_lstlst	*tmp2;
+
+	tmp2 = win->triangles;
+	while (tmp2)
+	{
+		if (tmp2->sector != -1)
+		{
+			tmp2->texture0 = win->texture_choice;
+		}
+		if (tmp2->texture0 != -1)
+		{*/
+
+	return (win->texture_choice);
+
+}
+
+
+int			custom_textures(t_win *win)
+{
+	win->check_textures = 1;
+	if (win->texture_choice == -2)
+		return (-2);
+
+	if (win->texture_choice == -1)
+	{
+		if (pick_all_textures(win) == 1)
+			return (-2);
+	}
+	return (0);
+}
 
 void		map_save(t_win *win)
 {
@@ -1343,14 +1756,21 @@ void		map_save(t_win *win)
 		tmp2 = tmp2->next;
 	}
 	len = len_listlist(win->lstlst);
-	if (correct_map(win) == 0)
+	if (len - 1 == z)
 	{
-		if (len - 1 == z)
-			fill_buffer(win);
-		printf("map saved \n");
+		everything_is_a_triangle(win);
+		if (correct_map(win) == 0)
+		{
+			//if (custom_textures(win) == -2)
+			//{
+				fill_buffer(win);
+				printf("map saved\n");
+			//}
+		}
 	}
 	win->number = 0;
 	win->same_dots = 0;
 	win->index_dot = 0;
 	win->tab_index = 0;
+	win->triangle_sector = 0;
 }

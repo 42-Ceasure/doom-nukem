@@ -45,35 +45,63 @@ static void	sdl_event_key(t_win *win)
 		|| win->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 		clear_n_exit(win, 0);
 
-	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_P])
+	if (win->check_textures == 0)
 	{
-		if (win->lstlst)
-			recursive_check(win);
-	}
 
-	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_L])
-	{
-		win->mode += 1;
-		//if (win->triangles)
-		//	win->drawtriangles = 1;
-	}
+		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_P])
+		{
+			if (win->lstlst)
+				recursive_check(win);
+		}
 
-	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_F5])
-	{
-		if (win->lstlst)
-			map_save(win);
-			//save_map(win);
-	}
+		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_F5])
+		{
+			if (win->lstlst)
+				map_save(win);
+				//save_map(win);
+		}
 
-	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_I])
-	{
-		test(win);
-	}
+		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_I])
+		{
+			test(win);
+		}
 
-	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_K])
-	{
-		if (win->lstlst)
-			check_neighbour(win);
+		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_K])
+		{
+			if (win->lstlst)
+				check_neighbour(win);
+		}
+
+		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_Y])
+		{
+			if (win->texture_choice == -3)
+				win->texture_choice = -1;
+		}
+
+		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_N])
+		{
+			if (win->texture_choice == -3)
+				win->texture_choice = -2;
+		}
+
+		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_1])
+		{
+			if (win->texture_choice == -1)
+				win->texture_choice = 1;
+		}
+
+		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_2])
+		{
+			if (win->texture_choice == -1)
+				win->texture_choice = 2;
+		}
+
+		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_3])
+		{
+			if (win->texture_choice == -1)
+				win->texture_choice = 3;
+		}
+
 	}
 
 	/*if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_H])
@@ -126,7 +154,6 @@ static void	sdl_event_mouse(t_win *win)
 				if (tmp2->closed == 0)
 					win->drawing = 1;
 			}
-			//win->drawing = 0;
 			//SDL_FreeSurface(win->helptxt);
 			win->helptxt = TTF_RenderText_Blended(win->police,
 				"Drawing Mode", win->color_font_r);
@@ -204,5 +231,6 @@ static void	sdl_event_mouse(t_win *win)
 void		sdl_event(t_win *win)
 {
 	sdl_event_key(win);
-	sdl_event_mouse(win);
+	if (win->check_textures == 0)
+		sdl_event_mouse(win);
 }

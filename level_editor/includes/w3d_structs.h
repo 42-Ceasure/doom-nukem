@@ -41,6 +41,7 @@ struct					s_win
 
 	SDL_Surface			*map_ui;
 	SDL_Surface			*helptxt;
+	SDL_Surface			*texturetxt;
 
 	SDL_Surface			*asset_sprite;
 	SDL_Surface			*asset_tmp;
@@ -60,6 +61,8 @@ struct					s_win
 	SDL_Rect			dst7;
 	SDL_Rect			dst8;
 	SDL_Rect			dst9;
+	SDL_Rect			dst10;
+
 
 	SDL_Cursor			*cursor;
 
@@ -106,6 +109,9 @@ struct					s_win
 	int					tab_index;
 	int					tab_malloced;
 	char				**tab;
+	int					triangle_sector;
+	int					check_textures;
+	int					texture_choice;
 };
 
 #endif

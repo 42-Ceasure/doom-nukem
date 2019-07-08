@@ -34,6 +34,9 @@ static void	init_dst(t_win *win)
 	win->dst8.y = WIN_Y - 45;
 	win->dst9.x = 0;
 	win->dst9.y = 0;
+	win->dst10.x = 300;
+	win->dst10.y = 300;
+
 
 	win->color_font_r.r = 119;
 	win->color_font_r.g = 136;
@@ -56,6 +59,9 @@ static int	init_assets(t_win *win)
 
 	win->helptxt = TTF_RenderText_Blended(win->police,
 		"Drawing Mode", win->color_font_r);
+
+	win->texturetxt = TTF_RenderText_Blended(win->police,
+		"Do you want to manually assign textures ?  y / n", win->color_font_r);
 
 	/*win->helptxt = TTF_RenderText_Blended(win->police,
 		"test", win->color_font_r);*/
@@ -97,6 +103,9 @@ static int	init_struct(t_win *win)
 	win->same_dots = 0;
 	win->tab_index = 0;
 	win->tab_malloced = 0;
+	win->triangle_sector = 0;
+	win->check_textures = 0;
+	win->texture_choice = -3;
 
 	return (0);
 }
