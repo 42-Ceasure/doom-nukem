@@ -40,7 +40,7 @@ SRCFIL				=	main.c exit.c error.c process_hint.c screen.c	\
 						key_events.c keyup_events.c keydown_events.c	\
 						mouse_events.c	\
 						5_doom_short_functions.c 5_line.c	\
-						draw_main.c draw_utility.c draw_minimap.c draw_sprite.c\
+						draw.c draw_minimap.c draw_txtr.c draw_sprite.c\
 						multi_thread.c menu.c moving_ennemy.c
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))

@@ -1,6 +1,68 @@
-//
+/*BIG42HEADER*/
 
-#include "doom-nukem.h"
+#include "doom.h"
+
+void	clean_render(t_env *w, Uint32 color)
+{
+	int x;
+
+	x = 0;
+	while (x < HEIGHT * WIDTH)
+	{
+		w->pix[x] = color;
+		x++;
+	}
+}
+
+void	ceiling_line(int x, t_work work, t_env *w, Uint32 color)
+{
+	int		y;
+	int		y1;
+	int		y2;
+
+	y1 = work.starty;
+	y2 = work.stopy;
+	y1 = vmid(y1, 0, HEIGHT - 1);
+	y2 = vmid(y2, 0, HEIGHT - 1);
+	y = y1 + 1;
+	if (y2 == y1)
+		w->pix[y1 * WIDTH + x] = color;
+	else if (y2 > y1)
+	{
+		w->pix[y1 * WIDTH + x] = color;
+		while (y < y2)
+		{
+			w->pix[y * WIDTH + x] = color;
+			y++;
+		}
+		w->pix[y2 * WIDTH + x] = color;
+	}
+}
+
+void	vertical_line(int x, t_work work, t_env *w, t_color color)
+{
+	int		y;
+	int		y1;
+	int		y2;
+
+	y1 = work.starty;
+	y2 = work.stopy;
+	y1 = vmid(y1, 0, HEIGHT - 1);
+	y2 = vmid(y2, 0, HEIGHT - 1);
+	y = y1 + 1;
+	if (y2 == y1)
+		w->pix[y1 * WIDTH + x] = color.middle;
+	else if (y2 > y1)
+	{
+		w->pix[y1 * WIDTH + x] = color.top;
+		while (y < y2)
+		{
+			w->pix[y * WIDTH + x] = color.middle;
+			y++;
+		}
+		w->pix[y2 * WIDTH + x] = color.bottom;
+	}
+}
 
 void draw(t_env *w, t_map *m)
 {
@@ -72,12 +134,12 @@ void draw(t_env *w, t_map *m)
 			work.tt2.x = work.t2.x;
 			work.tt2.z = work.t2.z;
 
-			if (work.t1.z <= 0 && work.t2.z <= 0) 
+			if (work.t1.z < 0 && work.t2.z < 0) 
 			{
 				point++;
 				continue;
 			}
-			if (work.t1.z <= 0 || work.t2.z <= 0)
+			if (work.t1.z < 0 || work.t2.z < 0)
 			{
 				work.i1.x1 = work.t1.x;
 				work.i1.y1 = work.t1.z;
@@ -168,7 +230,7 @@ void draw(t_env *w, t_map *m)
 				work.cya = vmid(work.ya, work.ytop[x], work.ybot[x]);
 				work.cyb = vmid(work.yb, work.ytop[x], work.ybot[x]);
 
-//////////////////////////// plafond \\\\\\\\\\\\\\\\\\\\\\\\\
+
 
 				work.starty = work.ytop[x];
 				work.stopy = work.cya - 1;
@@ -179,7 +241,7 @@ void draw(t_env *w, t_map *m)
 				else if (w->textured != 1)
 					ceiling_line(x, work, w, 0x12677179);
 
-///////////////////////////// sol \\\\\\\\\\\\\\\\\\\\\\\\\\
+
 
 				work.starty = work.cyb + 1;
 				work.stopy = work.ybot[x];
@@ -188,7 +250,7 @@ void draw(t_env *w, t_map *m)
 				else
 					vertical_line(x, work, w, work.color2);
 
-////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
 
 				if (work.network >= 0)
 				{
@@ -203,7 +265,6 @@ void draw(t_env *w, t_map *m)
 					work.color.top = 0;
 					work.color.bottom = 0;
 
-/////////////////
 
 					work.color.middle = (x == work.x1 || x == work.x2) ? 0 : work.r1;
 					work.starty = work.cya;
@@ -213,7 +274,6 @@ void draw(t_env *w, t_map *m)
 					else
 						vertical_line(x, work, w, work.color);
 
-/////////////////
 
 					work.ytop[x] = vmid(vmax(work.cya, work.cnya), work.ytop[x], HEIGHT - 1);
 					work.color.middle = (x == work.x1 || x == work.x2) ? 0 : work.r2;
@@ -228,7 +288,6 @@ void draw(t_env *w, t_map *m)
 					else
 						vertical_line(x, work, w, work.color);
 
-/////////////////
 
 					work.ybot[x] = vmid(vmin(work.cyb, work.cnyb), 0, work.ybot[x]);
 				}
@@ -236,7 +295,6 @@ void draw(t_env *w, t_map *m)
 				{
 					work.r = 0x12010101 * (255 - work.z);
 
-////////////////
 					work.color.middle = (x == work.x1 || x == work.x2) ? 0 : work.r;
 					work.starty = work.cya;
 					work.stopy = work.cyb;
@@ -263,29 +321,6 @@ void draw(t_env *w, t_map *m)
 	}
 	count_sprite(w, m);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
