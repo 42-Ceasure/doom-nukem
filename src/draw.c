@@ -237,7 +237,7 @@ void draw(t_env *w, t_map *m)
 				if (w->textured == 1 && m->sector[work.nosector].texturing[5] == 0)
 					ceiling_line_textured(x, w, work, w->texturing[m->sector[work.nosector].texturing[1]]);
 				// else if (w->textured == 1 && w->m->sector[work.nosector].texturing[5] != 0)
-					// skybox(x, box, w, d, w->texturing[w->m->sector[work.nosector].texturing[5]]);
+				// 	skybox(x, box, w, d, w->texturing[w->m->sector[work.nosector].texturing[5]]);
 				else if (w->textured != 1)
 					ceiling_line(x, work, w, 0x12677179);
 
