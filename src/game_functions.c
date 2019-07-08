@@ -74,6 +74,10 @@ void		go_right(t_map *m)
 void		look_left(t_map *m)
 {
 	PL_A = PL_A - 0.05;
+	if (PL_A > 2 * M_PI)
+		PL_A = PL_A - 2 * M_PI;
+	if (PL_A < 0)
+		PL_A = PL_A + 2 * M_PI;
 	m->player.anglesin = sin(m->player.angle);
 	m->player.anglecos = cos(m->player.angle);
 }
@@ -81,6 +85,10 @@ void		look_left(t_map *m)
 void		look_right(t_map *m)
 {
 	PL_A = PL_A + 0.05;
+	if (PL_A > 2 * M_PI)
+		PL_A = PL_A - 2 * M_PI;
+	if (PL_A < 0)
+		PL_A = PL_A + 2 * M_PI;
 	m->player.anglesin = sin(m->player.angle);
 	m->player.anglecos = cos(m->player.angle);
 }
