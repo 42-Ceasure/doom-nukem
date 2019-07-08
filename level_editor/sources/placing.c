@@ -15,7 +15,7 @@
 void		pick_asset(t_win *win)
 {
 	win->asset += 1;
-	if (win->asset > 7)
+	if (win->asset > 8)
 		win->asset = 0;
 	if (win->asset == 0)
 		win->asset_sprite = IMG_Load("resources/textures/feather.png");
@@ -33,6 +33,8 @@ void		pick_asset(t_win *win)
 		win->asset_sprite = IMG_Load("resources/textures/health.png");
 	if (win->asset == 7)
 		win->asset_sprite = IMG_Load("resources/textures/shotgun_shell.png");
+	if (win->asset == 8)
+		win->asset_sprite = IMG_Load("resources/textures/undertale2.png");
 }
 
 void		placing(t_win *win)
@@ -73,6 +75,11 @@ void		placing(t_win *win)
 		win->dst9.y = win->y2 - 35;
 	}
 	if (win->asset == 7)
+	{
+		win->dst9.x = win->x2 - 25;
+		win->dst9.y = win->y2 - 35;
+	}
+	if (win->asset == 8)
 	{
 		win->dst9.x = win->x2 - 25;
 		win->dst9.y = win->y2 - 35;
@@ -136,6 +143,8 @@ void		asset_overing(t_win *win)
 				win->asset_tmp = IMG_Load("resources/textures/health.png");
 			if (tmp->asset_type == 7)
 				win->asset_tmp = IMG_Load("resources/textures/shotgun_shell.png");
+			if (tmp->asset_type == 8)
+				win->asset_tmp = IMG_Load("resources/textures/undertale2.png");
 
 			final_texture_to_screen(win->surface, win->asset_tmp, tmp->x - 25, tmp->y - 75, 64, 64);
 		}

@@ -1003,12 +1003,19 @@ int		which_triangles_sector_neighbour2(t_win *win, int nb, int nb0, int sector)
 int			triangles_neighbours(t_win *win, t_lstlst *tmp2, int i)
 {
 	t_lstlst	*tmp3;
-	//t_lst		*tmp;
 	int			*tab_sector1;
 	int			*tab_sector2;
 	int			index;
+	int			swap;
+
 
 	tab_sector1 = tab_sector3(win, tmp2->sector);
+	if (tmp2->clockwise == 2)
+	{
+		swap = tab_sector1[1];
+		tab_sector1[1] = tab_sector1[2];
+		tab_sector1[2] = swap;
+	}
 	tmp3 = win->triangles;
 	while (tmp3)
 	{
@@ -1016,6 +1023,12 @@ int			triangles_neighbours(t_win *win, t_lstlst *tmp2, int i)
 		if (tmp3->sector != -1 && tmp3->sector != tmp2->sector)
 		{
 			tab_sector2 = tab_sector3(win, tmp3->sector);
+			if (tmp3->clockwise == 2)
+			{
+				swap = tab_sector2[1];
+				tab_sector2[1] = tab_sector2[2];
+				tab_sector2[2] = swap;
+			}
 			if (i == 0)
 			{
 				if (tab_sector1[0] == tab_sector2[0] || tab_sector1[0] == tab_sector2[1]
@@ -1052,12 +1065,10 @@ int			triangles_neighbours(t_win *win, t_lstlst *tmp2, int i)
 	return (-1);
 }
 
-
 void		write_sectors_neighbours(t_win *win, FILE *fp, t_lstlst *tmp2)
 {
 	char		*str;
 	t_lst		*tmp;
-	//t_lst		*tmp0;
 	int			*tab_sector;
 	int			ret;
 	int			i;
@@ -1089,15 +1100,14 @@ void		write_sectors_neighbours(t_win *win, FILE *fp, t_lstlst *tmp2)
 		}
 		i++;
 	}
-	//return (ret);
 }
+
 
 void		write_sectors_textures(t_win *win, FILE *fp, t_lstlst *tmp2)
 {
 	char		*str;
 	t_lst		*tmp;
 
-	//if (win->triangles)
 	if	(win->lstlst)
 		tmp = tmp2->head;
 
@@ -1136,16 +1146,36 @@ void		write_sectors(t_win *win, FILE *fp)
 			str = "\tsector:0,50:";
 			fputs(str, fp);
 			tmp = tmp2->head;
-			while (tmp)
+			if (tmp2->clockwise == 1)
+			{
+				while (tmp)
+				{
+					str = ft_itoa(tmp->nb);
+					fputs(str, fp);
+					tmp = tmp->next;
+					if (tmp)
+					{
+						str = ",";
+						fputs(str, fp);
+					}
+				}
+			}
+			if (tmp2->clockwise == 2)
 			{
 				str = ft_itoa(tmp->nb);
 				fputs(str, fp);
-				tmp = tmp->next;
-				if (tmp)
-				{
-					str = ",";
-					fputs(str, fp);
-				}
+
+				str = ",";
+				fputs(str, fp);
+
+				str = ft_itoa(tmp->next->next->nb);
+				fputs(str, fp);
+
+				str = ",";
+				fputs(str, fp);
+
+				str = ft_itoa(tmp->next->nb);
+				fputs(str, fp);
 			}
 			str = ":";
 			fputs(str, fp);
@@ -1493,6 +1523,38 @@ void		write_health(t_win *win, FILE *fp, t_lstasset *tmp, int i)
 	fputs(str, fp);
 }
 
+void		write_undertale(t_win *win, FILE *fp, t_lstasset *tmp, int i)
+{
+	char		*str;
+
+	if (win->lstasset)
+	{
+		str = "\tundertale:";
+		fputs(str, fp);
+	}
+
+	str = ft_itoa(i);
+	fputs(str, fp);
+
+	str = ",14,0,";
+	fputs(str, fp);
+
+	//str = ft_itoa(sector); sector
+	//fputs(str, fp);
+
+	//str = ",";
+	//fputs(str, fp);
+
+	str = ft_itoa(tmp->x / 5);
+	fputs(str, fp);
+
+	str = ",";
+	fputs(str, fp);
+
+	str = ft_itoa(tmp->y / 5);
+	fputs(str, fp);
+}
+
 void		write_ennemy(t_win *win, FILE *fp, t_lstasset *tmp, int i)
 {
 	char		*str;
@@ -1550,6 +1612,8 @@ void		write_sprites(t_win *win, FILE *fp)
 			write_health(win, fp, tmp, i);
 		if (tmp->asset_type == 7)
 			write_shotgun_ammo(win, fp, tmp, i);
+		if (tmp->asset_type == 8)
+			write_undertale(win, fp, tmp, i);
 		if (tmp->asset_type != 0 && tmp->asset_type != 3)
 		{
 			i++;
@@ -1693,11 +1757,66 @@ int			correct_map(t_win *win)
 	return (ret);
 }
 
+int		point_in_triangle2(t_dot p1, t_dot p2)
+{
+	if (p2.y < p1.y)
+	{
+			printf("anti horaire \n");
+			return (2);
+	}
+	else
+	{
+			printf("horaire \n");
+			return (1);
+	}
+	return (0);
+}
+
+void		clockwise(t_win *win)
+{
+	t_lstlst	*tmp2;
+	t_lst		*tmp;
+	t_dot		p0;
+	t_dot		p1;
+	t_dot		p2;
+	t_dot		m;
+	int			ret;
+
+	tmp2 = win->triangles;
+	ret = 0;
+	while (tmp2)
+	{
+		tmp = tmp2->head;
+		p0.x = tmp->x;
+		p0.y = tmp->y;
+		m.x = tmp->x;
+		m.y = tmp->y;
+		p1.x = tmp->next->x;
+		p1.y = tmp->next->y;
+		p2.x = tmp->next->next->x;
+		p2.y = tmp->next->next->y;
+
+		ret = point_in_triangle2(p1, p2);
+
+		if (ret == 1)
+			tmp2->clockwise = 1;
+
+		if (ret == 2)
+			tmp2->clockwise = 2;
+
+		tmp2 = tmp2->next;
+
+	}
+}
+
+
 void		everything_is_a_triangle(t_win *win)
 {
 	recursive_check(win);
 	sort_triangles_points(win);
 	check4(win);
+	printf("test \n");
+	clockwise(win);
 }
 
 int			pick_all_textures(t_win *win)
