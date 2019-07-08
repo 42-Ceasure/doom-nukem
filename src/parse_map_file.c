@@ -177,5 +177,5 @@ void	parse_map_file(t_env *w, t_map *m)
 		set_error(w, m, 8, ft_strdup("do_parse"));
 	w->dtime.end = SDL_GetTicks();
 	loading = w->dtime.end - w->dtime.start;
-	printf("map      loaded in %f seconds !\n", loading / 1000);
+	printf("map loaded in %f seconds !\n", loading / 1000);
 }

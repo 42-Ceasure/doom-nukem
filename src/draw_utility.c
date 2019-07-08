@@ -21,7 +21,6 @@ void	skybox2(t_env *w, t_texture text)
 	double	height;
 
 	int 		tmpix;
-
 	y2 = HEIGHT;
 	while (x < WIDTH)
 	{
@@ -46,41 +45,36 @@ void	skybox2(t_env *w, t_texture text)
 
 void	skybox(int x, int *box, t_env *w, t_draw *d, t_texture text)
 {
-	int		y = 0;
 	int		y1;
 	int		y2;
 	double	width;
 	double	height;
-
-	int 		tmpix;
+	int		tmpix;
 
 	y1 = box[0];
 	y2 = box[1];
 	y1 = vmid(y1, 0, HEIGHT - 1);
 	y2 = vmid(y2, 0, HEIGHT - 1);
-	y = y1;
-	if (y2 == y1)
-		w->pix[y1 * WIDTH + x] = 0x12677179;
-	else if (y2 > y1)
+	if (y2 > y1)
 	{
-		while (y <= y2)
+		while (y1 <= y2)
 		{
-			if (y >= d->cya && y <= d->cyb) 
+			if (y1 >= d->cya && y1 <= d->cyb) 
 			{
-				y = d->cyb;
+				y1 = d->cyb;
 				continue;
 			}
 			width = (x * (text.w / 4)) / WIDTH + ((w->m->player.angle * (180 / PI)) * text.w) / 360;
-			height = (((y + w->m->yaw / 0.004 + text.h) * text.h) / HEIGHT / 2);
+			height = (((y1 + w->m->yaw / 0.004 + text.h) * text.h) / HEIGHT / 2);
 			// Better? : 
 			// width = x + (w->m->player.angle * (180 / PI)/ 2 * text.w) / 360;
 			// height = (((y + text.h) + w->m->yaw / 0.004) * text.h) / HEIGHT / 2;
 			tmpix = (int)((int)height % text.h) * text.w + ((int)width % text.w);
 			if (tmpix > 0 && tmpix < text.h * text.w)
-				w->pix[y * WIDTH + x] = text.pix[tmpix];
+				w->pix[y1 * WIDTH + x] = text.pix[tmpix];
 			else
-				w->pix[y * WIDTH + x] = 0;
-			y++;
+				w->pix[y1 * WIDTH + x] = 0;
+			y1++;
 		}
 	}
 }
@@ -137,19 +131,18 @@ void	vertical_line(int x, int *box, t_env *w, t_color color)
 
 void	ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text)
 {
-	int		y1;
-	int		y2;
-	double	hei;
-	double	mapx;
-	double	mapz;
-	double	rtx;
-	double	rtz;
+	int			y1;
+	int			y2;
+	double		hei;
+	double		mapx;
+	double		mapz;
+	double		rtx;
+	double		rtz;
 	unsigned	txtx;
 	unsigned	txtz;
 	double 		vfov;
 	double 		hfov;
 	int 		tmpix;
-	int test = 0;
 
 	y1 = box[0];
 	y2 = box[1];
@@ -162,22 +155,13 @@ void	ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text)
 		hfov *= 2;
 		vfov *= 2;
 	}
-	// if (y2 == y1)
-	// 	w->pix[y1 * WIDTH + x] = 0x12677179;
 	if (y2 >= y1)
 	{
 		while (y1 <= y2)
 		{
 			if (y1 >= d->cya && y1 <= d->cyb) 
 			{
-				// printf("y1 = %d, cya = %d, cyb = %d\n", y1, d->cya, d->cyb);
-
 				y1 = d->cyb + 1;
-				
-				// printf("test = %d\n", test);
-				test++;
-				// a check ???
-				// printf("SALUT");
 				continue;
 			}
 			hei = y1 < d->cya ? d->yceil : d->yfloor;
@@ -188,7 +172,6 @@ void	ceiling_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text)
             mapx = rtx + w->m->player.coor.x;
 			mapz = rtz + w->m->player.coor.y;
 			// attention appele 1 milliard de fois
-			// test_sprite(w->m, mapx, mapz);
 			test_sprite2(w->m, mapx, mapz);
 			txtx = (mapx * text.w / 6);
 			txtz = (mapz * text.w / 6);
@@ -305,9 +288,6 @@ void	vertical_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text
 	if (y2 > y1)
 	{
 		wall_height_scale = (d->yceil - d->yfloor) / TEXT_WALL_HEIGHT;
-		// wall_height_scale = (d->nyfloor - d->yfloor) / TEXT_WALL_HEIGHT;
-		// wall_height_scale = (d->yceil - d->nyceil) / TEXT_WALL_HEIGHT;
-
 		wall_width_scale = TEXT_WALL_WIDTH / 2 / d->wall_width;
 		if (fabs(d->t2.x - d->t1.x) > fabs(d->t2.z - d->t1.z))
         {	
