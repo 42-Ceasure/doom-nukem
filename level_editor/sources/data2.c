@@ -12,95 +12,6 @@
 
 #include "editor.h"
 
-/*void		sort_points(t_win *win)
-{
-	t_lstlst	*tmp2;
-	t_lst		*tmp;
-	int			x;
-	int			y;
-	int			j;
-	int			same;
-	int			all_points;
-	int			used;
-
-	x = WIN_X;
-	y = WIN_Y;
-	j = 0;
-	tmp = NULL;
-	same = 0;
-	used = 0;
-	all_points = win->index_dot + win->same_dots;
-
-	printf("%d all points = \n", all_points);
-	printf("%d index dot = \n", win->index_dot);
-	printf("%d same dots = \n", win->same_dots);
-
-	tmp2 = win->lstlst;
-	while (tmp2)
-	{
-		if (tmp2)
-			tmp = tmp2->head;
-		while (tmp)
-		{
-			if (tmp->y < y)
-				y = tmp->y;
-			tmp = tmp->next;
-		}
-		tmp2 = tmp2->next;
-	}
-
-	j = 0;
-	while (y < WIN_Y)
-	{
-		tmp2 = win->lstlst;
-		while (tmp2)
-		{
-			x = WIN_X;
-			if (tmp2)
-				tmp = tmp2->head;
-			while (tmp)
-			{
-				if (tmp->y == y)
-				{
-					if (tmp->x < x)
-						x = tmp->x;
-				}
-					tmp = tmp->next;
-			}
-			tmp2 = tmp2->next;
-		}
-
-		//printf("%d x \n", x);
-		//printf("%d y \n", y);
-
-		while (x < WIN_X)
-		{
-			tmp2 = win->lstlst;
-			while (tmp2)
-			{
-				if (tmp2)
-					tmp = tmp2->head;
-				while (tmp)
-				{
-					if (tmp->y == y && tmp->x == x)
-					{
-						used = 1;
-						tmp->nb = win->number;
-						//printf("%d nb \n", win->number);
-					}
-					tmp = tmp->next;
-				}
-				tmp2 = tmp2->next;
-			}
-			if (used)
-				win->number++;
-			used = 0;
-			x++;
-		}
-		y++;
-	}
-}*/
-
 void		fill_sector_dots_tab(t_win *win, t_lst *tmp, int *tab)
 {
 	int		i;
@@ -189,7 +100,6 @@ void		sector_line(t_win *win, int index, t_lstlst *tmp2)
 		}
 		k++;
 	}
-	//printf("%s \n", win->tab[index]);
 }
 
 void		sectors_in_tab(t_win *win)
@@ -198,7 +108,6 @@ void		sectors_in_tab(t_win *win)
 	int			index;
 	t_lstlst	*tmp2;
 
-	//sort_points(win);
 	tmp2 = win->lstlst;
 	len_sectors = len_listlist(win->lstlst);
 	index = win->index_dot;

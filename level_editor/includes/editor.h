@@ -40,6 +40,12 @@ typedef struct		s_lstlst
 	int				sector;
 	int				closed;
 	int				sector_nb;
+	int				clockwise;
+	int				texture0;
+	int				texture1;
+	int				texture2;
+	int				texture3;
+	int				texture4;
 	struct s_lst	*head;
 	struct s_lstlst	*next;
 }					t_lstlst;

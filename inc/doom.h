@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/04 19:15:39 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/06 23:56:59 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,12 +300,12 @@ typedef struct		s_calc_sprite
 	double			v1y;
 	double			t1x;
 	double			t1z;
+	double			diffx;
+	double			diffy;
 	double			xscale1;
 	double			x1;
 	double			y1a;
 	double			yscale1;
-	double			diffx;
-	double			diffy;
 	double			zoom;
 }					t_cal_sprt;
 
@@ -358,11 +358,6 @@ typedef struct		s_weapon
 	Mix_Chunk 		*shoot;
 }					t_weapon;
 
-typedef struct		s_visible
-{
-	int				*wall;
-}					t_visible;
-
 typedef struct		s_map
 {
 	void			*world;
@@ -389,7 +384,6 @@ typedef struct		s_map
 	char			*map_name;
 	char			*map_path;
 	t_dot			*dot;
-	t_visible		*visible;
 	t_sector		*sector;
 	t_weapon		*weap;
 	t_sprite		*sprite;	//a placer dans t_env
@@ -645,11 +639,8 @@ int					final_char_to_screen(t_env *w, t_texture texture, int x, int y, int widt
 void				get_that_time(t_env *w);
 void				draw_sprite(t_env *w, t_map *m, int x, int ratio);
 void				count_sprite(t_env *w, t_map *m);
-// void				count_sprite(t_env *w, t_map *m, double x, double y);
-
 void				test_sprite(t_map *m, double xx, double yy);
 void				clear_sprite(t_map *m);
-
 void				draw_ennemy(t_env *w, t_map *m, int x, int ratio);
 void				jet_pack(t_map *m);
 int					get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y);
@@ -659,4 +650,10 @@ void				skybox(int x, t_env *w, t_work work, t_texture text);
 void				skybox2(t_env *w, t_texture text);
 double				pythagore(double a, double b);
 void				test_sprite2(t_map *m, double xx, double yy);
+void				ennemy_animation(t_env *w, t_map *m, double **tab, int x);
+double				**fill_tab_ennemy(t_map *m, double **tab);
+double				**fill_tab_sprite(t_map *m, double **tab);
+double				**sort_double_tab(double **tab, int size);
+void				extruded_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/07/03 14:52:43 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/07 15:26:12 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,6 @@ t_cal_sprt	calcul_sprite_ennemy(t_env *w, t_map *m, int x, int ratio)
 	tmp.t1z = tmp.v1x * PL_AC + tmp.v1y * PL_AS;
 	tmp.xscale1 = m->player.field_of_vision_h / tmp.t1z;
 	tmp.yscale1 = m->player.field_of_vision_v / tmp.t1z;
-	tmp.diffx = fabs(m->player.coor.x - m->ennemy[x].coor.x);
-	tmp.diffy = fabs(m->player.coor.y - m->ennemy[x].coor.y);
-	m->ennemy[x].range = sqrt((tmp.diffx * tmp.diffx) + (tmp.diffy * tmp.diffy)) / 10;
-	m->ennemy[x].range = 1 / m->ennemy[x].range;
 	if (m->ennemy[x].range > 6)
 		m->ennemy[x].range = 6;
 	tmp.zoom = m->ennemy[x].range;
@@ -110,23 +106,20 @@ t_cal_sprt	calcul_sprite_ennemy(t_env *w, t_map *m, int x, int ratio)
 
 void		draw_ennemy(t_env *w, t_map *m, int x, int ratio)
 {
-	double	diffx;
-	double	diffy;
-	double	diffz;
+	double		diffx;
+	double		diffy;
+	double		diffz;
 	t_cal_sprt	data;
 	int			tmpix;
 
+	diffx = 0;
+	diffy = 0;
+	diffz = 0;
 	if (m->ennemy[x].range < 1 && m->ennemy[x].dead == 0)
 	{
 		diffx = m->player.coor.x - m->ennemy[x].coor.x;
 		diffy = m->player.coor.y - m->ennemy[x].coor.y;
 		diffz = m->player.coor.z - m->ennemy[x].coor.z;
-	}
-	else
-	{
-		diffx = 0;
-		diffy = 0;
-		diffz = 0;
 	}
 	m->ennemy[x].move_speed.x = diffx * 0.005;
 	m->ennemy[x].move_speed.y = diffy * 0.005;

@@ -155,6 +155,7 @@ t_lst	*polylstnew(t_dot d)
 	tmp->x = d.x;
 	tmp->y = d.y;
 	tmp->next = NULL;
+
 	return (tmp);
 }
 
@@ -274,6 +275,7 @@ t_lstlst	*triangles_new(t_lst *polygone)
 		return (NULL);
 	tmp->head = polygone;
 	tmp->next = NULL;
+
 	return (tmp);
 }
 

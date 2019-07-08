@@ -15,7 +15,7 @@
 void		pick_asset(t_win *win)
 {
 	win->asset += 1;
-	if (win->asset > 6)
+	if (win->asset > 8)
 		win->asset = 0;
 	if (win->asset == 0)
 		win->asset_sprite = IMG_Load("resources/textures/feather.png");
@@ -31,6 +31,10 @@ void		pick_asset(t_win *win)
 		win->asset_sprite = IMG_Load("resources/textures/m9.png");
 	if (win->asset == 6)
 		win->asset_sprite = IMG_Load("resources/textures/health.png");
+	if (win->asset == 7)
+		win->asset_sprite = IMG_Load("resources/textures/shotgun_shell.png");
+	if (win->asset == 8)
+		win->asset_sprite = IMG_Load("resources/textures/undertale2.png");
 }
 
 void		placing(t_win *win)
@@ -70,6 +74,16 @@ void		placing(t_win *win)
 		win->dst9.x = win->x2 - 25;
 		win->dst9.y = win->y2 - 35;
 	}
+	if (win->asset == 7)
+	{
+		win->dst9.x = win->x2 - 25;
+		win->dst9.y = win->y2 - 35;
+	}
+	if (win->asset == 8)
+	{
+		win->dst9.x = win->x2 - 25;
+		win->dst9.y = win->y2 - 35;
+	}
 }
 
 t_lstasset	*lstassetnew(t_win *win, int sector)
@@ -92,15 +106,14 @@ void		place_asset(t_win *win)
 
 	if (win->lstasset == NULL)
 	{
-		win->lstasset = lstassetnew(win, 0); // faux il faudra recuperer le
-		//sector avec triangulate
+		win->lstasset = lstassetnew(win, 0);
 	}
 	else
 	{
 		tmp = win->lstasset;
 		while (tmp->next)
 			tmp = tmp->next;
-		tmp->next = lstassetnew(win, 0); // same here
+		tmp->next = lstassetnew(win, 0);
 	}
 	win->place = 0;
 }
@@ -128,9 +141,12 @@ void		asset_overing(t_win *win)
 				win->asset_tmp = IMG_Load("resources/textures/m9.png");
 			if (tmp->asset_type == 6)
 				win->asset_tmp = IMG_Load("resources/textures/health.png");
+			if (tmp->asset_type == 7)
+				win->asset_tmp = IMG_Load("resources/textures/shotgun_shell.png");
+			if (tmp->asset_type == 8)
+				win->asset_tmp = IMG_Load("resources/textures/undertale2.png");
 
 			final_texture_to_screen(win->surface, win->asset_tmp, tmp->x - 25, tmp->y - 75, 64, 64);
-			//SDL_BlitSurface(win->asset_sprite, NULL, win->surface, &win->dst9);
 		}
 		tmp = tmp->next;
 	}
@@ -160,8 +176,8 @@ void		mode(t_win *win)
 	if (win->mode == 2)
 	{
 		placing(win);
-		final_texture_to_screen(win->surface, win->asset_sprite, win->dst9.x - 10, win->dst9.y - 75, 96, 96);
-		//SDL_BlitSurface(win->asset_sprite, NULL, win->surface, &win->dst9);
+		if (win->check_textures == 0)
+			final_texture_to_screen(win->surface, win->asset_sprite, win->dst9.x - 10, win->dst9.y - 75, 96, 96);
 		if (win->place == 1)
 		{
 			if (win->asset == 0)

@@ -12,31 +12,6 @@
 
 #include "editor.h"
 
-/*void	ft_swap(int *a, int *b)
-{
-	int		tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
-
-void	sort_int_tab(int *tab, int size)
-{
-	int i;
-
-	i = 0;
-	while (i < size - 1)
-	{
-		if (tab[i] > tab[i + 1])
-		{
-			ft_swap(&tab[i], &tab[i + 1]);
-			sort_int_tab(tab, size);
-		}
-		i++;
-	}
-}*/
-
 int		len_listasset(t_lstasset *lstasset)
 {
 	t_lstasset	*tmp;
@@ -65,7 +40,6 @@ int		int_len(int nb)
 	i++;
 	return (i);
 }
-
 
 void		same_line_dots(t_win *win, int y, int index)
 {
@@ -133,18 +107,10 @@ void		same_line_dots(t_win *win, int y, int index)
 		}
 		tmp2 = tmp2->next;
 	}
-
 	i = i - l;
-
 	win->same_dots += l;
 	win->index_dot  += i;
-
-	//if (win->tab_malloced == 0)
-	//	create_tab(win, win->index_dot);
-
-
 	sort_int_tab(dot_tab, i);
-
 	j = 0;
 	while (j < i)
 	{
@@ -164,15 +130,12 @@ void		same_line_dots(t_win *win, int y, int index)
 	*/
 	if (!(win->tab[index] = (char *)malloc(sizeof(char) * k)))
 		clear_n_exit(win, 1);
-
 	win->tab[index][0] = 'd';
 	win->tab[index][1] = 'o';
 	win->tab[index][2] = 't';
 	win->tab[index][3] = 's';
 	win->tab[index][4] = ':';
-
 	line = ft_itoa(y);
-
 	j = 5;
 	w = 0;
 	l = 0;
@@ -185,7 +148,6 @@ void		same_line_dots(t_win *win, int y, int index)
 	}
 	win->tab[index][j] = ':';
 	j++;
-
 	while (l < i)
 	{
 		line = ft_itoa(dot_tab[l]);
@@ -236,9 +198,6 @@ void	dots_in_tab(t_win *win)
 		}
 		tmp2 = tmp2->next;
 	}
-	//same_line_dots(win, y, j);
-	//y++;
-
 	y--;
 	while (y < WIN_Y)
 	{
@@ -329,9 +288,6 @@ void		save_map(t_win *win)
 	win->index_dot = 0;
 	win->tab_index = 0;
 
-	//printf("%d len \n", len);
-	//printf("%d z \n", z);
-
 	i = 0;
 	while (i < 20)
 	{
@@ -342,7 +298,6 @@ void		save_map(t_win *win)
 	win->tab = NULL;
 	win->tab_malloced = 0;
 
-	//write_in_file(win, tab);
 
 	//free_all(win);
 
