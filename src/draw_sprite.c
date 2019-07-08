@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/07 16:23:42 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/08 14:39:15 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,21 +104,17 @@ void	sprite_on_ground(t_env *w, t_map *m, double **tab, int x)
 void	count_sprite(t_env *w, t_map *m)
 {
 	int		x;
-	double	**tab;
 
-	tab = (double**)malloc(sizeof(double*) * (m->sprite_map_count
-		+ m->ennemy_count) + 1);
-	tab = fill_tab_sprite(m, tab);
-	tab = fill_tab_ennemy(m, tab);
-	tab = sort_double_tab(tab, m->sprite_map_count + m->ennemy_count);
+	m->tab = fill_tab_sprite(m);
+	m->tab = fill_tab_ennemy(m);
+	m->tab = sort_double_tab(m->tab, m->sprite_map_count + m->ennemy_count);
 	x = 0;
 	while (x < m->sprite_map_count + m->ennemy_count)
 	{
-		if ((int)tab[x][2] == 0)
-			sprite_on_ground(w, m, tab, x);
+		if ((int)m->tab[x][2] == 0)
+			sprite_on_ground(w, m, m->tab, x);
 		else
-			ennemy_animation(w, m, tab, x);
-		free(tab[x]);
+			ennemy_animation(w, m, m->tab, x);
 		x++;
 	}
 	m->player.firing = 0;

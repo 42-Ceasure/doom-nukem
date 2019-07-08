@@ -227,8 +227,8 @@ void		is_moving(t_map *m)
 	i.y1 = m->player.coor.y;
 	// i.x2 = m->player.coor.x + m->player.move_speed.x;
 	// i.y2 = m->player.coor.y + m->player.move_speed.y;
-	i.x2 = m->player.coor.x + m->player.move_speed.x * 10;
-	i.y2 = m->player.coor.y + m->player.move_speed.y * 10;
+	i.x2 = m->player.coor.x + m->player.move_speed.x;
+	i.y2 = m->player.coor.y + m->player.move_speed.y;
 	coor.x = i.x2;
 	coor.y = i.y2;
 	i.dx = m->player.move_speed.x;

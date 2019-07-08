@@ -89,6 +89,16 @@ void		empty_map(t_map *m)
 			}
 			free(m->sprite);
 		}
+		if (m->tab != NULL)
+		{
+			i = 0;
+			while (i < m->sprite_map_count + m->ennemy_count)
+			{
+				free(m->tab[i]);
+				i++;
+			}
+			free(m->tab);
+		}
 		i = 0;
 		if (m->sprt != NULL)
 		{

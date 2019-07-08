@@ -284,7 +284,7 @@ void draw(t_env *w, t_map *m)
 					// affiche trop -> toute la hauteur au lieu de juste bout de chaise
 					// temporaire + ne faire que quand besoin non?
 					if (w->textured == 1)
-						vertical_line_textured(x, w, work, w->texturing[m->sector[work.nosector].texturing[4]]);
+						extruded_line_textured(x, w, work, w->texturing[w->m->sector[work.nosector].texturing[4]]);
 					else
 						vertical_line(x, work, w, work.color);
 

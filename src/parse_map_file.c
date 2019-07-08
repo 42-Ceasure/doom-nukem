@@ -134,7 +134,7 @@ int		parse_line(t_env *w, t_map *m)
 	{
 		if (parse_ennemy_map(m, tmp) == -1)
 		{
-			ft_putendl("error in parse_sprite_map");
+			ft_putendl("error in parse_ennemy_map");
 			return (-1);
 		}
 	}
@@ -171,11 +171,20 @@ int		do_parse(t_env *w, t_map *m)
 void	parse_map_file(t_env *w, t_map *m)
 {
 	double	loading;
+	int		i;
 
 	w->dtime.start = SDL_GetTicks();
 	if (do_parse(w, m) == -1)
 		set_error(w, m, 8, ft_strdup("do_parse"));
 	w->dtime.end = SDL_GetTicks();
+	m->tab = (double**)malloc(sizeof(double*) * (m->sprite_map_count
+		+ m->ennemy_count) + 1);
+	i = 0;
+	while (i < m->sprite_map_count + m->ennemy_count)
+	{
+		m->tab[i] = (double*)malloc(sizeof(double) * 3 + 1);
+		i++;
+	}
 	loading = w->dtime.end - w->dtime.start;
 	printf("map loaded in %f seconds !\n", loading / 1000);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/06 23:56:59 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/08 16:44:00 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -380,6 +380,7 @@ typedef struct		s_map
 	int				maxrenderedsector;
 	double			yaw;
 	double			gravity;
+	double			**tab;
 	char			*line;
 	char			*map_name;
 	char			*map_path;
@@ -651,9 +652,9 @@ void				skybox2(t_env *w, t_texture text);
 double				pythagore(double a, double b);
 void				test_sprite2(t_map *m, double xx, double yy);
 void				ennemy_animation(t_env *w, t_map *m, double **tab, int x);
-double				**fill_tab_ennemy(t_map *m, double **tab);
-double				**fill_tab_sprite(t_map *m, double **tab);
+double				**fill_tab_ennemy(t_map *m);
+double				**fill_tab_sprite(t_map *m);
 double				**sort_double_tab(double **tab, int size);
-void				extruded_line_textured(int x, int *box, t_env *w, t_draw *d, t_texture text);
+void				extruded_line_textured(int x, t_env *w, t_work work, t_texture text);
 
 #endif
