@@ -40,15 +40,20 @@ void	affichage_set(t_env *w)
 
 	dot.x = WIDTH - 100;
 	dot.y = 10;
-	type_str(w, dot, ft_itoa(w->window_mode), 0xFFFFFFFF);
+	ft_light_itoa(w->window_mode, w->light_nb);
+	type_str(w, dot, w->light_nb, 0xFFFFFFFF);
 	dot.y += 50;
-	type_str(w, dot, ft_itoa(w->window_res), 0xFFFFFFFF);
+	ft_light_itoa(w->window_res, w->light_nb);
+	type_str(w, dot, w->light_nb, 0xFFFFFFFF);
 	dot.y += 50;
-	type_str(w, dot, ft_itoa(w->m->player.field_of_vision_h), 0xFFFFFFFF);
+	ft_light_itoa(w->m->player.field_of_vision_h, w->light_nb);
+	type_str(w, dot, w->light_nb, 0xFFFFFFFF);
 	dot.y += 50;
-	type_str(w, dot, ft_itoa(w->m->player.field_of_vision_v), 0xFFFFFFFF);
+	ft_light_itoa(w->m->player.field_of_vision_v, w->light_nb);
+	type_str(w, dot, w->light_nb, 0xFFFFFFFF);
 	dot.y += 50;
-	type_str(w, dot, ft_itoa(w->m->player.mousesp), 0xFFFFFFFF);
+	ft_light_itoa(w->m->player.mousesp, w->light_nb);
+	type_str(w, dot, w->light_nb, 0xFFFFFFFF);
 	dot.x = w->txthead.x;
 	dot.y = w->txthead.y;
 }

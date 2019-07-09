@@ -128,6 +128,7 @@ void			parse_sprite_line(t_env *w, t_map *m, char *line)
 		if (parse_sprite_section(m, tab[0], tab[1], tab[2]) == -1)
 			set_error(w, m, 8, ft_strdup("sprites"));
 	}
+	ft_memreg(tab);
 }
 
 void			parse_allocating_line(t_env *w, t_map *m, char *line)
@@ -160,6 +161,7 @@ void			parse_allocating_line(t_env *w, t_map *m, char *line)
 		if (load_sounds(w, m) == -1)
 		 	set_error(w, m, 8, ft_strdup("load_sounds"));
 	}
+	ft_memreg(tmp);
 }
 
 void			set_screen_res(t_env *w, char *aspect)
@@ -219,7 +221,7 @@ void			load_core(t_env *w, t_map *m)
 		while(precise_get_next_line(m->fd, &m->line, buffer))
 		{
 			if ((tmp = ft_strsplit(m->line, ';')) == NULL)
-				ft_putendl("ERREUR SPLIT");				
+				ft_putendl("ERREUR SPLIT");
 			if (ft_strncmp(m->line, "buffer", 6) == 0)
 			{
 				buffer = ft_atoi(tmp[1]);
@@ -233,14 +235,14 @@ void			load_core(t_env *w, t_map *m)
 				parse_settings_line(w, m, tmp[1]);
 			else if (ft_strncmp(m->line, "alloc", 5) == 0)
 				parse_allocating_line(w, m, tmp[1]);
-			else if (ft_strncmp(m->line, "menu", 4) == 0)
-				parse_menu_line(w, tmp[1]);
 			else if (ft_strncmp(m->line, "weapon", 6) == 0)
 				parse_weapon_line(m, tmp[1]);
 			else if (ft_strncmp(m->line, "texture", 7) == 0)
 				parse_texture_line(w, m, tmp[1]);
 			else if (ft_strncmp(m->line, "sprite", 6) == 0)
 				parse_sprite_line(w, m, tmp[1]);
+			/*else if (ft_strncmp(m->line, "menu", 4) == 0)
+				parse_menu_line(w, tmp[1]);*/
 			// else if (ft_strncmp(m->line, "", ) == 0)
 			// 	;
 			if (ft_strncmp(m->line, "texture\t\t;ascii", 15) != 0

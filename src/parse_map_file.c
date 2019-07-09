@@ -46,6 +46,7 @@ int		parse_sprite_map(t_map *m, char **tab)
 		m->sprt[nb].vis = 1;
 		m->sprt[nb].taken = 0;
 		m->sprt[nb].range = 0.5;
+		ft_memreg(tmp);
 	}
 	return (0);
 }
@@ -88,6 +89,7 @@ int		parse_ennemy_map(t_map *m, char **tab)
 		m->ennemy[nb].height = 0;
 		m->ennemy[nb].hole_low = 0;
 		m->ennemy[nb].hole_high = 0;
+		ft_memreg(tmp);
 	}
 	return (0);
 }
@@ -104,7 +106,7 @@ int		parse_line(t_env *w, t_map *m)
 		if (first_line(tmp, m) == -1)
 			return (-1);
 	}
-	if (m->section_number == 1)
+	else if (m->section_number == 1)
 	{
 		process_hint_w(w, 4, "map");
 		if (parse_map_section(m, tmp) == -1)
@@ -153,7 +155,7 @@ int		do_parse(t_env *w, t_map *m)
 		return (-1);
 	process_hint_w(w, 0, " ");
 	process_hint_w(w, 6, " ");
-	while (get_next_line(m->fd, &m->line) && w->stopread == 0)
+	while (w->stopread == 0 && get_next_line(m->fd, &m->line))
 	{
 		if ((parse_line(w, m)) == -1)
 		{
@@ -178,11 +180,11 @@ void	parse_map_file(t_env *w, t_map *m)
 		set_error(w, m, 8, ft_strdup("do_parse"));
 	w->dtime.end = SDL_GetTicks();
 	m->tab = (double**)malloc(sizeof(double*) * (m->sprite_map_count
-		+ m->ennemy_count) + 1);
+		+ m->ennemy_count));
 	i = 0;
 	while (i < m->sprite_map_count + m->ennemy_count)
 	{
-		m->tab[i] = (double*)malloc(sizeof(double) * 3 + 1);
+		m->tab[i] = (double*)malloc(sizeof(double) * 3);
 		i++;
 	}
 	loading = w->dtime.end - w->dtime.start;
