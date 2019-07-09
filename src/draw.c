@@ -290,7 +290,7 @@ void draw(t_env *w, t_map *m)
 					work.starty = work.cya;
 					work.stopy = work.cyb;
 					if (w->textured == 1)
-						wall_line_textured(x, w, work, w->texturing[m->sector[work.nosector].texturing[2]]);
+					wall_line_textured(x, w, work, w->texturing[m->sector[work.nosector].texturing[2]]);
 					else
 						vertical_line(x, work, w, work.color);
 				}

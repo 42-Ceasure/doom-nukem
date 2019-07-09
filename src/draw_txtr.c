@@ -145,7 +145,7 @@ void	vertical_line_textured(int x, t_env *w, t_work work, t_texture text)
 	{
 		wall_height_scale = (work.yceil - work.yfloor) / TEXT_WALL_HEIGHT;
 		wall_width_scale = TEXT_WALL_WIDTH / 2 / work.wall_width;
-		if (fabs(work.t2.x - work.t1.x) > fabs(work.t2.z - work.t1.z))
+		if (vabs(work.t2.x - work.t1.x) > vabs(work.t2.z - work.t1.z))
         {	
 			work.start_x_tex = (work.t1.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
 			work.end_x_tex = (work.t2.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
@@ -207,60 +207,127 @@ void	wall_line_textured(int x, t_env *w, t_work work, t_texture text)
 	y_tex_pos = 0;
 	y1 = work.starty;
 	y2 = work.stopy;
-	wall_height_from_bottom = work.yb - y1;
 	y1 = vmid(y1, 0, HEIGHT - 1);
 	y2 = vmid(y2, 0, HEIGHT - 1);
-	if (vmid(work.ytop[x], 0, HEIGHT - 1) == vmid(work.cya, 0, HEIGHT - 1) && vmid(work.ytop[x], 0, HEIGHT - 1) > 0)
-		return;
-	if (y2 > y1)
+	if (vmid(work.ytop[x], 0, HEIGHT - 1) == y1 && vmid(work.ytop[x], 0, HEIGHT - 1) > 0)
 	{
+		wall_height_from_bottom = work.yb - work.starty;
 		wall_height_scale = (work.yceil - work.yfloor) / TEXT_WALL_HEIGHT;
 		wall_width_scale = TEXT_WALL_WIDTH / 2 / work.wall_width;
-		if (fabs(work.t2.x - work.t1.x) > fabs(work.t2.z - work.t1.z))
-        {	
+		if (vabs(work.t2.x - work.t1.x) > vabs(work.t2.z - work.t1.z))
+		{	
 			work.start_x_tex = (work.t1.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
 			work.end_x_tex = (work.t2.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
 		}
 		else
-        {
+		{
 			work.start_x_tex = (work.t1.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
 			work.end_x_tex = (work.t2.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
 		}
-		y_tex_start = (work.y2a - work.y1a) * ((work.x2 - work.x1) - (x - work.x1)) / (work.x2 - work.x1) - work.y2a;
+		// y_tex_start = (work.y2a - work.y1a) * ((work.x2 - work.x1) - (x - work.x1)) / (work.x2 - work.x1) - work.y2a;
 		x_tex = ((work.start_x_tex * ((work.x2 - x) * work.t2.z) + work.end_x_tex * ((x - work.x1) * work.t1.z)) / ((work.x2 - x) * work.t2.z + (x-work.x1) * work.t1.z));
-		if ((work.y1a < 0 || work.y2a < 0) && y1 == 0)
+		while (y1 <= y2)
 		{
-			wall_height_from_bottom += y_tex_start;
-			y_tex_pos += y_tex_start;
-			while (y1 <= y2)
-			{
-				y_tex = (y_tex_pos / wall_height_from_bottom * wall_height_scale) * text.h;
-				if (y_tex < 0)
-					y_tex = 0;
-				if (x_tex < 0)
-					x_tex = 0;
-				if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
-					w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
-				y_tex_pos++;
-				y1++;
-			}
+			// wall_height_from_bottom += y_tex_start;
+			// y_tex_pos += y_tex_start;
+			y_tex = (y_tex_pos / wall_height_from_bottom * wall_height_scale) * text.h;
+			if (y_tex < 0)
+				y_tex = 0;
+			if (x_tex < 0)
+				x_tex = 0;
+			if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
+				w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+			y_tex_pos++;
+			y1++;
 		}
-		else
-		{
-			while (y1 <= y2)
-			{
-				y_tex = (y_tex_pos / wall_height_from_bottom * wall_height_scale) * text.h;
-				if (y_tex < 0)
-					y_tex = 0;
-				if (x_tex < 0)
-					x_tex = 0;
-				if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
-					w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
-				y_tex_pos++;
-				y1++;
-			}
-		}
+		// wall_height_from_bottom = (work.yb - (work.starty - work.cya));
+		// if (work.nosector == 2 && x == 550)
+		// 	printf("wwwww = %f\n", wall_height_from_bottom);
+		// if (y2 > y1)
+		// {
+		// 	wall_height_scale = (work.yceil - work.yfloor) / TEXT_WALL_HEIGHT;
+		// 	wall_width_scale = TEXT_WALL_WIDTH / 2 / work.wall_width;
+		// 	if (vabs(work.t2.x - work.t1.x) > vabs(work.t2.z - work.t1.z))
+		// 	{	
+		// 		work.start_x_tex = (work.t1.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
+		// 		work.end_x_tex = (work.t2.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
+		// 	}
+		// 	else
+		// 	{
+		// 		work.start_x_tex = (work.t1.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
+		// 		work.end_x_tex = (work.t2.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
+		// 	}
+		// 	y_tex_start = (work.y2a - work.y1a) * ((work.x2 - work.x1) - (x - work.x1)) / (work.x2 - work.x1) - work.y2a;
+		// 	x_tex = ((work.start_x_tex * ((work.x2 - x) * work.t2.z) + work.end_x_tex * ((x - work.x1) * work.t1.z)) / ((work.x2 - x) * work.t2.z + (x-work.x1) * work.t1.z));
+		// 	wall_height_from_bottom += y_tex_start;
+		// 	y_tex_pos += y_tex_start;
+		// 	while (y1 <= y2)
+		// 	{
+		// 		y_tex = (y_tex_pos / wall_height_from_bottom * wall_height_scale) * text.h;
+		// 		if (y_tex < 0)
+		// 			y_tex = 0;
+		// 		if (x_tex < 0)
+		// 			x_tex = 0;
+		// 		if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
+		// 			w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+		// 		y_tex_pos++;
+		// 		y1++;
+		// 	}
+		// }
 	}
+	else
+	{
+		wall_height_from_bottom = work.yb - work.starty;
+		if (y2 > y1)
+		{
+			wall_height_scale = (work.yceil - work.yfloor) / TEXT_WALL_HEIGHT;
+			wall_width_scale = TEXT_WALL_WIDTH / 2 / work.wall_width;
+			if (vabs(work.t2.x - work.t1.x) > vabs(work.t2.z - work.t1.z))
+			{	
+				work.start_x_tex = (work.t1.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
+				work.end_x_tex = (work.t2.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
+			}
+			else
+			{
+				work.start_x_tex = (work.t1.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
+				work.end_x_tex = (work.t2.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
+			}
+			y_tex_start = (work.y2a - work.y1a) * ((work.x2 - work.x1) - (x - work.x1)) / (work.x2 - work.x1) - work.y2a;
+			x_tex = ((work.start_x_tex * ((work.x2 - x) * work.t2.z) + work.end_x_tex * ((x - work.x1) * work.t1.z)) / ((work.x2 - x) * work.t2.z + (x-work.x1) * work.t1.z));
+			if ((work.y1a < 0 || work.y2a < 0) && y1 == 0)
+			{
+				wall_height_from_bottom += y_tex_start;
+				y_tex_pos += y_tex_start;
+				while (y1 <= y2)
+				{
+					y_tex = (y_tex_pos / wall_height_from_bottom * wall_height_scale) * text.h;
+					if (y_tex < 0)
+						y_tex = 0;
+					if (x_tex < 0)
+						x_tex = 0;
+					if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
+						w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+					y_tex_pos++;
+					y1++;
+				}
+			}
+			else
+			{
+				while (y1 <= y2)
+				{
+					y_tex = (y_tex_pos / wall_height_from_bottom * wall_height_scale) * text.h;
+					if (y_tex < 0)
+						y_tex = 0;
+					if (x_tex < 0)
+						x_tex = 0;
+					if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
+						w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+					y_tex_pos++;
+					y1++;
+				}
+			}
+		}
+	}	
 }
 
 void	extruded_line_textured(int x, t_env *w, t_work work, t_texture text)
@@ -285,7 +352,7 @@ void	extruded_line_textured(int x, t_env *w, t_work work, t_texture text)
 	{
 		wall_height_scale = (work.nyfloor - work.yfloor) / TEXT_WALL_HEIGHT;
 		wall_width_scale = TEXT_WALL_WIDTH / 2 / work.wall_width;
-		if (fabs(work.t2.x -work.t1.x) > fabs(work.t2.z -work.t1.z))
+		if (vabs(work.t2.x -work.t1.x) > vabs(work.t2.z -work.t1.z))
         {	
 			work.start_x_tex = (work.t1.x -work.tt1.x) * text.w / wall_width_scale / (work.tt2.x -work.tt1.x);
 			work.end_x_tex = (work.t2.x -work.tt1.x) * text.w / wall_width_scale / (work.tt2.x -work.tt1.x);
