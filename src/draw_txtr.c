@@ -134,7 +134,6 @@ void	vertical_line_textured(int x, t_env *w, t_work work, t_texture text)
 	int 	x_tex;
 	int		y_tex;
 	double	y_tex_pos;
-	double	alpha;
 	
 	y_tex_pos = 0;
 	y1 = work.starty;
@@ -157,7 +156,6 @@ void	vertical_line_textured(int x, t_env *w, t_work work, t_texture text)
 			work.end_x_tex = (work.t2.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
 		}
 		y_tex_start = (work.y2a - work.y1a) * ((work.x2 - work.x1) - (x - work.x1)) / (work.x2 - work.x1) - work.y2a;
-		alpha = (x - work.x1) / (work.x2 - work.x1);
 		x_tex = ((work.start_x_tex * ((work.x2 - x) * work.t2.z) + work.end_x_tex * ((x - work.x1) * work.t1.z)) / ((work.x2 - x) * work.t2.z + (x-work.x1) * work.t1.z));
 		if ((work.y1a < 0 || work.y2a < 0) && y1 == 0)
 		{
@@ -209,41 +207,26 @@ void	extruded_line_textured(int x, t_env *w, t_work work, t_texture text)
 	y_tex_pos = 0;
 	y1 = work.starty - 1;
 	y2 = work.stopy;
-	// OK
+	wall_height_from_bottom = work.yb - y1;
 	y1 = vmid(y1, 0, HEIGHT - 1);
 	y2 = vmid(y2, 0, HEIGHT - 1);
-	// if (y1 > 0)
-	// 	wall_height_from_bottom = work.nyb - (work.starty - 1);
-	// else
-		wall_height_from_bottom = work.yb - (work.starty - 1);
 	if (y2 > y1)
 	{
-		if (y1 > 0)
-			wall_height_scale = (work.nyfloor - work.yfloor) / TEXT_WALL_HEIGHT;
-		else
-			wall_height_scale = (work.yceil - work.yfloor) / TEXT_WALL_HEIGHT;
-		// wall_height_scale = (work.nyfloor - work.yfloor) / TEXT_WALL_HEIGHT;
-
-		// wall_height_scale = 30 / TEXT_WALL_HEIGHT;	
+		wall_height_scale = (work.nyfloor - work.yfloor) / TEXT_WALL_HEIGHT;
 		wall_width_scale = TEXT_WALL_WIDTH / 2 / work.wall_width;
-		if (fabs(work.t2.x - work.t1.x) > fabs(work.t2.z - work.t1.z))
+		if (fabs(work.t2.x -work.t1.x) > fabs(work.t2.z -work.t1.z))
         {	
-			work.start_x_tex = (work.t1.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
-			work.end_x_tex = (work.t2.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
+			work.start_x_tex = (work.t1.x -work.tt1.x) * text.w / wall_width_scale / (work.tt2.x -work.tt1.x);
+			work.end_x_tex = (work.t2.x -work.tt1.x) * text.w / wall_width_scale / (work.tt2.x -work.tt1.x);
 		}
 		else
         {
-			work.start_x_tex = (work.t1.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
-			work.end_x_tex = (work.t2.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
+			work.start_x_tex = (work.t1.z -work.tt1.z) * text.w / wall_width_scale / (work.tt2.z -work.tt1.z);
+			work.end_x_tex = (work.t2.z -work.tt1.z) * text.w / wall_width_scale / (work.tt2.z -work.tt1.z);
 		}
-		// OK
-		// if (y1 > 0)
-		// 	y_tex_start = (work.ny2a - work.ny1a) * ((work.x2 - work.x1) - (x - work.x1)) / (work.x2 - work.x1) - work.ny2a;
-		// else
-		y_tex_start = (work.y2a - work.y1a) * ((work.x2 - work.x1) - (x - work.x1)) / (work.x2 - work.x1) - work.y2a;
-		x_tex = ((work.start_x_tex * ((work.x2 - x) * work.t2.z) + work.end_x_tex * ((x - work.x1) * work.t1.z)) / ((work.x2 - x) * work.t2.z + (x-work.x1) * work.t1.z));
-		//OK
-		if ((work.y1a < 0 || work.y2a < 0) && y1 == 0)
+		y_tex_start = (work.ny2b -work.ny1b) * ((work.x2 -work.x1) - (x -work.x1)) / (work.x2 -work.x1) - work.ny2b;
+		x_tex = ((work.start_x_tex * ((work.x2 - x) *work.t2.z) +work.end_x_tex * ((x -work.x1) *work.t1.z)) / ((work.x2 - x) *work.t2.z + (x-work.x1) *work.t1.z));
+		if ((work.y1a < 0 ||work.y2a < 0) && y1 == 0)
 		{
 			wall_height_from_bottom += y_tex_start;
 			y_tex_pos += y_tex_start;

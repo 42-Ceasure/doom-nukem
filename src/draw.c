@@ -128,7 +128,6 @@ void draw(t_env *w, t_map *m)
 			work.t1.z = work.v1.x * work.pcos + work.v1.y * work.psin;
 			work.t2.x = work.v2.x * work.psin - work.v2.y * work.pcos;
 			work.t2.z = work.v2.x * work.pcos + work.v2.y * work.psin;
-
 			work.tt1.x = work.t1.x;
 			work.tt1.z = work.t1.z;
 			work.tt2.x = work.t2.x;
@@ -277,10 +276,6 @@ void draw(t_env *w, t_map *m)
 					work.color.middle = (x == work.x1 || x == work.x2) ? 0 : work.r2;
 					work.starty = work.cnyb + 1;
 					work.stopy = work.cyb;
-					// if (work.stopy > work.starty && w->textured > 0)
-						// work.starty = work.ytop[x];
-					// affiche trop -> toute la hauteur au lieu de juste bout de chaise
-					// temporaire + ne faire que quand besoin non?
 					if (w->textured == 1)
 						extruded_line_textured(x, w, work, w->texturing[w->m->sector[work.nosector].texturing[4]]);
 					else
