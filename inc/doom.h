@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/09 10:17:29 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/09 16:29:23 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -656,5 +656,6 @@ double				**fill_tab_ennemy(t_map *m);
 double				**fill_tab_sprite(t_map *m);
 double				**sort_double_tab(double **tab, int size);
 void				extruded_line_textured(int x, t_env *w, t_work work, t_texture text);
+void				wall_line_textured(int x, t_env *w, t_work work, t_texture text);
 
 #endif
