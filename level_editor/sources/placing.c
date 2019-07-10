@@ -186,4 +186,6 @@ void		mode(t_win *win)
 				place_asset(win);
 		}
 	}
+	if (win->mode == 4)
+		texture_mode(win);
 }

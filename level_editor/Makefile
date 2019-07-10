@@ -31,7 +31,8 @@ SRCS	=	sources/main.c \
 			sources/data.c \
 			sources/data2.c \
 			sources/data3.c \
-			sources/free.c
+			sources/free.c \
+			sources/texture_mode.c
 
 CC		=	gcc
 

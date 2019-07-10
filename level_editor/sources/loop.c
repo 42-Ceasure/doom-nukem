@@ -14,13 +14,13 @@
 
 int			print_game(t_win *win)
 {
-	if (win->changemode && win->check_textures == 0)
+	if (win->changemode)
 	{
 		SDL_SetCursor(win->cursor);
 		SDL_BlitSurface(win->helptxt, NULL, win->surface, &win->dst);
 	}
-	if (win->check_textures)
-		SDL_BlitSurface(win->texturetxt, NULL, win->surface, &win->dst10);
+	if (win->mode == 4 && win->texture_overed_sector != -1)
+		SDL_BlitSurface(win->texturetxt, NULL, win->surface, &win->dst11);
 	win->texture = SDL_CreateTextureFromSurface(win->renderer, win->surface);
 	SDL_SetRenderTarget(win->renderer, NULL);
 	SDL_GetWindowSize(win->window, &win->w_win, &win->h_win);
@@ -78,6 +78,8 @@ void		draw_segments(t_win *win)
 		{
 			if (win->mode == 3 && tmp2->sector == win->overed_sector)
 					win->color = 0xFF0000;
+			if (win->mode == 4 && tmp2->sector == win->texture_overed_sector)
+					win->color = 0x00BFFF;
 			else
 			{
 				if (tmp2->closed)
@@ -99,6 +101,7 @@ void		draw_segments(t_win *win)
 		tmp2 = tmp2->next;
 	}
 	win->overed_sector = -1;
+	win->texture_overed_sector = -1;
 }
 
 void		draw_triangulate(t_win *win)
@@ -173,6 +176,8 @@ void		draw_assets(t_win *win)
 			color = 0xFF69B4;
 		if (tmp->asset_type == 7)
 			color = 0xBDB76B;
+		if (tmp->asset_type == 8)
+			color = 0xF5F5F5;
 		draw_asset_points(win, tmp->x, tmp->y, color);
 		tmp = tmp->next;
 	}
@@ -299,6 +304,12 @@ void		on_click(t_win *win)
 	{
 		win->place = 1;
 	}
+
+	if (win->left_click == 1 && win->mode == 4)
+	{
+		win->put_texture = 1;
+	}
+
 	if (win->moving == 0)
 		win->left_click = 0;
 }

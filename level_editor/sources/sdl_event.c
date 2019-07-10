@@ -45,63 +45,39 @@ static void	sdl_event_key(t_win *win)
 		|| win->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 		clear_n_exit(win, 0);
 
-	if (win->check_textures == 0)
+
+
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_F5])
 	{
+		if (win->lstlst)
+			map_save(win);
+	}
 
-		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_P])
-		{
-			if (win->lstlst)
-				recursive_check(win);
-		}
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_UP])
+	{
+		win->texture_choice += 1;
+		if (win->texture_choice > 4)
+			win->texture_choice = 0;
 
-		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_F5])
-		{
-			if (win->lstlst)
-				map_save(win);
-				//save_map(win);
-		}
+	}
 
-		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_I])
-		{
-			test(win);
-		}
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_DOWN])
+	{
+		win->texture_choice -= 1;
+		if (win->texture_choice < 0)
+			win->texture_choice = 4;
+	}
 
-		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_K])
-		{
-			if (win->lstlst)
-				check_neighbour(win);
-		}
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_RIGHT])
+	{
+		win->txtr_input_type = 2;
+		change_texture_index(win);
+	}
 
-		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_Y])
-		{
-			if (win->texture_choice == -3)
-				win->texture_choice = -1;
-		}
-
-		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_N])
-		{
-			if (win->texture_choice == -3)
-				win->texture_choice = -2;
-		}
-
-		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_1])
-		{
-			if (win->texture_choice == -1)
-				win->texture_choice = 1;
-		}
-
-		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_2])
-		{
-			if (win->texture_choice == -1)
-				win->texture_choice = 2;
-		}
-
-		if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_3])
-		{
-			if (win->texture_choice == -1)
-				win->texture_choice = 3;
-		}
-
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_LEFT])
+	{
+		win->txtr_input_type = 3;
+		change_texture_index(win);
 	}
 
 	/*if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_H])
@@ -139,10 +115,10 @@ static void	sdl_event_mouse(t_win *win)
 				win->mode += 1;
 		}
 
-		if (win->mode > 3)
+		if (win->mode > 4)
 			win->mode = 0;
 		if (win->mode < 0)
-			win->mode = 3;
+			win->mode = 4;
 
 		if (win->mode == 0)
 		{
@@ -183,6 +159,14 @@ static void	sdl_event_mouse(t_win *win)
 			win->helptxt = TTF_RenderText_Blended(win->police,
 				"Delete Mode", win->color_font_r);
 		}
+
+		if (win->mode == 4)
+		{
+			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
+			win->drawing = 0;
+			win->helptxt = TTF_RenderText_Blended(win->police,
+				"Texture Mode", win->color_font_r);
+		}
 	}
 
 	if (win->event.button.button == SDL_BUTTON_RIGHT
@@ -192,6 +176,11 @@ static void	sdl_event_mouse(t_win *win)
 			undo(win);
 		if (win->mode == 2)
 			pick_asset(win);
+		if (win->mode == 4)
+		{
+			win->txtr_input_type = 1;
+			change_texture_index(win);
+		}
 	}
 
 	if (win->event.button.button == SDL_BUTTON_LEFT

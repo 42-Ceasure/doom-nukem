@@ -36,11 +36,16 @@ static void	init_dst(t_win *win)
 	win->dst9.y = 0;
 	win->dst10.x = 300;
 	win->dst10.y = 300;
-
+	win->dst11.x = 120;
+	win->dst11.y = 310;
 
 	win->color_font_r.r = 119;
 	win->color_font_r.g = 136;
 	win->color_font_r.b = 153;
+
+	win->color_font_z.r = 255;
+	win->color_font_z.g = 255;
+	win->color_font_z.b = 255;
 
 	win->w_win = WIN_X;
 	win->h_win = WIN_Y;
@@ -55,13 +60,22 @@ static int	init_assets(t_win *win)
 	win->asset_sprite = IMG_Load("resources/textures/feather.png");
 	win->asset_tmp = NULL;
 	win->player_start = IMG_Load("resources/textures/feather.png");
-	win->weapon1 = IMG_Load("resources/textures/gun1.png");
+
+	win->inventory = IMG_Load("resources/textures/hud3.png");
+	win->slot0 = IMG_Load("resources/textures/eraser.png");
+	win->slot1 = IMG_Load("resources/textures/eraser.png");
+	win->slot2 = IMG_Load("resources/textures/eraser.png");
+	win->slot3 = IMG_Load("resources/textures/eraser.png");
+	win->slot4 = IMG_Load("resources/textures/eraser.png");
+	win->blackbox = IMG_Load("resources/textures/blackbox2.png");
+
+	win->building_hud = IMG_Load("resources/textures/hud7.png");
 
 	win->helptxt = TTF_RenderText_Blended(win->police,
 		"Drawing Mode", win->color_font_r);
 
 	win->texturetxt = TTF_RenderText_Blended(win->police,
-		"Do you want to manually assign textures ?  y / n", win->color_font_r);
+		"Wall", win->color_font_z);
 
 	/*win->helptxt = TTF_RenderText_Blended(win->police,
 		"test", win->color_font_r);*/
@@ -105,7 +119,12 @@ static int	init_struct(t_win *win)
 	win->tab_malloced = 0;
 	win->triangle_sector = 0;
 	win->check_textures = 0;
-	win->texture_choice = -3;
+	win->texture_choice = 0;
+	win->put_texture = 0;
+	win->texture_overed_sector = -1;
+	win->texture_index = 0;
+	win->blackbox_x = 253;
+	win->txtr_input_type = 0;
 
 	return (0);
 }

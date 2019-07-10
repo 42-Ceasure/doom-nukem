@@ -44,14 +44,22 @@ struct					s_win
 	SDL_Surface			*texturetxt;
 
 	SDL_Surface			*asset_sprite;
+	SDL_Surface			*texture_sprite;
 	SDL_Surface			*asset_tmp;
 	SDL_Surface			*player_start;
-	SDL_Surface			*weapon1;
-	SDL_Surface			*weapon2;
-	SDL_Surface			*ennemy;
-	SDL_Surface			*lamp;
+
+	SDL_Surface			*inventory;
+	SDL_Surface			*blackbox;
+	SDL_Surface			*slot0;
+	SDL_Surface			*slot1;
+	SDL_Surface			*slot2;
+	SDL_Surface			*slot3;
+	SDL_Surface			*slot4;
+
+	SDL_Surface			*building_hud;
 
 	SDL_Color			color_font_r;
+	SDL_Color			color_font_z;
 	SDL_Rect			dst;
 	SDL_Rect			dst2;
 	SDL_Rect			dst3;
@@ -62,7 +70,7 @@ struct					s_win
 	SDL_Rect			dst8;
 	SDL_Rect			dst9;
 	SDL_Rect			dst10;
-
+	SDL_Rect			dst11;
 
 	SDL_Cursor			*cursor;
 
@@ -112,6 +120,11 @@ struct					s_win
 	int					triangle_sector;
 	int					check_textures;
 	int					texture_choice;
+	int					put_texture;
+	int					texture_overed_sector;
+	int					texture_index;
+	int					blackbox_x;
+	int					txtr_input_type;
 };
 
 #endif

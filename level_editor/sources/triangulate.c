@@ -418,13 +418,13 @@ void		recursive_check(t_win *win)
 	int			i;
 
 	i = 0;
-	tmp2 = win->lstlst;
+	/*tmp2 = win->lstlst;
 	while (tmp2)
 	{
 		if (len_list(tmp2->head) <= 3)
 			i = 1;
 		tmp2 = tmp2->next;
-	}
+	}*/
 	tmp2 = win->lstlst;
 	if (i == 0)
 	{
