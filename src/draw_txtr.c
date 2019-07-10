@@ -112,7 +112,7 @@ void	ceiling_line_textured(int x, t_env *w, t_work *work, t_texture text)
             rtz = mapz * work->psin - mapx * work->pcos;
             mapx = rtx + w->m->player.coor.x;
 			mapz = rtz + w->m->player.coor.y;
-			test_sprite2(w->m, mapx, mapz);
+			// test_sprite2(w->m, mapx, mapz);
 			txtx = (mapx * text.w / 6);
 			txtz = (mapz * text.w / 6);
 			tmpix = (Uint32)(txtz % text.h) * text.w + ((Uint32)txtx % text.w);
