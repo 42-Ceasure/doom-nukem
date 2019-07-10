@@ -116,12 +116,10 @@ void draw(t_env *w, t_map *m)
 			work.wall_width = pythagore((m->sector[read.now.sectorno].dot[point + 1].x \
 			- m->sector[read.now.sectorno].dot[point].x), (m->sector[read.now.sectorno].dot[point + 1].y \
 				- m->sector[read.now.sectorno].dot[point].y));
-
 			work.v1.x = m->sector[read.now.sectorno].dot[point + 0].x - PL_X;
 			work.v1.y = m->sector[read.now.sectorno].dot[point + 0].y - PL_Y;
 			work.v2.x = m->sector[read.now.sectorno].dot[point + 1].x - PL_X;
 			work.v2.y = m->sector[read.now.sectorno].dot[point + 1].y - PL_Y;
-
 			work.pcos = PL_AC;
 			work.psin = PL_AS;
 			work.t1.x = work.v1.x * work.psin - work.v1.y * work.pcos;
@@ -132,7 +130,6 @@ void draw(t_env *w, t_map *m)
 			work.tt1.z = work.t1.z;
 			work.tt2.x = work.t2.x;
 			work.tt2.z = work.t2.z;
-
 			if (work.t1.z < 0 && work.t2.z < 0) 
 			{
 				point++;
@@ -191,7 +188,6 @@ void draw(t_env *w, t_map *m)
 			work.yscale2 = (m->player.field_of_vision_v) / work.t2.z;
 			work.x1 = WIDTH / 2 - (int)(work.t1.x * work.xscale1);
 			work.x2 = WIDTH / 2 - (int)(work.t2.x * work.xscale2);
-
 			if (work.x1 >= work.x2 || work.x2 < read.now.sx1 || work.x1 > read.now.sx2)
 			{
 				point++;
@@ -215,7 +211,6 @@ void draw(t_env *w, t_map *m)
 			work.ny2a = HEIGHT / 2 - (int)(yaw(work.nyceil, work.t2.z, m) * work.yscale2);
 			work.ny1b = HEIGHT / 2 - (int)(yaw(work.nyfloor, work.t1.z, m) * work.yscale1);
 			work.ny2b = HEIGHT / 2 - (int)(yaw(work.nyfloor, work.t2.z, m) * work.yscale2);
-
 			work.startx = vmax(work.x1, read.now.sx1);
 			work.endx = vmin(work.x2, read.now.sx2);
 			x = work.startx;
@@ -228,29 +223,20 @@ void draw(t_env *w, t_map *m)
 				work.yb = (x - work.x1) * (work.y2b - work.y1b) / (work.x2 - work.x1) + work.y1b;
 				work.cya = vmid(work.ya, work.ytop[x], work.ybot[x]);
 				work.cyb = vmid(work.yb, work.ytop[x], work.ybot[x]);
-
-
-
 				work.starty = work.ytop[x];
 				work.stopy = work.cya - 1;
 				if (w->textured == 1 && m->sector[work.nosector].texturing[5] == 0)
-					ceiling_line_textured(x, w, work, w->texturing[m->sector[work.nosector].texturing[1]]);
+					ceiling_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[1]]);
 				// else if (w->textured == 1 && w->m->sector[work.nosector].texturing[5] != 0)
 				// 	skybox(x, box, w, d, w->texturing[w->m->sector[work.nosector].texturing[5]]);
 				else if (w->textured != 1)
 					ceiling_line(x, work, w, 0x12677179);
-
-
-
 				work.starty = work.cyb + 1;
 				work.stopy = work.ybot[x];
 				if (w->textured == 1)
-					ceiling_line_textured(x, w, work, w->texturing[m->sector[work.nosector].texturing[0]]);
+					ceiling_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[0]]);
 				else
 					vertical_line(x, work, w, work.color2);
-
-
-
 				if (work.network >= 0)
 				{
 					work.nya = (x - work.x1) * (work.ny2a - work.ny1a) / (work.x2 - work.x1) + work.ny1a;
@@ -267,7 +253,7 @@ void draw(t_env *w, t_map *m)
 					work.starty = work.cya;
 					work.stopy = work.cnya - 1;
 					if (w->textured == 1)
-						vertical_line_textured(x, w, work, w->texturing[m->sector[work.nosector].texturing[3]]);
+						vertical_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[3]]);
 					else
 						vertical_line(x, work, w, work.color);
 					work.ytop[x] = vmid(vmax(work.cya, work.cnya), work.ytop[x], HEIGHT - 1);
@@ -275,7 +261,7 @@ void draw(t_env *w, t_map *m)
 					work.starty = work.cnyb + 1;
 					work.stopy = work.cyb;
 					if (w->textured == 1)
-						extruded_line_textured(x, w, work, w->texturing[w->m->sector[work.nosector].texturing[4]]);
+						extruded_line_textured(x, w, &work, w->texturing[w->m->sector[work.nosector].texturing[4]]);
 					else
 						vertical_line(x, work, w, work.color);
 
@@ -290,7 +276,7 @@ void draw(t_env *w, t_map *m)
 					work.starty = work.cya;
 					work.stopy = work.cyb;
 					if (w->textured == 1)
-					wall_line_textured(x, w, work, w->texturing[m->sector[work.nosector].texturing[2]]);
+					wall_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[2]]);
 					else
 						vertical_line(x, work, w, work.color);
 				}

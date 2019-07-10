@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/09 16:29:23 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/10 02:21:52 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -645,9 +645,7 @@ void				clear_sprite(t_map *m);
 void				draw_ennemy(t_env *w, t_map *m, int x, int ratio);
 void				jet_pack(t_map *m);
 int					get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y);
-void				vertical_line_textured(int x, t_env *w, t_work work, t_texture text);
-void				ceiling_line_textured(int x, t_env *w, t_work work, t_texture text);
-void				skybox(int x, t_env *w, t_work work, t_texture text);
+void				skybox(int x, t_env *w, t_work *work, t_texture text);
 void				skybox2(t_env *w, t_texture text);
 double				pythagore(double a, double b);
 void				test_sprite2(t_map *m, double xx, double yy);
@@ -655,7 +653,9 @@ void				ennemy_animation(t_env *w, t_map *m, double **tab, int x);
 double				**fill_tab_ennemy(t_map *m);
 double				**fill_tab_sprite(t_map *m);
 double				**sort_double_tab(double **tab, int size);
-void				extruded_line_textured(int x, t_env *w, t_work work, t_texture text);
-void				wall_line_textured(int x, t_env *w, t_work work, t_texture text);
+void				vertical_line_textured(int x, t_env *w, t_work *work, t_texture text);
+void				ceiling_line_textured(int x, t_env *w, t_work *work, t_texture text);
+void				extruded_line_textured(int x, t_env *w, t_work *work, t_texture text);
+void				wall_line_textured(int x, t_env *w, t_work *work, t_texture text);
 
 #endif

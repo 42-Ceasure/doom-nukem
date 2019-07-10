@@ -34,7 +34,7 @@ void	skybox2(t_env *w, t_texture text)
 	}
 }
 
-void	skybox(int x, t_env *w, t_work work, t_texture text)
+void	skybox(int x, t_env *w, t_work *work, t_texture text)
 {
 	int			y1;
 	int			y2;
@@ -42,17 +42,17 @@ void	skybox(int x, t_env *w, t_work work, t_texture text)
 	double		height;
 	int 		tmpix;
 
-	y1 = work.starty;
-	y2 = work.stopy;
+	y1 = work->starty;
+	y2 = work->stopy;
 	y1 = vmid(y1, 0, HEIGHT - 1);
 	y2 = vmid(y2, 0, HEIGHT - 1);
 	if (y2 > y1)
 	{
 		while (y1 <= y2)
 		{
-			if (y1 >= work.cya && y1 <= work.cyb) 
+			if (y1 >= work->cya && y1 <= work->cyb) 
 			{
-				y1 = work.cyb;
+				y1 = work->cyb;
 				continue;
 			}
 			width = (x * (text.w / 4)) / WIDTH + ((w->m->player.angle * (180 / PI)) * text.w) / 360;
@@ -70,7 +70,7 @@ void	skybox(int x, t_env *w, t_work work, t_texture text)
 	}
 }
 
-void	ceiling_line_textured(int x, t_env *w, t_work work, t_texture text)
+void	ceiling_line_textured(int x, t_env *w, t_work *work, t_texture text)
 {
 	int			y1;
 	int			y2;
@@ -85,8 +85,8 @@ void	ceiling_line_textured(int x, t_env *w, t_work work, t_texture text)
 	double 		hfov;
 	int 		tmpix;
 
-	y1 = work.starty;
-	y2 = work.stopy;
+	y1 = work->starty;
+	y2 = work->stopy;
 	y1 = vmid(y1, 0, HEIGHT - 1);
 	y2 = vmid(y2, 0, HEIGHT - 1);
 	vfov = (1.0 * .5f);
@@ -100,16 +100,16 @@ void	ceiling_line_textured(int x, t_env *w, t_work work, t_texture text)
 	{
 		while (y1 <= y2)
 		{
-			if (y1 >= work.cya && y1 <= work.cyb) 
+			if (y1 >= work->cya && y1 <= work->cyb) 
 			{
-				y1 = work.cyb;
+				y1 = work->cyb;
 				continue;
 			}
-			hei = y1 < work.cya ? work.yceil : work.yfloor;
+			hei = y1 < work->cya ? work->yceil : work->yfloor;
 			mapz = hei * HEIGHT * hfov / ((HEIGHT / 2 - y1) - w->m->player.yaw * HEIGHT * vfov);
 			mapx = mapz * (WIDTH / 2 - x) / (WIDTH * hfov);
-			rtx = mapz * work.pcos + mapx * work.psin;
-            rtz = mapz * work.psin - mapx * work.pcos;
+			rtx = mapz * work->pcos + mapx * work->psin;
+            rtz = mapz * work->psin - mapx * work->pcos;
             mapx = rtx + w->m->player.coor.x;
 			mapz = rtz + w->m->player.coor.y;
 			test_sprite2(w->m, mapx, mapz);
@@ -123,7 +123,7 @@ void	ceiling_line_textured(int x, t_env *w, t_work work, t_texture text)
 	}
 }
 
-void	vertical_line_textured(int x, t_env *w, t_work work, t_texture text)
+void	vertical_line_textured(int x, t_env *w, t_work *work, t_texture text)
 {
 	int		y1;
 	int		y2;
@@ -136,28 +136,28 @@ void	vertical_line_textured(int x, t_env *w, t_work work, t_texture text)
 	double	y_tex_pos;
 	
 	y_tex_pos = 0;
-	y1 = work.starty;
-	y2 = work.stopy;
-	wall_height_from_bottom = work.yb - y1;
+	y1 = work->starty;
+	y2 = work->stopy;
+	wall_height_from_bottom = work->yb - y1;
 	y1 = vmid(y1, 0, HEIGHT - 1);
 	y2 = vmid(y2, 0, HEIGHT - 1);
 	if (y2 > y1)
 	{
-		wall_height_scale = (work.yceil - work.yfloor) / TEXT_WALL_HEIGHT;
-		wall_width_scale = TEXT_WALL_WIDTH / 2 / work.wall_width;
-		if (vabs(work.t2.x - work.t1.x) > vabs(work.t2.z - work.t1.z))
+		wall_height_scale = (work->yceil - work->yfloor) / TEXT_WALL_HEIGHT;
+		wall_width_scale = TEXT_WALL_WIDTH / 2 / work->wall_width;
+		if (vabs(work->t2.x - work->t1.x) > vabs(work->t2.z - work->t1.z))
         {	
-			work.start_x_tex = (work.t1.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
-			work.end_x_tex = (work.t2.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
+			work->start_x_tex = (work->t1.x - work->tt1.x) * text.w / wall_width_scale / (work->tt2.x - work->tt1.x);
+			work->end_x_tex = (work->t2.x - work->tt1.x) * text.w / wall_width_scale / (work->tt2.x - work->tt1.x);
 		}
 		else
         {
-			work.start_x_tex = (work.t1.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
-			work.end_x_tex = (work.t2.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
+			work->start_x_tex = (work->t1.z - work->tt1.z) * text.w / wall_width_scale / (work->tt2.z - work->tt1.z);
+			work->end_x_tex = (work->t2.z - work->tt1.z) * text.w / wall_width_scale / (work->tt2.z - work->tt1.z);
 		}
-		y_tex_start = (work.y2a - work.y1a) * ((work.x2 - work.x1) - (x - work.x1)) / (work.x2 - work.x1) - work.y2a;
-		x_tex = ((work.start_x_tex * ((work.x2 - x) * work.t2.z) + work.end_x_tex * ((x - work.x1) * work.t1.z)) / ((work.x2 - x) * work.t2.z + (x-work.x1) * work.t1.z));
-		if ((work.y1a < 0 || work.y2a < 0) && y1 == 0)
+		y_tex_start = (work->y2a - work->y1a) * ((work->x2 - work->x1) - (x - work->x1)) / (work->x2 - work->x1) - work->y2a;
+		x_tex = ((work->start_x_tex * ((work->x2 - x) * work->t2.z) + work->end_x_tex * ((x - work->x1) * work->t1.z)) / ((work->x2 - x) * work->t2.z + (x-work->x1) * work->t1.z));
+		if ((work->y1a < 0 || work->y2a < 0) && y1 == 0)
 		{
 			wall_height_from_bottom += y_tex_start;
 			y_tex_pos += y_tex_start;
@@ -192,7 +192,7 @@ void	vertical_line_textured(int x, t_env *w, t_work work, t_texture text)
 	}
 }
 
-void	wall_line_textured(int x, t_env *w, t_work work, t_texture text)
+void	wall_line_textured(int x, t_env *w, t_work *work, t_texture text)
 {
 	int		y1;
 	int		y2;
@@ -205,27 +205,27 @@ void	wall_line_textured(int x, t_env *w, t_work work, t_texture text)
 	double	y_tex_pos;
 	
 	y_tex_pos = 0;
-	y1 = work.starty;
-	y2 = work.stopy;
+	y1 = work->starty;
+	y2 = work->stopy;
 	y1 = vmid(y1, 0, HEIGHT - 1);
 	y2 = vmid(y2, 0, HEIGHT - 1);
-	if (vmid(work.ytop[x], 0, HEIGHT - 1) == y1 && vmid(work.ytop[x], 0, HEIGHT - 1) > 0)
+	if (vmid(work->ytop[x], 0, HEIGHT - 1) == y1 && vmid(work->ytop[x], 0, HEIGHT - 1) > 0)
 	{
-		wall_height_from_bottom = work.yb - work.starty;
-		wall_height_scale = (work.yceil - work.yfloor) / TEXT_WALL_HEIGHT;
-		wall_width_scale = TEXT_WALL_WIDTH / 2 / work.wall_width;
-		if (vabs(work.t2.x - work.t1.x) > vabs(work.t2.z - work.t1.z))
+		wall_height_from_bottom = work->yb - work->starty;
+		wall_height_scale = (work->yceil - work->yfloor) / TEXT_WALL_HEIGHT;
+		wall_width_scale = TEXT_WALL_WIDTH / 2 / work->wall_width;
+		if (vabs(work->t2.x - work->t1.x) > vabs(work->t2.z - work->t1.z))
 		{	
-			work.start_x_tex = (work.t1.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
-			work.end_x_tex = (work.t2.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
+			work->start_x_tex = (work->t1.x - work->tt1.x) * text.w / wall_width_scale / (work->tt2.x - work->tt1.x);
+			work->end_x_tex = (work->t2.x - work->tt1.x) * text.w / wall_width_scale / (work->tt2.x - work->tt1.x);
 		}
 		else
 		{
-			work.start_x_tex = (work.t1.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
-			work.end_x_tex = (work.t2.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
+			work->start_x_tex = (work->t1.z - work->tt1.z) * text.w / wall_width_scale / (work->tt2.z - work->tt1.z);
+			work->end_x_tex = (work->t2.z - work->tt1.z) * text.w / wall_width_scale / (work->tt2.z - work->tt1.z);
 		}
-		// y_tex_start = (work.y2a - work.y1a) * ((work.x2 - work.x1) - (x - work.x1)) / (work.x2 - work.x1) - work.y2a;
-		x_tex = ((work.start_x_tex * ((work.x2 - x) * work.t2.z) + work.end_x_tex * ((x - work.x1) * work.t1.z)) / ((work.x2 - x) * work.t2.z + (x-work.x1) * work.t1.z));
+		// y_tex_start = (work->y2a - work->y1a) * ((work->x2 - work->x1) - (x - work->x1)) / (work->x2 - work->x1) - work->y2a;
+		x_tex = ((work->start_x_tex * ((work->x2 - x) * work->t2.z) + work->end_x_tex * ((x - work->x1) * work->t1.z)) / ((work->x2 - x) * work->t2.z + (x-work->x1) * work->t1.z));
 		while (y1 <= y2)
 		{
 			// wall_height_from_bottom += y_tex_start;
@@ -243,24 +243,24 @@ void	wall_line_textured(int x, t_env *w, t_work work, t_texture text)
 	}
 	else
 	{
-		wall_height_from_bottom = work.yb - work.starty;
+		wall_height_from_bottom = work->yb - work->starty;
 		if (y2 > y1)
 		{
-			wall_height_scale = (work.yceil - work.yfloor) / TEXT_WALL_HEIGHT;
-			wall_width_scale = TEXT_WALL_WIDTH / 2 / work.wall_width;
-			if (vabs(work.t2.x - work.t1.x) > vabs(work.t2.z - work.t1.z))
+			wall_height_scale = (work->yceil - work->yfloor) / TEXT_WALL_HEIGHT;
+			wall_width_scale = TEXT_WALL_WIDTH / 2 / work->wall_width;
+			if (vabs(work->t2.x - work->t1.x) > vabs(work->t2.z - work->t1.z))
 			{	
-				work.start_x_tex = (work.t1.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
-				work.end_x_tex = (work.t2.x - work.tt1.x) * text.w / wall_width_scale / (work.tt2.x - work.tt1.x);
+				work->start_x_tex = (work->t1.x - work->tt1.x) * text.w / wall_width_scale / (work->tt2.x - work->tt1.x);
+				work->end_x_tex = (work->t2.x - work->tt1.x) * text.w / wall_width_scale / (work->tt2.x - work->tt1.x);
 			}
 			else
 			{
-				work.start_x_tex = (work.t1.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
-				work.end_x_tex = (work.t2.z - work.tt1.z) * text.w / wall_width_scale / (work.tt2.z - work.tt1.z);
+				work->start_x_tex = (work->t1.z - work->tt1.z) * text.w / wall_width_scale / (work->tt2.z - work->tt1.z);
+				work->end_x_tex = (work->t2.z - work->tt1.z) * text.w / wall_width_scale / (work->tt2.z - work->tt1.z);
 			}
-			y_tex_start = (work.y2a - work.y1a) * ((work.x2 - work.x1) - (x - work.x1)) / (work.x2 - work.x1) - work.y2a;
-			x_tex = ((work.start_x_tex * ((work.x2 - x) * work.t2.z) + work.end_x_tex * ((x - work.x1) * work.t1.z)) / ((work.x2 - x) * work.t2.z + (x-work.x1) * work.t1.z));
-			if ((work.y1a < 0 || work.y2a < 0) && y1 == 0)
+			y_tex_start = (work->y2a - work->y1a) * ((work->x2 - work->x1) - (x - work->x1)) / (work->x2 - work->x1) - work->y2a;
+			x_tex = ((work->start_x_tex * ((work->x2 - x) * work->t2.z) + work->end_x_tex * ((x - work->x1) * work->t1.z)) / ((work->x2 - x) * work->t2.z + (x-work->x1) * work->t1.z));
+			if ((work->y1a < 0 || work->y2a < 0) && y1 == 0)
 			{
 				wall_height_from_bottom += y_tex_start;
 				y_tex_pos += y_tex_start;
@@ -296,7 +296,7 @@ void	wall_line_textured(int x, t_env *w, t_work work, t_texture text)
 	}	
 }
 
-void	extruded_line_textured(int x, t_env *w, t_work work, t_texture text)
+void	extruded_line_textured(int x, t_env *w, t_work *work, t_texture text)
 {
 	int		y1;
 	int		y2;
@@ -309,28 +309,28 @@ void	extruded_line_textured(int x, t_env *w, t_work work, t_texture text)
 	double	y_tex_pos;
 	
 	y_tex_pos = 0;
-	y1 = work.starty - 1;
-	y2 = work.stopy;
-	wall_height_from_bottom = work.yb - y1;
+	y1 = work->starty - 1;
+	y2 = work->stopy;
+	wall_height_from_bottom = work->yb - y1;
 	y1 = vmid(y1, 0, HEIGHT - 1);
 	y2 = vmid(y2, 0, HEIGHT - 1);
 	if (y2 > y1)
 	{
-		wall_height_scale = (work.nyfloor - work.yfloor) / TEXT_WALL_HEIGHT;
-		wall_width_scale = TEXT_WALL_WIDTH / 2 / work.wall_width;
-		if (vabs(work.t2.x -work.t1.x) > vabs(work.t2.z -work.t1.z))
+		wall_height_scale = (work->nyfloor - work->yfloor) / TEXT_WALL_HEIGHT;
+		wall_width_scale = TEXT_WALL_WIDTH / 2 / work->wall_width;
+		if (vabs(work->t2.x -work->t1.x) > vabs(work->t2.z -work->t1.z))
         {	
-			work.start_x_tex = (work.t1.x -work.tt1.x) * text.w / wall_width_scale / (work.tt2.x -work.tt1.x);
-			work.end_x_tex = (work.t2.x -work.tt1.x) * text.w / wall_width_scale / (work.tt2.x -work.tt1.x);
+			work->start_x_tex = (work->t1.x -work->tt1.x) * text.w / wall_width_scale / (work->tt2.x -work->tt1.x);
+			work->end_x_tex = (work->t2.x -work->tt1.x) * text.w / wall_width_scale / (work->tt2.x -work->tt1.x);
 		}
 		else
         {
-			work.start_x_tex = (work.t1.z -work.tt1.z) * text.w / wall_width_scale / (work.tt2.z -work.tt1.z);
-			work.end_x_tex = (work.t2.z -work.tt1.z) * text.w / wall_width_scale / (work.tt2.z -work.tt1.z);
+			work->start_x_tex = (work->t1.z -work->tt1.z) * text.w / wall_width_scale / (work->tt2.z -work->tt1.z);
+			work->end_x_tex = (work->t2.z -work->tt1.z) * text.w / wall_width_scale / (work->tt2.z -work->tt1.z);
 		}
-		y_tex_start = (work.ny2b -work.ny1b) * ((work.x2 -work.x1) - (x -work.x1)) / (work.x2 -work.x1) - work.ny2b;
-		x_tex = ((work.start_x_tex * ((work.x2 - x) *work.t2.z) +work.end_x_tex * ((x -work.x1) *work.t1.z)) / ((work.x2 - x) *work.t2.z + (x-work.x1) *work.t1.z));
-		if ((work.y1a < 0 ||work.y2a < 0) && y1 == 0)
+		y_tex_start = (work->ny2b -work->ny1b) * ((work->x2 -work->x1) - (x -work->x1)) / (work->x2 -work->x1) - work->ny2b;
+		x_tex = ((work->start_x_tex * ((work->x2 - x) *work->t2.z) +work->end_x_tex * ((x -work->x1) *work->t1.z)) / ((work->x2 - x) *work->t2.z + (x-work->x1) *work->t1.z));
+		if ((work->y1a < 0 ||work->y2a < 0) && y1 == 0)
 		{
 			wall_height_from_bottom += y_tex_start;
 			y_tex_pos += y_tex_start;
