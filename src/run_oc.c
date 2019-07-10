@@ -152,8 +152,12 @@ void	run(t_env *w, t_map *m)
 			if (w->event.type == SDL_MOUSEBUTTONUP)
 				buttonup_event(w, m);
 		}
-		if (m->stop == 1)
+		if (m->stop == 1 || m->player.hp == 0)
+		{
+			if (m->player.hp == 0)
+				m->game_over = 1;
 			break;
+		}
 		w->inkeys = SDL_GetKeyboardState(NULL);
 		key_events(w, m);
 		m->player.bal = m->player.bal + sens;

@@ -169,6 +169,27 @@ void	main_menu(t_env *w, t_map *m)
 	}
 }
 
+void	loose(t_env *w, t_map *m)
+{
+	safe_texture_to_screen(w, w->main_pic[2], 0, 0);
+	w->txthead.x = 350;
+	w->txthead.y = 400;
+	type_str(w, w->txthead, "Press enter to retry", 0x12FFFFFF);
+	while (SDL_PollEvent(&w->event))
+	{
+		if (w->event.type == SDL_KEYDOWN)
+		{
+			if (KEY == 27)
+				exit_game(w, m, 1);
+			if (KEY == SDLK_RETURN)
+			{
+				m->game_over = 0;
+				m->player.hp = 100;
+			}
+		}
+	}
+	img_update(w);
+}
 
 void	launch(t_env *w, t_map *m)
 {	
@@ -180,8 +201,13 @@ void	launch(t_env *w, t_map *m)
 			settings(w);
 		else
 		{
-			parse_map_file(w, m);
-			run(w, m);
+			if (m->game_over == 1)
+				loose(w, m);
+			else
+			{
+				parse_map_file(w, m);
+				run(w, m);
+			}
 		}
 	}
 }

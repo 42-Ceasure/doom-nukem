@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/10 02:21:52 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/10 10:48:20 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,6 +362,7 @@ typedef struct		s_map
 {
 	void			*world;
 	int				stop;
+	int				game_over;
 	int				launchwmap;
 	int				trippymod;
 	int				i;
@@ -485,7 +486,7 @@ typedef struct		s_env
 	SDL_Texture		*txtr;
 	SDL_Event		event;
 	t_texture		*ascii;
-	t_texture		main_pic[2];
+	t_texture		main_pic[3];
 	t_text			txt;
 	t_menu			menu;
 	t_dot			txthead;
@@ -505,9 +506,6 @@ typedef struct		s_worker_arg
 }					t_worker_arg;
 
 void				interpret_cmd(t_env *w, t_map *m, char ***cmd, char **av);
-
-
-
 char				***parse_cmd(int ac, char **av);
 t_texture			pre_init_texture(int w, int h);
 void				l_f_priority_cmd(t_env *w, t_map *m, char ***cmd);

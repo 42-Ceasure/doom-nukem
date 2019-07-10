@@ -105,6 +105,8 @@ void			parse_texture_line(t_env *w, t_map *m, char *line)
 	}
 	if (ft_strcmp(tmp[0], "main_pic[1]") == 0)
 		w->main_pic[1] = parse_texture(w, m, tmp);
+	if (ft_strcmp(tmp[0], "main_pic[2]") == 0)
+		w->main_pic[2] = parse_texture(w, m, tmp);
 	if (ft_strcmp(tmp[0], "hud") == 0)
 		m->hud = parse_texture(w, m, tmp);
 	if (ft_strcmp(tmp[0], "fire") == 0)
