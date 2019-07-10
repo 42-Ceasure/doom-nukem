@@ -62,6 +62,8 @@ void	ft_hud(t_env *w, t_map *m)
 		final_sprite_to_screen(w, m->sprite[1], 399, HEIGHT - 60, 64, 48);
 	if (m->player.take[2] == 1)
 		final_sprite_to_screen(w, m->sprite[2], 480, HEIGHT - 54, 64, 0);
+	if (m->player.take[3] == 1)
+		final_sprite_to_screen(w, m->sprite[18], 560, HEIGHT - 54, 64, 0);
 	dot.x = WIDTH - 130;
 	dot.y = 10;
 	type_str(w, dot, "FPS : ", 0x12000000);
@@ -185,5 +187,12 @@ void	run(t_env *w, t_map *m)
 			i++;
 		}
 		get_that_time(w);
+		if (m->elevator == 1)
+		{
+			m->sector[11].floor -= 0.1;
+			m->sector[11].ceiling -= 0.1;
+			if ((int)m->sector[11].floor == 49)
+				m->elevator = 0;
+		}
 	}
 }

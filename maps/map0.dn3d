@@ -1,4 +1,4 @@
-dots:35,sector:13,sprite:15,ennemy:23
+dots:35,sector:13,sprite:16,ennemy:23
 Section:map
 	dots:2:66,74,82,102
 	dots:4:58,90
@@ -27,7 +27,7 @@ Section:map
 	sector:75,105:5,10,16,12:x,9,x,7:23,11,17,8,6,0
 	sector:75,105:10,3,13,22,21,16:x,x,x,10,x,8:23,11,17,8,6,0
 	sector:75,105:22,26,25,21:x,11,x,9:23,11,17,8,6,0
-	sector:75,105:26,28,27,25:x,12,x,10:23,11,17,8,6,0
+	sector:74,105:26,28,27,25:x,12,x,10:23,11,17,8,6,0
 	sector:50,75:28,30,32,34,33,31,29,27:x,x,x,x,x,x,x,11:23,5,17,8,6,3
 Section:player
 	player_location:16,36
@@ -49,6 +49,7 @@ Section:sprite
 	ammo:12,5,12,116,112
 	ammo:13,5,12,86,110
 	undertale:14,14,9,102,35
+	badge:15,18,9,95,30
 Section:ennemy
 	monstre:0,6,1,42,22
 	monstre:1,6,2,52,14

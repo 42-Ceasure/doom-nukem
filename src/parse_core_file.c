@@ -64,10 +64,7 @@ void			parse_weapon_line(t_map *m, char *line)
 		if (tmp[4])
 			m->weap[m->w].ammo_type = ft_atoi(tmp[4]);
 		if (tmp[5])
-		{
 			m->weap[m->w].magazine = ft_atoi(tmp[5]);
-			m->weap[m->w].actu_ammo = m->weap[m->w].magazine;
-		}
 		if (tmp[6])
 			m->weap[m->w].recoil = ft_atoi(tmp[6]);
 	}

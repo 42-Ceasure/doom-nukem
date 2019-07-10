@@ -110,6 +110,7 @@ void			set_m_player(t_map *m)
 	m->player.take[0] = 0;
 	m->player.take[1] = 0;
 	m->player.take[2] = 0;
+	m->player.take[3] = 0;
 	m->player.coor.x = 0;
 	m->player.coor.y = 0;
 	m->player.coor.z = 0;

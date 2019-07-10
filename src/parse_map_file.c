@@ -155,6 +155,10 @@ int		do_parse(t_env *w, t_map *m)
 		return (-1);
 	process_hint_w(w, 0, " ");
 	process_hint_w(w, 6, " ");
+	set_m_player(m);
+	m->weap[0].actu_ammo = m->weap[0].magazine;
+	m->weap[1].actu_ammo = m->weap[1].magazine;
+	m->weap[2].actu_ammo = m->weap[2].magazine;
 	while (w->stopread == 0 && get_next_line(m->fd, &m->line))
 	{
 		if ((parse_line(w, m)) == -1)

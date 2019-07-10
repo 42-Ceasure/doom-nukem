@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/10 10:48:20 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/10 16:29:57 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ typedef struct		s_player
 	int				mousesp;
 	int				hud;
 	int				hp;
-	int				take[3];
+	int				take[4];
 	char			*strhp;
 	t_coor			coor;
 	int				memz;
@@ -365,6 +365,7 @@ typedef struct		s_map
 	int				game_over;
 	int				launchwmap;
 	int				trippymod;
+	int				elevator;
 	int				i;
 	int				s;
 	int				w;

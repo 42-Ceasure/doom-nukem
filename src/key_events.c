@@ -29,4 +29,6 @@ void		key_events(t_env *w, t_map *m)
 		m->sector[m->player.sector].ceiling += 0.1;
 	if (w->inkeys[SDL_SCANCODE_END])
 		m->sector[m->player.sector].ceiling -= 0.1;
+	if (m->sector[m->player.sector].floor == 74 && m->sprt[15].taken == 1 && KEY == SDLK_f)
+		m->elevator = 1;
 }
