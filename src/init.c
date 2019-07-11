@@ -40,10 +40,8 @@ int			load_sounds(t_env *w, t_map *m)
 
 int			init_sdl(t_env *w)
 {
-	getchar();
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 		return (-1);
-	getchar();
 	if (w->window_mode == 1)
 	{
 		w->win = SDL_CreateWindow(NAME, SDL_WINDOWPOS_CENTERED,

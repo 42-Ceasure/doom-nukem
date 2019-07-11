@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 10:17:33 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/11 11:47:11 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/11 19:27:29 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void		empty_world(t_env *w)
 			free(w->main_pic[0].pix);
 		if (w->main_pic[1].pix != NULL)
 			free(w->main_pic[1].pix);
+		if (w->main_pic[2].pix != NULL)
+			free(w->main_pic[2].pix);
 		if (w->pix != NULL)
 			free(w->pix);
 		while (i < w->asciino)
@@ -58,9 +60,11 @@ void		empty_world(t_env *w)
 			free(w->ascii[i].pix);
 			i++;
 		}
+		free(w->ascii);
 		i = -1;
 		while (++i < w->texturingno)
 			free(w->texturing[i].pix);
+		free(w->texturing);
 		free(w->menu.y);
 		ft_memreg3(w->menu.list);
 		free(w);
@@ -105,6 +109,7 @@ void		empty_map(t_map *m)
 		ft_free_sprt(m);
 		ft_free_weap(m);
 		ft_free_sector(m);
+		//free(m->world);
 		free(m);
 	}
 }

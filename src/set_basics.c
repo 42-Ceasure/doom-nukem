@@ -29,6 +29,7 @@ void			set_w(t_env *w, int ac)
 	w->txtr = NULL;
 	w->main_pic[0] = pre_init_texture(w->res.width, w->res.height);
 	w->main_pic[1] = pre_init_texture(w->res.width, w->res.height);
+	w->main_pic[2] = pre_init_texture(w->res.width, w->res.height);
 	w->menu.z = 0;
 	w->menu.y = NULL;
 	w->menu.i = 0;
@@ -79,7 +80,7 @@ void			set_m(t_map *m)
 	m->weap = NULL;
 	m->sprite = NULL;
 	m->sprt = NULL;
-	m->texture = NULL;
+	//m->texture = NULL;
 	m->hud = pre_init_texture(0, 0);
 }
 

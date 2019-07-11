@@ -252,6 +252,7 @@ void			load_core(t_env *w, t_map *m)
 			w->i++;
 		}
 		close(m->fd);
+		free(m->line);
 	}
 	else
 		set_error(w, m, 5, path);

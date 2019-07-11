@@ -179,6 +179,7 @@ void	parse_map_file(t_env *w, t_map *m)
 	double	loading;
 	int		i;
 
+	//free l ancienne map
 	w->dtime.start = SDL_GetTicks();
 	if (do_parse(w, m) == -1)
 		set_error(w, m, 8, ft_strdup("do_parse"));

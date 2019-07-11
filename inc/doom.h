@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/11 14:53:35 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/11 18:49:29 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -392,8 +392,6 @@ typedef struct		s_map
 	t_weapon		*weap;
 	t_sprite		*sprite;	//a placer dans t_env
 	t_map_sprite	*sprt;
-	t_sprite		*map;
-	t_texture		*texture;
 	t_texture		hud;
 	t_texture		fire;
 	t_player		player;
