@@ -16,7 +16,7 @@ void	skybox2(t_env *w, t_texture text)
 	while (x < WIDTH)
 	{
 		y1 = 0;
-		while (y1 <= y2)
+		while (y1 < y2)
 		{
 			width = (x * (text.w / 4)) / WIDTH + ((w->m->player.angle * (180 / PI)) * text.w) / 360;
 			height = (((y1 + w->m->yaw / 0.004 + text.h) * text.h) / HEIGHT / 2);
