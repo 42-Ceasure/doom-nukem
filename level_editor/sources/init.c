@@ -38,15 +38,18 @@ static void	init_dst(t_win *win)
 	win->dst10.y = 300;
 	win->dst11.x = 120;
 	win->dst11.y = 310;
-
+	win->dst12.x = 10;
+	win->dst12.y = 10;
+	win->dst13.x = 40;
+	win->dst13.y = 10;
 	win->color_font_r.r = 119;
 	win->color_font_r.g = 136;
 	win->color_font_r.b = 153;
-
 	win->color_font_z.r = 255;
 	win->color_font_z.g = 255;
 	win->color_font_z.b = 255;
-
+	win->h_win_tmp = 0;
+	win->w_win_tmp = 0;
 	win->w_win = WIN_X;
 	win->h_win = WIN_Y;
 }
@@ -76,6 +79,13 @@ static int	init_assets(t_win *win)
 
 	win->texturetxt = TTF_RenderText_Blended(win->police,
 		"Wall", win->color_font_z);
+
+	win->paramtxt = TTF_RenderText_Blended(win->police,
+		"HP", win->color_font_z);
+
+	win->paramvaluetxt = TTF_RenderText_Blended(win->police,
+		"100", win->color_font_z);
+
 
 	/*win->helptxt = TTF_RenderText_Blended(win->police,
 		"test", win->color_font_r);*/
@@ -125,6 +135,10 @@ static int	init_struct(t_win *win)
 	win->texture_index = 0;
 	win->blackbox_x = 253;
 	win->txtr_input_type = 0;
+	win->param_index = 0;
+	win->hp_value = 100;
+	win->gravity_value = 1;
+	win->music_value = 1;
 
 	return (0);
 }

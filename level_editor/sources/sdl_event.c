@@ -46,7 +46,6 @@ static void	sdl_event_key(t_win *win)
 		clear_n_exit(win, 0);
 
 
-
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_F5])
 	{
 		if (win->lstlst)
@@ -55,29 +54,57 @@ static void	sdl_event_key(t_win *win)
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_UP])
 	{
-		win->texture_choice += 1;
-		if (win->texture_choice > 4)
-			win->texture_choice = 0;
+		if (win->mode == 4)
+		{
+			win->texture_choice += 1;
+			if (win->texture_choice > 4)
+				win->texture_choice = 0;
+		}
+		if (win->mode == 1)
+		{
+			win->param_index += 1;
+			if (win->param_index > 2)
+				win->param_index = 0;
+		}
 
 	}
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_DOWN])
 	{
-		win->texture_choice -= 1;
-		if (win->texture_choice < 0)
-			win->texture_choice = 4;
+		if (win->mode == 4)
+		{
+			win->texture_choice -= 1;
+			if (win->texture_choice < 0)
+				win->texture_choice = 4;
+		}
+		if (win->mode == 1)
+		{
+			win->param_index -= 1;
+			if (win->param_index < 0)
+				win->param_index = 2;
+		}
 	}
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_RIGHT])
 	{
-		win->txtr_input_type = 2;
-		change_texture_index(win);
+		if (win->mode == 4)
+		{
+			win->txtr_input_type = 2;
+			change_texture_index(win);
+		}
+		if (win->mode == 1)
+			increase_value(win);
 	}
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_LEFT])
 	{
-		win->txtr_input_type = 3;
-		change_texture_index(win);
+		if (win->mode == 4)
+		{
+			win->txtr_input_type = 3;
+			change_texture_index(win);
+		}
+		if (win->mode == 1)
+			decrease_value(win);
 	}
 
 	/*if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_H])
@@ -122,6 +149,7 @@ static void	sdl_event_mouse(t_win *win)
 
 		if (win->mode == 0)
 		{
+			SDL_FreeCursor(win->cursor);
 			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 			if (tmp2)
 			{
@@ -130,40 +158,47 @@ static void	sdl_event_mouse(t_win *win)
 				if (tmp2->closed == 0)
 					win->drawing = 1;
 			}
-			//SDL_FreeSurface(win->helptxt);
+			SDL_FreeSurface(win->helptxt);
 			win->helptxt = TTF_RenderText_Blended(win->police,
 				"Drawing Mode", win->color_font_r);
 		}
 
 		if (win->mode == 1)
 		{
+			SDL_FreeCursor(win->cursor);
 			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
 			win->drawing = 0;
-			//SDL_FreeSurface(win->helptxt);
+			SDL_FreeSurface(win->helptxt);
 			win->helptxt = TTF_RenderText_Blended(win->police,
 				"Moving Mode", win->color_font_r);
 		}
 
 		if (win->mode == 2)
 		{
+			SDL_FreeCursor(win->cursor);
 			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 			win->drawing = 0;
+			SDL_FreeSurface(win->helptxt);
 			win->helptxt = TTF_RenderText_Blended(win->police,
 				"Placing Mode", win->color_font_r);
 		}
 
 		if (win->mode == 3)
 		{
+			SDL_FreeCursor(win->cursor);
 			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
 			win->drawing = 0;
+			SDL_FreeSurface(win->helptxt);
 			win->helptxt = TTF_RenderText_Blended(win->police,
 				"Delete Mode", win->color_font_r);
 		}
 
 		if (win->mode == 4)
 		{
+			SDL_FreeCursor(win->cursor);
 			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
 			win->drawing = 0;
+			SDL_FreeSurface(win->helptxt);
 			win->helptxt = TTF_RenderText_Blended(win->police,
 				"Texture Mode", win->color_font_r);
 		}
@@ -220,6 +255,5 @@ static void	sdl_event_mouse(t_win *win)
 void		sdl_event(t_win *win)
 {
 	sdl_event_key(win);
-	if (win->check_textures == 0)
-		sdl_event_mouse(win);
+	sdl_event_mouse(win);
 }

@@ -22,29 +22,44 @@ double v_c_p(double x0, double y0, double x1, double y1)
 	return (x0 * y1 - x1 * y0);
 }
 
+int vmin2(int a, int b)
+{
+    if (a < b)
+        return (a);
+    else
+        return (b);
+}
+int vmax2(int a, int b)
+{
+    if (a > b)
+        return (a);
+    else
+        return (b);
+}
+
 double pointside(t_dot m, double x0, double y0, double x1, double y1)
 {
 	return(v_c_p(x1 - x0, y1 - y0, m.x - x0, m.y - y0));
 }
 
-/*double isoverlap(double a0, double a1, double b0, double b1)
+int		isoverlap2(int a0, int a1, int b0, int b1)
 {
-	if ((vmin(a0,a1) <= vmax(b0,b1) && vmin(b0,b1) <= vmax(a0,a1)))
+	if ((vmin2(a0,a1) <= vmax2(b0,b1) && vmin2(b0,b1) <= vmax2(a0,a1)))
 		return (1);
 	else
 		return (0);
 }
 
-double intersectbox(t_intersect i)
+int		intersectbox2(t_dot p1, t_dot p2, t_dot p3, t_dot p4)
 {
 
-	if (isoverlap(i.x1, i.x2, i.x3, i.x4) && isoverlap(i.y1, i.y2, i.y3, i.y4))
+	if (isoverlap2(p1.x, p2.x, p3.x, p4.x) && isoverlap2(p1.y, p2.y, p3.y, p4.y))
 		return (1);
 	else
 		return (0);
 }
 
-t_coor intersect(t_intersect i)
+/*t_coor intersect(t_intersect i)
 {
 	t_coor coor;
 	double tmp1;
@@ -222,7 +237,7 @@ int		left_vertex(t_lst *polygone)
 		p = get_point_in_list(tmp, i);
 		if (p.x != -1 && p.y != -1)
 		{
-			if (p.x < x)
+			if (p.x <= x)
 			{
 				x = p.x;
 				j = i;
@@ -418,8 +433,8 @@ void		recursive_check(t_win *win)
 	int			i;
 
 	i = 0;
-	/*tmp2 = win->lstlst;
-	while (tmp2)
+	tmp2 = win->lstlst;
+	/*while (tmp2)
 	{
 		if (len_list(tmp2->head) <= 3)
 			i = 1;

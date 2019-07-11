@@ -42,6 +42,8 @@ struct					s_win
 	SDL_Surface			*map_ui;
 	SDL_Surface			*helptxt;
 	SDL_Surface			*texturetxt;
+	SDL_Surface			*paramtxt;
+	SDL_Surface			*paramvaluetxt;
 
 	SDL_Surface			*asset_sprite;
 	SDL_Surface			*texture_sprite;
@@ -71,6 +73,8 @@ struct					s_win
 	SDL_Rect			dst9;
 	SDL_Rect			dst10;
 	SDL_Rect			dst11;
+	SDL_Rect			dst12;
+	SDL_Rect			dst13;
 
 	SDL_Cursor			*cursor;
 
@@ -104,6 +108,8 @@ struct					s_win
 	SDL_Event			event;
 	int					h_win;
 	int					w_win;
+	int					h_win_tmp;
+	int					w_win_tmp;
 	int					link;
 	int					just_close;
 	int					color;
@@ -125,6 +131,10 @@ struct					s_win
 	int					texture_index;
 	int					blackbox_x;
 	int					txtr_input_type;
+	int					param_index;
+	int					hp_value;
+	double				gravity_value;
+	int					music_value;
 };
 
 #endif

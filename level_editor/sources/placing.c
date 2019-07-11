@@ -128,7 +128,10 @@ void		asset_overing(t_win *win)
 		if (tmp->x == win->x2 && tmp->y == win->y2)
 		{
 			if (tmp->asset_type == 0)
+			{
 				win->asset_tmp = IMG_Load("resources/textures/feather.png");
+				set_params(win);
+			}
 			if (tmp->asset_type == 1)
 				win->asset_tmp = IMG_Load("resources/textures/gun1.png");
 			if (tmp->asset_type == 2)
@@ -184,6 +187,8 @@ void		mode(t_win *win)
 				ret = check_first_player_start(win);
 			if (ret == 0)
 				place_asset(win);
+			else
+				win->place = 0;
 		}
 	}
 	if (win->mode == 4)

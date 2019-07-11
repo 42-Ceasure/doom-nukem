@@ -78,7 +78,7 @@ void		draw_segments(t_win *win)
 		{
 			if (win->mode == 3 && tmp2->sector == win->overed_sector)
 					win->color = 0xFF0000;
-			if (win->mode == 4 && tmp2->sector == win->texture_overed_sector)
+			else if (win->mode == 4 && tmp2->sector == win->texture_overed_sector)
 					win->color = 0x00BFFF;
 			else
 			{
@@ -321,12 +321,10 @@ void		loop_play(t_win *win)
 	{
 		SDL_WaitEvent(&win->event);
 		sdl_event(win);
+
 		on_click(win);
 		clear_window(win);
 		draw_grid(win);
-
-		//if (win->lstlst && win->just_close)
-		//	recursive_check(win);
 
 		if (win->triangles)
 			draw_triangulate(win);

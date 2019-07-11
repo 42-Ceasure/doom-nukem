@@ -1516,11 +1516,149 @@ int			check_player_start(t_win *win)
 	return (ret);
 }
 
+int		sector_intersect_with_itself(t_dot p1, t_dot p2, t_dot p3, t_dot p4)
+{
+	int	i1;
+	int	i2;
+	int	i3;
+	int	i4;
+
+	i1 = pointside(p3, p1.x, p1.y, p2.x, p2.y);
+	i2 = pointside(p4, p1.x, p1.y, p2.x, p2.y);
+	i3 = pointside(p1, p3.x, p3.y, p4.x, p4.y);
+	i4 = pointside(p2, p3.x, p3.y, p4.x, p4.y);
+
+	if (i1 >= 0 && i2 <= 0 && i3 >= 0 && i4 <= 0)
+		return (1);
+	else if (i1 <= 0 && i2 >= 0 && i3 <= 0 && i4 >= 0)
+		return (1);
+	else if (i1 <= 0 && i2 >= 0 && i3 >= 0 && i4 <= 0)
+		return (1);
+	else if (i1 >= 0 && i2 <= 0 && i3 <= 0 && i4 >= 0)
+		return (1);
+	return (0);
+}
+
+int			correct_intersections_in_a_sector(t_win *win)
+{
+	t_lstlst	*tmp3;
+	t_lstlst	*tmp2;
+	t_lst		*tmp;
+	t_lst		*tmp0;
+	t_dot		p1;
+	t_dot		p2;
+	t_dot		p3;
+	t_dot		p4;
+	int			ret;
+	int			index3;
+	int			index2;
+	int			len;
+	int			index4;
+	int			index5;
+
+	index3 = 0;
+	ret = -1;
+	tmp3 = win->lstlst;
+
+	while (tmp3)
+	{
+		tmp = tmp3->head;
+		while (tmp)
+		{
+			if (tmp->next == NULL)
+			{
+				p2.x = tmp3->head->next->x;
+				p2.y = tmp3->head->next->y;
+			}
+			else
+			{
+				p2.x = tmp->next->x;
+				p2.y = tmp->next->y;
+			}
+
+			p1.x = tmp->x;
+			p1.y = tmp->y;
+
+			tmp2 = win->lstlst;
+			index2 = 0;
+			while (tmp2)
+			{
+				tmp0 = tmp2->head;
+				len = len_list(tmp0);
+				index4 = index3 + len - 2;
+				index5 = index2 + len - 2;
+				while (tmp0)
+				{
+					if (index2 != index3 && index3 + 1 != index2 && index4 != index2
+						&& index4 + 1 != index2)
+					{
+						if (index3 != index2 && index2 + 1 != index3 && index5 != index3
+							&& index5 + 1 != index3)
+						{
+							if (tmp0->next == NULL)
+							{
+								p4.x = tmp2->head->next->x;
+								p4.y = tmp2->head->next->y;
+							}
+							else
+							{
+								p4.x = tmp0->next->x;
+								p4.y = tmp0->next->y;
+							}
+							p3.x = tmp0->x;
+							p3.y = tmp0->y;
+
+							if ((ret = sector_intersect_with_itself(p1, p2, p3, p4)) == 1)
+							{
+								if (p1.x != p2.x && p2.x != p3.x && p3.x != p4.x && p4.x != p1.x
+									&& p1.x != p3.x && p2.x != p4.x && p1.y != p2.y && p2.y != p3.y && p3.y != p4.y
+										&& p4.y != p1.y && p3.y != p1.y && p2.y != p4.y)
+								{
+									return (-3);
+								}
+							}
+						}
+					}
+					index2++;
+					tmp0 = tmp0->next;
+				}
+				tmp2 = tmp2->next;
+			}
+			index3++;
+			tmp = tmp->next;
+		}
+		tmp3 = tmp3->next;
+	}
+	return (0);
+}
+
+int			sector_minimum_needed_point(t_win *win)
+{
+	t_lstlst	*tmp2;
+
+	tmp2 = win->lstlst;
+	while (tmp2)
+	{
+		if (len_list(tmp2->head) <= 3)
+			return (-4);
+		tmp2 = tmp2->next;
+	}
+	return (0);
+}
+
 int			correct_map(t_win *win)
 {
 	int			ret;
 
 	ret = 0;
+
+	ret = correct_intersections_in_a_sector(win);
+
+	if (ret == -3)
+	{
+		printf("Crossed segments \n");
+		return (ret);
+	}
 
 	//check croisements
 
@@ -1528,9 +1666,9 @@ int			correct_map(t_win *win)
 
 	ret = check_player_start(win);
 	if (ret == -1)
-		printf("map need a player start \n");
+		printf("Map need a player start \n");
 	if (ret == -2)
-		printf("player start need to be inside a sector \n");
+		printf("Player start need to be inside a sector \n");
 
 	return (ret);
 }
@@ -1634,6 +1772,12 @@ void		map_save(t_win *win)
 	tmp = NULL;
 	tmp2 = win->lstlst;
 
+	if (sector_minimum_needed_point(win) != 0)
+	{
+		printf("Un secteur est au minimum un triangle \n");
+		return ;
+	}
+
 	while (tmp2)
 	{
 		if (tmp2)
@@ -1652,7 +1796,7 @@ void		map_save(t_win *win)
 		if (correct_map(win) == 0)
 		{
 			fill_buffer(win);
-			printf("map saved\n");
+			printf("Map saved\n");
 		}
 	}
 	win->number = 0;
