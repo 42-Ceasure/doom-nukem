@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
+#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/11 17:56:19 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/11 20:30:24 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,18 +30,45 @@ SRCDIR              =   ./src/
 INCFIL              =   doom.h
 OBJFIL              =   $(SRCFIL:.c=.o)
 LIBFTFIL            =   libft.a
-SRCFIL				=	main.c exit.c error.c process_hint.c screen.c	\
-						screen_resized.c init.c set_basics.c	\
-						textures.c sprite.c parse_core_file.c mytext.c	\
-						cmd_parse.c cmd_exec.c modif_file.c	\
-						parse_map_file.c parse_map_section.c parse_player_section.c parse_weapon_section.c parse_sprite_section.c	\
-						list_main.c list_dep.c list_do.c	\
-						run_oc.c	moving_functions.c game_functions.c	\
-						key_events.c keyup_events.c keydown_events.c	\
-						mouse_events.c	\
-						5_doom_short_functions.c 5_line.c	\
-						draw.c draw_minimap.c draw_txtr.c draw_sprite.c\
-						multi_thread.c menu.c moving_ennemy.c fill_tab.c ennemy.c \
+SRCFIL				=	main.c \
+						exit.c \
+						error.c \
+						process_hint.c \
+						screen.c \
+						screen_resized.c \
+						init.c set_basics.c	\
+						textures.c \
+						sprite.c \
+						parse_core_file.c \
+						mytext.c \
+						cmd_parse.c \
+						cmd_exec.c \
+						modif_file.c \
+						parse_map_file.c \
+						parse_map_section.c \
+						parse_player_section.c \
+						parse_weapon_section.c \
+						parse_sprite_section.c \
+						list_main.c \
+						list_dep.c \
+						list_do.c \
+						run_oc.c \
+						moving_functions.c \
+						game_functions.c \
+						key_events.c \
+						keyup_events.c \
+						keydown_events.c \
+						mouse_events.c \
+						5_doom_short_functions.c \
+						5_line.c \
+						draw.c \
+						draw_minimap.c \
+						draw_txtr.c \
+						draw_sprite.c \
+						multi_thread.c \
+						menu.c moving_ennemy.c \
+						fill_tab.c \
+						ennemy.c \
 						ft_free.c
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
