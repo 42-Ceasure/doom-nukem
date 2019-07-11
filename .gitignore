@@ -3,6 +3,7 @@ obj/
 SDL2-2.0.3/
 SDL2_mixer-2.0.1/
 .vscode
+core.dn3d
 user_config.dn3d
 doom-nukem
 .DS_Store
