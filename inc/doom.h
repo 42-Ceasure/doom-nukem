@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/10 16:29:57 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/11 14:53:35 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -657,5 +657,7 @@ void				vertical_line_textured(int x, t_env *w, t_work *work, t_texture text);
 void				ceiling_line_textured(int x, t_env *w, t_work *work, t_texture text);
 void				extruded_line_textured(int x, t_env *w, t_work *work, t_texture text);
 void				wall_line_textured(int x, t_env *w, t_work *work, t_texture text);
+void				ft_free_weap(t_map *m);
+void				ft_free_sprt(t_map *m);
 
 #endif

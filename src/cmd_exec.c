@@ -1,4 +1,14 @@
-/*BIG42HEADER*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_exec.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/11 11:51:05 by ochaar            #+#    #+#             */
+/*   Updated: 2019/07/11 12:05:37 by ochaar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
 
@@ -73,9 +83,9 @@ void		not_a_command(t_env *w, t_map *m, char ***cmd, char *s)
 	set_error(w, m, 2, ft_strdup(s));
 }
 
-void			interpret_cmd(t_env *w, t_map *m, char ***cmd, char **av)
+void		interpret_cmd(t_env *w, t_map *m, char ***cmd, char **av)
 {
-	int 	ac;
+	int		ac;
 	int		i;
 
 	i = 0;

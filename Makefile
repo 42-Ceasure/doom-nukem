@@ -6,7 +6,7 @@
 #    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/08 16:45:18 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/11 16:25:46 by ochaar           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ SRCFIL				=	main.c exit.c error.c process_hint.c screen.c	\
 						mouse_events.c	\
 						5_doom_short_functions.c 5_line.c	\
 						draw.c draw_minimap.c draw_txtr.c draw_sprite.c\
-						multi_thread.c menu.c moving_ennemy.c fill_tab.c ennemy.c
+						multi_thread.c menu.c moving_ennemy.c fill_tab.c ennemy.c \
+						ft_free.c
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
 OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))
@@ -50,22 +51,22 @@ INC                 =   $(addprefix $(INCDIR),$(INCFIL))
 INCLIBFT            =   $(LIBFTDIR)inc  
 LIBFT_FLAG          =   -L$(LIBFTDIR) -lft
 
-SDL_PATH            =   ./SDL2-2.0.3/
+SDL_PATH            =   ./SDL2-2.0.9/
 LIBSDL_ROOT         =   ./libSDL2/
 LIBSDL_PATH         =   ./libSDL2/lib/
 LIBSDL              =   libSDL2.a
 INCSDL              =   $(LIBSDL_ROOT)include/
 LIBSDL_FLAG         =   -L$(LIBSDL_PATH) -lSDL2 -lSDL2_mixer
 SDLBIN              =   $(addprefix $(LIBSDL_PATH),$(LIBSDL))
-SDL_CURL            =   `curl https://www.libsdl.org/release/SDL2-2.0.3.zip -o sdl2.zip`
+SDL_CURL            =   `curl https://www.libsdl.org/release/SDL2-2.0.9.zip -o sdl2.zip`
 
-SDLMIX_PATH         =   ./SDL2_mixer-2.0.1/
+SDLMIX_PATH         =   ./SDL2_mixer-2.0.4/
 LIBSDLMIX_ROOT      =   ./libSDL2/
 LIBSDLMIX_PATH      =   ./libSDL2/lib/
 LIBSDLMIX           =   libSDL2_mixer.a
 INCSDLMIX           =   $(LIBSDLMIX_ROOT)include/
 SDLMIXBIN           =   $(addprefix $(LIBSDLMIX_PATH),$(LIBSDLMIX))
-CURL_MIX            =   `curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.zip -o sdl_mix.zip`
+CURL_MIX            =   `curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.zip -o sdl_mix.zip`
 
 all                 :   libft sdl sdlmix $(NAME)
 

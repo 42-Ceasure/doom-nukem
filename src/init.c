@@ -40,32 +40,27 @@ int			load_sounds(t_env *w, t_map *m)
 
 int			init_sdl(t_env *w)
 {
-	//getchar();
-	if (SDL_Init(SDL_INIT_VIDEO) != 0)
+	getchar();
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 		return (-1);
-	//getchar();
+	getchar();
 	if (w->window_mode == 1)
 	{
 		w->win = SDL_CreateWindow(NAME, SDL_WINDOWPOS_CENTERED,
-										SDL_WINDOWPOS_CENTERED,
-										WIDTH, HEIGHT,
-										SDL_WINDOW_RESIZABLE);
+			SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_RESIZABLE);
 	}
 	else if (w->window_mode == 0)
 	{
 		w->win = SDL_CreateWindow(NAME, SDL_WINDOWPOS_CENTERED,
-										SDL_WINDOWPOS_CENTERED,
-										WIDTH, HEIGHT,
-										SDL_WINDOW_FULLSCREEN);
+			SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_FULLSCREEN);
 	}
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 		return (-1);
-	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED|
-											SDL_RENDERER_PRESENTVSYNC);
+	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED |
+		SDL_RENDERER_PRESENTVSYNC);
 	w->pix = (Uint32 *)malloc(sizeof(Uint32) * WIDTH * HEIGHT);
 	w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
-										SDL_TEXTUREACCESS_STREAMING,
-										WIDTH, HEIGHT);
+		SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
 	clean_render(w, 0x12000000);
 	img_update(w);
 	return (0);

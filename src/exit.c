@@ -1,4 +1,14 @@
-/*BIG42HEADER*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/11 10:17:33 by ochaar            #+#    #+#             */
+/*   Updated: 2019/07/11 11:47:11 by ochaar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
 
@@ -11,7 +21,7 @@ void		empty_music(t_env *w, t_map *m)
 	if (w->sound.jump != NULL)
 		Mix_FreeChunk(w->sound.jump);
 	if (w->sound.ground != NULL)
-		Mix_FreeChunk(w->sound.ground);;
+		Mix_FreeChunk(w->sound.ground);
 	if (w->sound.reload != NULL)
 		Mix_FreeChunk(w->sound.reload);
 	if (w->sound.clic != NULL)
@@ -48,23 +58,36 @@ void		empty_world(t_env *w)
 			free(w->ascii[i].pix);
 			i++;
 		}
-		i = 0;
-		while (i < w->texturingno)
-		{
+		i = -1;
+		while (++i < w->texturingno)
 			free(w->texturing[i].pix);
-			i++;
-		}
 		free(w->menu.y);
 		ft_memreg3(w->menu.list);
 		free(w);
 	}
 }
 
-void		empty_map(t_map *m)
+void		ft_free_sector(t_map *m)
 {
-	int i;
+	int	i;
 
 	i = 0;
+	if (m->sector != NULL)
+	{
+		while (i < m->sector_count)
+		{
+			if (m->sector[i].dot != NULL)
+				free(m->sector[i].dot);
+			if (m->sector[i].network != NULL)
+				free(m->sector[i].network);
+			i++;
+		}
+		free(m->sector);
+	}
+}
+
+void		empty_map(t_map *m)
+{
 	if (m != NULL)
 	{
 		free(m->player.fps);
@@ -79,84 +102,21 @@ void		empty_map(t_map *m)
 			free(m->dot);
 		if (m->hud.pix != NULL)
 			free(m->hud.pix);
-		if (m->sprite != NULL)
-		{
-			while (i < m->sprite_count)
-			{
-				free(m->sprite[i].type);
-				free(m->sprite[i].pix);
-				i++;
-			}
-			free(m->sprite);
-		}
-		if (m->tab != NULL)
-		{
-			i = 0;
-			while (i < m->sprite_map_count + m->ennemy_count)
-			{
-				free(m->tab[i]);
-				i++;
-			}
-			free(m->tab);
-		}
-		i = 0;
-		if (m->sprt != NULL)
-		{
-			while (i < m->sprite_map_count)
-			{
-				free(m->sprt[i].name);
-				i++;
-			}
-			free(m->sprt);
-		}
-		i = 0;
-		if (m->weap != NULL)
-		{
-			while (i < m->weapon_count)
-			{
-				if (m->weap[i].shoot != NULL)
-					Mix_FreeChunk(m->weap[i].shoot);
-				free(m->weap[i].sprt[0].pix);
-				free(m->weap[i].sprt[0].name);
-				free(m->weap[i].sprt[1].pix);
-				free(m->weap[i].sprt[1].name);
-				free(m->weap[i].sprt[2].pix);
-				free(m->weap[i].sprt[2].name);
-				free(m->weap[i].name);
-				i++;
-			}
-			free(m->weap);
-		}
-		i = 0;
-		if (m->sector != NULL)
-		{
-			while (i < m->sector_count)
-			{
-				if (m->sector[i].dot != NULL)
-					free(m->sector[i].dot);
-				if (m->sector[i].network != NULL)
-					free(m->sector[i].network);
-				i++;
-			}
-			free(m->sector);
-		}
+		ft_free_sprt(m);
+		ft_free_weap(m);
+		ft_free_sector(m);
 		free(m);
 	}
-}
-
-void		empty_sdl(t_env *w)
-{
-	SDL_DestroyTexture(w->txtr);
-	SDL_DestroyRenderer(w->rdr);
-	SDL_DestroyWindow(w->win);
-	SDL_Quit();
 }
 
 void		exit_game(t_env *w, t_map *m, int i)
 {
 	empty_music(w, m);
 	empty_map(m);
-	empty_sdl(w);
+	SDL_DestroyTexture(w->txtr);
+	SDL_DestroyRenderer(w->rdr);
+	SDL_DestroyWindow(w->win);
+	SDL_Quit();
 	empty_world(w);
 	if (i == 1)
 		exit(0);
