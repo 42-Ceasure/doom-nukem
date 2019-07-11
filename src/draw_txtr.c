@@ -4,31 +4,26 @@
 
 void	skybox2(t_env *w, t_texture text)
 {
-	int		y1;
-	int		y2;
-	int		x = 0;
-	double	width;
-	double	height;
+	int		y;
+	int		x;
+	double	x_tex;
+	double	y_tex;
+	int 	tmpix;
 
-	int 		tmpix;
-
-	y2 = HEIGHT;
+	x = 0;
 	while (x < WIDTH)
 	{
-		y1 = 0;
-		while (y1 < y2)
+		y = 0;
+		while (y < HEIGHT)
 		{
-			width = (x * (text.w / 4)) / WIDTH + ((w->m->player.angle * (180 / PI)) * text.w) / 360;
-			height = (((y1 + w->m->yaw / 0.004 + text.h) * text.h) / HEIGHT / 2);
-			// Better? : 
-			// width = x + (w->m->player.angle * (180 / PI)/ 2 * text.w) / 360;
-			// height = (((y + text.h) + w->m->yaw / 0.004) * text.h) / HEIGHT / 2;
-			tmpix = (int)((int)height % text.h) * text.w + ((int)width % text.w);
+			x_tex = (x * (text.w / 4)) / WIDTH + ((w->m->player.angle * (180 / PI)) * text.w) / 360;
+			y_tex = (((y + w->m->yaw / 0.004 + 500) * text.h) / HEIGHT / ((((double)HEIGHT + 500.f * 2.f) / (double)HEIGHT)));
+			tmpix = (int)((int)y_tex % text.h) * text.w + ((int)x_tex % text.w);
 			if (tmpix >= 0 && tmpix < text.h * text.w)
-				w->pix[y1 * WIDTH + x] = text.pix[tmpix];
+				w->pix[y * WIDTH + x] = text.pix[tmpix];
 			else
-				w->pix[y1 * WIDTH + x] = 0;
-			y1++;
+				w->pix[y * WIDTH + x] = 0;
+			y++;
 		}
 		x++;
 	}
@@ -38,8 +33,8 @@ void	skybox(int x, t_env *w, t_work *work, t_texture text)
 {
 	int			y1;
 	int			y2;
-	double		width;
-	double		height;
+	double		y_tex;
+	double		x_tex;
 	int 		tmpix;
 
 	y1 = work->starty;
@@ -55,12 +50,9 @@ void	skybox(int x, t_env *w, t_work *work, t_texture text)
 				y1 = work->cyb;
 				continue;
 			}
-			width = (x * (text.w / 4)) / WIDTH + ((w->m->player.angle * (180 / PI)) * text.w) / 360;
-			height = (((y1 + w->m->yaw / 0.004 + text.h) * text.h) / HEIGHT / 2);
-			// Better? : 
-			// width = x + (w->m->player.angle * (180 / PI)/ 2 * text.w) / 360;
-			// height = (((y1 + text.h) + w->m->yaw / 0.004) * text.h) / HEIGHT / 2;
-			tmpix = (int)((int)height % text.h) * text.w + ((int)width % text.w);
+			x_tex = (x * (text.w / 4)) / WIDTH + ((w->m->player.angle * (180 / PI)) * text.w) / 360;
+			y_tex = (((y1 + w->m->yaw / 0.004 + 500) * text.h) / HEIGHT / ((1576.f / (double)HEIGHT)));
+			tmpix = (int)((int)y_tex % text.h) * text.w + ((int)x_tex % text.w);
 			if (tmpix >= 0 && tmpix < text.h * text.w)
 				w->pix[y1 * WIDTH + x] = text.pix[tmpix];
 			else

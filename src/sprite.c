@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/07/09 18:02:28 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/11 23:01:41 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 void		set_fire(t_env *w, t_map *m)
 {
 	m->player.refresh = m->weap[PH].recoil * 2;
-	// MODIF
-	m->yaw = vmid(m->yaw - m->weap[PH].dispertion, -1.5, 1.5);
+	m->yaw = vmid(m->yaw - m->weap[PH].dispertion, -2, 2);
 	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
 	PL_A = PL_A + m->weap[PH].dispertion / 2 * w->random;
 	if (PH > -1 && m->player.firing)

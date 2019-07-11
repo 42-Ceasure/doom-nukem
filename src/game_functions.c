@@ -234,8 +234,7 @@ void		look_around(t_env *w, t_map *m)
 		PL_A = PL_A - 2 * M_PI;
 	if (PL_A < 0)
 		PL_A = PL_A + 2 * M_PI;
-	// modif yaw
-	m->yaw = vmid(m->yaw + (w->event.motion.yrel * 0.002) * m->player.mousesp, -1.5, 1.5);
+	m->yaw = vmid(m->yaw + (w->event.motion.yrel * 0.002) * m->player.mousesp, -2, 2);
 	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
 }
 
