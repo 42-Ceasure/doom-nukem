@@ -75,12 +75,9 @@ void			process_hint_w(t_env *w, int i, char *s)
 		pre = ft_strjoin("loading ", post);
 	if (i == 7)
 		pre = ft_strjoin("extracting ", post);
-	if (w->asciichk == 42)
-	{
-		hello_screen(w);
-		type_str(w, w->txthead, pre, 0x12FEA800);
-		type_str(w, dot, "loading game...", 0x12FEA800);
-	}
+	hello_screen(w);
+	type_str(w, w->txthead, pre, 0x12FEA800);
+	type_str(w, dot, "loading game...", 0x12FEA800);
 	img_update(w);
 	free(post);
 	if (pre != NULL)

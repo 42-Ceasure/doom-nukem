@@ -49,6 +49,7 @@
 # define TEXT_WALL_HEIGHT	10
 # define TEXT_WALL_WIDTH	10
 # define PI					3.14159
+# define ASCIINB			42
 
 typedef struct		s_filer
 {
