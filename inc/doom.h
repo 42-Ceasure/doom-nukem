@@ -50,6 +50,8 @@
 # define TEXT_WALL_WIDTH	10
 # define PI					3.14159
 # define ASCIINB			42
+# define WIN_X				720
+# define WIN_Y				720
 
 typedef struct		s_filer
 {
@@ -525,7 +527,8 @@ int					parse_weapon_sprite(t_map *m, char *name, char *def, char *pix);
 void				parse_texture_line(t_env *w, t_map *m, char *line);
 void				parse_sprite_line(t_env *w, t_map *m, char *line);
 void 				replace_line(char *path, char *balise, char *content);
-void				change_settings(t_map *m, t_env *w);
+void				add_map_to_core(char *path, char *path2);
+void				change_settings(t_env *w, t_map *m);
 void				parse_map_file(t_env *w, t_map *m);
 int					parse_map_section(t_map *m, char **tab);
 int					parse_player_section(t_map *m, char **tab);
@@ -661,5 +664,7 @@ void				ft_free_sprt(t_map *m);
 int					get_that_map_parsed(t_env *w, t_map *m);
 int					parse_map_in_core(t_env *w, t_map *m, char *name);
 int					parse_line(t_env *w, t_map *m);
+void				fit_to_editor(t_env *w);
+void				fit_to_game(t_env *w);
 
 #endif

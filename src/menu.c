@@ -62,15 +62,15 @@ void	change_key(t_env *w)
 {
 	//printf("%d", w->menu.k);
 	if (w->menu.k == 0)
-		change_settings(w->m, w);
+		change_settings(w, w->m);
 	if (w->menu.k == 1)
-		change_settings(w->m, w);
+		change_settings(w, w->m);
 	if (w->menu.k == 2)
-		change_settings(w->m, w);
+		change_settings(w, w->m);
 	if (w->menu.k == 3)
-		change_settings(w->m, w);
+		change_settings(w, w->m);
 	if (w->menu.k == 4)
-		change_settings(w->m, w);
+		change_settings(w, w->m);
 }
 
 void	settings(t_env *w)
@@ -134,6 +134,8 @@ void	event_menu(t_env *w)
 				w->menu.j = vmax(1, w->menu.j - 1);
 			if (KEY == SDLK_DOWN)
 				w->menu.j = vmin(w->menu.j + 1, 3);
+			if (KEY == SDLK_y)\
+				fit_to_game(w);
 		}
 		if (w->event.type == SDL_WINDOWEVENT)
 		{

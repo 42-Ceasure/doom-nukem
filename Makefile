@@ -70,7 +70,8 @@ SRCFIL				=	main.c \
 						menu.c moving_ennemy.c \
 						fill_tab.c \
 						ennemy.c \
-						ft_free.c
+						ft_free.c \
+						manage_sdl_window.c
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
 OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))
