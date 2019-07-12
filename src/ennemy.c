@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:21:43 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/07 15:23:01 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/12 11:36:03 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ennemy_attack(t_map *m, int x)
 	else
 	{
 		m->ennemy[x].index = 10;
-		if (m->ennemy[x].die == 1)
+		if (m->ennemy[x].die == 1 && m->god_mod == 0)
 		{
 			m->player.hp -= 10;
 			m->ennemy[x].die = 0;

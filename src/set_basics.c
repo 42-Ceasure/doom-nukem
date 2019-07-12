@@ -80,7 +80,8 @@ void			set_m(t_map *m)
 	m->weap = NULL;
 	m->sprite = NULL;
 	m->sprt = NULL;
-	//m->texture = NULL;
+	m->player.max_hp = 100;
+	m->god_mod = 0;
 	m->hud = pre_init_texture(0, 0);
 }
 
@@ -95,7 +96,6 @@ void			set_m_player(t_map *m)
 	ft_light_itoa(0, m->player.strhp);
 	m->player.strbullet = (char *)malloc(sizeof(char) * 12);
 	ft_light_itoa(0, m->player.strbullet);
-	m->player.intactu_ammo = 0;
 	m->player.handed = 0;
 	m->player.aiming = 0;
 	m->player.shooting = 0;
@@ -105,13 +105,6 @@ void			set_m_player(t_map *m)
 	m->player.recoil = 0;
 	m->player.sector = 0;
 	m->player.hud = 0;
-	m->player.hp = 100;
-	m->player.bullet[0] = 0;
-	m->player.bullet[1] = 0;
-	m->player.take[0] = 0;
-	m->player.take[1] = 0;
-	m->player.take[2] = 0;
-	m->player.take[3] = 0;
 	m->player.coor.x = 0;
 	m->player.coor.y = 0;
 	m->player.coor.z = 0;

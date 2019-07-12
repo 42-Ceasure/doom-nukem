@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/10 16:55:09 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/12 13:22:43 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ void	sprite_on_ground(t_env *w, t_map *m, double **tab, int x)
 		&& m->sprt[(int)tab[x][1]].taken != 1)
 	{
 		if (ft_strcmp(m->sprt[(int)tab[x][1]].name, "\thealth") == 0
-			&& m->player.hp < 100)
+			&& m->player.hp < m->player.max_hp)
 			m->player.hp += 30;
 		else if (ft_strcmp(m->sprt[(int)tab[x][1]].name, "\tcartouche") == 0)
 			m->player.bullet[1] += 6;
 		else if (ft_strcmp(m->sprt[(int)tab[x][1]].name, "\tammo") == 0)
 			m->player.bullet[0] += 30;
-		else
+		else if (ft_strcmp(m->sprt[(int)tab[x][1]].name, "\tbadge") == 0)
 			m->player.take[3] = 1;
 		m->sprt[(int)tab[x][1]].taken = 1;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/12 00:12:30 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/12 13:31:46 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ typedef struct		s_player
 	int				mousesp;
 	int				hud;
 	int				hp;
+	int				max_hp;
 	int				take[4];
 	char			*strhp;
 	t_coor			coor;
@@ -367,6 +368,7 @@ typedef struct		s_map
 	void			*world;
 	int				stop;
 	int				game_over;
+	int				god_mod;
 	int				launchwmap;
 	int				trippymod;
 	int				elevator;
@@ -531,7 +533,7 @@ void				add_map_to_core(char *path, char *path2);
 void				change_settings(t_env *w, t_map *m);
 void				parse_map_file(t_env *w, t_map *m);
 int					parse_map_section(t_map *m, char **tab);
-int					parse_player_section(t_map *m, char **tab);
+int					parse_player_section(t_env *w, t_map *m, char **tab);
 int					parse_weapon_section(t_map *m, char **tab);
 int					parse_sprite_section(t_map *m, char *name, char *def, char *pix);
 void				parse_core_section(t_env *w, t_map *m, char *line, int mode);
@@ -664,6 +666,9 @@ void				ft_free_sprt(t_map *m);
 int					get_that_map_parsed(t_env *w, t_map *m);
 int					parse_map_in_core(t_env *w, t_map *m, char *name);
 int					parse_line(t_env *w, t_map *m);
+void				reset_player(t_map *m);
+int					parse_ennemy_map(t_map *m, char **tab);
+int					parse_sprite_map(t_map *m, char **tab);
 void				fit_to_editor(t_env *w);
 void				fit_to_game(t_env *w);
 

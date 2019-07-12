@@ -186,7 +186,7 @@ void	loose(t_env *w, t_map *m)
 			if (KEY == SDLK_RETURN)
 			{
 				m->game_over = 0;
-				m->player.hp = 100;
+				m->player.hp = m->player.max_hp;
 			}
 		}
 	}

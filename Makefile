@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
+#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/12 00:27:41 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/12 13:16:54 by ochaar           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,8 @@ SRCFIL				=	main.c \
 						fill_tab.c \
 						ennemy.c \
 						ft_free.c \
-						manage_sdl_window.c
+						manage_sdl_window.c \
+						set_and_reset.c
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
 OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))
