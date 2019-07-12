@@ -71,7 +71,52 @@ SRCFIL				=	main.c \
 						fill_tab.c \
 						ennemy.c \
 						ft_free.c \
-						manage_sdl_window.c
+						manage_sdl_window.c \
+						main2.c \
+						init2.c \
+						grid.c \
+						loop.c \
+						sdl_event.c \
+						list.c \
+						draw_line2.c \
+						undo.c \
+						delete_mode.c \
+						neighbour.c \
+						triangulate.c \
+						test.c \
+						hud.c \
+						placing.c \
+						delete_asset.c \
+						data.c \
+						data2.c \
+						data3.c \
+						free.c \
+						texture_mode.c \
+						params.c \
+
+SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
+OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))
+LIBFT               =   $(addprefix $(LIBFTDIR),$(LIBFTFIL))
+INC                 =   $(addprefix $(INCDIR),$(INCFIL))
+INCLIBFT            =   $(LIBFTDIR)inc
+LIBFT_FLAG          =   -L$(LIBFTDIR) -lft
+
+SDL_PATH            =   ./SDL2-2.0.9/
+LIBSDL_ROOT         =   ./libSDL2/
+LIBSDL_PATH         =   ./libSDL2/lib/
+LIBSDL              =   libSDL2.a
+INCSDL              =   $(LIBSDL_ROOT)include/
+LIBSDL_FLAG         =   -L$(LIBSDL_PATH) -lSDL2 -lSDL2_mixer
+SDLBIN              =   $(addprefix $(LIBSDL_PATH),$(LIBSDL))
+SDL_CURL            =   `curl https://www.libsdl.org/release/SDL2-2.0.9.zip -o sdl2.zip`
+
+SDLMIX_PATH         =   ./SDL2_mixer-2.0.4/
+LIBSDLMIX_ROOT      =   ./libSDL2/
+LIBSDLMIX_PATH      =   ./libSDL2/lib/
+LIBSDLMIX           =   libSDL2_mixer.a
+INCSDLMIX           =   $(LIBSDLMIX_ROOT)include/
+SDLMIXBIN           =   $(addprefix $(LIBSDLMIX_PATH),$(LIBSDLMIX))
+CURL_MIX            =   `curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.zip -o sdl_mix.zip`
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
 OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))

@@ -86,7 +86,7 @@ t_text		type_set(int x, int y, char *s, Uint32 color)
 void		type_str(t_env *w, t_dot dot, char *s, Uint32 color)
 {
 	if (w->asciichk == ASCIINB)
-	{	
+	{
 		w->txt = type_set(dot.x, dot.y, s, color);
 		type_s(w);
 	}

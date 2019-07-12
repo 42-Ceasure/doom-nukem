@@ -16,8 +16,13 @@
 # include "SDL2/SDL.h"
 # include "SDL2/SDL_mixer.h"
 # include "libft.h"
+# include "w3d_defines.h"
+# include "w3d_structs.h"
 # include <pthread.h>
 # include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <math.h>
 
 # define NAME 				"Doom-Numkem3D"
 # define BASEWIDTH 			1024
@@ -52,6 +57,39 @@
 # define ASCIINB			42
 # define WIN_X				720
 # define WIN_Y				720
+
+typedef struct		s_lst
+{
+	int				x;
+	int				y;
+	int				sector;
+	int				nb;
+	struct s_lst	*next;
+}					t_lst;
+
+typedef struct		s_lstlst
+{
+	int				sector;
+	int				closed;
+	int				sector_nb;
+	int				clockwise;
+	int				txtr_wall;
+	int				txtr_ceiling;
+	int				txtr_floor;
+	int				txtr_skybox;
+	int				txtr_extrude;
+	struct s_lst	*head;
+	struct s_lstlst	*next;
+}					t_lstlst;
+
+typedef struct		s_lstasset
+{
+	int				x;
+	int				y;
+	int				sector;
+	int				asset_type;
+	struct s_lstasset	*next;
+}					t_lstasset;
 
 typedef struct		s_filer
 {
@@ -107,11 +145,11 @@ typedef struct		s_reader
 	t_item			now;
 }					t_reader;
 
-typedef struct		s_dot
-{
-	double			x;
-	double			y;
-}					t_dot;
+// typedef struct		s_dot
+// {
+// 	double			x;
+// 	double			y;
+// }					t_dot;
 
 typedef struct		s_coor
 {
@@ -337,14 +375,14 @@ typedef struct		s_map_sprite
 	double			range;
 }					t_map_sprite;
 
-typedef struct		s_texture
-{
-	int				w;
-	int				h;
-	int				len;
-	Uint32			*pix;
-	int				trsp;
-}					t_texture;
+// typedef struct		s_texture
+// {
+// 	int				w;
+// 	int				h;
+// 	int				len;
+// 	Uint32			*pix;
+// 	int				trsp;
+// }					t_texture;
 
 typedef struct		s_weapon
 {
@@ -554,6 +592,7 @@ double				vabs(double a);
 double				vmin(double a, double b);
 double				vmax(double a, double b);
 double				vmid(double a, double min, double max);
+double				v_c_p(double x0, double y0, double x1, double y1);
 double				intersectbox(t_intersect i);
 t_coor				intersect(t_intersect i);
 double				isoverlap(double a0, double a1, double b0, double b1);
@@ -666,5 +705,57 @@ int					parse_map_in_core(t_env *w, t_map *m, char *name);
 int					parse_line(t_env *w, t_map *m);
 void				fit_to_editor(t_env *w);
 void				fit_to_game(t_env *w);
+int					level_editor_start(t_env *w);
+char		**map(t_win *win);
+void		draw_grid(t_env *w, t_win *win);
+int			clear_n_exit(t_win *win, int error);
+void		loop_play(t_env *w, t_win *win);
+void		sdl_event(t_env *w, t_win *win);
+t_lst		*lstnew(int x, int y, int sector);
+t_lstlst	*lstlstnew(t_win *win);
+int			check_list(t_win *win, t_lst *lst, int x, int y);
+void		ft_draw_line(t_win *win, int x1, int y1, int x2, int y2);
+void		put_pixel_to_surface(SDL_Surface *srfc, int x, int y, Uint32 color);
+void		print_line(t_win *win, int x1, int y1, int x2, int y2);
+void 		line(t_env *w, t_win *win, int x0, int y0, int x1, int y1);
+void		undo(t_win *win);
+void		delete_sector(t_win *win);
+int			check_neighbour(t_win *win);
+int			point_in_triangle(t_dot p0, t_dot p1, t_dot p2, t_dot m);
+int			len_list(t_lst *lst);
+t_lstlst	*recursive_triangulate(t_win *win, t_lst *polygone, t_lstlst *triangles);
+void		placing(t_win *win);
+void		pick_asset(t_env *, t_win *win);
+void		mode(t_env *w, t_win *win);
+int			len_listlist(t_lstlst *lstlst);
+void		asset_overing(t_env *w, t_win *win);
+void		delete_asset(t_win *win);
+void		overing(t_win *win);
+
+void		save_map(t_win *win);
+void		map_save(t_win *win);
+
+
+void		sectors_in_tab(t_win *win);
+void		sectors_in_tab2(t_win *win);
+
+void		clear_window(t_win *win);
+void		recursive_check(t_win *win);
+void		sort_int_tab(int *tab, int size);
+void		free_triangles(t_win *win);
+int			int_len(int nb);
+//int			which_sector_neighbour(t_win *win, int x1, int y1, int x2, int y2, int sector);
+t_dot		get_point_in_list(t_lst *polygone, int index);
+void		texture_mode(t_env *w, t_win *win);
+void		change_texture_index(t_env *w, t_win *win);
+int			intersectbox2(t_dot p1, t_dot p2, t_dot p3, t_dot p4);
+void		set_params(t_win *win);
+void		increase_value(t_win *win);
+void		decrease_value(t_win *win);
+
+void		test(t_win *win);
+//void		check2(t_win *win);
+int			init2(t_env *w, t_win *win);
+double		pointside2(t_dot m, double x0, double y0, double x1, double y1);
 
 #endif
