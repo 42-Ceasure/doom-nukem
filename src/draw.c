@@ -225,7 +225,6 @@ void draw(t_env *w, t_map *m)
 				work.cyb = vmid(work.yb, work.ytop[x], work.ybot[x]);
 				work.starty = work.ytop[x];
 				work.stopy = work.cya - 1;
-				// sol a check avec SB c la merde lol
 				if (w->textured == 1 && m->sector[work.nosector].texturing[1] != 0 && w->texturing[m->sector[work.nosector].texturing[1]].trsp != 1)
 					ceiling_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[1]]);
 				else if (w->textured == 1)
