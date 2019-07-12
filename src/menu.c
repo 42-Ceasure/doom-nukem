@@ -205,7 +205,13 @@ void	launch(t_env *w, t_map *m)
 				loose(w, m);
 			else
 			{
-				parse_map_file(w, m);
+				if (m->launchwmap == 0)
+				{
+					if (parse_map_in_core(w, m, "hsh") != 0)
+						continue;
+				}
+				else
+					parse_map_file(w, m);
 				run(w, m);
 			}
 		}

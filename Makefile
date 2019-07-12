@@ -45,6 +45,7 @@ SRCFIL				=	main.c \
 						cmd_exec.c \
 						modif_file.c \
 						parse_map_file.c \
+						parse_map_in_core.c \
 						parse_map_section.c \
 						parse_player_section.c \
 						parse_weapon_section.c \

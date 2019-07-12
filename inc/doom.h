@@ -658,5 +658,8 @@ void				extruded_line_textured(int x, t_env *w, t_work *work, t_texture text);
 void				wall_line_textured(int x, t_env *w, t_work *work, t_texture text);
 void				ft_free_weap(t_map *m);
 void				ft_free_sprt(t_map *m);
+int					get_that_map_parsed(t_env *w, t_map *m);
+int					parse_map_in_core(t_env *w, t_map *m, char *name);
+int					parse_line(t_env *w, t_map *m);
 
 #endif

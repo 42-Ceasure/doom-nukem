@@ -140,6 +140,8 @@ int		parse_line(t_env *w, t_map *m)
 			return (-1);
 		}
 	}
+	else
+		w->stopread = 1;
 	ft_memreg(tmp);
 	return (0);
 }
@@ -155,7 +157,6 @@ int		do_parse(t_env *w, t_map *m)
 		return (-1);
 	process_hint_w(w, 0, " ");
 	process_hint_w(w, 6, " ");
-	set_m_player(m);
 	m->weap[0].actu_ammo = m->weap[0].magazine;
 	m->weap[1].actu_ammo = m->weap[1].magazine;
 	m->weap[2].actu_ammo = m->weap[2].magazine;

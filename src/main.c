@@ -17,6 +17,7 @@ void			set_basics(t_env *w, t_map *m, int ac)
 	m->world = w;
 	set_w(w, ac);
 	set_m(m);
+	set_m_player(m);
 }
 
 int				main(int ac, char **av)

@@ -134,13 +134,8 @@ void	run(t_env *w, t_map *m)
 			{
 				if (KEY == 27)
 				{
-					if (m->launchwmap == 0)
-					{
-						w->menu.i = 1;
-						m->stop = 1;
-					}
-					else
-						exit_game(w, m, 1);
+					w->menu.i = 1;
+					m->stop = 1;
 				}
 				keydown_events(w, m);
 			}

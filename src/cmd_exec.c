@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cmd_exec.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/11 11:51:05 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/11 12:05:37 by ochaar           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/*BIG42HEADER*/
 
 #include "doom.h"
 
@@ -42,6 +32,7 @@ void		map_cmd(t_env *w, t_map *m, char **cmd)
 	m->map_name = ft_strdup(tmp2[0]);
 	ft_memreg(tmp);
 	ft_memreg(tmp2);
+	m->launchwmap = 1;
 }
 
 void		extract_bmp(t_env *w, t_map *m, char **cmd)
