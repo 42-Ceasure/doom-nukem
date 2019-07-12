@@ -2,33 +2,6 @@
 
 #include "doom.h"
 
-void	skybox2(t_env *w, t_texture text)
-{
-	int		y;
-	int		x;
-	double	x_tex;
-	double	y_tex;
-	int 	tmpix;
-
-	x = 0;
-	while (x < WIDTH)
-	{
-		y = 0;
-		while (y < HEIGHT)
-		{
-			x_tex = (x * (text.w / 4)) / WIDTH + ((w->m->player.angle * (180 / PI)) * text.w) / 360;
-			y_tex = (((y + w->m->yaw / 0.004 + 500) * text.h) / HEIGHT / ((((double)HEIGHT + 500.f * 2.f) / (double)HEIGHT)));
-			tmpix = (int)((int)y_tex % text.h) * text.w + ((int)x_tex % text.w);
-			if (tmpix >= 0 && tmpix < text.h * text.w)
-				w->pix[y * WIDTH + x] = text.pix[tmpix];
-			else
-				w->pix[y * WIDTH + x] = 0;
-			y++;
-		}
-		x++;
-	}
-}
-
 void	skybox(int x, t_env *w, t_work *work, t_texture text)
 {
 	int			y1;
@@ -198,7 +171,8 @@ void	wall_line_textured(int x, t_env *w, t_work *work, t_texture text)
 	y2 = vmid(y2, 0, HEIGHT - 1);
 	if (vmid(work->ytop[x], 0, HEIGHT - 1) == y1 && vmid(work->ytop[x], 0, HEIGHT - 1) > 0)
 	{
-		wall_height_from_bottom = work->yb - work->starty;
+		wall_height_from_bottom = (work->yb - work->ya) - (work->starty - work->ya);
+		// printf("YA %d YB %d YSTART %d Y1 %d\n", work->ya, work->yb, work->starty ,y1);
 		wall_height_scale = (work->yceil - work->yfloor) / TEXT_WALL_HEIGHT;
 		wall_width_scale = TEXT_WALL_WIDTH / 2 / work->wall_width;
 		if (vabs(work->t2.x - work->t1.x) > vabs(work->t2.z - work->t1.z))
@@ -211,12 +185,12 @@ void	wall_line_textured(int x, t_env *w, t_work *work, t_texture text)
 			work->start_x_tex = (work->t1.z - work->tt1.z) * text.w / wall_width_scale / (work->tt2.z - work->tt1.z);
 			work->end_x_tex = (work->t2.z - work->tt1.z) * text.w / wall_width_scale / (work->tt2.z - work->tt1.z);
 		}
-		// y_tex_start = (work->y2a - work->y1a) * ((work->x2 - work->x1) - (x - work->x1)) / (work->x2 - work->x1) - work->y2a;
+		y_tex_start = (work->starty - work->ya);
 		x_tex = ((work->start_x_tex * ((work->x2 - x) * work->t2.z) + work->end_x_tex * ((x - work->x1) * work->t1.z)) / ((work->x2 - x) * work->t2.z + (x-work->x1) * work->t1.z));
+		wall_height_from_bottom += y_tex_start;
+		y_tex_pos += y_tex_start;
 		while (y1 <= y2)
 		{
-			// wall_height_from_bottom += y_tex_start;
-			// y_tex_pos += y_tex_start;
 			y_tex = (y_tex_pos / wall_height_from_bottom * wall_height_scale) * text.h;
 			if (y_tex < 0)
 				y_tex = 0;
@@ -266,6 +240,7 @@ void	wall_line_textured(int x, t_env *w, t_work *work, t_texture text)
 			}
 			else
 			{
+				wall_height_from_bottom = work->yb - work->ya;
 				while (y1 <= y2)
 				{
 					y_tex = (y_tex_pos / wall_height_from_bottom * wall_height_scale) * text.h;

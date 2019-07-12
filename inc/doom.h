@@ -689,7 +689,6 @@ void				draw_ennemy(t_env *w, t_map *m, int x, int ratio);
 void				jet_pack(t_map *m);
 int					get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y);
 void				skybox(int x, t_env *w, t_work *work, t_texture text);
-void				skybox2(t_env *w, t_texture text);
 double				pythagore(double a, double b);
 void				test_sprite2(t_map *m, double xx, double yy);
 void				ennemy_animation(t_env *w, t_map *m, double **tab, int x);
