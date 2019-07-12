@@ -142,23 +142,6 @@ void		minimap(t_map *m)
 		m->player.display = 0;
 }
 
-void		och_door(t_map *m)
-{
-	if (m->sector[1].ceiling == 40)
-		m->asc = 0;
-	if (m->sector[1].ceiling > 0 && m->asc == 0)
-	{
-		m->sector[1].ceiling -= 2;
-		m->sector[1].floor -= 2;
-	}
-	else
-	{
-		m->asc = 1;
-		m->sector[1].ceiling += 2;
-		m->sector[1].floor += 2;
-	}
-}
-
 void		ramassage(t_map *m)
 {
 	int i;

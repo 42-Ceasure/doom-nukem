@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 13:33:43 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/02 11:07:06 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/12 10:30:47 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	is_fall(t_map *m, int x)
 	}
 }
 
-void move_ennemy(double dx, double dy, t_map *m, int x)
+void	move_ennemy(double dx, double dy, t_map *m, int x)
 {
 	int s;
 	t_intersect i;
@@ -75,7 +75,7 @@ void move_ennemy(double dx, double dy, t_map *m, int x)
 	m->ennemy[x].coor.y = m->ennemy[x].coor.y + dy;
 }
 
-void		is_moving_enne(t_map *m, int x)
+void	is_moving_enne(t_map *m, int x)
 {
 	int s;
 	t_intersect i;

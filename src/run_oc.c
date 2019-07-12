@@ -24,19 +24,37 @@ void	ft_cursor(t_env *w, t_map *m)
 	}
 	if (m->player.hp < 0)
 		m->player.hp = 0;
-	else if (m->player.hp > 100)
-		m->player.hp = 100;
+	else if (m->player.hp > m->player.max_hp)
+		m->player.hp = m->player.max_hp;
+}
+
+void	inventory(t_env *w, t_map *m, t_dot dot)
+{
+	dot.x = 115;
+	if (m->player.take[PH] == 1)
+	{
+		ft_light_itoa(m->weap[PH].actu_ammo, m->player.stractu_ammo);
+		type_str(w, dot, m->player.stractu_ammo, 0x12000000);
+	}
+	else
+		type_str(w, dot, "0", 0x12000000);
+	if (m->player.take[0] == 1)
+		final_sprite_to_screen(w, m->sprite[0], 319, HEIGHT - 58, 64, 48);
+	if (m->player.take[1] == 1)
+		final_sprite_to_screen(w, m->sprite[1], 399, HEIGHT - 60, 64, 48);
+	if (m->player.take[2] == 1)
+		final_sprite_to_screen(w, m->sprite[2], 480, HEIGHT - 54, 64, 0);
+	if (m->player.take[3] == 1)
+		final_sprite_to_screen(w, m->sprite[18], 560, HEIGHT - 54, 64, 0);
 }
 
 void	ft_hud(t_env *w, t_map *m)
 {
 	t_dot	dot;
-	int		x;
-	int		y;
 
-	x = WIDTH / 2 - m->hud.w / 2;
-	y = HEIGHT - m->hud.h;
-	safe_texture_to_screen(w, m->hud, x, y);
+	dot.x = WIDTH / 2 - m->hud.w / 2;
+	dot.y = HEIGHT - m->hud.h;
+	safe_texture_to_screen(w, m->hud, dot.x, dot.y);
 	dot.x = 10;
 	dot.y = 10;
 	type_str(w, dot, "HP : ", 0x12FF0000);
@@ -49,21 +67,7 @@ void	ft_hud(t_env *w, t_map *m)
 	else
 		ft_light_itoa(m->player.bullet[0], m->player.strbullet);
 	type_str(w, w->txtnxtto, m->player.strbullet, 0x12000000);
-	if (m->player.intactu_ammo != m->weap[PH].actu_ammo && m->player.take[PH] == 1)
-	{
-		m->player.intactu_ammo = m->weap[PH].actu_ammo;
-		ft_light_itoa(m->weap[PH].actu_ammo, m->player.stractu_ammo);
-	}
-	dot.x = 115;
-	type_str(w, dot, m->player.stractu_ammo, 0x12000000);
-	if (m->player.take[0] == 1)
-		final_sprite_to_screen(w, m->sprite[0], 319, HEIGHT - 58, 64, 48);
-	if (m->player.take[1] == 1)
-		final_sprite_to_screen(w, m->sprite[1], 399, HEIGHT - 60, 64, 48);
-	if (m->player.take[2] == 1)
-		final_sprite_to_screen(w, m->sprite[2], 480, HEIGHT - 54, 64, 0);
-	if (m->player.take[3] == 1)
-		final_sprite_to_screen(w, m->sprite[18], 560, HEIGHT - 54, 64, 0);
+	inventory(w, m, dot);
 	dot.x = WIDTH - 130;
 	dot.y = 10;
 	type_str(w, dot, "FPS : ", 0x12000000);

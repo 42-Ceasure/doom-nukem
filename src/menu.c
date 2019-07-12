@@ -12,27 +12,38 @@ void	menu_screen(t_env *w)
 	t_dot	dot;
 
 	dot.x = WIDTH / 2 - 50;
-	dot.y = 200;
+	dot.y = 120;
 	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
 	if (w->menu.j == 1)
 	{
 		type_str(w, dot, "  NEW GAME\n\n", 0xFFFF0000);
 		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0xFFFFFFFF);
+		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0xFFFFFFFF);
 		type_str(w, w->txtnxtline, "\n\nEXIT", 0xFFFFFFFF);
 	}
 	else if (w->menu.j == 2)
 	{
 		type_str(w, dot, "NEW GAME\n\n", 0xFFFFFFFF);
 		type_str(w, w->txtnxtline, "\n\n  SETTINGS\n\n", 0xFFFF0000);
+		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0xFFFFFFFF);
+		type_str(w, w->txtnxtline, "\n\nEXIT", 0xFFFFFFFF);
+	}
+	else if (w->menu.j == 3)
+	{
+		type_str(w, dot, "NEW GAME\n\n", 0xFFFFFFFF);
+		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0xFFFFFFFF);
+		type_str(w, w->txtnxtline, "\n\n  EDITOR\n\n", 0xFFFF0000);
 		type_str(w, w->txtnxtline, "\n\nEXIT", 0xFFFFFFFF);
 	}
 	else
 	{
 		type_str(w, dot, "NEW GAME\n\n", 0xFFFFFFFF);
 		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0xFFFFFFFF);
+		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0xFFFFFFFF);
 		type_str(w, w->txtnxtline, "\n\n  EXIT", 0xFFFF0000);
 	}
 }
+
 
 void	affichage_set(t_env *w)
 {
@@ -118,8 +129,10 @@ void	event_menu(t_env *w)
 				w->menu.i = vmax(-1, w->menu.i - 1);
 			if (KEY == SDLK_RETURN)
 			{
-				if (w->menu.j == 3)
+				if (w->menu.j == 4)
 					w->menu.i = -1;
+				else if (w->menu.j == 3)
+					w->menu.i = 4;
 				else if (w->menu.j == 2)
 					w->menu.i = 2;
 				else if (w->menu.j == 1)
@@ -133,8 +146,8 @@ void	event_menu(t_env *w)
 			if (KEY == SDLK_UP)
 				w->menu.j = vmax(1, w->menu.j - 1);
 			if (KEY == SDLK_DOWN)
-				w->menu.j = vmin(w->menu.j + 1, 3);
-			if (KEY == SDLK_y)\
+				w->menu.j = vmin(w->menu.j + 1, 4);
+			if (KEY == SDLK_y)
 				fit_to_game(w);
 		}
 		if (w->event.type == SDL_WINDOWEVENT)
@@ -186,7 +199,7 @@ void	loose(t_env *w, t_map *m)
 			if (KEY == SDLK_RETURN)
 			{
 				m->game_over = 0;
-				m->player.hp = 100;
+				m->player.hp = m->player.max_hp;
 			}
 		}
 	}
@@ -201,6 +214,11 @@ void	launch(t_env *w, t_map *m)
 			main_menu(w, m);
 		else if (w->menu.i == 2)
 			settings(w);
+		else if (w->menu.i == 4)
+		{
+			//editor();
+			printf("editor\n");
+		}
 		else
 		{
 			if (m->game_over == 1)

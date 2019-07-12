@@ -81,7 +81,7 @@ int			parse_sector_dots(t_map *m, char **dots)
 	return (0);
 }
 
-int			parse_sectors(t_map *m, char *heights, char *dots, char *net,  char *text)
+int			parse_sectors(t_map *m, char *heights, char *dots, char *net, char *text)
 {
 	int		i;
 	char	**tmp;

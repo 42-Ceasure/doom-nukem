@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 11:18:57 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/11 19:04:51 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/11 20:10:17 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void		ft_free_tab(t_map *m)
 		}
 		free(m->tab);
 	}
+	if (m->fire.pix != NULL)
+		free(m->fire.pix);
 }
 
 void		ft_free_sprt(t_map *m)

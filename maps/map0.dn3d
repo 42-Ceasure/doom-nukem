@@ -33,12 +33,15 @@ Section:player
 	player_location:16,36
 	player_direction:90
 	player_sector:0
+	player_max_hp:100
+	gravity:0.05
+	god_mod:0
 Section:sprite
 	M4A1:0,0,0,26,30
 	ammo:1,5,5,70,4
 	M9:2,2,10,106,8
 	health:3,3,10,122,16
-	health:4,3,10,100,60
+	health:4,3,11,100,60
 	health:5,3,12,82,88
 	health:6,3,12,126,90
 	health:7,3,12,102,122
@@ -53,7 +56,7 @@ Section:sprite
 Section:ennemy
 	monstre:0,6,1,42,22
 	monstre:1,6,2,52,14
-	monstre:2,6,3,58,8
+	monstre:2,6,2,58,8
 	monstre:3,6,4,64,6
 	monstre:4,6,5,72,6
 	monstre:5,6,6,80,6

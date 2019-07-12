@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
+#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/12 00:27:41 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/12 13:16:54 by ochaar           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,7 @@ SRCFIL				=	main.c \
 						ennemy.c \
 						ft_free.c \
 						manage_sdl_window.c \
+<<<<<<< HEAD
 						main2.c \
 						init2.c \
 						grid.c \
@@ -117,6 +118,9 @@ LIBSDLMIX           =   libSDL2_mixer.a
 INCSDLMIX           =   $(LIBSDLMIX_ROOT)include/
 SDLMIXBIN           =   $(addprefix $(LIBSDLMIX_PATH),$(LIBSDLMIX))
 CURL_MIX            =   `curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.zip -o sdl_mix.zip`
+=======
+						set_and_reset.c
+>>>>>>> 0d3e18c1eb45349ae86ada5a4021405954608330
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
 OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))
