@@ -6,7 +6,6 @@ t_texture		pre_init_texture(int w, int h)
 {
 	t_texture	texture;
 
-
 	if (w > 0 && h > 0)
 	{
 		texture.w = w;

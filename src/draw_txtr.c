@@ -43,13 +43,8 @@ void	skybox(int x, t_env *w, t_work *work, t_texture text)
 	y2 = vmid(y2, 0, HEIGHT - 1);
 	if (y2 > y1)
 	{
-		while (y1 <= y2)
+		while (y1 < y2)
 		{
-			if (y1 >= work->cya && y1 <= work->cyb) 
-			{
-				y1 = work->cyb;
-				continue;
-			}
 			x_tex = (x * (text.w / 4)) / WIDTH + ((w->m->player.angle * (180 / PI)) * text.w) / 360;
 			y_tex = (((y1 + w->m->yaw / 0.004 + 500) * text.h) / HEIGHT / ((1576.f / (double)HEIGHT)));
 			tmpix = (int)((int)y_tex % text.h) * text.w + ((int)x_tex % text.w);

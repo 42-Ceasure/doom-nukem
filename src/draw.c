@@ -225,6 +225,7 @@ void draw(t_env *w, t_map *m)
 				work.cyb = vmid(work.yb, work.ytop[x], work.ybot[x]);
 				work.starty = work.ytop[x];
 				work.stopy = work.cya - 1;
+				// sol a check avec SB c la merde lol
 				if (w->textured == 1 && m->sector[work.nosector].texturing[5] == 0)
 					ceiling_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[1]]);
 				else if (w->textured == 1 && m->sector[work.nosector].texturing[5] != 0)
@@ -237,7 +238,12 @@ void draw(t_env *w, t_map *m)
 					ceiling_line(x, work, w, 0x12677179);
 				work.starty = work.cyb + 1;
 				work.stopy = work.ybot[x];
-				if (w->textured == 1)
+				if (w->textured == 1 && w->texturing[m->sector[work.nosector].texturing[0]].trsp == 1)
+				{
+					skybox(x, w, &work, w->texturing[m->sector[work.nosector].texturing[5]]);
+					ceiling_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[0]]);
+				}
+				else if (w->textured == 1)
 					ceiling_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[0]]);
 				else
 					vertical_line(x, work, w, work.color2);
@@ -256,7 +262,12 @@ void draw(t_env *w, t_map *m)
 					work.color.middle = (x == work.x1 || x == work.x2) ? 0 : work.r1;
 					work.starty = work.cya;
 					work.stopy = work.cnya - 1;
-					if (w->textured == 1)
+					if (w->textured == 1 && w->texturing[m->sector[work.nosector].texturing[3]].trsp == 1)
+					{
+						skybox(x, w, &work, w->texturing[m->sector[work.nosector].texturing[5]]);
+						wall_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[3]]);
+					}
+					else if (w->textured == 1)
 						vertical_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[3]]);
 					else
 						vertical_line(x, work, w, work.color);
@@ -264,7 +275,12 @@ void draw(t_env *w, t_map *m)
 					work.color.middle = (x == work.x1 || x == work.x2) ? 0 : work.r2;
 					work.starty = work.cnyb + 1;
 					work.stopy = work.cyb;
-					if (w->textured == 1)
+					if (w->textured == 1 && w->texturing[m->sector[work.nosector].texturing[4]].trsp == 1)
+					{
+						skybox(x, w, &work, w->texturing[m->sector[work.nosector].texturing[5]]);
+						wall_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[4]]);
+					}
+					else if (w->textured == 1)
 						extruded_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[4]]);
 					else
 						vertical_line(x, work, w, work.color);
@@ -277,7 +293,12 @@ void draw(t_env *w, t_map *m)
 					work.color.middle = (x == work.x1 || x == work.x2) ? 0 : work.r;
 					work.starty = work.cya;
 					work.stopy = work.cyb;
-					if (w->textured == 1)
+					if (w->textured == 1 && w->texturing[m->sector[work.nosector].texturing[2]].trsp == 1)
+					{
+						skybox(x, w, &work, w->texturing[m->sector[work.nosector].texturing[5]]);
+						wall_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[2]]);
+					}
+					else if (w->textured == 1)
 						wall_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[2]]);
 					else
 						vertical_line(x, work, w, work.color);
