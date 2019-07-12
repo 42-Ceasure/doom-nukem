@@ -603,8 +603,8 @@ double				pointside(t_coor p, double x0,
 double				yaw(double y, double z, t_map *m);
 void				init_verification(t_work *draw);
 int					init_draw(t_env *w, t_work *d, t_reader *read, t_map *m);
-void				vertical_line(int x, t_work work, t_env *w, t_color color);
-void				ceiling_line(int x, t_work work, t_env *w, Uint32 color);
+void				vertical_line(int x, t_work *work, t_env *w, t_color color);
+void				ceiling_line(int x, t_work *work, t_env *w, Uint32 color);
 void				moving_head(t_work *w, t_reader read, t_map *m);
 int					ceiling_and_floor(t_work *d, t_map *m,
 					t_reader read, int point);

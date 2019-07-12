@@ -48,7 +48,6 @@ SRCFIL				=	main.c \
 						parse_map_in_core.c \
 						parse_map_section.c \
 						parse_player_section.c \
-						parse_weapon_section.c \
 						parse_sprite_section.c \
 						list_main.c \
 						list_dep.c \
@@ -72,7 +71,6 @@ SRCFIL				=	main.c \
 						ennemy.c \
 						ft_free.c \
 						manage_sdl_window.c \
-<<<<<<< HEAD
 						main2.c \
 						init2.c \
 						grid.c \
@@ -94,33 +92,7 @@ SRCFIL				=	main.c \
 						free.c \
 						texture_mode.c \
 						params.c \
-
-SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
-OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))
-LIBFT               =   $(addprefix $(LIBFTDIR),$(LIBFTFIL))
-INC                 =   $(addprefix $(INCDIR),$(INCFIL))
-INCLIBFT            =   $(LIBFTDIR)inc
-LIBFT_FLAG          =   -L$(LIBFTDIR) -lft
-
-SDL_PATH            =   ./SDL2-2.0.9/
-LIBSDL_ROOT         =   ./libSDL2/
-LIBSDL_PATH         =   ./libSDL2/lib/
-LIBSDL              =   libSDL2.a
-INCSDL              =   $(LIBSDL_ROOT)include/
-LIBSDL_FLAG         =   -L$(LIBSDL_PATH) -lSDL2 -lSDL2_mixer
-SDLBIN              =   $(addprefix $(LIBSDL_PATH),$(LIBSDL))
-SDL_CURL            =   `curl https://www.libsdl.org/release/SDL2-2.0.9.zip -o sdl2.zip`
-
-SDLMIX_PATH         =   ./SDL2_mixer-2.0.4/
-LIBSDLMIX_ROOT      =   ./libSDL2/
-LIBSDLMIX_PATH      =   ./libSDL2/lib/
-LIBSDLMIX           =   libSDL2_mixer.a
-INCSDLMIX           =   $(LIBSDLMIX_ROOT)include/
-SDLMIXBIN           =   $(addprefix $(LIBSDLMIX_PATH),$(LIBSDLMIX))
-CURL_MIX            =   `curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.zip -o sdl_mix.zip`
-=======
 						set_and_reset.c
->>>>>>> 0d3e18c1eb45349ae86ada5a4021405954608330
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
 OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))

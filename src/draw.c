@@ -14,14 +14,14 @@ void	clean_render(t_env *w, Uint32 color)
 	}
 }
 
-void	ceiling_line(int x, t_work work, t_env *w, Uint32 color)
+void	ceiling_line(int x, t_work *work, t_env *w, Uint32 color)
 {
 	int		y;
 	int		y1;
 	int		y2;
 
-	y1 = work.starty;
-	y2 = work.stopy;
+	y1 = work->starty;
+	y2 = work->stopy;
 	y1 = vmid(y1, 0, HEIGHT - 1);
 	y2 = vmid(y2, 0, HEIGHT - 1);
 	y = y1 + 1;
@@ -39,14 +39,14 @@ void	ceiling_line(int x, t_work work, t_env *w, Uint32 color)
 	}
 }
 
-void	vertical_line(int x, t_work work, t_env *w, t_color color)
+void	vertical_line(int x, t_work *work, t_env *w, t_color color)
 {
 	int		y;
 	int		y1;
 	int		y2;
 
-	y1 = work.starty;
-	y2 = work.stopy;
+	y1 = work->starty;
+	y2 = work->stopy;
 	y1 = vmid(y1, 0, HEIGHT - 1);
 	y2 = vmid(y2, 0, HEIGHT - 1);
 	y = y1 + 1;
@@ -226,16 +226,16 @@ void draw(t_env *w, t_map *m)
 				work.starty = work.ytop[x];
 				work.stopy = work.cya - 1;
 				// sol a check avec SB c la merde lol
-				if (w->textured == 1 && m->sector[work.nosector].texturing[5] == 0)
+				if (w->textured == 1 && m->sector[work.nosector].texturing[1] != 0 && w->texturing[m->sector[work.nosector].texturing[1]].trsp != 1)
 					ceiling_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[1]]);
-				else if (w->textured == 1 && m->sector[work.nosector].texturing[5] != 0)
+				else if (w->textured == 1)
 				{
 					skybox(x, w, &work, w->texturing[m->sector[work.nosector].texturing[5]]);
 					if (w->texturing[m->sector[work.nosector].texturing[1]].trsp == 1)
 						ceiling_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[1]]);
 				}
 				else
-					ceiling_line(x, work, w, 0x12677179);
+					ceiling_line(x, &work, w, 0x12677179);
 				work.starty = work.cyb + 1;
 				work.stopy = work.ybot[x];
 				if (w->textured == 1 && w->texturing[m->sector[work.nosector].texturing[0]].trsp == 1)
@@ -246,7 +246,7 @@ void draw(t_env *w, t_map *m)
 				else if (w->textured == 1)
 					ceiling_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[0]]);
 				else
-					vertical_line(x, work, w, work.color2);
+					vertical_line(x, &work, w, work.color2);
 				if (work.network >= 0)
 				{
 					work.nya = (x - work.x1) * (work.ny2a - work.ny1a) / (work.x2 - work.x1) + work.ny1a;
@@ -270,7 +270,7 @@ void draw(t_env *w, t_map *m)
 					else if (w->textured == 1)
 						vertical_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[3]]);
 					else
-						vertical_line(x, work, w, work.color);
+						vertical_line(x, &work, w, work.color);
 					work.ytop[x] = vmid(vmax(work.cya, work.cnya), work.ytop[x], HEIGHT - 1);
 					work.color.middle = (x == work.x1 || x == work.x2) ? 0 : work.r2;
 					work.starty = work.cnyb + 1;
@@ -283,7 +283,7 @@ void draw(t_env *w, t_map *m)
 					else if (w->textured == 1)
 						extruded_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[4]]);
 					else
-						vertical_line(x, work, w, work.color);
+						vertical_line(x, &work, w, work.color);
 					work.ybot[x] = vmid(vmin(work.cyb, work.cnyb), 0, work.ybot[x]);
 				}
 				else
@@ -301,7 +301,7 @@ void draw(t_env *w, t_map *m)
 					else if (w->textured == 1)
 						wall_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[2]]);
 					else
-						vertical_line(x, work, w, work.color);
+						vertical_line(x, &work, w, work.color);
 				}
 				x++;
 				if ((w->sequential_draw == 1 && (x % 3 == 0))

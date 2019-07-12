@@ -102,7 +102,7 @@ void	ceiling_line_textured(int x, t_env *w, t_work *work, t_texture text)
 			test_sprite2(w->m, mapx, mapz);
 			txtx = (mapx * text.w / 6);
 			txtz = (mapz * text.w / 6);
-			tmpix = (Uint32)(txtz % text.h) * text.w + ((Uint32)txtx % text.w);
+			tmpix = (txtz % text.h) * text.w + (txtx % text.w);
 			if (tmpix >= 0 && text.pix[tmpix] != 0xFF00FF00)
 				w->pix[y1 * WIDTH + x] = text.pix[tmpix];
 			y1++;
