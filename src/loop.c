@@ -324,8 +324,11 @@ void		on_click(t_win *win)
 void		loop_play(t_env *w, t_win *win)
 {
 	//win->surface = SDL_CreateRGBSurface(0, WIN_X, WIN_Y, 32, 0, 0, 0, 0);
+	w->stopread = 0;
 	while (42)
 	{
+		if (w->stopread != 0)
+			break;
 		SDL_WaitEvent(&win->event);
 		sdl_event(w, win);
 
@@ -345,4 +348,5 @@ void		loop_play(t_env *w, t_win *win)
 			asset_overing(w, win);
 		print_game(w, win);
 	}
+	w->stopread = 0;
 }

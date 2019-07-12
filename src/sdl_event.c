@@ -43,7 +43,10 @@ static void	sdl_event_key(t_env *w, t_win *win)
 	win->keystate = (Uint8 *)SDL_GetKeyboardState(0);
 	if (win->event.type == SDL_QUIT
 		|| win->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-		clear_n_exit(win, 0);
+	{
+		w->stopread = 1;
+		// clear_n_exit(win, 0);
+	}
 
 
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_F5])

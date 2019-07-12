@@ -34,5 +34,7 @@ int		level_editor_start(t_env *w)
 	fit_to_editor(w);
 	init2(w, &win);
 	loop_play(w, &win);
+	w->menu.i = 1;
+	fit_to_game(w);
 	return (EXIT_SUCCESS);
 }

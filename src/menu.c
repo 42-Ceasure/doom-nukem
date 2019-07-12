@@ -17,29 +17,29 @@ void	menu_screen(t_env *w)
 	if (w->menu.j == 1)
 	{
 		type_str(w, dot, "  NEW GAME\n\n", 0xFFFF0000);
-		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0xFFFFFFFF);
-		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0xFFFFFFFF);
-		type_str(w, w->txtnxtline, "\n\nEXIT", 0xFFFFFFFF);
+		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\n\nEXIT", 0x12FEA800);
 	}
 	else if (w->menu.j == 2)
 	{
-		type_str(w, dot, "NEW GAME\n\n", 0xFFFFFFFF);
+		type_str(w, dot, "NEW GAME\n\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\n\n  SETTINGS\n\n", 0xFFFF0000);
-		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0xFFFFFFFF);
-		type_str(w, w->txtnxtline, "\n\nEXIT", 0xFFFFFFFF);
+		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\n\nEXIT", 0x12FEA800);
 	}
 	else if (w->menu.j == 3)
 	{
-		type_str(w, dot, "NEW GAME\n\n", 0xFFFFFFFF);
-		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0xFFFFFFFF);
+		type_str(w, dot, "NEW GAME\n\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\n\n  EDITOR\n\n", 0xFFFF0000);
-		type_str(w, w->txtnxtline, "\n\nEXIT", 0xFFFFFFFF);
+		type_str(w, w->txtnxtline, "\n\nEXIT", 0x12FEA800);
 	}
 	else
 	{
-		type_str(w, dot, "NEW GAME\n\n", 0xFFFFFFFF);
-		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0xFFFFFFFF);
-		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0xFFFFFFFF);
+		type_str(w, dot, "NEW GAME\n\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\n\n  EXIT", 0xFFFF0000);
 	}
 }
@@ -52,19 +52,19 @@ void	affichage_set(t_env *w)
 	dot.x = WIDTH - 100;
 	dot.y = 10;
 	ft_light_itoa(w->window_mode, w->light_nb);
-	type_str(w, dot, w->light_nb, 0xFFFFFFFF);
+	type_str(w, dot, w->light_nb, 0x12FEA800);
 	dot.y += 50;
 	ft_light_itoa(w->window_res, w->light_nb);
-	type_str(w, dot, w->light_nb, 0xFFFFFFFF);
+	type_str(w, dot, w->light_nb, 0x12FEA800);
 	dot.y += 50;
 	ft_light_itoa(w->m->player.field_of_vision_h, w->light_nb);
-	type_str(w, dot, w->light_nb, 0xFFFFFFFF);
+	type_str(w, dot, w->light_nb, 0x12FEA800);
 	dot.y += 50;
 	ft_light_itoa(w->m->player.field_of_vision_v, w->light_nb);
-	type_str(w, dot, w->light_nb, 0xFFFFFFFF);
+	type_str(w, dot, w->light_nb, 0x12FEA800);
 	dot.y += 50;
 	ft_light_itoa(w->m->player.mousesp, w->light_nb);
-	type_str(w, dot, w->light_nb, 0xFFFFFFFF);
+	type_str(w, dot, w->light_nb, 0x12FEA800);
 	dot.x = w->txthead.x;
 	dot.y = w->txthead.y;
 }
