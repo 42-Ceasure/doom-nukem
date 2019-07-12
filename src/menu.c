@@ -216,8 +216,7 @@ void	launch(t_env *w, t_map *m)
 			settings(w);
 		else if (w->menu.i == 4)
 		{
-			//editor();
-			printf("editor\n");
+			level_editor_start(w);
 		}
 		else
 		{

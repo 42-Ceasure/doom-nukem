@@ -186,6 +186,8 @@ void			set_screen_res(t_env *w, char *aspect)
 		w->res.width = BASEWIDTH;
 		w->res.height = BASEHEIGHT;
 	}
+	w->game_res.width = w->res.width;
+	w->game_res.height = w->res.height;
 }
 
 void			parse_settings_line(t_env *w, t_map *m, char *line)

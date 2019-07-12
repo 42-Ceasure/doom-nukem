@@ -57,6 +57,8 @@
 # define ASCIINB			42
 # define WIN_X				720
 # define WIN_Y				720
+# define GAME				0
+# define EDIT				1
 
 typedef struct		s_lst
 {
@@ -517,6 +519,8 @@ typedef struct		s_env
 	int				invert;
 	double			random;
 	t_res			res;
+	t_res			game_res;
+	t_res			editor_res;
 	int				window_mode;
 	int				window_res;
 	int				sequential_draw;
@@ -739,7 +743,8 @@ void		overing(t_win *win);
 void		save_map(t_win *win);
 void		map_save(t_win *win);
 
-
+void		img_edit_update(t_env *w);
+void		clean_edit_render(t_env *w, Uint32 color);
 void		sectors_in_tab(t_win *win);
 void		sectors_in_tab2(t_win *win);
 

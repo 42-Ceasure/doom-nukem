@@ -39,7 +39,7 @@ int				main(int ac, char **av)
 	over = clock();
 	w->loading_time = ((double)(over - go_go_go)) / CLOCKS_PER_SEC;
 	printf("game loaded in %f seconds !\n", w->loading_time);
-	add_map_to_core("test", "test2");
+	// add_map_to_core("test", "test2");
 	launch(w, m);
 	exit_game(w, m, 0);
 	return (0);

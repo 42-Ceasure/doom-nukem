@@ -4,6 +4,8 @@
 
 void			set_w(t_env *w, int ac)
 {
+	w->editor_res.width = WIN_X;
+	w->editor_res.height = WIN_Y;
 	w->light_nb = (char *)malloc(sizeof(char) * 12);
 	ft_light_itoa(0, w->light_nb);
 	w->loading_time = 0;
