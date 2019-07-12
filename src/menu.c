@@ -16,7 +16,7 @@ void	menu_screen(t_env *w)
 	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
 	if (w->menu.j == 1)
 	{
-		type_str(w, dot, "  NEW GAME\n\n", 0xFFFF0000);
+		type_str(w, dot, "  NEW GAME\n\n", 0xFF78F7);
 		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\n\nEXIT", 0x12FEA800);
@@ -24,7 +24,7 @@ void	menu_screen(t_env *w)
 	else if (w->menu.j == 2)
 	{
 		type_str(w, dot, "NEW GAME\n\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n\n  SETTINGS\n\n", 0xFFFF0000);
+		type_str(w, w->txtnxtline, "\n\n  SETTINGS\n\n", 0xFF78F7);
 		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\n\nEXIT", 0x12FEA800);
 	}
@@ -32,7 +32,7 @@ void	menu_screen(t_env *w)
 	{
 		type_str(w, dot, "NEW GAME\n\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n\n  EDITOR\n\n", 0xFFFF0000);
+		type_str(w, w->txtnxtline, "\n\n  EDITOR\n\n", 0xFF78F7);
 		type_str(w, w->txtnxtline, "\n\nEXIT", 0x12FEA800);
 	}
 	else
@@ -40,7 +40,7 @@ void	menu_screen(t_env *w)
 		type_str(w, dot, "NEW GAME\n\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n\n  EXIT", 0xFFFF0000);
+		type_str(w, w->txtnxtline, "\n\n  EXIT", 0xFF78F7);
 	}
 }
 
