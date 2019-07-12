@@ -6,7 +6,7 @@
 #    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/19 18:35:47 by cglavieu          #+#    #+#              #
-#    Updated: 2019/07/04 17:27:44 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/12 00:27:52 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ ifeq ($(DEBUG), 0)
     CFLAG		=	-Wall -Wextra -Werror -O2
 	MESSAGE		= 	"Libft compiled on normal rules !"
 else
-    CFLAG		=	-Wall -Wextra -Werror -g -O0 -fsanitize=undefined
+    CFLAG		=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
 	MESSAGE		= 	"[DEBUG] Libft compiled on debug rules !"
 endif
 

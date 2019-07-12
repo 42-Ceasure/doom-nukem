@@ -48,6 +48,10 @@ t_texture			parse_texture(t_env *w, t_map *m, char **tmp)
 		process_hint_w(m->world, 0, " ");
 	else
 		process_hint(0, " ");
+	if (tmp2[2] != NULL)
+		texture.trsp = ft_atoi(tmp2[2]);
+	else
+		texture.trsp = 0;
 	ft_memreg(tmp2);
 	return (texture);
 }

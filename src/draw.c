@@ -66,11 +66,11 @@ void	vertical_line(int x, t_work work, t_env *w, t_color color)
 
 void draw(t_env *w, t_map *m)
 {
-	int point;
-	int x;
-	t_work work;
-	t_reader read;
-	int renderedsectors[m->sector_count];
+	int 		point;
+	int 		x;
+	t_work 		work;
+	t_reader 	read;
+	int 		renderedsectors[m->sector_count];
 
 	clear_sprite(m);
 	read.head = read.queue;
@@ -227,9 +227,13 @@ void draw(t_env *w, t_map *m)
 				work.stopy = work.cya - 1;
 				if (w->textured == 1 && m->sector[work.nosector].texturing[5] == 0)
 					ceiling_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[1]]);
-				// else if (w->textured == 1 && w->m->sector[work.nosector].texturing[5] != 0)
-				// 	skybox(x, box, w, d, w->texturing[w->m->sector[work.nosector].texturing[5]]);
-				else if (w->textured != 1)
+				else if (w->textured == 1 && m->sector[work.nosector].texturing[5] != 0)
+				{
+					skybox(x, w, &work, w->texturing[m->sector[work.nosector].texturing[5]]);
+					if (w->texturing[m->sector[work.nosector].texturing[1]].trsp == 1)
+						ceiling_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[1]]);
+				}
+				else
 					ceiling_line(x, work, w, 0x12677179);
 				work.starty = work.cyb + 1;
 				work.stopy = work.ybot[x];
@@ -261,11 +265,9 @@ void draw(t_env *w, t_map *m)
 					work.starty = work.cnyb + 1;
 					work.stopy = work.cyb;
 					if (w->textured == 1)
-						extruded_line_textured(x, w, &work, w->texturing[w->m->sector[work.nosector].texturing[4]]);
+						extruded_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[4]]);
 					else
 						vertical_line(x, work, w, work.color);
-
-
 					work.ybot[x] = vmid(vmin(work.cyb, work.cnyb), 0, work.ybot[x]);
 				}
 				else

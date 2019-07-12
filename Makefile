@@ -6,7 +6,7 @@
 #    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/11 20:30:24 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/12 00:27:41 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ ifeq ($(DEBUG), 0)
     CFLAG       =   -Wall -Wextra -Werror -O2
     MESSAGE     =   "Doom-nukem compiled on normal rules ! Have fun"
 else
-    CFLAG       =   -Wall -Wextra -Werror -g -O0 -fsanitize=undefined
+    CFLAG       =   -Wall -Wextra -Werror -g -O0 -fsanitize=address
     MESSAGE     =   "[DEBUG] Doom-nukem compiled on debug rules ! Good job"
 endif
 
