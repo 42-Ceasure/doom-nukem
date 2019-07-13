@@ -3,21 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
+#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/12 13:16:54 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/13 20:15:11 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+SHELL = bash
 DEBUG = 0
 CC = gcc
 ifeq ($(DEBUG), 0)
     CFLAG       =   -Wall -Wextra -Werror -O2
-    MESSAGE     =   "Doom-nukem compiled on normal rules ! Have fun"
+    MESSAGE     =   "\033[38;5;79m[$(NAME)] compiled on normal rules ! Have fun\033[0m           "
+
 else
     CFLAG       =   -Wall -Wextra -Werror -g -O0 -fsanitize=address
-    MESSAGE     =   "[DEBUG] Doom-nukem compiled on debug rules ! Good job"
+    MESSAGE     =   "\033[38;5;79m[DEBUG] [$(NAME)] compiled on debug rules ! Good job\033[0m       "
 endif
 
 NAME                =   doom-nukem
@@ -65,7 +67,7 @@ SRCFIL				=	main.c \
 						draw_minimap.c \
 						draw_txtr.c \
 						draw_sprite.c \
-						multi_thread.c \
+						multithreading.c \
 						menu.c moving_ennemy.c \
 						fill_tab.c \
 						ennemy.c \
@@ -118,14 +120,21 @@ INCSDLMIX           =   $(LIBSDLMIX_ROOT)include/
 SDLMIXBIN           =   $(addprefix $(LIBSDLMIX_PATH),$(LIBSDLMIX))
 CURL_MIX            =   `curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.zip -o sdl_mix.zip`
 
+# PROGRESS BAR
+T = $(words $(OBJ))
+N = 0
+C = $(words $N)$(eval N := x $N)
+PROGRESS = "[`expr $C  '*' 100 / $T`%]"
+
 all                 :   libft sdl sdlmix $(NAME)
 
 $(NAME)             :   $(OBJ) $(LIBFT)
 						@$(CC) $(CFLAG) -lm $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^ -lpthread
-						@echo $(MESSAGE)
+						@echo -e $(MESSAGE)
 						
 $(OBJDIR)%.o        :   $(SRCDIR)%.c $(INC)
 						@mkdir -p $(OBJDIR)
+						@echo -ne "[$(NAME)] progress : $(PROGRESS) | $@                    \r"
 						@$(CC) $(CFLAG) -I $(INCDIR) -I $(INCLIBFT) -I $(INCSDL) -o $@ -c $<
 
 libft               :   $(LIBFT)
@@ -160,9 +169,10 @@ clean               :
 
 fclean              :
 						@make -C $(LIBFTDIR) fclean
+						@echo -ne "Cleaning [$(NAME)]... In progress...\r"
 						@rm -Rf  $(OBJDIR)
 						@rm -f $(NAME)
-						@echo "Cleaning doom-nukem... Done !"
+						@echo -e "Cleaning [$(NAME)] done !              "
 						
 sdlclean            :
 						rm -rf $(LIBSDL_ROOT)

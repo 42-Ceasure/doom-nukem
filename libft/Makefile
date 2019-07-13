@@ -6,20 +6,21 @@
 #    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/19 18:35:47 by cglavieu          #+#    #+#              #
-#    Updated: 2019/07/12 00:27:52 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/13 20:14:57 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+SHELL = bash
 DEBUG = 0
 
 CC = gcc
 
 ifeq ($(DEBUG), 0)
     CFLAG		=	-Wall -Wextra -Werror -O2
-	MESSAGE		= 	"Libft compiled on normal rules !"
+	MESSAGE		= 	"\033[38;5;79m[$(NAME)] compiled on normal rules !\033[0m                  "
 else
     CFLAG		=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
-	MESSAGE		= 	"[DEBUG] Libft compiled on debug rules !"
+	MESSAGE		= 	"\033[38;5;79m[DEBUG] [$(NAME)] compiled on debug rules !\033[0m                 "
 endif
 
 NAME = libft.a
@@ -96,21 +97,29 @@ OBJFILL = $(addprefix $(OBJDIR),$(OBJ))
 
 INC = ./inc/
 
+# PROGRESS BAR
+T = $(words $(OBJ))
+N = 0
+C = $(words $N)$(eval N := x $N)
+PROGRESS = "[`expr $C  '*' 100 / $T`%]"
+
 all: 			$(NAME)
 
 $(NAME): 		$(OBJFILL)
 				@ar rc $@ $^
-				@echo $(MESSAGE)
+				@echo -e $(MESSAGE)
 
 $(OBJDIR)%.o:	$(SRCDIR)%.c
 				@mkdir -p $(OBJDIR)
 				@$(CC) $(CFLAG) -I $(INC) -c $< -o $@
+				@echo -ne "[$(NAME)] progress : $(PROGRESS) | $@            \r"
 
 clean:
 				@rm -rf $(OBJDIR)
 
 fclean:			clean
-				@echo "Cleaning libft... Done !"
+				@echo -ne "Cleaning [$(NAME)]... In progress...\r"
 				@rm -f $(NAME)
+				@echo -e "Cleaning [$(NAME)] done !              "
 
 re: 			fclean all
