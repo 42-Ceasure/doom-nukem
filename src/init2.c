@@ -14,6 +14,7 @@
 
 static void	init_dst(t_win *win)
 {
+	win->helptxt = NULL;
 	win->dst.x = 250;
 	win->dst.y = 20;
 	win->dst2.x = 0;
@@ -68,13 +69,12 @@ static int	init_assets(t_env *w, t_win *win)
 
 	win->building_hud = w->m->fire;
 
-	// t_dot dot;
-	// dot.x = 250;
-	// dot.y = 20;
-	// type_str(w->win, dot, "Drawing_mode", 0xFFFFFF);
+	t_dot dot;
+	dot.x = 250;
+	dot.y = 20;
+	//type_str(w->win, dot, "Drawing_mode", 0xFFFFFF);
 
-	// win->helptxt = TTF_RenderText_Blended(win->police,
-	// 	"Drawing Mode", 0xFFFFFF);
+	// win->helptxt = TTF_RenderText_Blended(win->police,"Drawing Mode", 0xFFFFFF);
 	//
 	// win->texturetxt = TTF_RenderText_Blended(win->police,
 	// 	"Wall", win->color_font_z);

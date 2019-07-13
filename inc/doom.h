@@ -759,7 +759,7 @@ t_dot		get_point_in_list(t_lst *polygone, int index);
 void		texture_mode(t_env *w, t_win *win);
 void		change_texture_index(t_env *w, t_win *win);
 int			intersectbox2(t_dot p1, t_dot p2, t_dot p3, t_dot p4);
-void		set_params(t_win *win);
+void		set_params(t_env *w, t_win *win);
 void		increase_value(t_win *win);
 void		decrease_value(t_win *win);
 

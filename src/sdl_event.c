@@ -161,9 +161,9 @@ static void	sdl_event_mouse(t_env *w, t_win *win)
 				if (tmp2->closed == 0)
 					win->drawing = 1;
 			}
-			// SDL_FreeSurface(win->helptxt);
-			// win->helptxt = TTF_RenderText_Blended(win->police,
-			// 	"Drawing Mode", win->color_font_r);
+			if (win->helptxt != NULL)
+				free(win->helptxt);
+			win->helptxt = ft_strdup("Drawing Mode");
 		}
 
 		if (win->mode == 1)
@@ -171,9 +171,9 @@ static void	sdl_event_mouse(t_env *w, t_win *win)
 			SDL_FreeCursor(win->cursor);
 			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
 			win->drawing = 0;
-			// SDL_FreeSurface(win->helptxt);
-			// win->helptxt = TTF_RenderText_Blended(win->police,
-			// 	"Moving Mode", win->color_font_r);
+			if (win->helptxt != NULL)
+				free(win->helptxt);
+			win->helptxt = ft_strdup("Moving Mode");
 		}
 
 		if (win->mode == 2)
@@ -181,9 +181,9 @@ static void	sdl_event_mouse(t_env *w, t_win *win)
 			SDL_FreeCursor(win->cursor);
 			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 			win->drawing = 0;
-			// SDL_FreeSurface(win->helptxt);
-			// win->helptxt = TTF_RenderText_Blended(win->police,
-			// 	"Placing Mode", win->color_font_r);
+			if (win->helptxt != NULL)
+				free(win->helptxt);
+			win->helptxt = ft_strdup("Placing Mode");
 		}
 
 		if (win->mode == 3)
@@ -191,9 +191,9 @@ static void	sdl_event_mouse(t_env *w, t_win *win)
 			SDL_FreeCursor(win->cursor);
 			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
 			win->drawing = 0;
-			// SDL_FreeSurface(win->helptxt);
-			// win->helptxt = TTF_RenderText_Blended(win->police,
-			// 	"Delete Mode", win->color_font_r);
+			if (win->helptxt != NULL)
+				free(win->helptxt);
+			win->helptxt = ft_strdup("Delete Mode");
 		}
 
 		if (win->mode == 4)
@@ -201,9 +201,9 @@ static void	sdl_event_mouse(t_env *w, t_win *win)
 			SDL_FreeCursor(win->cursor);
 			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
 			win->drawing = 0;
-			// SDL_FreeSurface(win->helptxt);
-			// win->helptxt = TTF_RenderText_Blended(win->police,
-			// 	"Texture Mode", win->color_font_r);
+			if (win->helptxt != NULL)
+				free(win->helptxt);
+			win->helptxt = ft_strdup("Texture Mode");
 		}
 	}
 

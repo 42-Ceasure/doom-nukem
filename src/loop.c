@@ -14,13 +14,17 @@
 
 int			print_game(t_env *w, t_win *win)
 {
+	t_dot dot;
+
+	dot.x = 200;
+	dot.y = 50;
 	if (win->changemode)
 	{
 		SDL_SetCursor(win->cursor);
-		// SDL_BlitSurface(win->helptxt, NULL, win->surface, &win->dst);
+		type_str(w, dot, win->helptxt, 0xFF00FF);
 	}
-	// if (win->mode == 4 && win->texture_overed_sector != -1)
-		// SDL_BlitSurface(win->texturetxt, NULL, win->surface, &win->dst11);
+	//if (win->mode == 4 && win->texture_overed_sector != -1)
+	//	type_str(w, dot, "Wall", 0xFFFFFF);
 
 	/*win->texture = SDL_CreateTextureFromSurface(win->renderer, win->surface);
 	SDL_SetRenderTarget(win->renderer, NULL);
@@ -92,19 +96,18 @@ void		draw_segments(t_env *w, t_win *win)
 				else
 					win->color = 0x20B2AA;
 			}
-			printf("ok\n");
 			line(w, win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
 			tmp = tmp->next;
 		}
 		tmp = tmp2->head;
 		while (tmp)
 		{
-			printf("point");
 			draw_points(w, win, tmp->x, tmp->y);
 			tmp = tmp->next;
 		}
-		if (win->drawing == 1)
-			line(w, win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
+		// SEGV ICI
+		/*if (win->drawing == 1)
+			line(w, win, 10,10,100,100);*/
 		tmp2 = tmp2->next;
 	}
 	win->overed_sector = -1;
@@ -231,7 +234,6 @@ void		on_click(t_win *win)
 
 	if (win->left_click && win->mode == 0)
 	{
-		printf("new_point");
 		if (win->lstlst == NULL)
 			win->lstlst = lstlstnew(win);
 

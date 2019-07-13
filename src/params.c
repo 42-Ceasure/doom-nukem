@@ -56,11 +56,9 @@ void		param_text(t_win *win)
 
 	if (win->param_index == 0)
 	{
-		// win->paramtxt = TTF_RenderText_Blended(win->police,
-		// 	"HP", win->color_font_z);
+		win->paramtxt = ft_strdup("HP");
 		tmp = ft_itoa(win->hp_value);
-		// win->paramvaluetxt = TTF_RenderText_Blended(win->police,
-		// 	tmp, win->color_font_z);
+		win->paramvaluetxt = ft_strdup(tmp);
 	}
 	if (win->param_index == 1)
 	{
@@ -80,14 +78,20 @@ void		param_text(t_win *win)
 	}
 }
 
-void	set_params(t_win *win)
+void	set_params(t_env *w, t_win *win)
 {
 	//printf("%d param index \n", win->param_index);
+	t_dot dot;
+
+	dot.x = 300;
+	dot.y = 500;
 	param_text(win);
 	win->dst12.x = win->x2 + 30;
 	win->dst12.y = win->y2 - 20;
 	win->dst13.x = win->x2 + 30;
 	win->dst13.y = win->y2 + 20;
+	type_str(w, dot, win->paramtxt, 0xFF00FF);
+	type_str(w, dot, win->paramvaluetxt, 0xFF00FF)
 	// SDL_BlitSurface(win->paramtxt, NULL, win->surface, &win->dst12);
 	// SDL_BlitSurface(win->paramvaluetxt, NULL, win->surface, &win->dst13);
 
