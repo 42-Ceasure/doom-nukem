@@ -6,7 +6,7 @@
 #    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/13 20:15:11 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/13 20:18:15 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,8 +134,8 @@ $(NAME)             :   $(OBJ) $(LIBFT)
 						
 $(OBJDIR)%.o        :   $(SRCDIR)%.c $(INC)
 						@mkdir -p $(OBJDIR)
-						@echo -ne "[$(NAME)] progress : $(PROGRESS) | $@                    \r"
 						@$(CC) $(CFLAG) -I $(INCDIR) -I $(INCLIBFT) -I $(INCSDL) -o $@ -c $<
+						@echo -ne "[$(NAME)] progress : $(PROGRESS) | $@                    \r"
 
 libft               :   $(LIBFT)
 
