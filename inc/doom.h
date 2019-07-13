@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/12 13:31:46 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/13 14:43:57 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,13 @@ typedef struct		s_lstasset
 
 typedef struct		s_filer
 {
-	int	buffer;
-	int stop;
-	int fd;
-	int fd2;
-	char *buff;
-	char *line;
-	char **tmp;
+	int				buffer;
+	int				stop;
+	int				fd;
+	int				fd2;
+	char			*buff;
+	char			*line;
+	char			**tmp;
 }					t_filer;
 
 typedef struct		s_vect
@@ -480,8 +480,8 @@ typedef struct		s_sound
 
 typedef struct		s_res
 {
-	int width;
-	int height;
+	int				width;
+	int				height;
 }					t_res;
 
 typedef struct		s_text
@@ -513,6 +513,7 @@ typedef struct		s_env
 	double			loading_time;
 	int				i;
 	int				ac;
+	int				sens;
 	int				asciichk;
 	int				asciino;
 	int				stopread;
@@ -575,7 +576,7 @@ void				add_map_to_core(char *path, char *path2);
 void				change_settings(t_env *w, t_map *m);
 void				parse_map_file(t_env *w, t_map *m);
 int					parse_map_section(t_map *m, char **tab);
-int					parse_player_section(t_env *w, t_map *m, char **tab);
+int					parse_player_section(t_map *m, char **tab);
 int					parse_weapon_section(t_map *m, char **tab);
 int					parse_sprite_section(t_map *m, char *name, char *def, char *pix);
 void				parse_core_section(t_env *w, t_map *m, char *line, int mode);
@@ -628,10 +629,9 @@ void				motion_events(t_env *w, t_map *m);
 void				move_player(double dx, double dy, t_map *m);
 void				get_height(t_map *m);
 void				is_falling(t_map *m);
-void				is_fall(t_map *m, int x);
 void				slow_down(t_env *w, t_map *m);
 void				is_moving(t_map *m);
-void				is_moving_enne(t_map *m, int x);
+void				move_all_ennemy(t_map *m);
 void				main_menu(t_env *w, t_map *m);
 t_texture			load_img(t_env *w, t_map *m, char *s);
 void				initsprite(t_sprite **sprite, int count);
@@ -661,7 +661,8 @@ void				jump(t_env *w, t_map *m);
 void				sprint(t_map *m);
 void				hud(t_map *m);
 void				minimap(t_map *m);
-void				och_door(t_map *m);
+void				ft_hud(t_env *w, t_map *m);
+void				game_img(t_env *w, t_map *m);
 void				ramassage(t_map *m);
 void				pause_music(void);
 void				volume_more(t_env *w);

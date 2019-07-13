@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 13:33:43 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/12 10:30:47 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/13 15:07:14 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,24 @@ void	is_fall(t_map *m, int x)
 	{
 		m->ennemy[x].move_speed.z = m->ennemy[x].move_speed.z - m->gravity;
 		nxtz = m->ennemy[x].coor.z + m->ennemy[x].move_speed.z;
-		if (m->ennemy[x].move_speed.z < 0 && nxtz < m->sector[m->ennemy[x].sector].floor + m->ennemy[x].height)
+		if (m->ennemy[x].move_speed.z < 0 && nxtz
+			< m->sector[m->ennemy[x].sector].floor + m->ennemy[x].height)
 		{
 			m->ennemy[x].coor.z = m->sector[m->ennemy[x].sector].floor + m->ennemy[x].height;
 			m->ennemy[x].move_speed.z = 0;
 			m->ennemy[x].fall = 0;
 			m->ennemy[x].ground = 1;
 		}
-		else if (m->ennemy[x].move_speed.z > 0 && nxtz > m->sector[m->ennemy[x].sector].ceiling)
+		else if (m->ennemy[x].move_speed.z > 0 && nxtz
+			> m->sector[m->ennemy[x].sector].ceiling)
 		{
 			m->ennemy[x].move_speed.z = 0;
 			m->ennemy[x].fall = 1;
 		}
 		if (m->ennemy[x].fall == 1)
 		{
-			m->ennemy[x].coor.z = m->ennemy[x].coor.z + m->ennemy[x].move_speed.z;
+			m->ennemy[x].coor.z = m->ennemy[x].coor.z
+				+ m->ennemy[x].move_speed.z;
 			m->ennemy[x].moving = 1;
 		}
 	}
@@ -62,8 +65,8 @@ void	move_ennemy(double dx, double dy, t_map *m, int x)
 		i.y4 = m->sector[m->ennemy[x].sector].dot[s + 1].y;
 		coor.x = i.x2;
 		coor.y = i.y2;
-		if(m->sector[m->ennemy[x].sector].network[s] >= 0  
-		&& intersectbox(i) 
+		if(m->sector[m->ennemy[x].sector].network[s] >= 0
+		&& intersectbox(i)
 		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
 		{
 			m->ennemy[x].sector = m->sector[m->ennemy[x].sector].network[s];
@@ -75,13 +78,14 @@ void	move_ennemy(double dx, double dy, t_map *m, int x)
 	m->ennemy[x].coor.y = m->ennemy[x].coor.y + dy;
 }
 
-void	is_moving_enne(t_map *m, int x)
+void	is_moving_ennemy(t_map *m, int x)
 {
 	int s;
 	t_intersect i;
 	t_coor		coor;
 
 	s = 0;
+	x1_to_y2(t_map *m, )
 	i.x1 = m->ennemy[x].coor.x;
 	i.y1 = m->ennemy[x].coor.y;
 	i.x2 = m->ennemy[x].coor.x + m->ennemy[x].move_speed.x;
@@ -125,4 +129,20 @@ void	is_moving_enne(t_map *m, int x)
 	}
 	move_ennemy(m->ennemy[x].move_speed.x, m->ennemy[x].move_speed.y, m, x);
 	m->ennemy[x].fall = 1;
+}
+
+void	move_all_ennemy(t_map *m)
+{
+	int		i;
+
+	i = 0;
+	while (i < m->ennemy_count)
+	{
+		if (m->ennemy[i].vis == 1)
+		{
+			is_fall(m, i);
+			is_moving_ennemy(m, i);
+		}
+		i++;
+	}
 }

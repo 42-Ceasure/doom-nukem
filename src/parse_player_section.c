@@ -6,15 +6,14 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 13:37:00 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/12 13:39:45 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/13 14:43:45 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void		parse_other_info(t_env *w, t_map *m, char **tab)
+void		parse_other_info(t_map *m, char **tab)
 {
-	w->i = 0;
 	if (ft_strcmp(tab[0], "\tplayer_max_hp") == 0)
 		m->player.max_hp = ft_atoi(tab[1]);
 	else if (ft_strcmp(tab[0], "\tgravity") == 0)
@@ -22,11 +21,9 @@ void		parse_other_info(t_env *w, t_map *m, char **tab)
 	else if (ft_strcmp(tab[0], "\tgod_mod") == 0)
 		m->god_mod = ft_atoi(tab[1]);
 	m->player.hp = m->player.max_hp;
-	/*else if (ft_strcmp(tab[0], "\tmusique") == 0)
-		w->sound.musique = */
 }
 
-int			parse_player_section(t_env *w, t_map *m, char **tab)
+int			parse_player_section(t_map *m, char **tab)
 {
 	char	**tmp;
 
@@ -50,6 +47,6 @@ int			parse_player_section(t_env *w, t_map *m, char **tab)
 		m->player.sector = ft_atoi(tab[1]);
 		m->player.coor.z = m->sector[m->player.sector].floor + STAND;
 	}
-	parse_other_info(w, m, tab);
+	parse_other_info(m, tab);
 	return (0);
 }
