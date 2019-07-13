@@ -80,8 +80,10 @@ void			set_m(t_map *m)
 	m->dot = NULL;
 	m->sector = NULL;
 	m->weap = NULL;
+	m->ennemy = NULL;
 	m->sprite = NULL;
 	m->sprt = NULL;
+	m->tab = NULL;
 	m->player.max_hp = 100;
 	m->god_mod = 0;
 	m->hud = pre_init_texture(0, 0);

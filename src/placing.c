@@ -130,7 +130,7 @@ void		asset_overing(t_env *w, t_win *win)
 			if (tmp->asset_type == 0)
 			{
 				win->asset_tmp = w->m->fire;
-				set_params(win);
+				set_params(w, win);
 			}
 			if (tmp->asset_type == 1)
 				win->asset_tmp = w->m->fire;

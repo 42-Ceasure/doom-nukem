@@ -55,10 +55,10 @@ struct					s_win
 	t_texture			surface;
 
 	t_texture			map_ui;
-	t_texture			helptxt;
-	t_texture			texturetxt;
-	t_texture			paramtxt;
-	t_texture			paramvaluetxt;
+	char				*helptxt;
+	char				*texturetxt;
+	char				*paramtxt;
+	char				*paramvaluetxt;
 
 	t_texture			asset_sprite;
 	t_texture			texture_sprite;
