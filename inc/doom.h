@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/13 21:35:06 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/13 22:02:12 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define HEADMARGIN			1.1
 # define KNEEH				7.9
 # define BASE_GRAVITY		0.05
-# define NB_THREAD			8
+# define NB_THREAD			4
 # define TEXT_WALL_HEIGHT	10
 # define TEXT_WALL_WIDTH	10
 # define PI					3.14159

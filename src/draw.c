@@ -214,6 +214,7 @@ void draw(t_env *w, t_map *m)
 			work.startx = vmax(work.x1, read.now.sx1);
 			work.endx = vmin(work.x2, read.now.sx2);
 			x = work.startx;
+			// a revoir bien sur
 			if (work.endx - work.startx > 10)
 				calcul_render(w, m, work, work.ybot, work.ytop);
 			else
