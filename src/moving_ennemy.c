@@ -85,7 +85,6 @@ void	is_moving_ennemy(t_map *m, int x)
 	t_coor		coor;
 
 	s = 0;
-	x1_to_y2(t_map *m, )
 	i.x1 = m->ennemy[x].coor.x;
 	i.y1 = m->ennemy[x].coor.y;
 	i.x2 = m->ennemy[x].coor.x + m->ennemy[x].move_speed.x;

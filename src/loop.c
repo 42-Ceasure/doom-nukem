@@ -92,6 +92,7 @@ void		draw_segments(t_env *w, t_win *win)
 				else
 					win->color = 0x20B2AA;
 			}
+			printf("ok\n");
 			line(w, win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
 			tmp = tmp->next;
 		}

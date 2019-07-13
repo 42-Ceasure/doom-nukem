@@ -41,11 +41,11 @@ int		first_line(char **tab, t_map *m)
 	return (0);
 }
 
-int		second_parse(t_env *w, t_map *m, char **tmp)
+int		second_parse(t_map *m, char **tmp)
 {
 	if (m->section_number == 2)
 	{
-		if (parse_player_section(w, m, tmp) == -1)
+		if (parse_player_section(m, tmp) == -1)
 		{
 			ft_putendl("error in parse_player_section");
 			return (-1);
@@ -91,7 +91,7 @@ int		parse_line(t_env *w, t_map *m)
 			return (-1);
 		}
 	}
-	if (second_parse(w, m, tmp) == -1)
+	if (second_parse(m, tmp) == -1)
 		return (-1);
 	if (m->section_number == 5)
 		w->stopread = 1;
