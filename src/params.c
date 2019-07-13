@@ -91,7 +91,7 @@ void	set_params(t_env *w, t_win *win)
 	win->dst13.x = win->x2 + 30;
 	win->dst13.y = win->y2 + 20;
 	type_str(w, dot, win->paramtxt, 0xFF00FF);
-	type_str(w, dot, win->paramvaluetxt, 0xFF00FF)
+	type_str(w, dot, win->paramvaluetxt, 0xFF00FF);
 	// SDL_BlitSurface(win->paramtxt, NULL, win->surface, &win->dst12);
 	// SDL_BlitSurface(win->paramvaluetxt, NULL, win->surface, &win->dst13);
 
