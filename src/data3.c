@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:47:14 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/01 14:47:31 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/13 18:02:48 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -528,8 +528,8 @@ void		first_line2(t_win *win, int fp)
 		tmp2 = tmp2->next;
 	}
 
-	str = "map\t\t\t;name\n";
-	ft_putstr_fd(str, fp);
+	// str = "map\t\t\t;name\n";
+	// ft_putstr_fd(str, fp);
 
 	str = "dots:";
 	ft_putstr_fd(str, fp);
@@ -864,7 +864,7 @@ void		write_sectors_textures(t_win *win, int fp, t_lstlst *tmp2)
 	str = ":";
 	ft_putstr_fd(str, fp);
 
-	str = "3,5,3,2,2,0";
+	str = "0,1,0,0,0,0";
 	ft_putstr_fd(str, fp);
 }
 
@@ -886,7 +886,7 @@ void		write_sectors(t_win *win, int fp)
 	{
 		if (tmp2->sector != -1)
 		{
-			str = "\tsector:0,50:";
+			str = "\tsector:0,30:";
 			ft_putstr_fd(str, fp);
 			tmp = tmp2->head;
 			if (tmp2->clockwise == 1)
@@ -952,7 +952,6 @@ void		write_player(t_win *win, int fp)
 	str = "Section:player\n";
 	ft_putstr_fd(str, fp);
 
-
 	str = "\tplayer_location:";
 	ft_putstr_fd(str, fp);
 
@@ -979,6 +978,18 @@ void		write_player(t_win *win, int fp)
 
 	str = "\n";
 	ft_putstr_fd(str, fp);
+
+	str = "\tplayer_max_hp:100\n";
+	ft_putstr_fd(str, fp);
+
+	str = "\tgravity:0.05\n";
+	ft_putstr_fd(str, fp);
+
+	str = "\tgod_mod:0\n";
+	ft_putstr_fd(str, fp);
+	
+	// str = "\n";
+	// ft_putstr_fd(str, fp);
 }
 
 /*int			*check3(t_win *win, int sector)

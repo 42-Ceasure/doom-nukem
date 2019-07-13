@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 13:27:27 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/12 13:31:37 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/13 17:59:16 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,9 @@ int		do_parse(t_env *w, t_map *m)
 		free(m->line);
 	}
 	process_hint_w(w, 0, " ");
-	free(m->line);
+	
+	if (w->stopread == 0)
+		free(m->line);
 	close(m->fd);
 	return (0);
 }

@@ -257,6 +257,8 @@ void vect_ab(t_coor p1, t_coor p2, t_env *w, Uint32 color)
 	norm.y1 = p1.y;
 	norm.x2 = p2.x;
 	norm.y2 = p2.y;
+	if (norm.x1 == norm.x2 && norm.y1 == norm.y2)
+		return ;
 	norm.dx	= p2.x - p1.x;
 	norm.dy = p2.y - p1.y;
 	if (norm.dx == 0 || norm.dy == 0)

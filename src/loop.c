@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <abechet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 20:15:25 by abechet           #+#    #+#             */
-/*   Updated: 2019/05/22 17:47:31 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/13 17:39:06 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void		draw_segments(t_env *w, t_win *win)
 			tmp = tmp->next;
 		}
 		// SEGV ICI
-		/*if (win->drawing == 1)
-			line(w, win, 10,10,100,100);*/
+		if (win->drawing == 1 && tmp != NULL && tmp->next != NULL)
+			line(w, win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
 		tmp2 = tmp2->next;
 	}
 	win->overed_sector = -1;
@@ -126,7 +126,7 @@ void		draw_triangulate(t_env *w, t_win *win)
 		tmp = tmp2->head;
 		while (tmp)
 		{
-			if (tmp->next)
+			if (tmp->next && tmp)
 			{
 				line(w, win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
 				tmp = tmp->next;
@@ -134,7 +134,7 @@ void		draw_triangulate(t_env *w, t_win *win)
 			else
 				break;
 		}
-		if (tmp)
+		if (tmp && tmp->next)
 			line(w, win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
 		tmp2 = tmp2->next;
 	}
