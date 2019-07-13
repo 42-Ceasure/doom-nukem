@@ -55,11 +55,11 @@ static int	init_assets(t_env *w, t_win *win)
 {
 	win->map_ui = w->m->fire;
 
-	win->asset_sprite = w->m->fire;
+	win->asset_sprite = w->m->sprite[0];
 	win->asset_tmp = w->m->fire;
 	win->player_start = w->m->fire;
 
-	win->inventory = w->m->fire;
+	win->inventory = w->m->hud;
 	win->slot0 = w->m->fire;
 	win->slot1 = w->m->fire;
 	win->slot2 = w->m->fire;
@@ -67,7 +67,7 @@ static int	init_assets(t_env *w, t_win *win)
 	win->slot4 = w->m->fire;
 	win->blackbox = w->m->fire;
 
-	win->building_hud = w->m->fire;
+	win->building_hud = w->m->hud;
 
 	t_dot dot;
 	dot.x = 250;

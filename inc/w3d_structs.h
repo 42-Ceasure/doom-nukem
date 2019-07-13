@@ -18,6 +18,13 @@ typedef struct s_mthrds	t_mthrds;
 typedef struct s_thrd	t_thrd;
 typedef struct s_render	t_render;
 
+typedef struct		s_coor
+{
+	double			x;
+	double			y;
+	double			z;
+}					t_coor;
+
 typedef struct		s_texture
 {
 	int				w;
@@ -26,6 +33,19 @@ typedef struct		s_texture
 	Uint32			*pix;
 	int				trsp;
 }					t_texture;
+
+typedef struct		s_sprite
+{
+	Uint32			*pix;
+	char			*name;
+	char			*type;
+	int				sy;
+	int				sx;
+	int				w;
+	int				h;
+	int				len;
+	t_coor			coor;
+}					t_sprite;
 
 typedef struct		s_dot
 {
@@ -60,7 +80,7 @@ struct					s_win
 	char				*paramtxt;
 	char				*paramvaluetxt;
 
-	t_texture			asset_sprite;
+	t_sprite			asset_sprite;
 	t_texture			texture_sprite;
 	t_texture			asset_tmp;
 	t_texture			player_start;

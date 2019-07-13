@@ -153,13 +153,6 @@ typedef struct		s_reader
 // 	double			y;
 // }					t_dot;
 
-typedef struct		s_coor
-{
-	double			x;
-	double			y;
-	double			z;
-}					t_coor;
-
 typedef struct		s_sector
 {
 	int				wall_count;
@@ -352,19 +345,6 @@ typedef struct		s_calc_sprite
 	double			yscale1;
 	double			zoom;
 }					t_cal_sprt;
-
-typedef struct		s_sprite
-{
-	Uint32			*pix;
-	char			*name;
-	char			*type;
-	int				sy;
-	int				sx;
-	int				w;
-	int				h;
-	int				len;
-	t_coor			coor;
-}					t_sprite;
 
 typedef struct		s_map_sprite
 {

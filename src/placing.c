@@ -18,23 +18,23 @@ void		pick_asset(t_env *w, t_win *win)
 	if (win->asset > 8)
 		win->asset = 0;
 	if (win->asset == 0)
-		win->asset_sprite = w->m->fire;
+		win->asset_sprite = w->m->sprite[10];//plume player
 	if (win->asset == 1)
-		win->asset_sprite = w->m->fire;
+		win->asset_sprite = w->m->sprite[0];
 	if (win->asset == 2)
-		win->asset_sprite = w->m->fire;
+		win->asset_sprite = w->m->sprite[1];
 	if (win->asset == 3)
-		win->asset_sprite = w->m->fire;
+		win->asset_sprite = w->m->sprite[8];
 	if (win->asset == 4)
-		win->asset_sprite = w->m->fire;
+		win->asset_sprite = w->m->sprite[3];
 	if (win->asset == 5)
-		win->asset_sprite = w->m->fire;
+		win->asset_sprite = w->m->sprite[2];
 	if (win->asset == 6)
-		win->asset_sprite = w->m->fire;
+		win->asset_sprite = w->m->sprite[6];
 	if (win->asset == 7)
-		win->asset_sprite = w->m->fire;
+		win->asset_sprite = w->m->sprite[4];
 	if (win->asset == 8)
-		win->asset_sprite = w->m->fire;
+		win->asset_sprite = w->m->sprite[14];
 }
 
 void		placing(t_win *win)
@@ -132,22 +132,22 @@ void		asset_overing(t_env *w, t_win *win)
 				win->asset_tmp = w->m->fire;
 				set_params(w, win);
 			}
-			if (tmp->asset_type == 1)
-				win->asset_tmp = w->m->fire;
-			if (tmp->asset_type == 2)
-				win->asset_tmp = w->m->fire;
-			if (tmp->asset_type == 3)
-				win->asset_tmp = w->m->fire;
-			if (tmp->asset_type == 4)
-				win->asset_tmp = w->m->fire;
-			if (tmp->asset_type == 5)
-				win->asset_tmp = w->m->fire;
-			if (tmp->asset_type == 6)
-				win->asset_tmp = w->m->fire;
-			if (tmp->asset_type == 7)
-				win->asset_tmp = w->m->fire;
-			if (tmp->asset_type == 8)
-				win->asset_tmp = w->m->fire;
+			if (win->asset == 1)
+				win->asset_sprite = w->m->sprite[0];
+			if (win->asset == 2)
+				win->asset_sprite = w->m->sprite[1];
+			if (win->asset == 3)
+				win->asset_sprite = w->m->sprite[8];
+			if (win->asset == 4)
+				win->asset_sprite = w->m->sprite[5];
+			if (win->asset == 5)
+				win->asset_sprite = w->m->sprite[2];
+			if (win->asset == 6)
+				win->asset_sprite = w->m->sprite[6];
+			if (win->asset == 7)
+				win->asset_sprite = w->m->sprite[7];
+			if (win->asset == 8)
+				win->asset_sprite = w->m->sprite[14];
 
 			final_texture_to_screen(w, win->asset_tmp, tmp->x - 25, tmp->y - 75, 64, 64);
 		}
@@ -180,7 +180,7 @@ void		mode(t_env *w, t_win *win)
 	{
 		placing(win);
 		if (win->check_textures == 0)
-			final_texture_to_screen(w, win->asset_sprite, win->dst9.x - 10, win->dst9.y - 75, 96, 96);
+			final_sprite_to_screen(w, win->asset_sprite, win->dst9.x - 10, win->dst9.y - 75, 0, 96);
 		if (win->place == 1)
 		{
 			if (win->asset == 0)
