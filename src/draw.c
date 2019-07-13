@@ -264,7 +264,7 @@ void draw(t_env *w, t_map *m)
 					if (w->textured == 1 && w->texturing[m->sector[work.nosector].texturing[3]].trsp == 1)
 					{
 						skybox(x, w, &work, w->texturing[m->sector[work.nosector].texturing[5]]);
-						wall_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[3]]);
+						vertical_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[3]]);
 					}
 					else if (w->textured == 1)
 						vertical_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[3]]);
@@ -277,7 +277,7 @@ void draw(t_env *w, t_map *m)
 					if (w->textured == 1 && w->texturing[m->sector[work.nosector].texturing[4]].trsp == 1)
 					{
 						skybox(x, w, &work, w->texturing[m->sector[work.nosector].texturing[5]]);
-						wall_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[4]]);
+						extruded_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[4]]);
 					}
 					else if (w->textured == 1)
 						extruded_line_textured(x, w, &work, w->texturing[m->sector[work.nosector].texturing[4]]);
