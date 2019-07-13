@@ -6,7 +6,7 @@
 #    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/13 20:18:15 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/13 20:27:24 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,7 +120,6 @@ INCSDLMIX           =   $(LIBSDLMIX_ROOT)include/
 SDLMIXBIN           =   $(addprefix $(LIBSDLMIX_PATH),$(LIBSDLMIX))
 CURL_MIX            =   `curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.zip -o sdl_mix.zip`
 
-# PROGRESS BAR
 T = $(words $(OBJ))
 N = 0
 C = $(words $N)$(eval N := x $N)

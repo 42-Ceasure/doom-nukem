@@ -6,7 +6,7 @@
 #    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/19 18:35:47 by cglavieu          #+#    #+#              #
-#    Updated: 2019/07/13 20:18:15 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/13 20:27:18 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,7 +97,6 @@ OBJFILL = $(addprefix $(OBJDIR),$(OBJ))
 
 INC = ./inc/
 
-# PROGRESS BAR
 T = $(words $(OBJ))
 N = 0
 C = $(words $N)$(eval N := x $N)
