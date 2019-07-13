@@ -54,7 +54,8 @@ int			init_sdl(t_env *w)
 	}
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 		return (-1);
-	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED);
+	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED |
+		SDL_RENDERER_PRESENTVSYNC);
 	w->pix = (Uint32 *)malloc(sizeof(Uint32) * WIDTH * HEIGHT);
 	w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
 		SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
