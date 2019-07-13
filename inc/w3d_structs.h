@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   w3d_structs.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <abechet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:06:30 by abechet           #+#    #+#             */
-/*   Updated: 2019/05/22 17:02:40 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/13 21:28:54 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define W3D_STRUCTS_H
 
 typedef struct s_win	t_win;
-typedef struct s_mthrds	t_mthrds;
-typedef struct s_thrd	t_thrd;
 typedef struct s_render	t_render;
 
 typedef struct		s_coor
@@ -53,21 +51,8 @@ typedef struct		s_dot
 	double			y;
 }					t_dot;
 
-struct					s_thrd
-{
-	int					id;
-	t_win				*w;
-};
-
-struct					s_mthrds
-{
-	pthread_t			threads[NB_THREADS];
-	t_thrd				thrd[NB_THREADS];
-};
-
 struct					s_win
 {
-	t_mthrds			mthrds;
 	SDL_Window			*window;
 	SDL_Renderer		*renderer;
 	SDL_Texture			**texture;
