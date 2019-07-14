@@ -12,35 +12,47 @@ void	menu_screen(t_env *w)
 	t_dot	dot;
 
 	dot.x = WIDTH / 2 - 50;
-	dot.y = 120;
+	dot.y = 140;
 	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
 	if (w->menu.j == 1)
 	{
-		type_str(w, dot, "  NEW GAME\n\n", 0xFF78F7);
-		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n\nEXIT", 0x12FEA800);
+		type_str(w, dot, "  NEW GAME\n", 0xFF78F7);
+		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\nEXIT", 0x12FEA800);
 	}
 	else if (w->menu.j == 2)
 	{
-		type_str(w, dot, "NEW GAME\n\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n\n  SETTINGS\n\n", 0xFF78F7);
-		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n\nEXIT", 0x12FEA800);
+		type_str(w, dot, "NEW GAME\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\n  MAPS\n", 0xFF78F7);
+		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\nEXIT", 0x12FEA800);
 	}
 	else if (w->menu.j == 3)
 	{
-		type_str(w, dot, "NEW GAME\n\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n\n  EDITOR\n\n", 0xFF78F7);
-		type_str(w, w->txtnxtline, "\n\nEXIT", 0x12FEA800);
+		type_str(w, dot, "NEW GAME\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\n  SETTINGS\n", 0xFF78F7);
+		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\nEXIT", 0x12FEA800);
+	}
+	else if (w->menu.j == 4)
+	{
+		type_str(w, dot, "NEW GAME\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\n  EDITOR\n", 0xFF78F7);
+		type_str(w, w->txtnxtline, "\nEXIT", 0x12FEA800);
 	}
 	else
 	{
-		type_str(w, dot, "NEW GAME\n\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n\nSETTINGS\n\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n\nEDITOR\n\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n\n  EXIT", 0xFF78F7);
+		type_str(w, dot, "NEW GAME\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
+		type_str(w, w->txtnxtline, "\n  EXIT", 0xFF78F7);
 	}
 }
 
@@ -71,7 +83,6 @@ void	affichage_set(t_env *w)
 
 void	change_key(t_env *w)
 {
-	//printf("%d", w->menu.k);
 	if (w->menu.k == 0)
 		change_settings(w, w->m);
 	if (w->menu.k == 1)
@@ -103,7 +114,7 @@ void	settings(t_env *w)
 			if (w->event.type == SDL_KEYDOWN)
 			{
 				if (KEY == SDLK_ESCAPE)
-					w->menu.i = vmax(-1, w->menu.i - 1);
+					w->menu.i = vmax(-1, w->menu.i - 2);
 				if (KEY == SDLK_RETURN)
 					change_key(w);
 				if (KEY == SDLK_UP)
@@ -113,8 +124,41 @@ void	settings(t_env *w)
 			}
 		}
 		affichage_set(w);
+		if (w->menu.i != 3)
+			break;
+		img_update(w);
+	}
+}
+
+void	maps(t_env *w)
+{
+	t_dot	dot;
+	// int 	nbmaps;
+
+	dot.x = 10;
+	dot.y = 10;
+	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
+	type_str(w, dot, "MAPS :\n", 0xFFFFFFFF);
+	// nbmaps = get_maps(w);
+	while (1)
+	{
+		while (SDL_PollEvent(&w->event))
+		{
+			if (w->event.type == SDL_KEYDOWN)
+			{
+				if (KEY == SDLK_ESCAPE)
+					w->menu.i = vmax(-1, w->menu.i - 1);
+				if (KEY == SDLK_RETURN)
+					change_key(w);
+				if (KEY == SDLK_UP)
+					w->menu.k = vmax(0, w->menu.k - 1);
+				if (KEY == SDLK_DOWN)
+					w->menu.k = vmin(w->menu.k + 1, 3);
+			}
+		}
 		if (w->menu.i != 2)
 			break;
+		// attention bloqué dans boucle idem params
 		img_update(w);
 	}
 }
@@ -129,14 +173,16 @@ void	event_menu(t_env *w)
 				w->menu.i = vmax(-1, w->menu.i - 1);
 			if (KEY == SDLK_RETURN)
 			{
-				if (w->menu.j == 4)
+				if (w->menu.j == 5)
 					w->menu.i = -1;
-				else if (w->menu.j == 3)
+				else if (w->menu.j == 4)
 					w->menu.i = 4;
+				else if (w->menu.j == 3)
+					w->menu.i = 3;
 				else if (w->menu.j == 2)
 					w->menu.i = 2;
 				else if (w->menu.j == 1)
-					w->menu.i = 3;
+					w->menu.i = 5;
 				else
 				{
 					w->menu.j = 1;
@@ -146,7 +192,7 @@ void	event_menu(t_env *w)
 			if (KEY == SDLK_UP)
 				w->menu.j = vmax(1, w->menu.j - 1);
 			if (KEY == SDLK_DOWN)
-				w->menu.j = vmin(w->menu.j + 1, 4);
+				w->menu.j = vmin(w->menu.j + 1, 5);
 			if (KEY == SDLK_y)
 				fit_to_game(w);
 		}
@@ -213,11 +259,11 @@ void	launch(t_env *w, t_map *m)
 		if (w->menu.i < 2)
 			main_menu(w, m);
 		else if (w->menu.i == 2)
+			maps(w);
+		else if (w->menu.i == 3)
 			settings(w);
 		else if (w->menu.i == 4)
-		{
 			level_editor_start(w);
-		}
 		else
 		{
 			if (m->game_over == 1)
