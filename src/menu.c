@@ -137,13 +137,13 @@ void	maps(t_env *w)
 	int 	nbmaps;
 	char	**names;
 	int		i;
+	int		color;
 
 	i = 0;
 	w->menu.k = 0;
 	dot.x = 10;
 	dot.y = 10;
 	nbmaps = get_nb_maps_in_core(w);
-	// if 0?
 	names = (char **)malloc(sizeof(char *) * (nbmaps + 1));
 	get_names_maps_in_core(w, names);
 	names[nbmaps] = NULL;
@@ -155,13 +155,21 @@ void	maps(t_env *w)
 		type_str(w, dot, "MAPS :\n", 0xFFFFFFFF);
 		dot.x = WIDTH / 2 - 50;
 		dot.y = 140;
-		i = 1;
+		i = 0;
 		if (names[0] != NULL)
-			type_str(w, dot, names[0], 0x12FEA800);
-		while (names[i])
 		{
-			type_str(w, w->txtnxtline, names[i], 0x12FEA800);
-			i++;
+			while (names[i])
+			{
+				if (i == w->menu.k)
+					color = 0xFF78F7;
+				else
+					color = 0x12FEA800;
+				if (i == 0)
+					type_str(w, dot, names[i], color);
+				else
+					type_str(w, w->txtnxtline, names[i], color);
+				i++;
+			}
 		}
 		while (SDL_PollEvent(&w->event))
 		{
@@ -173,7 +181,7 @@ void	maps(t_env *w)
 				if (KEY == SDLK_UP)
 					w->menu.k = vmax(0, w->menu.k - 1);
 				if (KEY == SDLK_DOWN)
-					w->menu.k = vmin(w->menu.k + 1, 2);
+					w->menu.k = vmin(w->menu.k + 1, nbmaps - 1);
 			}
 		}
 		if (w->menu.i != 2)
