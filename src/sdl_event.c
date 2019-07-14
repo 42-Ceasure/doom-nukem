@@ -122,15 +122,15 @@ static void	sdl_event_mouse(t_env *w, t_win *win)
 {
 	int			x;
 	int			y;
-	int			sector;
-	int			close;
+	// int			sector;	/* unused */
+	// int			close;	/* unused */
 	t_lst		*tmp;
 	t_lstlst	*tmp2;
 
 	x = 0;
 	y = 0;
-	sector = 0;
-	close = 0;
+	// sector = 0;	/* unused */
+	// close = 0;	/* unused */
 	tmp = win->lst;
 	tmp2 = win->lstlst;
 

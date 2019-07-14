@@ -322,6 +322,7 @@ t_lstlst	*recursive_triangulate(t_win *win, t_lst *polygone, t_lstlst *triangles
 
 	tmp2 = NULL;
 	triangles = NULL;
+	(void)triangles;
 	n = len_list(polygone);
 	j0 = left_vertex(polygone);
 	j1 = near_vertex(n, j0, 1);

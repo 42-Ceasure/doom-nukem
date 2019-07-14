@@ -291,9 +291,9 @@ int			number_of_dot_per_line(t_win *win, int y)
 	int			i;
 	int			same;
 	int			index;
-	int			x;
+	// int			x;
 
-	x = 0;
+	// x = 0;
 	index = 0;
 	same = 0;
 	i = number_of_dot_per_line_with_same(win, y);
@@ -331,19 +331,19 @@ void		sort_points(t_win *win)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
-	int			x;
+	// int			x;	/* unused */
 	int			y;
-	int			same;
-	int			used;
+	// int			same;	/* unused */
+	// int			used;	/* unused */
 	int			i;
 	int			index;
 	int			*dot_tab;
 
-	x = WIN_X;
+	// x = WIN_X;	/* unused */
 	y = WIN_Y;
 	tmp = NULL;
-	same = 0;
-	used = 0;
+	// same = 0;	/* unused */
+	// used = 0;	/* unused */
 	index = 0;
 
 	y = y_min_point(win);
@@ -662,8 +662,8 @@ int		check_triangles_segment(t_win *win, int x1, int y1, int x2, int y2, int sec
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
-	int			headx;
-	int			heady;
+	// int			headx;	/* unused */
+	// int			heady;	/* unused */
 
 	tmp2 = win->triangles;
 	while (tmp2)
@@ -671,8 +671,9 @@ int		check_triangles_segment(t_win *win, int x1, int y1, int x2, int y2, int sec
 		tmp = tmp2->head;
 		if (tmp)
 		{
-			headx = tmp->x;
-			heady = tmp->y;
+			// headx = tmp->x;	/* unused */
+			// heady = tmp->y;	/* unused */
+			;
 		}
 		while (tmp)
 		{
@@ -700,19 +701,19 @@ void		sort_triangles_points(t_win *win)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
-	int			x;
+	// int			x;
 	int			y;
-	int			same;
-	int			used;
+	// int			same;
+	// int			used;
 	int			i;
 	int			index;
 	int			*dot_tab;
 
-	x = WIN_X;
+	// x = WIN_X;
 	y = WIN_Y;
 	tmp = NULL;
-	same = 0;
-	used = 0;
+	// same = 0;
+	// used = 0;
 	index = 0;
 
 	y = y_min_point(win);
@@ -820,13 +821,13 @@ void		write_sectors_neighbours(t_win *win, int fp, t_lstlst *tmp2)
 {
 	char		*str;
 	t_lst		*tmp;
-	int			*tab_sector;
+	// int			*tab_sector;
 	int			ret;
 	int			i;
 	int			len;
 
 	i = 0;
-	tab_sector = tab_sector3(win, tmp2->sector);
+	// tab_sector = tab_sector3(win, tmp2->sector);
 	ret = -1;
 	tmp = tmp2->head;
 	len = len_list(tmp);
@@ -856,10 +857,12 @@ void		write_sectors_neighbours(t_win *win, int fp, t_lstlst *tmp2)
 void		write_sectors_textures(t_win *win, int fp, t_lstlst *tmp2)
 {
 	char		*str;
-	t_lst		*tmp;
+	// t_lst		*tmp;
+	(void)tmp2;
+	(void)win;
 
-	if	(win->lstlst)
-		tmp = tmp2->head;
+	// if	(win->lstlst)
+	// 	tmp = tmp2->head;
 
 	str = ":";
 	ft_putstr_fd(str, fp);
@@ -1413,14 +1416,14 @@ void		write_in_file(t_win *win)
 {
 	int			fp;
 	const char	*name;
-	char		*buf;
-	int			index;
+	// char		*buf;
+	// int			index;
 	char		*str;
 
-	index = 0;
+	// index = 0;
 	name = "custom_map.dn3d";
 	fp = open(name, O_RDWR | O_CREAT | O_TRUNC, 0655);
-	buf = NULL;
+	// buf = NULL;
 
 	first_line2(win, fp);
 	write_dots(win, fp);
@@ -1783,11 +1786,11 @@ void		map_save(t_win *win)
 {
 	int			len;
 	int			z;
-	t_lst		*tmp;
+	// t_lst		*tmp;	/* unused */
 	t_lstlst	*tmp2;
 
 	z = -1;
-	tmp = NULL;
+	// tmp = NULL;	/* unused */
 	tmp2 = win->lstlst;
 
 	if (sector_minimum_needed_point(win) != 0)
@@ -1798,8 +1801,8 @@ void		map_save(t_win *win)
 
 	while (tmp2)
 	{
-		if (tmp2)
-			tmp = tmp2->head;
+		// if (tmp2)	/* unused */
+		// 	tmp = tmp2->head;	/* unused */
 		if (tmp2)
 		{
 			if (tmp2->closed)

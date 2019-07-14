@@ -172,17 +172,17 @@ void		same_line_dots(t_win *win, int y, int index)
 
 void	dots_in_tab(t_win *win)
 {
-	int			x;
+	// int			x;	/* unused */
 	int			y;
-	int			i;
+	// int			i;	/* unused */
 	int			j;
 	t_lst		*tmp;
 	t_lstlst	*tmp2;
 	int			boole;
 
-	x = 0;
+	// x = 0;	/* unused */
 	y = WIN_Y;
-	i = 0;
+	// i = 0;	/* unused */
 	j = 0;
 	tmp = NULL;
 	tmp2 = win->lstlst;
@@ -231,9 +231,9 @@ void	create_tab(t_win *win, int len_dots)
 	int		len_sectors;
 	int		len_assets;
 	int		i;
-	int		y;
+	// int		y;	/* unused */
 
-	y = 0;
+	// y = 0;	/* unused */
 	len_assets = len_listasset(win->lstasset);
 	len_sectors = len_listlist(win->lstlst);
 	i = len_assets + len_sectors + len_dots;
@@ -249,13 +249,13 @@ void		save_map(t_win *win)
 	int			len;
 	int			len_dots;
 	int			i;
-	int			j;
+	// int			j;	/* unused */
 	int			z;
 	t_lst		*tmp;
 	t_lstlst	*tmp2;
 
 	i = 0;
-	j = 0;
+	// j = 0;	/* unused */
 	z = -1;
 	len_dots = 0;
 	tmp = NULL;

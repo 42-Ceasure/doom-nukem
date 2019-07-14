@@ -69,9 +69,6 @@ static int	init_assets(t_env *w, t_win *win)
 
 	win->building_hud = w->m->hud;
 
-	t_dot dot;
-	dot.x = 250;
-	dot.y = 20;
 	//type_str(w->win, dot, "Drawing_mode", 0xFFFFFF);
 
 	// win->helptxt = TTF_RenderText_Blended(win->police,"Drawing Mode", 0xFFFFFF);

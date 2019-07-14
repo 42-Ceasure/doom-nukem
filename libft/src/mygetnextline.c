@@ -106,6 +106,7 @@ int			ft_read(char **str, int fd)
 	int					drop;
 
 	drop = 0;
+	i = 0;
 	if (!(buf = (char*)malloc(sizeof(char*) * (BUFF_SIZE + 1))))
 		return (-1);
 	while ((ft_strchr(*str, '\n')) == NULL)

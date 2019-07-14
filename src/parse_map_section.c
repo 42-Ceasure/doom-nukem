@@ -61,6 +61,8 @@ int			parse_sector_dots(t_map *m, char **dots)
 	int		mem[2];
 
 	i = 0;
+	mem[0] = 0;
+	mem[1] = 0;
 	while (i < m->sector[m->s].wall_count)
 	{
 		mem[0] = ft_atoi(dots[i]);

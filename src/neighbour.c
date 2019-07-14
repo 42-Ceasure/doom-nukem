@@ -16,8 +16,8 @@ int		ret_neighbour_sector(t_win *win, int x1, int y1, int x2, int y2, int sector
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
-	int			headx;
-	int			heady;
+	// int			headx;	/* unused */
+	// int			heady;	/* unused */
 
 	tmp2 = win->lstlst;
 	while (tmp2)
@@ -25,8 +25,9 @@ int		ret_neighbour_sector(t_win *win, int x1, int y1, int x2, int y2, int sector
 		tmp = tmp2->head;
 		if (tmp)
 		{
-			headx = tmp->x;
-			heady = tmp->y;
+			// headx = tmp->x;	/* unused */
+			// heady = tmp->y;	/* unused */
+			;
 		}
 		while (tmp)
 		{
@@ -52,8 +53,8 @@ int		check_segment(t_win *win, int x1, int y1, int x2, int y2, int sector)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
-	int			headx;
-	int			heady;
+	// int			headx;	/* unused */
+	// int			heady;	/* unused */
 
 	tmp2 = win->lstlst;
 	while (tmp2)
@@ -61,8 +62,8 @@ int		check_segment(t_win *win, int x1, int y1, int x2, int y2, int sector)
 		tmp = tmp2->head;
 		if (tmp)
 		{
-			headx = tmp->x;
-			heady = tmp->y;
+			// headx = tmp->x;	/* unused */
+			// heady = tmp->y;	/* unused */
 		}
 		while (tmp)
 		{
@@ -88,8 +89,8 @@ int		which_sector_neighbour(t_win *win, int x1, int y1, int x2, int y2, int sect
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
-	int			headx;
-	int			heady;
+	// int			headx;	/* unused */
+	// int			heady;	/* unused */
 
 	tmp2 = win->lstlst;
 	while (tmp2)
@@ -97,8 +98,9 @@ int		which_sector_neighbour(t_win *win, int x1, int y1, int x2, int y2, int sect
 		tmp = tmp2->head;
 		if (tmp)
 		{
-			headx = tmp->x;
-			heady = tmp->y;
+			// headx = tmp->x;	/* unused */
+			// heady = tmp->y;	/* unused */
+			;
 		}
 		while (tmp)
 		{

@@ -208,7 +208,7 @@ void			parse_settings_line(t_env *w, t_map *m, char *line)
 
 void			load_core(t_env *w, t_map *m)
 {
-	int			linesc;
+	// int			linesc;	/* unused */
 	int			buffer;
 	char		*path;
 	char		**tmp;
@@ -230,8 +230,8 @@ void			load_core(t_env *w, t_map *m)
 				free(m->line);
 				continue;
 			}
-			else if (ft_strncmp(m->line, "lines", 5) == 0)
-				linesc = ft_atoi(tmp[1]);
+			// else if (ft_strncmp(m->line, "lines", 5) == 0)	/* unused */
+			// 	linesc = ft_atoi(tmp[1]);	/* unused */
 			else if (ft_strncmp(m->line, "settings", 8) == 0)
 				parse_settings_line(w, m, tmp[1]);
 			else if (ft_strncmp(m->line, "alloc", 5) == 0)
@@ -253,6 +253,7 @@ void			load_core(t_env *w, t_map *m)
 			free(m->line);
 			w->i++;
 		}
+		// linesc++;	/* unused */
 		close(m->fd);
 		free(m->line);
 	}
