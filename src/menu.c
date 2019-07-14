@@ -133,15 +133,38 @@ void	settings(t_env *w)
 void	maps(t_env *w)
 {
 	t_dot	dot;
-	// int 	nbmaps;
+	int 	nbmaps;
+	char	**names;
+	int		i;
 
+	i = 0;
 	dot.x = 10;
 	dot.y = 10;
 	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
 	type_str(w, dot, "MAPS :\n", 0xFFFFFFFF);
-	// nbmaps = get_maps(w);
+	nbmaps = get_nb_maps_in_core(w);
+	// if 0?
+	// printf("NB MAPS = %d\n", nbmaps);
+	names = (char **)malloc(sizeof(char *) * (nbmaps + 1));
+	get_names_maps_in_core(w, names);
+	names[nbmaps] = NULL;
+	// while (names[i])
+	// {
+	// 	printf("map %d = %s\n", i, names[i]);
+	// 	i++;
+	// }
 	while (1)
 	{
+		dot.x = WIDTH / 2 - 50;
+		dot.y = 140;
+		i = 1;
+		if (names[0] != NULL)
+			type_str(w, dot, names[0], 0x12FEA800);
+		while (names[i])
+		{
+			type_str(w, w->txtnxtline, names[i], 0x12FEA800);
+			i++;
+		}
 		while (SDL_PollEvent(&w->event))
 		{
 			if (w->event.type == SDL_KEYDOWN)
@@ -157,8 +180,16 @@ void	maps(t_env *w)
 			}
 		}
 		if (w->menu.i != 2)
+		{
+			i = 0;
+			while (names[i])
+			{
+				free (names[i]);
+				i++;
+			}
+			free(names);
 			break;
-		// attention bloqué dans boucle idem params
+		}
 		img_update(w);
 	}
 }

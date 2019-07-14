@@ -750,5 +750,6 @@ void		test(t_win *win);
 //void		check2(t_win *win);
 int			init2(t_env *w, t_win *win);
 double		pointside2(t_dot m, double x0, double y0, double x1, double y1);
-
+int			get_nb_maps_in_core(t_env *w);
+int			get_names_maps_in_core(t_env *w, char **names);
 #endif
