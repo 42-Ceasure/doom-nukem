@@ -63,6 +63,8 @@ int			parse_map_in_core(t_env *w, t_map *m, char *name)
 		m->tab[i] = (double*)malloc(sizeof(double) * 3);
 		i++;
 	}
+	free(tmp);
+	free(pre);
 	return (0);
 }
 
@@ -70,10 +72,8 @@ int			get_nb_maps_in_core(t_env *w)
 {
 	char	**tmp;
 	char	*pre;
-	int		i;
 	int		nbmaps;
 
-	i = 0;
 	nbmaps = 0;
 	pre = ft_strdup("map\t\t\t");
 	if ((w->m->fd = open("core/core.dn3d", O_RDONLY)) != -1)
@@ -95,6 +95,7 @@ int			get_nb_maps_in_core(t_env *w)
 	}
 	else
 		set_error(w, w->m, 5, "core/core.dn3d");
+	free(pre);
 	return (nbmaps);
 }
 
@@ -102,10 +103,8 @@ int			get_names_maps_in_core(t_env *w, char **names)
 {
 	char	**tmp;
 	char	*pre;
-	int		i;
 	int		maps;
 
-	i = 0;
 	maps = 0;
 	pre = ft_strdup("map\t\t\t");
 	if ((w->m->fd = open("core/core.dn3d", O_RDONLY)) != -1)
@@ -130,5 +129,6 @@ int			get_names_maps_in_core(t_env *w, char **names)
 	}
 	else
 		set_error(w, w->m, 5, "core/core.dn3d");
+	free(pre);
 	return (0);
 }

@@ -138,23 +138,21 @@ void	maps(t_env *w)
 	int		i;
 
 	i = 0;
+	w->menu.k = 0;
 	dot.x = 10;
 	dot.y = 10;
-	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
-	type_str(w, dot, "MAPS :\n", 0xFFFFFFFF);
 	nbmaps = get_nb_maps_in_core(w);
 	// if 0?
-	// printf("NB MAPS = %d\n", nbmaps);
 	names = (char **)malloc(sizeof(char *) * (nbmaps + 1));
 	get_names_maps_in_core(w, names);
+	printf("nbmaps = %d\n", nbmaps);
 	names[nbmaps] = NULL;
-	// while (names[i])
-	// {
-	// 	printf("map %d = %s\n", i, names[i]);
-	// 	i++;
-	// }
 	while (1)
 	{
+		dot.x = 10;
+		dot.y = 10;
+		safe_texture_to_screen(w, w->main_pic[1], 0, 0);
+		type_str(w, dot, "MAPS :\n", 0xFFFFFFFF);
 		dot.x = WIDTH / 2 - 50;
 		dot.y = 140;
 		i = 1;
@@ -173,10 +171,10 @@ void	maps(t_env *w)
 					w->menu.i = vmax(-1, w->menu.i - 1);
 				// if (KEY == SDLK_RETURN)
 				// 	change_key(w);
-				// if (KEY == SDLK_UP)
-				// 	w->menu.k = vmax(0, w->menu.k - 1);
-				// if (KEY == SDLK_DOWN)
-				// 	w->menu.k = vmin(w->menu.k + 1, 3);
+				if (KEY == SDLK_UP)
+					w->menu.k = vmax(0, w->menu.k - 1);
+				if (KEY == SDLK_DOWN)
+					w->menu.k = vmin(w->menu.k + 1, nbmaps - 1);
 			}
 		}
 		if (w->menu.i != 2)
