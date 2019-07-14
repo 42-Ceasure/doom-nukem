@@ -86,7 +86,8 @@ SRC = ft_atoi.c\
 	ft_atof.c\
 	ft_memreg.c\
 	ft_uitoa_base.c\
-	ft_atoui_base.c
+	ft_atoui_base.c\
+	mygetnextline.c
 
 SRCDIR = ./src/
 SRCFILL = $(addprefix $(SRCDIR),$(SRC))

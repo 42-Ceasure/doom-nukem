@@ -72,26 +72,28 @@ int			get_nb_maps_in_core(t_env *w)
 {
 	char	**tmp;
 	char	*pre;
+	char	*line;
 	int		nbmaps;
+	int		fd;
 
 	nbmaps = 0;
 	pre = ft_strdup("map\t\t\t");
-	if ((w->m->fd = open("core/core.dn3d", O_RDONLY)) != -1)
+	if ((fd = open("core/core.dn3d", O_RDONLY)) != -1)
 	{
-		while (get_next_line(w->m->fd, &w->m->line))
+		while (mygetnextline(fd, &line))
 		{
-			tmp = ft_strsplit(w->m->line, ';');
+			tmp = ft_strsplit(line, ';');
 			if (ft_strcmp(tmp[0], pre) == 0)
 				nbmaps++;
 			ft_memreg(tmp);
-			if (ft_strcmp(w->m->line, "ENDMAPSECTION") == 0)
+			if (ft_strcmp(line, "ENDMAPSECTION") == 0)
 			{	
-				free(w->m->line);
+				free(line);
 				break;
 			}
-			free(w->m->line);
+			free(line);
 		}
-		close(w->m->fd);
+		close(fd);
 	}
 	else
 		set_error(w, w->m, 5, "core/core.dn3d");
@@ -103,29 +105,31 @@ int			get_names_maps_in_core(t_env *w, char **names)
 {
 	char	**tmp;
 	char	*pre;
+	char	*line;
 	int		maps;
+	int		fd;
 
 	maps = 0;
 	pre = ft_strdup("map\t\t\t");
-	if ((w->m->fd = open("core/core.dn3d", O_RDONLY)) != -1)
+	if ((fd = open("core/core.dn3d", O_RDONLY)) != -1)
 	{
-		while (get_next_line(w->m->fd, &w->m->line))
+		while (mygetnextline(fd, &line))
 		{
-			tmp = ft_strsplit(w->m->line, ';');
+			tmp = ft_strsplit(line, ';');
 			if (ft_strcmp(tmp[0], pre) == 0)
 			{
 				names[maps] = ft_strdup(tmp[1]);
 				maps++;
 			}
 			ft_memreg(tmp);
-			if (ft_strcmp(w->m->line, "ENDMAPSECTION") == 0)
+			if (ft_strcmp(line, "ENDMAPSECTION") == 0)
 			{	
-				free(w->m->line);
+				free(line);
 				break;
 			}
-			free(w->m->line);
+			free(line);
 		}
-		close(w->m->fd);
+		close(fd);
 	}
 	else
 		set_error(w, w->m, 5, "core/core.dn3d");

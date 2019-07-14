@@ -105,7 +105,6 @@ int		do_parse(t_env *w, t_map *m)
 	m->s = 0;
 	m->w = 0;
 	m->section_number = 0;
-	process_hint_w(w, 6, "map file");
 	if ((m->fd = open(m->map_path, O_RDONLY)) == -1)
 		return (-1);
 	process_hint_w(w, 0, " ");

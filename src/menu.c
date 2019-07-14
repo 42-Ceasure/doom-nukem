@@ -125,7 +125,8 @@ void	settings(t_env *w)
 		}
 		affichage_set(w);
 		if (w->menu.i != 3)
-			break;
+			{printf("menu i = %d\n", w->menu.i);
+			break;}
 		img_update(w);
 	}
 }
@@ -145,7 +146,6 @@ void	maps(t_env *w)
 	// if 0?
 	names = (char **)malloc(sizeof(char *) * (nbmaps + 1));
 	get_names_maps_in_core(w, names);
-	printf("nbmaps = %d\n", nbmaps);
 	names[nbmaps] = NULL;
 	while (1)
 	{
@@ -170,11 +170,10 @@ void	maps(t_env *w)
 				if (KEY == SDLK_ESCAPE)
 					w->menu.i = vmax(-1, w->menu.i - 1);
 				// if (KEY == SDLK_RETURN)
-				// 	change_key(w);
 				if (KEY == SDLK_UP)
 					w->menu.k = vmax(0, w->menu.k - 1);
 				if (KEY == SDLK_DOWN)
-					w->menu.k = vmin(w->menu.k + 1, nbmaps - 1);
+					w->menu.k = vmin(w->menu.k + 1, 2);
 			}
 		}
 		if (w->menu.i != 2)
@@ -185,9 +184,7 @@ void	maps(t_env *w)
 				free(names[i]);
 				i++;
 			}
-			// leaks?
 			free(names);
-			// printf("yo\n");
 			break;
 		}
 		// si croix pas de fermeture
