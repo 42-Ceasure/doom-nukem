@@ -78,7 +78,7 @@ int			get_nb_maps_in_core(t_env *w)
 	pre = ft_strdup("map\t\t\t");
 	if ((w->m->fd = open("core/core.dn3d", O_RDONLY)) != -1)
 	{
-		while (w->stopread == 0 && get_next_line(w->m->fd, &w->m->line))
+		while (get_next_line(w->m->fd, &w->m->line))
 		{
 			tmp = ft_strsplit(w->m->line, ';');
 			if (ft_strcmp(tmp[0], pre) == 0)
@@ -110,7 +110,7 @@ int			get_names_maps_in_core(t_env *w, char **names)
 	pre = ft_strdup("map\t\t\t");
 	if ((w->m->fd = open("core/core.dn3d", O_RDONLY)) != -1)
 	{
-		while (w->stopread == 0 && get_next_line(w->m->fd, &w->m->line))
+		while (get_next_line(w->m->fd, &w->m->line))
 		{
 			tmp = ft_strsplit(w->m->line, ';');
 			if (ft_strcmp(tmp[0], pre) == 0)

@@ -171,12 +171,12 @@ void	maps(t_env *w)
 			{
 				if (KEY == SDLK_ESCAPE)
 					w->menu.i = vmax(-1, w->menu.i - 1);
-				if (KEY == SDLK_RETURN)
-					change_key(w);
-				if (KEY == SDLK_UP)
-					w->menu.k = vmax(0, w->menu.k - 1);
-				if (KEY == SDLK_DOWN)
-					w->menu.k = vmin(w->menu.k + 1, 3);
+				// if (KEY == SDLK_RETURN)
+				// 	change_key(w);
+				// if (KEY == SDLK_UP)
+				// 	w->menu.k = vmax(0, w->menu.k - 1);
+				// if (KEY == SDLK_DOWN)
+				// 	w->menu.k = vmin(w->menu.k + 1, 3);
 			}
 		}
 		if (w->menu.i != 2)
@@ -184,12 +184,15 @@ void	maps(t_env *w)
 			i = 0;
 			while (names[i])
 			{
-				free (names[i]);
+				free(names[i]);
 				i++;
 			}
+			// leaks?
 			free(names);
+			// printf("yo\n");
 			break;
 		}
+		// si croix pas de fermeture
 		img_update(w);
 	}
 }
