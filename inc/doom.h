@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/13 22:02:12 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/14 15:05:12 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -612,9 +612,11 @@ void				motion_events(t_env *w, t_map *m);
 void				move_player(double dx, double dy, t_map *m);
 void				get_height(t_map *m);
 void				is_falling(t_map *m);
+void				is_fall(t_map *m, int x);
 void				slow_down(t_env *w, t_map *m);
 void				is_moving(t_map *m);
 void				move_all_ennemy(t_map *m);
+void				walk_up_stairs(t_map *m, t_intersect i, int x, int s);
 void				main_menu(t_env *w, t_map *m);
 t_texture			load_img(t_env *w, t_map *m, char *s);
 void				initsprite(t_sprite **sprite, int count);

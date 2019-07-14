@@ -177,9 +177,9 @@ int			is_next_to_a_dot(t_map *m)
 
 void move_player(double dx, double dy, t_map *m)
 {
-	int s;
-	t_intersect i;
-	t_coor coor;
+	int			s;
+	t_intersect	i;
+	t_coor		coor;
 	
 
 	i.x1 = m->player.coor.x;
@@ -195,8 +195,7 @@ void move_player(double dx, double dy, t_map *m)
 		i.y4 = m->sector[m->player.sector].dot[s + 1].y;
 		coor.x = i.x2;
 		coor.y = i.y2;
-		if(m->sector[m->player.sector].network[s] >= 0  
-		&& intersectbox(i) 
+		if(m->sector[m->player.sector].network[s] >= 0 && intersectbox(i) 
 		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
 		{
 			m->player.sector = m->sector[m->player.sector].network[s];
@@ -206,7 +205,7 @@ void move_player(double dx, double dy, t_map *m)
 			// 	dx = 0;
 			// 	dy = 0;
 			// }
-			break;
+			break ;
 		}
 		s++;
 	}
@@ -218,8 +217,8 @@ void move_player(double dx, double dy, t_map *m)
 
 void		is_moving(t_map *m)
 {
-	int s;
-	t_intersect i;
+	int			s;
+	t_intersect	i;
 	t_coor		coor;
 
 	s = 0;
@@ -239,8 +238,7 @@ void		is_moving(t_map *m)
 		i.y3 = m->sector[m->player.sector].dot[s].y;
 		i.x4 = m->sector[m->player.sector].dot[s + 1].x;
 		i.y4 = m->sector[m->player.sector].dot[s + 1].y;
-		if(intersectbox(i) 
-		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
+		if (intersectbox(i) && pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
 		{
 			m->player.hole_low = 9e9;
 			m->player.hole_high = -9e9;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   placing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 14:48:05 by abechet           #+#    #+#             */
-/*   Updated: 2019/06/20 14:48:15 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/14 15:03:23 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void		pick_asset(t_env *w, t_win *win)
 	if (win->asset == 3)
 		win->asset_sprite = w->m->sprite[8];
 	if (win->asset == 4)
-		win->asset_sprite = w->m->sprite[3];
+		win->asset_sprite = w->m->sprite[5];
 	if (win->asset == 5)
 		win->asset_sprite = w->m->sprite[2];
 	if (win->asset == 6)
-		win->asset_sprite = w->m->sprite[6];
+		win->asset_sprite = w->m->sprite[3];
 	if (win->asset == 7)
 		win->asset_sprite = w->m->sprite[4];
 	if (win->asset == 8)
@@ -139,11 +139,11 @@ void		asset_overing(t_env *w, t_win *win)
 			if (win->asset == 3)
 				win->asset_sprite = w->m->sprite[8];
 			if (win->asset == 4)
-				win->asset_sprite = w->m->sprite[5];
+				win->asset_sprite = w->m->sprite[3];
 			if (win->asset == 5)
 				win->asset_sprite = w->m->sprite[2];
 			if (win->asset == 6)
-				win->asset_sprite = w->m->sprite[6];
+				win->asset_sprite = w->m->sprite[5];
 			if (win->asset == 7)
 				win->asset_sprite = w->m->sprite[7];
 			if (win->asset == 8)

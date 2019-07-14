@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <abechet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:44:25 by abechet           #+#    #+#             */
-/*   Updated: 2019/05/22 18:13:13 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/14 15:01:38 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	init_assets(t_env *w, t_win *win)
 {
 	win->map_ui = w->m->fire;
 
-	win->asset_sprite = w->m->sprite[0];
+	win->asset_sprite = w->m->sprite[10];
 	win->asset_tmp = w->m->fire;
 	win->player_start = w->m->fire;
 

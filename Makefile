@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
+#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/13 20:34:12 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/14 15:04:06 by ochaar           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,8 @@ SRCFIL				=	main.c \
 						free.c \
 						texture_mode.c \
 						params.c \
-						set_and_reset.c
+						set_and_reset.c \
+						fall_and_stair.c
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
 OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))
