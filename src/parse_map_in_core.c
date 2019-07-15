@@ -13,7 +13,7 @@ int		get_that_map_parsed(t_env *w, t_map *m)
 	m->weap[0].actu_ammo = m->weap[0].magazine;
 	m->weap[1].actu_ammo = m->weap[1].magazine;
 	m->weap[2].actu_ammo = m->weap[2].magazine;
-	while (w->stopread == 0 && get_next_line(m->fd, &m->line))
+	while (get_next_line_until(m->fd, &m->line, w->stopread) && w->stopread == 0)
 	{
 		if ((parse_line(w, m)) == -1)
 		{
@@ -22,6 +22,7 @@ int		get_that_map_parsed(t_env *w, t_map *m)
 		}
 		free(m->line);
 	}
+	free(m->line);
 	process_hint_w(w, 0, " ");
 	// free(m->line);
 	return (0);
@@ -34,11 +35,12 @@ int			parse_map_in_core(t_env *w, t_map *m, char *name)
 	int		i;
 
 	i = 0;
+	w->stopread = 0;
 	pre = ft_strdup("map\t\t\t;");
 	tmp = ft_strjoin(pre, name);
 	if ((m->fd = open("core/core.dn3d", O_RDONLY)) != -1)
 	{
-		while (w->stopread == 0 && get_next_line(m->fd, &m->line))
+		while (get_next_line_until(m->fd, &m->line, w->stopread) && w->stopread == 0)
 		{
 			if (ft_strcmp(m->line, tmp) == 0)
 				get_that_map_parsed(w, m);
@@ -46,11 +48,13 @@ int			parse_map_in_core(t_env *w, t_map *m, char *name)
 			{	
 				w->menu.i = 1;
 				free(m->line);
-				return (-1);
+				w->stopread = 1;
+				continue;
 			}
 			else
 				free(m->line);
 		}
+		free(m->line);
 		close(m->fd);
 	}
 	else
@@ -67,19 +71,22 @@ int			get_nb_maps_in_core(t_env *w)
 	int		fd;
 
 	nbmaps = 0;
+	w->stopread = 0;
 	if ((fd = open("core/core.dn3d", O_RDONLY)) != -1)
 	{
-		while (get_next_line(fd, &line))
+		while (get_next_line_until(fd, &line, w->stopread) && w->stopread == 0)
 		{
 			if (ft_strncmp(line, "map\t\t\t", 6) == 0)
 				nbmaps++;
 			if (ft_strncmp(line, "ENDMAPSECTION", 13) == 0)
 			{	
 				free(line);
-				break;
+				w->stopread = 1;
+				continue;
 			}
 			free(line);
 		}
+		free(line);
 		close(fd);
 	}
 	else
@@ -96,10 +103,11 @@ int			get_names_maps_in_core(t_env *w, char **names)
 	int		fd;
 
 	maps = 0;
+	w->stopread = 0;
 	pre = ft_strdup("map\t\t\t");
 	if ((fd = open("core/core.dn3d", O_RDONLY)) != -1)
 	{
-		while (get_next_line(fd, &line))
+		while (get_next_line_until(fd, &line, w->stopread) && w->stopread == 0)
 		{
 			tmp = ft_strsplit(line, ';');
 			if (ft_strcmp(tmp[0], pre) == 0)
@@ -111,10 +119,12 @@ int			get_names_maps_in_core(t_env *w, char **names)
 			if (ft_strcmp(line, "ENDMAPSECTION") == 0)
 			{	
 				free(line);
-				break;
+				w->stopread = 1;
+				continue;
 			}
 			free(line);
 		}
+		free(line);
 		close(fd);
 	}
 	else
