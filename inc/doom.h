@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/15 14:16:41 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/15 18:19:45 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -761,4 +761,6 @@ int			init2(t_env *w, t_win *win);
 double		pointside2(t_dot m, double x0, double y0, double x1, double y1);
 int			get_nb_maps_in_core(t_env *w);
 int			get_names_maps_in_core(t_env *w, char **names);
+void			init_sprite_tab(t_map *m);
+void		ft_free_tab(t_map *m);
 #endif
