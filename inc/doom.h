@@ -396,6 +396,7 @@ typedef struct		s_map
 	int				s;
 	int				w;
 	int				fd;
+	int				fd2;
 	int				asc;
 	int				section_number;
 	int				dots_count;
@@ -524,6 +525,9 @@ typedef struct		s_env
 	int				textured;
 	t_texture		*texturing;
 	int				texturingno;
+	int				nbmaps;
+	char			**namesmaps;
+	char			*currmap;
 }					t_env;
 
 

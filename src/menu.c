@@ -134,8 +134,6 @@ void	settings(t_env *w)
 void	maps(t_env *w)
 {
 	t_dot	dot;
-	int 	nbmaps;
-	char	**names;
 	int		i;
 	int		color;
 
@@ -143,10 +141,10 @@ void	maps(t_env *w)
 	w->menu.k = 0;
 	dot.x = 10;
 	dot.y = 10;
-	nbmaps = get_nb_maps_in_core(w);
-	names = (char **)malloc(sizeof(char *) * (nbmaps + 1));
-	get_names_maps_in_core(w, names);
-	names[nbmaps] = NULL;
+	w->nbmaps = get_nb_maps_in_core(w);
+	w->namesmaps = (char **)malloc(sizeof(char *) * (w->nbmaps + 1));
+	get_names_maps_in_core(w, w->namesmaps);
+	w->namesmaps[w->nbmaps] = NULL;
 	while (1)
 	{
 		dot.x = 10;
@@ -156,18 +154,18 @@ void	maps(t_env *w)
 		dot.x = WIDTH / 2 - 50;
 		dot.y = 140;
 		i = 0;
-		if (names[0] != NULL)
+		if (w->namesmaps[0] != NULL)
 		{
-			while (names[i])
+			while (w->namesmaps[i])
 			{
 				if (i == w->menu.k)
 					color = 0xFF78F7;
 				else
 					color = 0x12FEA800;
 				if (i == 0)
-					type_str(w, dot, names[i], color);
+					type_str(w, dot, w->namesmaps[i], color);
 				else
-					type_str(w, w->txtnxtline, names[i], color);
+					type_str(w, w->txtnxtline, w->namesmaps[i], color);
 				i++;
 			}
 		}
@@ -178,21 +176,22 @@ void	maps(t_env *w)
 				if (KEY == SDLK_ESCAPE)
 					w->menu.i = vmax(-1, w->menu.i - 1);
 				// if (KEY == SDLK_RETURN)
+				// 	w->menu.i = change_map(w, m);
 				if (KEY == SDLK_UP)
 					w->menu.k = vmax(0, w->menu.k - 1);
 				if (KEY == SDLK_DOWN)
-					w->menu.k = vmin(w->menu.k + 1, nbmaps - 1);
+					w->menu.k = vmin(w->menu.k + 1, w->nbmaps - 1);
 			}
 		}
 		if (w->menu.i != 2)
 		{
 			i = 0;
-			while (names[i])
+			while (w->namesmaps[i])
 			{
-				free(names[i]);
+				free(w->namesmaps[i]);
 				i++;
 			}
-			free(names);
+			free(w->namesmaps);
 			break;
 		}
 		// si croix pas de fermeture

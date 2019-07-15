@@ -20,21 +20,6 @@
 # include <string.h>
 
 # define BUFF_SIZE 9000
-# define EOL '\n'
-
-typedef struct		s_liste
-{
-	int				fd;
-	char			*buftemp;
-	struct s_liste	*next;
-}					t_liste;
-
-typedef struct		s_list
-{
-	void			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}					t_list;
 
 size_t				ft_strlen(char const *s);
 size_t				ft_strlcat(char *dst, char const *src, size_t size);
@@ -104,6 +89,5 @@ void				ft_memreg(char **s);
 void				ft_memreg3(char ***s);
 unsigned int		ft_atoui_base(const char *str, int base);
 char				*ft_uitoa_base(unsigned int n, int base);
-int			        mygetnextline(const int fd, char **line);
 
 #endif

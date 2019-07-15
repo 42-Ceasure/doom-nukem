@@ -4,6 +4,8 @@
 
 void			set_w(t_env *w, int ac)
 {
+	w->currmap = ft_strdup("hsh");
+	w->nbmaps = 0;
 	w->editor_res.width = WIN_X;
 	w->editor_res.height = WIN_Y;
 	w->light_nb = (char *)malloc(sizeof(char) * 12);
@@ -66,6 +68,7 @@ void			set_m(t_map *m)
 	m->s = 0;
 	m->w = 0;
 	m->fd = 0;
+	m->fd2 = 0;
 	m->section_number = 0;
 	m->dots_count = 0;
 	m->sector_count = 0;
