@@ -12,27 +12,8 @@
 
 #include "doom.h"
 
-static void	init_dst(t_win *win)
+static void	init_helper(t_win *win)
 {
-	win->helptxt = NULL;
-	win->dst.x = 250;
-	win->dst.y = 20;
-	win->dst2.x = 0;
-	win->dst2.y = 0;
-	//win->dst2.w = WIN_X;
-	//win->dst2.h = WIN_Y;
-	win->dst3.x = (WIN_X / 2 - 370 / 8);
-	win->dst3.y = (WIN_Y - 305);
-	win->dst4.x = 0;
-	win->dst4.y = 0;
-	win->dst5.x = 500;
-	win->dst5.y = 655;
-	win->dst6.x = WIN_X - 90;
-	win->dst6.y = WIN_Y - 50;
-	win->dst7.x = WIN_X - 70;
-	win->dst7.y = WIN_Y - 50;
-	win->dst8.x = WIN_X - 60;
-	win->dst8.y = WIN_Y - 45;
 	win->dst9.x = 0;
 	win->dst9.y = 0;
 	win->dst10.x = 300;
@@ -49,6 +30,55 @@ static void	init_dst(t_win *win)
 	win->w_win_tmp = 0;
 	win->w_win = WIN_X;
 	win->h_win = WIN_Y;
+}
+
+
+static void	init_dst(t_win *win)
+{
+	win->helptxt = NULL;
+	win->dst.x = 250;
+	win->dst.y = 20;
+	win->dst2.x = 0;
+	win->dst2.y = 0;
+	win->dst3.x = (WIN_X / 2 - 370 / 8);
+	win->dst3.y = (WIN_Y - 305);
+	win->dst4.x = 0;
+	win->dst4.y = 0;
+	win->dst5.x = 500;
+	win->dst5.y = 655;
+	win->dst6.x = WIN_X - 90;
+	win->dst6.y = WIN_Y - 50;
+	win->dst7.x = WIN_X - 70;
+	win->dst7.y = WIN_Y - 50;
+	win->dst8.x = WIN_X - 60;
+	win->dst8.y = WIN_Y - 45;
+	init_helper(win);
+}
+
+static void	init_struct_helper(t_win *win)
+{
+	win->asset = 0;
+	win->drawtriangles = 0;
+	win->place = 0;
+	win->tab = NULL;
+	win->changemode = 0;
+	win->number = 0;
+	win->index_dot = 0;
+	win->same_dots = 0;
+	win->tab_index = 0;
+	win->tab_malloced = 0;
+	win->triangle_sector = 0;
+	win->check_textures = 0;
+	win->texture_choice = 0;
+	win->put_texture = 0;
+	win->texture_overed_sector = -1;
+	win->texture_index = 0;
+	win->blackbox_x = 253;
+	win->txtr_input_type = 0;
+	win->param_index = 0;
+	win->hp_value = 100;
+	win->gravity_value = 1;
+	win->music_value = 1;
 }
 
 static int	init_assets(t_env *w, t_win *win)
@@ -96,7 +126,6 @@ static int	init_struct(t_win *win)
 	win->delta_clock = 0;
 	win->current_fps = 0;
 	win->start_clock = SDL_GetTicks();
-
 	win->drawing = 0;
 	win->sector = 0;
 	win->link = 0;
@@ -113,29 +142,7 @@ static int	init_struct(t_win *win)
 	win->overed_sector = -1;
 	win->triangles = NULL;
 	win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
-	win->asset = 0;
-	win->drawtriangles = 0;
-	win->place = 0;
-	win->tab = NULL;
-	win->changemode = 0;
-	win->number = 0;
-	win->index_dot = 0;
-	win->same_dots = 0;
-	win->tab_index = 0;
-	win->tab_malloced = 0;
-	win->triangle_sector = 0;
-	win->check_textures = 0;
-	win->texture_choice = 0;
-	win->put_texture = 0;
-	win->texture_overed_sector = -1;
-	win->texture_index = 0;
-	win->blackbox_x = 253;
-	win->txtr_input_type = 0;
-	win->param_index = 0;
-	win->hp_value = 100;
-	win->gravity_value = 1;
-	win->music_value = 1;
-
+	init_struct_helper(win);
 	return (0);
 }
 

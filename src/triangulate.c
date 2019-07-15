@@ -49,30 +49,6 @@ int		intersectbox2(t_dot p1, t_dot p2, t_dot p3, t_dot p4)
 		return (0);
 }
 
-/*t_coor intersect(t_intersect i)
-{
-	t_coor coor;
-	double tmp1;
-	double tmp2;
-	double tmp3;
-	double tmp4;
-
-	tmp1 = v_c_p(i.x1, i.y1, i.x2, i.y2);
-	tmp2 = i.x1 - i.x2;
-	tmp3 = v_c_p(i.x3, i.y3, i.x4, i.y4);
-	tmp4 = i.x3 - i.x4;
-	coor.z = v_c_p(tmp1, tmp2, tmp3, tmp4);
-	coor.x = (coor.z / v_c_p(i.x1 - i.x2, i.y1 - i.y2, i.x3 - i.x4, i.y3 - i.y4));
-	tmp1 = v_c_p(i.x1, i.y1, i.x2, i.y2);
-	tmp2 = i.y1 - i.y2;
-	tmp3 = v_c_p(i.x3, i.y3, i.x4, i.y4);
-	tmp4 = i.y3 - i.y4;
-	coor.z = v_c_p(tmp1, tmp2, tmp3, tmp4);
-	coor.y = (coor.z / v_c_p(i.x1 - i.x2, i.y1 - i.y2, i.x3 - i.x4, i.y3 - i.y4));
-	coor.z = 0;
-	return (coor);
-}*/
-
 int		near_vertex(int n, int i, int di)
 {
 	if (n != 0)

@@ -12,15 +12,6 @@
 
 #include "doom.h"
 
-// void	put_pixel_to_surface(SDL_Surface *srfc, int x, int y, Uint32 color)
-// {
-// 	Uint32		*pixels;
-
-// 	pixels = srfc->pixels;
-// 	if (x >= 0 && y >= 0 && x < srfc->w && y < srfc->h)
-// 		pixels[y * srfc->w + x] = color;
-// }
-
 void	draw_grid(t_env *w, t_win *win)
 {
 	int		i;
@@ -30,7 +21,6 @@ void	draw_grid(t_env *w, t_win *win)
 	int		color;
 
 	(void)win;
-
 	i = 0;
 	j = 0;
 	x = 0;

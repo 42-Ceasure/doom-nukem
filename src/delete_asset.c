@@ -45,7 +45,7 @@ void	delete_asset(t_win *win)
 				}
 			}
 			if (j == 0)
-					win->lstasset = NULL;
+				win->lstasset = NULL;
 			if (previous)
 				previous->next = next;
 			free(current);

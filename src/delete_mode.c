@@ -31,7 +31,6 @@ void	overing(t_win *win)
 			}
 			tmp2 = tmp2->next;
 		}
-		//printf("%d \n", win->overed_sector);
 	}
 }
 
