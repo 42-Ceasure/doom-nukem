@@ -86,6 +86,7 @@ int			parse_map_in_core(t_env *w, t_map *m, char *name)
 	}
 	else
 		set_error(w, m, 5, "core/core.dn3d");
+	m->launchwmap = 1;
 	free(tmp);
 	free(pre);
 	return (0);

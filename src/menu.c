@@ -10,13 +10,24 @@ void	hello_screen(t_env *w)
 void	menu_screen(t_env *w)
 {
 	t_dot	dot;
+	char	*start;
 
+	if (w->m->launchwmap == 0)
+		if (w->menu.j == 1)
+			start = ft_strdup("  NEW GAME\n");
+		else
+			start = ft_strdup("NEW GAME\n");
+	else
+		if (w->menu.j == 1)
+			start = ft_strdup("  CONTINUE\n");
+		else
+			start = ft_strdup("CONTINUE\n");
 	dot.x = WIDTH / 2 - 50;
 	dot.y = 140;
 	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
 	if (w->menu.j == 1)
 	{
-		type_str(w, dot, "  NEW GAME\n", 0xFF78F7);
+		type_str(w, dot, start, 0xFF78F7);
 		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
@@ -24,7 +35,7 @@ void	menu_screen(t_env *w)
 	}
 	else if (w->menu.j == 2)
 	{
-		type_str(w, dot, "NEW GAME\n", 0x12FEA800);
+		type_str(w, dot, start, 0x12FEA800);
 		type_str(w, w->txtnxtline, "\n  MAPS\n", 0xFF78F7);
 		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
@@ -32,7 +43,7 @@ void	menu_screen(t_env *w)
 	}
 	else if (w->menu.j == 3)
 	{
-		type_str(w, dot, "NEW GAME\n", 0x12FEA800);
+		type_str(w, dot, start, 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\n  SETTINGS\n", 0xFF78F7);
 		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
@@ -40,7 +51,7 @@ void	menu_screen(t_env *w)
 	}
 	else if (w->menu.j == 4)
 	{
-		type_str(w, dot, "NEW GAME\n", 0x12FEA800);
+		type_str(w, dot, start, 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\n  EDITOR\n", 0xFF78F7);
@@ -48,12 +59,13 @@ void	menu_screen(t_env *w)
 	}
 	else
 	{
-		type_str(w, dot, "NEW GAME\n", 0x12FEA800);
+		type_str(w, dot, start, 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\n  EXIT", 0xFF78F7);
 	}
+	free(start);
 }
 
 
@@ -125,8 +137,7 @@ void	settings(t_env *w)
 		}
 		affichage_set(w);
 		if (w->menu.i != 3)
-			{printf("menu i = %d\n", w->menu.i);
-			break;}
+			break;
 		img_update(w);
 	}
 }
@@ -212,7 +223,10 @@ void	event_menu(t_env *w)
 		if (w->event.type == SDL_KEYDOWN)
 		{
 			if (KEY == SDLK_ESCAPE)
+			{
 				w->menu.i = vmax(-1, w->menu.i - 1);
+				w->m->launchwmap = 0;
+			}
 			if (KEY == SDLK_RETURN)
 			{
 				if (w->menu.j == 5)
@@ -312,14 +326,13 @@ void	launch(t_env *w, t_map *m)
 				loose(w, m);
 			else
 			{
-				// on arrete de reparser si meme map *(continue);
 				if (m->launchwmap == 0)
 				{
 					if (parse_map_in_core(w, m, w->currmap) != 0)
 						continue;
 				}
-				else
-					parse_map_file(w, m);
+				// else
+				// 	parse_map_file(w, m);
 				run(w, m);
 			}
 		}

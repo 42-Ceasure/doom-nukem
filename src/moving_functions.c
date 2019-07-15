@@ -50,7 +50,7 @@ void		is_falling(t_map *m)
 
 	if (m->player.fall == 1)
 	{
-		printf("%f\n", m->player.move_speed.z);
+		// printf("%f\n", m->player.move_speed.z);
 		m->player.move_speed.z = m->player.move_speed.z - m->gravity;
 		nxtz = m->player.coor.z + m->player.move_speed.z;
 		if (m->player.move_speed.z < 0 && nxtz < m->sector[m->player.sector].floor + m->player.height)
@@ -106,8 +106,8 @@ int			is_on_a_map_dot(t_map *m, int sector)
 	i.mem = 0;
 	i.x1 = m->player.coor.x;
 	i.y1 = m->player.coor.y;
-	i.x2 = m->player.coor.x + (m->player.move_speed.x * 2);
-	i.y2 = m->player.coor.y + (m->player.move_speed.y * 2);
+	i.x2 = m->player.coor.x + (m->player.move_speed.x * 5);
+	i.y2 = m->player.coor.y + (m->player.move_speed.y * 5);
 	//printf("%f,%f\n", (m->player.move_speed.x * 12), (m->player.move_speed.y * 12));
 	while (i.mem < m->sector[sector].wall_count)
 	{
