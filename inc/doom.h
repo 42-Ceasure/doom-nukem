@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/14 15:05:12 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/15 14:16:41 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,6 +344,7 @@ typedef struct		s_calc_sprite
 	double			y1a;
 	double			yscale1;
 	double			zoom;
+	int				ratio;
 }					t_cal_sprt;
 
 typedef struct		s_map_sprite
@@ -694,7 +695,9 @@ void				ceiling_line_textured(int x, t_env *w, t_work *work, t_texture text);
 void				extruded_line_textured(int x, t_env *w, t_work *work, t_texture text);
 void				wall_line_textured(int x, t_env *w, t_work *work, t_texture text);
 void				ft_free_weap(t_map *m);
+void				ft_free_sprite(t_map *m);
 void				ft_free_sprt(t_map *m);
+void				ft_free_sector(t_map *m);
 int					get_that_map_parsed(t_env *w, t_map *m);
 int					parse_map_in_core(t_env *w, t_map *m, char *name);
 int					parse_line(t_env *w, t_map *m);

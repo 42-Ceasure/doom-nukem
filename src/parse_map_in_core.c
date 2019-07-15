@@ -55,14 +55,6 @@ int			parse_map_in_core(t_env *w, t_map *m, char *name)
 	}
 	else
 		set_error(w, m, 5, "core/core.dn3d");
-	m->tab = (double**)malloc(sizeof(double*) * (m->sprite_map_count
-		+ m->ennemy_count));
-	i = 0;
-	while (i < m->sprite_map_count + m->ennemy_count)
-	{
-		m->tab[i] = (double*)malloc(sizeof(double) * 3);
-		i++;
-	}
 	free(tmp);
 	free(pre);
 	return (0);

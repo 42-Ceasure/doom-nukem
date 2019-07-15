@@ -2,48 +2,6 @@
 
 #include "doom.h"
 
-t_menu		parse_menu_line(t_env *w, char *line)
-{
-	char 	**tmp;
-	char	**tmp2;
-	t_menu	menu;
-	int		i;
-	int		entryc;
-
-	tmp = ft_strsplit(line, ':');
-	i = 0;
-	w->i = 0;
-	menu.z = 0;
-	menu.i = 0;
-	menu.j = 0;
-	while (tmp[menu.z + 1])
-		menu.z++;
-	menu.y = (int *)malloc(sizeof(int) * (menu.z + 1));
-	menu.y[0] = 0;
-	menu.list = (char ***)malloc(sizeof(char **) * (menu.z + 1));
-	menu.list[menu.z] = NULL;
-	while (i < menu.z)
-	{
-		entryc = 1;
-		tmp2 = ft_strsplit(tmp[i + 1], ',');
-		while (tmp2[entryc] != NULL)
-			entryc++;
-		menu.y[i + 1] = entryc -1;
-		menu.list[i] = (char **)malloc(sizeof(char *) * (entryc + 1));
-		menu.list[i][entryc] = NULL;
-		entryc--;
-		while (entryc >= 0)
-		{
-			menu.list[i][entryc] = ft_strdup(tmp2[entryc]);
-			entryc--;
-		}
-		ft_memreg(tmp2);
-		i++;
-	}
-	ft_memreg(tmp);
-	return (menu);
-}
-
 void			parse_weapon_line(t_map *m, char *line)
 {
 	char			**tmp;
@@ -208,7 +166,6 @@ void			parse_settings_line(t_env *w, t_map *m, char *line)
 
 void			load_core(t_env *w, t_map *m)
 {
-	// int			linesc;	/* unused */
 	int			buffer;
 	char		*path;
 	char		**tmp;
@@ -230,8 +187,6 @@ void			load_core(t_env *w, t_map *m)
 				free(m->line);
 				continue;
 			}
-			// else if (ft_strncmp(m->line, "lines", 5) == 0)	/* unused */
-			// 	linesc = ft_atoi(tmp[1]);	/* unused */
 			else if (ft_strncmp(m->line, "settings", 8) == 0)
 				parse_settings_line(w, m, tmp[1]);
 			else if (ft_strncmp(m->line, "alloc", 5) == 0)
@@ -242,10 +197,6 @@ void			load_core(t_env *w, t_map *m)
 				parse_texture_line(w, m, tmp[1]);
 			else if (ft_strncmp(m->line, "sprite", 6) == 0)
 				parse_sprite_line(w, m, tmp[1]);
-			/*else if (ft_strncmp(m->line, "menu", 4) == 0)
-				parse_menu_line(w, tmp[1]);*/
-			// else if (ft_strncmp(m->line, "", ) == 0)
-			// 	;
 			if (ft_strncmp(m->line, "texture\t\t;ascii", 15) != 0
 				&& ft_strncmp(m->line, "texture\t\t;main_pic", 18) != 0)
 				buffer = 128;
@@ -253,7 +204,6 @@ void			load_core(t_env *w, t_map *m)
 			free(m->line);
 			w->i++;
 		}
-		// linesc++;	/* unused */
 		close(m->fd);
 		free(m->line);
 	}

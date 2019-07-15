@@ -97,22 +97,22 @@ void 		slow_down(t_env *w, t_map *m)
 int			is_on_a_map_dot(t_map *m, int sector)
 {
 	t_intersect i;
-	int		r1;
-	int		r2;
+	double		r1;
+	double		r2;
 
 	i.mem = 0;
 	i.x1 = m->player.coor.x;
 	i.y1 = m->player.coor.y;
-	i.x2 = m->player.coor.x + m->player.move_speed.x * 12;
-	i.y2 = m->player.coor.y + m->player.move_speed.y * 12;
-	// printf("%f,%f\n", (m->player.move_speed.x * 12), (m->player.move_speed.y * 12));
+	i.x2 = m->player.coor.x + m->player.move_speed.x;
+	i.y2 = m->player.coor.y + m->player.move_speed.y;
+	//printf("%f,%f\n", (m->player.move_speed.x * 12), (m->player.move_speed.y * 12));
 	while (i.mem < m->sector[sector].wall_count)
 	{
 		i.x3 = m->sector[sector].dot[i.mem].x;
 		i.y3 = m->sector[sector].dot[i.mem].y;
 		r1 = (i.x3 - i.x1) * (i.y2 - i.y1);
 		r2 = (i.y3 - i.y1) * (i.x2 - i.x1);
-		if (r1 == r2)
+		if ((int)r1 == (int)r2)
 		{
 			if ((i.x3 > vmin(i.x1, i.x2) && i.x3 < vmax(i.x1, i.x2))
 				|| (i.y3 > vmin(i.y1, i.y2) && i.y3 < vmax(i.y1, i.y2)))
@@ -196,7 +196,7 @@ void move_player(double dx, double dy, t_map *m)
 		coor.x = i.x2;
 		coor.y = i.y2;
 		if(m->sector[m->player.sector].network[s] >= 0 && intersectbox(i) 
-		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
+		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) < 0)
 		{
 			m->player.sector = m->sector[m->player.sector].network[s];
 			// is_next_to_a_dot(m);
@@ -224,8 +224,8 @@ void		is_moving(t_map *m)
 	s = 0;
 	i.x1 = m->player.coor.x;
 	i.y1 = m->player.coor.y;
-	// i.x2 = m->player.coor.x + m->player.move_speed.x;
-	// i.y2 = m->player.coor.y + m->player.move_speed.y;
+	i.x2 = m->player.coor.x + m->player.move_speed.x;
+	i.y2 = m->player.coor.y + m->player.move_speed.y;
 	i.x2 = m->player.coor.x + m->player.move_speed.x;
 	i.y2 = m->player.coor.y + m->player.move_speed.y;
 	coor.x = i.x2;
@@ -260,7 +260,6 @@ void		is_moving(t_map *m)
 			{
 				m->player.move_speed.x = 0;
 				m->player.move_speed.y = 0;
-			// break;
 			}
 		}
 		s++;

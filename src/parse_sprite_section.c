@@ -1,6 +1,26 @@
-/**/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_sprite_section.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/15 13:25:09 by ochaar            #+#    #+#             */
+/*   Updated: 2019/07/15 13:31:05 by ochaar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
+
+void		check_i2(int i2, int i3)
+{
+	if (i2 == 9)
+	{
+		ft_putendl("\n");
+		ft_putnbr(i3);
+		ft_putendl("\n");
+	}
+}
 
 Uint32		*faster_please(Uint32 *dst, char *src, int len)
 {
@@ -20,16 +40,10 @@ Uint32		*faster_please(Uint32 *dst, char *src, int len)
 			current[i2] = src[i];
 			i++;
 			i2++;
-			if (i2 == 9)
-			{
-				ft_putendl("\n");
-				ft_putnbr(i3);
-				ft_putendl("\n");
-			}
+			check_i2(i2, i3);
 		}
 		current[i2] = '\0';
 		dst[i3] = ft_atoui_base(current, 16);
-		// print_load("loading texture : ", i3, len);
 		i3++;
 		i++;
 	}

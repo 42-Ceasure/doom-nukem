@@ -3,83 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/07/11 23:01:41 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/15 14:26:22 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
-
-void		set_fire(t_env *w, t_map *m)
-{
-	m->player.refresh = m->weap[PH].recoil * 2;
-	m->yaw = vmid(m->yaw - m->weap[PH].dispertion, -2, 2);
-	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
-	PL_A = PL_A + m->weap[PH].dispertion / 2 * w->random;
-	if (PH > -1 && m->player.firing)
-	{
-		if (m->player.aiming == 1)
-		{
-			if (m->player.handed == 0)
-				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2,
-					HEIGHT / 2 - m->fire.h / 2 + 45);
-			else if (m->player.handed == 1 || m->player.handed == 2)
-				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2,
-					HEIGHT / 2 - m->fire.h / 2 + 20);
-			safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
-					m->weap[PH].sprt[1].sy + (m->weap[PH].recoil / 1.5));
-		}
-		else
-		{
-			if (m->player.handed == 0 || m->player.handed == 2)
-				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2 + 56,
-					HEIGHT / 2 - m->fire.h / 2 + 67);
-			else if (m->player.handed == 1)
-				safe_texture_to_screen(w, m->fire, WIDTH / 2 - m->fire.w / 2 + 45,
-					HEIGHT / 2 - m->fire.h / 2 + 60);
-			safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
-					m->weap[PH].sprt[0].sy + m->weap[PH].recoil);
-		}
-	}
-}
-
-void		hand(t_env *w, t_map *m)
-{
-	if (PH > -1 && m->player.switching == 0 && m->player.take[PH] == 1)
-	{
-		if (m->player.firing == 1)
-			set_fire(w, m);
-		else
-		{
-			if (m->player.aiming == 1)
-				safe_sprite_to_screen(w, m->weap[PH].sprt[1], m->weap[PH].sprt[1].sx,
-					m->weap[PH].sprt[1].sy);
-			else
-			{
-				if (m->player.moving != 0 && m->player.jump == 0 && m->player.refresh == 0)
-					safe_sprite_to_screen(w, m->weap[PH].sprt[2], m->weap[PH].sprt[2].sx + m->player.bal,
-						m->weap[PH].sprt[2].sy + 60 - vabs(m->player.bal / 2));
-				else if (m->player.moving != 0 && m->player.refresh == 0)
-					safe_sprite_to_screen(w, m->weap[PH].sprt[2], m->weap[PH].sprt[2].sx,
-						m->weap[PH].sprt[2].sy);
-				else
-					safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
-						m->weap[PH].sprt[0].sy);
-			}
-		}
-		if (m->player.refresh > 0)
-			m->player.refresh--;
-	}
-	else if (m->player.take[PH] == 1)
-	{
-		safe_sprite_to_screen(w, m->weap[PH].sprt[0], m->weap[PH].sprt[0].sx,
-			m->weap[PH].sprt[0].sy + m->player.switching);
-	}
-	if (m->player.switching > 0)
-		m->player.switching = m->player.switching - 10;
-}
 
 t_cal_sprt	calcul_sprite_ennemy(t_env *w, t_map *m, int x, int ratio)
 {
@@ -96,11 +27,40 @@ t_cal_sprt	calcul_sprite_ennemy(t_env *w, t_map *m, int x, int ratio)
 	tmp.zoom = m->ennemy[x].range;
 	if (m->player.aiming == 1)
 		tmp.zoom *= 2;
-	tmp.x1 = WIDTH / 2 - (tmp.t1x * tmp.xscale1 + (m->sprite[m->ennemy[x].index].w / 2
-		* tmp.zoom * ratio));
+	tmp.x1 = WIDTH / 2 - (tmp.t1x * tmp.xscale1
+		+ (m->sprite[m->ennemy[x].index].w / 2 * tmp.zoom * ratio));
 	tmp.y1a = HEIGHT / 2 - (int)(yaw((m->ennemy[x].coor.z - m->ennemy[x].height
-			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - (m->sprite[m->ennemy[x].index].h * tmp.zoom * ratio);
+			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1)
+				- (m->sprite[m->ennemy[x].index].h * tmp.zoom * ratio);
+	tmp.ratio = ratio;
 	return (tmp);
+}
+
+void		hit_box(t_env *w, t_map *m, int x, t_cal_sprt d)
+{
+	double	len;
+	int		tmpix;
+
+	tmpix = get_tmpix_scaled(m->sprite[m->ennemy[x].index],
+		(m->sprite[m->ennemy[x].index].w * d.zoom * d.ratio), 0,
+			(WIDTH / 2 - (int)d.x1), (HEIGHT / 2 - (int)d.y1a));
+	len = m->sprite[m->ennemy[x].index].w * d.zoom * d.ratio;
+	if ((d.x1 <= WIDTH / 2 && d.x1 >= WIDTH / 2 - len)
+		&& (d.y1a <= HEIGHT / 2 && d.y1a >= HEIGHT / 2 - len)
+			&& m->sprite[m->ennemy[x].index].pix[tmpix] != 0xFF00FF00
+				&& m->ennemy[x].is_dead != 1)
+	{
+		if (m->weap[PH].ammo_type == 1)
+			m->ennemy[x].dead = 1;
+		else
+		{
+			m->ennemy[x].nb_ammo++;
+			m->ennemy[x].touche = 1;
+			if (m->ennemy[x].nb_ammo % 4 == 0)
+				m->ennemy[x].dead = 1;
+		}
+		Mix_PlayChannel(6, m->ennemy[x].dammage, 0);
+	}
 }
 
 void		draw_ennemy(t_env *w, t_map *m, int x, int ratio)
@@ -109,7 +69,6 @@ void		draw_ennemy(t_env *w, t_map *m, int x, int ratio)
 	double		diffy;
 	double		diffz;
 	t_cal_sprt	data;
-	int			tmpix;
 
 	diffx = 0;
 	diffy = 0;
@@ -126,25 +85,9 @@ void		draw_ennemy(t_env *w, t_map *m, int x, int ratio)
 		m->ennemy[x].move_speed.z = diffz * 0.005;
 	m->ennemy[x].movespeed = 1;
 	data = calcul_sprite_ennemy(w, m, x, ratio);
-	tmpix = get_tmpix_scaled(m->sprite[m->ennemy[x].index], (m->sprite[m->ennemy[x].index].w * data.zoom * ratio), 0, (WIDTH / 2 - (int)data.x1), (HEIGHT / 2 - (int)data.y1a));
 	if (m->player.firing == 1 && m->weap[PH].range * m->ennemy[x].range >= 200)
-	{
-		if ((data.x1 <= WIDTH / 2 && data.x1 >= WIDTH / 2 - m->sprite[m->ennemy[x].index].w * data.zoom * ratio)
-			&& (data.y1a <= HEIGHT / 2 && data.y1a >= HEIGHT / 2 - m->sprite[m->ennemy[x].index].h * data.zoom * ratio)
-				&& m->sprite[m->ennemy[x].index].pix[tmpix] != 0xFF00FF00 && m->ennemy[x].is_dead != 1)
-		{
-			if (m->weap[PH].ammo_type == 1)
-				m->ennemy[x].dead = 1;
-			else
-			{
-				m->ennemy[x].nb_ammo++;
-				m->ennemy[x].touche = 1;
-				if (m->ennemy[x].nb_ammo % 4 == 0)
-					m->ennemy[x].dead = 1;
-			}
-			Mix_PlayChannel(6, m->ennemy[x].dammage, 0);
-		}
-	}
+		hit_box(w, m, x, data);
 	if (data.t1z > 0)
-		final_sprite_to_screen(w, m->sprite[m->ennemy[x].index], data.x1, data.y1a, m->sprite[m->ennemy[x].index].w * data.zoom * ratio, 0);
+		final_sprite_to_screen(w, m->sprite[m->ennemy[x].index], data.x1,
+			data.y1a, m->sprite[m->ennemy[x].index].w * data.zoom * ratio, 0);
 }
