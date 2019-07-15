@@ -175,8 +175,14 @@ void	maps(t_env *w)
 			{
 				if (KEY == SDLK_ESCAPE)
 					w->menu.i = vmax(-1, w->menu.i - 1);
-				// if (KEY == SDLK_RETURN)
-				// 	w->menu.i = change_map(w, m);
+				if (KEY == SDLK_RETURN)
+				{
+					free(w->currmap);
+					w->currmap = ft_strdup(w->namesmaps[w->menu.k]);
+					w->m->launchwmap = 0;
+					// w->menu.i = vmax(-1, w->menu.i - 1);
+					w->menu.i = 5;
+				}
 				if (KEY == SDLK_UP)
 					w->menu.k = vmax(0, w->menu.k - 1);
 				if (KEY == SDLK_DOWN)
@@ -300,7 +306,7 @@ void	launch(t_env *w, t_map *m)
 			settings(w);
 		else if (w->menu.i == 4)
 			level_editor_start(w);
-		else
+		if (w->menu.i > 4)
 		{
 			if (m->game_over == 1)
 				loose(w, m);
@@ -308,7 +314,7 @@ void	launch(t_env *w, t_map *m)
 			{
 				if (m->launchwmap == 0)
 				{
-					if (parse_map_in_core(w, m, "hsh") != 0)
+					if (parse_map_in_core(w, m, w->currmap) != 0)
 						continue;
 				}
 				else
