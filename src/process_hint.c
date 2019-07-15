@@ -1,4 +1,14 @@
-/*BIG42HEADER*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process_hint.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/15 13:35:38 by ochaar            #+#    #+#             */
+/*   Updated: 2019/07/15 13:39:39 by ochaar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
 
@@ -17,6 +27,23 @@ void			print_load(char *s, int i3, int len)
 	free(pre);
 }
 
+char			*other_if(int i, char *post)
+{
+	if (i == 2)
+		return (ft_strjoin("initialisating ", post));
+	if (i == 3)
+		return (ft_strjoin("processing ", post));
+	if (i == 4)
+		return (ft_strjoin("parsing ", post));
+	if (i == 5)
+		return (ft_strjoin("running ", post));
+	if (i == 6)
+		return (ft_strjoin("loading ", post));
+	if (i == 7)
+		return (ft_strjoin("extracting ", post));
+	return ("yes");
+}
+
 void			process_hint(int i, char *s)
 {
 	char		*pre;
@@ -29,18 +56,8 @@ void			process_hint(int i, char *s)
 		pre = ft_strjoin("done", post);
 	if (i == 1)
 		pre = ft_strjoin("allocating memory for ", post);
-	if (i == 2)
-		pre = ft_strjoin("initialisating ", post);
-	if (i == 3)
-		pre = ft_strjoin("processing ", post);
-	if (i == 4)
-		pre = ft_strjoin("parsing ", post);
-	if (i == 5)
-		pre = ft_strjoin("running ", post);
-	if (i == 6)
-		pre = ft_strjoin("loading ", post);
-	if (i == 7)
-		pre = ft_strjoin("extracting ", post);
+	if (pre == NULL)
+		pre = other_if(i, post);
 	ft_putstr(pre);
 	free(post);
 	if (pre != NULL)
@@ -63,18 +80,8 @@ void			process_hint_w(t_env *w, int i, char *s)
 		pre = ft_strjoin("done", post);
 	if (i == 1)
 		pre = ft_strjoin("allocating memory for ", post);
-	if (i == 2)
-		pre = ft_strjoin("initialisating ", post);
-	if (i == 3)
-		pre = ft_strjoin("processing ", post);
-	if (i == 4)
-		pre = ft_strjoin("parsing ", post);
-	if (i == 5)
-		pre = ft_strjoin("running ", post);
-	if (i == 6)
-		pre = ft_strjoin("loading ", post);
-	if (i == 7)
-		pre = ft_strjoin("extracting ", post);
+	if (pre == NULL)
+		pre = other_if(i, post);
 	hello_screen(w);
 	type_str(w, w->txthead, pre, 0x12FEA800);
 	type_str(w, dot, "loading game...", 0x12FEA800);
@@ -82,5 +89,4 @@ void			process_hint_w(t_env *w, int i, char *s)
 	free(post);
 	if (pre != NULL)
 		free(pre);
-
 }

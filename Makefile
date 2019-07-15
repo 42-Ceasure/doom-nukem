@@ -6,7 +6,7 @@
 #    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/14 15:04:06 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/15 14:27:08 by ochaar           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,7 +95,8 @@ SRCFIL				=	main.c \
 						texture_mode.c \
 						params.c \
 						set_and_reset.c \
-						fall_and_stair.c
+						fall_and_stair.c \
+						handed.c
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
 OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 13:27:27 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/13 20:58:11 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/15 13:09:34 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ int		do_parse(t_env *w, t_map *m)
 	m->section_number = 0;
 	if ((m->fd = open(m->map_path, O_RDONLY)) == -1)
 		return (-1);
-	process_hint_w(w, 0, " ");
 	process_hint_w(w, 6, " ");
 	reset_player(m);
 	while (w->stopread == 0 && get_next_line(m->fd, &m->line))
@@ -131,7 +130,10 @@ void	parse_map_file(t_env *w, t_map *m)
 	double	loading;
 	int		i;
 
-	//free l ancienne map
+	ft_free_sector(m);
+	if (m->dot != NULL)
+		free(m->dot);
+	ft_free_sprt(m);
 	w->dtime.start = SDL_GetTicks();
 	if (do_parse(w, m) == -1)
 		set_error(w, m, 8, ft_strdup("do_parse"));

@@ -1,4 +1,14 @@
-/*BIG42HEADER*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_basics.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/15 13:47:03 by ochaar            #+#    #+#             */
+/*   Updated: 2019/07/15 13:47:04 by ochaar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
 
@@ -59,10 +69,8 @@ void			set_w(t_env *w, int ac)
 	w->textured = 0;
 }
 
-void			set_m(t_map *m)
+void			set_coumt(t_map *m)
 {
-	m->stop = 0;
-	m->launchwmap = 0;
 	m->trippymod = 0;
 	m->i = 0;
 	m->s = 0;
@@ -74,6 +82,12 @@ void			set_m(t_map *m)
 	m->sector_count = 0;
 	m->weapon_count = -1;
 	m->sprite_count = -1;
+}
+
+void			set_m(t_map *m)
+{
+	m->stop = 0;
+	m->launchwmap = 0;
 	m->maxrenderedsector = 32;
 	m->yaw = 0;
 	m->gravity = BASE_GRAVITY;
@@ -92,26 +106,8 @@ void			set_m(t_map *m)
 	m->hud = pre_init_texture(0, 0);
 }
 
-void			set_m_player(t_map *m)
+void			set_player_math(t_map *m)
 {
-	m->player.bal = 0;
-	m->player.fps = (char *)malloc(sizeof(char) * 12);
-	ft_light_itoa(0, m->player.fps);
-	m->player.stractu_ammo = (char *)malloc(sizeof(char) * 12);
-	ft_light_itoa(0, m->player.stractu_ammo);
-	m->player.strhp = (char *)malloc(sizeof(char) * 12);
-	ft_light_itoa(0, m->player.strhp);
-	m->player.strbullet = (char *)malloc(sizeof(char) * 12);
-	ft_light_itoa(0, m->player.strbullet);
-	m->player.handed = 0;
-	m->player.aiming = 0;
-	m->player.shooting = 0;
-	m->player.firing = 0;
-	m->player.refresh = 0;
-	m->player.switching = 0;
-	m->player.recoil = 0;
-	m->player.sector = 0;
-	m->player.hud = 0;
 	m->player.coor.x = 0;
 	m->player.coor.y = 0;
 	m->player.coor.z = 0;
@@ -137,5 +133,28 @@ void			set_m_player(t_map *m)
 	m->player.hole_high = 0;
 	m->player.press = 0;
 	m->player.accel = 0;
+}
+
+void			set_m_player(t_map *m)
+{
+	m->player.bal = 0;
+	m->player.fps = (char *)malloc(sizeof(char) * 12);
+	ft_light_itoa(0, m->player.fps);
+	m->player.stractu_ammo = (char *)malloc(sizeof(char) * 12);
+	ft_light_itoa(0, m->player.stractu_ammo);
+	m->player.strhp = (char *)malloc(sizeof(char) * 12);
+	ft_light_itoa(0, m->player.strhp);
+	m->player.strbullet = (char *)malloc(sizeof(char) * 12);
+	ft_light_itoa(0, m->player.strbullet);
+	m->player.handed = 0;
+	m->player.aiming = 0;
+	m->player.shooting = 0;
+	m->player.firing = 0;
+	m->player.refresh = 0;
+	m->player.switching = 0;
+	m->player.recoil = 0;
+	m->player.sector = 0;
+	m->player.hud = 0;
+	set_player_math(m);
 	m->player.display = 0;
 }

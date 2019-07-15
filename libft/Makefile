@@ -83,6 +83,7 @@ SRC = ft_atoi.c\
 	ft_toupper.c\
 	precise_get_next_line.c\
 	get_next_line.c\
+	get_next_line_until.c\
 	ft_atof.c\
 	ft_memreg.c\
 	ft_uitoa_base.c\
