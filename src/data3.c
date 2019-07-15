@@ -1412,7 +1412,14 @@ void		write_ennemies(t_win *win, int fp)
 	}
 }
 
-void		write_in_file(t_win *win)
+void		write_map_mame(t_env *w, int fp)
+{
+	ft_putstr_fd("map\t\t\t;map", fp);
+	ft_putnbr_fd(w->nbmaps + 1, fp);
+	ft_putchar_fd('\n', fp);
+}
+
+void		write_in_file(t_win *win, t_env *w)
 {
 	int			fp;
 	const char	*name;
@@ -1421,10 +1428,10 @@ void		write_in_file(t_win *win)
 	char		*str;
 
 	// index = 0;
-	name = "custom_map.dn3d";
+	name = "tmp.dn3d";
 	fp = open(name, O_RDWR | O_CREAT | O_TRUNC, 0655);
 	// buf = NULL;
-
+	write_map_mame(w, fp);
 	first_line2(win, fp);
 	write_dots(win, fp);
 	write_sectors(win, fp);
@@ -1434,15 +1441,16 @@ void		write_in_file(t_win *win)
 
 	str = "Section:over\n";
 	ft_putstr_fd(str, fp);
-
 	close(fp);
+	add_map_to_core("core/core.dn3d", "./tmp.dn3d");
+	unlink("./tmp.dn3d");
 }
 
-void		fill_buffer(t_win *win)
+void		fill_buffer(t_win *win, t_env *w)
 {
 	win->number = 0;
 	sort_points(win);
-	write_in_file(win);
+	write_in_file(win, w);
 }
 
 int			triangulate_a_triangle(t_win *win, t_dot m)
@@ -1782,7 +1790,7 @@ void		everything_is_a_triangle(t_win *win)
 	triangulate_all_assets(win);
 }
 
-void		map_save(t_win *win)
+void		map_save(t_win *win, t_env *w)
 {
 	int			len;
 	int			z;
@@ -1816,7 +1824,7 @@ void		map_save(t_win *win)
 		everything_is_a_triangle(win);
 		if (correct_map(win) == 0)
 		{
-			fill_buffer(win);
+			fill_buffer(win, w);
 			printf("Map saved\n");
 		}
 	}

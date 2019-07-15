@@ -731,7 +731,7 @@ void		delete_asset(t_win *win);
 void		overing(t_win *win);
 
 void		save_map(t_win *win);
-void		map_save(t_win *win);
+void		map_save(t_win *win, t_env *w);
 
 void		img_edit_update(t_env *w);
 void		clean_edit_render(t_env *w, Uint32 color);
