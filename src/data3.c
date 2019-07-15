@@ -1415,7 +1415,8 @@ void		write_ennemies(t_win *win, int fp)
 void		write_map_mame(t_env *w, int fp)
 {
 	ft_putstr_fd("map\t\t\t;map", fp);
-	ft_putnbr_fd(w->nbmaps + 1, fp);
+	w->nbmaps++;
+	ft_putnbr_fd(w->nbmaps, fp);
 	ft_putchar_fd('\n', fp);
 }
 
