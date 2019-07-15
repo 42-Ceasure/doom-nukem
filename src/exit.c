@@ -109,7 +109,6 @@ void		empty_map(t_map *m)
 		ft_free_sprt(m);
 		ft_free_weap(m);
 		ft_free_sector(m);
-		//free(m->world);
 		free(m);
 	}
 }
