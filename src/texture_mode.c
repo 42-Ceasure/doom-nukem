@@ -16,41 +16,70 @@ void		change_texture_index(t_env *w, t_win *win)
 {
 	if (win->txtr_input_type == 1 || win->txtr_input_type == 2)
 	{
-		win->texture_index += 1;
-		if (win->texture_index > 4)
-			win->texture_index = 0;
+		if (win->texture_index < 45)
+			win->texture_index += 1;
+		if (win->hud_box < 4)
+			win->hud_box++;
 	}
 	if (win->txtr_input_type == 3)
 	{
-		win->texture_index -= 1;
-		if (win->texture_index < 0)
-			win->texture_index = 4;
+		if (win->texture_index > 0)
+			win->texture_index -= 1;
+		if (win->hud_box > 0)
+			win->hud_box--;
 	}
-	if (win->texture_index == 0)
+
+	if (win->hud_box == 0)
 	{
+		win->slot0 = w->texturing[win->texture_index];
+		win->slot1 = w->texturing[win->texture_index +1];
+		win->slot2 = w->texturing[win->texture_index +2];
+		win->slot3 = w->texturing[win->texture_index +3];
+		win->slot4 = w->texturing[win->texture_index +4];
+	}
+	if (win->hud_box == 1)
+	{
+		win->slot0 = w->texturing[win->texture_index -1];
+		win->slot1 = w->texturing[win->texture_index];
+		win->slot2 = w->texturing[win->texture_index +1];
+		win->slot3 = w->texturing[win->texture_index +2];
+		win->slot4 = w->texturing[win->texture_index +3];
+	}
+	if (win->hud_box == 2)
+	{
+		win->slot0 = w->texturing[win->texture_index -2];
+		win->slot1 = w->texturing[win->texture_index -1];
+		win->slot2 = w->texturing[win->texture_index];
+		win->slot3 = w->texturing[win->texture_index +1];
+		win->slot4 = w->texturing[win->texture_index +2];
+	}
+	if (win->hud_box == 3)
+	{
+		win->slot0 = w->texturing[win->texture_index -3];
+		win->slot1 = w->texturing[win->texture_index -2];
+		win->slot2 = w->texturing[win->texture_index -1];
+		win->slot3 = w->texturing[win->texture_index];
+		win->slot4 = w->texturing[win->texture_index +1];
+	}
+	if (win->hud_box == 4)
+	{
+		win->slot0 = w->texturing[win->texture_index -4];
+		win->slot1 = w->texturing[win->texture_index -3];
+		win->slot2 = w->texturing[win->texture_index -2];
+		win->slot3 = w->texturing[win->texture_index -1];
+		win->slot4 = w->texturing[win->texture_index];
+	}
+
+	if (win->hud_box == 0)
 		win->blackbox_x = 253;
-		win->texture_sprite = w->texturing[0];
-	}
-	if (win->texture_index == 1)
-	{
+	if (win->hud_box == 1)
 		win->blackbox_x = 304;
-		win->texture_sprite = w->texturing[1];
-	}
-	if (win->texture_index == 2)
-	{
+	if (win->hud_box == 2)
 		win->blackbox_x = 355;
-		win->texture_sprite = w->texturing[4];
-	}
-	if (win->texture_index == 3)
-	{
+	if (win->hud_box == 3)
 		win->blackbox_x = 406;
-		win->texture_sprite = w->texturing[5];
-	}
-	if (win->texture_index == 4)
-	{
+	if (win->hud_box == 4)
 		win->blackbox_x = 457;
-		win->texture_sprite = w->texturing[6];
-	}
 }
 
 void	texture_overing(t_win *win)
@@ -93,39 +122,23 @@ void		building_hud_display(t_env *w, t_win *win, t_texture slot)
 	final_texture_to_screen(w, slot, 15, 275, 85, 85);
 }
 
-// void		help_text(t_win *win)
-// {
-// 	if (win->texture_choice == 0)
-// 	{
-// 		win->texturetxt = TTF_RenderText_Blended(win->police,
-// 			"Wall", win->color_font_z);
-// 	}
-// 	if (win->texture_choice == 1)
-// 	{
-// 		win->texturetxt = TTF_RenderText_Blended(win->police,
-// 			"Ceiling", win->color_font_z);
-// 	}
-// 	if (win->texture_choice == 2)
-// 	{
-// 		win->texturetxt = TTF_RenderText_Blended(win->police,
-// 			"Floor", win->color_font_z);
-// 	}
-// 	if (win->texture_choice == 3)
-// 	{
-// 		win->texturetxt = TTF_RenderText_Blended(win->police,
-// 			"Skybox", win->color_font_z);
-// 	}
-// 	if (win->texture_choice == 4)
-// 	{
-// 		win->texturetxt = TTF_RenderText_Blended(win->police,
-// 			"Extrude ?", win->color_font_z);
-// 	}
-// }
+void		help_text(t_env *w, t_win *win)
+{
+	if (win->texture_choice == 0)
+		type_str(w, win->dst11, "Wall", 0xFF00FF);
+	if (win->texture_choice == 1)
+		type_str(w, win->dst11, "Ceiling", 0xFF00FF);
+	if (win->texture_choice == 2)
+		type_str(w, win->dst11, "Floor", 0xFF00FF);
+	if (win->texture_choice == 3)
+		type_str(w, win->dst11, "Lower Extrude", 0xFF00FF);
+	if (win->texture_choice == 4)
+		type_str(w, win->dst11, "Higher Extrude", 0xFF00FF);
+}
 
 void		thumbnail(t_env *w, t_win *win)
 {
 	t_lstlst	*tmp2;
-
 	t_texture	tmp;
 
 	tmp = win->slot0;
@@ -136,79 +149,17 @@ void		thumbnail(t_env *w, t_win *win)
 			break;
 		tmp2 = tmp2->next;
 	}
-
 	if (win->texture_choice == 0)
-	{
-		if (tmp2->txtr_wall == 0)
-			tmp = win->slot0;
-		if (tmp2->txtr_wall == 1)
-			tmp = win->slot1;
-		if (tmp2->txtr_wall == 2)
-			tmp = win->slot2;
-		if (tmp2->txtr_wall == 3)
-			tmp = win->slot3;
-		if (tmp2->txtr_wall == 4)
-			tmp = win->slot4;
-	}
-
+		tmp = w->texturing[tmp2->txtr_wall];
 	if (win->texture_choice == 1)
-	{
-		if (tmp2->txtr_ceiling == 0)
-			tmp = win->slot0;
-		if (tmp2->txtr_ceiling == 1)
-			tmp = win->slot1;
-		if (tmp2->txtr_ceiling == 2)
-			tmp = win->slot2;
-		if (tmp2->txtr_ceiling == 3)
-			tmp = win->slot3;
-		if (tmp2->txtr_ceiling == 4)
-			tmp = win->slot4;
-	}
-
+		tmp = w->texturing[tmp2->txtr_ceiling];
 	if (win->texture_choice == 2)
-	{
-		if (tmp2->txtr_floor == 0)
-			tmp = win->slot0;
-		if (tmp2->txtr_floor == 1)
-			tmp = win->slot1;
-		if (tmp2->txtr_floor == 2)
-			tmp = win->slot2;
-		if (tmp2->txtr_floor == 3)
-			tmp = win->slot3;
-		if (tmp2->txtr_floor == 4)
-			tmp = win->slot4;
-	}
-
+		tmp = w->texturing[tmp2->txtr_floor];
 	if (win->texture_choice == 3)
-	{
-		if (tmp2->txtr_skybox == 0)
-			tmp = win->slot0;
-		if (tmp2->txtr_skybox == 1)
-			tmp = win->slot1;
-		if (tmp2->txtr_skybox == 2)
-			tmp = win->slot2;
-		if (tmp2->txtr_skybox == 3)
-			tmp = win->slot3;
-		if (tmp2->txtr_skybox == 4)
-			tmp = win->slot4;
-	}
-
+		tmp = w->texturing[tmp2->txtr_lower_extrude];
 	if (win->texture_choice == 4)
-	{
-		if (tmp2->txtr_extrude == 0)
-			tmp = win->slot0;
-		if (tmp2->txtr_extrude == 1)
-			tmp = win->slot1;
-		if (tmp2->txtr_extrude == 2)
-			tmp = win->slot2;
-		if (tmp2->txtr_extrude == 3)
-			tmp = win->slot3;
-		if (tmp2->txtr_extrude == 4)
-			tmp = win->slot4;
-	}
-
+		tmp = w->texturing[tmp2->txtr_higher_extrude];
 	building_hud_display(w, win, tmp);
-
 }
 
 void		texture_mode(t_env *w, t_win *win)
@@ -218,11 +169,6 @@ void		texture_mode(t_env *w, t_win *win)
 	texture_overing(win);
 
 	inventory_display(w, win);
-
-	// help_text(win);
-
-	if (win->texture_overed_sector != -1)
-		thumbnail(w, win);
 
 	if (win->put_texture)
 	{
@@ -242,10 +188,16 @@ void		texture_mode(t_env *w, t_win *win)
 			if (win->texture_choice == 2)
 				tmp2->txtr_floor = win->texture_index;
 			if (win->texture_choice == 3)
-				tmp2->txtr_skybox = win->texture_index;
+				tmp2->txtr_lower_extrude = win->texture_index;
 			if (win->texture_choice == 4)
-				tmp2->txtr_extrude = win->texture_index;
+				tmp2->txtr_higher_extrude = win->texture_index;
 		}
+	}
+
+	if (win->texture_overed_sector != -1)
+	{
+		thumbnail(w, win);
+		help_text(w, win);
 	}
 	win->put_texture = 0;
 }

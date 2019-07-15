@@ -92,10 +92,11 @@ static int	init_assets(t_env *w, t_win *win)
 	win->inventory = w->m->hud;
 	win->slot0 = w->texturing[0];
 	win->slot1 = w->texturing[1];
-	win->slot2 = w->texturing[4];
-	win->slot3 = w->texturing[5];
-	win->slot4 = w->texturing[6];
+	win->slot2 = w->texturing[2];
+	win->slot3 = w->texturing[3];
+	win->slot4 = w->texturing[4];
 	win->blackbox = w->texturing[13];
+	win->hud_box = 0;
 
 	win->building_hud = w->m->hud;
 

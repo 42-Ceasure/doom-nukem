@@ -155,6 +155,7 @@ struct					s_win
 	int					hp_value;
 	double				gravity_value;
 	int					music_value;
+	int					hud_box;
 };
 
 #endif

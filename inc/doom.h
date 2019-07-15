@@ -78,8 +78,8 @@ typedef struct		s_lstlst
 	int				txtr_wall;
 	int				txtr_ceiling;
 	int				txtr_floor;
-	int				txtr_skybox;
-	int				txtr_extrude;
+	int				txtr_lower_extrude;
+	int				txtr_higher_extrude;
 	struct s_lst	*head;
 	struct s_lstlst	*next;
 }					t_lstlst;

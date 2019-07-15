@@ -93,7 +93,7 @@ void		draw_segments(t_env *w, t_win *win)
 				win->color = 0x00FF00;
 			else
 				win->color = 0x20B2AA;
-		}
+			}
 		while (tmp->next)
 		{
 			line(w, win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);

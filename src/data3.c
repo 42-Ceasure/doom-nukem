@@ -856,19 +856,52 @@ void		write_sectors_neighbours(t_win *win, int fp, t_lstlst *tmp2)
 
 void		write_sectors_textures(t_win *win, int fp, t_lstlst *tmp2)
 {
-	char		*str;
-	// t_lst		*tmp;
-	(void)tmp2;
-	(void)win;
 
-	// if	(win->lstlst)
-	// 	tmp = tmp2->head;
+	(void)win;
+	
+	char		*str;
 
 	str = ":";
 	ft_putstr_fd(str, fp);
 
-	str = "0,1,0,0,0,0";
+
+	str = ft_itoa(tmp2->txtr_floor);
 	ft_putstr_fd(str, fp);
+
+	str = ",";
+	ft_putstr_fd(str, fp);
+
+	str = ft_itoa(tmp2->txtr_ceiling);
+	ft_putstr_fd(str, fp);
+
+	str = ",";
+	ft_putstr_fd(str, fp);
+
+	str = ft_itoa(tmp2->txtr_wall);
+	ft_putstr_fd(str, fp);
+
+	str = ",";
+	ft_putstr_fd(str, fp);
+
+	str = ft_itoa(tmp2->txtr_lower_extrude);
+	ft_putstr_fd(str, fp);
+
+	str = ",";
+	ft_putstr_fd(str, fp);
+
+	str = ft_itoa(tmp2->txtr_higher_extrude);
+	ft_putstr_fd(str, fp);
+
+	str = ",0";
+	ft_putstr_fd(str, fp);
+	/*
+		-floor
+		-ceiling
+		-wall
+		-lower extrude
+		-higher extrude
+		-skybox toujours a 0
+	*/
 }
 
 void		write_sectors(t_win *win, int fp)
@@ -878,8 +911,6 @@ void		write_sectors(t_win *win, int fp)
 	int			index;
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
-	//int			ret;
-
 
 	index = 0;
 	i = len_listlist(win->triangles);
@@ -990,7 +1021,7 @@ void		write_player(t_win *win, int fp)
 
 	str = "\tgod_mod:0\n";
 	ft_putstr_fd(str, fp);
-	
+
 	// str = "\n";
 	// ft_putstr_fd(str, fp);
 }
