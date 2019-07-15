@@ -312,6 +312,7 @@ void	launch(t_env *w, t_map *m)
 				loose(w, m);
 			else
 			{
+				// on arrete de reparser si meme map *(continue);
 				if (m->launchwmap == 0)
 				{
 					if (parse_map_in_core(w, m, w->currmap) != 0)

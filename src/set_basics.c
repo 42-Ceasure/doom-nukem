@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_basics.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 13:47:03 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/15 13:47:04 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/15 18:24:38 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void			set_m(t_map *m)
 	m->player.max_hp = 100;
 	m->god_mod = 0;
 	m->hud = pre_init_texture(0, 0);
+	set_coumt(m);
 }
 
 void			set_player_math(t_map *m)

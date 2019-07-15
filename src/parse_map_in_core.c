@@ -2,8 +2,34 @@
 
 #include "doom.h"
 
+void	reset_map(t_map *m)
+{
+	int i;
+
+	i = 0;
+	if (m->tab != NULL)
+		ft_free_tab(m);
+	if (m->sector != NULL)
+		ft_free_sector(m);
+	if (m->dot != NULL)
+		free(m->dot);
+	if (m->sprt != NULL)
+		ft_free_sprt(m);
+	if (m->ennemy != NULL)
+	{
+        while (i < m->ennemy_count)
+        {
+            Mix_FreeChunk(m->ennemy[i].dammage);
+            i++;
+        }
+		free(m->ennemy);
+	}
+	
+}
+
 int		get_that_map_parsed(t_env *w, t_map *m)
 {
+	reset_map(m);
 	free(m->line);
 	m->i = 0;
 	m->s = 0;
@@ -22,6 +48,7 @@ int		get_that_map_parsed(t_env *w, t_map *m)
 		}
 		free(m->line);
 	}
+	init_sprite_tab(m);
 	free(m->line);
 	process_hint_w(w, 0, " ");
 	// free(m->line);

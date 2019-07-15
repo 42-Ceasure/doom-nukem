@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 13:27:27 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/15 13:09:34 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/15 18:20:59 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ int		do_parse(t_env *w, t_map *m)
 
 void	parse_map_file(t_env *w, t_map *m)
 {
+	// a enlever?
 	double	loading;
-	int		i;
 
 	ft_free_sector(m);
 	if (m->dot != NULL)
@@ -138,14 +138,6 @@ void	parse_map_file(t_env *w, t_map *m)
 	if (do_parse(w, m) == -1)
 		set_error(w, m, 8, ft_strdup("do_parse"));
 	w->dtime.end = SDL_GetTicks();
-	m->tab = (double**)malloc(sizeof(double*) * (m->sprite_map_count
-		+ m->ennemy_count));
-	i = 0;
-	while (i < m->sprite_map_count + m->ennemy_count)
-	{
-		m->tab[i] = (double*)malloc(sizeof(double) * 3);
-		i++;
-	}
 	loading = w->dtime.end - w->dtime.start;
 	printf("map loaded in %f seconds !\n", loading / 1000);
 }

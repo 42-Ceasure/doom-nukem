@@ -63,3 +63,17 @@ int			init_sdl(t_env *w)
 	img_update(w);
 	return (0);
 }
+
+void			init_sprite_tab(t_map *m)
+{
+	int i;
+
+	i = 0;
+	m->tab = (double**)malloc(sizeof(double*) * (m->sprite_map_count
+		+ m->ennemy_count));
+	while (i < m->sprite_map_count + m->ennemy_count)
+	{
+		m->tab[i] = (double*)malloc(sizeof(double) * 3);
+		i++;
+	}
+}
