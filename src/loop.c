@@ -105,9 +105,7 @@ void		draw_segments(t_env *w, t_win *win)
 			draw_points(w, win, tmp->x, tmp->y);
 			tmp = tmp->next;
 		}
-		// SEGV ICI
-		if (win->drawing == 1 && tmp != NULL && tmp->next != NULL)
-			line(w, win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
+		line(w, win, win->x1, win->y1, win->x2, win->y2);
 		tmp2 = tmp2->next;
 	}
 	win->overed_sector = -1;

@@ -129,27 +129,28 @@ void		asset_overing(t_env *w, t_win *win)
 		{
 			if (tmp->asset_type == 0)
 			{
-				win->asset_tmp = w->m->fire;
+				win->asset_tmp = w->m->sprite[0];
 				set_params(w, win);
 			}
 			if (win->asset == 1)
-				win->asset_sprite = w->m->sprite[0];
+				win->asset_tmp = w->m->sprite[0];
 			if (win->asset == 2)
-				win->asset_sprite = w->m->sprite[1];
+				win->asset_tmp = w->m->sprite[1];
 			if (win->asset == 3)
-				win->asset_sprite = w->m->sprite[8];
+				win->asset_tmp = w->m->sprite[8];
 			if (win->asset == 4)
-				win->asset_sprite = w->m->sprite[3];
+				win->asset_tmp = w->m->sprite[3];
 			if (win->asset == 5)
-				win->asset_sprite = w->m->sprite[2];
+				win->asset_tmp = w->m->sprite[2];
 			if (win->asset == 6)
-				win->asset_sprite = w->m->sprite[5];
+				win->asset_tmp = w->m->sprite[5];
 			if (win->asset == 7)
-				win->asset_sprite = w->m->sprite[7];
+				win->asset_tmp = w->m->sprite[7];
 			if (win->asset == 8)
-				win->asset_sprite = w->m->sprite[14];
+				win->asset_tmp = w->m->sprite[14];
 
-			final_texture_to_screen(w, win->asset_tmp, tmp->x - 25, tmp->y - 75, 64, 64);
+			//final_texture_to_screen(w, win->asset_tmp, tmp->x - 25, tmp->y - 75, 64, 64);
+			final_sprite_to_screen(w, win->asset_tmp, tmp->x - 25, tmp->y - 75, 0, 64);
 		}
 		tmp = tmp->next;
 	}

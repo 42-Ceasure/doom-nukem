@@ -66,8 +66,8 @@ struct					s_win
 	char				*paramvaluetxt;
 
 	t_sprite			asset_sprite;
+	t_sprite			asset_tmp;
 	t_texture			texture_sprite;
-	t_texture			asset_tmp;
 	t_texture			player_start;
 
 	t_texture			inventory;

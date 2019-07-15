@@ -29,27 +29,27 @@ void		change_texture_index(t_env *w, t_win *win)
 	if (win->texture_index == 0)
 	{
 		win->blackbox_x = 253;
-		win->texture_sprite = w->m->fire;
+		win->texture_sprite = w->texturing[0];
 	}
 	if (win->texture_index == 1)
 	{
 		win->blackbox_x = 304;
-		win->texture_sprite = w->m->fire;
+		win->texture_sprite = w->texturing[1];
 	}
 	if (win->texture_index == 2)
 	{
 		win->blackbox_x = 355;
-		win->texture_sprite = w->m->fire;
+		win->texture_sprite = w->texturing[4];
 	}
 	if (win->texture_index == 3)
 	{
 		win->blackbox_x = 406;
-		win->texture_sprite = w->m->fire;
+		win->texture_sprite = w->texturing[5];
 	}
 	if (win->texture_index == 4)
 	{
 		win->blackbox_x = 457;
-		win->texture_sprite = w->m->fire;
+		win->texture_sprite = w->texturing[6];
 	}
 }
 
