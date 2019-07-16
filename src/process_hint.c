@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_hint.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 13:35:38 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/15 13:39:39 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/16 05:39:27 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,24 @@ void			process_hint_w(t_env *w, int i, char *s)
 	w->txthead.y = 550;
 	dot.x = 800;
 	dot.y = 550;
+	if (i == 2)
+		s = ft_strjoin(s, " PERCENT");
 	post = ft_strjoin(s, "\r");
 	pre = NULL;
 	if (i == 0)
-		pre = ft_strjoin("done", post);
+		pre = ft_strjoin("Done", post);
 	if (i == 1)
-		pre = ft_strjoin("allocating memory for ", post);
+		pre = ft_strjoin("Allocating memory for ", post);
+	if (i == 2)
+		pre = ft_strjoin("Writing ... ", post);
 	if (pre == NULL)
 		pre = other_if(i, post);
 	hello_screen(w);
 	type_str(w, w->txthead, pre, 0x12FEA800);
-	type_str(w, dot, "loading game...", 0x12FEA800);
+	if (i == 2)
+		type_str(w, dot, "Saving modif...", 0x12FEA800);
+	else
+		type_str(w, dot, "Loading game...", 0x12FEA800);
 	img_update(w);
 	free(post);
 	if (pre != NULL)

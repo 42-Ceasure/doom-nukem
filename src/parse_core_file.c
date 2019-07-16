@@ -202,10 +202,11 @@ void			load_core(t_env *w, t_map *m)
 				buffer = 128;
 			ft_memreg(tmp);
 			free(m->line);
-			w->i++;
+			w->corenbl++;
 		}
 		close(m->fd);
 		free(m->line);
+		printf("%d\n", w->corenbl);
 	}
 	else
 		set_error(w, m, 5, path);

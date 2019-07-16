@@ -1,10 +1,16 @@
 
 #include "doom.h"
 
-void		replace_line(char *path, char *balise, char *content)
+// test
+
+void		replace_line(char *path, char *balise, char *content, t_env *w)
 {
 	t_filer f;
+	int 	i;
+	int		nb;
 
+	i = 0;
+	nb = 0;
 	f.stop = 0; 
 	f.buffer = 256;
 	if ((f.fd = open("./tmp", O_RDWR | O_CREAT | O_TRUNC, 0655)) != -1
@@ -13,6 +19,9 @@ void		replace_line(char *path, char *balise, char *content)
 		while (precise_get_next_line(f.fd2, &f.line, f.buffer))
 		{
 			f.tmp = ft_strsplit(f.line, ';');
+			if (w->corenbl != 0)
+				nb = vmin(((double)i / (double)(w->corenbl * 2) * (double)100), 99);
+			process_hint_w(w, 2, ft_itoa(nb));
 			if (ft_strncmp(f.line, "buffer", 6) == 0)
 			{
 				ft_putendl_fd(f.line, f.fd);
@@ -38,6 +47,7 @@ void		replace_line(char *path, char *balise, char *content)
 				f.buffer = 256;
 			ft_memreg(f.tmp);
 			free(f.line);
+			i++;
 		}
 		ft_putendl_fd("eof", f.fd);
 		close(f.fd2);
@@ -49,6 +59,9 @@ void		replace_line(char *path, char *balise, char *content)
 		while (precise_get_next_line(f.fd, &f.line, f.buffer) && f.stop == 0)
 		{
 			f.tmp = ft_strsplit(f.line, ';');
+			if (w->corenbl != 0)
+				nb = vmin(((double)i / (double)(w->corenbl * 2) * (double)100), 99);
+			process_hint_w(w, 2, ft_itoa(nb));
 			if (ft_strncmp(f.line, "buffer", 6) == 0)
 			{
 				ft_putendl_fd(f.line, f.fd2);
@@ -67,6 +80,7 @@ void		replace_line(char *path, char *balise, char *content)
 				f.buffer = 256;
 			ft_memreg(f.tmp);
 			free(f.line);
+			i++;
 		}
 		close(f.fd2);
 		close(f.fd);
@@ -181,5 +195,5 @@ void		change_settings(t_env *w, t_map *m)
 	str = ft_strjoin(tmp, ":");
 	free(tmp);
 	tmp = ft_strjoin(str, nb);
-	replace_line("./core/core.dn3d", "settings", tmp);
+	replace_line("./core/core.dn3d", "settings", tmp, w);
 }

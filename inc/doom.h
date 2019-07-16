@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/16 02:21:05 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/16 05:03:36 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -534,6 +534,7 @@ typedef struct		s_env
 	int				fov_h_menu;
 	int				fov_v_menu;
 	int				mousesp_menu;
+	int				corenbl;
 }					t_env;
 
 
@@ -564,7 +565,9 @@ void				parse_weapon_line(t_map *m, char *line);
 int					parse_weapon_sprite(t_map *m, char *name, char *def, char *pix);
 void				parse_texture_line(t_env *w, t_map *m, char *line);
 void				parse_sprite_line(t_env *w, t_map *m, char *line);
-void 				replace_line(char *path, char *balise, char *content);
+// void 				replace_line(char *path, char *balise, char *content);
+// test
+void				replace_line(char *path, char *balise, char *content, t_env *w);
 void				add_map_to_core(char *path, char *path2);
 void				change_settings(t_env *w, t_map *m);
 void				parse_map_file(t_env *w, t_map *m);
