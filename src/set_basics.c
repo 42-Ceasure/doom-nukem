@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 13:47:03 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/15 18:24:38 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/16 02:24:33 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ void			set_w(t_env *w, int ac)
 	w->txtnxtto.y = 0;
 	w->texturingno = 0;
 	w->textured = 0;
+	w->window_mode_menu = 0;
+	w->window_res_menu = 0;
+	w->fov_h_menu = 0;
+	w->fov_v_menu = 0;
+	w->mousesp_menu = 0;
 }
 
 void			set_coumt(t_map *m)

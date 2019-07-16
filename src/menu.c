@@ -68,59 +68,197 @@ void	menu_screen(t_env *w)
 	free(start);
 }
 
-
 void	affichage_set(t_env *w)
 {
 	t_dot	dot;
 
 	dot.x = WIDTH - 100;
 	dot.y = 10;
-	ft_light_itoa(w->window_mode, w->light_nb);
+	ft_light_itoa(w->window_mode_menu, w->light_nb);
 	type_str(w, dot, w->light_nb, 0x12FEA800);
 	dot.y += 50;
-	ft_light_itoa(w->window_res, w->light_nb);
+	ft_light_itoa(w->window_res_menu, w->light_nb);
 	type_str(w, dot, w->light_nb, 0x12FEA800);
 	dot.y += 50;
-	ft_light_itoa(w->m->player.field_of_vision_h, w->light_nb);
+	ft_light_itoa(w->fov_h_menu, w->light_nb);
 	type_str(w, dot, w->light_nb, 0x12FEA800);
 	dot.y += 50;
-	ft_light_itoa(w->m->player.field_of_vision_v, w->light_nb);
+	ft_light_itoa(w->fov_v_menu, w->light_nb);
 	type_str(w, dot, w->light_nb, 0x12FEA800);
 	dot.y += 50;
-	ft_light_itoa(w->m->player.mousesp, w->light_nb);
+	ft_light_itoa(w->mousesp_menu, w->light_nb);
 	type_str(w, dot, w->light_nb, 0x12FEA800);
 	dot.x = w->txthead.x;
 	dot.y = w->txthead.y;
 }
 
-void	change_key(t_env *w)
+// void	affichage_set(t_env *w)
+// {
+// 	t_dot	dot;
+
+// 	dot.x = WIDTH - 100;
+// 	dot.y = 10;
+// 	ft_light_itoa(w->window_mode, w->light_nb);
+// 	type_str(w, dot, w->light_nb, 0x12FEA800);
+// 	dot.y += 50;
+// 	ft_light_itoa(w->window_res, w->light_nb);
+// 	type_str(w, dot, w->light_nb, 0x12FEA800);
+// 	dot.y += 50;
+// 	ft_light_itoa(w->m->player.field_of_vision_h, w->light_nb);
+// 	type_str(w, dot, w->light_nb, 0x12FEA800);
+// 	dot.y += 50;
+// 	ft_light_itoa(w->m->player.field_of_vision_v, w->light_nb);
+// 	type_str(w, dot, w->light_nb, 0x12FEA800);
+// 	dot.y += 50;
+// 	ft_light_itoa(w->m->player.mousesp, w->light_nb);
+// 	type_str(w, dot, w->light_nb, 0x12FEA800);
+// 	dot.x = w->txthead.x;
+// 	dot.y = w->txthead.y;
+// }
+
+void	change_value(t_env *w, int direction)
 {
 	if (w->menu.k == 0)
-		change_settings(w, w->m);
+	{
+		if (direction == 1)
+			w->window_mode_menu = vmin(w->window_mode_menu + 1, 1);
+		else
+			w->window_mode_menu = vmax(0, w->window_mode_menu - 1);
+	}
 	if (w->menu.k == 1)
-		change_settings(w, w->m);
+	{
+		if (direction == 1)
+			w->window_res_menu = vmin(w->window_res_menu + 1, 2);
+		else
+			w->window_res_menu = vmax(0, w->window_res_menu - 1);
+	}
 	if (w->menu.k == 2)
-		change_settings(w, w->m);
+	{
+		if (direction == 1)
+			w->fov_h_menu = vmin(w->fov_h_menu + 1, 700);
+		else
+			w->fov_h_menu = vmax(300, w->fov_h_menu - 1);
+	}
 	if (w->menu.k == 3)
-		change_settings(w, w->m);
-	if (w->menu.k == 4)
-		change_settings(w, w->m);
+	{
+		if (direction == 1)
+			w->fov_v_menu = vmin(w->fov_v_menu + 1, 500);
+		else
+			w->fov_v_menu = vmax(100, w->fov_v_menu - 1);
+	}
+	// if (w->menu.k == 4)
+	// {
+	// 	if (direction == 1)
+	// 		w->mousesp_menu = vmin(w->mousesp_menu + 0.01, 1.5);
+	// 	else
+	// 		w->mousesp_menu = vmax(0.5, w->mousesp_menu - 0.01);
+	// }
+}
+
+void	change_key(t_env *w)
+{
+	if (w->menu.k == 5)
+	{
+		w->window_mode = 1;
+		w->window_res = 0;
+		w->m->player.field_of_vision_h = 512;
+		w->m->player.field_of_vision_v = 288;
+		w->m->player.mousesp = 1;
+	}
+	else
+	{
+		w->window_mode = w->window_mode_menu;
+		w->window_res = w->window_res_menu;
+		w->m->player.field_of_vision_h = w->fov_h_menu;
+		w->m->player.field_of_vision_v = w->fov_v_menu;
+		w->m->player.mousesp = w->mousesp_menu;	
+	}
+	// if (w->menu.k == 0)
+	// 	change_settings(w, w->m);
+	// if (w->menu.k == 1)
+	// 	change_settings(w, w->m);
+	// if (w->menu.k == 2)
+	// 	change_settings(w, w->m);
+	// if (w->menu.k == 3)
+	// 	change_settings(w, w->m);
+	// if (w->menu.k == 4)
+	change_settings(w, w->m);
 }
 
 void	settings(t_env *w)
 {
 	t_dot	dot;
 
-	dot.x = 10;
-	dot.y = 10;
-	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
-	type_str(w, dot, "WINDOW MODE :\n", 0xFFFFFFFF);
-	type_str(w, w->txtnxtline, "WINDOW RESOLUTION :\n", 0xFFFFFFFF);
-	type_str(w, w->txtnxtline, "FOV HORIZONTAL :\n", 0xFFFFFFFF);
-	type_str(w, w->txtnxtline, "FOV VERTIAL :\n", 0xFFFFFFFF);
-	type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
+	w->menu.k = 0;
+	w->window_mode_menu = w->window_mode;
+	w->window_res_menu = w->window_res;
+	w->fov_h_menu = w->m->player.field_of_vision_h;
+	w->fov_v_menu = w->m->player.field_of_vision_v;
+	w->mousesp_menu = w->m->player.mousesp;
 	while (1)
 	{
+		safe_texture_to_screen(w, w->main_pic[1], 0, 0);
+		dot.x = 10;
+		dot.y = 10;
+		if (w->menu.k == 0)
+		{
+			type_str(w, dot, "WINDOW MODE :\n", 0x12FEA800);
+			type_str(w, w->txtnxtline, "WINDOW RESOLUTION :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "FOV HORIZONTAL :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "FOV VERTICAL :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0xFFFFFFFF);
+		}
+		else if (w->menu.k == 1)
+		{
+			type_str(w, dot, "WINDOW MODE :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "WINDOW RESOLUTION :\n", 0x12FEA800);
+			type_str(w, w->txtnxtline, "FOV HORIZONTAL :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "FOV VERTICAL :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0xFFFFFFFF);
+		}
+		else if (w->menu.k == 2)
+		{
+			type_str(w, dot, "WINDOW MODE :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "WINDOW RESOLUTION :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "FOV HORIZONTAL :\n", 0x12FEA800);
+			type_str(w, w->txtnxtline, "FOV VERTICAL :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0xFFFFFFFF);
+		}
+		else if (w->menu.k == 3)
+		{
+			type_str(w, dot, "WINDOW MODE :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "WINDOW RESOLUTION :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "FOV HORIZONTAL :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "FOV VERTICAL :\n", 0x12FEA800);
+			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0xFFFFFFFF);
+		}
+		else if (w->menu.k == 4)
+		{
+			type_str(w, dot, "WINDOW MODE :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "WINDOW RESOLUTION :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "FOV HORIZONTAL :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "FOV VERTICAL :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0x12FEA800);
+			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0xFFFFFFFF);
+		}
+		else
+		{
+			type_str(w, dot, "WINDOW MODE :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "WINDOW RESOLUTION :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "FOV HORIZONTAL :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "FOV VERTICAL :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0x12FEA800);
+		}
+		
+		dot.x = WIDTH - 580;
+		dot.y = HEIGHT - 55;
+		type_str(w, dot, "PRESS ENTER TO SAVE AND APPLY", 0x12FEA800);
+		type_str(w, w->txtnxtline, "PLEASE RESTART FOR WINDOW MODE AND RES", 0x12FEA800);
 		while (SDL_PollEvent(&w->event))
 		{
 			if (w->event.type == SDL_KEYDOWN)
@@ -128,18 +266,25 @@ void	settings(t_env *w)
 				if (KEY == SDLK_ESCAPE)
 					w->menu.i = vmax(-1, w->menu.i - 2);
 				if (KEY == SDLK_RETURN)
+				{
 					change_key(w);
+					w->menu.i = 1;
+				}
 				if (KEY == SDLK_UP)
 					w->menu.k = vmax(0, w->menu.k - 1);
 				if (KEY == SDLK_DOWN)
-					w->menu.k = vmin(w->menu.k + 1, 3);
+					w->menu.k = vmin(w->menu.k + 1, 5);
+				if (KEY == SDLK_RIGHT)
+					change_value(w, 1);
+				if (KEY == SDLK_LEFT)
+					change_value(w, 2);
 			}
 		}
 		affichage_set(w);
 		if (w->menu.i != 3)
 			break;
 		img_update(w);
-	}
+	} 
 }
 
 void	maps(t_env *w)

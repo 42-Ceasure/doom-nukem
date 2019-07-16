@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/15 18:19:45 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/16 02:21:05 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -529,6 +529,11 @@ typedef struct		s_env
 	int				nbmaps;
 	char			**namesmaps;
 	char			*currmap;
+	int				window_mode_menu;
+	int				window_res_menu;
+	int				fov_h_menu;
+	int				fov_v_menu;
+	int				mousesp_menu;
 }					t_env;
 
 
