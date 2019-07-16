@@ -3,16 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
+#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/15 14:27:08 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/16 19:05:42 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SHELL = bash
 DEBUG = 0
 CC = gcc
+
+ifneq ($(wildcard ./core/core.dn3d),)
+	ZIP			=	echo -e "\033[38;5;79m[core.dn3d] found, no unzip needed !\033[0m"
+else
+	ZIP			=	echo -e "\033[38;5;79m[core.dn3d] not found, let's unzip it !" && unzip ./core/core.dn3d.zip && mv ./core.dn3d ./core && echo -e "Unzip done :D\033[0m"
+endif
+
 ifeq ($(DEBUG), 0)
     CFLAG       =   -Wall -Wextra -Werror -O2
     MESSAGE     =   "\033[38;5;79m[$(NAME)] compiled on normal rules ! Have fun\033[0m           "
@@ -132,6 +139,7 @@ all                 :   libft sdl sdlmix $(NAME)
 $(NAME)             :   $(OBJ) $(LIBFT)
 						@$(CC) $(CFLAG) -lm $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^ -lpthread
 						@echo -e $(MESSAGE)
+						@$(ZIP)
 						
 $(OBJDIR)%.o        :   $(SRCDIR)%.c $(INC)
 						@mkdir -p $(OBJDIR)
