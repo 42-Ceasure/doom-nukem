@@ -428,6 +428,7 @@ void	main_menu(t_env *w, t_map *m)
 			type_str(w, test, "\" { } @ \\ ^^ <> [] # $ = - () % | + / * ~ \' ; _", 0x12FEA800);
 			type_str(w, w->txtnxtline, "si je ne m'abuse vous me demanderez plus de caractere", 0x12FEA800);
 			type_str(w, w->txtnxtline, "ascii d'ici un petit moment !", 0x12FEA800);
+			type_str(w, w->txtnxtline, "\nc===3", 0x12FEA800);
 			type_str(w, w->txthead, "press enter...", 0x12FEA800);
 			w->menu.j = -1;
 		}
