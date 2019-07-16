@@ -4,7 +4,7 @@
 
 void	hello_screen(t_env *w)
 {
-	safe_texture_to_screen(w, w->main_pic[0], 0, 0);
+	final_texture_to_screen(w, w->main_pic[0], 0, 0, WIDTH, HEIGHT);
 }
 
 void	menu_screen(t_env *w)
@@ -24,7 +24,7 @@ void	menu_screen(t_env *w)
 			start = ft_strdup("CONTINUE\n");
 	dot.x = WIDTH / 2 - 50;
 	dot.y = 140;
-	safe_texture_to_screen(w, w->main_pic[1], 0, 0);
+	final_texture_to_screen(w, w->main_pic[1], 0, 0, WIDTH, HEIGHT);
 	if (w->menu.j == 1)
 	{
 		type_str(w, dot, start, 0xFF78F7);
@@ -197,7 +197,7 @@ void	settings(t_env *w)
 	w->mousesp_menu = w->m->player.mousesp;
 	while (1)
 	{
-		safe_texture_to_screen(w, w->main_pic[1], 0, 0);
+		final_texture_to_screen(w, w->main_pic[1], 0, 0, WIDTH, HEIGHT);
 		dot.x = 10;
 		dot.y = 10;
 		if (w->menu.k == 0)
@@ -306,7 +306,7 @@ void	maps(t_env *w)
 	{
 		dot.x = 10;
 		dot.y = 10;
-		safe_texture_to_screen(w, w->main_pic[1], 0, 0);
+		final_texture_to_screen(w, w->main_pic[1], 0, 0, WIDTH, HEIGHT);
 		type_str(w, dot, "MAPS :\n", 0xFFFFFFFF);
 		dot.x = WIDTH / 2 - 50;
 		dot.y = 140;
@@ -435,7 +435,7 @@ void	main_menu(t_env *w, t_map *m)
 
 void	loose(t_env *w, t_map *m)
 {
-	safe_texture_to_screen(w, w->main_pic[2], 0, 0);
+	final_texture_to_screen(w, w->main_pic[2], 0, 0, WIDTH, HEIGHT);
 	w->txthead.x = 350;
 	w->txthead.y = 400;
 	type_str(w, w->txthead, "Press enter to retry", 0x12FFFFFF);
