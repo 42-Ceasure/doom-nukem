@@ -269,6 +269,7 @@ void	settings(t_env *w)
 				{
 					change_key(w);
 					w->menu.i = 1;
+					break;
 				}
 				if (KEY == SDLK_UP)
 					w->menu.k = vmax(0, w->menu.k - 1);
@@ -411,6 +412,7 @@ void	main_menu(t_env *w, t_map *m)
 	SDL_ShowCursor(SDL_ENABLE);
 	w->txthead.x = 800;
 	w->txthead.y = 550;
+	w->menu.j = 1;
 	while (1)
 	{
 		event_menu(w);
