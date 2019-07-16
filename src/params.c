@@ -21,13 +21,13 @@ void		increase_value(t_win *win)
 	}
 	if (win->param_index == 1)
 	{
-		if (win->gravity_value < 10)
+		if (win->gravity_value < 9)
 			win->gravity_value++;
 	}
 	if (win->param_index == 2)
 	{
-		if (win->music_value < 5)
-			win->music_value++;
+		if (win->god_value < 1)
+			win->god_value++;
 	}
 }
 
@@ -45,8 +45,8 @@ void		decrease_value(t_win *win)
 	}
 	if (win->param_index == 2)
 	{
-		if (win->music_value > 0)
-			win->music_value--;
+		if (win->god_value > 0)
+			win->god_value--;
 	}
 }
 
@@ -62,25 +62,22 @@ void		param_text(t_win *win)
 	}
 	if (win->param_index == 1)
 	{
-		// win->paramtxt = TTF_RenderText_Blended(win->police,
-		// 	"Gravity", win->color_font_z);
+		win->paramtxt = ft_strdup("Gravity");
 		tmp = ft_itoa(win->gravity_value);
-		// win->paramvaluetxt = TTF_RenderText_Blended(win->police,
-		// 	tmp, win->color_font_z);
+		win->paramvaluetxt = ft_strdup(tmp);
 	}
 	if (win->param_index == 2)
 	{
-		// win->paramtxt = TTF_RenderText_Blended(win->police,
-		// 	"Music", win->color_font_z);
-		tmp = ft_itoa(win->music_value);
-		// win->paramvaluetxt = TTF_RenderText_Blended(win->police,
-		// 	tmp, win->color_font_z);
+		win->paramtxt = ft_strdup("God Mode");
+		if (win->god_value)
+			win->paramvaluetxt = ft_strdup("ON");
+		else
+			win->paramvaluetxt = ft_strdup("OFF");
 	}
 }
 
 void	set_params(t_env *w, t_win *win)
 {
-	//printf("%d param index \n", win->param_index);
 	param_text(win);
 	win->dst12.x = win->x2 + 30;
 	win->dst12.y = win->y2 - 20;
@@ -88,7 +85,4 @@ void	set_params(t_env *w, t_win *win)
 	win->dst13.y = win->y2 + 20;
 	type_str(w, win->dst12, win->paramtxt, 0xFF00FF);
 	type_str(w, win->dst13, win->paramvaluetxt, 0xFF00FF);
-	// SDL_BlitSurface(win->paramtxt, NULL, win->surface, &win->dst12);
-	// SDL_BlitSurface(win->paramvaluetxt, NULL, win->surface, &win->dst13);
-
 }

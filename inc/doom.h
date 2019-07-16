@@ -732,7 +732,7 @@ void		delete_sector(t_win *win);
 int			check_neighbour(t_win *win);
 int			point_in_triangle(t_dot p0, t_dot p1, t_dot p2, t_dot m);
 int			len_list(t_lst *lst);
-t_lstlst	*recursive_triangulate(t_win *win, t_lst *polygone, t_lstlst *triangles);
+t_lstlst	*recursive_triangulate(t_win *win, t_lstlst *tmp2, t_lst *polygone, t_lstlst *triangles);
 void		placing(t_win *win);
 void		pick_asset(t_env *, t_win *win);
 void		mode(t_env *w, t_win *win);

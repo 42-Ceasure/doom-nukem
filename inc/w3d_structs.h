@@ -154,7 +154,7 @@ struct					s_win
 	int					param_index;
 	int					hp_value;
 	double				gravity_value;
-	int					music_value;
+	int					god_value;
 	int					hud_box;
 };
 

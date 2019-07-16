@@ -856,9 +856,7 @@ void		write_sectors_neighbours(t_win *win, int fp, t_lstlst *tmp2)
 
 void		write_sectors_textures(t_win *win, int fp, t_lstlst *tmp2)
 {
-
 	(void)win;
-	
 	char		*str;
 
 	str = ":";
@@ -868,11 +866,15 @@ void		write_sectors_textures(t_win *win, int fp, t_lstlst *tmp2)
 	str = ft_itoa(tmp2->txtr_floor);
 	ft_putstr_fd(str, fp);
 
+	printf("%s str \n", str);
+
 	str = ",";
 	ft_putstr_fd(str, fp);
 
 	str = ft_itoa(tmp2->txtr_ceiling);
 	ft_putstr_fd(str, fp);
+
+	printf("%s str \n", str);
 
 	str = ",";
 	ft_putstr_fd(str, fp);
@@ -880,11 +882,15 @@ void		write_sectors_textures(t_win *win, int fp, t_lstlst *tmp2)
 	str = ft_itoa(tmp2->txtr_wall);
 	ft_putstr_fd(str, fp);
 
+	printf("%s str \n", str);
+
 	str = ",";
 	ft_putstr_fd(str, fp);
 
 	str = ft_itoa(tmp2->txtr_lower_extrude);
 	ft_putstr_fd(str, fp);
+
+	printf("%s str \n", str);
 
 	str = ",";
 	ft_putstr_fd(str, fp);
@@ -892,8 +898,12 @@ void		write_sectors_textures(t_win *win, int fp, t_lstlst *tmp2)
 	str = ft_itoa(tmp2->txtr_higher_extrude);
 	ft_putstr_fd(str, fp);
 
+	printf("%s str \n", str);
+
 	str = ",0";
 	ft_putstr_fd(str, fp);
+
+
 	/*
 		-floor
 		-ceiling
@@ -1013,13 +1023,31 @@ void		write_player(t_win *win, int fp)
 	str = "\n";
 	ft_putstr_fd(str, fp);
 
-	str = "\tplayer_max_hp:100\n";
+	str = "\tplayer_max_hp:";
 	ft_putstr_fd(str, fp);
 
-	str = "\tgravity:0.05\n";
+	str = ft_itoa(win->hp_value);
 	ft_putstr_fd(str, fp);
 
-	str = "\tgod_mod:0\n";
+	str = "\n";
+	ft_putstr_fd(str, fp);
+
+	str = "\tgravity:0.0";
+	ft_putstr_fd(str, fp);
+
+	str = ft_itoa(win->gravity_value);
+	ft_putstr_fd(str, fp);
+
+	str = "\n";
+	ft_putstr_fd(str, fp);
+
+	str = "\tgod_mod:";
+	ft_putstr_fd(str, fp);
+
+	str = ft_itoa(win->god_value);
+	ft_putstr_fd(str, fp);
+
+	str = "\n";
 	ft_putstr_fd(str, fp);
 
 	// str = "\n";
@@ -1720,10 +1748,6 @@ int			correct_map(t_win *win)
 		printf("Crossed segments \n");
 		return (ret);
 	}
-
-	//check croisements
-
-	//check overlapping sectors and sectors in sectors
 
 	ret = check_player_start(win);
 	if (ret == -1)

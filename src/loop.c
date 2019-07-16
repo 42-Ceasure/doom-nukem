@@ -23,40 +23,9 @@ int			print_game(t_env *w, t_win *win)
 		SDL_SetCursor(win->cursor);
 		type_str(w, dot, win->helptxt, 0xFF00FF);
 	}
-	//if (win->mode == 4 && win->texture_overed_sector != -1)
-	//	type_str(w, dot, "Wall", 0xFFFFFF);
-
-	/*win->texture = SDL_CreateTextureFromSurface(win->renderer, win->surface);
-	SDL_SetRenderTarget(win->renderer, NULL);
-	SDL_GetWindowSize(win->window, &win->w_win, &win->h_win);
-	if ((SDL_RenderCopy(win->renderer, win->texture, NULL, NULL)) < 0)
-		clear_n_exit(win, 17);
-	SDL_RenderPresent(win->renderer);
-	SDL_DestroyTexture(win->texture);*/
-
 	img_update(w);
-
 	return (0);
 }
-
-/*void		clear_window(t_win *win)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (j < WIN_Y)
-	{
-		i = 0;
-		while (i < WIN_X)
-		{
-			set_txtr_pix(w, i, j, 000);
-			i++;
-		}
-		j++;
-	}
-}*/
 
 void		draw_points(t_env *w, t_win *win, int i, int j)
 {

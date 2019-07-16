@@ -77,8 +77,8 @@ static void	init_struct_helper(t_win *win)
 	win->txtr_input_type = 0;
 	win->param_index = 0;
 	win->hp_value = 100;
-	win->gravity_value = 1;
-	win->music_value = 1;
+	win->gravity_value = 5;
+	win->god_value = 0;
 }
 
 static int	init_assets(t_env *w, t_win *win)
