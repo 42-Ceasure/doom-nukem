@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 20:15:25 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/13 17:39:06 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/16 17:52:53 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,17 +296,13 @@ void		loop_play(t_env *w, t_win *win)
 {
 	//win->surface = SDL_CreateRGBSurface(0, WIN_X, WIN_Y, 32, 0, 0, 0, 0);
 	w->stopread = 0;
-	while (42)
+	while (42 && w->stopread == 0)
 	{
-		if (w->stopread != 0)
-			break;
-		SDL_WaitEvent(&win->event);
-		sdl_event(w, win);
-
+		// if (w->stopread != 0)
+		// 	break;
 		on_click(win);
 		clean_render(w, 000);
 		draw_grid(w, win);
-
 		if (win->triangles)
 			draw_triangulate(w, win);
 		//free_triangles(win);
@@ -318,6 +314,8 @@ void		loop_play(t_env *w, t_win *win)
 		if (win->mode != 2)
 			asset_overing(w, win);
 		print_game(w, win);
+		SDL_WaitEvent(&win->event);
+		sdl_event(w, win);
 	}
 	w->stopread = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sdl_event.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <abechet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 17:28:53 by abechet           #+#    #+#             */
-/*   Updated: 2019/05/22 17:54:55 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/16 18:12:27 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static void	sdl_event_key(t_env *w, t_win *win)
 		|| win->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 	{
 		w->stopread = 1;
+		fit_to_game(w);
+		return ;
 		// clear_n_exit(win, 0);
 	}
 
@@ -52,9 +54,12 @@ static void	sdl_event_key(t_env *w, t_win *win)
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_F5])
 	{
 		if (win->lstlst)
+		{
 			map_save(win, w);
+			if (w->stopread == 1)
+				return ;
+		}
 	}
-
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_UP])
 	{
 		if (win->mode == 4)
@@ -253,6 +258,6 @@ static void	sdl_event_mouse(t_env *w, t_win *win)
 
 void		sdl_event(t_env *w, t_win *win)
 {
-	sdl_event_key(w, win);
 	sdl_event_mouse(w, win);
+	sdl_event_key(w, win);
 }

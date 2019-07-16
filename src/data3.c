@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:47:14 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/13 18:02:48 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/16 18:41:28 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1492,6 +1492,7 @@ void		write_in_file(t_win *win, t_env *w)
 	fp = open(name, O_RDWR | O_CREAT | O_TRUNC, 0655);
 	// buf = NULL;
 	write_map_mame(w, fp);
+	process_hint_savemap(w, 3, w->nbmaps, "YOOOOOOO");
 	first_line2(win, fp);
 	write_dots(win, fp);
 	write_sectors(win, fp);
@@ -1862,7 +1863,6 @@ void		map_save(t_win *win, t_env *w)
 		printf("Un secteur est au minimum un triangle \n");
 		return ;
 	}
-
 	while (tmp2)
 	{
 		// if (tmp2)	/* unused */
@@ -1880,6 +1880,9 @@ void		map_save(t_win *win, t_env *w)
 		everything_is_a_triangle(win);
 		if (correct_map(win) == 0)
 		{
+			fit_to_game(w);
+			w->stopread = 1;
+			final_texture_to_screen(w, w->main_pic[1], 0, 0, WIDTH, HEIGHT);
 			fill_buffer(win, w);
 			printf("Map saved\n");
 		}

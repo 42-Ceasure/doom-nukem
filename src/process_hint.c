@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 13:35:38 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/16 05:45:35 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/16 18:40:08 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,45 @@ void			process_hint_w(t_env *w, int i, char *s)
 	if (pre == NULL)
 		pre = other_if(i, post);
 	hello_screen(w);
+	type_str(w, w->txthead, pre, 0x12FEA800);
+	if (i == 2)
+		type_str(w, dot, "Saving modif...", 0x12FEA800);
+	else
+		type_str(w, dot, "Loading game...", 0x12FEA800);
+	img_update(w);
+	free(post);
+	if (pre != NULL)
+		free(pre);
+}
+
+void			process_hint_savemap(t_env *w, int i, int nbmaps, char *s)
+{
+	char		*name;
+	char		*pre;
+	char		*post;
+	t_dot		dot;
+
+	name = ft_strjoin("MAP WILL BE CRETED AS MAP", ft_itoa(nbmaps));
+	hello_screen(w);
+	w->txthead.x = 10;
+	w->txthead.y = 10;
+	type_str(w, w->txthead, name, 0x12FEA800);
+	// s = NULL;
+	w->txthead.x = 6;
+	w->txthead.y = 550;
+	dot.x = 800;
+	dot.y = 550;
+
+	post = ft_strjoin(s, "\r");
+	pre = NULL;
+	if (i == 0)
+		pre = ft_strjoin("Done", post);
+	if (i == 1)
+		pre = ft_strjoin("Allocating memory for ", post);
+	if (i == 2)
+		pre = ft_strjoin("Writing ... ", post);
+	if (pre == NULL)
+		pre = other_if(i, post);
 	type_str(w, w->txthead, pre, 0x12FEA800);
 	if (i == 2)
 		type_str(w, dot, "Saving modif...", 0x12FEA800);

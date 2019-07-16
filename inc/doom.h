@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/16 05:03:36 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/16 18:36:20 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -771,4 +771,6 @@ int			get_nb_maps_in_core(t_env *w);
 int			get_names_maps_in_core(t_env *w, char **names);
 void			init_sprite_tab(t_map *m);
 void		ft_free_tab(t_map *m);
+void			process_hint_savemap(t_env *w, int i, int nbmaps, char *s);
+
 #endif
