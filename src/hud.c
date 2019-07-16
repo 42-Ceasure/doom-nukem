@@ -45,7 +45,7 @@ void	ft_hud(t_env *w, t_map *m)
 	ft_light_itoa(m->player.hp, m->player.strhp);
 	type_str(w, w->txtnxtto, m->player.strhp, 0x12FF0000);
 	dot.y = HEIGHT - 30;
-	type_str(w, dot, "AMMO :   ,", 0x12000000);
+	type_str(w, dot, "AMMO :   /", 0x12000000);
 	if (PH == 1)
 		ft_light_itoa(m->player.bullet[1], m->player.strbullet);
 	else

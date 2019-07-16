@@ -75,7 +75,7 @@ void			process_hint_w(t_env *w, int i, char *s)
 	dot.x = 800;
 	dot.y = 550;
 	if (i == 2)
-		s = ft_strjoin(s, " PERCENT");
+		s = ft_strjoin(s, " %");
 	post = ft_strjoin(s, "\r");
 	pre = NULL;
 	if (i == 0)

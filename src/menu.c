@@ -14,12 +14,12 @@ void	menu_screen(t_env *w)
 
 	if (w->m->launchwmap == 0)
 		if (w->menu.j == 1)
-			start = ft_strdup("  NEW GAME\n");
+			start = ft_strdup("> NEW GAME\n");
 		else
 			start = ft_strdup("NEW GAME\n");
 	else
 		if (w->menu.j == 1)
-			start = ft_strdup("  CONTINUE\n");
+			start = ft_strdup("> CONTINUE\n");
 		else
 			start = ft_strdup("CONTINUE\n");
 	dot.x = WIDTH / 2 - 50;
@@ -36,7 +36,7 @@ void	menu_screen(t_env *w)
 	else if (w->menu.j == 2)
 	{
 		type_str(w, dot, start, 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n  MAPS\n", 0xFF78F7);
+		type_str(w, w->txtnxtline, "\n> MAPS\n", 0xFF78F7);
 		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nEXIT", 0x12FEA800);
@@ -45,7 +45,7 @@ void	menu_screen(t_env *w)
 	{
 		type_str(w, dot, start, 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n  SETTINGS\n", 0xFF78F7);
+		type_str(w, w->txtnxtline, "\n> SETTINGS\n", 0xFF78F7);
 		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nEXIT", 0x12FEA800);
 	}
@@ -54,7 +54,7 @@ void	menu_screen(t_env *w)
 		type_str(w, dot, start, 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n  EDITOR\n", 0xFF78F7);
+		type_str(w, w->txtnxtline, "\n> EDITOR\n", 0xFF78F7);
 		type_str(w, w->txtnxtline, "\nEXIT", 0x12FEA800);
 	}
 	else
@@ -63,7 +63,7 @@ void	menu_screen(t_env *w)
 		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
 		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n  EXIT", 0xFF78F7);
+		type_str(w, w->txtnxtline, "\n> EXIT", 0xFF78F7);
 	}
 	free(start);
 }
