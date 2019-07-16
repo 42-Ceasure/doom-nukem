@@ -39,6 +39,56 @@ void		ft_putmychar(t_env *w, int i, int *xmain, int *ymain)
 		c = 40;
 	else if (w->txt.text[i] == ' ')
 		c = 41;
+	else if (w->txt.text[i] == '\"')
+		c = 42;
+	else if (w->txt.text[i] == '}')
+		c = 43;
+	else if (w->txt.text[i] == '{')
+		c = 44;
+	else if (w->txt.text[i] == '@')
+		c = 45;
+	else if (w->txt.text[i] == '\\')
+		c = 46;
+	else if (w->txt.text[i] == '^')
+		c = 47;
+	else if (w->txt.text[i] == '>')
+		c = 48;
+	else if (w->txt.text[i] == '<')
+		c = 49;
+	else if (w->txt.text[i] == ']')
+		c = 50;
+	else if (w->txt.text[i] == '[')
+		c = 51;
+	else if (w->txt.text[i] == '#')
+		c = 52;
+	else if (w->txt.text[i] == '$')
+		c = 53;
+	else if (w->txt.text[i] == '=')
+		c = 54;
+	else if (w->txt.text[i] == '-')
+		c = 55;
+	else if (w->txt.text[i] == ')')
+		c = 56;
+	else if (w->txt.text[i] == '(')
+		c = 57;
+	else if (w->txt.text[i] == '%')
+		c = 58;
+	else if (w->txt.text[i] == '|')
+		c = 59;
+	else if (w->txt.text[i] == '+')
+		c = 60;
+	else if (w->txt.text[i] == '/')
+		c = 61;
+	else if (w->txt.text[i] == '*')
+		c = 62;
+	else if (w->txt.text[i] == '~')
+		c = 63;
+	else if (w->txt.text[i] == '\'')
+		c = 64;
+	else if (w->txt.text[i] == ';')
+		c = 65;
+	else if (w->txt.text[i] == '_')
+		c = 66;
 	else if (ft_isdigit(w->txt.text[i]) == 1)
 		c = (int)(w->txt.text[i] - 48);
 	else if (ft_isalpha(w->txt.text[i]) == 1)
