@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:47:14 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/16 18:59:43 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/16 23:52:45 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1492,18 +1492,24 @@ void		write_in_file(t_win *win, t_env *w)
 	fp = open(name, O_RDWR | O_CREAT | O_TRUNC, 0655);
 	// buf = NULL;
 	write_map_mame(w, fp);
-	process_hint_savemap(w, 3, w->nbmaps, "YOOOOOOO");
+	process_hint_savemap(w, 3, w->nbmaps, "map");
 	first_line2(win, fp);
+	process_hint_savemap(w, 3, w->nbmaps, "dots");
 	write_dots(win, fp);
+	process_hint_savemap(w, 3, w->nbmaps, "sectors");
 	write_sectors(win, fp);
+	process_hint_savemap(w, 3, w->nbmaps, "player");
 	write_player(win, fp);
+	process_hint_savemap(w, 3, w->nbmaps, "sprites");
 	write_sprites(win, fp);
+	process_hint_savemap(w, 3, w->nbmaps, "ennemies");
 	write_ennemies(win, fp);
+	process_hint_savemap(w, 3, w->nbmaps, "sections");
 
 	str = "Section:over\n";
 	ft_putstr_fd(str, fp);
 	close(fp);
-	add_map_to_core("core/core.dn3d", "./tmp.dn3d");
+	add_map_to_core("core/core.dn3d", "./tmp.dn3d", w);
 	unlink("./tmp.dn3d");
 }
 

@@ -88,12 +88,16 @@ void		replace_line(char *path, char *balise, char *content, t_env *w)
 	unlink("./tmp");
 }
 
-void		add_map_to_core(char *path, char *path2)
+void		add_map_to_core(char *path, char *path2, t_env *w)
 {
 	t_filer f;
 	int		fd;
+	int 	i;
+	int		nb;
 	char	*line;
 
+	i = 0;
+	nb = 0;
 	f.stop = 0;
 	f.buffer = 256;
 	if ((f.fd = open("./tmp", O_RDWR | O_CREAT | O_TRUNC, 0655)) != -1
@@ -103,6 +107,9 @@ void		add_map_to_core(char *path, char *path2)
 		while (precise_get_next_line(f.fd2, &f.line, f.buffer))
 		{
 			f.tmp = ft_strsplit(f.line, ';');
+			if (w->corenbl != 0)
+				nb = vmin(((double)i / (double)(w->corenbl * 2) * (double)100), 99);
+			process_hint_savemap(w, 2, w->nbmaps, ft_itoa(nb));
 			if (ft_strncmp(f.line, "buffer", 6) == 0)
 			{
 				ft_putendl_fd(f.line, f.fd);
@@ -129,6 +136,7 @@ void		add_map_to_core(char *path, char *path2)
 				f.buffer = 256;
 			ft_memreg(f.tmp);
 			free(f.line);
+			i++;
 		}
 		ft_putendl_fd("eof", f.fd);
 		close(f.fd2);
@@ -141,6 +149,9 @@ void		add_map_to_core(char *path, char *path2)
 		while (precise_get_next_line(f.fd, &f.line, f.buffer) && f.stop == 0)
 		{
 			f.tmp = ft_strsplit(f.line, ';');
+			if (w->corenbl != 0)
+				nb = vmin(((double)i / (double)(w->corenbl * 2) * (double)100), 99);
+			process_hint_savemap(w, 2, w->nbmaps, ft_itoa(nb));
 			if (ft_strncmp(f.line, "buffer", 6) == 0)
 			{
 				ft_putendl_fd(f.line, f.fd2);
@@ -159,6 +170,7 @@ void		add_map_to_core(char *path, char *path2)
 				f.buffer = 256;
 			ft_memreg(f.tmp);
 			free(f.line);
+			i++;
 		}
 		close(f.fd2);
 		close(f.fd);

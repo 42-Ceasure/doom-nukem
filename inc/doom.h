@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/16 18:36:20 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/16 23:51:21 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -568,7 +568,7 @@ void				parse_sprite_line(t_env *w, t_map *m, char *line);
 // void 				replace_line(char *path, char *balise, char *content);
 // test
 void				replace_line(char *path, char *balise, char *content, t_env *w);
-void				add_map_to_core(char *path, char *path2);
+void				add_map_to_core(char *path, char *path2, t_env *w);
 void				change_settings(t_env *w, t_map *m);
 void				parse_map_file(t_env *w, t_map *m);
 int					parse_map_section(t_map *m, char **tab);

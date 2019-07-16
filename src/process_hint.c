@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 13:35:38 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/16 19:06:04 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/17 00:12:46 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void			process_hint_savemap(t_env *w, int i, int nbmaps, char *s)
 	w->txthead.x = 10;
 	w->txthead.y = 10;
 	type_str(w, w->txthead, name, 0x12FEA800);
+	if (i == 2)
+		s = ft_strjoin(s, " %");
 	// s = NULL;
 	w->txthead.x = 6;
 	w->txthead.y = 550;
@@ -122,13 +124,15 @@ void			process_hint_savemap(t_env *w, int i, int nbmaps, char *s)
 		pre = ft_strjoin("Done", post);
 	if (i == 1)
 		pre = ft_strjoin("Allocating memory for ", post);
-	if (i == 2)
+	if (i == 2 || i == 4)
 		pre = ft_strjoin("Writing ... ", post);
 	if (pre == NULL)
 		pre = other_if(i, post);
 	type_str(w, w->txthead, pre, 0x12FEA800);
 	if (i == 2)
 		type_str(w, dot, "Saving modif...", 0x12FEA800);
+	if (i == 4)
+		type_str(w, dot, "Saving map...", 0x12FEA800);
 	else
 		type_str(w, dot, "Loading game...", 0x12FEA800);
 	img_update(w);
