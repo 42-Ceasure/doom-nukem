@@ -214,5 +214,4 @@ void			load_core(t_env *w, t_map *m)
 	w->dtime.end = SDL_GetTicks();
 	loading = w->dtime.end - w->dtime.start;
 	w->nbmaps = get_nb_maps_in_core(w);
-	printf("settings loaded in %f seconds !\n", loading / 1000);
 }
