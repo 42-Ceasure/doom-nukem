@@ -37,6 +37,7 @@ void	reset_map(t_map *m)
 int		get_that_map_parsed(t_env *w, t_map *m)
 {
 	reset_map(m);
+	reset_player(m);
 	free(m->line);
 	m->i = 0;
 	m->s = 0;

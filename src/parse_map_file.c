@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 13:27:27 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/15 18:20:59 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/17 11:18:09 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,47 +105,4 @@ int		parse_line(t_env *w, t_map *m)
 		w->stopread = 1;
 	ft_memreg(tmp);
 	return (0);
-}
-
-int		do_parse(t_env *w, t_map *m)
-{
-	m->i = 0;
-	m->s = 0;
-	m->w = 0;
-	m->section_number = 0;
-	if ((m->fd = open(m->map_path, O_RDONLY)) == -1)
-		return (-1);
-	process_hint_w(w, 6, " ");
-	reset_player(m);
-	while (w->stopread == 0 && get_next_line(m->fd, &m->line))
-	{
-		if ((parse_line(w, m)) == -1)
-		{
-			write(2, "error on map collect\n", 22);
-			return (-1);
-		}
-		free(m->line);
-	}
-	process_hint_w(w, 0, " ");
-	if (w->stopread == 0)
-		free(m->line);
-	close(m->fd);
-	return (0);
-}
-
-void	parse_map_file(t_env *w, t_map *m)
-{
-	// a enlever?
-	double	loading;
-
-	ft_free_sector(m);
-	if (m->dot != NULL)
-		free(m->dot);
-	ft_free_sprt(m);
-	w->dtime.start = SDL_GetTicks();
-	if (do_parse(w, m) == -1)
-		set_error(w, m, 8, ft_strdup("do_parse"));
-	w->dtime.end = SDL_GetTicks();
-	loading = w->dtime.end - w->dtime.start;
-	printf("map loaded in %f seconds !\n", loading / 1000);
 }

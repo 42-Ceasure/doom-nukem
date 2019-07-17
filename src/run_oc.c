@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:22:55 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/13 14:35:11 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/17 11:12:53 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,9 @@ void	weap_animation(t_env *w, t_map *m)
 	slow_down(w, m);
 	if (m->elevator == 1)
 	{
-		m->sector[11].floor -= 0.1;
-		m->sector[11].ceiling -= 0.1;
-		if ((int)m->sector[11].floor == 49)
-			m->elevator = 0;
+		m->sector[m->nb_a].floor -= 0.1;
+		if ((int)m->sector[m->nb_a].floor == m->sector[m->nb_a + 1].floor - 1)
+			m->elevator = -1;
 	}
 }
 

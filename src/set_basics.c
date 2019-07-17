@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_basics.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 13:47:03 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/16 05:03:12 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/17 11:12:23 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,8 @@ void			set_w(t_env *w, int ac)
 	w->main_pic[0] = pre_init_texture(w->res.width, w->res.height);
 	w->main_pic[1] = pre_init_texture(w->res.width, w->res.height);
 	w->main_pic[2] = pre_init_texture(w->res.width, w->res.height);
-	w->menu.z = 0;
-	w->menu.y = NULL;
 	w->menu.i = 0;
 	w->menu.j = 0;
-	w->menu.list = NULL;
 	w->dtime.fps = 0;
 	w->dtime.start = 0;
 	w->dtime.end = 0;
@@ -75,7 +72,7 @@ void			set_w(t_env *w, int ac)
 	w->corenbl = 0;
 }
 
-void			set_coumt(t_map *m)
+void			set_count(t_map *m)
 {
 	m->trippymod = 0;
 	m->i = 0;
@@ -114,7 +111,7 @@ void			set_m(t_map *m)
 	m->player.max_hp = 100;
 	m->god_mod = 0;
 	m->hud = pre_init_texture(0, 0);
-	set_coumt(m);
+	set_count(m);
 }
 
 void			set_player_math(t_map *m)

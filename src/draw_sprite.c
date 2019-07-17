@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/14 14:59:50 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/17 11:53:54 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,7 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x, int ratio)
 		tmp.zoom *= 2;
 	tmp.x1 = WIDTH / 2 - (tmp.t1x * tmp.xscale1 + (m->sprite[m->sprt[x].index].w
 		/ 2 * tmp.zoom * ratio));
-	/*if (ft_strcmp(m->sprite[x].type, "decor") == 0)
-		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprite[x].sector].ceiling
-			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1) - 10;*/
-	if (ft_strcmp(m->sprite[m->sprt[x].index].type, "auto") == 0)
-		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprt[x].sector].floor
-			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1)
-				- (100 * tmp.zoom * ratio);
-	else
-		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprt[x].sector].floor
+	tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprt[x].sector].floor
 			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1)
 				- (m->sprite[m->sprt[x].index].h * tmp.zoom * ratio);
 	return (tmp);
@@ -46,36 +38,54 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x, int ratio)
 void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 {
 	t_cal_sprt	data;
-	double		range;
 	int			o;
 
 	o = m->sprt[x].index;
 	data = calcul_sprite(w, m, x, ratio);
-	range = data.zoom;
 	if (ft_strcmp(m->sprite[o].type, "rotate") == 0)
 	{
-		if (data.diffx >= 0 && data.diffy >= 0)
-			o = 14;
-		else if (data.diffx >= 0 && data.diffy < 0)
-			o = 15;
-		else if (data.diffx < 0 && data.diffy >= 0)
-			o = 17;
+		//printf("x=%f y=%f\n", data.diffx, data.diffy);
+		if (data.diffx >= 5)
+		{
+			if (data.diffy >= 5)
+				o = 15;
+			else if (data.diffy < 5 && data.diffy >= -5)
+				o = 16;
+			else
+				o = 17;
+		}
+		else if (data.diffx < 5 && data.diffx >= -5)
+		{
+			if (data.diffy >= 5)
+				o = 14;
+			else
+				o = 18;
+		}
 		else
-			o = 16;
+		{
+			if (data.diffy >= 5)
+				o = 21;
+			else if (data.diffy < 5 && data.diffy >= -5)
+				o = 20;
+			else
+				o = 19;
+		}
 	}
 	if (data.t1z > 0 && m->sprt[x].vis == 1)
 	{
 		if (ft_strcmp(m->sprite[o].type, "auto") == 0)
 			final_sprite_to_screen(w, m->sprite[o], data.x1,
-				data.y1a, 0, 100 * range * ratio);
+				data.y1a, 0, m->sprite[o].h * data.zoom * ratio);
 		else
 			final_sprite_to_screen(w, m->sprite[o], data.x1,
-				data.y1a, m->sprite[o].w * range * ratio, 0);
+				data.y1a, m->sprite[o].w * data.zoom * ratio, 0);
 	}
 }
 
 void	sprite_on_ground(t_env *w, t_map *m, double **tab, int x)
 {
+	if (m->sprt[(int)tab[x][1]].range > 0.5)
+		m->sprt[(int)tab[x][1]].vis = 1;
 	if (m->sprt[(int)tab[x][1]].taken != 1)
 		draw_sprite(w, m, (int)tab[x][1], 1);
 	if (m->sprt[(int)tab[x][1]].range >= 2
@@ -119,28 +129,6 @@ void	count_sprite(t_env *w, t_map *m)
 }
 
 void	test_sprite(t_map *m, double xx, double yy)
-{
-	int x;
-
-	x = 0;
-	while (x < m->sprite_map_count)
-	{
-		if (m->sprt[x].sx == (int)xx && m->sprt[x].sy == (int)yy
-			&& m->sprt[x].vis != 1)
-			m->sprt[x].vis = 1;
-		x++;
-	}
-	x = 0;
-	while (x < m->ennemy_count)
-	{
-		if ((int)m->ennemy[x].coor.x == (int)xx && (int)m->ennemy[x].coor.y
-			== (int)yy && m->ennemy[x].vis != 1)
-			m->ennemy[x].vis = 1;
-		x++;
-	}
-}
-
-void	test_sprite2(t_map *m, double xx, double yy)
 {
 	int x2;
 

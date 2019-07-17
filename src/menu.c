@@ -173,15 +173,6 @@ void	change_key(t_env *w)
 		w->m->player.field_of_vision_v = w->fov_v_menu;
 		w->m->player.mousesp = w->mousesp_menu;	
 	}
-	// if (w->menu.k == 0)
-	// 	change_settings(w, w->m);
-	// if (w->menu.k == 1)
-	// 	change_settings(w, w->m);
-	// if (w->menu.k == 2)
-	// 	change_settings(w, w->m);
-	// if (w->menu.k == 3)
-	// 	change_settings(w, w->m);
-	// if (w->menu.k == 4)
 	change_settings(w, w->m);
 }
 
@@ -495,7 +486,7 @@ int		loose(t_env *w, t_map *m)
 	m->newgame = 1;
 	while (stop != 1)
 	{
-			while (SDL_PollEvent(&w->event))
+		while (SDL_PollEvent(&w->event))
 		{
 			if (w->event.type == SDL_KEYDOWN)
 			{
@@ -507,8 +498,6 @@ int		loose(t_env *w, t_map *m)
 					m->newgame = 1;
 					return(1);
 				}
-				// if (KEY == 27)
-					// exit_game(w, m, 1);
 				if (KEY == SDLK_RETURN)
 				{
 					m->game_over = 0;

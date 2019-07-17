@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 15:04:59 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/11 15:05:02 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/17 11:15:10 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ void		move_floor_ceiling(t_env *w, t_map *m)
 		m->sector[m->player.sector].ceiling += 0.1;
 	if (w->inkeys[SDL_SCANCODE_END])
 		m->sector[m->player.sector].ceiling -= 0.1;
-	if (m->sector[m->player.sector].floor == 74 && KEY == SDLK_f
-		&& m->sprt[15].taken == 1)
+	if (m->sector[m->player.sector].texturing[2] == 6 && KEY == SDLK_f
+		&& m->player.take[3] == 1 && m->elevator != -1)
+	{
 		m->elevator = 1;
+		m->nb_a = m->player.sector;
+	}
 }
 
 void		key_events(t_env *w, t_map *m)

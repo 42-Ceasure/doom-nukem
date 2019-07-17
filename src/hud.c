@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 14:19:05 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/13 15:07:11 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/17 11:50:42 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	inventory(t_env *w, t_map *m, t_dot dot)
 	if (m->player.take[2] == 1)
 		final_sprite_to_screen(w, m->sprite[2], 480, HEIGHT - 54, 64, 0);
 	if (m->player.take[3] == 1)
-		final_sprite_to_screen(w, m->sprite[18], 560, HEIGHT - 54, 64, 0);
+		final_sprite_to_screen(w, m->sprite[22], 560, HEIGHT - 54, 64, 0);
 }
 
 void	ft_hud(t_env *w, t_map *m)

@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:21:43 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/12 11:36:03 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/17 11:37:46 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	swipe_sprite(t_env *w, t_map *m, int x)
 
 void	ennemy_animation(t_env *w, t_map *m, double **tab, int x)
 {
+	if (m->ennemy[(int)tab[x][1]].range > 0.5)
+		m->ennemy[(int)tab[x][1]].vis = 1;
 	if (m->ennemy[(int)tab[x][1]].vis == 1)
 	{
 		if (m->ennemy[(int)tab[x][1]].dead == 0)
