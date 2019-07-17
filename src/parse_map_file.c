@@ -67,6 +67,14 @@ int		second_parse(t_map *m, char **tmp)
 			return (-1);
 		}
 	}
+	else if (m->section_number == 5)
+	{
+		if (parse_level_map(m, tmp) == -1)
+		{
+			ft_putendl("error in parse_level_map");
+			return (-1);
+		}
+	}
 	return (0);
 }
 
@@ -93,7 +101,7 @@ int		parse_line(t_env *w, t_map *m)
 	}
 	if (second_parse(m, tmp) == -1)
 		return (-1);
-	if (m->section_number == 5)
+	if (m->section_number == 6)
 		w->stopread = 1;
 	ft_memreg(tmp);
 	return (0);

@@ -95,3 +95,17 @@ int		parse_ennemy_map(t_map *m, char **tab)
 	}
 	return (0);
 }
+
+int		parse_level_map(t_map *m, char **tab)
+{
+	char	**tmp;
+
+	if (ft_strcmp(tab[0], "Section") != 0)
+	{
+		tmp = ft_strsplit(tab[1], ',');
+		m->endsector = ft_atoi(tmp[0]);
+		m->linklvl = ft_strdup(tmp[1]);
+		ft_memreg(tmp);
+	}
+	return (0);
+}

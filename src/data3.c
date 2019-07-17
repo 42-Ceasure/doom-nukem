@@ -1506,8 +1506,12 @@ void		write_in_file(t_win *win, t_env *w)
 	write_ennemies(win, fp);
 	process_hint_savemap(w, 3, w->nbmaps, "sections");
 
-	str = "Section:over\n";
+	str = ft_strdup("Section:level\n");
 	ft_putstr_fd(str, fp);
+	free(str);
+	str = ft_strdup("Section:over\n");
+	ft_putstr_fd(str, fp);
+	free(str);
 	close(fp);
 	add_map_to_core("core/core.dn3d", "./tmp.dn3d", w);
 	unlink("./tmp.dn3d");

@@ -528,6 +528,8 @@ void	launch(t_env *w, t_map *m)
 					if (parse_map_in_core(w, m, w->currmap) != 0)
 						continue;
 				}
+				printf("no end sector : %d\n", m->endsector);
+				printf("linklvl : %s\n", m->linklvl);
 				// else
 				// 	parse_map_file(w, m);
 				run(w, m);

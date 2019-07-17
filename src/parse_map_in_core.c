@@ -24,7 +24,12 @@ void	reset_map(t_map *m)
         }
 		free(m->ennemy);
 	}
-	
+	m->endsector = -1;
+	if (m->linklvl != NULL)
+	{
+		free(m->linklvl);
+		m->linklvl = NULL;
+	}
 }
 
 int		get_that_map_parsed(t_env *w, t_map *m)

@@ -408,6 +408,8 @@ typedef struct		s_map
 	int				sprite_map_count;
 	int				ennemy_count;
 	int				maxrenderedsector;
+	int				endsector;
+	char			*linklvl;
 	double			yaw;
 	double			gravity;
 	double			**tab;
@@ -772,5 +774,6 @@ int			get_names_maps_in_core(t_env *w, char **names);
 void			init_sprite_tab(t_map *m);
 void		ft_free_tab(t_map *m);
 void			process_hint_savemap(t_env *w, int i, int nbmaps, char *s);
+int		parse_level_map(t_map *m, char **tab);
 
 #endif

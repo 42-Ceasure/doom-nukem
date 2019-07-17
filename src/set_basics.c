@@ -94,12 +94,14 @@ void			set_m(t_map *m)
 {
 	m->stop = 0;
 	m->launchwmap = 0;
+	m->endsector = -1;
 	m->maxrenderedsector = 32;
 	m->yaw = 0;
 	m->gravity = BASE_GRAVITY;
 	m->line = NULL;
 	m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
 	m->map_name = ft_strdup("Home Sweet Home");
+	m->linklvl = NULL;
 	m->dot = NULL;
 	m->sector = NULL;
 	m->weap = NULL;
