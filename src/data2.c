@@ -132,6 +132,12 @@ int			correct_map(t_win *win)
 	int			ret;
 
 	ret = 0;
+	ret = correct_three_points(win);
+	if (ret == -4)
+	{
+		printf("Too many points of a sector on same x\n");
+		return (ret);
+	}
 	ret = correct_intersections_in_a_sector(win);
 	if (ret == -3)
 	{

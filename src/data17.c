@@ -12,6 +12,30 @@
 
 #include "doom.h"
 
+int			correct_three_points(t_win *win)
+{
+	t_lstlst	*tmp2;
+	t_lst		*tmp;
+	int			i;
+
+	tmp2 = win->lstlst;
+	while (tmp2)
+	{
+		i = 0;
+		tmp = tmp2->head;
+		while (tmp->next)
+		{
+			if (tmp->x == tmp->next->x)
+				i++;
+			tmp = tmp->next;
+		}
+		if (i > 1)
+			return (-4);
+		tmp2 = tmp2->next;
+	}
+	return (0);
+}
+
 void		write_sprites_helper(t_win *win, int fp, t_lstasset *tmp, int i)
 {
 	if (tmp->asset_type == 1)

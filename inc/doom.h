@@ -796,6 +796,7 @@ int			number_of_y(t_win *win);
 int			x_min_on_line(t_win *win, int y);
 int			next_x_on_line(t_win *win, int y, int x);
 void		sort_points(t_win *win);
+int			correct_three_points(t_win *win);
 
 
 

@@ -71,13 +71,11 @@ void		triangulate_all_assets(t_win *win)
 	while (tmp3)
 	{
 		tmp2 = win->triangles;
-		if (tmp2->sector != -1)
+		while (tmp2)
 		{
-			while (tmp2)
-			{
+			if (tmp2->sector != -1)
 				taa_helper(win, tmp3, tmp2, ret);
-				tmp2 = tmp2->next;
-			}
+			tmp2 = tmp2->next;
 		}
 		tmp3 = tmp3->next;
 	}
