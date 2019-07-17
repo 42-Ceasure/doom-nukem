@@ -92,30 +92,6 @@ void	affichage_set(t_env *w)
 	dot.y = w->txthead.y;
 }
 
-// void	affichage_set(t_env *w)
-// {
-// 	t_dot	dot;
-
-// 	dot.x = WIDTH - 100;
-// 	dot.y = 10;
-// 	ft_light_itoa(w->window_mode, w->light_nb);
-// 	type_str(w, dot, w->light_nb, 0x12FEA800);
-// 	dot.y += 50;
-// 	ft_light_itoa(w->window_res, w->light_nb);
-// 	type_str(w, dot, w->light_nb, 0x12FEA800);
-// 	dot.y += 50;
-// 	ft_light_itoa(w->m->player.field_of_vision_h, w->light_nb);
-// 	type_str(w, dot, w->light_nb, 0x12FEA800);
-// 	dot.y += 50;
-// 	ft_light_itoa(w->m->player.field_of_vision_v, w->light_nb);
-// 	type_str(w, dot, w->light_nb, 0x12FEA800);
-// 	dot.y += 50;
-// 	ft_light_itoa(w->m->player.mousesp, w->light_nb);
-// 	type_str(w, dot, w->light_nb, 0x12FEA800);
-// 	dot.x = w->txthead.x;
-// 	dot.y = w->txthead.y;
-// }
-
 void	change_value(t_env *w, int direction)
 {
 	if (w->menu.k == 0)
@@ -146,26 +122,57 @@ void	change_value(t_env *w, int direction)
 		else
 			w->fov_v_menu = vmax(100, w->fov_v_menu - 1);
 	}
-	// if (w->menu.k == 4)
-	// {
-	// 	if (direction == 1)
-	// 		w->mousesp_menu = vmin(w->mousesp_menu + 0.01, 1.5);
-	// 	else
-	// 		w->mousesp_menu = vmax(0.5, w->mousesp_menu - 0.01);
-	// }
+	if (w->menu.k == 4)
+	{
+		if (direction == 1)
+			w->mousesp_menu = vmin(w->mousesp_menu + 1, 200);
+		else
+			w->mousesp_menu = vmax(1, w->mousesp_menu - 1);
+	}
+}
+
+int		settings_changed(t_env *w)
+{
+	if (w->menu.k == 5)
+	{
+		if (w->window_mode != 1)
+			return(1);
+		if (w->window_res != 0)
+			return(1);
+		if (w->m->player.field_of_vision_h != 512)
+			return(1);
+		if (w->m->player.field_of_vision_v != 288)
+			return(1);
+		if (w->m->player.mousesp != 100)
+			return(1);
+	}
+	else
+	{
+		if (w->window_mode != w->window_mode_menu)
+			return(1);
+		if (w->window_res != w->window_res_menu)
+			return(1);
+		if (w->m->player.field_of_vision_h != w->fov_h_menu)
+			return(1);
+		if (w->m->player.field_of_vision_v != w->fov_v_menu)
+			return(1);
+		if (w->m->player.mousesp != w->mousesp_menu)
+			return(1);
+	}
+	return (0);
 }
 
 void	change_key(t_env *w)
 {
-	if (w->menu.k == 5)
+	if (w->menu.k == 5 && settings_changed(w) == 1)
 	{
 		w->window_mode = 1;
 		w->window_res = 0;
 		w->m->player.field_of_vision_h = 512;
 		w->m->player.field_of_vision_v = 288;
-		w->m->player.mousesp = 1;
+		w->m->player.mousesp = 100;
 	}
-	else
+	else if (settings_changed(w) == 1)
 	{
 		w->window_mode = w->window_mode_menu;
 		w->window_res = w->window_res_menu;
@@ -173,7 +180,8 @@ void	change_key(t_env *w)
 		w->m->player.field_of_vision_v = w->fov_v_menu;
 		w->m->player.mousesp = w->mousesp_menu;	
 	}
-	change_settings(w, w->m);
+	if (settings_changed(w) == 1)
+		change_settings(w, w->m);
 }
 
 void	settings(t_env *w)
@@ -262,13 +270,18 @@ void	settings(t_env *w)
 					break;
 				}
 				if (KEY == SDLK_UP)
-					w->menu.k = vmax(0, w->menu.k - 1);
+					w->menu.k = ((w->menu.k - 1) < 0) ? 5 : (w->menu.k - 1);
 				if (KEY == SDLK_DOWN)
-					w->menu.k = vmin(w->menu.k + 1, 5);
+					w->menu.k = ((w->menu.k + 1) > 5) ? 0 : (w->menu.k + 1);
 				if (KEY == SDLK_RIGHT)
 					change_value(w, 1);
 				if (KEY == SDLK_LEFT)
 					change_value(w, 2);
+			}
+			if (w->event.type == SDL_WINDOWEVENT)
+			{
+				if (WINDOW == SDL_WINDOWEVENT_CLOSE)
+					exit_game(w, w->m, 1);
 			}
 		}
 		affichage_set(w);
@@ -368,15 +381,17 @@ void	maps(t_env *w)
 					free(w->currmap);
 					w->currmap = ft_strdup(w->namesmaps[w->menu.k]);
 					w->m->newgame = 1;
-					// w->menu.i = vmax(-1, w->menu.i - 1);
 					w->menu.i = 5;
 				}
 				if (KEY == SDLK_UP)
 					w->menu.k = ((w->menu.k - 1) < 0) ? w->nbmaps - 1 : (w->menu.k - 1);
-				// w->menu.k = vmax(0, w->menu.k - 1);
 				if (KEY == SDLK_DOWN)
 					w->menu.k = ((w->menu.k + 1) >= w->nbmaps) ? 0 : (w->menu.k + 1);
-				// w->menu.k = vmin(w->menu.k + 1, w->nbmaps - 1);
+			}
+			if (w->event.type == SDL_WINDOWEVENT)
+			{
+				if (WINDOW == SDL_WINDOWEVENT_CLOSE)
+					exit_game(w, w->m, 1);
 			}
 		}
 		if (w->menu.i != 2)
@@ -390,7 +405,6 @@ void	maps(t_env *w)
 			free(w->namesmaps);
 			break;
 		}
-		// si croix pas de fermeture
 		img_update(w);
 	}
 }
@@ -425,11 +439,9 @@ void	event_menu(t_env *w)
 				}
 			}
 			if (KEY == SDLK_UP)
-				w->menu.j = vmax(1, w->menu.j - 1);
+				w->menu.j = ((w->menu.j - 1) < 1) ? 5 : (w->menu.j - 1);
 			if (KEY == SDLK_DOWN)
-				w->menu.j = vmin(w->menu.j + 1, 5);
-			if (KEY == SDLK_y)
-				fit_to_game(w);
+				w->menu.j = ((w->menu.j + 1) > 5) ? 1 : (w->menu.j + 1);
 		}
 		if (w->event.type == SDL_WINDOWEVENT)
 		{
@@ -505,6 +517,11 @@ int		loose(t_env *w, t_map *m)
 					stop = 1;
 				}
 			}
+			if (w->event.type == SDL_WINDOWEVENT)
+			{
+				if (WINDOW == SDL_WINDOWEVENT_CLOSE)
+					exit_game(w, w->m, 1);
+			}
 		}
 		img_update(w);
 	}
@@ -536,13 +553,16 @@ int		change_lvl(t_env *w, t_map *m)
 					m->newgame = 0;
 					return(1);
 				}
-				// if (KEY == 27)
-				// 	exit_game(w, m, 1);
 				if (KEY == SDLK_RETURN)
 				{
 					m->change_lvl = 0;
 					stop = 1;
 				}
+			}
+			if (w->event.type == SDL_WINDOWEVENT)
+			{
+				if (WINDOW == SDL_WINDOWEVENT_CLOSE)
+					exit_game(w, w->m, 1);
 			}
 		}
 		img_update(w);
@@ -574,17 +594,11 @@ void	launch(t_env *w, t_map *m)
 				if (change_lvl(w, m) == 1)
 					continue;
 			}
-			// else
-			// {
 			if (m->newgame == 1)
 			{
 				if (parse_map_in_core(w, m, w->currmap) != 0)
 					continue;
 			}
-			printf("no end sector : %d\n", m->endsector);
-			printf("linklvl : %s\n", m->linklvl);
-				// else
-				// 	parse_map_file(w, m);
 			run(w, m);
 		}
 	}

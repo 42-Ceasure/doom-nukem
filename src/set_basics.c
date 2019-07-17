@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_basics.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 13:47:03 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/17 18:31:22 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/17 20:22:49 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void			set_w(t_env *w, int ac)
 	w->txtnxtto.x = 0;
 	w->txtnxtto.y = 0;
 	w->texturingno = 0;
-	w->textured = 0;
+	w->textured = 1;
 	w->window_mode_menu = 0;
 	w->window_res_menu = 0;
 	w->fov_h_menu = 0;

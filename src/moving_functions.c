@@ -50,7 +50,6 @@ void		is_falling(t_map *m)
 
 	if (m->player.fall == 1)
 	{
-		// printf("%f\n", m->player.move_speed.z);
 		m->player.move_speed.z = m->player.move_speed.z - m->gravity;
 		nxtz = m->player.coor.z + m->player.move_speed.z;
 		if (m->player.move_speed.z < 0 && nxtz < m->sector[m->player.sector].floor + m->player.height)

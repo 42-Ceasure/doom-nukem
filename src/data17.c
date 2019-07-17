@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data17.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 17:27:19 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/17 17:27:28 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/17 19:56:23 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ int			correct_three_points(t_win *win)
 		{
 			if (tmp->x == tmp->next->x)
 				i++;
+			else
+				i = 0;
+			if (i > 1)
+				return (-4);
 			tmp = tmp->next;
 		}
-		if (i > 1)
-			return (-4);
 		tmp2 = tmp2->next;
 	}
 	return (0);
