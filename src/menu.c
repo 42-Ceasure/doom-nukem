@@ -254,7 +254,6 @@ void	settings(t_env *w)
 			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
 			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0x12FEA800);
 		}
-		
 		dot.x = WIDTH - 580;
 		dot.y = HEIGHT - 55;
 		type_str(w, dot, "PRESS ENTER TO SAVE AND APPLY", 0x12FEA800);
@@ -288,11 +287,66 @@ void	settings(t_env *w)
 	} 
 }
 
+void	menu_maps_2(t_env *w)
+{
+	t_dot			dot;
+	int 			i;
+	int 			j;
+	int 			start;
+	unsigned int 	color;
+
+	j = 0;
+	start = 1;
+	dot.x = WIDTH / 2 - 50;
+	dot.y = 140;
+	i = w->menu.k - 5;
+	if (i < 0)
+		i = w->nbmaps + i;
+	while (j < 10)
+	{
+		if (i >= w->nbmaps)
+			i = 0;
+		if (i == w->menu.k)
+			color = 0xFF78F7;
+		else
+			color = 0x12FEA800;
+		if (start == 1)
+			type_str(w, dot, w->namesmaps[i], color);
+		else
+			type_str(w, w->txtnxtline, w->namesmaps[i], color);
+		start = 0;
+		i++;
+		j++;
+	}
+}
+
+void	menu_maps_1(t_env *w)
+{
+	t_dot			dot;
+	unsigned int 	color;
+	int i;
+
+	dot.x = WIDTH / 2 - 50;
+	dot.y = 140;
+	i = 0;
+	while (w->namesmaps[i])
+	{
+		if (i == w->menu.k)
+			color = 0xFF78F7;
+		else
+			color = 0x12FEA800;
+		if (i == 0)
+			type_str(w, dot, w->namesmaps[i], color);
+		else
+			type_str(w, w->txtnxtline, w->namesmaps[i], color);
+		i++;
+	}
+}
+
 void	maps(t_env *w)
 {
 	t_dot	dot;
 	int		i;
-	int		color;
 
 	i = 0;
 	w->menu.k = 0;
@@ -308,24 +362,10 @@ void	maps(t_env *w)
 		dot.y = 10;
 		final_texture_to_screen(w, w->main_pic[1], 0, 0, WIDTH, HEIGHT);
 		type_str(w, dot, "MAPS :\n", 0xFFFFFFFF);
-		dot.x = WIDTH / 2 - 50;
-		dot.y = 140;
-		i = 0;
-		if (w->namesmaps[0] != NULL)
-		{
-			while (w->namesmaps[i])
-			{
-				if (i == w->menu.k)
-					color = 0xFF78F7;
-				else
-					color = 0x12FEA800;
-				if (i == 0)
-					type_str(w, dot, w->namesmaps[i], color);
-				else
-					type_str(w, w->txtnxtline, w->namesmaps[i], color);
-				i++;
-			}
-		}
+		if (w->nbmaps > 0 && w->nbmaps <= 10)
+			menu_maps_1(w);
+		else if (w->nbmaps > 10)
+			menu_maps_2(w);
 		while (SDL_PollEvent(&w->event))
 		{
 			if (w->event.type == SDL_KEYDOWN)
@@ -341,9 +381,11 @@ void	maps(t_env *w)
 					w->menu.i = 5;
 				}
 				if (KEY == SDLK_UP)
-					w->menu.k = vmax(0, w->menu.k - 1);
+					w->menu.k = ((w->menu.k - 1) < 0) ? w->nbmaps - 1 : (w->menu.k - 1);
+				// w->menu.k = vmax(0, w->menu.k - 1);
 				if (KEY == SDLK_DOWN)
-					w->menu.k = vmin(w->menu.k + 1, w->nbmaps - 1);
+					w->menu.k = ((w->menu.k + 1) >= w->nbmaps) ? 0 : (w->menu.k + 1);
+				// w->menu.k = vmin(w->menu.k + 1, w->nbmaps - 1);
 			}
 		}
 		if (w->menu.i != 2)

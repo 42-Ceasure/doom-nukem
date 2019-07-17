@@ -109,7 +109,7 @@ void		add_map_to_core(char *path, char *path2, t_env *w)
 			f.tmp = ft_strsplit(f.line, ';');
 			if (w->corenbl != 0)
 				nb = vmin(((double)i / (double)(w->corenbl * 2) * (double)100), 99);
-			process_hint_savemap(w, 2, w->nbmaps, ft_itoa(nb));
+			process_hint_savemap(w, 4, w->nbmaps, ft_itoa(nb));
 			if (ft_strncmp(f.line, "buffer", 6) == 0)
 			{
 				ft_putendl_fd(f.line, f.fd);
@@ -151,7 +151,7 @@ void		add_map_to_core(char *path, char *path2, t_env *w)
 			f.tmp = ft_strsplit(f.line, ';');
 			if (w->corenbl != 0)
 				nb = vmin(((double)i / (double)(w->corenbl * 2) * (double)100), 99);
-			process_hint_savemap(w, 2, w->nbmaps, ft_itoa(nb));
+			process_hint_savemap(w, 4, w->nbmaps, ft_itoa(nb));
 			if (ft_strncmp(f.line, "buffer", 6) == 0)
 			{
 				ft_putendl_fd(f.line, f.fd2);
