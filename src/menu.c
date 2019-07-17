@@ -527,7 +527,7 @@ int		change_lvl(t_env *w, t_map *m)
 	int stop;
 
 	stop = 0;
-	final_texture_to_screen(w, w->main_pic[2], 0, 0, WIDTH, HEIGHT);
+	final_texture_to_screen(w, w->main_pic[1], 0, 0, WIDTH, HEIGHT);
 	w->txthead.x = 350;
 	w->txthead.y = 400;
 	type_str(w, w->txthead, "Press enter to start next level", 0x12FFFFFF);
