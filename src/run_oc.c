@@ -105,10 +105,12 @@ void	run(t_env *w, t_map *m)
 	{
 		while (SDL_PollEvent(&w->event))
 			global_event(w, m);
-		if (m->stop == 1 || m->player.hp == 0)
+		if (m->stop == 1 || m->player.hp == 0 || m->player.sector == m->endsector)
 		{
 			if (m->player.hp == 0)
 				m->game_over = 1;
+			if (m->player.sector == m->endsector)
+				m->change_lvl = 1;
 			break ;
 		}
 		w->inkeys = SDL_GetKeyboardState(NULL);

@@ -24,12 +24,14 @@ void	reset_map(t_map *m)
         }
 		free(m->ennemy);
 	}
-	m->endsector = -1;
 	if (m->linklvl != NULL)
 	{
 		free(m->linklvl);
 		m->linklvl = NULL;
 	}
+	m->endsector = -1;
+	m->change_lvl = 0;
+	m->newgame = 0;
 }
 
 int		get_that_map_parsed(t_env *w, t_map *m)
@@ -91,7 +93,6 @@ int			parse_map_in_core(t_env *w, t_map *m, char *name)
 	}
 	else
 		set_error(w, m, 5, "core/core.dn3d");
-	m->launchwmap = 1;
 	free(tmp);
 	free(pre);
 	return (0);

@@ -391,6 +391,7 @@ typedef struct		s_map
 	int				game_over;
 	int				god_mod;
 	int				launchwmap;
+	int				newgame;
 	int				trippymod;
 	int				elevator;
 	int				i;
@@ -409,6 +410,7 @@ typedef struct		s_map
 	int				ennemy_count;
 	int				maxrenderedsector;
 	int				endsector;
+	int				change_lvl;
 	char			*linklvl;
 	double			yaw;
 	double			gravity;

@@ -94,7 +94,9 @@ void			set_m(t_map *m)
 {
 	m->stop = 0;
 	m->launchwmap = 0;
+	m->newgame = 1;
 	m->endsector = -1;
+	m->change_lvl = 0;
 	m->maxrenderedsector = 32;
 	m->yaw = 0;
 	m->gravity = BASE_GRAVITY;

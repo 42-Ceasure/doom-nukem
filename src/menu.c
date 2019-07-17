@@ -12,7 +12,7 @@ void	menu_screen(t_env *w)
 	t_dot	dot;
 	char	*start;
 
-	if (w->m->launchwmap == 0)
+	if (w->m->newgame == 1)
 		if (w->menu.j == 1)
 			start = ft_strdup("> NEW GAME\n");
 		else
@@ -376,7 +376,7 @@ void	maps(t_env *w)
 				{
 					free(w->currmap);
 					w->currmap = ft_strdup(w->namesmaps[w->menu.k]);
-					w->m->launchwmap = 0;
+					w->m->newgame = 1;
 					// w->menu.i = vmax(-1, w->menu.i - 1);
 					w->menu.i = 5;
 				}
@@ -413,7 +413,7 @@ void	event_menu(t_env *w)
 			if (KEY == SDLK_ESCAPE)
 			{
 				w->menu.i = vmax(-1, w->menu.i - 1);
-				w->m->launchwmap = 0;
+				w->m->newgame = 1;
 			}
 			if (KEY == SDLK_RETURN)
 			{
@@ -485,24 +485,63 @@ void	main_menu(t_env *w, t_map *m)
 
 void	loose(t_env *w, t_map *m)
 {
+	int stop;
+
+	stop = 0;
 	final_texture_to_screen(w, w->main_pic[2], 0, 0, WIDTH, HEIGHT);
 	w->txthead.x = 350;
 	w->txthead.y = 400;
 	type_str(w, w->txthead, "Press enter to retry", 0x12FFFFFF);
-	while (SDL_PollEvent(&w->event))
+	m->newgame = 1;
+	while (stop != 1)
 	{
-		if (w->event.type == SDL_KEYDOWN)
+			while (SDL_PollEvent(&w->event))
 		{
-			if (KEY == 27)
-				exit_game(w, m, 1);
-			if (KEY == SDLK_RETURN)
+			if (w->event.type == SDL_KEYDOWN)
 			{
-				m->game_over = 0;
-				m->player.hp = m->player.max_hp;
+				if (KEY == 27)
+					exit_game(w, m, 1);
+				if (KEY == SDLK_RETURN)
+				{
+					m->game_over = 0;
+					m->player.hp = m->player.max_hp;
+					stop = 1;
+				}
 			}
 		}
+		img_update(w);
 	}
-	img_update(w);
+}
+
+void	change_lvl(t_env *w, t_map *m)
+{
+	int stop;
+
+	stop = 0;
+	final_texture_to_screen(w, w->main_pic[2], 0, 0, WIDTH, HEIGHT);
+	w->txthead.x = 350;
+	w->txthead.y = 400;
+	type_str(w, w->txthead, "Press enter to start next level", 0x12FFFFFF);
+	free(w->currmap);
+	w->currmap = ft_strdup(m->linklvl);
+	m->newgame = 1;
+	while (stop != 1)
+	{
+		while (SDL_PollEvent(&w->event))
+		{
+			if (w->event.type == SDL_KEYDOWN)
+			{
+				if (KEY == 27)
+					exit_game(w, m, 1);
+				if (KEY == SDLK_RETURN)
+				{
+					m->change_lvl = 0;
+					stop = 1;
+				}
+			}
+		}
+		img_update(w);
+	}
 }
 
 void	launch(t_env *w, t_map *m)
@@ -521,19 +560,20 @@ void	launch(t_env *w, t_map *m)
 		{
 			if (m->game_over == 1)
 				loose(w, m);
-			else
+			else if (m->change_lvl == 1)
+				change_lvl(w, m);
+			// else
+			// {
+			if (m->newgame == 1)
 			{
-				if (m->launchwmap == 0)
-				{
-					if (parse_map_in_core(w, m, w->currmap) != 0)
-						continue;
-				}
-				printf("no end sector : %d\n", m->endsector);
-				printf("linklvl : %s\n", m->linklvl);
+				if (parse_map_in_core(w, m, w->currmap) != 0)
+					continue;
+			}
+			printf("no end sector : %d\n", m->endsector);
+			printf("linklvl : %s\n", m->linklvl);
 				// else
 				// 	parse_map_file(w, m);
-				run(w, m);
-			}
+			run(w, m);
 		}
 	}
 }
