@@ -24,7 +24,7 @@ t_lstlst	*lstlstnew(t_win * win)
 	tmp->next = NULL;
 	win->link += 1;
 	tmp->txtr_wall = 0;
-	tmp->txtr_ceiling = 0;
+	tmp->txtr_ceiling = 1;
 	tmp->txtr_floor = 0;
 	tmp->txtr_lower_extrude = 0;
 	tmp->txtr_higher_extrude = 0;

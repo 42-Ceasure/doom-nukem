@@ -105,7 +105,7 @@ void			process_hint_savemap(t_env *w, int i, int nbmaps, char *s)
 	char		*post;
 	t_dot		dot;
 
-	name = ft_strjoin("MAP WILL BE CRETED AS MAP", ft_itoa(nbmaps));
+	name = ft_strjoin("MAP WILL BE CREATED AS MAP", ft_itoa(nbmaps));
 	hello_screen(w);
 	w->txthead.x = 10;
 	w->txthead.y = 10;
