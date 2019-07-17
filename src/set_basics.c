@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 13:47:03 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/17 11:12:23 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/17 18:31:22 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void			set_m_player(t_map *m)
 	m->player.switching = 0;
 	m->player.recoil = 0;
 	m->player.sector = 0;
-	m->player.hud = 0;
+	m->player.hud = 1;
 	set_player_math(m);
 	m->player.display = 0;
 }
