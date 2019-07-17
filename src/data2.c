@@ -24,7 +24,7 @@ int			check_player_start(t_win *win)
 		if (tmp->asset_type == 0)
 		{
 			ret = 0;
-			break;
+			break ;
 		}
 		tmp = tmp->next;
 	}
@@ -53,7 +53,6 @@ int			correct_intersections_in_a_sector(t_win *win)
 	index3 = 0;
 	ret = -1;
 	tmp3 = win->lstlst;
-
 	while (tmp3)
 	{
 		tmp = tmp3->head;
@@ -69,10 +68,8 @@ int			correct_intersections_in_a_sector(t_win *win)
 				p2.x = tmp->next->x;
 				p2.y = tmp->next->y;
 			}
-
 			p1.x = tmp->x;
 			p1.y = tmp->y;
-
 			tmp2 = win->lstlst;
 			index2 = 0;
 			while (tmp2)
@@ -83,11 +80,11 @@ int			correct_intersections_in_a_sector(t_win *win)
 				index5 = index2 + len - 2;
 				while (tmp0)
 				{
-					if (index2 != index3 && index3 + 1 != index2 && index4 != index2
-						&& index4 + 1 != index2)
+					if (index2 != index3 && index3 + 1 != index2
+						&& index4 != index2 && index4 + 1 != index2)
 					{
-						if (index3 != index2 && index2 + 1 != index3 && index5 != index3
-							&& index5 + 1 != index3)
+						if (index3 != index2 && index2 + 1 != index3
+							&& index5 != index3 && index5 + 1 != index3)
 						{
 							if (tmp0->next == NULL)
 							{
@@ -101,12 +98,16 @@ int			correct_intersections_in_a_sector(t_win *win)
 							}
 							p3.x = tmp0->x;
 							p3.y = tmp0->y;
-
-							if ((ret = sector_intersect_with_itself(p1, p2, p3, p4)) == 1)
+							if ((ret = sector_intersect_with_itself(p1,
+								p2, p3, p4)) == 1)
 							{
-								if (p1.x != p2.x && p2.x != p3.x && p3.x != p4.x && p4.x != p1.x
-									&& p1.x != p3.x && p2.x != p4.x && p1.y != p2.y && p2.y != p3.y && p3.y != p4.y
-										&& p4.y != p1.y && p3.y != p1.y && p2.y != p4.y)
+								if (p1.x != p2.x && p2.x != p3.x
+									&& p3.x != p4.x && p4.x != p1.x
+										&& p1.x != p3.x && p2.x != p4.x
+											&& p1.y != p2.y && p2.y != p3.y
+												&& p3.y != p4.y && p4.y != p1.y
+													&& p3.y != p1.y
+														&& p2.y != p4.y)
 								{
 									return (-3);
 								}
@@ -131,20 +132,16 @@ int			correct_map(t_win *win)
 	int			ret;
 
 	ret = 0;
-
 	ret = correct_intersections_in_a_sector(win);
-
 	if (ret == -3)
 	{
 		printf("Crossed segments \n");
 		return (ret);
 	}
-
 	ret = check_player_start(win);
 	if (ret == -1)
 		printf("Map need a player start \n");
 	if (ret == -2)
 		printf("Player start need to be inside a sector \n");
-
 	return (ret);
 }

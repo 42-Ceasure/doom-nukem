@@ -112,6 +112,7 @@ SRCFIL				=	main.c \
 						data14.c \
 						data15.c \
 						data16.c \
+						data17.c \
 						free.c \
 						texture_mode.c \
 						texture_mode2.c \

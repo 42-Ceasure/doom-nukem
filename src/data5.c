@@ -21,25 +21,18 @@ void		write_shotgun_ammo(t_win *win, int fp, t_lstasset *tmp, int i)
 		str = "\tcartouche:";
 		ft_putstr_fd(str, fp);
 	}
-
 	str = ft_itoa(i);
 	ft_putstr_fd(str, fp);
-
 	str = ",4,0,";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->sector);
 	ft_putstr_fd(str, fp);
-
 	str = ",";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->x / 5);
 	ft_putstr_fd(str, fp);
-
 	str = ",";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->y / 5);
 	ft_putstr_fd(str, fp);
 }
@@ -53,25 +46,18 @@ void		write_m4_ammo(t_win *win, int fp, t_lstasset *tmp, int i)
 		str = "\tammo:";
 		ft_putstr_fd(str, fp);
 	}
-
 	str = ft_itoa(i);
 	ft_putstr_fd(str, fp);
-
 	str = ",5,";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->sector);
 	ft_putstr_fd(str, fp);
-
 	str = ",";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->x / 5);
 	ft_putstr_fd(str, fp);
-
 	str = ",";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->y / 5);
 	ft_putstr_fd(str, fp);
 }
@@ -85,25 +71,18 @@ void		write_m9(t_win *win, int fp, t_lstasset *tmp, int i)
 		str = "\tM9:";
 		ft_putstr_fd(str, fp);
 	}
-
 	str = ft_itoa(i);
 	ft_putstr_fd(str, fp);
-
 	str = ",2,";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->sector);
 	ft_putstr_fd(str, fp);
-
 	str = ",";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->x / 5);
 	ft_putstr_fd(str, fp);
-
 	str = ",";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->y / 5);
 	ft_putstr_fd(str, fp);
 }
@@ -117,25 +96,18 @@ void		write_health(t_win *win, int fp, t_lstasset *tmp, int i)
 		str = "\thealth:";
 		ft_putstr_fd(str, fp);
 	}
-
 	str = ft_itoa(i);
 	ft_putstr_fd(str, fp);
-
 	str = ",3,";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->sector);
 	ft_putstr_fd(str, fp);
-
 	str = ",";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->x / 5);
 	ft_putstr_fd(str, fp);
-
 	str = ",";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->y / 5);
 	ft_putstr_fd(str, fp);
 }
@@ -149,25 +121,18 @@ void		write_undertale(t_win *win, int fp, t_lstasset *tmp, int i)
 		str = "\tundertale:";
 		ft_putstr_fd(str, fp);
 	}
-
 	str = ft_itoa(i);
 	ft_putstr_fd(str, fp);
-
 	str = ",14,";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->sector);
 	ft_putstr_fd(str, fp);
-
 	str = ",";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->x / 5);
 	ft_putstr_fd(str, fp);
-
 	str = ",";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->y / 5);
 	ft_putstr_fd(str, fp);
 }

@@ -19,10 +19,8 @@ void		new_clockwise(t_win *win)
 	t_dot		p0;
 	t_dot		p1;
 	t_dot		m;
-	double		ret;
 
 	tmp2 = win->triangles;
-	ret = 0;
 	while (tmp2)
 	{
 		tmp = tmp2->head;
@@ -32,7 +30,6 @@ void		new_clockwise(t_win *win)
 		p1.y = tmp->next->y;
 		m.x = tmp->next->next->x;
 		m.y = tmp->next->next->y;
-		//ret = pointside2(m, p0.x, p0.y, p1.x, p1.y);
 		if (pointside2(m, p0.x, p0.y, p1.x, p1.y) >= 0)
 			tmp2->clockwise = 1;
 		else
@@ -50,18 +47,18 @@ void		everything_is_a_triangle(t_win *win)
 	triangulate_all_assets(win);
 }
 
-void		map_save(t_win *win, t_env *w)
+int			map_save_helper(t_win *win)
 {
+	t_lstlst	*tmp2;
 	int			len;
 	int			z;
-	t_lstlst	*tmp2;
 
 	z = -1;
 	tmp2 = win->lstlst;
 	if (sector_minimum_needed_point(win) != 0)
 	{
 		printf("Un secteur est au minimum un triangle \n");
-		return ;
+		return (0);
 	}
 	while (tmp2)
 	{
@@ -74,6 +71,13 @@ void		map_save(t_win *win, t_env *w)
 	}
 	len = len_listlist(win->lstlst);
 	if (len - 1 == z)
+		return (1);
+	return (0);
+}
+
+void		map_save(t_win *win, t_env *w)
+{
+	if (map_save_helper(win) == 1)
 	{
 		everything_is_a_triangle(win);
 		if (correct_map(win) == 0)

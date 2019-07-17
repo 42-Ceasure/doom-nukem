@@ -23,9 +23,7 @@ int			triangulate_player_start(t_win *win, int x, int y)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
-
 	int			ret;
-
 	t_dot		p0;
 	t_dot		p1;
 	t_dot		p2;
@@ -33,9 +31,7 @@ int			triangulate_player_start(t_win *win, int x, int y)
 
 	m.x = x;
 	m.y = y;
-
 	ret = -2;
-
 	tmp2 = win->triangles;
 	ret = triangulate_a_triangle(win, m);
 	if (ret != -1)
@@ -46,7 +42,6 @@ int			triangulate_player_start(t_win *win, int x, int y)
 		p0 = get_point_in_list(tmp, 0);
 		p1 = get_point_in_list(tmp, 1);
 		p2 = get_point_in_list(tmp, 2);
-
 		ret = point_in_triangle(p0, p1, p2, m);
 		if (ret == 1)
 		{

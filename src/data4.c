@@ -21,65 +21,20 @@ void		write_ennemy(t_win *win, int fp, t_lstasset *tmp, int i)
 		str = "\tmonstre:";
 		ft_putstr_fd(str, fp);
 	}
-
 	str = ft_itoa(i);
 	ft_putstr_fd(str, fp);
-
 	str = ",6,";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->sector);
 	ft_putstr_fd(str, fp);
-
 	str = ",";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->x / 5);
 	ft_putstr_fd(str, fp);
-
 	str = ",";
 	ft_putstr_fd(str, fp);
-
 	str = ft_itoa(tmp->y / 5);
 	ft_putstr_fd(str, fp);
-}
-
-void		write_sprites(t_win *win, int fp)
-{
-	t_lstasset	*tmp;
-	char		*str;
-	int			i;
-
-	i = 0;
-	tmp = win->lstasset;
-	str = "Section:sprite\n";
-	ft_putstr_fd(str, fp);
-
-	while (tmp)
-	{
-		//printf("%d tmp sector \n", tmp->sector);
-		if (tmp->asset_type == 1)
-			write_m4(win, fp, tmp, i);
-		if (tmp->asset_type == 2)
-			write_shotgun(win, fp, tmp, i);
-		if (tmp->asset_type == 4)
-			write_m4_ammo(win, fp, tmp, i);
-		if (tmp->asset_type == 5)
-			write_m9(win, fp, tmp, i);
-		if (tmp->asset_type == 6)
-			write_health(win, fp, tmp, i);
-		if (tmp->asset_type == 7)
-			write_shotgun_ammo(win, fp, tmp, i);
-		if (tmp->asset_type == 8)
-			write_undertale(win, fp, tmp, i);
-		if (tmp->asset_type != 0 && tmp->asset_type != 3)
-		{
-			i++;
-			str = "\n";
-			ft_putstr_fd(str, fp);
-		}
-		tmp = tmp->next;
-	}
 }
 
 void		write_ennemies(t_win *win, int fp)
@@ -90,10 +45,8 @@ void		write_ennemies(t_win *win, int fp)
 
 	i = 0;
 	tmp = win->lstasset;
-
 	str = "Section:ennemy\n";
 	ft_putstr_fd(str, fp);
-
 	while (tmp)
 	{
 		if (tmp->asset_type == 3)
@@ -115,15 +68,8 @@ void		write_map_mame(t_env *w, int fp)
 	ft_putchar_fd('\n', fp);
 }
 
-void		write_in_file(t_win *win, t_env *w)
+void		write_in_file_helper(t_win *win, t_env *w, int fp)
 {
-	int			fp;
-	const char	*name;
-	char		*str;
-
-	name = "tmp.dn3d";
-	fp = open(name, O_RDWR | O_CREAT | O_TRUNC, 0655);
-	// buf = NULL;
 	write_map_mame(w, fp);
 	process_hint_savemap(w, 3, w->nbmaps, "map");
 	first_line2(win, fp);
@@ -137,8 +83,18 @@ void		write_in_file(t_win *win, t_env *w)
 	write_sprites(win, fp);
 	process_hint_savemap(w, 3, w->nbmaps, "ennemies");
 	write_ennemies(win, fp);
-	process_hint_savemap(w, 3, w->nbmaps, "sections");
+}
 
+void		write_in_file(t_win *win, t_env *w)
+{
+	int			fp;
+	const char	*name;
+	char		*str;
+
+	name = "tmp.dn3d";
+	fp = open(name, O_RDWR | O_CREAT | O_TRUNC, 0655);
+	write_in_file_helper(win, w, fp);
+	process_hint_savemap(w, 3, w->nbmaps, "sections");
 	str = ft_strdup("Section:level\n");
 	ft_putstr_fd(str, fp);
 	free(str);
