@@ -171,6 +171,7 @@ void	change_key(t_env *w)
 		w->m->player.field_of_vision_h = 512;
 		w->m->player.field_of_vision_v = 288;
 		w->m->player.mousesp = 100;
+		change_settings(w, w->m);
 	}
 	else if (settings_changed(w) == 1)
 	{
@@ -178,10 +179,9 @@ void	change_key(t_env *w)
 		w->window_res = w->window_res_menu;
 		w->m->player.field_of_vision_h = w->fov_h_menu;
 		w->m->player.field_of_vision_v = w->fov_v_menu;
-		w->m->player.mousesp = w->mousesp_menu;	
-	}
-	if (settings_changed(w) == 1)
+		w->m->player.mousesp = w->mousesp_menu;
 		change_settings(w, w->m);
+	}
 }
 
 void	settings(t_env *w)
