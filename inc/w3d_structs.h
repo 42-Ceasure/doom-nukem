@@ -68,7 +68,7 @@ struct					s_win
 	t_sprite			asset_sprite;
 	t_sprite			asset_tmp;
 	t_texture			texture_sprite;
-	t_texture			player_start;
+	t_sprite			player_start;
 
 	t_texture			inventory;
 	t_texture			blackbox;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
+#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/17 14:47:00 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/17 02:09:50 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,6 +99,19 @@ SRCFIL				=	main.c \
 						data.c \
 						data2.c \
 						data3.c \
+						data4.c \
+						data5.c \
+						data6.c \
+						data7.c \
+						data8.c \
+						data9.c \
+						data10.c \
+						data11.c \
+						data12.c \
+						data13.c \
+						data14.c \
+						data15.c \
+						data16.c \
 						free.c \
 						texture_mode.c \
 						texture_mode2.c \

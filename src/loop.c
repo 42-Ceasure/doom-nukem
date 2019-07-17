@@ -317,7 +317,7 @@ void		loop_play(t_env *w, t_win *win)
 			asset_overing(w, win);
 		if (win->mode == 4)
 			texture_mode(w, win);
-		print_game(w, win);	
+		print_game(w, win);
 	}
 	w->stopread = 0;
 }

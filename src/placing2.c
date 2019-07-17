@@ -55,7 +55,7 @@ void		pick_asset(t_env *w, t_win *win)
 	if (win->asset > 8)
 		win->asset = 0;
 	if (win->asset == 0)
-		win->asset_sprite = w->m->sprite[19];
+		win->asset_sprite = w->m->sprite[23];
 	if (win->asset == 1)
 		win->asset_sprite = w->m->sprite[0];
 	if (win->asset == 2)
@@ -83,13 +83,13 @@ void		asset_overing_helper(t_env *w, t_win *win, t_lstasset *tmp)
 	if (tmp->asset_type == 3)
 		win->asset_tmp = w->m->sprite[8];
 	if (tmp->asset_type == 4)
-		win->asset_tmp = w->m->sprite[3];
+		win->asset_tmp = w->m->sprite[5];
 	if (tmp->asset_type == 5)
 		win->asset_tmp = w->m->sprite[2];
 	if (tmp->asset_type == 6)
-		win->asset_tmp = w->m->sprite[5];
+		win->asset_tmp = w->m->sprite[3];
 	if (tmp->asset_type == 7)
-		win->asset_tmp = w->m->sprite[7];
+		win->asset_tmp = w->m->sprite[4];
 	if (tmp->asset_type == 8)
 		win->asset_tmp = w->m->sprite[14];
 }
@@ -105,7 +105,7 @@ void		asset_overing(t_env *w, t_win *win)
 		{
 			if (tmp->asset_type == 0)
 			{
-				win->asset_tmp = w->m->sprite[19];
+				win->asset_tmp = w->m->sprite[23];
 				set_params(w, win);
 			}
 			asset_overing_helper(w, win, tmp);

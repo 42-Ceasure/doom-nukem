@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/17 14:52:04 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/17 11:21:24 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -749,15 +749,64 @@ void		asset_overing(t_env *w, t_win *win);
 void		texture_overing(t_win *win);
 void		delete_asset(t_win *win);
 void		overing(t_win *win);
-
 void		save_map(t_win *win);
 void		map_save(t_win *win, t_env *w);
+
+
+
+void		check4(t_win *win);
+int			triangles_neighbours(t_win *win, t_lstlst *tmp2, int i);
+void		sort_triangles_points(t_win *win);
+void		triangulate_all_assets(t_win *win);
+int			triangulate_a_triangle(t_win *win, t_dot m);
+int			correct_map(t_win *win);
+void		fill_buffer(t_win *win, t_env *w);
+int			sector_minimum_needed_point(t_win *win);
+int			triangulate_player_start(t_win *win, int x, int y);
+int			sector_intersect_with_itself(t_dot p1, t_dot p2, t_dot p3, t_dot p4);
+int			check_player_start(t_win *win);
+int			correct_intersections_in_a_sector(t_win *win);
+void		write_ennemy(t_win *win, int fp, t_lstasset *tmp, int i);
+void		write_sprites(t_win *win, int fp);
+void		write_ennemies(t_win *win, int fp);
+void		write_shotgun_ammo(t_win *win, int fp, t_lstasset *tmp, int i);
+void		write_m4(t_win *win, int fp, t_lstasset *tmp, int i);
+void		write_m4_ammo(t_win *win, int fp, t_lstasset *tmp, int i);
+void		write_m9(t_win *win, int fp, t_lstasset *tmp, int i);
+void		write_shotgun(t_win *win, int fp, t_lstasset *tmp, int i);
+void		write_undertale(t_win *win, int fp, t_lstasset *tmp, int i);
+void		write_player(t_win *win, int fp);
+void		write_sectors(t_win *win, int fp);
+void		write_dots(t_win *win, int fp);
+void		first_line2(t_win *win, int fp);
+void		write_health(t_win *win, int fp, t_lstasset *tmp, int i);
+void		write_in_file(t_win *win, t_env *w);
+
+int			y_min_point(t_win *win);
+int			next_y(t_win *win, int y);
+int			*create_y_dot_tab(t_win *win, int y, int i);
+int			*dot_tab_sector(t_win *win, int sector);
+int			*tab_sector3(t_win *win, int sector);
+int			number_of_dot_per_line_with_same(t_win *win, int y);
+int			total_exclusive_points(t_win *win);
+int			number_of_dot_per_line(t_win *win, int y);
+int			number_of_ennemy(t_win *win);
+int			number_of_sprite(t_win *win);
+int			number_of_y(t_win *win);
+int			x_min_on_line(t_win *win, int y);
+int			next_x_on_line(t_win *win, int y, int x);
+void		sort_points(t_win *win);
+
+
+
+
+
+
 
 void		img_edit_update(t_env *w);
 void		clean_edit_render(t_env *w, Uint32 color);
 void		sectors_in_tab(t_win *win);
 void		sectors_in_tab2(t_win *win);
-
 void		clear_window(t_win *win);
 void		recursive_check(t_win *win);
 void		sort_int_tab(int *tab, int size);

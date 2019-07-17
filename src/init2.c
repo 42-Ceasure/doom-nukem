@@ -84,10 +84,10 @@ static void	init_struct_helper(t_win *win)
 static int	init_assets(t_env *w, t_win *win)
 {
 	win->map_ui = w->m->fire;
-	win->asset_sprite = w->m->sprite[10];
+	win->asset_sprite = w->m->sprite[23];
 	win->asset_tmp = w->m->sprite[0];
-	win->player_start = w->m->fire;
-	win->inventory = w->m->hud;
+	win->player_start = w->m->sprite[23];
+	win->inventory = w->m->hud2;
 	win->slot0 = w->texturing[0];
 	win->slot1 = w->texturing[1];
 	win->slot2 = w->texturing[2];
