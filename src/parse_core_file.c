@@ -210,7 +210,6 @@ void			load_core(t_env *w, t_map *m)
 		}
 		close(m->fd);
 		free(m->line);
-		printf("NB LIGNES CORE = %d\n", w->corenbl);
 	}
 	else
 		set_error(w, m, 5, path);
