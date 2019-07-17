@@ -453,10 +453,6 @@ void	event_menu(t_env *w)
 
 void	main_menu(t_env *w, t_map *m)
 {
-	t_dot test;
-
-	test.x = 10;
-	test.y = 10;
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	SDL_ShowCursor(SDL_ENABLE);
 	w->txthead.x = 800;
@@ -470,10 +466,6 @@ void	main_menu(t_env *w, t_map *m)
 		if (w->menu.i == 0)
 		{
 			hello_screen(w);
-			type_str(w, test, "\" { } @ \\ ^^ <> [] # $ = - () % | + / * ~ \' ; _", 0x12FEA800);
-			type_str(w, w->txtnxtline, "si je ne m'abuse vous me demanderez plus de caractere", 0x12FEA800);
-			type_str(w, w->txtnxtline, "ascii d'ici un petit moment !", 0x12FEA800);
-			type_str(w, w->txtnxtline, "\nc===3", 0x12FEA800);
 			type_str(w, w->txthead, "press enter...", 0x12FEA800);
 			w->menu.j = -1;
 		}
