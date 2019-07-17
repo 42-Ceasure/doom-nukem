@@ -425,6 +425,7 @@ typedef struct		s_map
 	t_sprite		*sprite;	//a placer dans t_env
 	t_map_sprite	*sprt;
 	t_texture		hud;
+	t_texture		whitebox;
 	t_texture		fire;
 	t_player		player;
 	t_ennemy		*ennemy;
@@ -727,6 +728,7 @@ void		loop_play(t_env *w, t_win *win);
 void		sdl_event(t_env *w, t_win *win);
 t_lst		*lstnew(int x, int y, int sector);
 t_lstlst	*lstlstnew(t_win *win);
+t_lstasset	*lstassetnew(t_win *win, int sector);
 int			check_list(t_win *win, t_lst *lst, int x, int y);
 void		ft_draw_line(t_win *win, int x1, int y1, int x2, int y2);
 void		put_pixel_to_surface(SDL_Surface *srfc, int x, int y, Uint32 color);
@@ -743,6 +745,7 @@ void		pick_asset(t_env *, t_win *win);
 void		mode(t_env *w, t_win *win);
 int			len_listlist(t_lstlst *lstlst);
 void		asset_overing(t_env *w, t_win *win);
+void		texture_overing(t_win *win);
 void		delete_asset(t_win *win);
 void		overing(t_win *win);
 

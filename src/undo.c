@@ -12,6 +12,24 @@
 
 #include "doom.h"
 
+void	undo_helper(t_win *win, t_lstlst *previous2)
+{
+	if (previous2->next == NULL)
+	{
+		win->sector = 0;
+		win->link = 0;
+		win->lstlst = NULL;
+	}
+	if (previous2->next)
+	{
+		while (previous2->next->next)
+			previous2 = previous2->next;
+		previous2->next = NULL;
+		win->link -= 1;
+		win->drawing = 0;
+	}
+}
+
 void	undo_first_link(t_win *win, t_lst *tmp,
 			t_lstlst *tmp2, t_lstlst *previous2)
 {
@@ -21,28 +39,13 @@ void	undo_first_link(t_win *win, t_lst *tmp,
 		{
 			win->x1 = tmp->x;
 			win->y1 = tmp->y;
-			free (tmp);
+			free(tmp);
 			tmp = NULL;
 			tmp2->head = NULL;
-			free (tmp2);
+			free(tmp2);
 			tmp2 = NULL;
 			win->lst = NULL;
-			if (previous2->next == NULL)
-			{
-				win->sector = 0;
-				win->link = 0;
-				win->lstlst = NULL;
-			}
-			if (previous2->next)
-			{
-				while (previous2->next->next)
-					previous2 = previous2->next;
-				previous2->next = NULL;
-				//win->sector -= 1;
-				win->link -= 1;
-				win->drawing = 0;
-			}
-			return ;
+			undo_helper(win, previous2);
 		}
 	}
 }
@@ -63,7 +66,7 @@ void	undo_classic(t_win *win, t_lst *tmp, t_lst *previous)
 	while (tmp->next)
 		tmp = tmp->next;
 	previous->next = NULL;
-	free (tmp);
+	free(tmp);
 	tmp = NULL;
 }
 
@@ -75,10 +78,6 @@ void	undo(t_win *win)
 	t_lstlst	*previous2;
 
 	tmp = NULL;
-	previous = NULL;
-	tmp2 = NULL;
-	previous2 = NULL;
-
 	if (win->lstlst)
 	{
 		tmp2 = win->lstlst;
@@ -88,13 +87,8 @@ void	undo(t_win *win)
 		tmp = tmp2->head;
 		previous = tmp2->head;
 	}
-
 	if (tmp)
 	{
-
-		//printf("%d win \n", win->sector);
-		//printf("%d link \n", tmp->sector);
-
 		if (win->sector == tmp->sector)
 		{
 			if (tmp->next == NULL)
@@ -103,50 +97,4 @@ void	undo(t_win *win)
 				undo_classic(win, tmp, previous);
 		}
 	}
-
-	/*if (tmp)
-	{
-		if (tmp->next == NULL)
-		{
-			win->x1 = tmp->x;
-			win->y1 = tmp->y;
-			free (tmp);
-			tmp = NULL;
-			tmp2->head = NULL;
-			free (tmp2);
-			tmp2 = NULL;
-			win->lst = NULL;
-			if (previous2->next == NULL)
-			{
-				win->sector = 0;
-				win->link = 0;
-				win->lstlst = NULL;
-			}
-			if (previous2->next)
-			{
-				while (previous2->next->next)
-					previous2 = previous2->next;
-				previous2->next = NULL;
-				win->sector -= 1;
-				win->link -= 1;
-			}
-			return ;
-		}
-		if (tmp->next->next == NULL)
-		{
-			win->x1 = tmp->x;
-			win->y1 = tmp->y;
-		}
-		while (previous->next->next)
-		{
-			previous = previous->next;
-			win->x1 = previous->x;
-			win->y1 = previous->y;
-		}
-		while (tmp->next)
-			tmp = tmp->next;
-		previous->next = NULL;
-		free (tmp);
-		tmp = NULL;
-	}*/
 }

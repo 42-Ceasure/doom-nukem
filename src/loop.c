@@ -300,6 +300,8 @@ void		loop_play(t_env *w, t_win *win)
 	{
 		// if (w->stopread != 0)
 		// 	break;
+		SDL_WaitEvent(&win->event);
+		sdl_event(w, win);
 		on_click(win);
 		clean_render(w, 000);
 		draw_grid(w, win);
@@ -313,9 +315,9 @@ void		loop_play(t_env *w, t_win *win)
 		mode(w, win);
 		if (win->mode != 2)
 			asset_overing(w, win);
-		print_game(w, win);
-		SDL_WaitEvent(&win->event);
-		sdl_event(w, win);
+		if (win->mode == 4)
+			texture_mode(w, win);
+		print_game(w, win);	
 	}
 	w->stopread = 0;
 }

@@ -94,12 +94,14 @@ SRCFIL				=	main.c \
 						test.c \
 						hud.c \
 						placing.c \
+						placing2.c \
 						delete_asset.c \
 						data.c \
 						data2.c \
 						data3.c \
 						free.c \
 						texture_mode.c \
+						texture_mode2.c \
 						params.c \
 						set_and_reset.c \
 						fall_and_stair.c \
@@ -109,7 +111,7 @@ SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
 OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))
 LIBFT               =   $(addprefix $(LIBFTDIR),$(LIBFTFIL))
 INC                 =   $(addprefix $(INCDIR),$(INCFIL))
-INCLIBFT            =   $(LIBFTDIR)inc  
+INCLIBFT            =   $(LIBFTDIR)inc
 LIBFT_FLAG          =   -L$(LIBFTDIR) -lft
 
 SDL_PATH            =   ./SDL2-2.0.9/
@@ -140,7 +142,7 @@ $(NAME)             :   $(OBJ) $(LIBFT)
 						@$(CC) $(CFLAG) -lm $(LIBFT_FLAG) $(LIBSDL_FLAG) -o $@ $^ -lpthread
 						@echo -e $(MESSAGE)
 						@$(ZIP)
-						
+
 $(OBJDIR)%.o        :   $(SRCDIR)%.c $(INC)
 						@mkdir -p $(OBJDIR)
 						@$(CC) $(CFLAG) -I $(INCDIR) -I $(INCLIBFT) -I $(INCSDL) -o $@ -c $<
@@ -153,7 +155,7 @@ $(LIBFT)            :   $(LIBFTDIR)
 
 sdl                 :   $(SDLBIN)
 
-$(SDLBIN)           :       
+$(SDLBIN)           :
 						$(SDL_CURL)
 						unzip sdl2.zip
 						rm sdl2.zip
@@ -164,7 +166,7 @@ $(SDLBIN)           :
 
 sdlmix              :   $(SDLMIXBIN)
 
-$(SDLMIXBIN)        :       
+$(SDLMIXBIN)        :
 						$(CURL_MIX)
 						unzip sdl_mix.zip
 						rm sdl_mix.zip
@@ -172,7 +174,7 @@ $(SDLMIXBIN)        :
 						make -C $(SDLMIX_PATH)
 						make install -C $(SDLMIX_PATH)
 
-clean               :   
+clean               :
 						@make -C $(LIBFTDIR) clean
 						@rm -Rf  $(OBJDIR)
 
@@ -182,7 +184,7 @@ fclean              :
 						@rm -Rf  $(OBJDIR)
 						@rm -f $(NAME)
 						@echo -e "Cleaning [$(NAME)] done !              "
-						
+
 sdlclean            :
 						rm -rf $(LIBSDL_ROOT)
 						rm -rf $(SDL_PATH)

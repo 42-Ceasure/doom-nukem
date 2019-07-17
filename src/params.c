@@ -76,7 +76,7 @@ void		param_text(t_win *win)
 	}
 }
 
-void	set_params(t_env *w, t_win *win)
+void		set_params(t_env *w, t_win *win)
 {
 	param_text(win);
 	win->dst12.x = win->x2 + 30;

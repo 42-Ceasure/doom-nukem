@@ -11,7 +11,7 @@ void			parse_weapon_line(t_map *m, char *line)
 	m->weap[m->w].name = ft_strdup(tmp2[0]);
 	tmp = ft_strsplit(tmp2[1], ',');
 	if (tmp != NULL)
-	{	
+	{
 		m->weap[m->w].range = ft_atoi(tmp[0]);
 		if (tmp[1])
 			m->weap[m->w].firerate = ft_atoi(tmp[1]);
@@ -66,6 +66,8 @@ void			parse_texture_line(t_env *w, t_map *m, char *line)
 		m->hud = parse_texture(w, m, tmp);
 	if (ft_strcmp(tmp[0], "fire") == 0)
 		m->fire = parse_texture(w, m, tmp);
+	if (ft_strcmp(tmp[0], "blackbox") == 0)
+		m->whitebox = parse_texture(w, m, tmp);
 	ft_memreg(tmp);
 }
 

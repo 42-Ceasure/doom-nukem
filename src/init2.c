@@ -84,41 +84,19 @@ static void	init_struct_helper(t_win *win)
 static int	init_assets(t_env *w, t_win *win)
 {
 	win->map_ui = w->m->fire;
-
 	win->asset_sprite = w->m->sprite[10];
 	win->asset_tmp = w->m->sprite[0];
 	win->player_start = w->m->fire;
-
 	win->inventory = w->m->hud;
 	win->slot0 = w->texturing[0];
 	win->slot1 = w->texturing[1];
 	win->slot2 = w->texturing[2];
 	win->slot3 = w->texturing[3];
 	win->slot4 = w->texturing[4];
-	win->blackbox = w->texturing[13];
+	win->blackbox = w->m->whitebox;
 	win->hud_box = 0;
-
 	win->building_hud = w->m->hud;
-
-	//type_str(w->win, dot, "Drawing_mode", 0xFFFFFF);
-
-	// win->helptxt = TTF_RenderText_Blended(win->police,"Drawing Mode", 0xFFFFFF);
-	//
-	// win->texturetxt = TTF_RenderText_Blended(win->police,
-	// 	"Wall", win->color_font_z);
-	//
-	// win->paramtxt = TTF_RenderText_Blended(win->police,
-	// 	"HP", win->color_font_z);
-	//
-	// win->paramvaluetxt = TTF_RenderText_Blended(win->police,
-	// 	"100", win->color_font_z);
-
-
-	/*win->helptxt = TTF_RenderText_Blended(win->police,
-		"test", win->color_font_r);*/
-
 	win->lst = NULL;
-
 	return (0);
 }
 
