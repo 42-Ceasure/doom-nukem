@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/17 11:53:54 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/17 12:50:54 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,34 +43,7 @@ void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 	o = m->sprt[x].index;
 	data = calcul_sprite(w, m, x, ratio);
 	if (ft_strcmp(m->sprite[o].type, "rotate") == 0)
-	{
-		//printf("x=%f y=%f\n", data.diffx, data.diffy);
-		if (data.diffx >= 5)
-		{
-			if (data.diffy >= 5)
-				o = 15;
-			else if (data.diffy < 5 && data.diffy >= -5)
-				o = 16;
-			else
-				o = 17;
-		}
-		else if (data.diffx < 5 && data.diffx >= -5)
-		{
-			if (data.diffy >= 5)
-				o = 14;
-			else
-				o = 18;
-		}
-		else
-		{
-			if (data.diffy >= 5)
-				o = 21;
-			else if (data.diffy < 5 && data.diffy >= -5)
-				o = 20;
-			else
-				o = 19;
-		}
-	}
+		o = rotate(data, o);
 	if (data.t1z > 0 && m->sprt[x].vis == 1)
 	{
 		if (ft_strcmp(m->sprite[o].type, "auto") == 0)
@@ -126,50 +99,4 @@ void	count_sprite(t_env *w, t_map *m)
 		x++;
 	}
 	m->player.firing = 0;
-}
-
-void	test_sprite(t_map *m, double xx, double yy)
-{
-	int x2;
-
-	x2 = 0;
-	while (x2 < m->sprite_map_count)
-	{
-		if (m->sprt[x2].vis != 1)
-		{
-			if (m->sprt[x2].sx == (int)xx && m->sprt[x2].sy == (int)yy
-				&& m->sprt[x2].vis != 1)
-				m->sprt[x2].vis = 1;
-		}
-		x2++;
-	}
-	x2 = 0;
-	while (x2 < m->ennemy_count)
-	{
-		if (m->ennemy[x2].vis != 1)
-		{
-			if ((int)m->ennemy[x2].coor.x == (int)xx && (int)m->ennemy[x2].coor.y
-				== (int)yy && m->ennemy[x2].vis != 1)
-				m->ennemy[x2].vis = 1;
-		}
-		x2++;
-	}
-}
-
-void	clear_sprite(t_map *m)
-{
-	int x;
-
-	x = 0;
-	while (x < m->sprite_map_count)
-	{
-		m->sprt[x].vis = 0;
-		x++;
-	}
-	x = 0;
-	while (x < m->ennemy_count)
-	{
-		m->ennemy[x].vis = 0;
-		x++;
-	}
 }

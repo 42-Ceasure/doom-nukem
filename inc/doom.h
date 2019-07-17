@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/17 11:21:24 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/17 14:52:04 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -425,6 +425,7 @@ typedef struct		s_map
 	t_sprite		*sprite;	//a placer dans t_env
 	t_map_sprite	*sprt;
 	t_texture		hud;
+	t_texture		hud2;
 	t_texture		whitebox;
 	t_texture		fire;
 	t_player		player;
@@ -694,12 +695,12 @@ void				draw_sprite(t_env *w, t_map *m, int x, int ratio);
 void				count_sprite(t_env *w, t_map *m);
 void				test_sprite(t_map *m, double xx, double yy);
 void				clear_sprite(t_map *m);
+int					rotate(t_cal_sprt data, int o);
 void				draw_ennemy(t_env *w, t_map *m, int x, int ratio);
 void				jet_pack(t_map *m);
 int					get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y);
 void				skybox(int x, t_env *w, t_work *work, t_texture text);
 double				pythagore(double a, double b);
-void				test_sprite2(t_map *m, double xx, double yy);
 void				ennemy_animation(t_env *w, t_map *m, double **tab, int x);
 double				**fill_tab_ennemy(t_map *m);
 double				**fill_tab_sprite(t_map *m);
