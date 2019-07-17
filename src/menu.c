@@ -483,7 +483,7 @@ void	main_menu(t_env *w, t_map *m)
 	}
 }
 
-void	loose(t_env *w, t_map *m)
+int		loose(t_env *w, t_map *m)
 {
 	int stop;
 
@@ -500,7 +500,15 @@ void	loose(t_env *w, t_map *m)
 			if (w->event.type == SDL_KEYDOWN)
 			{
 				if (KEY == 27)
-					exit_game(w, m, 1);
+				{
+					w->menu.i = 1;
+					stop = 1;
+					m->game_over = 0;
+					m->newgame = 1;
+					return(1);
+				}
+				// if (KEY == 27)
+					// exit_game(w, m, 1);
 				if (KEY == SDLK_RETURN)
 				{
 					m->game_over = 0;
@@ -511,9 +519,10 @@ void	loose(t_env *w, t_map *m)
 		}
 		img_update(w);
 	}
+	return(0);
 }
 
-void	change_lvl(t_env *w, t_map *m)
+int		change_lvl(t_env *w, t_map *m)
 {
 	int stop;
 
@@ -532,7 +541,14 @@ void	change_lvl(t_env *w, t_map *m)
 			if (w->event.type == SDL_KEYDOWN)
 			{
 				if (KEY == 27)
-					exit_game(w, m, 1);
+				{
+					w->menu.i = 1;
+					stop = 1;
+					m->newgame = 0;
+					return(1);
+				}
+				// if (KEY == 27)
+				// 	exit_game(w, m, 1);
 				if (KEY == SDLK_RETURN)
 				{
 					m->change_lvl = 0;
@@ -542,6 +558,7 @@ void	change_lvl(t_env *w, t_map *m)
 		}
 		img_update(w);
 	}
+	return(0);
 }
 
 void	launch(t_env *w, t_map *m)
@@ -559,9 +576,15 @@ void	launch(t_env *w, t_map *m)
 		if (w->menu.i > 4)
 		{
 			if (m->game_over == 1)
-				loose(w, m);
+			{
+				if (loose(w, m) == 1)
+					continue;
+			}
 			else if (m->change_lvl == 1)
-				change_lvl(w, m);
+			{
+				if (change_lvl(w, m) == 1)
+					continue;
+			}
 			// else
 			// {
 			if (m->newgame == 1)
