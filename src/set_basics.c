@@ -63,7 +63,6 @@ void			set_w(t_env *w, int ac)
 	w->txtnxtto.x = 0;
 	w->txtnxtto.y = 0;
 	w->texturingno = 0;
-	w->textured = 1;
 	w->window_mode_menu = 0;
 	w->window_res_menu = 0;
 	w->fov_h_menu = 0;

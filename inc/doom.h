@@ -530,7 +530,6 @@ typedef struct		s_env
 	t_dot			txtnxtline;
 	t_dot			txtnxtto;
 	t_dtime			dtime;
-	int				textured;
 	t_texture		*texturing;
 	int				texturingno;
 	int				nbmaps;
@@ -611,8 +610,6 @@ double				pointside(t_coor p, double x0,
 double				yaw(double y, double z, t_map *m);
 void				init_verification(t_work *draw);
 int					init_draw(t_env *w, t_work *d, t_reader *read, t_map *m);
-void				vertical_line(int x, t_work *work, t_env *w, t_color color);
-void				ceiling_line(int x, t_work *work, t_env *w, Uint32 color);
 void				moving_head(t_work *w, t_reader read, t_map *m);
 int					ceiling_and_floor(t_work *d, t_map *m,
 					t_reader read, int point);
@@ -624,7 +621,8 @@ void				recap_sector_general(t_map m, int i);
 void				recap_sector_dots(t_map m, int i);
 void				recap_sector_network(t_map m, int i);
 void				recap_sector(t_map m, int i);
-int					calcul_render(t_env *w, t_map *m, t_work work, int *ybot, int *ytop);
+int					calcul_render_mthrd(t_env *w, t_work work, int *ybot, int *ytop);
+void				calcul_render_no_mthrd(t_env *w, t_work *work);
 void				key_events(t_env *w, t_map *m);
 void				keydown_events(t_env *w, t_map *m);
 void				keyup_events(t_env *w, t_map *m);
@@ -705,10 +703,10 @@ void				ennemy_animation(t_env *w, t_map *m, double **tab, int x);
 double				**fill_tab_ennemy(t_map *m);
 double				**fill_tab_sprite(t_map *m);
 double				**sort_double_tab(double **tab, int size);
-void				vertical_line_textured(int x, t_env *w, t_work *work, t_texture text);
-void				ceiling_line_textured(int x, t_env *w, t_work *work, t_texture text);
-void				extruded_line_textured(int x, t_env *w, t_work *work, t_texture text);
-void				wall_line_textured(int x, t_env *w, t_work *work, t_texture text);
+void				draw_vertical_line_t(int x, t_env *w, t_work *work, t_texture text);
+void				draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture text);
+void				draw_extruded_line_t(int x, t_env *w, t_work *work, t_texture text);
+void				draw_wall_line_t(int x, t_env *w, t_work *work, t_texture text);
 void				ft_free_weap(t_map *m);
 void				ft_free_sprite(t_map *m);
 void				ft_free_sprt(t_map *m);
@@ -828,9 +826,12 @@ int			init2(t_env *w, t_win *win);
 double		pointside2(t_dot m, double x0, double y0, double x1, double y1);
 int			get_nb_maps_in_core(t_env *w);
 int			get_names_maps_in_core(t_env *w, char **names);
-void			init_sprite_tab(t_map *m);
+void		init_sprite_tab(t_map *m);
 void		ft_free_tab(t_map *m);
-void			process_hint_savemap(t_env *w, int i, int nbmaps, char *s);
-int		parse_level_map(t_map *m, char **tab);
+void		process_hint_savemap(t_env *w, int i, int nbmaps, char *s);
+int			parse_level_map(t_map *m, char **tab);
+void		draw_ceiling_n_floor(t_work *work, t_env *w, int x);
+void		draw_networks(t_work *work, t_env *w, int x);
+void		draw_walls(t_work *work, t_env *w, int x);
 
 #endif

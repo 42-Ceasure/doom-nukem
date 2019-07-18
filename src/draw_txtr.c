@@ -57,7 +57,7 @@ void	skybox(int x, t_env *w, t_work *work, t_texture text)
 	}
 }
 
-void	ceiling_line_textured(int x, t_env *w, t_work *work, t_texture text)
+void	draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture text)
 {
 	int			y1;
 	int			y2;
@@ -110,7 +110,7 @@ void	ceiling_line_textured(int x, t_env *w, t_work *work, t_texture text)
 	}
 }
 
-void	vertical_line_textured(int x, t_env *w, t_work *work, t_texture text)
+void	draw_vertical_line_t(int x, t_env *w, t_work *work, t_texture text)
 {
 	int		y1;
 	int		y2;
@@ -228,7 +228,7 @@ void	vertical_line_textured(int x, t_env *w, t_work *work, t_texture text)
 	}
 }
 
-void	wall_line_textured(int x, t_env *w, t_work *work, t_texture text)
+void	draw_wall_line_t(int x, t_env *w, t_work *work, t_texture text)
 {
 	int		y1;
 	int		y2;
@@ -348,7 +348,7 @@ void	wall_line_textured(int x, t_env *w, t_work *work, t_texture text)
 	}	
 }
 
-void	extruded_line_textured(int x, t_env *w, t_work *work, t_texture text)
+void	draw_extruded_line_t(int x, t_env *w, t_work *work, t_texture text)
 {
 	int		y1;
 	int		y2;
