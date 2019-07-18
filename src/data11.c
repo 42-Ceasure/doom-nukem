@@ -44,7 +44,6 @@ int			*create_y_dot_tab(t_win *win, int y, int i)
 	index = 0;
 	if (!(dot_tab = (int *)malloc(sizeof(int) * i)))
 		clear_n_exit(win, 1);
-
 	tmp2 = win->lstlst;
 	while (tmp2)
 	{
@@ -70,9 +69,7 @@ int			number_of_dot_per_line(t_win *win, int y)
 	int			i;
 	int			same;
 	int			index;
-	// int			x;
 
-	// x = 0;
 	index = 0;
 	same = 0;
 	i = number_of_dot_per_line_with_same(win, y);
@@ -81,7 +78,7 @@ int			number_of_dot_per_line(t_win *win, int y)
 	{
 		while (index < i - 1)
 		{
-			if (dot_tab[index] == dot_tab[index+1])
+			if (dot_tab[index] == dot_tab[index + 1])
 				same++;
 			index++;
 		}

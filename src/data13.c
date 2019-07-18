@@ -25,8 +25,6 @@ int			number_of_points_in_sector(t_win *win, int sector)
 	index = 0;
 	i = 0;
 	j = 0;
-
-
 	tmp2 = win->lstlst;
 	while (tmp2)
 	{
@@ -46,29 +44,11 @@ int			number_of_points_in_sector(t_win *win, int sector)
 				}
 				index++;
 			}
-			break;
+			break ;
 		}
 		tmp2 = tmp2->next;
 	}
 	return (j);
-}
-
-void		check(t_win *win)
-{
-	t_lstlst	*tmp2;
-	t_lst		*tmp;
-
-	tmp2 = win->lstlst;
-	while (tmp2)
-	{
-		tmp = tmp2->head;
-		while (tmp)
-		{
-			//printf("%d nb \n", tmp->nb);
-			tmp = tmp->next;
-		}
-		tmp2 = tmp2->next;
-	}
 }
 
 int			number_of_ennemy(t_win *win)

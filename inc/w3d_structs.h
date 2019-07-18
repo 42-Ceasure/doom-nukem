@@ -101,7 +101,6 @@ struct					s_win
 	Mix_Music			*theme;
 	Mix_Chunk			*headshot;
 	Mix_Chunk			*medic;
-	// TTF_Font			*police;
 	Uint32				start_clock;
 	Uint32				delta_clock;
 	Uint32				current_fps;

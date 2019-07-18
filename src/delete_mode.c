@@ -79,6 +79,8 @@ void	delete_sector(t_win *win)
 		current->head = NULL;
 		free(current);
 		current = NULL;
+		win->link -= 1;
+		win->sector -= 1;
 		if (previous)
 			previous->next = next;
 		if (previous == NULL && next == NULL)
