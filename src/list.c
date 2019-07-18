@@ -57,8 +57,6 @@ int		check_list(t_win *win, t_lst *lst, int x, int y)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
-	if (win->just_close)
-		check_neighbour(win);
 	return (closed);
 }
 

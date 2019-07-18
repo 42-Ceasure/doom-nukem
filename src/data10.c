@@ -107,7 +107,7 @@ int			x_min_on_line(t_win *win, int y)
 				if (tmp->x < x)
 					x = tmp->x;
 			}
-				tmp = tmp->next;
+			tmp = tmp->next;
 		}
 		tmp2 = tmp2->next;
 	}
@@ -132,7 +132,7 @@ int			next_x_on_line(t_win *win, int y, int x)
 				if (tmp->x > x && tmp->x < i)
 					i = tmp->x;
 			}
-				tmp = tmp->next;
+			tmp = tmp->next;
 		}
 		tmp2 = tmp2->next;
 	}
