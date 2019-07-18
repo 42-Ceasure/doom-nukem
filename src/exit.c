@@ -73,7 +73,7 @@ void		ft_free_sector(t_map *m)
 	i = 0;
 	if (m->sector != NULL)
 	{
-		while (i < m->sector_count)
+		while (i < m->sector_count && i < m->s)
 		{
 			if (m->sector[i].dot != NULL)
 				free(m->sector[i].dot);

@@ -11,10 +11,18 @@ int			parse_map_dots(t_map *m, char *y, char *x)
 	tmp = ft_strsplit(x, ',');
 	while (tmp[i] != NULL)
 	{
-		m->dot[m->i].x = ft_atof(tmp[i]);
-		m->dot[m->i].y = ft_atof(y);
-		m->i++;
+		if (m->i < m->dots_count)
+		{
+			m->dot[m->i].x = ft_atof(tmp[i]);
+			m->dot[m->i].y = ft_atof(y);
+		}
 		i++;
+		m->i++;
+	}
+	if (m->i > m->dots_count)
+	{	
+		set_error(m->world, m, 8, ft_strdup("invalid dots count"));
+		return (-1);
 	}
 	ft_memreg(tmp);
 	return (0);

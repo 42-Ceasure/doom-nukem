@@ -41,40 +41,30 @@ int		first_line(char **tab, t_map *m)
 	return (0);
 }
 
-int		second_parse(t_map *m, char **tmp)
+int		second_parse(t_env *w, t_map *m, char **tmp)
 {
 	if (m->section_number == 2)
 	{
 		if (parse_player_section(m, tmp) == -1)
-		{
-			ft_putendl("error in parse_player_section");
 			return (-1);
-		}
 	}
 	else if (m->section_number == 3)
 	{
 		if (parse_sprite_map(m, tmp) == -1)
-		{
-			ft_putendl("error in parse_sprite_map");
 			return (-1);
-		}
 	}
 	else if (m->section_number == 4)
 	{
 		if (parse_ennemy_map(m, tmp) == -1)
-		{
-			ft_putendl("error in parse_ennemy_map");
 			return (-1);
-		}
 	}
 	else if (m->section_number == 5)
 	{
 		if (parse_level_map(m, tmp) == -1)
-		{
-			ft_putendl("error in parse_level_map");
 			return (-1);
-		}
 	}
+	else if (m->section_number == 6)
+		w->stopread = 1;
 	return (0);
 }
 
@@ -99,10 +89,8 @@ int		parse_line(t_env *w, t_map *m)
 			return (-1);
 		}
 	}
-	if (second_parse(m, tmp) == -1)
+	else if (second_parse(w, m, tmp) == -1)
 		return (-1);
-	if (m->section_number == 6)
-		w->stopread = 1;
 	ft_memreg(tmp);
 	return (0);
 }
