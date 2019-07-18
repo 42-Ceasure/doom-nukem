@@ -2,6 +2,33 @@
 
 #include "doom.h"
 
+int		testcolor(int color, t_work *work)
+{
+	int A = (color >> 24) & 0xff;
+	int R = (color >> 16) & 0xff;
+	int G = (color >> 8) & 0xff;
+	int B = (color) & 0xff;
+
+	R -= work->z / 2;
+	G -= work->z / 2;
+	B -= work->z / 2;
+
+	if (R > 255)
+		R = 255;
+	if (G > 255)
+		G = 255;
+	if (B > 255)
+		B = 255;
+	if (R < 0)
+		R = 0;
+	if (G < 0)
+		G = 0;
+	if (B < 0)
+		B = 0;
+
+	return((A & 0xff) << 24 | (R & 0xff) << 16 | (G & 0xff) << 8 | (B & 0xff));
+}
+
 void	skybox(int x, t_env *w, t_work *work, t_texture text)
 {
 	int			y1;
@@ -94,6 +121,7 @@ void	vertical_line_textured(int x, t_env *w, t_work *work, t_texture text)
 	int 	x_tex;
 	int		y_tex;
 	double	y_tex_pos;
+	int		color;
 	
 	y_tex_pos = 0;
 	y1 = work->starty;
@@ -131,7 +159,11 @@ void	vertical_line_textured(int x, t_env *w, t_work *work, t_texture text)
 				if (x_tex < 0)
 					x_tex = 0;
 				if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
-					w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+				{
+					color = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+					color = testcolor(color, work);
+					w->pix[y1 * WIDTH + x] = color;
+				}
 				y_tex_pos++;
 				y1++;
 			}
@@ -164,7 +196,11 @@ void	vertical_line_textured(int x, t_env *w, t_work *work, t_texture text)
 					if (x_tex < 0)
 						x_tex = 0;
 					if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
-						w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+					{
+						color = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+						color = testcolor(color, work);
+						w->pix[y1 * WIDTH + x] = color;
+					}
 					y_tex_pos++;
 					y1++;
 				}
@@ -179,7 +215,11 @@ void	vertical_line_textured(int x, t_env *w, t_work *work, t_texture text)
 					if (x_tex < 0)
 						x_tex = 0;
 					if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
-						w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+					{
+						color = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+						color = testcolor(color, work);
+						w->pix[y1 * WIDTH + x] = color;
+					}
 					y_tex_pos++;
 					y1++;
 				}
@@ -199,6 +239,8 @@ void	wall_line_textured(int x, t_env *w, t_work *work, t_texture text)
 	int 	x_tex;
 	int		y_tex;
 	double	y_tex_pos;
+	int 	color;
+	
 	
 	y_tex_pos = 0;
 	y1 = work->starty;
@@ -233,7 +275,11 @@ void	wall_line_textured(int x, t_env *w, t_work *work, t_texture text)
 			if (x_tex < 0)
 				x_tex = 0;
 			if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
-				w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+			{
+				color = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+				color = testcolor(color, work);
+				w->pix[y1 * WIDTH + x] = color;
+			}
 			y_tex_pos++;
 			y1++;
 		}
@@ -269,7 +315,11 @@ void	wall_line_textured(int x, t_env *w, t_work *work, t_texture text)
 					if (x_tex < 0)
 						x_tex = 0;
 					if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
-						w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+					{
+						color = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+						color = testcolor(color, work);
+						w->pix[y1 * WIDTH + x] = color;
+					}
 					y_tex_pos++;
 					y1++;
 				}
@@ -285,7 +335,11 @@ void	wall_line_textured(int x, t_env *w, t_work *work, t_texture text)
 					if (x_tex < 0)
 						x_tex = 0;
 					if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
-						w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+					{
+						color = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+						color = testcolor(color, work);
+						w->pix[y1 * WIDTH + x] = color;
+					}
 					y_tex_pos++;
 					y1++;
 				}
@@ -305,6 +359,7 @@ void	extruded_line_textured(int x, t_env *w, t_work *work, t_texture text)
 	double 	wall_width_scale;
 	double	y_tex_start;
 	double	y_tex_pos;
+	int		color;
 	
 	y_tex_pos = 0;
 	y1 = work->starty - 1;
@@ -342,7 +397,11 @@ void	extruded_line_textured(int x, t_env *w, t_work *work, t_texture text)
 				if (x_tex < 0)
 					x_tex = 0;
 				if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
-					w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+				{
+					color = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+					color = testcolor(color, work);
+					w->pix[y1 * WIDTH + x] = color;
+				}
 				y_tex_pos++;
 				y1++;
 			}
@@ -376,7 +435,11 @@ void	extruded_line_textured(int x, t_env *w, t_work *work, t_texture text)
 					if (x_tex < 0)
 						x_tex = 0;
 					if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
-						w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+					{
+						color = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+						color = testcolor(color, work);
+						w->pix[y1 * WIDTH + x] = color;
+					}
 					y_tex_pos++;
 					y1++;
 				}
@@ -391,7 +454,11 @@ void	extruded_line_textured(int x, t_env *w, t_work *work, t_texture text)
 					if (x_tex < 0)
 						x_tex = 0;
 					if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
-						w->pix[y1 * WIDTH + x] = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+					{
+						color = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+						color = testcolor(color, work);
+						w->pix[y1 * WIDTH + x] = color;
+					}
 					y_tex_pos++;
 					y1++;
 				}
