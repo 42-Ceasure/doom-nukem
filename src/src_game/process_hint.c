@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 13:35:38 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/17 03:04:54 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/19 00:11:25 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void			process_hint_w(t_env *w, int i, char *s)
 	dot.x = 800;
 	dot.y = 550;
 	if (i == 2)
-		s = ft_strjoin(s, " %");
+		s = ft_strjoinnfree(s, " %", 1);
 	post = ft_strjoin(s, "\r");
 	pre = NULL;
 	if (i == 0)
@@ -96,6 +96,8 @@ void			process_hint_w(t_env *w, int i, char *s)
 	free(post);
 	if (pre != NULL)
 		free(pre);
+	if (i == 2)
+		free(s);
 }
 
 void			process_hint_savemap(t_env *w, int i, int nbmaps, char *s)
@@ -110,33 +112,27 @@ void			process_hint_savemap(t_env *w, int i, int nbmaps, char *s)
 	w->txthead.x = 10;
 	w->txthead.y = 10;
 	type_str(w, w->txthead, name, 0x12FEA800);
-	if (i == 2 || i == 4)
-		s = ft_strjoin(s, " %");
-	// s = NULL;
+	free(name);
+	if (i == 2)
+		s = ft_strjoinnfree(s, " %", 1);
 	w->txthead.x = 6;
 	w->txthead.y = 550;
 	dot.x = 800;
 	dot.y = 550;
-
 	post = ft_strjoin(s, "\r");
 	pre = NULL;
 	if (i == 0)
 		pre = ft_strjoin("Done", post);
-	if (i == 1)
-		pre = ft_strjoin("Allocating memory for ", post);
-	if (i == 2 || i == 4)
+	else
 		pre = ft_strjoin("Writing ... ", post);
 	if (pre == NULL)
 		pre = other_if(i, post);
 	type_str(w, w->txthead, pre, 0x12FEA800);
-	if (i == 2)
-		type_str(w, dot, "Saving modif...", 0x12FEA800);
-	if (i == 4)
-		type_str(w, dot, "Saving map...", 0x12FEA800);
-	else
-		type_str(w, dot, "Loading game...", 0x12FEA800);
+	type_str(w, dot, "Saving map...", 0x12FEA800);
 	img_update(w);
 	free(post);
 	if (pre != NULL)
 		free(pre);
+	if (i == 2)
+		free(s);
 }

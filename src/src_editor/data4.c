@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data4.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 13:45:27 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/17 13:45:43 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/19 00:49:11 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,30 +71,41 @@ void		write_map_mame(t_env *w, int fp)
 void		write_in_file_helper(t_win *win, t_env *w, int fp)
 {
 	write_map_mame(w, fp);
-	process_hint_savemap(w, 3, w->nbmaps, "map");
+	process_hint_savemap(w, 1, w->nbmaps, "map");
 	first_line2(win, fp);
-	process_hint_savemap(w, 3, w->nbmaps, "dots");
+	process_hint_savemap(w, 1, w->nbmaps, "dots");
 	write_dots(win, fp);
-	process_hint_savemap(w, 3, w->nbmaps, "sectors");
+	process_hint_savemap(w, 1, w->nbmaps, "sectors");
 	write_sectors(win, fp);
-	process_hint_savemap(w, 3, w->nbmaps, "player");
+	process_hint_savemap(w, 1, w->nbmaps, "player");
 	write_player(win, fp);
-	process_hint_savemap(w, 3, w->nbmaps, "sprites");
+	process_hint_savemap(w, 1, w->nbmaps, "sprites");
 	write_sprites(win, fp);
-	process_hint_savemap(w, 3, w->nbmaps, "ennemies");
+	process_hint_savemap(w, 1, w->nbmaps, "ennemies");
 	write_ennemies(win, fp);
+}
+
+void		do_system_to_save(char *name)
+{
+	char	*command;
+	
+	command = ft_strjoinnfree("cat ", name, 2);
+	command = ft_strjoinnfree(command, " >> nouveau.txt && echo '\n\n' >> nouveau.txt && cat ./core/core.dn3d >> nouveau.txt", 1);
+	system(command);
+	free(command);
+	system("rm ./core/core.dn3d && rm ./tmp.dn3d && cp ./nouveau.txt ./core && mv ./core/nouveau.txt ./core/core.dn3d && rm ./nouveau.txt");
 }
 
 void		write_in_file(t_win *win, t_env *w)
 {
 	int			fp;
-	const char	*name;
+	char	*name;
 	char		*str;
 
-	name = "tmp.dn3d";
+	name = ft_strdup("tmp.dn3d");
 	fp = open(name, O_RDWR | O_CREAT | O_TRUNC, 0655);
 	write_in_file_helper(win, w, fp);
-	process_hint_savemap(w, 3, w->nbmaps, "sections");
+	process_hint_savemap(w, 1, w->nbmaps, "sections");
 	str = ft_strdup("Section:level\n");
 	ft_putstr_fd(str, fp);
 	free(str);
@@ -102,6 +113,8 @@ void		write_in_file(t_win *win, t_env *w)
 	ft_putstr_fd(str, fp);
 	free(str);
 	close(fp);
-	add_map_to_core("core/core.dn3d", "./tmp.dn3d", w);
+	do_system_to_save(name);
+	// test avec commandes
+	// add_map_to_core("./core/core.dn3d", "./tmp.dn3d", w);
 	unlink("./tmp.dn3d");
 }
