@@ -83,11 +83,11 @@ void	ceiling_line_textured(int x, t_env *w, t_work *work, t_texture text)
 		hfov *= 2;
 		vfov *= 2;
 	}
-	if (y2 > y1)
+	if (y2 >= y1)
 	{
 		while (y1 <= y2)
 		{
-			if (y1 >= work->cya && y1 <= work->cyb) 
+			if (y1 >= work->cya && y1 <= work->cyb && y2 != y1) 
 			{
 				y1 = work->cyb;
 				continue;
