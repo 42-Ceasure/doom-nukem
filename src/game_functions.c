@@ -247,15 +247,15 @@ void		shoot(t_env *w, t_map *m)
 
 void		stop_aim(t_env *w, t_map *m)
 {
-	m->player.field_of_vision_h = WIDTH / 2;
-	m->player.field_of_vision_v = HEIGHT / 2;
+	m->player.field_of_vision_h = w->mem_field_of_vision_h;
+	m->player.field_of_vision_v = w->mem_field_of_vision_v;
 	m->player.aiming = 0;
 }
 
 void		aim(t_env *w, t_map *m)
 {
-	m->player.field_of_vision_h = WIDTH;
-	m->player.field_of_vision_v = HEIGHT;
+	m->player.field_of_vision_h = 2 * w->mem_field_of_vision_h;
+	m->player.field_of_vision_v = 2 * w->mem_field_of_vision_v;
 	m->player.aiming = 1;
 }
 

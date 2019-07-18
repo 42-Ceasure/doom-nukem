@@ -59,6 +59,7 @@
 # define WIN_Y				720
 # define GAME				0
 # define EDIT				1
+# define PAKOMSA			"Your core file seem invalid. You may need to reinstall the game"
 
 typedef struct		s_lst
 {
@@ -541,6 +542,8 @@ typedef struct		s_env
 	int				fov_v_menu;
 	int				mousesp_menu;
 	int				corenbl;
+	double			mem_field_of_vision_h;
+	double			mem_field_of_vision_v;
 }					t_env;
 
 

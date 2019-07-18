@@ -22,6 +22,8 @@ void		error_5_to_8(int errorno)
 		ft_putstr("This sector don't exist : \"");
 	if (errorno == 8)
 		ft_putstr("Parse error : \"");
+	if (errorno == 911)
+		ft_putstr("Fatal error \"");
 }
 
 void		set_error(t_env *w, t_map *m, int errorno, char *s)
