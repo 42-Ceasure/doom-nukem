@@ -65,7 +65,7 @@ void		write_sectors_textures(int fp, t_lstlst *tmp2)
 	ft_putstr_fd(str, fp);
 	str = ft_itoa(tmp2->txtr_higher_extrude);
 	ft_putstr_fd(str, fp);
-	str = ",0";
+	str = ",2";
 	ft_putstr_fd(str, fp);
 }
 
