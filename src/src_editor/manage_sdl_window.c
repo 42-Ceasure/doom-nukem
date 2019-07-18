@@ -13,8 +13,7 @@ void	fit_to_editor(t_env *w)
 	SDL_DestroyRenderer(w->rdr);
 	SDL_DestroyTexture(w->txtr);
 	free(w->pix);
-	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED |
-		SDL_RENDERER_PRESENTVSYNC);
+	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED);
 	w->pix = (Uint32 *)malloc(sizeof(Uint32) * WIDTH * HEIGHT);
 	w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
 		SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
