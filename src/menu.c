@@ -499,7 +499,6 @@ int		loose(t_env *w, t_map *m)
 					w->menu.i = 1;
 					stop = 1;
 					m->game_over = 0;
-					m->newgame = 1;
 					return(1);
 				}
 				if (KEY == SDLK_RETURN)
