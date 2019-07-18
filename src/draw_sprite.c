@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/17 12:50:54 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/18 11:13:24 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,12 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x, int ratio)
 		tmp.zoom *= 2;
 	tmp.x1 = WIDTH / 2 - (tmp.t1x * tmp.xscale1 + (m->sprite[m->sprt[x].index].w
 		/ 2 * tmp.zoom * ratio));
-	tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprt[x].sector].floor
+	if (ft_strcmp(m->sprite[m->sprt[x].index].type, "mur") == 0)
+		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprt[x].sector].floor
+			- m->player.coor.z + 14), tmp.t1z, m) * tmp.yscale1)
+				- (m->sprite[m->sprt[x].index].h * tmp.zoom * ratio);
+	else
+		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprt[x].sector].floor
 			- m->player.coor.z), tmp.t1z, m) * tmp.yscale1)
 				- (m->sprite[m->sprt[x].index].h * tmp.zoom * ratio);
 	return (tmp);
@@ -44,6 +49,9 @@ void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 	data = calcul_sprite(w, m, x, ratio);
 	if (ft_strcmp(m->sprite[o].type, "rotate") == 0)
 		o = rotate(data, o);
+	if (ft_strcmp(m->sprite[o].type, "mur") == 0
+		&& (m->elevator == 1 || m->elevator == 2))
+		o = 25;
 	if (data.t1z > 0 && m->sprt[x].vis == 1)
 	{
 		if (ft_strcmp(m->sprite[o].type, "auto") == 0)
