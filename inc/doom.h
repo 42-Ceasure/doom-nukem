@@ -468,6 +468,14 @@ typedef struct		s_sound
 	Mix_Chunk		*clic;
 }					t_sound;
 
+typedef struct		s_img
+{
+	int				x;
+	int				y;
+	int				w;
+	int				h;
+}					t_img;
+
 typedef struct		s_res
 {
 	int				width;
@@ -644,7 +652,8 @@ void				initsprite(t_sprite **sprite, int count);
 void				hand(t_env *w, t_map *m);
 void				buttondown_event(t_env *w, t_map *m);
 void				buttonup_event(t_env *w, t_map *m);
-void				hello_screen(t_env *w);
+// void				hello_screen(t_env *w);
+void				main_pic(t_env *w, int nb);
 int					load_sounds(t_env *w, t_map *m);
 void				process_hint(int i, char *s);
 void				process_hint_w(t_env *w, int i, char *s);
@@ -688,9 +697,11 @@ void				sequential_frame(t_env *w, t_map *m);
 void				safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);
 void				safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y);
 void				safe_char_to_screen(t_env *w, t_texture texture, int x, int y);
+int					img_to_screen(t_env *w, t_texture texture, t_img img);
 int					final_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y, int width, int height);
 int					final_texture_to_screen(t_env *w, t_texture texture, int x, int y, int width, int height);
 int					final_char_to_screen(t_env *w, t_texture texture, int x, int y, int width, int height);
+t_img				fill_t_img(int x, int y, int w, int h);
 void				get_that_time(t_env *w);
 void				draw_sprite(t_env *w, t_map *m, int x, int ratio);
 void				count_sprite(t_env *w, t_map *m);
@@ -699,7 +710,8 @@ void				clear_sprite(t_map *m);
 int					rotate(t_cal_sprt data, int o);
 void				draw_ennemy(t_env *w, t_map *m, int x, int ratio);
 void				jet_pack(t_map *m);
-int					get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y);
+// int					get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y);
+int					get_tmpix_scaled(t_sprite sprite, t_img img);
 void				skybox(int x, t_env *w, t_work *work, t_texture text);
 double				pythagore(double a, double b);
 void				ennemy_animation(t_env *w, t_map *m, double **tab, int x);

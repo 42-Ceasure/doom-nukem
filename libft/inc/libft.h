@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/19 18:18:57 by cglavieu          #+#    #+#             */
-/*   Updated: 2019/04/18 14:09:03 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/18 23:49:33 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char				*ft_strmap(char const *s, char (*f) (char));
 char				*ft_strmapi(char const *s, char (*f) (unsigned int, char));
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoinnfree(char *s1, char *s2, int fr);
 char				*ft_strtrim(char const *s);
 char				*ft_itoa(int n);
 void				ft_light_itoa(int n, char *str);
