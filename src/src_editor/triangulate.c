@@ -58,18 +58,18 @@ int		near_vertex(int n, int i, int di)
 
 int		point_in_triangle(t_dot p0, t_dot p1, t_dot p2, t_dot m)
 {
-	if (p2.y < p1.y)
+	if (pointside2(m, p0.x, p0.y, p1.x, p1.y) >= 0)
 	{
-		if (pointside2(m, p0.x, p0.y, p1.x, p1.y) <= 0
-		 	&& pointside2(m, p1.x, p1.y, p2.x, p2.y) <=0
-				&& pointside2(m, p2.x, p2.y, p0.x, p0.y) <= 0)
+		if (pointside2(m, p0.x, p0.y, p1.x, p1.y) >= 0
+		&& pointside2(m, p1.x, p1.y, p2.x, p2.y) >= 0
+		&& pointside2(m, p2.x, p2.y, p0.x, p0.y) >= 0)
 			return (1);
 	}
 	else
 	{
-		if (pointside2(m, p0.x, p0.y, p1.x, p1.y) >= 0
-	 		&& pointside2(m, p1.x, p1.y, p2.x, p2.y) >= 0
-				&& pointside2(m, p2.x, p2.y, p0.x, p0.y) >= 0)
+		if (pointside2(m, p0.x, p0.y, p1.x, p1.y) <= 0
+		&& pointside2(m, p1.x, p1.y, p2.x, p2.y) <=0
+		&& pointside2(m, p2.x, p2.y, p0.x, p0.y) <= 0)
 			return (1);
 	}
 	return (0);
