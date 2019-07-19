@@ -12,6 +12,37 @@
 
 #include "doom.h"
 
+/*int			triangles_neighbours_helper(t_win *win, t_lstlst *tmp2, int i)
+{
+	if (i == 0)
+	{
+		if (tab_sector1[0] == tab_sector2[0] || tab_sector1[0]
+			== tab_sector2[1] || tab_sector1[0] == tab_sector2[2])
+			index++;
+		if (tab_sector1[1] == tab_sector2[0] || tab_sector1[1]
+			== tab_sector2[1] || tab_sector1[1] == tab_sector2[2])
+			index++;
+	}
+	if (i == 1)
+	{
+		if (tab_sector1[1] == tab_sector2[0] || tab_sector1[1]
+			== tab_sector2[1] || tab_sector1[1] == tab_sector2[2])
+			index++;
+		if (tab_sector1[2] == tab_sector2[0] || tab_sector1[2]
+			== tab_sector2[1] || tab_sector1[2] == tab_sector2[2])
+			index++;
+	}
+	if (i == 2)
+	{
+		if (tab_sector1[2] == tab_sector2[0] || tab_sector1[2]
+			== tab_sector2[1] || tab_sector1[2] == tab_sector2[2])
+			index++;
+		if (tab_sector1[0] == tab_sector2[0] || tab_sector1[0]
+			== tab_sector2[1] || tab_sector1[0] == tab_sector2[2])
+			index++;
+	}
+}*/
+
 int			triangles_neighbours(t_win *win, t_lstlst *tmp2, int i)
 {
 	t_lstlst	*tmp3;
@@ -19,7 +50,6 @@ int			triangles_neighbours(t_win *win, t_lstlst *tmp2, int i)
 	int			*tab_sector2;
 	int			index;
 	int			swap;
-
 
 	tab_sector1 = tab_sector3(win, tmp2->sector);
 	if (tmp2->clockwise == 2)
@@ -43,30 +73,29 @@ int			triangles_neighbours(t_win *win, t_lstlst *tmp2, int i)
 			}
 			if (i == 0)
 			{
-				if (tab_sector1[0] == tab_sector2[0] || tab_sector1[0] == tab_sector2[1]
-					|| tab_sector1[0] == tab_sector2[2])
-						index++;
-				if (tab_sector1[1] == tab_sector2[0] || tab_sector1[1] == tab_sector2[1]
-					|| tab_sector1[1] == tab_sector2[2])
-						index++;
+				if (tab_sector1[0] == tab_sector2[0] || tab_sector1[0]
+					== tab_sector2[1] || tab_sector1[0] == tab_sector2[2])
+					index++;
+				if (tab_sector1[1] == tab_sector2[0] || tab_sector1[1]
+					== tab_sector2[1] || tab_sector1[1] == tab_sector2[2])
+					index++;
 			}
 			if (i == 1)
 			{
-				if (tab_sector1[1] == tab_sector2[0] || tab_sector1[1] == tab_sector2[1]
-					|| tab_sector1[1] == tab_sector2[2])
+				if (tab_sector1[1] == tab_sector2[0] || tab_sector1[1]
+					== tab_sector2[1] || tab_sector1[1] == tab_sector2[2])
 					index++;
-				if (tab_sector1[2] == tab_sector2[0] || tab_sector1[2] == tab_sector2[1]
-					|| tab_sector1[2] == tab_sector2[2])
+				if (tab_sector1[2] == tab_sector2[0] || tab_sector1[2]
+					== tab_sector2[1] || tab_sector1[2] == tab_sector2[2])
 					index++;
 			}
-
 			if (i == 2)
 			{
-				if (tab_sector1[2] == tab_sector2[0] || tab_sector1[2] == tab_sector2[1]
-					|| tab_sector1[2] == tab_sector2[2])
+				if (tab_sector1[2] == tab_sector2[0] || tab_sector1[2]
+					== tab_sector2[1] || tab_sector1[2] == tab_sector2[2])
 					index++;
-				if (tab_sector1[0] == tab_sector2[0] || tab_sector1[0] == tab_sector2[1]
-					|| tab_sector1[0] == tab_sector2[2])
+				if (tab_sector1[0] == tab_sector2[0] || tab_sector1[0]
+					== tab_sector2[1] || tab_sector1[0] == tab_sector2[2])
 					index++;
 			}
 			if (index == 2)
@@ -86,21 +115,17 @@ void		check4(t_win *win)
 	while (tmp2)
 	{
 		tmp = tmp2->head;
-
 		if (tmp->nb != tmp->next->nb && tmp->next->nb != tmp->next->next->nb
 			&& tmp->next->next->nb != tmp->nb)
 		{
 			tmp2->sector = win->triangle_sector;
 			win->triangle_sector += 1;
-			//printf("%d sector \n", tmp2->sector);
 		}
 		else
 			tmp2->sector = -1;
 		while (tmp)
 		{
 			tmp->sector = tmp2->sector;
-			//printf("%d sector \n", tmp2->sector);
-			//printf("%d nb \n", tmp->nb);
 			tmp = tmp->next;
 		}
 		tmp2 = tmp2->next;
