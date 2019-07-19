@@ -49,43 +49,10 @@ void		replace_line(char *path, char *balise, char *content, t_env *w)
 			free(f.line);
 			i++;
 		}
-		ft_putendl_fd("eof", f.fd);
 		close(f.fd2);
 		close(f.fd);
 	}
-	if ((f.fd = open("./tmp", O_RDONLY)) != -1
-		&& (f.fd2 = open(path, O_WRONLY | O_TRUNC)) != -1)
-	{
-		while (precise_get_next_line(f.fd, &f.line, f.buffer) && f.stop == 0)
-		{
-			f.tmp = ft_strsplit(f.line, ';');
-			if (w->corenbl != 0)
-				nb = vmin(((double)i / (double)(w->corenbl * 2) * (double)100), 99);
-			process_hint_w(w, 2, ft_itoa(nb));
-			if (ft_strncmp(f.line, "buffer", 6) == 0)
-			{
-				ft_putendl_fd(f.line, f.fd2);
-				f.buffer = ft_atoi(f.tmp[1]);
-				ft_memreg(f.tmp);
-				free(f.line);
-				continue;
-			}
-			if (ft_strncmp(f.line, "eof", 3) == 0)
-				f.stop = 1;
-			else
-				ft_putendl_fd(f.line, f.fd2);
-			if (ft_strncmp(f.line, "texture\t\t;ascii", 15) != 0
-				&& ft_strncmp(f.line, "texture\t\t;main_pic", 18) != 0
-					&& ft_strncmp(f.line, "texture\t\t;texturing", 19) != 0)
-				f.buffer = 256;
-			ft_memreg(f.tmp);
-			free(f.line);
-			i++;
-		}
-		close(f.fd2);
-		close(f.fd);
-	}
-	unlink("./tmp");
+	rename("./tmp", path);
 }
 
 void		add_map_to_core(char *path, char *path2, t_env *w)
@@ -138,44 +105,11 @@ void		add_map_to_core(char *path, char *path2, t_env *w)
 			free(f.line);
 			i++;
 		}
-		ft_putendl_fd("eof", f.fd);
 		close(f.fd2);
 		close(f.fd);
 		close(fd);
 	}
-	if ((f.fd = open("./tmp", O_RDONLY)) != -1
-		&& (f.fd2 = open(path, O_WRONLY | O_TRUNC)) != -1)
-	{
-		while (precise_get_next_line(f.fd, &f.line, f.buffer) && f.stop == 0)
-		{
-			f.tmp = ft_strsplit(f.line, ';');
-			if (w->corenbl != 0)
-				nb = vmin(((double)i / (double)(w->corenbl * 2) * (double)100), 99);
-			process_hint_savemap(w, 2, w->nbmaps, ft_itoa(nb));
-			if (ft_strncmp(f.line, "buffer", 6) == 0)
-			{
-				ft_putendl_fd(f.line, f.fd2);
-				f.buffer = ft_atoi(f.tmp[1]);
-				ft_memreg(f.tmp);
-				free(f.line);
-				continue;
-			}
-			if (ft_strncmp(f.line, "eof", 3) == 0)
-				f.stop = 1;
-			else
-				ft_putendl_fd(f.line, f.fd2);
-			if (ft_strncmp(f.line, "texture\t\t;ascii", 15) != 0
-				&& ft_strncmp(f.line, "texture\t\t;main_pic", 18) != 0
-					&& ft_strncmp(f.line, "texture\t\t;texturing", 19) != 0)
-				f.buffer = 256;
-			ft_memreg(f.tmp);
-			free(f.line);
-			i++;
-		}
-		close(f.fd2);
-		close(f.fd);
-	}
-	unlink("./tmp");
+	rename("./tmp", path);
 }
 
 void		change_settings(t_env *w, t_map *m)
