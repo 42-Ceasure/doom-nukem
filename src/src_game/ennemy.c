@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:21:43 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/18 10:54:08 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/19 16:29:47 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	swipe_sprite(t_env *w, t_map *m, int x)
 			m->ennemy[x].count = 0;
 		}
 	}
-	draw_ennemy(w, m, x, 1);
+	draw_ennemy(w, m, x, 1.2);
 }
 
 void	ennemy_animation(t_env *w, t_map *m, double **tab, int x)
@@ -85,7 +85,7 @@ void	ennemy_animation(t_env *w, t_map *m, double **tab, int x)
 				m->ennemy[(int)tab[x][1]].index = 13;
 				m->ennemy[(int)tab[x][1]].is_dead = 1;
 			}
-			draw_ennemy(w, m, (int)tab[x][1], 1);
+			draw_ennemy(w, m, (int)tab[x][1], 1.2);
 		}
 	}
 }

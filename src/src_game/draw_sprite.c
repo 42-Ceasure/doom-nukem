@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/18 11:13:24 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/19 16:16:44 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x, int ratio)
 		/ 2 * tmp.zoom * ratio));
 	if (ft_strcmp(m->sprite[m->sprt[x].index].type, "mur") == 0)
 		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprt[x].sector].floor
-			- m->player.coor.z + 14), tmp.t1z, m) * tmp.yscale1)
+			- m->player.coor.z + 12), tmp.t1z, m) * tmp.yscale1)
 				- (m->sprite[m->sprt[x].index].h * tmp.zoom * ratio);
 	else
 		tmp.y1a = HEIGHT / 2 - (int)(yaw((m->sector[m->sprt[x].sector].floor
@@ -65,8 +65,10 @@ void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 
 void	sprite_on_ground(t_env *w, t_map *m, double **tab, int x)
 {
-	if (m->sprt[(int)tab[x][1]].range > 0.5)
+	if (m->sprt[(int)tab[x][1]].range > 0.7)
 		m->sprt[(int)tab[x][1]].vis = 1;
+	else if (m->sprt[(int)tab[x][1]].range < 0.1)
+		m->sprt[(int)tab[x][1]].vis = 0;
 	if (m->sprt[(int)tab[x][1]].taken != 1)
 		draw_sprite(w, m, (int)tab[x][1], 1);
 	if (m->sprt[(int)tab[x][1]].range >= 2

@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 12:48:37 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/17 12:50:32 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/19 16:18:08 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int		face_back(t_cal_sprt data, int o)
 {
-	if (data.diffy >= 5)
-		o = 14;
-	else
+	if (data.diffy < -5)
 		o = 18;
+	else
+		o = 14;
 	return (o);
 }
 
