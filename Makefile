@@ -22,11 +22,11 @@ endif
 
 ifeq ($(DEBUG), 0)
     CFLAG       =   -Wall -Wextra -Werror -O2
-    MESSAGE     =   "\033[38;5;79m[$(NAME)] compiled on normal rules ! Have fun\033[0m                      "
+    MESSAGE     =   "\033[38;5;79m[$(NAME)] compiled on normal rules ! Have fun\033[0m               "
 
 else
     CFLAG       =   -Wall -Wextra -Werror -g -O0 -fsanitize=address
-    MESSAGE     =   "\033[38;5;79m[DEBUG] [$(NAME)] compiled on debug rules ! Good job\033[0m                     "
+    MESSAGE     =   "\033[38;5;79m[DEBUG] [$(NAME)] compiled on debug rules ! Good job\033[0m            "
 endif
 
 NAME                =   doom-nukem
@@ -166,7 +166,7 @@ $(OBJDIR)%.o        :   $(SRCDIR)%.c $(INC)
 						@mkdir -p ./obj/src_game
 						@mkdir -p ./obj/src_editor
 						@$(CC) $(CFLAG) -I $(INCDIR) -I $(INCLIBFT) -I $(INCSDL) -o $@ -c $<
-						@echo -ne "[$(NAME)] progress : $(PROGRESS) | $@                              \r"
+						@echo -ne "[$(NAME)] progress : $(PROGRESS) | $@               \r"
 
 libft               :   $(LIBFT)
 
@@ -203,7 +203,7 @@ fclean              :
 						@echo -ne "Cleaning [$(NAME)]... In progress...\r"
 						@rm -Rf  $(OBJDIR)
 						@rm -f $(NAME)
-						@echo -e "Cleaning [$(NAME)] done !                                    "
+						@echo -e "Cleaning [$(NAME)] done !                           "
 
 sdlclean            :
 						rm -rf $(LIBSDL_ROOT)

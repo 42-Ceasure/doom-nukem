@@ -2,10 +2,23 @@
 
 #include "doom.h"
 
-void	hello_screen(t_env *w)
+void	main_pic(t_env *w, int nb)
 {
-	final_texture_to_screen(w, w->main_pic[0], 0, 0, WIDTH, HEIGHT);
+	t_img	img;
+
+	img = fill_t_img(0, 0, WIDTH, HEIGHT);
+	img_to_screen(w, w->main_pic[nb], img);
+	// final_texture_to_screen(w, w->main_pic[0], 0, 0, WIDTH, HEIGHT);
 }
+
+// void	hello_screen(t_env *w)
+// {
+// 	t_img	img;
+
+// 	img = fill_t_img(0, 0, WIDTH, HEIGHT);
+// 	img_to_screen(w, w->main_pic[0], img);
+// 	// final_texture_to_screen(w, w->main_pic[0], 0, 0, WIDTH, HEIGHT);
+// }
 
 void	menu_screen(t_env *w)
 {
@@ -24,7 +37,7 @@ void	menu_screen(t_env *w)
 			start = ft_strdup("CONTINUE\n");
 	dot.x = WIDTH / 2 - 50;
 	dot.y = 140;
-	final_texture_to_screen(w, w->main_pic[1], 0, 0, WIDTH, HEIGHT);
+	main_pic(w, 1);
 	if (w->menu.j == 1)
 	{
 		type_str(w, dot, start, 0xFF78F7);
@@ -196,7 +209,7 @@ void	settings(t_env *w)
 	w->mousesp_menu = w->m->player.mousesp;
 	while (1)
 	{
-		final_texture_to_screen(w, w->main_pic[1], 0, 0, WIDTH, HEIGHT);
+		main_pic(w, 1);
 		dot.x = 10;
 		dot.y = 10;
 		if (w->menu.k == 0)
@@ -364,7 +377,7 @@ void	maps(t_env *w)
 	{
 		dot.x = 10;
 		dot.y = 10;
-		final_texture_to_screen(w, w->main_pic[1], 0, 0, WIDTH, HEIGHT);
+		main_pic(w, 1);
 		type_str(w, dot, "MAPS :\n", 0xFFFFFFFF);
 		if (w->nbmaps > 0 && w->nbmaps <= 10)
 			menu_maps_1(w);
@@ -465,7 +478,7 @@ void	main_menu(t_env *w, t_map *m)
 			exit_game(w, m, 1);
 		if (w->menu.i == 0)
 		{
-			hello_screen(w);
+			main_pic(w, 0);
 			type_str(w, w->txthead, "press enter...", 0x12FEA800);
 			w->menu.j = -1;
 		}
@@ -483,7 +496,7 @@ int		loose(t_env *w, t_map *m)
 	int stop;
 
 	stop = 0;
-	final_texture_to_screen(w, w->main_pic[2], 0, 0, WIDTH, HEIGHT);
+	main_pic(w, 2);
 	w->txthead.x = 350;
 	w->txthead.y = 400;
 	type_str(w, w->txthead, "Press enter to retry", 0x12FFFFFF);
@@ -524,7 +537,7 @@ int		change_lvl(t_env *w, t_map *m)
 	int stop;
 
 	stop = 0;
-	final_texture_to_screen(w, w->main_pic[1], 0, 0, WIDTH, HEIGHT);
+	main_pic(w, 1);
 	w->txthead.x = 350;
 	w->txthead.y = 400;
 	type_str(w, w->txthead, "Press enter to start next level", 0x12FFFFFF);

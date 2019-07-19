@@ -86,7 +86,7 @@ void			process_hint_w(t_env *w, int i, char *s)
 		pre = ft_strjoin("Writing ... ", post);
 	if (pre == NULL)
 		pre = other_if(i, post);
-	hello_screen(w);
+	main_pic(w, 0);
 	type_str(w, w->txthead, pre, 0x12FEA800);
 	if (i == 2)
 		type_str(w, dot, "Saving modif...", 0x12FEA800);
@@ -108,7 +108,7 @@ void			process_hint_savemap(t_env *w, int i, int nbmaps, char *s)
 	t_dot		dot;
 
 	name = ft_strjoin("MAP WILL BE CREATED AS MAP", ft_itoa(nbmaps));
-	hello_screen(w);
+	main_pic(w, 0);
 	w->txthead.x = 10;
 	w->txthead.y = 10;
 	type_str(w, w->txthead, name, 0x12FEA800);

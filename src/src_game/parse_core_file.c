@@ -54,7 +54,7 @@ void			parse_texture_line(t_env *w, t_map *m, char *line)
 	if (ft_strcmp(tmp[0], "main_pic[0]") == 0)
 	{
 		w->main_pic[0] = parse_texture(w, m, tmp);
-		hello_screen(w);
+		main_pic(w, 0);
 		type_str(w, w->txthead, "loading game...", 0x12FEA800);
 		img_update(w);
 	}

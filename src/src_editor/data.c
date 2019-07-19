@@ -84,7 +84,7 @@ void		map_save(t_win *win, t_env *w)
 		{
 			fit_to_game(w);
 			w->stopread = 1;
-			final_texture_to_screen(w, w->main_pic[1], 0, 0, WIDTH, HEIGHT);
+			main_pic(w, 1);
 			fill_buffer(win, w);
 			printf("Map saved\n");
 		}
