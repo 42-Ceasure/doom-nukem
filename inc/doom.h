@@ -811,6 +811,9 @@ int			next_x_on_line(t_win *win, int y, int x);
 void		sort_points(t_win *win);
 int			correct_three_points(t_win *win);
 
+int			sector_inside_sector(t_win *win);
+void		everything_is_a_triangle(t_win *win);
+
 
 
 

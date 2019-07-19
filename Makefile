@@ -85,7 +85,6 @@ SRCFIL				=	src_game/main.c \
 						src_game/fall_and_stair.c \
 						src_game/handed.c \
 						src_game/visibility.c \
-						src_game/sdl_event.c \
 						src_game/hud.c \
 						\
 						src_editor/manage_sdl_window.c \
@@ -123,7 +122,8 @@ SRCFIL				=	src_game/main.c \
 						src_editor/free_editor.c \
 						src_editor/texture_mode.c \
 						src_editor/texture_mode2.c \
-						src_editor/params.c
+						src_editor/params.c \
+						src_editor/sdl_event.c
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
 OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))

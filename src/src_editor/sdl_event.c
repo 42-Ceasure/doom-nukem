@@ -67,6 +67,14 @@ static void	sdl_event_key(t_env *w, t_win *win)
 			correct_intersections_in_a_sector(win);
 		}
 	}
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_L])
+	{
+		if (win->lstlst)
+		{
+			everything_is_a_triangle(win);
+			sector_inside_sector(win);
+		}
+	}
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_RETURN])
 	{
 		if (win->mode == 4)
