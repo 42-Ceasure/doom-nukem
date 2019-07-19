@@ -52,6 +52,7 @@ int			triangulate_player_start(t_win *win, int x, int y)
 			ret = -2;
 		tmp2 = tmp2->next;
 	}
+	printf("%d ret \n", ret);
 	return (ret);
 }
 

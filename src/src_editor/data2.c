@@ -136,20 +136,92 @@ int correct_intersections_in_a_sector(t_win *win)
 	return (0);
 }
 
-/*int			sector_inside_sector(t_win *win)
+int		point_in_triangle2(t_dot p0, t_dot p1, t_dot p2, t_dot m)
+{
+	if (pointside2(m, p0.x, p0.y, p1.x, p1.y) >= 0)
+	{
+		if (pointside2(m, p0.x, p0.y, p1.x, p1.y) > 0
+		&& pointside2(m, p1.x, p1.y, p2.x, p2.y) > 0
+		&& pointside2(m, p2.x, p2.y, p0.x, p0.y) > 0)
+			return (1);
+	}
+	else
+	{
+		if (pointside2(m, p0.x, p0.y, p1.x, p1.y) < 0
+		&& pointside2(m, p1.x, p1.y, p2.x, p2.y) < 0
+		&& pointside2(m, p2.x, p2.y, p0.x, p0.y) < 0)
+			return (1);
+	}
+	return (0);
+}
+
+int			sector_inside_sector(t_win *win)
 {
 	t_lstlst	*tmp2;
+	t_lstlst	*tmp3;
+	t_lst		*tmp;
+	t_lst		*tmp0;
+	t_dot		p0;
+	t_dot		p1;
+	t_dot		p2;
+	t_dot		m;
+	int			ret;
 
 	tmp2 = win->triangles;
-	if (win->lstlst)
+	while (tmp2)
 	{
-		if (win->lstlst->next)
+		tmp3 = win->triangles;
+		if (tmp2->sector != -1)
 		{
-			while (tmp2)
+			tmp = tmp2->head;
+			while (tmp)
 			{
+				m.x = tmp->x;
+				m.y = tmp->y;
+				while (tmp3)
+				{
+					if (tmp3->sector != -1)
+					{
+						tmp0 = tmp3->head;
+						if (tmp3->sector != tmp2->sector)
+						{
+							p0 = get_point_in_list(tmp0, 0);
+							p1 = get_point_in_list(tmp0, 1);
+							p2 = get_point_in_list(tmp0, 2);
+							ret = point_in_triangle2(p0, p1, p2, m);
+							if (ret == 1)
+								return (-5);
+						}
+					}
+					tmp3 = tmp3->next;
+				}
+				tmp = tmp->next;
+			}
+		}
+		tmp2 = tmp2->next;
+	}
+	return (0);
+}
+
+/*int			point_on_top(t_win *win)
+{
+	t_lstlst	*tmp2;
+	t_lst		*tmp;
+	t_lst		*tmp0;
 
 
-}*/
+	tmp2 = win->lstlst;
+	while (tmp2)
+	{
+		tmp = tmp2->head;
+		while (tmp->next->next)
+		{
+			tmp0 = tmp->next;
+			while (tmp0
+*/
+
+
+
 
 int			correct_map(t_win *win)
 {
@@ -157,16 +229,21 @@ int			correct_map(t_win *win)
 
 	ret = 0;
 
-	/*ret = sector_inside_sector(win);
+	// Le cas du carre sur le carre
+
+	/*ret = point_on_top(win);
+	if (ret == -6)
+	{
+		printf("Two points on top of each other in same sector\n");
+		return (ret);
+	}*/
+
+	ret = sector_inside_sector(win);
 	if (ret == -5)
 	{
 		printf("Sector inside a sector\n");
 		return (ret);
-	}*/
-
-	// deux points superposes dans un meme secteur
-	// Le cas du carre sur le carre
-
+	}
 	ret = correct_three_points(win);
 	if (ret == -4)
 	{

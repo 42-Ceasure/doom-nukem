@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/17 11:21:24 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/19 16:31:00 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,7 +345,7 @@ typedef struct		s_calc_sprite
 	double			y1a;
 	double			yscale1;
 	double			zoom;
-	int				ratio;
+	double			ratio;
 }					t_cal_sprt;
 
 typedef struct		s_map_sprite
@@ -708,7 +708,7 @@ void				count_sprite(t_env *w, t_map *m);
 void				test_sprite(t_map *m, double xx, double yy);
 void				clear_sprite(t_map *m);
 int					rotate(t_cal_sprt data, int o);
-void				draw_ennemy(t_env *w, t_map *m, int x, int ratio);
+void				draw_ennemy(t_env *w, t_map *m, int x, double ratio);
 void				jet_pack(t_map *m);
 // int					get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y);
 int					get_tmpix_scaled(t_sprite sprite, t_img img);
@@ -810,6 +810,9 @@ int			x_min_on_line(t_win *win, int y);
 int			next_x_on_line(t_win *win, int y, int x);
 void		sort_points(t_win *win);
 int			correct_three_points(t_win *win);
+
+int			sector_inside_sector(t_win *win);
+void		everything_is_a_triangle(t_win *win);
 
 
 

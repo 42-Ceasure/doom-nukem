@@ -6,13 +6,13 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 23:14:09 by agay              #+#    #+#             */
-/*   Updated: 2019/07/18 11:22:39 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/19 16:23:26 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-t_cal_sprt	calcul_sprite_ennemy(t_env *w, t_map *m, int x, int ratio)
+t_cal_sprt	calcul_sprite_ennemy(t_env *w, t_map *m, int x, double ratio)
 {
 	t_cal_sprt	tmp;
 
@@ -42,7 +42,7 @@ void		hit_box(t_env *w, t_map *m, int x, t_cal_sprt d)
 	int				tmpix;
 	t_img			img;
 
-	img = fill_t_img((WIDTH / 2 - (int)d.x1), (HEIGHT / 2 - (int)d.y1a), \
+	img = fill_t_img((WIDTH / 2 - (int)d.x1), (HEIGHT / 2 - (int)d.y1a),
 		(m->sprite[m->ennemy[x].index].w * d.zoom * d.ratio), 0);
 	tmpix = get_tmpix_scaled(m->sprite[m->ennemy[x].index], img);
 	len = m->sprite[m->ennemy[x].index].w * d.zoom * d.ratio;
@@ -64,7 +64,7 @@ void		hit_box(t_env *w, t_map *m, int x, t_cal_sprt d)
 	}
 }
 
-void		draw_ennemy(t_env *w, t_map *m, int x, int ratio)
+void		draw_ennemy(t_env *w, t_map *m, int x, double ratio)
 {
 	double		diffx;
 	double		diffy;
