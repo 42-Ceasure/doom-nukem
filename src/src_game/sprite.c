@@ -38,12 +38,13 @@ t_cal_sprt	calcul_sprite_ennemy(t_env *w, t_map *m, int x, int ratio)
 
 void		hit_box(t_env *w, t_map *m, int x, t_cal_sprt d)
 {
-	double	len;
-	int		tmpix;
+	double			len;
+	int				tmpix;
+	t_img			img;
 
-	tmpix = get_tmpix_scaled(m->sprite[m->ennemy[x].index],
-		(m->sprite[m->ennemy[x].index].w * d.zoom * d.ratio), 0,
-			(WIDTH / 2 - (int)d.x1), (HEIGHT / 2 - (int)d.y1a));
+	img = fill_t_img((WIDTH / 2 - (int)d.x1), (HEIGHT / 2 - (int)d.y1a), \
+		(m->sprite[m->ennemy[x].index].w * d.zoom * d.ratio), 0);
+	tmpix = get_tmpix_scaled(m->sprite[m->ennemy[x].index], img);
 	len = m->sprite[m->ennemy[x].index].w * d.zoom * d.ratio;
 	if ((d.x1 <= WIDTH / 2 && d.x1 >= WIDTH / 2 - len)
 		&& (d.y1a <= HEIGHT / 2 && d.y1a >= HEIGHT / 2 - len)

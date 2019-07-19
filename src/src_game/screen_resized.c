@@ -12,19 +12,19 @@
 
 #include "doom.h"
 
-void	get_scalling(t_img *img, t_texture texture)
+void	get_scalling(t_img *img, int text_w, int text_h)
 {
-	if (img->w == 0 && img->w == 0)
+	if (img->w == 0 && img->h == 0)
 	{
-		img->w = texture.w;
-		img->w = texture.h;
+		img->w = text_w;
+		img->h = text_h;
 	}
-	else if (img->w == 0 || img->w == 0)
+	else if (img->w == 0 || img->h == 0)
 	{
 		if (img->w == 0)
-			img->w = (int)(img->w * texture.w / texture.h);
-		else if (img->w == 0)
-			img->w = (int)(img->w * texture.h / texture.w);
+			img->w = (int)(img->h * text_w / text_h);
+		else
+			img->h = (int)(img->w * text_h / text_w);
 	}
 }
 
@@ -54,7 +54,7 @@ int		img_to_screen(t_env *w, t_texture texture, t_img img)
 	y_tex = 0;
 	if (texture.pix == NULL || w->pix == NULL || texture.h <= 0 || texture.w <= 0 || texture.len <= 0)
 		return (0);
-	get_scalling(&img, texture);
+	get_scalling(&img, texture.w, texture.h);
 	step_x_tex = (double)texture.w / (double)img.w;
 	step_y_tex = (double)texture.h / (double)img.h;
 	maxx = img.w + img.x;
@@ -333,24 +333,13 @@ int		final_char_to_screen(t_env *w, t_texture texture, int x, int y, int width, 
 	return (1);
 }
 
-int		get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y)
+int		get_tmpix_scaled(t_sprite sprite, t_img img)
 {
 	double 	step_x_tex;
 	double 	step_y_tex;
 
-	if (width == 0 && height == 0)
-	{
-		width = sprite.w;
-		height = sprite.h;
-	}
-	else if (width == 0 || height == 0)
-	{
-		if (width == 0)
-			width = (int)(height * sprite.w / sprite.h);
-		else if (height == 0)
-			height = (int)(width * sprite.h / sprite.w);
-	}
-	step_x_tex = (double)sprite.w / (double)width;
-	step_y_tex = (double)sprite.h / (double)height;
-	return ((int)(step_x_tex * x) + ((int)(step_y_tex * y) * sprite.w));
+	get_scalling(&img, sprite.w, sprite.h);
+	step_x_tex = (double)sprite.w / (double)img.w;
+	step_y_tex = (double)sprite.h / (double)img.h;
+	return ((int)(step_x_tex * img.x) + ((int)(step_y_tex * img.y) * sprite.w));
 }
