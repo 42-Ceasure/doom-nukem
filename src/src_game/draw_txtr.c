@@ -4,7 +4,6 @@
 
 int		testcolor(int color, t_work *work)
 {
-	int A = (color >> 24) & 0xff;
 	int R = (color >> 16) & 0xff;
 	int G = (color >> 8) & 0xff;
 	int B = (color) & 0xff;
@@ -26,7 +25,7 @@ int		testcolor(int color, t_work *work)
 	if (B < 0)
 		B = 0;
 
-	return((A & 0xff) << 24 | (R & 0xff) << 16 | (G & 0xff) << 8 | (B & 0xff));
+	return(0 << 24 | (R & 0xff) << 16 | (G & 0xff) << 8 | (B & 0xff));
 }
 
 void	skybox(int x, t_env *w, t_work *work, t_texture text)
@@ -410,6 +409,8 @@ void	draw_extruded_line_t(int x, t_env *w, t_work *work, t_texture text)
 		{
 			wall_height_from_bottom = work->yb - y1;
 			wall_height_scale = (work->nyfloor - work->yfloor) / TEXT_WALL_HEIGHT;
+			// wall_height_scale = (work->yceil - work->yfloor) / TEXT_WALL_HEIGHT;
+
 			wall_width_scale = TEXT_WALL_WIDTH / 2 / work->wall_width;
 			if (vabs(work->t2.x -work->t1.x) > vabs(work->t2.z -work->t1.z))
 			{	
@@ -423,7 +424,9 @@ void	draw_extruded_line_t(int x, t_env *w, t_work *work, t_texture text)
 			}
 			y_tex_start = (work->ny2b -work->ny1b) * ((work->x2 -work->x1) - (x -work->x1)) / (work->x2 -work->x1) - work->ny2b;
 			x_tex = ((work->start_x_tex * ((work->x2 - x) *work->t2.z) +work->end_x_tex * ((x -work->x1) *work->t1.z)) / ((work->x2 - x) *work->t2.z + (x-work->x1) *work->t1.z));
-			if ((work->y1a < 0 ||work->y2a < 0) && y1 == 0)
+			// if ((work->y1a < 0 || work->y2a < 0) && y1 == 0)
+			// ca servait a quoi deja?
+			if (y1 == 0)
 			{
 				wall_height_from_bottom += y_tex_start;
 				y_tex_pos += y_tex_start;

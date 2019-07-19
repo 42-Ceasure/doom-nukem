@@ -46,7 +46,6 @@ void	draw_networks(t_work *work, t_env *w, int x)
 	}
 	else
 		draw_vertical_line_t(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[3]]);
-	// arg->ytop[x] = vmid(vmax(work->cya, work->cnya), work->ytop[x], HEIGHT - 1);
 	work->starty = work->cnyb + 1;
 	work->stopy = work->cyb;
 	if (w->texturing[w->m->sector[work->nosector].texturing[4]].trsp == 1)
@@ -56,7 +55,6 @@ void	draw_networks(t_work *work, t_env *w, int x)
 	}
 	else
 		draw_extruded_line_t(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[4]]);
-	// arg->ybot[x] = vmid(vmin(work->cyb, work->cnyb), 0, work->ybot[x]);
 }
 
 void	draw_ceiling_n_floor(t_work *work, t_env *w, int x)

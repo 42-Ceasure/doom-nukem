@@ -6,7 +6,7 @@
 #    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/18 23:17:59 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/19 01:16:39 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,18 +15,18 @@ DEBUG = 0
 CC = gcc
 
 ifneq ($(wildcard ./core/core.dn3d),)
-	ZIP			=	echo -e "\033[38;5;79m[core.dn3d] found, no unzip needed !\033[0m"
+	ZIP			=	echo -e "\033[38;5;79m[core.dn3d] found, no extract needed !\033[0m"
 else
-	ZIP			=	echo -e "\033[38;5;79m[core.dn3d] not found, let's unzip it !" && unzip ./core/core.dn3d.zip && mv ./core.dn3d ./core && echo -e "Unzip done :D\033[0m"
+	ZIP			=	echo -e "\033[38;5;79m[core.dn3d] not found, let's extract it !" && unzip ./core/core.dn3d.zip && mv ./core.dn3d ./core && echo -e "Extract done :D\033[0m"
 endif
 
 ifeq ($(DEBUG), 0)
     CFLAG       =   -Wall -Wextra -Werror -O2
-    MESSAGE     =   "\033[38;5;79m[$(NAME)] compiled on normal rules ! Have fun\033[0m           "
+    MESSAGE     =   "\033[38;5;79m[$(NAME)] compiled on normal rules ! Have fun\033[0m                      "
 
 else
     CFLAG       =   -Wall -Wextra -Werror -g -O0 -fsanitize=address
-    MESSAGE     =   "\033[38;5;79m[DEBUG] [$(NAME)] compiled on debug rules ! Good job\033[0m       "
+    MESSAGE     =   "\033[38;5;79m[DEBUG] [$(NAME)] compiled on debug rules ! Good job\033[0m                     "
 endif
 
 NAME                =   doom-nukem
@@ -166,7 +166,7 @@ $(OBJDIR)%.o        :   $(SRCDIR)%.c $(INC)
 						@mkdir -p ./obj/src_game
 						@mkdir -p ./obj/src_editor
 						@$(CC) $(CFLAG) -I $(INCDIR) -I $(INCLIBFT) -I $(INCSDL) -o $@ -c $<
-						@echo -ne "[$(NAME)] progress : $(PROGRESS) | $@                    \r"
+						@echo -ne "[$(NAME)] progress : $(PROGRESS) | $@                              \r"
 
 libft               :   $(LIBFT)
 
@@ -203,7 +203,7 @@ fclean              :
 						@echo -ne "Cleaning [$(NAME)]... In progress...\r"
 						@rm -Rf  $(OBJDIR)
 						@rm -f $(NAME)
-						@echo -e "Cleaning [$(NAME)] done !              "
+						@echo -e "Cleaning [$(NAME)] done !                                    "
 
 sdlclean            :
 						rm -rf $(LIBSDL_ROOT)

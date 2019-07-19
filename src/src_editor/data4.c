@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 13:45:27 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/19 00:49:11 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/19 01:13:12 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ void		write_in_file(t_win *win, t_env *w)
 	ft_putstr_fd(str, fp);
 	free(str);
 	close(fp);
-	do_system_to_save(name);
+	// do_system_to_save(name);
 	// test avec commandes
-	// add_map_to_core("./core/core.dn3d", "./tmp.dn3d", w);
+	add_map_to_core("./core/core.dn3d", "./tmp.dn3d", w);
 	unlink("./tmp.dn3d");
 }
