@@ -55,7 +55,7 @@ void		first_line2(t_win *win, int fp)
 	fl2_helper(win, fp, i);
 }
 
-void		write_dots_helper(t_win *win, int fp, int x, int y)
+/*void		write_dots_helper(t_win *win, int fp, int x, int y)
 {
 	char *str;
 
@@ -68,7 +68,7 @@ void		write_dots_helper(t_win *win, int fp, int x, int y)
 	x = x_min_on_line(win, y);
 	str = ft_itoa(x / 5);
 	ft_putstr_fd(str, fp);
-}
+}*/
 
 void		write_dots(t_win *win, int fp)
 {
@@ -93,7 +93,15 @@ void		write_dots(t_win *win, int fp)
 		else
 			y = next_y(win, y);
 		i = number_of_dot_per_line(win, y);
-		write_dots_helper(win, fp, x, y);
+		str = "\tdots:";
+		ft_putstr_fd(str, fp);
+		str = ft_itoa(y / 5);
+		ft_putstr_fd(str, fp);
+		str = ":";
+		ft_putstr_fd(str, fp);
+		x = x_min_on_line(win, y);
+		str = ft_itoa(x / 5);
+		ft_putstr_fd(str, fp);
 		while (index < i)
 		{
 			str = ",";

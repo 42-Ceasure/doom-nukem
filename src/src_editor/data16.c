@@ -66,7 +66,6 @@ int		sector_intersect_with_itself(t_dot p1, t_dot p2, t_dot p3, t_dot p4)
 	i2 = pointside2(p4, p1.x, p1.y, p2.x, p2.y);
 	i3 = pointside2(p1, p3.x, p3.y, p4.x, p4.y);
 	i4 = pointside2(p2, p3.x, p3.y, p4.x, p4.y);
-
 	if (i1 >= 0 && i2 <= 0 && i3 >= 0 && i4 <= 0)
 		return (1);
 	else if (i1 <= 0 && i2 >= 0 && i3 <= 0 && i4 >= 0)

@@ -101,16 +101,24 @@ int			correct_intersections_in_a_sector(t_win *win)
 							if ((ret = sector_intersect_with_itself(p1,
 								p2, p3, p4)) == 1)
 							{
-								if (p1.x != p2.x && p2.x != p3.x
-									&& p3.x != p4.x && p4.x != p1.x
-										&& p1.x != p3.x && p2.x != p4.x
-											&& p1.y != p2.y && p2.y != p3.y
-												&& p3.y != p4.y && p4.y != p1.y
-													&& p3.y != p1.y
-														&& p2.y != p4.y)
+
+								if ((p1.x != p2.x || p1.y != p2.y) && (p2.x != p3.x || p2.y != p3.y) && (p3.x != p4.x || p3.y != p4.y)
+								&& (p4.x != p1.x || p4.y != p1.y))
 								{
-									printf("Crossed segments \n");
-									return (-3);
+									if (tmp->sector != tmp0->sector)
+									{
+										 if ((p1.x != p3.x || p1.y != p3.y) && (p2.x != p4.x || p2.y != p4.y))
+										 {
+											printf("Crossed segments \n");
+		 									return (-3);
+										}
+									}
+									else
+									{
+										printf("Crossed segments \n");
+										return (-3);
+									}
+
 								}
 							}
 						}
@@ -128,11 +136,31 @@ int			correct_intersections_in_a_sector(t_win *win)
 	return (0);
 }
 
+/*int			sector_inside_sector(t_win *win)
+{
+	t_lstlst	*tmp2;
+
+	tmp2 = win->lstlst;
+	while (tmp2)
+	{
+
+}*/
+
 int			correct_map(t_win *win)
 {
 	int			ret;
 
 	ret = 0;
+
+	/*ret = sector_inside_sector(win);
+	if (ret == -5)
+	{
+		printf("Sector inside a sector\n");
+		return (ret);
+	}*/
+
+	// deux points au meme endroit dans un meme secteur
+
 	ret = correct_three_points(win);
 	if (ret == -4)
 	{
