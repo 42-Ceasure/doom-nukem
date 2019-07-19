@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_mode.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 12:39:03 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/09 12:39:21 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/19 16:58:32 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,22 @@
 
 void		inventory_display(t_env *w, t_win *win)
 {
-	final_texture_to_screen(w, win->inventory, 250, 640, 250, 66);
-	final_texture_to_screen(w, win->slot0, 253, 655, 40, 40);
-	final_texture_to_screen(w, win->slot1, 304, 655, 40, 40);
-	final_texture_to_screen(w, win->slot2, 355, 655, 40, 40);
-	final_texture_to_screen(w, win->slot3, 406, 655, 40, 40);
-	final_texture_to_screen(w, win->slot4, 457, 655, 40, 40);
-	final_texture_to_screen(w, win->blackbox, win->blackbox_x, 645, 40, 58);
+	t_img img;
+	
+	img = fill_t_img(250, 640, 250, 66);
+	img_to_screen(w, win->inventory, img);
+	img = fill_t_img(253, 655, 40, 40);
+	img_to_screen(w, win->slot0, img);
+	img = fill_t_img(304, 655, 40, 40);
+	img_to_screen(w, win->slot1, img);
+	img = fill_t_img(355, 655, 40, 40);
+	img_to_screen(w, win->slot2, img);
+	img = fill_t_img(406, 655, 40, 40);
+	img_to_screen(w, win->slot3, img);
+	img = fill_t_img(457, 655, 40, 40);
+	img_to_screen(w, win->slot4, img);
+	img = fill_t_img(win->blackbox_x, 645, 40, 58);
+	img_to_screen(w, win->blackbox, img);
 }
 
 void		help_text(t_env *w, t_win *win)
@@ -41,6 +50,7 @@ void		thumbnail(t_env *w, t_win *win)
 {
 	t_lstlst	*tmp2;
 	t_texture	tmp;
+	t_img		img;
 
 	tmp = win->slot0;
 	tmp2 = win->lstlst;
@@ -60,8 +70,10 @@ void		thumbnail(t_env *w, t_win *win)
 		tmp = w->texturing[tmp2->txtr_lower_extrude];
 	if (win->texture_choice == 4)
 		tmp = w->texturing[tmp2->txtr_higher_extrude];
-	final_texture_to_screen(w, win->building_hud, 10, 270, 96, 96);
-	final_texture_to_screen(w, tmp, 15, 275, 85, 85);
+	img = fill_t_img(10, 270, 96, 96);
+	img_to_screen(w, win->building_hud, img);
+	img = fill_t_img(15, 275, 85, 85);
+	img_to_screen(w, tmp, img);
 }
 
 void		texture_mode_helper(t_win *win)
