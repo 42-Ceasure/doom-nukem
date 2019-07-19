@@ -35,7 +35,7 @@ int			triangulate_a_triangle(t_win *win, t_dot m)
 		}
 		tmp2 = tmp2->next;
 	}
-	return (ret);
+	return (-1);
 }
 
 void		taa_helper(t_win *win, t_lstasset *tmp3, t_lstlst *tmp2, int ret)

@@ -33,7 +33,7 @@ int			check_player_start(t_win *win)
 	return (ret);
 }
 
-int			correct_intersections_in_a_sector(t_win *win)
+int correct_intersections_in_a_sector(t_win *win)
 {
 	t_lstlst	*tmp3;
 	t_lstlst	*tmp2;
@@ -140,9 +140,14 @@ int			correct_intersections_in_a_sector(t_win *win)
 {
 	t_lstlst	*tmp2;
 
-	tmp2 = win->lstlst;
-	while (tmp2)
+	tmp2 = win->triangles;
+	if (win->lstlst)
 	{
+		if (win->lstlst->next)
+		{
+			while (tmp2)
+			{
+
 
 }*/
 
@@ -159,7 +164,8 @@ int			correct_map(t_win *win)
 		return (ret);
 	}*/
 
-	// deux points au meme endroit dans un meme secteur
+	// deux points superposes dans un meme secteur
+	// Le cas du carre sur le carre
 
 	ret = correct_three_points(win);
 	if (ret == -4)
