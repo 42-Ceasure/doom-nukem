@@ -47,6 +47,8 @@ void	draw_networks(t_work *work, t_env *w, int x)
 	else
 		draw_vertical_line_t(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[3]]);
 	work->starty = work->cnyb + 1;
+	if (work->cnyb < work->cya)
+		work->starty = work->cya + 1;
 	work->stopy = work->cyb;
 	if (w->texturing[w->m->sector[work->nosector].texturing[4]].trsp == 1)
 	{

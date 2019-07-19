@@ -370,7 +370,6 @@ void	draw_extruded_line_t(int x, t_env *w, t_work *work, t_texture text)
 	{
 		if (vmid(work->ytop[x], 0, HEIGHT - 1) == y1 && vmid(work->ytop[x], 0, HEIGHT - 1) > 0)
 		{
-			// wall_height_from_bottom = work->yb - y1;
 			wall_height_from_bottom = (work->yb - work->ya) - (work->starty - 1 - work->ya);
 			wall_height_scale = (work->nyfloor - work->yfloor) / TEXT_WALL_HEIGHT;
 			wall_width_scale = TEXT_WALL_WIDTH / 2 / work->wall_width;
@@ -405,12 +404,49 @@ void	draw_extruded_line_t(int x, t_env *w, t_work *work, t_texture text)
 				y1++;
 			}
 		}
+		// else if ((work->cnyb < work->cya))
+		// {
+		// 	wall_height_from_bottom = work->yb - vmid(work->cnyb + 1, 0, HEIGHT - 1);
+		// 	wall_height_scale = (work->nyfloor - work->yfloor) / TEXT_WALL_HEIGHT;
+		// 	wall_width_scale = TEXT_WALL_WIDTH / 2 / work->wall_width;
+		// 	if (vabs(work->t2.x - work->t1.x) > vabs(work->t2.z - work->t1.z))
+		// 	{	
+		// 		work->start_x_tex = (work->t1.x - work->tt1.x) * text.w / wall_width_scale / (work->tt2.x - work->tt1.x);
+		// 		work->end_x_tex = (work->t2.x - work->tt1.x) * text.w / wall_width_scale / (work->tt2.x - work->tt1.x);
+		// 	}
+		// 	else
+		// 	{
+		// 		work->start_x_tex = (work->t1.z - work->tt1.z) * text.w / wall_width_scale / (work->tt2.z - work->tt1.z);
+		// 		work->end_x_tex = (work->t2.z - work->tt1.z) * text.w / wall_width_scale / (work->tt2.z - work->tt1.z);
+		// 	}
+		// 	y_tex_start = (work->starty - 1) - (work->ya);
+		// 	x_tex = ((work->start_x_tex * ((work->x2 - x) * work->t2.z) + work->end_x_tex * ((x - work->x1) * work->t1.z)) / ((work->x2 - x) * work->t2.z + (x-work->x1) * work->t1.z));
+		// 	wall_height_from_bottom += y_tex_start;
+		// 	y_tex_pos += y_tex_start;
+		// 	while (y1 <= y2)
+		// 	{
+		// 		y_tex = (y_tex_pos / wall_height_from_bottom * wall_height_scale) * text.h;
+		// 		if (y_tex < 0)
+		// 			y_tex = 0;
+		// 		if (x_tex < 0)
+		// 			x_tex = 0;
+		// 		if (text.h >= 0 && text.w >= 0 && text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)] != 0xFF00FF00)
+		// 		{
+		// 			color = text.pix[((y_tex % text.h) * text.w) + (x_tex % text.w)];
+		// 			color = testcolor(color, work);
+		// 			w->pix[y1 * WIDTH + x] = color;
+		// 		}
+		// 		y_tex_pos++;
+		// 		y1++;
+		// 	}
+		// }
 		else
 		{
 			wall_height_from_bottom = work->yb - y1;
-			wall_height_scale = (work->nyfloor - work->yfloor) / TEXT_WALL_HEIGHT;
-			// wall_height_scale = (work->yceil - work->yfloor) / TEXT_WALL_HEIGHT;
-
+			if (work->cnyb < work->cya)
+				wall_height_scale = (work->nyfloor - work->yfloor) / TEXT_WALL_HEIGHT;
+			else
+				wall_height_scale = (work->nyfloor - work->yfloor) / TEXT_WALL_HEIGHT;
 			wall_width_scale = TEXT_WALL_WIDTH / 2 / work->wall_width;
 			if (vabs(work->t2.x -work->t1.x) > vabs(work->t2.z -work->t1.z))
 			{	
@@ -422,11 +458,9 @@ void	draw_extruded_line_t(int x, t_env *w, t_work *work, t_texture text)
 				work->start_x_tex = (work->t1.z -work->tt1.z) * text.w / wall_width_scale / (work->tt2.z -work->tt1.z);
 				work->end_x_tex = (work->t2.z -work->tt1.z) * text.w / wall_width_scale / (work->tt2.z -work->tt1.z);
 			}
-			y_tex_start = (work->ny2b -work->ny1b) * ((work->x2 -work->x1) - (x -work->x1)) / (work->x2 -work->x1) - work->ny2b;
+			y_tex_start = (work->ny2b - work->ny1b) * ((work->x2 -work->x1) - (x -work->x1)) / (work->x2 -work->x1) - work->ny2b;
 			x_tex = ((work->start_x_tex * ((work->x2 - x) *work->t2.z) +work->end_x_tex * ((x -work->x1) *work->t1.z)) / ((work->x2 - x) *work->t2.z + (x-work->x1) *work->t1.z));
-			// if ((work->y1a < 0 || work->y2a < 0) && y1 == 0)
-			// ca servait a quoi deja?
-			if (y1 == 0)
+			if (((work->y1a < 0 || work->y2a < 0) && y1 == 0) || vmid(work->cnyb, 0, HEIGHT - 1) == 0)
 			{
 				wall_height_from_bottom += y_tex_start;
 				y_tex_pos += y_tex_start;
