@@ -1,6 +1,32 @@
 /*BIG42HEADER*/
 
 #include "doom.h"
+// http://peroxide.dk/papers/collision/collision.pdf
+// http://www.peroxide.dk/download/tutorials/tut10/pxdtut10.html
+// https://wildbunny.co.uk/blog/2011/03/25/speculative-contacts-an-continuous-collision-engine-approach-part-1/
+// https://stackoverflow.com/questions/1945632/2d-ball-collisions-with-corners
+t_coor  trymapcorner(t_coor player, t_coor speed, t_dot dot)
+{
+    double len;
+    double nx;
+    double ny;
+    t_coor ret;
+    double projection;
+    nx = player.x - dot.x;
+    ny = player.y - dot.y;
+    len = sqrt(nx * nx + ny * ny);
+    if (len < 1)
+        printf("%f\n", len);
+    nx /= len;
+    ny /= len;
+    projection = speed.x * nx + speed.y * ny;
+    ret.x = speed.x - 2 * projection * nx;
+    ret.y = speed.y - 2 * projection * ny;
+    if (len < 1)
+        return (ret);
+    else
+        return (speed);
+}
 
 void		get_height(t_map *m)
 {
@@ -168,12 +194,8 @@ int			is_next_to_a_dot(t_map *m)
 		i.mem++;
 	}
 	slope = atan2((i.y1 - m->dot[dot_mem].y), (i.x1 - m->dot[dot_mem].x));
-	if (dist_min < 0.01)
-	{
-		m->player.move_speed.x = (cos(slope)*0.02);
-		m->player.move_speed.y = (sin(slope)*0.02);
-		return (-1);
-	}
+	if (dist_min < 0.5)
+		m->player.move_speed = trymapcorner(m->player.coor, m->player.move_speed, m->dot[dot_mem]);
 	return (0);
 }
 
@@ -263,8 +285,8 @@ void		is_moving(t_map *m)
 			}
 		}
 		s++;
-	}
-	// is_next_to_a_dot(m);
+	}	
+	is_next_to_a_dot(m);
 	move_player(m->player.move_speed.x, m->player.move_speed.y, m);
 	m->player.fall = 1;
 }
