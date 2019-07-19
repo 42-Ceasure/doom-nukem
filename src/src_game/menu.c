@@ -370,7 +370,8 @@ void	maps(t_env *w)
 	dot.x = 10;
 	dot.y = 10;
 	w->nbmaps = get_nb_maps_in_core(w);
-	w->namesmaps = (char **)malloc(sizeof(char *) * (w->nbmaps + 1));
+	if ((w->namesmaps = (char **)malloc(sizeof(char *) * (w->nbmaps + 1))) == NULL)
+		set_error(w, w->m, 0, ft_strdup("menu_maps"));
 	get_names_maps_in_core(w, w->namesmaps);
 	w->namesmaps[w->nbmaps] = NULL;
 	while (1)
@@ -532,18 +533,71 @@ int		loose(t_env *w, t_map *m)
 	return(0);
 }
 
+int		map_is_in_core(t_env *w, char *map)
+{
+	int 	i;
+	int		found;
+
+	i = 0;
+	found = 0;
+	w->nbmaps = get_nb_maps_in_core(w);
+	if ((w->namesmaps = (char **)malloc(sizeof(char *) * (w->nbmaps + 1))) == NULL)
+		set_error(w, w->m, 0, ft_strdup("map_is_in_core"));
+	get_names_maps_in_core(w, w->namesmaps);
+	w->namesmaps[w->nbmaps] = NULL;
+	get_names_maps_in_core(w, w->namesmaps);
+	while (w->namesmaps[i])
+	{
+		if (ft_strcmp(w->namesmaps[i], map) == 0)
+		{	
+			found = 1;
+			break;
+		}
+		i++;
+	}
+	i = 0;
+	while (w->namesmaps[i])
+	{
+		free(w->namesmaps[i]);
+		i++;
+	}
+	free(w->namesmaps);
+	if (found == 1)
+		return (1);	
+	else
+		return (0);
+}
+
 int		change_lvl(t_env *w, t_map *m)
 {
 	int stop;
 
 	stop = 0;
-	main_pic(w, 1);
 	w->txthead.x = 350;
 	w->txthead.y = 400;
-	type_str(w, w->txthead, "Press enter to start next level", 0x12FFFFFF);
 	free(w->currmap);
-	w->currmap = ft_strdup(m->linklvl);
-	m->newgame = 1;
+	if (map_is_in_core(w, m->linklvl) == 1)
+	{
+		main_pic(w, 1);
+		type_str(w, w->txthead, "Press enter to start next level", 0x12FFFFFF);
+		w->currmap = ft_strdup(m->linklvl);
+		w->menu.i = 5;
+	}
+	else
+	{
+
+		w->currmap = ft_strdup("hsh");
+		w->menu.i = 1;
+		m->change_lvl = 0;
+		m->newgame = 1;
+		if (ft_strcmp(m->linklvl, "end_game") == 0)
+		{
+			main_pic(w, 1);
+			type_str(w, w->txthead, "Congratulation, you finished the game ! press enter", 0x12FFFFFF);
+		}
+		else
+			return (1);
+	}
 	while (stop != 1)
 	{
 		while (SDL_PollEvent(&w->event))
@@ -554,11 +608,11 @@ int		change_lvl(t_env *w, t_map *m)
 				{
 					w->menu.i = 1;
 					stop = 1;
-					m->newgame = 0;
-					return(1);
+					return (1);
 				}
 				if (KEY == SDLK_RETURN)
 				{
+					m->newgame = 1;
 					m->change_lvl = 0;
 					stop = 1;
 				}
@@ -571,6 +625,8 @@ int		change_lvl(t_env *w, t_map *m)
 		}
 		img_update(w);
 	}
+	if (w->menu.i == 1)
+		return(1);
 	return(0);
 }
 
