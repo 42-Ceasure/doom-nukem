@@ -109,6 +109,7 @@ int			correct_intersections_in_a_sector(t_win *win)
 													&& p3.y != p1.y
 														&& p2.y != p4.y)
 								{
+									printf("Crossed segments \n");
 									return (-3);
 								}
 							}

@@ -126,7 +126,6 @@ void		write_dots(t_win *win, int fp)
 	return (dot_tab);
 }*/
 
-
 int			*tab_sector3(t_win *win, int sector)
 {
 	t_lstlst	*tmp2;

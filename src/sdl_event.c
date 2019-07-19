@@ -60,6 +60,13 @@ static void	sdl_event_key(t_env *w, t_win *win)
 				return ;
 		}
 	}
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_K])
+	{
+		if (win->lstlst)
+		{
+			correct_intersections_in_a_sector(win);
+		}
+	}
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_RETURN])
 	{
 		if (win->mode == 4)

@@ -23,7 +23,7 @@ void		write_shotgun_ammo(t_win *win, int fp, t_lstasset *tmp, int i)
 	}
 	str = ft_itoa(i);
 	ft_putstr_fd(str, fp);
-	str = ",4,0,";
+	str = ",4,";
 	ft_putstr_fd(str, fp);
 	str = ft_itoa(tmp->sector);
 	ft_putstr_fd(str, fp);
