@@ -75,8 +75,8 @@ void	draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture text)
 	y2 = work->stopy;
 	y1 = vmid(y1, 0, HEIGHT - 1);
 	y2 = vmid(y2, 0, HEIGHT - 1);
-	vfov = (1.0 * .5f);
-	hfov = 1.0 * 0.9f * HEIGHT / WIDTH;
+	vfov = w->m->player.field_of_vision_v / (double)HEIGHT;
+	hfov = w->m->player.field_of_vision_h / (double)WIDTH;
 	if (w->m->player.aiming == 1)
 	{
 		hfov *= 2;
@@ -92,7 +92,7 @@ void	draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture text)
 				continue;
 			}
 			hei = y1 < work->cya ? work->yceil : work->yfloor;
-			mapz = hei * HEIGHT * hfov / ((HEIGHT / 2 - y1) - w->m->player.yaw * HEIGHT * vfov);
+			mapz = hei * HEIGHT * vfov / ((HEIGHT / 2 - y1) - w->m->player.yaw * HEIGHT * vfov);
 			mapx = mapz * (WIDTH / 2 - x) / (WIDTH * hfov);
 			rtx = mapz * work->pcos + mapx * work->psin;
             rtz = mapz * work->psin - mapx * work->pcos;
