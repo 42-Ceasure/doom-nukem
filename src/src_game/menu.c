@@ -212,6 +212,7 @@ void	settings(t_env *w)
 			type_str(w, w->txtnxtline, "FOV VERTICAL :\n", 0xFFFFFFFF);
 			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
 			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "SAVE\n", 0xFFFFFFFF);
 		}
 		else if (w->menu.k == 1)
 		{
@@ -221,6 +222,7 @@ void	settings(t_env *w)
 			type_str(w, w->txtnxtline, "FOV VERTICAL :\n", 0xFFFFFFFF);
 			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
 			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "SAVE\n", 0xFFFFFFFF);
 		}
 		else if (w->menu.k == 2)
 		{
@@ -230,6 +232,7 @@ void	settings(t_env *w)
 			type_str(w, w->txtnxtline, "FOV VERTICAL :\n", 0xFFFFFFFF);
 			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
 			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "SAVE\n", 0xFFFFFFFF);
 		}
 		else if (w->menu.k == 3)
 		{
@@ -239,6 +242,7 @@ void	settings(t_env *w)
 			type_str(w, w->txtnxtline, "FOV VERTICAL :\n", 0x12FEA800);
 			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
 			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "SAVE\n", 0xFFFFFFFF);
 		}
 		else if (w->menu.k == 4)
 		{
@@ -248,6 +252,17 @@ void	settings(t_env *w)
 			type_str(w, w->txtnxtline, "FOV VERTICAL :\n", 0xFFFFFFFF);
 			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0x12FEA800);
 			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "SAVE\n", 0xFFFFFFFF);
+		}
+		else if (w->menu.k == 5)
+		{
+			type_str(w, dot, "WINDOW MODE :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "WINDOW RESOLUTION :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "FOV HORIZONTAL :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "FOV VERTICAL :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0x12FEA800);
+			type_str(w, w->txtnxtline, "SAVE\n", 0xFFFFFFFF);
 		}
 		else
 		{
@@ -256,7 +271,8 @@ void	settings(t_env *w)
 			type_str(w, w->txtnxtline, "FOV HORIZONTAL :\n", 0xFFFFFFFF);
 			type_str(w, w->txtnxtline, "FOV VERTICAL :\n", 0xFFFFFFFF);
 			type_str(w, w->txtnxtline, "MOUSE SENSITIVITY :\n", 0xFFFFFFFF);
-			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0x12FEA800);
+			type_str(w, w->txtnxtline, "RESET TO DEFAULT\n", 0xFFFFFFFF);
+			type_str(w, w->txtnxtline, "SAVE\n", 0x12FEA800);
 		}
 		dot.x = WIDTH - 580;
 		dot.y = HEIGHT - 55;
@@ -268,16 +284,16 @@ void	settings(t_env *w)
 			{
 				if (KEY == SDLK_ESCAPE)
 					w->menu.i = vmax(-1, w->menu.i - 2);
-				if (KEY == SDLK_RETURN)
+				if (KEY == SDLK_RETURN && w->menu.k > 4)
 				{
 					change_key(w);
 					w->menu.i = 1;
 					break;
 				}
 				if (KEY == SDLK_UP)
-					w->menu.k = ((w->menu.k - 1) < 0) ? 5 : (w->menu.k - 1);
+					w->menu.k = ((w->menu.k - 1) < 0) ? 6 : (w->menu.k - 1);
 				if (KEY == SDLK_DOWN)
-					w->menu.k = ((w->menu.k + 1) > 5) ? 0 : (w->menu.k + 1);
+					w->menu.k = ((w->menu.k + 1) > 6) ? 0 : (w->menu.k + 1);
 				if (KEY == SDLK_RIGHT)
 					change_value(w, 1);
 				if (KEY == SDLK_LEFT)
