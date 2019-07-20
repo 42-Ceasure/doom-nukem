@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
+#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/19 01:16:39 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/20 16:09:32 by ochaar           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ SRCFIL				=	src_game/main.c \
 						src_game/keyup_events.c \
 						src_game/keydown_events.c \
 						src_game/mouse_events.c \
-						src_game/5_doom_short_functions.c \
+						src_game/doom_functions.c \
 						src_game/5_line.c \
 						src_game/draw.c \
 						src_game/draw_minimap.c \
@@ -86,6 +86,9 @@ SRCFIL				=	src_game/main.c \
 						src_game/handed.c \
 						src_game/visibility.c \
 						src_game/hud.c \
+						src_game/weapon.c \
+						src_game/essential.c \
+						src_game/maths_functions.c \
 						\
 						src_editor/manage_sdl_window.c \
 						src_editor/launch_editor.c \

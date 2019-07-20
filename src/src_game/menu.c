@@ -598,6 +598,7 @@ int		change_lvl(t_env *w, t_map *m)
 		w->menu.i = 1;
 		m->change_lvl = 0;
 		m->newgame = 1;
+		w->txthead.x = 100;
 		if (ft_strcmp(m->linklvl, "end_game") == 0)
 		{
 			main_pic(w, 1);

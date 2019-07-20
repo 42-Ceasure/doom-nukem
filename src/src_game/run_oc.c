@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:22:55 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/17 21:11:57 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/20 13:52:14 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,7 @@ void	global_event(t_env *w, t_map *m)
 
 void	weap_animation(t_env *w, t_map *m)
 {
-	m->player.bal = m->player.bal + w->sens;
-	if (m->player.bal > 80)
-		w->sens = -4 * m->player.movespeed;
-	if (m->player.bal < -40)
-		w->sens = 5 * m->player.movespeed;
+	move_weap(w, m);
 	if (m->player.display == 0)
 		game_img(w, m);
 	else if (m->player.display == 1)
@@ -112,7 +108,8 @@ void	run(t_env *w, t_map *m)
 	{
 		while (SDL_PollEvent(&w->event))
 			global_event(w, m);
-		if (m->stop == 1 || m->player.hp == 0 || m->player.sector == m->endsector)
+		if (m->stop == 1 || m->player.hp == 0 || m->player.sector
+			== m->endsector)
 		{
 			if (m->player.hp == 0)
 				m->game_over = 1;

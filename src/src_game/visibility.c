@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 12:48:37 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/19 16:18:08 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/20 13:44:10 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,29 @@ int		rotate(t_cal_sprt data, int o)
 
 void	test_sprite(t_map *m, double xx, double yy)
 {
-	int x2;
+	int x;
 
-	x2 = 0;
-	while (x2 < m->sprite_map_count)
+	x = 0;
+	while (x < m->sprite_map_count)
 	{
-		if (m->sprt[x2].vis != 1)
+		if (m->sprt[x].vis != 1)
 		{
-			if (m->sprt[x2].sx == (int)xx && m->sprt[x2].sy == (int)yy
-				&& m->sprt[x2].vis != 1)
-				m->sprt[x2].vis = 1;
+			if (m->sprt[x].sx == (int)xx && m->sprt[x].sy == (int)yy
+				&& m->sprt[x].vis != 1)
+				m->sprt[x].vis = 1;
 		}
-		x2++;
+		x++;
 	}
-	x2 = 0;
-	while (x2 < m->ennemy_count)
+	x = 0;
+	while (x < m->ennemy_count)
 	{
-		if (m->ennemy[x2].vis != 1)
+		if (m->ennemy[x].vis != 1)
 		{
-			if ((int)m->ennemy[x2].coor.x == (int)xx && (int)m->ennemy[x2].coor.y
-				== (int)yy && m->ennemy[x2].vis != 1)
-				m->ennemy[x2].vis = 1;
+			if ((int)m->ennemy[x].coor.x == (int)xx && (int)m->ennemy[x].coor.y
+				== (int)yy && m->ennemy[x].vis != 1)
+				m->ennemy[x].vis = 1;
 		}
-		x2++;
+		x++;
 	}
 }
 

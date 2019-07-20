@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/19 16:31:00 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/20 13:53:05 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -692,6 +692,7 @@ void				shoot(t_env *w, t_map *m);
 void				stop_aim(t_env *w, t_map *m);
 void				aim(t_env *w, t_map *m);
 void				reload_weapon(t_env *w, t_map *m);
+void				move_weap(t_env *w, t_map *m);
 void				launch(t_env *w, t_map *m);
 void				sequential_frame(t_env *w, t_map *m);
 void				safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);

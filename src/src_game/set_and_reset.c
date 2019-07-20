@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 13:01:57 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/19 16:17:45 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/20 16:20:40 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	reset_player(t_map *m)
 	m->player.intactu_ammo = 0;
 	m->player.firing = 0;
 	m->player.shooting = 0;
+	m->player.aiming = 0;
 	m->elevator = 0;
 	m->weap[0].actu_ammo = m->weap[0].magazine;
 	m->weap[1].actu_ammo = m->weap[1].magazine;

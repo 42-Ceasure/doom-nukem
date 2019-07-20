@@ -77,11 +77,6 @@ void	draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture text)
 	y2 = vmid(y2, 0, HEIGHT - 1);
 	vfov = w->m->player.field_of_vision_v / (double)HEIGHT;
 	hfov = w->m->player.field_of_vision_h / (double)WIDTH;
-	if (w->m->player.aiming == 1)
-	{
-		hfov *= 2;
-		vfov *= 2;
-	}
 	if (y2 >= y1)
 	{
 		while (y1 <= y2)

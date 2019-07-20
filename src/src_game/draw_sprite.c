@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/19 16:16:44 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/20 16:40:29 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 	}
 }
 
-void	sprite_on_ground(t_env *w, t_map *m, double **tab, int x)
+void		sprite_on_ground(t_env *w, t_map *m, double **tab, int x)
 {
 	if (m->sprt[(int)tab[x][1]].range > 0.7)
 		m->sprt[(int)tab[x][1]].vis = 1;
@@ -92,7 +92,7 @@ void	sprite_on_ground(t_env *w, t_map *m, double **tab, int x)
 	}
 }
 
-void	count_sprite(t_env *w, t_map *m)
+void		count_sprite(t_env *w, t_map *m)
 {
 	int		x;
 
