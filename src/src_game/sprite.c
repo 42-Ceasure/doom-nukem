@@ -71,19 +71,17 @@ void ennemy_go_to(t_map *m, int x, t_coor coor)
 
 	diffx = 0;
 	diffy = 0;
-    if (m->ennemy[x].coor.x != coor.x || m->ennemy[x].coor.y != coor.y)
-    {
-    	if (m->ennemy[x].range < 1 && m->ennemy[x].dead == 0)
+	if (m->ennemy[x].coor.x != coor.x || m->ennemy[x].coor.y != coor.y)
+	{
+		if (m->ennemy[x].range < 1 && m->ennemy[x].dead == 0)
 		{
-			diffx = m->player.coor.x - m->ennemy[x].coor.x;
-			diffy = m->player.coor.y - m->ennemy[x].coor.y;
+			diffx = coor.x - m->ennemy[x].coor.x;
+			diffy = coor.y - m->ennemy[x].coor.y;
 		}
-        diffx = coor.x - m->ennemy[x].coor.x;
-        diffy = coor.y - m->ennemy[x].coor.y;
-        m->ennemy[x].move_speed.x = diffx * 0.005;
-        m->ennemy[x].move_speed.y = diffy * 0.005;
-        m->ennemy[x].movespeed = 1;
-    }
+		m->ennemy[x].move_speed.x = diffx * 0.005;
+		m->ennemy[x].move_speed.y = diffy * 0.005;
+		m->ennemy[x].movespeed = 1;
+	}
 }
 
 void		draw_ennemy(t_env *w, t_map *m, int x, double ratio)
