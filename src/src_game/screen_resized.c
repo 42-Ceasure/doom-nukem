@@ -6,7 +6,7 @@
 /*   By: Nico <Nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:15:26 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/20 03:55:16 by Nico             ###   ########.fr       */
+/*   Updated: 2019/07/20 04:49:18 by Nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int		img_to_screen(t_env *w, t_texture texture, t_img img)
 	maxy = img.h + img.y;
 	if (maxx < 0 || maxy < 0 || img.x > WIDTH || img.y > HEIGHT)
 		return(0);
-	maxx = vmax(maxx, WIDTH);
-	maxy = vmax(maxy, HEIGHT);
+	maxx = vmin(maxx, WIDTH);
+	maxy = vmin(maxy, HEIGHT);
 	if (img.x < 0)
 	{
 		x_tex = (0 - img.x) * step_x_tex;

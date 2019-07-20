@@ -6,13 +6,13 @@
 /*   By: Nico <Nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:25:59 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/20 03:22:04 by Nico             ###   ########.fr       */
+/*   Updated: 2019/07/20 04:46:17 by Nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void		fire_no_aim(t_env *w, t_map *m, int y)
+void		fire_no_aim(t_env *w, t_map *m)
 {
 	t_img	img;
 
@@ -31,7 +31,7 @@ void		fire_no_aim(t_env *w, t_map *m, int y)
 		img_to_screen(w, m->fire, img);
 	}		
 	final_sprite_to_screen(w, m->weap[PH].sprt[0], 
-		(m->weap[PH].sprt[0].sx * WIDTH / BASEWIDTH), y,
+		(m->weap[PH].sprt[0].sx * WIDTH / BASEWIDTH), (m->weap[PH].sprt[0].sy + m->weap[PH].recoil) * HEIGHT / BASEHEIGHT,
 				(m->weap[PH].sprt[0].w * WIDTH / BASEWIDTH),
 					(m->weap[PH].sprt[0].h * HEIGHT / BASEHEIGHT));
 }
@@ -62,9 +62,6 @@ void		fire_aim(t_env *w, t_map *m)
 
 void		set_fire(t_env *w, t_map *m)
 {
-	int		y;
-
-	y = (m->weap[PH].sprt[0].sy + m->weap[PH].recoil) * HEIGHT / BASEHEIGHT;
 	m->player.refresh = m->weap[PH].recoil * 2;
 	m->yaw = vmid(m->yaw - m->weap[PH].dispertion, -2, 2);
 	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
@@ -74,7 +71,7 @@ void		set_fire(t_env *w, t_map *m)
 		if (m->player.aiming == 1)
 			fire_aim(w, m);
 		else
-			fire_no_aim(w, m, y);
+			fire_no_aim(w, m);
 	}
 }
 
