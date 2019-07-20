@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   screen_resized.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Nico <Nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:15:26 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/02 17:42:14 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/20 03:55:16 by Nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,37 +48,36 @@ int		img_to_screen(t_env *w, t_texture texture, t_img img)
 	int 			maxx;
 	int				maxy;
 	int 			x_tmp;
+	int 			x_tex_tmp;
 	unsigned int	tmpix;
 
 	x_tex = 0;
 	y_tex = 0;
-	if (texture.pix == NULL || w->pix == NULL || texture.h <= 0 || texture.w <= 0 || texture.len <= 0)
-		return (0);
 	get_scalling(&img, texture.w, texture.h);
 	step_x_tex = (double)texture.w / (double)img.w;
 	step_y_tex = (double)texture.h / (double)img.h;
 	maxx = img.w + img.x;
 	maxy = img.h + img.y;
-	x_tmp = img.x;
-
-	if (maxx > WIDTH)
-		maxx = WIDTH;
-	if (maxy > HEIGHT)
-		maxy = HEIGHT;
-	if (maxx < 0 || maxy < 0)
+	if (maxx < 0 || maxy < 0 || img.x > WIDTH || img.y > HEIGHT)
 		return(0);
-	if (img.x > WIDTH || img.y > HEIGHT)
-		return(0);
+	maxx = vmax(maxx, WIDTH);
+	maxy = vmax(maxy, HEIGHT);
 	if (img.x < 0)
+	{
 		x_tex = (0 - img.x) * step_x_tex;
+		img.x = 0;
+	}
 	if (img.y < 0)
 	{
 		y_tex = (0 - img.y) * step_y_tex;
 		img.y = 0;
 	}
+	x_tmp = img.x;
+	x_tex_tmp = x_tex;
 	while (img.y < maxy && (int)x_tex * (int)y_tex < texture.len)
 	{
-		x_tex = 0;
+		img.x = x_tmp;
+		x_tex = x_tex_tmp;
 		while (img.x < maxx && (int)x_tex * (int)y_tex < texture.len)
 		{
 			if (img.y >= 0 && img.y < HEIGHT && (int)y_tex >= 0 && (int)y_tex < texture.h)
@@ -93,7 +92,6 @@ int		img_to_screen(t_env *w, t_texture texture, t_img img)
 			x_tex += step_x_tex;
 			img.x++;
 		}
-		img.x = x_tmp;
 		y_tex += step_y_tex;
 		if (w->sequential_frame == 1 && (img.y % 2 == 0))
 			img_update(w);
@@ -111,6 +109,7 @@ int		final_texture_to_screen(t_env *w, t_texture texture, int x, int y, int widt
 	int 	maxx;
 	int		maxy;
 	int 	x_tmp;
+	int		x_tex_tmp;
 	unsigned int	tmpix;
 
 	x_tex = 0;
@@ -134,29 +133,27 @@ int		final_texture_to_screen(t_env *w, t_texture texture, int x, int y, int widt
 	maxx = width + x;
 	maxy = height + y;
 	//testing
-	x_tmp = x;
 	if (maxx > WIDTH)
 		maxx = WIDTH;
 	if (maxy > HEIGHT)
 		maxy = HEIGHT;
-	if (maxx < 0 || maxy < 0)
-		return(0);
-	if (x > WIDTH || y > HEIGHT)
+	if (maxx < 0 || maxy < 0 || x > WIDTH || y > HEIGHT)
 		return(0);
 	if (x < 0)
+	{
 		x_tex = (0 - x) * step_x_tex;
-	// {
-		// x = 0;
-	// }
+		x = 0;
+	}
 	if (y < 0)
 	{
 		y_tex = (0 - y) * step_y_tex;
 		y = 0;
 	}
-	//end testing
+	x_tmp = x;
+	x_tex_tmp = x_tex;
 	while (y < maxy && (int)x_tex * (int)y_tex < texture.len)
 	{
-		x_tex = 0;
+		x_tex = x_tex_tmp;
 		while (x < maxx && (int)x_tex * (int)y_tex < texture.len)
 		{
 			if (y >= 0 && y < HEIGHT && (int)y_tex >= 0 && (int)y_tex < texture.h)

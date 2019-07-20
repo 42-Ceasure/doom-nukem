@@ -133,7 +133,6 @@ void	draw_vertical_line_t(int x, t_env *w, t_work *work, t_texture text)
 		if (vmid(work->ytop[x], 0, HEIGHT - 1) == y1 && vmid(work->ytop[x], 0, HEIGHT - 1) > 0)
 		{
 			wall_height_from_bottom = (work->yb - work->ya) - (work->starty - work->ya);
-			// printf("YA %d YB %d YSTART %d Y1 %d\n", work->ya, work->yb, work->starty ,y1);
 			wall_height_scale = (work->yceil - work->yfloor) / TEXT_WALL_HEIGHT;
 			wall_width_scale = TEXT_WALL_WIDTH / 2 / work->wall_width;
 			if (vabs(work->t2.x - work->t1.x) > vabs(work->t2.z - work->t1.z))
@@ -249,7 +248,6 @@ void	draw_wall_line_t(int x, t_env *w, t_work *work, t_texture text)
 	if (vmid(work->ytop[x], 0, HEIGHT - 1) == y1 && vmid(work->ytop[x], 0, HEIGHT - 1) > 0)
 	{
 		wall_height_from_bottom = (work->yb - work->ya) - (work->starty - work->ya);
-		// printf("YA %d YB %d YSTART %d Y1 %d\n", work->ya, work->yb, work->starty ,y1);
 		wall_height_scale = (work->yceil - work->yfloor) / TEXT_WALL_HEIGHT;
 		wall_width_scale = TEXT_WALL_WIDTH / 2 / work->wall_width;
 		if (vabs(work->t2.x - work->t1.x) > vabs(work->t2.z - work->t1.z))

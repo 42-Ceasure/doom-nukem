@@ -6,19 +6,11 @@ void	main_pic(t_env *w, int nb)
 {
 	t_img	img;
 
+	if (nb < 0 || nb > 3)
+		return ;
 	img = fill_t_img(0, 0, WIDTH, HEIGHT);
 	img_to_screen(w, w->main_pic[nb], img);
-	// final_texture_to_screen(w, w->main_pic[0], 0, 0, WIDTH, HEIGHT);
 }
-
-// void	hello_screen(t_env *w)
-// {
-// 	t_img	img;
-
-// 	img = fill_t_img(0, 0, WIDTH, HEIGHT);
-// 	img_to_screen(w, w->main_pic[0], img);
-// 	// final_texture_to_screen(w, w->main_pic[0], 0, 0, WIDTH, HEIGHT);
-// }
 
 void	menu_screen(t_env *w)
 {

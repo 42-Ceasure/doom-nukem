@@ -20,7 +20,7 @@ void		replace_line(char *path, char *balise, char *content, t_env *w)
 		{
 			f.tmp = ft_strsplit(f.line, ';');
 			if (w->corenbl != 0)
-				nb = vmin(((double)i / (double)(w->corenbl * 2) * (double)100), 99);
+				nb = vmin(((double)i / (double)(w->corenbl) * (double)100), 99);
 			process_hint_w(w, 2, ft_itoa(nb));
 			if (ft_strncmp(f.line, "buffer", 6) == 0)
 			{
@@ -75,7 +75,7 @@ void		add_map_to_core(char *path, char *path2, t_env *w)
 		{
 			f.tmp = ft_strsplit(f.line, ';');
 			if (w->corenbl != 0)
-				nb = vmin(((double)i / (double)(w->corenbl * 2) * (double)100), 99);
+				nb = vmin(((double)i / (double)(w->corenbl) * (double)100), 99);
 			process_hint_savemap(w, 2, w->nbmaps, ft_itoa(nb));
 			if (ft_strncmp(f.line, "buffer", 6) == 0)
 			{

@@ -3,34 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   handed.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Nico <Nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:25:59 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/15 14:41:20 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/20 03:22:04 by Nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
+void		fire_no_aim(t_env *w, t_map *m, int y)
+{
+	t_img	img;
+
+	img.w = m->fire.w * WIDTH / BASEWIDTH;
+	img.h = m->fire.h * HEIGHT / BASEHEIGHT;
+	if (m->player.handed == 0 || m->player.handed == 2)
+	{
+		img.x = WIDTH / 2 - (m->fire.w * WIDTH / BASEWIDTH) / 2 + (56 * WIDTH / BASEWIDTH);
+		img.y = HEIGHT / 2 - ((m->fire.h * HEIGHT / BASEHEIGHT) / 2) + (67 * HEIGHT / BASEHEIGHT);
+		img_to_screen(w, m->fire, img);
+	}
+	else if (m->player.handed == 1)
+	{
+		img.x = WIDTH / 2 - (m->fire.w * WIDTH / BASEWIDTH) / 2 + (45 * WIDTH / BASEWIDTH);
+		img.y = HEIGHT / 2 - ((m->fire.h * HEIGHT / BASEHEIGHT) / 2) + (60 * HEIGHT / BASEHEIGHT);
+		img_to_screen(w, m->fire, img);
+	}		
+	final_sprite_to_screen(w, m->weap[PH].sprt[0], 
+		(m->weap[PH].sprt[0].sx * WIDTH / BASEWIDTH), y,
+				(m->weap[PH].sprt[0].w * WIDTH / BASEWIDTH),
+					(m->weap[PH].sprt[0].h * HEIGHT / BASEHEIGHT));
+}
+
 void		fire_aim(t_env *w, t_map *m)
 {
+	t_img	img;
+
+	img.x = WIDTH / 2 - (m->fire.w * WIDTH / BASEWIDTH) / 2;
+	img.w = m->fire.w * WIDTH / BASEWIDTH;
+	img.h = m->fire.h * HEIGHT / BASEHEIGHT;
 	if (m->player.handed == 0)
-		final_texture_to_screen(w, m->fire,
-			WIDTH / 2 - (m->fire.w * WIDTH / BASEWIDTH) / 2,
-			HEIGHT / 2 - ((m->fire.h * HEIGHT / BASEHEIGHT) / 2) + (45 * HEIGHT / BASEHEIGHT),
-			m->fire.w * WIDTH / BASEWIDTH,
-			m->fire.h * HEIGHT / BASEHEIGHT);
+	{
+		img.y = HEIGHT / 2 - ((m->fire.h * HEIGHT / BASEHEIGHT) / 2) + (45 * HEIGHT / BASEHEIGHT);
+		img_to_screen(w, m->fire, img);
+	}
 	else if (m->player.handed == 1 || m->player.handed == 2)
-		final_texture_to_screen(w, m->fire,
-			WIDTH / 2 - (m->fire.w * WIDTH / BASEWIDTH) / 2,
-			HEIGHT / 2 - ((m->fire.h * HEIGHT / BASEHEIGHT) / 2) + (20 * HEIGHT / BASEHEIGHT),
-			m->fire.w * WIDTH / BASEWIDTH,
-			m->fire.h * HEIGHT / BASEHEIGHT);
+	{
+		img.y = HEIGHT / 2 - ((m->fire.h * HEIGHT / BASEHEIGHT) / 2) + (20 * HEIGHT / BASEHEIGHT);
+		img_to_screen(w, m->fire, img);
+	}		
 	final_sprite_to_screen(w, m->weap[PH].sprt[1],
 		(m->weap[PH].sprt[1].sx * WIDTH / BASEWIDTH),
-		((m->weap[PH].sprt[1].sy + (m->weap[PH].recoil / 1.5)) * HEIGHT / BASEHEIGHT),
-		(m->weap[PH].sprt[1].w * WIDTH / BASEWIDTH),
-		(m->weap[PH].sprt[1].h * HEIGHT / BASEHEIGHT));
+			((m->weap[PH].sprt[1].sy + (m->weap[PH].recoil / 1.5)) * HEIGHT / BASEHEIGHT),
+				(m->weap[PH].sprt[1].w * WIDTH / BASEWIDTH),
+					(m->weap[PH].sprt[1].h * HEIGHT / BASEHEIGHT));
 }
 
 void		set_fire(t_env *w, t_map *m)
@@ -47,25 +74,7 @@ void		set_fire(t_env *w, t_map *m)
 		if (m->player.aiming == 1)
 			fire_aim(w, m);
 		else
-		{
-			if (m->player.handed == 0 || m->player.handed == 2)
-				final_texture_to_screen(w, m->fire, 
-					WIDTH / 2 - (m->fire.w * WIDTH / BASEWIDTH) / 2 + (56 * WIDTH / BASEWIDTH),
-					HEIGHT / 2 - ((m->fire.h * HEIGHT / BASEHEIGHT) / 2) + (67 * HEIGHT / BASEHEIGHT),
-					m->fire.w * WIDTH / BASEWIDTH,
-					m->fire.h * HEIGHT / BASEHEIGHT);
-			else if (m->player.handed == 1)
-				final_texture_to_screen(w, m->fire,
-					WIDTH / 2 - (m->fire.w * WIDTH / BASEWIDTH) / 2 + (45 * WIDTH / BASEWIDTH),
-					HEIGHT / 2 - ((m->fire.h * HEIGHT / BASEHEIGHT) / 2) + (60 * HEIGHT / BASEHEIGHT),
-					m->fire.w * WIDTH / BASEWIDTH,
-					m->fire.h * HEIGHT / BASEHEIGHT);
-			final_sprite_to_screen(w, m->weap[PH].sprt[0],
-				(m->weap[PH].sprt[0].sx * WIDTH / BASEWIDTH),
-				y,
-				(m->weap[PH].sprt[0].w * WIDTH / BASEWIDTH),
-				(m->weap[PH].sprt[0].h * HEIGHT / BASEHEIGHT));
-		}
+			fire_no_aim(w, m, y);
 	}
 }
 
