@@ -30,23 +30,40 @@ void	reset_player(t_map *m)
 	m->weap[2].actu_ammo = m->weap[2].magazine;
 }
 
+void	fill_sprite(t_map_sprite *sprite, char **tmp)
+{
+	sprite->index = ft_atoi(tmp[1]);
+	sprite->sector = ft_atoi(tmp[2]);
+	sprite->sx = ft_atof(tmp[3]);
+	sprite->sy = ft_atof(tmp[4]);
+	sprite->vis = 1;
+	sprite->taken = 0;
+	sprite->range = 0.5;
+}
+
 int		parse_sprite_map(t_map *m, char **tab)
 {
 	char	**tmp;
 	int		nb;
+	int check;
 
-	if (ft_strcmp(tab[0], "Section") != 0)
+	check = 0;
+	if (tab[0] == NULL)
+		return (-1);
+	if (ft_strcmp(tab[0], "Section") != 0
+		&& tab[1] != NULL)
 	{
 		tmp = ft_strsplit(tab[1], ',');
-		nb = ft_atoi(tmp[0]);
-		m->sprt[nb].name = ft_strdup(tab[0]);
-		m->sprt[nb].index = ft_atoi(tmp[1]);
-		m->sprt[nb].sector = ft_atoi(tmp[2]);
-		m->sprt[nb].sx = ft_atof(tmp[3]);
-		m->sprt[nb].sy = ft_atof(tmp[4]);
-		m->sprt[nb].vis = 1;
-		m->sprt[nb].taken = 0;
-		m->sprt[nb].range = 0.5;
+		while (tmp[check] != NULL)
+			check++;
+		if (check == 5)
+		{
+			nb = ft_atoi(tmp[0]);
+			fill_sprite(&m->sprt[nb], tmp);
+			m->sprt[nb].name = ft_strdup(tab[0]);
+		}
+		else
+			return (-1);
 		ft_memreg(tmp);
 	}
 	return (0);
@@ -62,9 +79,6 @@ int		set_ennemy(t_map *m, int nb)
 	m->ennemy[nb].cpt = 0;
 	m->ennemy[nb].nb_ammo = 0;
 	m->ennemy[nb].touche = 0;
-	if (!(m->ennemy[nb].dammage = Mix_LoadWAV("./sounds/oof.wav")))
-		return (-1);
-	Mix_VolumeChunk(m->ennemy[nb].dammage, 110);
 	m->ennemy[nb].move_speed.x = 0;
 	m->ennemy[nb].move_speed.y = 0;
 	m->ennemy[nb].move_speed.z = 0;
@@ -74,27 +88,42 @@ int		set_ennemy(t_map *m, int nb)
 	return (0);
 }
 
+void	fill_ennemy(t_map *m, t_ennemy *ennemy, char **tmp)
+{
+	ennemy->index = ft_atoi(tmp[1]);
+	ennemy->sector = ft_atoi(tmp[2]);
+	ennemy->coor.x = ft_atof(tmp[3]);
+	ennemy->coor.y = ft_atof(tmp[4]);
+	ennemy->coor.z = m->sector[ennemy->sector].floor + STAND;
+	ennemy->fall = 1;
+	ennemy->ground = 0;
+	ennemy->moving = 0;
+	ennemy->height = 0;
+	ennemy->hole_low = 0;
+	ennemy->hole_high = 0;
+}
+
 int		parse_ennemy_map(t_map *m, char **tab)
 {
 	char	**tmp;
 	int		nb;
+	int		check;
 
-	if (ft_strcmp(tab[0], "Section") != 0)
+	check = 0;
+	if (tab[0] == NULL)
+		return (-1);
+	if (ft_strcmp(tab[0], "Section") != 0
+		&& tab[1] != NULL)
 	{
 		tmp = ft_strsplit(tab[1], ',');
-		nb = ft_atoi(tmp[0]);
-		m->ennemy[nb].index = ft_atoi(tmp[1]);
-		m->ennemy[nb].sector = ft_atoi(tmp[2]);
-		m->ennemy[nb].coor.x = ft_atof(tmp[3]);
-		m->ennemy[nb].coor.y = ft_atof(tmp[4]);
-		m->ennemy[nb].coor.z = m->sector[m->ennemy[nb].sector].floor + STAND;
-		m->ennemy[nb].fall = 1;
-		m->ennemy[nb].ground = 0;
-		m->ennemy[nb].moving = 0;
-		m->ennemy[nb].height = 0;
-		m->ennemy[nb].hole_low = 0;
-		m->ennemy[nb].hole_high = 0;
-		set_ennemy(m, nb);
+		while (tmp[check] != NULL)
+			check++;
+		if (check == 5)
+		{
+			nb = ft_atoi(tmp[0]);
+			fill_ennemy(m, &m->ennemy[nb], tmp);
+			set_ennemy(m, nb);
+		}
 		ft_memreg(tmp);
 	}
 	return (0);

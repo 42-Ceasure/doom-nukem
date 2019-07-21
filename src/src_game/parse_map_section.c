@@ -129,7 +129,7 @@ int			parse_map_section(t_map *m, char **tab)
 			return (-1);
 		}
 	}
-	if (ft_strcmp(tab[0], "\tsector") == 0)
+	else if (ft_strcmp(tab[0], "\tsector") == 0)
 	{
 		if (parse_sectors(m, tab[1], tab[2], tab[3], tab[4]) == -1)
 		{
@@ -137,5 +137,7 @@ int			parse_map_section(t_map *m, char **tab)
 			return (-1);
 		}
 	}
+	else if (ft_strcmp(tab[0], "Section") != 0)
+		return (-1);
 	return (0);
 }

@@ -155,8 +155,14 @@ void			set_screen_res(t_env *w, char *aspect)
 void			parse_settings_line(t_env *w, t_map *m, char *line)
 {
 	char **tmp;
+	int check;
 
+	check = 0;
 	tmp = ft_strsplit(line, ':');
+	while (tmp[check])
+		check++;
+	if (check != 5)
+		set_error(w, m, 911, ft_strdup("error on core settings"));
 	if (w->window_mode == -1)
 		w->window_mode = ft_atoi(tmp[0]);
 	set_screen_res(w, tmp[1]);

@@ -12,6 +12,18 @@
 
 #include "doom.h"
 
+void	init_map_structs(t_map *m)
+{
+	int	i;
+
+	i = 0;
+	while (i < m->sprite_map_count)
+	{
+		m->sprt[i].name = NULL;
+		i++;
+	}
+}
+
 int		first_line(char **tab, t_map *m)
 {
 	char	**tmp;
@@ -38,6 +50,8 @@ int		first_line(char **tab, t_map *m)
 	if ((m->ennemy = (t_ennemy *)malloc(sizeof(t_ennemy) * m->ennemy_count))
 		== NULL)
 		return (-1);
+	init_sprite_tab(m);
+	init_map_structs(m);
 	return (0);
 }
 
@@ -72,7 +86,8 @@ int		parse_line(t_env *w, t_map *m)
 {
 	char	**tmp;
 
-	tmp = ft_strsplit(m->line, ':');
+	if ((tmp = ft_strsplit(m->line, ':')) == NULL)
+		return (-1);
 	if (ft_strcmp(tmp[0], "Section") == 0)
 		m->section_number++;
 	if (m->section_number == 0)

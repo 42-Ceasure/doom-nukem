@@ -16,14 +16,7 @@ void	reset_map(t_map *m)
 	if (m->sprt != NULL)
 		ft_free_sprt(m);
 	if (m->ennemy != NULL)
-	{
-        while (i < m->ennemy_count)
-        {
-            Mix_FreeChunk(m->ennemy[i].dammage);
-            i++;
-        }
 		free(m->ennemy);
-	}
 	if (m->linklvl != NULL)
 	{
 		free(m->linklvl);
@@ -36,8 +29,6 @@ void	reset_map(t_map *m)
 
 int		get_that_map_parsed(t_env *w, t_map *m)
 {
-	reset_map(m);
-	reset_player(m);
 	free(m->line);
 	m->i = 0;
 	m->s = 0;
@@ -52,11 +43,11 @@ int		get_that_map_parsed(t_env *w, t_map *m)
 		if ((parse_line(w, m)) == -1)
 		{
 			write(2, "error on map collect\n", 22);
+			free(m->line);
 			return (-1);
 		}
 		free(m->line);
 	}
-	init_sprite_tab(m);
 	free(m->line);
 	process_hint_w(w, 0, " ");
 	// free(m->line);
@@ -73,12 +64,23 @@ int			parse_map_in_core(t_env *w, t_map *m, char *name)
 	w->stopread = 0;
 	pre = ft_strdup("map\t\t\t;");
 	tmp = ft_strjoin(pre, name);
+	reset_map(m);
+	reset_player(m);
 	if ((m->fd = open("core/core.dn3d", O_RDONLY)) != -1)
 	{
 		while (get_next_line_until(m->fd, &m->line, w->stopread) && w->stopread == 0)
 		{
 			if (ft_strcmp(m->line, tmp) == 0)
-				get_that_map_parsed(w, m);
+			{
+				if (get_that_map_parsed(w, m) != 0)
+				{
+					w->menu.i = 1;
+					w->stopread = 1;
+					get_next_line_until(m->fd, &m->line, w->stopread);
+					free(m->line);
+					return (-1);
+				}
+			}
 			else if (ft_strcmp(m->line, "ENDMAPSECTION") == 0)
 			{	
 				w->menu.i = 1;

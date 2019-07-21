@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Nico <Nico@student.42.fr>                  +#+  +:+       +#+         #
+#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/21 03:55:15 by Nico             ###   ########.fr        #
+#    Updated: 2019/07/20 16:09:32 by ochaar           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,11 @@ endif
 
 ifeq ($(DEBUG), 0)
     CFLAG       =   -Wall -Wextra -Werror -O2
-    MESSAGE     =   "\033[38;5;79m[$(NAME)] compiled on normal rules ! Have fun\033[0m               "
+    MESSAGE     =   "\033[38;5;79m[$(NAME)] compiled on normal rules ! Have fun\033[0m                    "
 
 else
     CFLAG       =   -Wall -Wextra -Werror -g -O0 -fsanitize=address
-    MESSAGE     =   "\033[38;5;79m[DEBUG] [$(NAME)] compiled on debug rules ! Good job\033[0m            "
+    MESSAGE     =   "\033[38;5;79m[DEBUG] [$(NAME)] compiled on debug rules ! Good job\033[0m             "
 endif
 
 NAME                =   doom-nukem
@@ -90,7 +90,6 @@ SRCFIL				=	src_game/main.c \
 						src_game/weapon.c \
 						src_game/essential.c \
 						src_game/maths_functions.c \
-						\
 						src_editor/manage_sdl_window.c \
 						src_editor/launch_editor.c \
 						src_editor/init_editor.c \

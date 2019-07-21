@@ -50,7 +50,7 @@ void		hit_box(t_env *w, t_map *m, int x, t_cal_sprt d)
 			if (m->ennemy[x].nb_ammo % 4 == 0)
 				m->ennemy[x].dead = 1;
 		}
-		Mix_PlayChannel(6, m->ennemy[x].dammage, 0);
+		Mix_PlayChannel(6, w->sound.dammage, 0);
 	}
 }
 

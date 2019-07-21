@@ -12,15 +12,20 @@
 
 #include "doom.h"
 
-void		parse_other_info(t_map *m, char **tab)
+int			parse_other_info(t_map *m, char **tab)
 {
 	if (ft_strcmp(tab[0], "\tplayer_max_hp") == 0)
+	{
 		m->player.max_hp = ft_atoi(tab[1]);
+		m->player.hp = m->player.max_hp;
+	}
 	else if (ft_strcmp(tab[0], "\tgravity") == 0)
 		m->gravity = ft_atof(tab[1]);
 	else if (ft_strcmp(tab[0], "\tgod_mod") == 0)
 		m->god_mod = ft_atoi(tab[1]);
-	m->player.hp = m->player.max_hp;
+	else if (ft_strcmp(tab[0], "Section") != 0)
+		return (-1);
+	return (0);
 }
 
 int			parse_player_section(t_map *m, char **tab)
@@ -47,6 +52,7 @@ int			parse_player_section(t_map *m, char **tab)
 		m->player.sector = ft_atoi(tab[1]);
 		m->player.coor.z = m->sector[m->player.sector].floor + STAND;
 	}
-	parse_other_info(m, tab);
+	else if (parse_other_info(m, tab) != 0)
+		return (-1);
 	return (0);
 }

@@ -25,12 +25,15 @@ int			load_sounds(t_env *w, t_map *m)
 		return (-1);
 	if (!(w->sound.clic = Mix_LoadWAV("./sounds/clic.wav")))
 		return (-1);
+	if (!(w->sound.dammage = Mix_LoadWAV("./sounds/oof.wav")))
+		return (-1);
 	if (!(m->weap[0].shoot = Mix_LoadWAV("./sounds/M4.wav")))
 		return (-1);
 	if (!(m->weap[2].shoot = Mix_LoadWAV("./sounds/magnum.wav")))
 		return (-1);
 	if (!(m->weap[1].shoot = Mix_LoadWAV("./sounds/mp510.wav")))
 		return (-1);
+	Mix_VolumeChunk(w->sound.dammage, 110);
 	Mix_VolumeChunk(w->sound.jump, 70);
 	Mix_VolumeChunk(m->weap[1].shoot, 80);
 	Mix_VolumeChunk(m->weap[0].shoot, 30);
