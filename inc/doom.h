@@ -35,6 +35,7 @@ void				video_mode_cmd(t_env *w, t_map *m, char ***cmd, int i);
 void				seq_cmd(t_env *w, char ***cmd, int i);
 void				set_error(t_env *w, t_map *m, int errorno, char *s);
 void				set_basics(t_env *w, t_map *m, int ac);
+void				set_count(t_map *m);
 void				parse_config_line(t_env *w, t_map *m, char *line);
 void				parse_allocating_line(t_env *w, t_map *m, char *line);
 t_menu				parse_menu_line(t_env *w, char *line);
