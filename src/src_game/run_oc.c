@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:22:55 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/20 13:52:14 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/21 15:47:47 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	run(t_env *w, t_map *m)
 	w->sens = 1;
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_ShowCursor(SDL_DISABLE);
+	Mix_ResumeMusic();
 	m->stop = 0;
 	while (1)
 	{

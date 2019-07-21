@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 13:37:00 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/13 14:43:45 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/21 14:54:12 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 int			parse_other_info(t_map *m, char **tab)
 {
 	if (ft_strcmp(tab[0], "\tplayer_max_hp") == 0)
-	{
 		m->player.max_hp = ft_atoi(tab[1]);
-		m->player.hp = m->player.max_hp;
-	}
 	else if (ft_strcmp(tab[0], "\tgravity") == 0)
 		m->gravity = ft_atof(tab[1]);
 	else if (ft_strcmp(tab[0], "\tgod_mod") == 0)
 		m->god_mod = ft_atoi(tab[1]);
 	else if (ft_strcmp(tab[0], "Section") != 0)
 		return (-1);
+	m->player.hp = m->player.max_hp;
 	return (0);
 }
 

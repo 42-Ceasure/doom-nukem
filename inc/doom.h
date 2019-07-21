@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/20 13:53:05 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/21 19:01:39 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void				sprint(t_map *m);
 void				hud(t_map *m);
 void				minimap(t_map *m);
 void				ft_hud(t_env *w, t_map *m);
+void				move_floor_ceiling(t_env *w, t_map *m);
 void				game_img(t_env *w, t_map *m);
 void				ramassage(t_map *m);
 void				pause_music(void);

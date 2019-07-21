@@ -477,6 +477,7 @@ void	main_menu(t_env *w, t_map *m)
 {
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	SDL_ShowCursor(SDL_ENABLE);
+	Mix_PauseMusic();
 	w->txthead.x = 800;
 	w->txthead.y = 550;
 	w->menu.j = 1;

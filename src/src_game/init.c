@@ -11,12 +11,9 @@ void		img_update(t_env *w)
 
 int			load_sounds(t_env *w, t_map *m)
 {
-	if (!(w->sound.musique = Mix_LoadMUS("./sounds/bensound-dreams.wav")))
-	{
-		printf("%s\n", Mix_GetError());
+	if (!(w->sound.musique = Mix_LoadMUS("./sounds/musique.wav")))
 		return (-1);
-	}
-   	//Mix_PlayMusic(w->sound.musique, -1);
+   	Mix_PlayMusic(w->sound.musique, -1);
 	Mix_VolumeMusic(w->sound.volume);
 	Mix_AllocateChannels(10);
 	if (!(w->sound.jump = Mix_LoadWAV("./sounds/jump2.wav")))

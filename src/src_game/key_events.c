@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 15:04:59 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/20 14:35:20 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/21 15:37:59 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void		god_mod(t_env *w, t_map *m)
 void		move_floor_ceiling(t_env *w, t_map *m)
 {
 	god_mod(w, m);
-	if (m->sector[m->player.sector].texturing[2] == 21 && KEY == SDLK_f
+	if (KEY == SDLK_f && m->sector[m->player.sector].texturing[2] == 21
 		&& m->player.take[3] == 1 && m->elevator == 0)
 	{
 		m->elevator = 1;
 		m->nb_a = m->player.sector;
 	}
-	if (m->sector[m->player.sector].texturing[2] == 21 && KEY == SDLK_f
+	if (KEY == SDLK_f && m->sector[m->player.sector].texturing[2] == 21
 		&& m->player.take[3] == 1 && m->elevator == -1)
 	{
 		m->elevator = 2;
@@ -67,5 +67,4 @@ void		key_events(t_env *w, t_map *m)
 		jump(w, m);
 	if (w->inkeys[SDL_SCANCODE_LSHIFT] && w->inkeys[SDL_SCANCODE_W])
 		sprint(m);
-	move_floor_ceiling(w, m);
 }

@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 15:05:40 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/11 15:05:42 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/21 15:37:58 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,5 @@ void		keydown_events(t_env *w, t_map *m)
 	sit_down(w, m);
 	music(w);
 	affichage(w, m);
+	move_floor_ceiling(w, m);
 }
