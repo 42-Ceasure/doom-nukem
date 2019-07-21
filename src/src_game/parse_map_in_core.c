@@ -30,9 +30,7 @@ void	reset_map(t_map *m)
 int		get_that_map_parsed(t_env *w, t_map *m)
 {
 	free(m->line);
-	m->i = 0;
-	m->s = 0;
-	m->w = 0;
+	set_count(m);
 	m->section_number = 0;
 	process_hint_w(w, 6, "map");
 	m->weap[0].actu_ammo = m->weap[0].magazine;
@@ -50,7 +48,9 @@ int		get_that_map_parsed(t_env *w, t_map *m)
 	}
 	free(m->line);
 	process_hint_w(w, 0, " ");
-	// free(m->line);
+	if (m->dotsc != m->dots_count || m->s != m->sector_count
+		|| m->spmc != m->sprite_map_count || m->ennemyc != m->ennemy_count)
+		return (-1);
 	return (0);
 }
 

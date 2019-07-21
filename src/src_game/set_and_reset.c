@@ -51,7 +51,7 @@ int		parse_sprite_map(t_map *m, char **tab)
 	if (tab[0] == NULL)
 		return (-1);
 	if (ft_strcmp(tab[0], "Section") != 0
-		&& tab[1] != NULL)
+		&& tab[1] != NULL && m->spmc < m->sprite_map_count)
 	{
 		tmp = ft_strsplit(tab[1], ',');
 		while (tmp[check] != NULL)
@@ -61,6 +61,7 @@ int		parse_sprite_map(t_map *m, char **tab)
 			nb = ft_atoi(tmp[0]);
 			fill_sprite(&m->sprt[nb], tmp);
 			m->sprt[nb].name = ft_strdup(tab[0]);
+			m->spmc++;
 		}
 		else
 			return (-1);
@@ -113,7 +114,7 @@ int		parse_ennemy_map(t_map *m, char **tab)
 	if (tab[0] == NULL)
 		return (-1);
 	if (ft_strcmp(tab[0], "Section") != 0
-		&& tab[1] != NULL)
+		&& tab[1] != NULL && m->ennemyc < m->ennemy_count)
 	{
 		tmp = ft_strsplit(tab[1], ',');
 		while (tmp[check] != NULL)
@@ -123,6 +124,7 @@ int		parse_ennemy_map(t_map *m, char **tab)
 			nb = ft_atoi(tmp[0]);
 			fill_ennemy(m, &m->ennemy[nb], tmp);
 			set_ennemy(m, nb);
+			m->ennemyc++;
 		}
 		ft_memreg(tmp);
 	}
@@ -133,7 +135,10 @@ int		parse_level_map(t_map *m, char **tab)
 {
 	char	**tmp;
 
-	if (ft_strcmp(tab[0], "Section") != 0)
+	if (tab[0] == NULL)
+		return (-1);
+	if (ft_strcmp(tab[0], "Section") != 0
+		&& tab[1] != NULL)
 	{
 		tmp = ft_strsplit(tab[1], ',');
 		m->endsector = ft_atoi(tmp[0]);

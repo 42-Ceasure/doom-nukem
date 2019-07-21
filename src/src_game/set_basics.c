@@ -76,12 +76,12 @@ void			set_w(t_env *w, int ac)
 
 void			set_count(t_map *m)
 {
-	m->trippymod = 0;
 	m->i = 0;
+	m->dotsc = 0;
 	m->s = 0;
+	m->spmc = 0;
+	m->ennemyc = 0;
 	m->w = 0;
-	m->fd = 0;
-	m->fd2 = 0;
 	m->section_number = 0;
 	m->dots_count = 0;
 	m->sector_count = 0;
@@ -91,6 +91,9 @@ void			set_count(t_map *m)
 
 void			set_m(t_map *m)
 {
+	m->trippymod = 0;
+	m->fd = 0;
+	m->fd2 = 0;
 	m->stop = 0;
 	m->launchwmap = 0;
 	m->newgame = 1;

@@ -18,12 +18,10 @@ int			parse_map_dots(t_map *m, char *y, char *x)
 		}
 		i++;
 		m->i++;
+		m->dotsc++;
 	}
 	if (m->i > m->dots_count)
-	{	
-		set_error(m->world, m, 8, ft_strdup("invalid dots count"));
 		return (-1);
-	}
 	ft_memreg(tmp);
 	return (0);
 }
@@ -97,24 +95,29 @@ int			parse_sectors(t_map *m, char *heights, char *dots, char *net, char *text)
 	char	**tmp;
 
 	i = 0;
-	tmp = ft_strsplit(heights, ',');
-	m->sector[m->s].floor = ft_atof(tmp[0]);
-	m->sector[m->s].ceiling = ft_atof(tmp[1]);
-	ft_memreg(tmp);
-	tmp = ft_strsplit(dots, ',');
-	while (tmp[i] != NULL)
-		i++;
-	m->sector[m->s].wall_count = i;
-	if ((m->sector[m->s].dot = (t_dot *)malloc(sizeof(t_dot)
-		* (m->sector[m->s].wall_count + 1))) == NULL)
+	if (m->s < m->sector_count)
+	{
+		tmp = ft_strsplit(heights, ',');
+		m->sector[m->s].floor = ft_atof(tmp[0]);
+		m->sector[m->s].ceiling = ft_atof(tmp[1]);
+		ft_memreg(tmp);
+		tmp = ft_strsplit(dots, ',');
+		while (tmp[i] != NULL)
+			i++;
+		m->sector[m->s].wall_count = i;
+		if ((m->sector[m->s].dot = (t_dot *)malloc(sizeof(t_dot)
+			* (m->sector[m->s].wall_count + 1))) == NULL)
+			return (-1);
+		if ((m->sector[m->s].network = (int *)malloc(sizeof(int)
+			* m->sector[m->s].wall_count)) == NULL)
+			return (-1);
+		if (parse_sector_dots(m, tmp) == -1)
+			return (-1);
+		parse_sector_network(m, net);
+		parse_sector_texturing(m, text);
+	}
+	else
 		return (-1);
-	if ((m->sector[m->s].network = (int *)malloc(sizeof(int)
-		* m->sector[m->s].wall_count)) == NULL)
-		return (-1);
-	if (parse_sector_dots(m, tmp) == -1)
-		return (-1);
-	parse_sector_network(m, net);
-	parse_sector_texturing(m, text);
 	m->s++;
 	return (0);
 }
