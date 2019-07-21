@@ -18,21 +18,23 @@ void	draw_grid(t_env *w, t_win *win)
 	int		j;
 	int		x;
 	int		y;
-	int		color;
 
 	(void)win;
 	i = 0;
 	j = 0;
 	x = 0;
 	y = 0;
-	color = 255255255;
 	while (j < WIN_Y * 10)
 	{
 		i = 0;
 		x = 0;
 		while (i < WIN_X * 10)
 		{
-			set_txtr_pix(w, i, j, color);
+			// printf("i=%d,j=%d\n", i, j);
+			if (i % 50 == 0 || j % 50 == 0)
+				set_txtr_pix(w, i, j, 0xFF0C6F68);
+			else
+				set_txtr_pix(w, i, j, 0xFF36E2D7);
 			i += 10;
 			x++;
 		}
