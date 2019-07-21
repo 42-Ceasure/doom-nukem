@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Nico <Nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/20 13:53:05 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/21 04:02:29 by Nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,21 @@
 # define GAME				0
 # define EDIT				1
 # define PAKOMSA			"Your core file seem invalid. You may need to reinstall the game"
+
+typedef struct		s_draw
+{
+	double			wall_height_from_bottom;
+	double 			wall_height_scale;
+	double 			wall_width_scale;
+	double			y_tex_start;
+	double			y_tex_pos;
+	int				x;
+	int				y1;
+	int				y2;
+	int 			x_tex;
+	int				y_tex;
+	int 			color;
+}					t_draw;
 
 typedef struct		s_lst
 {
@@ -719,10 +734,10 @@ void				ennemy_animation(t_env *w, t_map *m, double **tab, int x);
 double				**fill_tab_ennemy(t_map *m);
 double				**fill_tab_sprite(t_map *m);
 double				**sort_double_tab(double **tab, int size);
-void				draw_vertical_line_t(int x, t_env *w, t_work *work, t_texture text);
-void				draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture text);
-void				draw_extruded_line_t(int x, t_env *w, t_work *work, t_texture text);
-void				draw_wall_line_t(int x, t_env *w, t_work *work, t_texture text);
+void				draw_vertical_line_t(int x, t_env *w, t_work *work, t_texture *text);
+void				draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture *text);
+void				draw_extruded_line_t(int x, t_env *w, t_work *work, t_texture *text);
+void				draw_wall_line_t(int x, t_env *w, t_work *work, t_texture *text);
 void				ft_free_weap(t_map *m);
 void				ft_free_sprite(t_map *m);
 void				ft_free_sprt(t_map *m);
@@ -852,5 +867,6 @@ int			parse_level_map(t_map *m, char **tab);
 void		draw_ceiling_n_floor(t_work *work, t_env *w, int x);
 void		draw_networks(t_work *work, t_env *w, int x);
 void		draw_walls(t_work *work, t_env *w, int x);
+int			dark_side(int color, t_work *work);
 
 #endif

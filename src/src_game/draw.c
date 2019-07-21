@@ -21,10 +21,10 @@ void	draw_walls(t_work *work, t_env *w, int x)
 	if (w->texturing[w->m->sector[work->nosector].texturing[2]].trsp == 1)
 	{
 		skybox(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[5]]);
-		draw_wall_line_t(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[2]]);
+		draw_wall_line_t(x, w, work, &w->texturing[w->m->sector[work->nosector].texturing[2]]);
 	}
 	else
-		draw_wall_line_t(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[2]]);
+		draw_wall_line_t(x, w, work, &w->texturing[w->m->sector[work->nosector].texturing[2]]);
 }
 
 void	draw_networks(t_work *work, t_env *w, int x)
@@ -42,10 +42,10 @@ void	draw_networks(t_work *work, t_env *w, int x)
 	if (w->texturing[w->m->sector[work->nosector].texturing[3]].trsp == 1)
 	{
 		skybox(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[5]]);
-		draw_vertical_line_t(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[3]]);
+		draw_vertical_line_t(x, w, work, &w->texturing[w->m->sector[work->nosector].texturing[3]]);
 	}
 	else
-		draw_vertical_line_t(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[3]]);
+		draw_vertical_line_t(x, w, work, &w->texturing[w->m->sector[work->nosector].texturing[3]]);
 	work->starty = work->cnyb + 1;
 	if (work->cnyb < work->cya)
 		work->starty = work->cya + 1;
@@ -53,10 +53,10 @@ void	draw_networks(t_work *work, t_env *w, int x)
 	if (w->texturing[w->m->sector[work->nosector].texturing[4]].trsp == 1)
 	{
 		skybox(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[5]]);
-		draw_extruded_line_t(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[4]]);
+		draw_extruded_line_t(x, w, work, &w->texturing[w->m->sector[work->nosector].texturing[4]]);
 	}
 	else
-		draw_extruded_line_t(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[4]]);
+		draw_extruded_line_t(x, w, work, &w->texturing[w->m->sector[work->nosector].texturing[4]]);
 }
 
 void	draw_ceiling_n_floor(t_work *work, t_env *w, int x)
@@ -71,19 +71,19 @@ void	draw_ceiling_n_floor(t_work *work, t_env *w, int x)
 	{
 		skybox(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[5]]);
 		if (w->texturing[w->m->sector[work->nosector].texturing[1]].trsp == 1)
-			draw_ceiling_line_t(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[1]]);
+			draw_ceiling_line_t(x, w, work, &w->texturing[w->m->sector[work->nosector].texturing[1]]);
 	}
 	else
-		draw_ceiling_line_t(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[1]]);
+		draw_ceiling_line_t(x, w, work, &w->texturing[w->m->sector[work->nosector].texturing[1]]);
 	work->starty = work->cyb + 1;
 	work->stopy = work->ybot[x];
 	if (w->texturing[w->m->sector[work->nosector].texturing[0]].trsp == 1)
 	{
 		skybox(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[5]]);
-		draw_ceiling_line_t(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[0]]);
+		draw_ceiling_line_t(x, w, work, &w->texturing[w->m->sector[work->nosector].texturing[0]]);
 	}
 	else
-		draw_ceiling_line_t(x, w, work, w->texturing[w->m->sector[work->nosector].texturing[0]]);
+		draw_ceiling_line_t(x, w, work, &w->texturing[w->m->sector[work->nosector].texturing[0]]);
 }
 
 void	calcul_render_no_mthrd(t_env *w, t_work *work)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
+#    By: Nico <Nico@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/20 16:09:32 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/21 03:55:15 by Nico             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ SRCFIL				=	src_game/main.c \
 						src_game/draw.c \
 						src_game/draw_minimap.c \
 						src_game/draw_txtr.c \
+						src_game/draw_txtr_2.c \
 						src_game/draw_sprite.c \
 						src_game/multithreading.c \
 						src_game/menu.c \
@@ -155,7 +156,7 @@ CURL_MIX            =   `curl https://www.libsdl.org/projects/SDL_mixer/release/
 T = $(words $(OBJ))
 N = 0
 C = $(words $N)$(eval N := x $N)
-PROGRESS = "[`expr $C  '*' 100 / $T`%]"
+PROGRESS = "[`expr $C '*' 100 / $T`%]"
 
 all                 :   libft sdl sdlmix $(NAME)
 
