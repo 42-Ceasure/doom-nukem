@@ -69,9 +69,6 @@ void			set_w(t_env *w, int ac)
 	w->fov_v_menu = 0;
 	w->mousesp_menu = 0;
 	w->corenbl = 0;
-	w->check.settings = 0;
-	w->check.allocations = 0;
-	w->check.player_section = 0;
 }
 
 void			set_count(t_map *m)

@@ -588,13 +588,6 @@ typedef	struct		s_dtime
 	Uint32			dead;		/* time of dead animation */
 }					t_dtime;
 
-typedef struct		s_cch
-{
-	int				settings;
-	int				allocations;
-	int				player_section;
-}					t_cch;	/* core checker */
-
 typedef struct		s_env
 {
 	t_map			*m;
@@ -643,7 +636,6 @@ typedef struct		s_env
 	int				corenbl;
 	double			mem_field_of_vision_h;
 	double			mem_field_of_vision_v;
-	t_cch			check;
 }					t_env;
 
 
