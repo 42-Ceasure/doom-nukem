@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_txtr copy.c                                   :+:      :+:    :+:   */
+/*   DRAW_TXTR_SAVE.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Nico <Nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 00:53:56 by Nico              #+#    #+#             */
-/*   Updated: 2019/07/21 03:44:38 by Nico             ###   ########.fr       */
+/*   Updated: 2019/07/21 04:38:55 by Nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture text)
 	}
 }
 
-void	draw_vertical_line_t(int x, t_env *w, t_work *work, t_texture text)
+void	draw_high_line_t(int x, t_env *w, t_work *work, t_texture text)
 {
 	t_draw	d;
 	int		y1;
@@ -333,7 +333,7 @@ void	draw_wall_line_t(int x, t_env *w, t_work *work, t_texture text)
 	}	
 }
 
-void	draw_extruded_line_t(int x, t_env *w, t_work *work, t_texture text)
+void	draw_low_line_t(int x, t_env *w, t_work *work, t_texture text)
 {
 	int		y1;
 	int		y2;

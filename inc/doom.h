@@ -6,7 +6,7 @@
 /*   By: Nico <Nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/21 04:02:29 by Nico             ###   ########.fr       */
+/*   Updated: 2019/07/21 04:38:55 by Nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -734,9 +734,9 @@ void				ennemy_animation(t_env *w, t_map *m, double **tab, int x);
 double				**fill_tab_ennemy(t_map *m);
 double				**fill_tab_sprite(t_map *m);
 double				**sort_double_tab(double **tab, int size);
-void				draw_vertical_line_t(int x, t_env *w, t_work *work, t_texture *text);
+void				draw_high_line_t(int x, t_env *w, t_work *work, t_texture *text);
 void				draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture *text);
-void				draw_extruded_line_t(int x, t_env *w, t_work *work, t_texture *text);
+void				draw_low_line_t(int x, t_env *w, t_work *work, t_texture *text);
 void				draw_wall_line_t(int x, t_env *w, t_work *work, t_texture *text);
 void				ft_free_weap(t_map *m);
 void				ft_free_sprite(t_map *m);

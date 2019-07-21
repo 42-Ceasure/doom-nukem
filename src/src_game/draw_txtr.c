@@ -36,7 +36,7 @@ void	check_start_end_tex(t_draw *d, t_work *work, t_texture *text)
 	}
 }
 
-void	draw_vertical_line_t(int x, t_env *w, t_work *work, t_texture *text)
+void	draw_high_line_t(int x, t_env *w, t_work *work, t_texture *text)
 {
 	t_draw	d;
 	
@@ -123,7 +123,7 @@ void	draw_wall_line_t(int x, t_env *w, t_work *work, t_texture *text)
 	}	
 }
 
-void	draw_extruded_line_t(int x, t_env *w, t_work *work, t_texture *text)
+void	draw_low_line_t(int x, t_env *w, t_work *work, t_texture *text)
 {
 	t_draw	d;
 	
