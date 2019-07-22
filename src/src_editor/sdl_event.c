@@ -75,6 +75,13 @@ static void	sdl_event_key(t_env *w, t_win *win)
 			check_player_start(win);
 		}
 	}
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_O])
+	{
+		if (win->lstlst)
+		{
+			sectors_on_top(win);
+		}
+	}
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_L])
 	{
 		if (win->lstlst)
@@ -83,6 +90,7 @@ static void	sdl_event_key(t_env *w, t_win *win)
 			sector_inside_sector(win);
 		}
 	}
+
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_RETURN])
 	{
 		if (win->mode == 4)

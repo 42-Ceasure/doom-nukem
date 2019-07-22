@@ -52,11 +52,10 @@ int			triangulate_player_start(t_win *win, int x, int y)
 			ret = -2;
 		tmp2 = tmp2->next;
 	}
-	printf("%d ret \n", ret);
 	return (ret);
 }
 
-int		sector_intersect_with_itself(t_dot p1, t_dot p2, t_dot p3, t_dot p4)
+int			sector_intersect_with_itself(t_dot p1, t_dot p2, t_dot p3, t_dot p4)
 {
 	int	i1;
 	int	i2;

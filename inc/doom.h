@@ -283,6 +283,9 @@ int			correct_three_points(t_win *win);
 
 int			sector_inside_sector(t_win *win);
 void		everything_is_a_triangle(t_win *win);
+int			point_on_top(t_win *win);
+int			sectors_on_top(t_win *win);
+void		free_list(t_lst *lst);
 
 
 

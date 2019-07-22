@@ -170,12 +170,12 @@ int			sector_inside_sector(t_win *win)
 	tmp2 = win->triangles;
 	while (tmp2)
 	{
-		tmp3 = win->triangles;
 		if (tmp2->sector != -1)
 		{
 			tmp = tmp2->head;
 			while (tmp)
 			{
+				tmp3 = win->triangles;
 				m.x = tmp->x;
 				m.y = tmp->y;
 				while (tmp3)
@@ -203,41 +203,135 @@ int			sector_inside_sector(t_win *win)
 	return (0);
 }
 
-/*int			point_on_top(t_win *win)
+int			point_on_top(t_win *win)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
 	t_lst		*tmp0;
+	int			index;
+	int			index0;
 
 
 	tmp2 = win->lstlst;
 	while (tmp2)
 	{
 		tmp = tmp2->head;
-		while (tmp->next->next)
+		index = 0;
+		while (tmp->next)
 		{
-			tmp0 = tmp->next;
-			while (tmp0
-*/
+			index0 = 0;
+			tmp0 = tmp2->head;
+			while (tmp0->next)
+			{
+				if (index != index0)
+				{
+					if (tmp->x == tmp0->x && tmp->y == tmp0->y)
+						return (-6);
+				}
+				tmp0 = tmp0->next;
+				index0++;
+			}
+			tmp = tmp->next;
+			index++;
+		}
+		tmp2 = tmp2->next;
+	}
+	return (0);
+}
 
+/*int			sectors_on_top(t_win *win)
+{
+	t_lstlst	*tmp2;
+	t_lstlst	*tmp3;
+	t_lst		*tmp;
+	t_lst		*tmp0;
+	int			len;
+	int			i;
 
+	tmp2 = win->lstlst;
+	while (tmp2->next)
+	{
+		tmp3 = tmp2->next;
+		while (tmp3)
+		{
+			i = 0;
+			tmp = tmp2->head;
+			tmp0 = tmp3->head;
+			while (tmp && tmp0)
+			{
+				if (tmp->x == tmp0->x && tmp->y == tmp0->y)
+					i++;
+				tmp = tmp->next;
+				tmp0 = tmp0->next;
+			}
+			len = len_list(tmp2->head);
+			if (i == len)
+				return (-7);
+			tmp3 = tmp3->next;
+		}
+		tmp2 = tmp2->next;
+	}
+	return (0);
+}*/
 
+int			sectors_on_top(t_win *win)
+{
+	t_lstlst	*tmp2;
+	t_lstlst	*tmp3;
+	t_lst		*tmp;
+	t_lst		*tmp0;
+	int			len2;
+	int			i;
+
+	tmp2 = win->lstlst;
+	while (tmp2->next)
+	{
+		tmp3 = tmp2->next;
+		len2 = len_list(tmp2->head);
+		while (tmp3)
+		{
+			if (len2 == len_list(tmp3->head))
+			{
+				i = 0;
+				tmp = tmp2->head;
+				while (tmp->next)
+				{
+					tmp0 = tmp3->head;
+					while (tmp0->next)
+					{
+						if (tmp->x == tmp0->x && tmp->y == tmp0->y)
+							i++;
+						tmp0 = tmp0->next;
+					}
+					tmp = tmp->next;
+				}
+				if (i == len2 - 1)
+					return (-7);
+			}
+			tmp3 = tmp3->next;
+		}
+		tmp2 = tmp2->next;
+	}
+	return (0);
+}
 
 int			correct_map(t_win *win)
 {
 	int			ret;
 
 	ret = 0;
-
-	// Le cas du carre sur le carre
-
-	/*ret = point_on_top(win);
+	ret = sectors_on_top(win);
+	if (ret == -7)
+	{
+		printf("Two sectors on top of each other\n");
+		return (ret);
+	}
+	ret = point_on_top(win);
 	if (ret == -6)
 	{
 		printf("Two points on top of each other in same sector\n");
 		return (ret);
-	}*/
-
+	}
 	ret = sector_inside_sector(win);
 	if (ret == -5)
 	{

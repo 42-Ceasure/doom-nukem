@@ -31,10 +31,10 @@ void	draw_grid(t_env *w, t_win *win)
 		while (i < WIN_X * 10)
 		{
 			// printf("i=%d,j=%d\n", i, j);
-			if (i % 50 == 0 || j % 50 == 0)
+			/*if (i % 50 == 0 || j % 50 == 0)
 				set_txtr_pix(w, i, j, 0xFF0C6F68);
-			else
-				set_txtr_pix(w, i, j, 0xFF36E2D7);
+			else*/
+			set_txtr_pix(w, i, j, 0xFF36E2D7);
 			i += 10;
 			x++;
 		}
