@@ -42,7 +42,7 @@ int			*create_y_dot_tab(t_win *win, int y, int i)
 	int			index;
 
 	index = 0;
-	if (!(dot_tab = (int *)malloc(sizeof(int) * i)))
+	if (!(dot_tab = (int *)malloc(sizeof(int) * (i + 1))))
 		clear_n_exit(win, 1);
 	tmp2 = win->lstlst;
 	while (tmp2)
