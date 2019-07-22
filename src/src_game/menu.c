@@ -404,7 +404,7 @@ void	maps(t_env *w)
 			{
 				if (KEY == SDLK_ESCAPE)
 					w->menu.i = vmax(-1, w->menu.i - 1);
-				if (KEY == SDLK_RETURN)
+				if (KEY == SDLK_RETURN || KEY == SDLK_KP_ENTER)
 				{
 					free(w->currmap);
 					w->currmap = ft_strdup(w->namesmaps[w->menu.k]);
@@ -448,7 +448,7 @@ void	event_menu(t_env *w)
 				w->menu.i = vmax(-1, w->menu.i - 1);
 				w->m->newgame = 1;
 			}
-			if (KEY == SDLK_RETURN)
+			if (KEY == SDLK_RETURN || KEY == SDLK_KP_ENTER)
 			{
 				if (w->menu.j == 5)
 					w->menu.i = -1;
@@ -530,7 +530,7 @@ int		loose(t_env *w, t_map *m)
 					m->game_over = 0;
 					return(1);
 				}
-				if (KEY == SDLK_RETURN)
+				if (KEY == SDLK_RETURN || KEY == SDLK_KP_ENTER)
 				{
 					m->game_over = 0;
 					m->player.hp = m->player.max_hp;
@@ -626,7 +626,7 @@ int		change_lvl(t_env *w, t_map *m)
 					stop = 1;
 					return (1);
 				}
-				if (KEY == SDLK_RETURN)
+				if (KEY == SDLK_RETURN || KEY == SDLK_KP_ENTER)
 				{
 					m->newgame = 1;
 					m->change_lvl = 0;
