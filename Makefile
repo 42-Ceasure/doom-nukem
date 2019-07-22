@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
+#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/22 16:37:39 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/22 17:21:39 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,8 @@ SRCFIL				=	src_game/main.c \
 						src_game/exit.c \
 						src_game/error.c \
 						src_game/process_hint.c \
-						src_game/screen.c \
-						src_game/screen_resized.c \
+						src_game/put_to_screen.c \
+						src_game/put_to_screen_utils.c \
 						src_game/init.c \
 						src_game/set_basics.c \
 						src_game/textures.c \

@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/22 17:38:28 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 17:44:07 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,10 @@ void				safe_char_to_screen(t_env *w, t_texture texture, int x, int y);
 int					img_to_screen(t_env *w, t_texture texture, t_img img);
 int					sprt_to_screen(t_env *w, t_sprite sprite, t_img img);
 int					char_to_screen(t_env *w, t_texture texture, t_img img);
+void				img_sequential_frame(t_env *w, int test);
+int					test_limits_to_screen(t_img *img, t_scalling *s, t_env *w);
+int					init_and_check_to_screen(t_scalling *s, t_env *w, t_img *img);
+void				get_scalling(t_img *img, t_scalling *s, int text_w, int text_h);
 t_img				fill_t_img(int x, int y, int w, int h);
 void				get_that_time(t_env *w);
 void				draw_sprite(t_env *w, t_map *m, int x, int ratio);
