@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/22 13:47:09 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 16:26:38 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void				initsprite(t_sprite **sprite, int count);
 void				hand(t_env *w, t_map *m);
 void				buttondown_event(t_env *w, t_map *m);
 void				buttonup_event(t_env *w, t_map *m);
-// void				hello_screen(t_env *w);
 void				main_pic(t_env *w, int nb);
 int					load_sounds(t_env *w, t_map *m);
 void				process_hint(int i, char *s);
@@ -162,9 +161,8 @@ void				safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);
 void				safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y);
 void				safe_char_to_screen(t_env *w, t_texture texture, int x, int y);
 int					img_to_screen(t_env *w, t_texture texture, t_img img);
-int					final_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y, int width, int height);
-int					final_texture_to_screen(t_env *w, t_texture texture, int x, int y, int width, int height);
-int					final_char_to_screen(t_env *w, t_texture texture, int x, int y, int width, int height);
+int					sprt_to_screen(t_env *w, t_sprite sprite, t_img img);
+int					char_to_screen(t_env *w, t_texture texture, t_img img);
 t_img				fill_t_img(int x, int y, int w, int h);
 void				get_that_time(t_env *w);
 void				draw_sprite(t_env *w, t_map *m, int x, int ratio);
@@ -174,7 +172,6 @@ void				clear_sprite(t_map *m);
 int					rotate(t_cal_sprt data, int o);
 void				draw_ennemy(t_env *w, t_map *m, int x, double ratio);
 void				jet_pack(t_map *m);
-// int					get_tmpix_scaled(t_sprite sprite, int width, int height, int x, int y);
 int					get_tmpix_scaled(t_sprite sprite, t_img img);
 void				skybox(int x, t_env *w, t_work *work, t_texture text);
 double				pythagore(double a, double b);
@@ -193,7 +190,7 @@ void				ft_free_sector(t_map *m);
 int					get_that_map_parsed(t_env *w, t_map *m);
 int					parse_map_in_core(t_env *w, t_map *m, char *name);
 int					parse_line(t_env *w, t_map *m);
-void				reset_player(t_map *m);
+void				reset_player(t_env *w, t_map *m);
 int					parse_ennemy_map(t_map *m, char **tab);
 int					parse_sprite_map(t_map *m, char **tab);
 void				fit_to_editor(t_env *w);

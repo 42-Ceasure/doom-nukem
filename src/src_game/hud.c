@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hud.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 14:19:05 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/17 11:50:42 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 16:17:51 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	inventory(t_env *w, t_map *m, t_dot dot)
 {
+	t_img	img;
+	
 	dot.x = 115;
 	if (m->player.take[PH] == 1)
 	{
@@ -23,13 +25,25 @@ void	inventory(t_env *w, t_map *m, t_dot dot)
 	else
 		type_str(w, dot, "0", 0x12000000);
 	if (m->player.take[0] == 1)
-		final_sprite_to_screen(w, m->sprite[0], 319, HEIGHT - 58, 64, 48);
+	{
+		img = fill_t_img(319, HEIGHT - 58, 64, 48);
+		sprt_to_screen(w, m->sprite[0], img);
+	}
 	if (m->player.take[1] == 1)
-		final_sprite_to_screen(w, m->sprite[1], 399, HEIGHT - 60, 64, 48);
+	{
+		img = fill_t_img(399, HEIGHT - 60, 64, 48);
+		sprt_to_screen(w, m->sprite[1], img);
+	}
 	if (m->player.take[2] == 1)
-		final_sprite_to_screen(w, m->sprite[2], 480, HEIGHT - 54, 64, 0);
+	{
+		img = fill_t_img(480, HEIGHT - 54, 64, 0);
+		sprt_to_screen(w, m->sprite[2], img);
+	}
 	if (m->player.take[3] == 1)
-		final_sprite_to_screen(w, m->sprite[22], 560, HEIGHT - 54, 64, 0);
+	{
+		img = fill_t_img(560, HEIGHT - 54, 64, 0);
+		sprt_to_screen(w, m->sprite[22], img);
+	}
 }
 
 void	ft_hud(t_env *w, t_map *m)

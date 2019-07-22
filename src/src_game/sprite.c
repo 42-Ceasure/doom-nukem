@@ -78,12 +78,15 @@ void		draw_ennemy(t_env *w, t_map *m, int x, double ratio)
 {
 	
 	t_cal_sprt	data;
+	t_img		img;
 
 	ennemy_go_to(m, x, m->player.coor);
 	data = calcul_sprite_ennemy(w, m, x, ratio);
 	if (m->player.firing == 1 && m->weap[PH].range * m->ennemy[x].range >= 200)
 		hit_box(w, m, x, data);
 	if (data.t1z > 0)
-		final_sprite_to_screen(w, m->sprite[m->ennemy[x].index], data.x1,
-			data.y1a, m->sprite[m->ennemy[x].index].w * data.zoom * ratio, 0);
+	{
+		img = fill_t_img(data.x1, data.y1a, m->sprite[m->ennemy[x].index].w * data.zoom * ratio, 0);
+		sprt_to_screen(w, m->sprite[m->ennemy[x].index], img);
+	}
 }

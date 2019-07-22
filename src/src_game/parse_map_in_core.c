@@ -65,7 +65,7 @@ int			parse_map_in_core(t_env *w, t_map *m, char *name)
 	pre = ft_strdup("map\t\t\t;");
 	tmp = ft_strjoin(pre, name);
 	reset_map(m);
-	reset_player(m);
+	reset_player(w, m);
 	if ((m->fd = open("core/core.dn3d", O_RDONLY)) != -1)
 	{
 		while (get_next_line_until(m->fd, &m->line, w->stopread) && w->stopread == 0)

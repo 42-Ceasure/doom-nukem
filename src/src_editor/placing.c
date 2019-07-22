@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   placing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 14:48:05 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/14 15:03:23 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 16:20:49 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void		mode(t_env *w, t_win *win)
 	int		ret;
 	int		ret2;
 	int		ret3;
+	t_img	img;
 
 	ret = 0;
 	ret2 = 0;
@@ -92,8 +93,10 @@ void		mode(t_env *w, t_win *win)
 	{
 		placing(win);
 		if (win->check_textures == 0)
-			final_sprite_to_screen(w, win->asset_sprite,
-				win->dst9.x - 10, win->dst9.y - 75, 0, 96);
+		{
+			img = fill_t_img(win->dst9.x - 10, win->dst9.y - 75, 0, 96);
+			sprt_to_screen(w, win->asset_sprite, img);
+		}
 		if (win->place == 1)
 		{
 			if (win->asset == 0)

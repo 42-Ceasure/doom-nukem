@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   placing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 17:29:34 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/16 17:29:48 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/22 16:21:37 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ void		asset_overing_helper(t_env *w, t_win *win, t_lstasset *tmp)
 void		asset_overing(t_env *w, t_win *win)
 {
 	t_lstasset	*tmp;
-
+	t_img		img;
+	
 	tmp = win->lstasset;
 	while (tmp)
 	{
@@ -109,8 +110,8 @@ void		asset_overing(t_env *w, t_win *win)
 				set_params(w, win);
 			}
 			asset_overing_helper(w, win, tmp);
-			final_sprite_to_screen(w, win->asset_tmp,
-				tmp->x - 25, tmp->y - 75, 0, 64);
+			img = fill_t_img(tmp->x - 25, tmp->y - 75, 0, 64);
+			sprt_to_screen(w, win->asset_tmp, img);
 		}
 		tmp = tmp->next;
 	}

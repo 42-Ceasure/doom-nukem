@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   set_and_reset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 13:01:57 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/20 16:20:40 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 16:12:32 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void	reset_player(t_map *m)
+void	reset_player(t_env *w, t_map *m)
 {
 	m->player.bullet[0] = 0;
 	m->player.bullet[1] = 0;
@@ -23,6 +23,8 @@ void	reset_player(t_map *m)
 	m->player.intactu_ammo = 0;
 	m->player.firing = 0;
 	m->player.shooting = 0;
+	m->player.field_of_vision_h = w->mem_field_of_vision_h;
+	m->player.field_of_vision_v = w->mem_field_of_vision_v;
 	m->player.aiming = 0;
 	m->elevator = 0;
 	m->weap[0].actu_ammo = m->weap[0].magazine;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/21 16:54:10 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 15:33:50 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,29 @@ t_cal_sprt	calcul_sprite(t_env *w, t_map *m, int x, int ratio)
 
 void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 {
-	t_cal_sprt	data;
+	t_cal_sprt	d;
+	t_img		img;
 	int			o;
 
 	o = m->sprt[x].index;
-	data = calcul_sprite(w, m, x, ratio);
+	d = calcul_sprite(w, m, x, ratio);
 	if (ft_strcmp(m->sprite[o].type, "rotate") == 0)
-		o = rotate(data, o);
+		o = rotate(d, o);
 	if (ft_strcmp(m->sprite[o].type, "mur") == 0
 		&& (m->elevator == 1 || m->elevator == 2))
 		o = 25;
-	if (data.t1z > 0 && m->sprt[x].vis == 1)
+	if (d.t1z > 0 && m->sprt[x].vis == 1)
 	{
 		if (ft_strcmp(m->sprite[o].type, "auto") == 0)
-			final_sprite_to_screen(w, m->sprite[o], data.x1,
-				data.y1a, 0, m->sprite[o].h * data.zoom * ratio);
+		{
+			img = fill_t_img(d.x1, d.y1a, 0, m->sprite[o].h * d.zoom * ratio);
+			sprt_to_screen(w, m->sprite[o], img);
+		}
 		else
-			final_sprite_to_screen(w, m->sprite[o], data.x1,
-				data.y1a, m->sprite[o].w * data.zoom * ratio, 0);
+		{
+			img = fill_t_img(d.x1, d.y1a, m->sprite[o].w * d.zoom * ratio, 0);
+			sprt_to_screen(w, m->sprite[o], img);
+		}
 	}
 }
 
