@@ -264,7 +264,7 @@ void 	draw(t_env *w, t_map *m)
 			}
 			if (w->sequential_draw == 1 || w->sequential_frame == 1)
 			{
-				SDL_Delay(200); 
+				SDL_Delay(400); 
 				img_update(w);
 			}
 			point++;

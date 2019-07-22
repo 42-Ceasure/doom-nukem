@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:06:30 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/22 13:47:10 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 14:17:46 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,21 @@
 
 typedef struct s_win	t_win;
 typedef struct s_render	t_render;
+
+typedef struct		s_scalling
+{
+	double 			step_x_tex;
+	double 			step_y_tex;
+	double			x_tex;
+	double			y_tex;
+	int 			maxx;
+	int				maxy;
+	int 			x_tmp;
+	int 			x_tex_tmp;
+	int				text_w;
+	int				text_h;
+	unsigned int	tmpix;
+}					t_scalling;
 
 typedef struct		s_draw
 {
