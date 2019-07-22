@@ -6,7 +6,7 @@
 #    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/22 17:21:39 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/22 23:10:19 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,8 +73,11 @@ SRCFIL				=	src_game/main.c \
 						src_game/5_line.c \
 						src_game/draw.c \
 						src_game/draw_minimap.c \
-						src_game/draw_txtr.c \
-						src_game/draw_txtr_2.c \
+						src_game/draw_low.c \
+						src_game/draw_high.c \
+						src_game/draw_wall.c \
+						src_game/draw_ceil_floor_sky.c \
+						src_game/draw_txtr_utils.c \
 						src_game/draw_sprite.c \
 						src_game/multithreading.c \
 						src_game/menu.c \

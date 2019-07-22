@@ -6,23 +6,11 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:32:27 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/22 20:18:18 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/22 23:08:16 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
-
-int		dark_side(int color, t_work *work)
-{
-	int red;
-	int gre;
-	int blu;
-
-	red = vmid((((color >> 16) & 0xff) - (work->z / 2)), 0, 255);
-	gre = vmid((((color >> 8) & 0xff) - (work->z / 2)), 0, 255);
-	blu = vmid((((color) & 0xff) - (work->z / 2)), 0, 255);
-	return (0 << 24 | (red & 0xff) << 16 | (gre & 0xff) << 8 | (blu & 0xff));
-}
 
 void	skybox(int x, t_env *w, t_work *work, t_texture text)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/22 17:44:07 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 23:11:12 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,8 @@ void				draw_high_line_t(int x, t_env *w, t_work *work, t_texture *text);
 void				draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture *text);
 void				draw_low_line_t(int x, t_env *w, t_work *work, t_texture *text);
 void				draw_wall_line_t(int x, t_env *w, t_work *work, t_texture *text);
+void				draw_textured_line(t_draw *d, t_env *w, t_work *work, t_texture *text);
+void				check_start_end_tex(t_draw *d, t_work *work, t_texture *text);
 void				ft_free_weap(t_map *m);
 void				ft_free_sprite(t_map *m);
 void				ft_free_sprt(t_map *m);
