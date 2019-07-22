@@ -1,26 +1,36 @@
-/*BIG42HEADER*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_txtr_2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/22 17:32:27 by nvienot           #+#    #+#             */
+/*   Updated: 2019/07/22 20:18:18 by nvienot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
 
 int		dark_side(int color, t_work *work)
 {
-	int R;
-	int G;
-	int B;
+	int red;
+	int gre;
+	int blu;
 
-	R = vmid((((color >> 16) & 0xff) - (work->z / 2)), 0, 255);
-	G = vmid((((color >> 8) & 0xff) - (work->z / 2)), 0, 255);
-	B = vmid((((color) & 0xff) - (work->z / 2)), 0, 255);
-	return(0 << 24 | (R & 0xff) << 16 | (G & 0xff) << 8 | (B & 0xff));
+	red = vmid((((color >> 16) & 0xff) - (work->z / 2)), 0, 255);
+	gre = vmid((((color >> 8) & 0xff) - (work->z / 2)), 0, 255);
+	blu = vmid((((color) & 0xff) - (work->z / 2)), 0, 255);
+	return (0 << 24 | (red & 0xff) << 16 | (gre & 0xff) << 8 | (blu & 0xff));
 }
 
 void	skybox(int x, t_env *w, t_work *work, t_texture text)
 {
 	int			y1;
 	int			y2;
+	int			tmpix;
 	double		y_tex;
 	double		x_tex;
-	int 		tmpix;
 
 	y1 = vmid(work->starty, 0, HEIGHT - 1);
 	y2 = vmid(work->stopy, 0, HEIGHT - 1);
@@ -28,9 +38,9 @@ void	skybox(int x, t_env *w, t_work *work, t_texture text)
 	{
 		while (y1 <= y2)
 		{
-			x_tex = (x * (text.w / 4)) / WIDTH + ((w->m->player.angle 
+			x_tex = (x * (text.w / 4)) / WIDTH + ((w->m->player.angle
 				* (180 / PI)) * text.w) / 360;
-			y_tex = (((y1 + w->m->yaw / 0.004 + 500) * text.h) 
+			y_tex = (((y1 + w->m->yaw / 0.004 + 500) * text.h)
 				/ HEIGHT / ((1576.f / (double)HEIGHT)));
 			tmpix = (int)((int)y_tex % text.h) * text.w + ((int)x_tex % text.w);
 			if (tmpix >= 0 && tmpix < text.h * text.w)
@@ -42,47 +52,45 @@ void	skybox(int x, t_env *w, t_work *work, t_texture text)
 	}
 }
 
+void	calc_map_pos_ceil(t_env *w, t_work *work, t_ceiling *c, int y1)
+{
+	c->side = y1 < work->cya ? work->yceil : work->yfloor;
+	c->map_y = c->side * HEIGHT * (w->m->player.field_of_vision_v
+		/ (double)HEIGHT) / ((HEIGHT / 2 - y1) - w->m->player.yaw
+			* HEIGHT * (w->m->player.field_of_vision_v / (double)HEIGHT));
+	c->map_x = c->map_y * (WIDTH / 2 - c->x) / (WIDTH
+		* (w->m->player.field_of_vision_h / (double)WIDTH));
+	c->rot_x = c->map_y * work->pcos + c->map_x * work->psin;
+	c->rot_y = c->map_y * work->psin - c->map_x * work->pcos;
+	c->map_x = c->rot_x + w->m->player.coor.x;
+	c->map_y = c->rot_y + w->m->player.coor.y;
+	test_sprite(w->m, c->map_x, c->map_y);
+}
+
 void	draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture *text)
 {
+	t_ceiling	c;
 	int			y1;
 	int			y2;
-	double		hei;
-	double		mapx;
-	double		mapz;
-	double		rtx;
-	double		rtz;
-	unsigned	txtx;
-	unsigned	txtz;
-	double 		vfov;
-	double 		hfov;
-	int 		tmpix;
 
 	y1 = vmid(work->starty, 0, HEIGHT - 1);
 	y2 = vmid(work->stopy, 0, HEIGHT - 1);
-	vfov = w->m->player.field_of_vision_v / (double)HEIGHT;
-	hfov = w->m->player.field_of_vision_h / (double)WIDTH;
+	c.x = x;
 	if (y2 >= y1)
 	{
 		while (y1 <= y2)
 		{
-			if (y1 >= work->cya && y1 <= work->cyb && y2 != y1) 
+			if (y1 >= work->cya && y1 <= work->cyb && y2 != y1)
 			{
 				y1 = work->cyb;
 				continue;
 			}
-			hei = y1 < work->cya ? work->yceil : work->yfloor;
-			mapz = hei * HEIGHT * vfov / ((HEIGHT / 2 - y1) - w->m->player.yaw * HEIGHT * vfov);
-			mapx = mapz * (WIDTH / 2 - x) / (WIDTH * hfov);
-			rtx = mapz * work->pcos + mapx * work->psin;
-            rtz = mapz * work->psin - mapx * work->pcos;
-            mapx = rtx + w->m->player.coor.x;
-			mapz = rtz + w->m->player.coor.y;
-			test_sprite(w->m, mapx, mapz);
-			txtx = (mapx * text->w / 6);
-			txtz = (mapz * text->w / 6);
-			tmpix = (txtz % text->h) * text->w + (txtx % text->w);
-			if (tmpix >= 0 && text->pix[tmpix] != TRANSPARENT)
-				w->pix[y1 * WIDTH + x] = text->pix[tmpix];
+			calc_map_pos_ceil(w, work, &c, y1);
+			c.x_tex = (c.map_x * text->w / 6);
+			c.y_tex = (c.map_y * text->w / 6);
+			c.tmpix = (c.y_tex % text->h) * text->w + (c.x_tex % text->w);
+			if (text->pix[c.tmpix] != TRANSPARENT)
+				w->pix[y1 * WIDTH + x] = text->pix[c.tmpix];
 			y1++;
 		}
 	}

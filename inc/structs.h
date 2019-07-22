@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:06:30 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/22 14:17:46 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/22 20:14:11 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 
 typedef struct s_win	t_win;
 typedef struct s_render	t_render;
+
+typedef struct		s_ceiling
+{
+	double		side;
+	double		rot_x;
+	double		rot_y;
+	double		map_x;
+	double		map_y;
+	int			x;
+	unsigned	x_tex;
+	unsigned	y_tex;
+	unsigned	tmpix;
+}				t_ceiling;
 
 typedef struct		s_scalling
 {
@@ -29,7 +42,7 @@ typedef struct		s_scalling
 	int				text_w;
 	int				text_h;
 	unsigned int	tmpix;
-}					t_scalling;
+}					t_scalling;		
 
 typedef struct		s_draw
 {

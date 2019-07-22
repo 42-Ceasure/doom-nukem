@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_editor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:36:59 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/22 17:37:47 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 20:25:39 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void		free_triangles(t_win *win)
 
 void		free_dot_tab(int *dot_tab)
 {
-	if (dot_tab)
+	if (dot_tab != NULL)
 	{
-		free(dot_tab);
+		// free(dot_tab);
 		dot_tab = NULL;
 	}
 }

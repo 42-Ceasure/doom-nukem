@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DRAW_TXTR_SAVE.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Nico <Nico@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/21 00:53:56 by Nico              #+#    #+#             */
-/*   Updated: 2019/07/21 04:38:55 by Nico             ###   ########.fr       */
+/*   Created: 2019/07/21 00:53:56 by nvienot           #+#    #+#             */
+/*   Updated: 2019/07/22 19:25:16 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture text)
 			mapx = mapz * (WIDTH / 2 - x) / (WIDTH * hfov);
 			rtx = mapz * work->pcos + mapx * work->psin;
             rtz = mapz * work->psin - mapx * work->pcos;
-            mapx = rtx + w->m->player.coor.x;
+            mapx = (rtx) + w->m->player.coor.x;
 			mapz = rtz + w->m->player.coor.y;
 			test_sprite(w->m, mapx, mapz);
 			txtx = (mapx * text.w / 6);
