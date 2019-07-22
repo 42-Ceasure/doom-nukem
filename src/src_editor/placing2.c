@@ -98,7 +98,7 @@ void		asset_overing(t_env *w, t_win *win)
 {
 	t_lstasset	*tmp;
 	t_img		img;
-	
+
 	tmp = win->lstasset;
 	while (tmp)
 	{

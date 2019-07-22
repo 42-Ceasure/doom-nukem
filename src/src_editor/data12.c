@@ -55,6 +55,20 @@ void		sort_points(t_win *win)
 	}
 }
 
+t_lstlst	*dts_helper(t_win *win, int sector)
+{
+	t_lstlst	*tmp2;
+
+	tmp2 = win->lstlst;
+	while (tmp2)
+	{
+		if (tmp2->sector == sector)
+			break ;
+		tmp2 = tmp2->next;
+	}
+	return (tmp2);
+}
+
 int			*dot_tab_sector(t_win *win, int sector)
 {
 	t_lstlst	*tmp2;
@@ -66,22 +80,13 @@ int			*dot_tab_sector(t_win *win, int sector)
 	dot_tab = NULL;
 	i = 0;
 	index = 0;
-	tmp2 = win->lstlst;
-	while (tmp2)
-	{
-		if (tmp2->sector == sector)
-		{
-			tmp = tmp2->head;
-			i = len_list(tmp);
-			break ;
-		}
-		tmp2 = tmp2->next;
-	}
+	tmp2 = dts_helper(win, sector);
+	tmp = tmp2->head;
+	i = len_list(tmp);
 	if (tmp2)
 	{
 		if (!(dot_tab = (int *)malloc(sizeof(int) * i)))
 			clear_n_exit(win, 1);
-		tmp = tmp2->head;
 		while (tmp)
 		{
 			dot_tab[index] = tmp->nb;

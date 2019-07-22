@@ -19,14 +19,32 @@ void		fill_buffer(t_win *win, t_env *w)
 	write_in_file(win, w);
 }
 
-int			triangulate_player_start(t_win *win, int x, int y)
+int			tpsh(t_lstlst *tmp2, t_dot m)
 {
-	t_lstlst	*tmp2;
-	t_lst		*tmp;
-	int			ret;
 	t_dot		p0;
 	t_dot		p1;
 	t_dot		p2;
+	int			ret;
+
+	ret = -2;
+	p0 = get_point_in_list(tmp2->head, 0);
+	p1 = get_point_in_list(tmp2->head, 1);
+	p2 = get_point_in_list(tmp2->head, 2);
+	ret = point_in_triangle(p0, p1, p2, m);
+	if (ret == 1)
+	{
+		ret = 0;
+		return (ret);
+	}
+	else
+		ret = -2;
+	return (ret);
+}
+
+int			triangulate_player_start(t_win *win, int x, int y)
+{
+	t_lstlst	*tmp2;
+	int			ret;
 	t_dot		m;
 
 	m.x = x;
@@ -38,18 +56,9 @@ int			triangulate_player_start(t_win *win, int x, int y)
 		return (0);
 	while (tmp2)
 	{
-		tmp = tmp2->head;
-		p0 = get_point_in_list(tmp, 0);
-		p1 = get_point_in_list(tmp, 1);
-		p2 = get_point_in_list(tmp, 2);
-		ret = point_in_triangle(p0, p1, p2, m);
-		if (ret == 1)
-		{
-			ret = 0;
+		ret = tpsh(tmp2, m);
+		if (ret == 0)
 			return (ret);
-		}
-		else
-			ret = -2;
 		tmp2 = tmp2->next;
 	}
 	return (ret);

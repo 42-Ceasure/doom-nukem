@@ -12,7 +12,7 @@
 
 #include "doom.h"
 
-t_lstlst	*lstlstnew(t_win * win)
+t_lstlst	*lstlstnew(t_win *win)
 {
 	t_lstlst	*tmp;
 
@@ -31,7 +31,7 @@ t_lstlst	*lstlstnew(t_win * win)
 	return (tmp);
 }
 
-void	sector_confirm(t_win *win)
+void		sector_confirm(t_win *win)
 {
 	win->lst = NULL;
 	win->sector += 1;
@@ -39,7 +39,7 @@ void	sector_confirm(t_win *win)
 	win->just_close = 1;
 }
 
-int		check_list(t_win *win, t_lst *lst, int x, int y)
+int			check_list(t_win *win, t_lst *lst, int x, int y)
 {
 	t_lst	*tmp;
 	t_lst	*new;
@@ -60,7 +60,7 @@ int		check_list(t_win *win, t_lst *lst, int x, int y)
 	return (closed);
 }
 
-t_lst	*lstnew(int x, int y, int sector)
+t_lst		*lstnew(int x, int y, int sector)
 {
 	t_lst	*tmp;
 

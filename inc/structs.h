@@ -203,6 +203,7 @@ struct					s_win
 	double				gravity_value;
 	int					god_value;
 	int					hud_box;
+	int					neighbour_index;
 };
 
 typedef struct		s_lst

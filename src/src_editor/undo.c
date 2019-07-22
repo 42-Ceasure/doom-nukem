@@ -12,32 +12,7 @@
 
 #include "doom.h"
 
-void	delete_sector2(t_win *win, t_lstlst *current, t_lstlst *previous)
-{
-	t_lst		*tmp;
-
-	tmp = NULL;
-	if (win->lstlst)
-	{
-		free(current);
-		current = NULL;
-		win->link -= 1;
-		if (previous)
-			previous->next = NULL;
-		if (previous == NULL)
-		{
-			win->lstlst = NULL;
-			win->lst = NULL;
-			win->tmp = NULL;
-			win->sector = 0;
-			win->link = 0;
-		}
-		else
-			win->drawing = 0;
-	}
-}
-
-void	undo_first_link(t_win *win, t_lst *tmp,
+void		undo_first_link(t_win *win, t_lst *tmp,
 			t_lstlst *tmp2, t_lstlst *previous2)
 {
 	if (tmp)
@@ -55,7 +30,7 @@ void	undo_first_link(t_win *win, t_lst *tmp,
 	}
 }
 
-void	undo_classic(t_win *win, t_lst *tmp, t_lst *previous)
+void		undo_classic(t_win *win, t_lst *tmp, t_lst *previous)
 {
 	if (tmp->next->next == NULL)
 	{
@@ -75,7 +50,31 @@ void	undo_classic(t_win *win, t_lst *tmp, t_lst *previous)
 	tmp = NULL;
 }
 
-void	undo(t_win *win)
+t_lstlst	*undo_helper2(t_win *win, t_lstlst *tmp2)
+{
+	t_lstlst	*previous2;
+
+	previous2 = win->lstlst;
+	while (previous2)
+	{
+		if (previous2->sector == tmp2->sector - 1)
+			break ;
+		previous2 = previous2->next;
+	}
+	return (previous2);
+}
+
+t_lstlst	*undo_helper(t_win *win)
+{
+	t_lstlst	*tmp2;
+
+	tmp2 = win->lstlst;
+	while (tmp2->next)
+		tmp2 = tmp2->next;
+	return (tmp2);
+}
+
+void		undo(t_win *win)
 {
 	t_lst		*tmp;
 	t_lst		*previous;
@@ -85,18 +84,10 @@ void	undo(t_win *win)
 	tmp = NULL;
 	if (win->lstlst)
 	{
-		tmp2 = win->lstlst;
-		previous2 = win->lstlst;
-		while (tmp2->next)
-			tmp2 = tmp2->next;
+		tmp2 = undo_helper(win);
+		previous2 = undo_helper2(win, tmp2);
 		tmp = tmp2->head;
 		previous = tmp2->head;
-		while (previous2)
-		{
-			if (previous2->sector == tmp2->sector - 1)
-				break ;
-			previous2 = previous2->next;
-		}
 	}
 	if (tmp)
 	{

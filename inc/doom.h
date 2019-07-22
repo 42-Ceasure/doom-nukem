@@ -225,9 +225,6 @@ void		delete_asset(t_win *win);
 void		overing(t_win *win);
 void		save_map(t_win *win);
 void		map_save(t_win *win, t_env *w);
-
-
-
 void		check4(t_win *win);
 int			triangles_neighbours(t_win *win, t_lstlst *tmp2, int i);
 void		sort_triangles_points(t_win *win);
@@ -255,7 +252,6 @@ void		write_dots(t_win *win, int fp);
 void		first_line2(t_win *win, int fp);
 void		write_health(t_win *win, int fp, t_lstasset *tmp, int i);
 void		write_in_file(t_win *win, t_env *w);
-
 int			y_min_point(t_win *win);
 int			next_y(t_win *win, int y);
 int			*create_y_dot_tab(t_win *win, int y, int i);
@@ -271,12 +267,14 @@ int			x_min_on_line(t_win *win, int y);
 int			next_x_on_line(t_win *win, int y, int x);
 void		sort_points(t_win *win);
 int			correct_three_points(t_win *win);
-
 int			sector_inside_sector(t_win *win);
 void		everything_is_a_triangle(t_win *win);
 int			point_on_top(t_win *win);
 int			sectors_on_top(t_win *win);
 void		free_list(t_lst *lst);
+void		free_listlist(t_win *win, t_lstlst *tmp2);
+void		free_dot_tab(int *dot_tab);
+<<<<<<< Updated upstream
 void		free_listlist(t_win *win, t_lstlst *tmp2);
 void		free_dot_tab(int *dot_tab);
 
@@ -286,6 +284,8 @@ void		free_dot_tab(int *dot_tab);
 
 
 
+=======
+>>>>>>> Stashed changes
 void		img_edit_update(t_env *w);
 void		clean_edit_render(t_env *w, Uint32 color);
 void		sectors_in_tab(t_win *win);
@@ -295,7 +295,6 @@ void		recursive_check(t_win *win);
 void		sort_int_tab(int *tab, int size);
 void		free_triangles(t_win *win);
 int			int_len(int nb);
-//int			which_sector_neighbour(t_win *win, int x1, int y1, int x2, int y2, int sector);
 t_dot		get_point_in_list(t_lst *polygone, int index);
 void		texture_mode(t_env *w, t_win *win);
 void		change_texture_index(t_env *w, t_win *win);
@@ -303,11 +302,10 @@ int			intersectbox2(t_dot p1, t_dot p2, t_dot p3, t_dot p4);
 void		set_params(t_env *w, t_win *win);
 void		increase_value(t_win *win);
 void		decrease_value(t_win *win);
-
-void		test(t_win *win);
-//void		check2(t_win *win);
 int			init2(t_env *w, t_win *win);
 double		pointside2(t_dot m, t_dot p0, double x1, double y1);
+void		delete_sector2(t_win *win, t_lstlst *current, t_lstlst *previous);
+
 int			get_nb_maps_in_core(t_env *w);
 int			get_names_maps_in_core(t_env *w, char **names);
 void		init_sprite_tab(t_map *m);

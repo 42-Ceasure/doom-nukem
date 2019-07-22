@@ -15,7 +15,7 @@
 void		inventory_display(t_env *w, t_win *win)
 {
 	t_img img;
-	
+
 	img = fill_t_img(250, 640, 250, 66);
 	img_to_screen(w, win->inventory, img);
 	img = fill_t_img(253, 655, 40, 40);
@@ -52,7 +52,6 @@ void		thumbnail(t_env *w, t_win *win)
 	t_texture	tmp;
 	t_img		img;
 
-	tmp = win->slot0;
 	tmp2 = win->lstlst;
 	while (tmp2)
 	{

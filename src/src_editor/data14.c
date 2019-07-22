@@ -117,22 +117,19 @@ void		write_dots(t_win *win, int fp)
 	}
 }
 
-/*int			*tab_sector3_helper(t_win *win, int sector, int i)
+t_lstlst	*tab_sector3_helper(t_win *win, int sector)
 {
-	if (tmp2)
+	t_lstlst	*tmp2;
+
+	tmp2 = win->triangles;
+	while (tmp2)
 	{
-		if (!(dot_tab = (int *)malloc(sizeof(int) * i)))
-			clear_n_exit(win, 1);
-		tmp = tmp2->head;
-		while (tmp)
-		{
-			dot_tab[index] = tmp->nb;
-			index++;
-			tmp = tmp->next;
-		}
+		if (tmp2->sector == sector)
+			break ;
+		tmp2 = tmp2->next;
 	}
-	return (dot_tab);
-}*/
+	return (tmp2);
+}
 
 int			*tab_sector3(t_win *win, int sector)
 {
@@ -145,22 +142,13 @@ int			*tab_sector3(t_win *win, int sector)
 	dot_tab = NULL;
 	i = 0;
 	index = 0;
-	tmp2 = win->triangles;
-	while (tmp2)
-	{
-		if (tmp2->sector == sector)
-		{
-			tmp = tmp2->head;
-			i = len_list(tmp);
-			break ;
-		}
-		tmp2 = tmp2->next;
-	}
+	tmp2 = tab_sector3_helper(win, sector);
+	tmp = tmp2->head;
+	i = len_list(tmp);
 	if (tmp2)
 	{
 		if (!(dot_tab = (int *)malloc(sizeof(int) * i)))
 			clear_n_exit(win, 1);
-		tmp = tmp2->head;
 		while (tmp)
 		{
 			dot_tab[index] = tmp->nb;

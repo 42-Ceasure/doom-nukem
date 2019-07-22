@@ -83,12 +83,10 @@ void		mode(t_env *w, t_win *win)
 {
 	int		ret;
 	int		ret2;
-	int		ret3;
 	t_img	img;
 
 	ret = 0;
 	ret2 = 0;
-	ret3 = 0;
 	if (win->mode == 2)
 	{
 		placing(win);
@@ -102,8 +100,7 @@ void		mode(t_env *w, t_win *win)
 			if (win->asset == 0)
 				ret = check_first_player_start(win);
 			ret2 = check_max_number_ennemy(win);
-			ret3 = check_max_number_sprite(win);
-			if (ret == 0 && ret2 < 30 && ret3 < 60)
+			if (ret == 0 && ret2 < 30 && check_max_number_sprite(win) < 60)
 				place_asset(win);
 			else
 				win->place = 0;

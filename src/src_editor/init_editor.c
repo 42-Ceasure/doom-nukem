@@ -78,6 +78,7 @@ static void	init_struct_helper(t_win *win)
 	win->hp_value = 100;
 	win->gravity_value = 5;
 	win->god_value = 0;
+	win->neighbour_index = 0;
 }
 
 static int	init_assets(t_env *w, t_win *win)

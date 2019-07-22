@@ -85,3 +85,28 @@ void	delete_sector(t_win *win)
 		win->overed_sector = -1;
 	}
 }
+
+void		delete_sector2(t_win *win, t_lstlst *current, t_lstlst *previous)
+{
+	t_lst		*tmp;
+
+	tmp = NULL;
+	if (win->lstlst)
+	{
+		free(current);
+		current = NULL;
+		win->link -= 1;
+		if (previous)
+			previous->next = NULL;
+		if (previous == NULL)
+		{
+			win->lstlst = NULL;
+			win->lst = NULL;
+			win->tmp = NULL;
+			win->sector = 0;
+			win->link = 0;
+		}
+		else
+			win->drawing = 0;
+	}
+}

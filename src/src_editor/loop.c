@@ -27,17 +27,14 @@ int			print_game(t_env *w, t_win *win)
 	return (0);
 }
 
-void		draw_points(t_env *w, t_win *win, int i, int j)
+void		draw_points(t_env *w, int i, int j)
 {
-	(void)win;
 	set_txtr_pix(w, i, j, 250240230);
 	set_txtr_pix(w, i + 1, j, 250240230);
 	set_txtr_pix(w, i - 1, j, 250240230);
-
 	set_txtr_pix(w, i, j - 1, 250240230);
 	set_txtr_pix(w, i + 1, j - 1, 250240230);
 	set_txtr_pix(w, i - 1, j - 1, 250240230);
-
 	set_txtr_pix(w, i, j + 1, 250240230);
 	set_txtr_pix(w, i + 1, j + 1, 250240230);
 	set_txtr_pix(w, i - 1, j + 1, 250240230);
@@ -62,7 +59,7 @@ void		draw_segments(t_env *w, t_win *win)
 				win->color = 0x00FF00;
 			else
 				win->color = 0x20B2AA;
-			}
+		}
 		while (tmp->next)
 		{
 			line(w, win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
@@ -71,7 +68,7 @@ void		draw_segments(t_env *w, t_win *win)
 		tmp = tmp2->head;
 		while (tmp)
 		{
-			draw_points(w, win, tmp->x, tmp->y);
+			draw_points(w, tmp->x, tmp->y);
 			tmp = tmp->next;
 		}
 		if (win->drawing == 1)
@@ -100,7 +97,7 @@ void		draw_triangulate(t_env *w, t_win *win)
 				tmp = tmp->next;
 			}
 			else
-				break;
+				break ;
 		}
 		if (tmp && tmp->next)
 			line(w, win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
@@ -115,13 +112,11 @@ void		draw_asset_points(t_env *w, int i, int j, int color)
 	set_txtr_pix(w, i - 1, j, color);
 	set_txtr_pix(w, i + 2, j, color);
 	set_txtr_pix(w, i - 2, j, color);
-
 	set_txtr_pix(w, i, j - 1, color);
 	set_txtr_pix(w, i + 1, j - 1, color);
 	set_txtr_pix(w, i - 1, j - 1, color);
 	set_txtr_pix(w, i - 2, j - 2, color);
 	set_txtr_pix(w, i + 2, j - 2, color);
-
 	set_txtr_pix(w, i, j + 1, color);
 	set_txtr_pix(w, i + 1, j + 1, color);
 	set_txtr_pix(w, i - 1, j + 1, color);
@@ -183,28 +178,23 @@ void		on_click(t_win *win)
 	tmp2 = NULL;
 	tmp3 = NULL;
 	closed = 0;
-
 	if (win->left_click)
 	{
 		win->changemode = 0;
 		if (win->triangles)
 			free_triangles(win);
 	}
-
 	if (win->mode == 3)
 		overing(win);
-
 	if (win->left_click && win->mode == 3)
 	{
 		delete_sector(win);
 		delete_asset(win);
 	}
-
 	if (win->left_click && win->mode == 0)
 	{
 		if (win->lstlst == NULL)
 			win->lstlst = lstlstnew(win);
-
 		if (win->sector == win->link)
 		{
 			tmp2 = win->lstlst;
@@ -235,7 +225,6 @@ void		on_click(t_win *win)
 	{
 		tmp2 = win->lstlst;
 		tmp3 = win->lstasset;
-
 		while (tmp2)
 		{
 			tmp = tmp2->head;
@@ -258,7 +247,6 @@ void		on_click(t_win *win)
 			}
 			tmp2 = tmp2->next;
 		}
-
 		while (tmp3 && win->moving == 0)
 		{
 			if (tmp3->x == win->x0 && tmp3->y == win->y0)
@@ -282,24 +270,19 @@ void		on_click(t_win *win)
 	{
 		win->place = 1;
 	}
-
 	if (win->left_click == 1 && win->mode == 4)
 	{
 		win->put_texture = 1;
 	}
-
 	if (win->moving == 0)
 		win->left_click = 0;
 }
 
 void		loop_play(t_env *w, t_win *win)
 {
-	//win->surface = SDL_CreateRGBSurface(0, WIN_X, WIN_Y, 32, 0, 0, 0, 0);
 	w->stopread = 0;
 	while (42 && w->stopread == 0)
 	{
-		// if (w->stopread != 0)
-		// 	break;
 		SDL_WaitEvent(&win->event);
 		sdl_event(w, win);
 		on_click(win);
@@ -307,7 +290,6 @@ void		loop_play(t_env *w, t_win *win)
 		draw_grid(w, win);
 		if (win->triangles)
 			draw_triangulate(w, win);
-		//free_triangles(win);
 		if (win->lstlst)
 			draw_segments(w, win);
 		if (win->lstasset)

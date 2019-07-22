@@ -103,7 +103,6 @@ SRCFIL				=	src_game/main.c \
 						src_editor/delete_mode.c \
 						src_editor/neighbour.c \
 						src_editor/triangulate.c \
-						src_editor/test.c \
 						src_editor/placing.c \
 						src_editor/placing2.c \
 						src_editor/delete_asset.c \
