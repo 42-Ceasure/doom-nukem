@@ -13,7 +13,7 @@
 #ifndef DEFINES_H
 # define DEFINES_H
 
-# define NAME 				"Doom-Numkem3D"
+# define NAME 				"Doom-Nukem-3D"
 # define BASEWIDTH 			1024
 # define BASEHEIGHT 		576
 # define WIN_X 				720
@@ -40,7 +40,7 @@
 # define ERR_9 				"TTF init error"
 # define ERR_10 			"Mix_OpenAudio error"
 # define ERR_11 			"Window creation error"
-# define ERR_12				 "Renderer creation error"
+# define ERR_12				"Renderer creation error"
 # define ERR_13 			"TTF_OpenFont police load error"
 # define ERR_14 			"SDL_Load error"
 # define ERR_15 			"Mix_Load error"
@@ -79,6 +79,6 @@
 # define GAME				0
 # define EDIT				1
 # define TRANSPARENT		0x0000FF00
-# define PAKOMSA			"Your core file seem invalid. You may need to reinstall the game"
+# define PAKOMSA			"Your core file seems invalid. You may need to reinstall the game"
 
 #endif
