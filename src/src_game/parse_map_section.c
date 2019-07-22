@@ -33,7 +33,7 @@ int			parse_sector_network(t_map *m, char *net)
 
 	i = 0;
 	tmp = ft_strsplit(net, ',');
-	while (i < m->sector[m->s].wall_count)
+	while (i < m->sector[m->s].wall_count && tmp[i] != '\0')
 	{
 		if (ft_strcmp(tmp[i], "x") != 0)
 			m->sector[m->s].network[i] = ft_atoi(tmp[i]);
@@ -41,6 +41,8 @@ int			parse_sector_network(t_map *m, char *net)
 			m->sector[m->s].network[i] = -1;
 		i++;
 	}
+	if (i != m->sector[m->s].wall_count)
+		return (-1);
 	ft_memreg(tmp);
 	return (0);
 }
