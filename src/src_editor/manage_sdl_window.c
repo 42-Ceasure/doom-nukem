@@ -13,6 +13,7 @@ void	fit_to_editor(t_env *w)
 		SDL_SetWindowFullscreen(w->win, 0);
 	SDL_SetWindowResizable(w->win, SDL_FALSE);
 	SDL_SetWindowSize(w->win, WIDTH, HEIGHT);
+	SDL_SetWindowPosition(w->win, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	SDL_DestroyRenderer(w->rdr);
 	SDL_DestroyTexture(w->txtr);
 	free(w->pix);
@@ -32,8 +33,9 @@ void	fit_to_game(t_env *w)
 		SDL_SetWindowFullscreen(w->win, SDL_WINDOW_FULLSCREEN);
 	else
 		SDL_SetWindowFullscreen(w->win, 0);
-	SDL_SetWindowSize(w->win, WIDTH, HEIGHT);
 	SDL_SetWindowResizable(w->win, SDL_TRUE);
+	SDL_SetWindowSize(w->win, WIDTH, HEIGHT);
+	SDL_SetWindowPosition(w->win, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	SDL_DestroyRenderer(w->rdr);
 	SDL_DestroyTexture(w->txtr);
 	free(w->pix);
