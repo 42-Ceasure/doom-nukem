@@ -93,8 +93,7 @@ void	calcul_render_no_mthrd(t_env *w, t_work *work)
 	x = work->startx;
 	while (x <= work->endx)
 	{
-		work->z = ((x - work->x1) * (work->t2.z - work->t1.z) / (work->x2 - work->x1) + work->t1.z) * 2;
-		work->z = vmin(work->z, 255);
+		calc_z(work, x);
 		draw_ceiling_n_floor(work, w, x);
 		if (work->network >= 0)
 		{

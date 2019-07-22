@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/21 19:01:39 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 12:32:42 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,5 +317,6 @@ void		draw_networks(t_work *work, t_env *w, int x);
 void		draw_walls(t_work *work, t_env *w, int x);
 int			dark_side(int color, t_work *work);
 void		ft_trucage(char *s);
+void		calc_z(t_work *work, int x);
 
 #endif

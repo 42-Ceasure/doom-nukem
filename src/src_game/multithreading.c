@@ -1,29 +1,47 @@
-/*BIG42HEADER*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   multithreading.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/22 12:07:14 by nvienot           #+#    #+#             */
+/*   Updated: 2019/07/22 12:30:49 by nvienot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
 
+void	calc_z(t_work *work, int x)
+{
+	work->z = ((x - work->x1) * (work->t2.z - work->t1.z)
+		/ (work->x2 - work->x1) + work->t1.z) * 2;
+	work->z = vmin(work->z, 255);
+}
+
 void	*thread(t_worker_arg *arg)
 {
-	t_env		*w = arg->w;
-	t_work 		*work = &arg->work;
+	t_work		*work;
 	int			x;
 	int			end_x;
 
+	work = &arg->work;
 	x = work->startx + arg->start * ((work->endx - work->startx) / NB_THREAD);
-	end_x = work->endx - (NB_THREAD - (arg->start + 1)) * ((work->endx - work->startx) / NB_THREAD);
+	end_x = work->endx - (NB_THREAD - (arg->start + 1))
+		* ((work->endx - work->startx) / NB_THREAD);
 	while (x <= end_x)
 	{
-		work->z = ((x - work->x1) * (work->t2.z - work->t1.z) / (work->x2 - work->x1) + work->t1.z) * 2;
-		work->z = vmin(work->z, 255);
-		draw_ceiling_n_floor(work, w, x);
+		calc_z(work, x);
+		draw_ceiling_n_floor(work, arg->w, x);
 		if (work->network >= 0)
 		{
-			draw_networks(work, w, x);
-			arg->ytop[x] = vmid(vmax(work->cya, work->cnya), work->ytop[x], HEIGHT - 1);
+			draw_networks(work, arg->w, x);
+			arg->ytop[x] = vmid(vmax(work->cya, work->cnya),
+				work->ytop[x], arg->w->res.height - 1);
 			arg->ybot[x] = vmid(vmin(work->cyb, work->cnyb), 0, work->ybot[x]);
 		}
 		else
-			draw_walls(work, w, x);
+			draw_walls(work, arg->w, x);
 		x++;
 	}
 	return (NULL);
