@@ -6,7 +6,7 @@
 #    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/22 13:32:09 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/22 16:37:39 by ochaar           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,6 +90,8 @@ SRCFIL				=	src_game/main.c \
 						src_game/weapon.c \
 						src_game/essential.c \
 						src_game/maths_functions.c \
+						src_game/go_player.c \
+						src_game/look_around.c \
 						src_editor/manage_sdl_window.c \
 						src_editor/launch_editor.c \
 						src_editor/init_editor.c \

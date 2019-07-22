@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 14:09:00 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/21 17:06:13 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 16:41:47 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ int			sector_intersect_with_itself(t_dot p1, t_dot p2, t_dot p3, t_dot p4)
 	i2 = pointside2(p4, p1, p2.x, p2.y);
 	i3 = pointside2(p1, p3, p4.x, p4.y);
 	i4 = pointside2(p2, p3, p4.x, p4.y);
-	if (i1 >= 0 && i2 <= 0 && i3 >= 0 && i4 <= 0)
+	if (i1 == 0 && i2 == 0 && i3 == 0 && i4 == 0)
+		return (0);
+	else if (i1 >= 0 && i2 <= 0 && i3 >= 0 && i4 <= 0)
 		return (1);
 	else if (i1 <= 0 && i2 >= 0 && i3 <= 0 && i4 >= 0)
 		return (1);

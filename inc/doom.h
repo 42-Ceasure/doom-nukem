@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/22 16:26:38 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/22 16:54:15 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,25 +134,13 @@ void				look_left(t_map *m);
 void				look_right(t_map *m);
 void				jump(t_env *w, t_map *m);
 void				sprint(t_map *m);
-void				hud(t_map *m);
-void				mainmap(t_map *m);
-void				minimap(t_map *m);
 void				ft_hud(t_env *w, t_map *m);
 void				move_floor_ceiling(t_env *w, t_map *m);
 void				game_img(t_env *w, t_map *m);
 void				ramassage(t_map *m);
-void				pause_music(void);
-void				volume_more(t_env *w);
-void				volume_less(t_env *w);
-void				crouch(t_map *m);
-void				crawl_lock(t_map *m);
-void				crouch_lock(t_map *m);
 void				switch_weapon(t_map *m, int i);
 void				look_around(t_env *w, t_map *m);
-void				set_shoot(t_map *m, int i);
 void				shoot(t_env *w, t_map *m);
-void				stop_aim(t_env *w, t_map *m);
-void				aim(t_env *w, t_map *m);
 void				reload_weapon(t_env *w, t_map *m);
 void				move_weap(t_env *w, t_map *m);
 void				launch(t_env *w, t_map *m);
@@ -171,7 +159,6 @@ void				test_sprite(t_map *m, double xx, double yy);
 void				clear_sprite(t_map *m);
 int					rotate(t_cal_sprt data, int o);
 void				draw_ennemy(t_env *w, t_map *m, int x, double ratio);
-void				jet_pack(t_map *m);
 int					get_tmpix_scaled(t_sprite sprite, t_img img);
 void				skybox(int x, t_env *w, t_work *work, t_texture text);
 double				pythagore(double a, double b);

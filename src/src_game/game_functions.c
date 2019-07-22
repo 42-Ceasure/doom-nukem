@@ -1,154 +1,16 @@
-
-/*BIG42HEADER*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_functions.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/22 16:46:06 by ochaar            #+#    #+#             */
+/*   Updated: 2019/07/22 16:51:43 by ochaar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
-
-void		go_forward(t_map *m)
-{
-	m->player.movespeed = 1;
-	m->player.move_speedless.x += m->player.anglecos / 3;
-	m->player.move_speedless.y += m->player.anglesin / 3;
-	if (m->player.height <= 9.3)
-	{
-		m->player.move_speedless.x /= 2;
-		m->player.move_speedless.y /= 2;
-	}
-	if (m->player.height <= 2)
-	{
-		m->player.move_speedless.x /= 2;
-		m->player.move_speedless.y /= 2;
-	}
-}
-
-void		go_back(t_map *m)
-{
-	m->player.movespeed = 0;
-	m->player.move_speedless.x -= m->player.anglecos / 5;
-	m->player.move_speedless.y -= m->player.anglesin / 5;
-	if (m->player.height <= 9.3)
-	{
-		m->player.move_speedless.x /= 2;
-		m->player.move_speedless.y /= 2;
-	}
-	if (m->player.height <= 2)
-	{
-		m->player.move_speedless.x /= 2;
-		m->player.move_speedless.y /= 2;
-	}
-}
-
-void		go_left(t_map *m)
-{
-	m->player.movespeed = 1;
-	m->player.move_speedless.x += m->player.anglesin / 3;
-	m->player.move_speedless.y -= m->player.anglecos / 3;
-	if (m->player.height <= 9.3)
-	{
-		m->player.move_speedless.x /= 2;
-		m->player.move_speedless.y /= 2;
-	}
-	if (m->player.height <= 2)
-	{
-		m->player.move_speedless.x /= 2;
-		m->player.move_speedless.y /= 2;
-	}
-}
-
-void		go_right(t_map *m)
-{
-	m->player.movespeed = 1;
-	m->player.move_speedless.x -= m->player.anglesin / 3;
-	m->player.move_speedless.y += m->player.anglecos / 3;
-	if (m->player.height <= 9.3)
-	{
-		m->player.move_speedless.x /= 2;
-		m->player.move_speedless.y /= 2;
-	}
-	if (m->player.height <= 2)
-	{
-		m->player.move_speedless.x /= 2;
-		m->player.move_speedless.y /= 2;
-	}
-}
-
-void		look_left(t_map *m)
-{
-	PL_A = PL_A - 0.05;
-	if (PL_A > 2 * M_PI)
-		PL_A = PL_A - 2 * M_PI;
-	if (PL_A < 0)
-		PL_A = PL_A + 2 * M_PI;
-	m->player.anglesin = sin(m->player.angle);
-	m->player.anglecos = cos(m->player.angle);
-}
-
-void		look_right(t_map *m)
-{
-	PL_A = PL_A + 0.05;
-	if (PL_A > 2 * M_PI)
-		PL_A = PL_A - 2 * M_PI;
-	if (PL_A < 0)
-		PL_A = PL_A + 2 * M_PI;
-	m->player.anglesin = sin(m->player.angle);
-	m->player.anglecos = cos(m->player.angle);
-}
-
-void		jump(t_env *w, t_map *m)
-{
-	if (m->player.ground == 1 && m->player.stance == 0)
-	{
-		Mix_PlayChannel(2, w->sound.jump, 0);
-		m->player.move_speed.z = m->player.move_speed.z + 0.8;
-		m->player.fall = 1;
-		m->player.jump = 1;
-	}
-}
-
-void		jet_pack(t_map *m)
-{
-	m->player.move_speed.z = m->player.move_speed.z + 0.2;
-}
-
-void		sprint(t_map *m)
-{
-	m->player.movespeed = 1.5;
-	m->player.move_speedless.x += m->player.anglecos / 1.5;
-	m->player.move_speedless.y += m->player.anglesin / 1.5;
-	if (m->player.height <= 9.3)
-	{
-		m->player.move_speedless.x /= 2;
-		m->player.move_speedless.y /= 2;
-	}
-	if (m->player.height <= 2)
-	{
-		m->player.move_speedless.x /= 2;
-		m->player.move_speedless.y /= 2;
-	}
-}
-
-void		hud(t_map *m)
-{
-	if (m->player.hud != 1)
-		m->player.hud = 1;
-	else
-		m->player.hud = 0;
-}
-
-void		mainmap(t_map *m)
-{
-	if (m->player.display != 1)
-		m->player.display = 1;
-	else
-		m->player.display = 0;
-}
-
-void		minimap(t_map *m)
-{
-	if (m->player.minimap != 1)
-		m->player.minimap = 1;
-	else
-		m->player.minimap = 0;
-}
 
 void		ramassage(t_map *m)
 {
@@ -166,75 +28,10 @@ void		ramassage(t_map *m)
 	}
 }
 
-void		pause_music(void)
-{
-	if (Mix_PausedMusic() == 1)
-		Mix_ResumeMusic();
-	else
-		Mix_PauseMusic();
-}
-
-void		volume_more(t_env *w)
-{
-	w->sound.volume += 5;
-	w->sound.volume = (int)vmid(0, w->sound.volume, 128);
-	Mix_VolumeMusic(w->sound.volume);
-}
-
-void		volume_less(t_env *w)
-{
-	w->sound.volume -= 5;
-	w->sound.volume = (int)vmid(0, w->sound.volume, 128);
-	Mix_VolumeMusic(w->sound.volume);
-}
-
-void		crouch(t_map *m)
-{
-	m->player.stance = 1;
-	m->player.fall = 1;
-}
-
-void		crawl_lock(t_map *m)
-{
-	if (m->player.stance != 2)
-		m->player.stance = 2;
-	else
-		m->player.stance = 0;
-	m->player.fall = 1;
-}
-
-void		crouch_lock(t_map *m)
-{
-	if (m->player.stance != 1)
-		m->player.stance = 1;
-	else
-		m->player.stance = 0;
-	m->player.fall = 1;
-}
-
 void		switch_weapon(t_map *m, int i)
 {
 	m->player.handed = i;
 	m->player.switching = 300;
-}
-
-void		look_around(t_env *w, t_map *m)
-{
-	PL_A = PL_A + (w->event.motion.xrel * 0.001) * ((double)m->player.mousesp / 100.f);
-	if (PL_A > 2 * M_PI)
-		PL_A = PL_A - 2 * M_PI;
-	if (PL_A < 0)
-		PL_A = PL_A + 2 * M_PI;
-	m->yaw = vmid(m->yaw + (w->event.motion.yrel * 0.002) * ((double)m->player.mousesp / 100.f), -2, 2);
-	m->player.yaw = m->yaw - m->player.move_speed.z * 0.02;
-}
-
-void		set_shoot(t_map *m, int i)
-{
-	if (i == 0)
-		m->player.shooting = 0;
-	else
-		m->player.shooting = 1;
 }
 
 void		shoot(t_env *w, t_map *m)
@@ -251,20 +48,6 @@ void		shoot(t_env *w, t_map *m)
 		else if (m->weap[PH].actu_ammo == 0)
 			Mix_PlayChannel(4, w->sound.clic, 0);
 	}
-}
-
-void		stop_aim(t_env *w, t_map *m)
-{
-	m->player.field_of_vision_h = w->mem_field_of_vision_h;
-	m->player.field_of_vision_v = w->mem_field_of_vision_v;
-	m->player.aiming = 0;
-}
-
-void		aim(t_env *w, t_map *m)
-{
-	m->player.field_of_vision_h = 2 * w->mem_field_of_vision_h;
-	m->player.field_of_vision_v = 2 * w->mem_field_of_vision_v;
-	m->player.aiming = 1;
 }
 
 void		reload_weapon(t_env *w, t_map *m)
