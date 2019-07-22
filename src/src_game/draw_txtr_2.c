@@ -81,7 +81,7 @@ void	draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture *text)
 			txtx = (mapx * text->w / 6);
 			txtz = (mapz * text->w / 6);
 			tmpix = (txtz % text->h) * text->w + (txtx % text->w);
-			if (tmpix >= 0 && text->pix[tmpix] != 0xFF00FF00)
+			if (tmpix >= 0 && text->pix[tmpix] != TRANSPARENT)
 				w->pix[y1 * WIDTH + x] = text->pix[tmpix];
 			y1++;
 		}

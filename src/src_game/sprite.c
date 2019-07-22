@@ -38,7 +38,7 @@ void		hit_box(t_env *w, t_map *m, int x, t_cal_sprt d)
 	len = m->sprite[m->ennemy[x].index].w * d.zoom * d.ratio;
 	if ((d.x1 <= WIDTH / 2 && d.x1 >= WIDTH / 2 - len)
 		&& (d.y1a <= HEIGHT / 2 && d.y1a >= HEIGHT / 2 - len)
-			&& m->sprite[m->ennemy[x].index].pix[tmpix] != 0xFF00FF00
+			&& m->sprite[m->ennemy[x].index].pix[tmpix] != TRANSPARENT
 				&& m->ennemy[x].is_dead != 1)
 	{
 		if (m->weap[PH].ammo_type == 1)

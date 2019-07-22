@@ -78,6 +78,7 @@
 # define WIN_Y				720
 # define GAME				0
 # define EDIT				1
+# define TRANSPARENT		0x0000FF00
 # define PAKOMSA			"Your core file seem invalid. You may need to reinstall the game"
 
 #endif

@@ -85,7 +85,7 @@ int		img_to_screen(t_env *w, t_texture texture, t_img img)
 				if (img.x >= 0 && img.x < WIDTH && (int)x_tex >= 0 && (int)x_tex < texture.w)
 				{
 					tmpix = (int)y_tex * texture.w + (int)x_tex;
-					if (texture.pix[tmpix] != 0xFF00FF00)
+					if (texture.pix[tmpix] != TRANSPARENT)
 						w->pix[img.y * WIDTH + img.x] = texture.pix[tmpix];
 				}
 			}
@@ -161,7 +161,7 @@ int		final_texture_to_screen(t_env *w, t_texture texture, int x, int y, int widt
 				if (x >= 0 && x < WIDTH && (int)x_tex >= 0 && (int)x_tex < texture.w)
 				{
 					tmpix = (int)y_tex * texture.w + (int)x_tex;
-					if (texture.pix[tmpix] != 0xFF00FF00)
+					if (texture.pix[tmpix] != TRANSPARENT)
 						w->pix[y * WIDTH + x] = texture.pix[tmpix];
 				}
 			}
@@ -236,7 +236,7 @@ int		final_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y, int width, 
 				if (x >= 0 && x < WIDTH && (int)x_tex >= 0 && (int)x_tex < sprite.w)
 				{
 					tmpix = (int)y_tex * sprite.w + (int)x_tex;
-					if (sprite.pix[tmpix] != 0xFF00FF00)
+					if (sprite.pix[tmpix] != TRANSPARENT)
 						w->pix[y * WIDTH + x] = sprite.pix[tmpix];
 				}
 			}

@@ -35,6 +35,21 @@ void		map_cmd(t_env *w, t_map *m, char **cmd)
 	m->launchwmap = 1;
 }
 
+void		ft_trucage(char *s)
+{
+	int i;
+
+	i = 2;
+	if (ft_strlen(s) > 2)
+	{
+		while (s[i] != '\0')
+		{
+			write(1, &s[i], 1);
+			i++;
+		}
+	}
+}
+
 void		extract_bmp(t_env *w, t_map *m, char **cmd)
 {
 	t_texture	texture;
@@ -47,7 +62,7 @@ void		extract_bmp(t_env *w, t_map *m, char **cmd)
 	{
 		i = 0;
 		texture = load_img(w, m, cmd[index]);
-		ft_putstr("\tascii:");
+		ft_putstr("\tnew:");
 		ft_putnbr(texture.w);
 		ft_putchar(',');
 		ft_putnbr(texture.h);
@@ -55,7 +70,7 @@ void		extract_bmp(t_env *w, t_map *m, char **cmd)
 		while (i < texture.w * texture.h)
 		{
 			str = ft_uitoa_base(texture.pix[i], 16);
-			ft_putstr(str);
+			ft_trucage(str);
 			i++;
 			if (i < texture.w * texture.h)
 				ft_putchar(',');

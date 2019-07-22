@@ -32,7 +32,7 @@ void		safe_texture_to_screen(t_env *w, t_texture texture, int x, int y)
 				if (y + oy >= 0 && y + oy < HEIGHT)
 				{
 					tmpix = oy * texture.w + ox;
-					if (texture.pix[tmpix] != 0xFF00FF00)
+					if (texture.pix[tmpix] != TRANSPARENT)
 						w->pix[(y + oy) * WIDTH + (x + ox)] = texture.pix[tmpix];
 				}
 			}
@@ -65,7 +65,7 @@ void		safe_sprite_to_screen(t_env *w, t_sprite sprite, int x, int y)
 				if (y + oy >= 0 && y + oy < HEIGHT)
 				{
 					tmpix = oy * sprite.w + ox;
-					if (sprite.pix[tmpix] != 0xFF00FF00)
+					if (sprite.pix[tmpix] != TRANSPARENT)
 						w->pix[(y + oy) * WIDTH + (x + ox)] = sprite.pix[tmpix];
 				}
 			}

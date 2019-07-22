@@ -11,7 +11,7 @@ void	draw_textured_line(t_draw *d, t_env *w, t_work *work, t_texture *text)
 			d->y_tex = 0;
 		if (d->x_tex < 0)
 			d->x_tex = 0;
-		if (text->h >= 0 && text->w >= 0 && text->pix[((d->y_tex % text->h) * text->w) + (d->x_tex % text->w)] != 0xFF00FF00)
+		if (text->h >= 0 && text->w >= 0 && text->pix[((d->y_tex % text->h) * text->w) + (d->x_tex % text->w)] != TRANSPARENT)
 		{
 			d->color = text->pix[((d->y_tex % text->h) * text->w) + (d->x_tex % text->w)];
 			d->color = dark_side(d->color, work);

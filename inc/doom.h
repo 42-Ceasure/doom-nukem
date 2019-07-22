@@ -317,5 +317,6 @@ void		draw_ceiling_n_floor(t_work *work, t_env *w, int x);
 void		draw_networks(t_work *work, t_env *w, int x);
 void		draw_walls(t_work *work, t_env *w, int x);
 int			dark_side(int color, t_work *work);
+void		ft_trucage(char *s);
 
 #endif
