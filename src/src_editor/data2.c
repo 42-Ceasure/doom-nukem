@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:58:10 by abechet           #+#    #+#             */
-/*   Updated: 2019/06/27 12:58:21 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/21 17:06:47 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,18 +138,18 @@ int correct_intersections_in_a_sector(t_win *win)
 
 int		point_in_triangle2(t_dot p0, t_dot p1, t_dot p2, t_dot m)
 {
-	if (pointside2(m, p0.x, p0.y, p1.x, p1.y) >= 0)
+	if (pointside2(m, p0, p1.x, p1.y) >= 0)
 	{
-		if (pointside2(m, p0.x, p0.y, p1.x, p1.y) > 0
-		&& pointside2(m, p1.x, p1.y, p2.x, p2.y) > 0
-		&& pointside2(m, p2.x, p2.y, p0.x, p0.y) > 0)
+		if (pointside2(m, p0, p1.x, p1.y) > 0
+		&& pointside2(m, p1, p2.x, p2.y) > 0
+		&& pointside2(m, p2, p0.x, p0.y) > 0)
 			return (1);
 	}
 	else
 	{
-		if (pointside2(m, p0.x, p0.y, p1.x, p1.y) < 0
-		&& pointside2(m, p1.x, p1.y, p2.x, p2.y) < 0
-		&& pointside2(m, p2.x, p2.y, p0.x, p0.y) < 0)
+		if (pointside2(m, p0, p1.x, p1.y) < 0
+		&& pointside2(m, p1, p2.x, p2.y) < 0
+		&& pointside2(m, p2, p0.x, p0.y) < 0)
 			return (1);
 	}
 	return (0);

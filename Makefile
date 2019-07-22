@@ -6,7 +6,7 @@
 #    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/20 16:09:32 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/22 13:32:09 by ochaar           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -126,7 +126,11 @@ SRCFIL				=	src_game/main.c \
 						src_editor/texture_mode.c \
 						src_editor/texture_mode2.c \
 						src_editor/params.c \
-						src_editor/sdl_event.c
+						src_editor/sdl_event.c \
+						src_editor/polygone.c \
+						src_editor/new_poly.c \
+						src_editor/vertex.c \
+						src_editor/point_triangulate.c
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
 OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))

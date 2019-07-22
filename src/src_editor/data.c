@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 10:51:32 by abechet           #+#    #+#             */
-/*   Updated: 2019/06/25 10:51:44 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/21 17:06:01 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		new_clockwise(t_win *win)
 		p1.y = tmp->next->y;
 		m.x = tmp->next->next->x;
 		m.y = tmp->next->next->y;
-		if (pointside2(m, p0.x, p0.y, p1.x, p1.y) >= 0)
+		if (pointside2(m, p0, p1.x, p1.y) >= 0)
 			tmp2->clockwise = 1;
 		else
 			tmp2->clockwise = 2;

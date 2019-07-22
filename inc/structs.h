@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:06:30 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/22 12:32:49 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/22 13:47:10 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,24 @@ typedef struct		s_dot
 	double			x;
 	double			y;
 }					t_dot;
+
+typedef struct		s_point
+{
+	t_dot			p0;
+	t_dot			p1;
+	t_dot			p2;
+}					t_point;
+
+typedef struct		s_count
+{
+	int				i;
+	int				j;
+	int				n;
+	int				x;
+	int				j0;
+	int				j1;
+	int				j2;
+}					t_count;
 
 struct					s_win
 {

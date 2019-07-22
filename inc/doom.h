@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/22 12:32:42 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/22 13:47:09 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,16 @@ void		delete_sector(t_win *win);
 int			check_neighbour(t_win *win);
 int			point_in_triangle(t_dot p0, t_dot p1, t_dot p2, t_dot m);
 int			len_list(t_lst *lst);
-t_lstlst	*recursive_triangulate(t_win *win, t_lstlst *tmp2, t_lst *polygone, t_lstlst *triangles);
+t_lstlst	*recursive_triangulate(t_win *win, t_lstlst *tmp2, t_lst *polygone);
+t_lstlst	*stock_triangles(t_lstlst *triangles, t_lstlst *tmp3, t_lst *poly);
+t_lstlst	*two_poly(t_win *win, t_lst *polygone, t_count cpt, t_lstlst *tmp3);
+t_lst		*new_poly(t_lst *polygone, int start, int end);
+int			*indice(t_win *win, int i, int j, int k);
+int			near_vertex(int n, int i, int di);
+int			left_vertex(t_lst *polygone, int len);
+int			vertex_max_dist(t_lst *polygone, t_point p, int *tab);
+t_lst		*polylstnew(t_dot d);
+t_lst		*new_poly(t_lst *polygone, int start, int end);
 void		placing(t_win *win);
 void		pick_asset(t_env *, t_win *win);
 void		mode(t_env *w, t_win *win);
@@ -305,7 +314,7 @@ void		decrease_value(t_win *win);
 void		test(t_win *win);
 //void		check2(t_win *win);
 int			init2(t_env *w, t_win *win);
-double		pointside2(t_dot m, double x0, double y0, double x1, double y1);
+double		pointside2(t_dot m, t_dot p0, double x1, double y1);
 int			get_nb_maps_in_core(t_env *w);
 int			get_names_maps_in_core(t_env *w, char **names);
 void		init_sprite_tab(t_map *m);
