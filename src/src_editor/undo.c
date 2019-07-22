@@ -41,11 +41,11 @@ void	undo_first_link(t_win *win, t_lst *tmp,
 			win->y1 = tmp->y;
 			free(tmp);
 			tmp = NULL;
+			win->lst = NULL;
+			undo_helper(win, previous2);
 			tmp2->head = NULL;
 			free(tmp2);
 			tmp2 = NULL;
-			win->lst = NULL;
-			undo_helper(win, previous2);
 		}
 	}
 }
