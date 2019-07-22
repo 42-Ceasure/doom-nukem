@@ -169,6 +169,8 @@ int		settings_changed(t_env *w)
 
 void	change_key(t_env *w)
 {
+	char *tmp;
+
 	if (w->menu.k == 5 && settings_changed(w) == 1)
 	{
 		w->window_mode = 1;
@@ -185,7 +187,11 @@ void	change_key(t_env *w)
 		w->m->player.field_of_vision_h = w->fov_h_menu;
 		w->m->player.field_of_vision_v = w->fov_v_menu;
 		w->m->player.mousesp = w->mousesp_menu;
+		tmp = ft_itoa(w->window_res);
+		set_screen_res(w, tmp);
 		change_settings(w, w->m);
+		free(tmp);
+		fit_to_game(w);
 	}
 }
 
