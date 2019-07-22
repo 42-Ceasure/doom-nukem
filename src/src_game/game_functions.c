@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:46:06 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/22 16:51:43 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 17:02:24 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void		ramassage(t_map *m)
 	i = 0;
 	while (i < m->sprite_map_count)
 	{
-		if (m->sprt[i].range >= 1 && ft_strcmp(m->sprite[m->sprt[i].index].type, "item") == 0)
+		if (m->sprt[i].range >= 1
+			&& ft_strcmp(m->sprite[m->sprt[i].index].type, "item") == 0)
 		{
 			m->player.take[m->sprt[i].index] = 1;
 			m->sprt[i].taken = 1;
@@ -56,7 +57,8 @@ void		reload_weapon(t_env *w, t_map *m)
 	{
 		if (PH == 1 && m->player.bullet[1] > 0)
 		{
-			while (m->weap[PH].actu_ammo < m->weap[PH].magazine && m->player.bullet[1] > 0)
+			while (m->weap[PH].actu_ammo < m->weap[PH].magazine
+				&& m->player.bullet[1] > 0)
 			{
 				m->player.bullet[1]--;
 				m->weap[PH].actu_ammo++;
@@ -65,7 +67,8 @@ void		reload_weapon(t_env *w, t_map *m)
 		}
 		else if (PH != 1 && m->player.bullet[0] > 0)
 		{
-			while (m->weap[PH].actu_ammo < m->weap[PH].magazine && m->player.bullet[0] > 0)
+			while (m->weap[PH].actu_ammo < m->weap[PH].magazine
+				&& m->player.bullet[0] > 0)
 			{
 				m->player.bullet[0]--;
 				m->weap[PH].actu_ammo++;

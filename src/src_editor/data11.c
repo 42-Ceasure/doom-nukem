@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data11.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 13:56:31 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/17 13:56:42 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/22 17:20:47 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int			number_of_dot_per_line(t_win *win, int y)
 		}
 	}
 	i -= same;
-	//free dot tab
+	free_dot_tab(dot_tab);
 	return (i);
 }
 

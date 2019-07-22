@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 10:24:13 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/22 13:30:43 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 17:03:42 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_lstlst	*stock_last_triangle(t_lstlst *triangle, t_lstlst *tmp3, t_point p)
 		while (tmp2->next)
 			tmp2 = tmp2->next;
 		tmp2->next = fill_link(tmp3, p.p0, p.p1, p.p2);
-	}//			ce else rempli tout
+	}
 	return (triangle);
 }
 

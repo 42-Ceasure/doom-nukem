@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data13.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 13:59:43 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/17 13:59:55 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/22 17:18:58 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int			number_of_points_in_sector(t_win *win, int sector)
 	int			nb;
 	int			*dot_tab;
 
+	dot_tab = NULL;
 	index = 0;
 	i = 0;
 	j = 0;
@@ -46,6 +47,7 @@ int			number_of_points_in_sector(t_win *win, int sector)
 			}
 			break ;
 		}
+		free_dot_tab(dot_tab);
 		tmp2 = tmp2->next;
 	}
 	return (j);

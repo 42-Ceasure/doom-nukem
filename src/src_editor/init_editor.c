@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init2.c                                            :+:      :+:    :+:   */
+/*   init_editor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:44:25 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/14 15:01:38 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 17:21:31 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static void	init_struct_helper(t_win *win)
 	win->index_dot = 0;
 	win->same_dots = 0;
 	win->tab_index = 0;
-	win->tab_malloced = 0;
 	win->triangle_sector = 0;
 	win->check_textures = 0;
 	win->texture_choice = 0;

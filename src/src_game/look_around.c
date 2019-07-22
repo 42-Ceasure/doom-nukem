@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 16:35:45 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/22 16:36:27 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 17:02:38 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void		look_right(t_map *m)
 
 void		look_around(t_env *w, t_map *m)
 {
-	PL_A = PL_A + (w->event.motion.xrel * 0.001) * ((double)m->player.mousesp / 100.f);
+	PL_A = PL_A + (w->event.motion.xrel * 0.001)
+		* ((double)m->player.mousesp / 100.f);
 	if (PL_A > 2 * M_PI)
 		PL_A = PL_A - 2 * M_PI;
 	if (PL_A < 0)

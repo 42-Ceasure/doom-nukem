@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data15.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 14:03:53 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/17 14:04:04 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/22 17:19:13 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,10 @@ int			triangles_neighbours(t_win *win, t_lstlst *tmp2, int i)
 			if (index == 2)
 				return (tmp3->sector);
 		}
+		free_dot_tab(tab_sector2);
 		tmp3 = tmp3->next;
 	}
+	free_dot_tab(tab_sector1);
 	return (-1);
 }
 

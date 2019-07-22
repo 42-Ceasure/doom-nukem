@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_mode.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:36:02 by abechet           #+#    #+#             */
-/*   Updated: 2019/06/17 11:36:13 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/22 17:32:18 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,6 @@ void	overing(t_win *win)
 			}
 			tmp2 = tmp2->next;
 		}
-	}
-}
-
-void	free_list(t_lst *lst)
-{
-	t_lst	*tmp;
-	t_lst	*current;
-
-	tmp = lst;
-	current = lst;
-	while (current)
-	{
-		current = current->next;
-		free(tmp);
-		tmp = NULL;
-		tmp = current;
 	}
 }
 

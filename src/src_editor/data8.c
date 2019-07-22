@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data8.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 13:53:00 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/17 13:53:08 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/22 17:20:16 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		stph2(t_win *win, int y, int i)
 		if (dot_tab[index] != dot_tab[index - 1])
 			win->number++;
 	}
+	free_dot_tab(dot_tab);
 }
 
 void		stph(t_win *win, int y, int i)

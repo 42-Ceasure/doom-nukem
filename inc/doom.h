@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/22 16:54:15 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/22 17:38:28 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,8 @@ void		everything_is_a_triangle(t_win *win);
 int			point_on_top(t_win *win);
 int			sectors_on_top(t_win *win);
 void		free_list(t_lst *lst);
+void		free_listlist(t_win *win, t_lstlst *tmp2);
+void		free_dot_tab(int *dot_tab);
 
 
 
