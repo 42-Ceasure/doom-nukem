@@ -46,7 +46,11 @@ void	game_img(t_env *w, t_map *m)
 	hand(w, m);
 	ft_cursor(w, m);
 	if (m->player.hud == 1)
+	{
 		ft_hud(w, m);
+		if (m->player.minimap == 1)
+			draw_mini_map(w, m);
+	}
 }
 
 void	global_event(t_env *w, t_map *m)
@@ -76,7 +80,7 @@ void	weap_animation(t_env *w, t_map *m)
 	if (m->player.display == 0)
 		game_img(w, m);
 	else if (m->player.display == 1)
-		draw_mini_map(w, m);
+		draw_map(w, m);
 	img_update(w);
 	get_height(m);
 	is_falling(m);

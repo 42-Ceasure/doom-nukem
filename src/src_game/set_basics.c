@@ -167,4 +167,5 @@ void			set_m_player(t_map *m)
 	m->player.hud = 1;
 	set_player_math(m);
 	m->player.display = 0;
+	m->player.minimap = 0;
 }

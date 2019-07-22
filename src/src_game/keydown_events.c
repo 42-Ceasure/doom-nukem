@@ -17,9 +17,11 @@ void		affichage(t_env *w, t_map *m)
 	if (KEY == SDLK_i)
 		hud(m);
 	if (KEY == SDLK_TAB)
-		minimap(m);
+		mainmap(m);
 	if (KEY == SDLK_f)
 		ramassage(m);
+	if (KEY == SDLK_m)
+		minimap(m);
 }
 
 void		music(t_env *w)

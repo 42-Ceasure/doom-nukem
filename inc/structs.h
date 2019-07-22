@@ -288,6 +288,7 @@ typedef struct		s_player
 	int				mousesp;
 	int				hud;
 	int				hp;
+	int				minimap;
 	int				max_hp;
 	int				take[4];
 	char			*strhp;

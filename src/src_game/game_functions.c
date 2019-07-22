@@ -134,12 +134,20 @@ void		hud(t_map *m)
 		m->player.hud = 0;
 }
 
-void		minimap(t_map *m)
+void		mainmap(t_map *m)
 {
 	if (m->player.display != 1)
 		m->player.display = 1;
 	else
 		m->player.display = 0;
+}
+
+void		minimap(t_map *m)
+{
+	if (m->player.minimap != 1)
+		m->player.minimap = 1;
+	else
+		m->player.minimap = 0;
 }
 
 void		ramassage(t_map *m)
