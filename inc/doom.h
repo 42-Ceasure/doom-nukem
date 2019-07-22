@@ -274,18 +274,11 @@ int			sectors_on_top(t_win *win);
 void		free_list(t_lst *lst);
 void		free_listlist(t_win *win, t_lstlst *tmp2);
 void		free_dot_tab(int *dot_tab);
-<<<<<<< Updated upstream
-void		free_listlist(t_win *win, t_lstlst *tmp2);
-void		free_dot_tab(int *dot_tab);
 
 
 
 
 
-
-
-=======
->>>>>>> Stashed changes
 void		img_edit_update(t_env *w);
 void		clean_edit_render(t_env *w, Uint32 color);
 void		sectors_in_tab(t_win *win);
