@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_txtr_2.c                                      :+:      :+:    :+:   */
+/*   draw_ceil_floor_sky.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:32:27 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/22 23:08:16 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/23 18:42:47 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	calc_map_pos_ceil(t_env *w, t_work *work, t_ceiling *c, int y1)
 	c->rot_y = c->map_y * work->psin - c->map_x * work->pcos;
 	c->map_x = c->rot_x + w->m->player.coor.x;
 	c->map_y = c->rot_y + w->m->player.coor.y;
-	test_sprite(w->m, c->map_x, c->map_y);
 }
 
 void	draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture *text)
@@ -74,6 +73,8 @@ void	draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture *text)
 				continue;
 			}
 			calc_map_pos_ceil(w, work, &c, y1);
+			if (y1 != y2)
+				test_sprite(w->m, c.map_x, c.map_y);
 			c.x_tex = (c.map_x * text->w / 6);
 			c.y_tex = (c.map_y * text->w / 6);
 			c.tmpix = (c.y_tex % text->h) * text->w + (c.x_tex % text->w);

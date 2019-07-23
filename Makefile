@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
+#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/23 14:59:22 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/23 19:28:42 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,11 +95,12 @@ SRCFIL				=	src_game/main.c \
 						src_game/maths_functions.c \
 						src_game/go_player.c \
 						src_game/look_around.c \
-						src_game/parse_first_line.c\
-						src_game/octant.c\
-						src_game/octant_2.c\
-						src_game/parse_sector.c\
-						src_game/elevadoor.c\
+						src_game/parse_first_line.c \
+						src_game/octant.c \
+						src_game/octant_2.c \
+						src_game/parse_sector.c \
+						src_game/elevadoor.c \
+						src_game/menu_maps.c \
 						src_editor/manage_sdl_window.c \
 						src_editor/launch_editor.c \
 						src_editor/init_editor.c \

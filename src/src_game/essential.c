@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   essential.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 15:58:24 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/23 13:00:26 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/23 19:22:52 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,13 @@ t_coor	intersect(t_intersect i)
 		i.y3 - i.y4));
 	coor.z = 0;
 	return (coor);
+}
+
+t_dot	fill_t_dot(int x, int y)
+{
+	t_dot	dot;
+
+	dot.x = x;
+	dot.y = y;
+	return (dot);
 }

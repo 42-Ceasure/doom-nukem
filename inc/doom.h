@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/23 16:04:40 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/23 19:22:04 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,5 +327,7 @@ void			draw_walls(t_work *work, t_env *w, int x);
 int				dark_side(int color, t_work *work);
 void			ft_trucage(char *s);
 void			calc_z(t_work *work, int x);
+void			menu_maps(t_env *w);
+t_dot			fill_t_dot(int x, int y);
 
 #endif

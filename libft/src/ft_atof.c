@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 11:03:00 by ochaar            #+#    #+#             */
-/*   Updated: 2019/03/26 11:10:33 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/23 18:27:02 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
 
 double		ft_virgule(const char *str, double value)
 {
