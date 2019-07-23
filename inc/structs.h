@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:06:30 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/22 20:14:11 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/23 11:11:10 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -538,6 +538,7 @@ typedef struct		s_map
 	int				newgame;
 	int				trippymod;
 	int				elevator;
+	int				door;
 	int				nb_a;
 	int				i;
 	int				w;

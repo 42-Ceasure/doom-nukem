@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ftoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/23 18:19:33 by nvienot           #+#    #+#             */
+/*   Updated: 2019/07/23 18:20:29 by nvienot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 int		ft_powk(int x, unsigned int y)
@@ -10,7 +22,7 @@ int		ft_powk(int x, unsigned int y)
 		return ((x * ft_powk(x, y / 2) * ft_powk(x, y / 2)));
 }
 
-char   *ft_output(char **s1, char *s2, int pre)
+char	*ft_output(char **s1, char *s2, int pre)
 {
 	char	*output;
 

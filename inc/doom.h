@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/22 23:11:12 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/23 16:04:40 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ void			parse_weapon_line(t_map *m, char *line);
 int				parse_weapon_sprite(t_map *m, char *name, char *def, char *pix);
 void			parse_texture_line(t_env *w, t_map *m, char *line);
 void			parse_sprite_line(t_env *w, t_map *m, char *line);
+int				parse_sector_network(t_map *m, char *net);
+int				parse_sector_texturing(t_map *m, char *text);
+int				parse_sector_dots(t_map *m, char **dots);
 void			set_screen_res(t_env *w, char *aspect);
 void			replace_line(char *path, char *balise, char *content, t_env *w);
 void			add_map_to_core(char *path, char *path2, t_env *w);
@@ -70,6 +73,12 @@ Uint32			color(Uint32 color1);
 void			vect_ab(t_coor p1, t_coor p2, t_env *w, Uint32 color);
 void			set_txtr_pix(t_env *w, int x, int y, Uint32 color);
 double			vect_cross_prod(double x0, double y0, double x1, double y1);
+void			vect_ab_oct(t_vect norm, t_env *w, Uint32 color);
+void			octant_4(t_vect norm, t_env *w, Uint32 color);
+void			octant_5(t_vect norm, t_env *w, Uint32 color);
+void			octant_6(t_vect norm, t_env *w, Uint32 color);
+void			octant_7(t_vect norm, t_env *w, Uint32 color);
+void			octant_8(t_vect norm, t_env *w, Uint32 color);
 double			sign(double a);
 double			vabs(double a);
 double			vmin(double a, double b);
@@ -79,7 +88,7 @@ double			v_c_p(double x0, double y0, double x1, double y1);
 double			intersectbox(t_intersect i);
 t_coor			intersect(t_intersect i);
 double			isoverlap(double a0, double a1, double b0, double b1);
-double			pointside(t_coor p, double x0, double y0, double x1, double y1);
+double			pointside(t_coor p, t_dot p0, double x1, double y1);
 double			yaw(double y, double z, t_map *m);
 void			init_verification(t_work *draw);
 int				init_draw(t_env *w, t_work *d, t_reader *read, t_map *m);
@@ -117,7 +126,6 @@ void			main_pic(t_env *w, int nb);
 int				load_sounds(t_env *w, t_map *m);
 void			process_hint(int i, char *s);
 void			process_hint_w(t_env *w, int i, char *s);
-void			print_load(char *s, int i3, int len);
 void			set_config(t_env *w, t_map *m);
 void			set_w(t_env *w, int ac);
 void			set_m(t_map *m);
@@ -143,6 +151,7 @@ void			look_around(t_env *w, t_map *m);
 void			shoot(t_env *w, t_map *m);
 void			reload_weapon(t_env *w, t_map *m);
 void			move_weap(t_env *w, t_map *m);
+void			elevator(t_map *m);
 void			launch(t_env *w, t_map *m);
 void			sequential_frame(t_env *w, t_map *m);
 void			safe_texture_to_screen(t_env *w, t_texture texture, int x, int y);
@@ -312,7 +321,6 @@ int				get_names_maps_in_core(t_env *w, char **names);
 void			init_sprite_tab(t_map *m);
 void			ft_free_tab(t_map *m);
 void			process_hint_savemap(t_env *w, int i, int nbmaps, char *s);
-int				parse_level_map(t_map *m, char **tab);
 void			draw_ceiling_n_floor(t_work *work, t_env *w, int x);
 void			draw_networks(t_work *work, t_env *w, int x);
 void			draw_walls(t_work *work, t_env *w, int x);

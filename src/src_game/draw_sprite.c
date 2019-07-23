@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:19:02 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/22 15:33:50 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/23 11:15:52 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		draw_sprite(t_env *w, t_map *m, int x, int ratio)
 	if (ft_strcmp(m->sprite[o].type, "rotate") == 0)
 		o = rotate(d, o);
 	if (ft_strcmp(m->sprite[o].type, "mur") == 0
-		&& (m->elevator == 1 || m->elevator == 2))
+		&& ((m->elevator == 1 || m->elevator == 2) || m->door == 1))
 		o = 25;
 	if (d.t1z > 0 && m->sprt[x].vis == 1)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_basics.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 13:47:03 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/17 20:22:49 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/23 11:26:35 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void			set_count(t_map *m)
 	m->s = 0;
 	m->spmc = 0;
 	m->ennemyc = 0;
+	m->door = 0;
 	m->w = 0;
 	m->section_number = 0;
 	m->dots_count = 0;

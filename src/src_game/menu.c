@@ -187,7 +187,8 @@ void	change_key(t_env *w)
 		w->m->player.field_of_vision_h = w->fov_h_menu;
 		w->m->player.field_of_vision_v = w->fov_v_menu;
 		w->m->player.mousesp = w->mousesp_menu;
-		tmp = ft_itoa(w->window_res);
+		if ((tmp = ft_itoa(w->window_res)) == NULL)
+			set_error(w, w->m, 0, "settings_changed");
 		set_screen_res(w, tmp);
 		change_settings(w, w->m);
 		free(tmp);
