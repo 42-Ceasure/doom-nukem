@@ -12,7 +12,7 @@
 
 #include "doom.h"
 
-void	free_list(t_lst *lst)
+void		free_list(t_lst *lst)
 {
 	t_lst	*tmp;
 	t_lst	*current;
@@ -28,7 +28,7 @@ void	free_list(t_lst *lst)
 	}
 }
 
-void	free_listlist(t_win *win, t_lstlst *tmp2)
+void		free_listlist(t_win *win, t_lstlst *tmp2)
 {
 	t_lstlst	*current;
 
@@ -70,7 +70,7 @@ void		free_dot_tab(int *dot_tab)
 {
 	if (dot_tab != NULL)
 	{
-		// free(dot_tab);
+		//free(dot_tab);
 		dot_tab = NULL;
 	}
 }

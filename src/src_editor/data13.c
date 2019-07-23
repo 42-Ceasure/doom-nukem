@@ -12,19 +12,37 @@
 
 #include "doom.h"
 
-int			number_of_points_in_sector(t_win *win, int sector)
+int			nopis_helper2(t_win *win, int sector, t_lst *tmp, int *dot_tab)
 {
-	t_lstlst	*tmp2;
-	t_lst		*tmp;
-	int			i;
-	int			j;
 	int			index;
 	int			nb;
-	int			*dot_tab;
+	int			i;
+	int			j;
 
-	dot_tab = NULL;
-	index = 0;
 	i = 0;
+	j = 0;
+	index = 0;
+	i = len_list(tmp);
+	dot_tab = dot_tab_sector(win, sector);
+	nb = dot_tab[index];
+	j++;
+	while (index < i)
+	{
+		if (dot_tab[index] > nb)
+		{
+			j++;
+			nb = dot_tab[index];
+		}
+		index++;
+	}
+	return (j);
+}
+
+int			nopis_helper(t_win *win, int sector, t_lst *tmp, int *dot_tab)
+{
+	t_lstlst	*tmp2;
+	int			j;
+
 	j = 0;
 	tmp2 = win->lstlst;
 	while (tmp2)
@@ -32,25 +50,23 @@ int			number_of_points_in_sector(t_win *win, int sector)
 		if (tmp2->sector == sector)
 		{
 			tmp = tmp2->head;
-			i = len_list(tmp);
-			dot_tab = dot_tab_sector(win, sector);
-			nb = dot_tab[index];
-			j++;
-			while (index < i)
-			{
-				if (dot_tab[index] > nb)
-				{
-					j++;
-					nb = dot_tab[index];
-				}
-				index++;
-			}
+			j = nopis_helper2(win, sector, tmp, dot_tab);
 			break ;
 		}
-		free_dot_tab(dot_tab);
+		//free_dot_tab(dot_tab);
 		tmp2 = tmp2->next;
 	}
 	return (j);
+}
+
+int			number_of_points_in_sector(t_win *win, int sector)
+{
+	t_lst		*tmp;
+	int			*dot_tab;
+
+	dot_tab = NULL;
+	tmp = NULL;
+	return (nopis_helper(win, sector, tmp, dot_tab));
 }
 
 int			number_of_ennemy(t_win *win)

@@ -19,8 +19,8 @@ static void		sdl_event_key_helper(t_env *w, t_win *win)
 	{
 		w->stopread = 1;
 		fit_to_game(w);
+		//clear_n_exit(win, 0);
 		return ;
-		// clear_n_exit(win, 0);
 	}
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_F5])
 	{

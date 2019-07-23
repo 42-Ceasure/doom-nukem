@@ -12,49 +12,6 @@
 
 #include "doom.h"
 
-static void	init_helper(t_win *win)
-{
-	win->dst9.x = 0;
-	win->dst9.y = 0;
-	win->dst10.x = 300;
-	win->dst10.y = 300;
-	win->dst11.x = 120;
-	win->dst11.y = 310;
-	win->dst12.x = 10;
-	win->dst12.y = 10;
-	win->dst13.x = 40;
-	win->dst13.y = 10;
-	win->color_font_r = 0xFF0000;
-	win->color_font_z = 0xFFFF00;
-	win->h_win_tmp = 0;
-	win->w_win_tmp = 0;
-	win->w_win = WIN_X;
-	win->h_win = WIN_Y;
-}
-
-
-static void	init_dst(t_win *win)
-{
-	win->helptxt = NULL;
-	win->dst.x = 250;
-	win->dst.y = 20;
-	win->dst2.x = 0;
-	win->dst2.y = 0;
-	win->dst3.x = (WIN_X / 2 - 370 / 8);
-	win->dst3.y = (WIN_Y - 305);
-	win->dst4.x = 0;
-	win->dst4.y = 0;
-	win->dst5.x = 500;
-	win->dst5.y = 655;
-	win->dst6.x = WIN_X - 90;
-	win->dst6.y = WIN_Y - 50;
-	win->dst7.x = WIN_X - 70;
-	win->dst7.y = WIN_Y - 50;
-	win->dst8.x = WIN_X - 60;
-	win->dst8.y = WIN_Y - 45;
-	init_helper(win);
-}
-
 static void	init_struct_helper(t_win *win)
 {
 	win->asset = 0;

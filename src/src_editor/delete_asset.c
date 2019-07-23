@@ -12,6 +12,22 @@
 
 #include "doom.h"
 
+void	delete_asset_helper(t_win *win, t_lstasset *current,
+			t_lstasset *next, t_lstasset *previous)
+{
+	if (previous)
+		previous->next = next;
+	free(current);
+	current = NULL;
+	if (previous == NULL && next == NULL)
+		win->lstasset = NULL;
+	if (win->lstasset == NULL)
+	{
+		if (previous == NULL && next != NULL)
+			win->lstasset = next;
+	}
+}
+
 void	delete_asset(t_win *win)
 {
 	t_lstasset	*tmp;
@@ -46,17 +62,7 @@ void	delete_asset(t_win *win)
 			}
 			if (j == 0)
 				win->lstasset = NULL;
-			if (previous)
-				previous->next = next;
-			free(current);
-			current = NULL;
-			if (previous == NULL && next == NULL)
-				win->lstasset = NULL;
-			if (win->lstasset == NULL)
-			{
-				if (previous == NULL && next != NULL)
-					win->lstasset = next;
-			}
+			delete_asset_helper(win, current, next, previous);
 			tmp = NULL;
 		}
 		if (tmp)

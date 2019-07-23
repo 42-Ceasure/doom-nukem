@@ -70,11 +70,14 @@ void		write_map_mame(t_env *w, int fp)
 
 void		write_in_file_helper(t_win *win, t_env *w, int fp)
 {
+	int			boole;
+
+	boole = 0;
 	write_map_mame(w, fp);
 	process_hint_savemap(w, 1, w->nbmaps, "map");
 	first_line2(win, fp);
 	process_hint_savemap(w, 1, w->nbmaps, "dots");
-	write_dots(win, fp);
+	write_dots(win, fp, boole);
 	process_hint_savemap(w, 1, w->nbmaps, "sectors");
 	write_sectors(win, fp);
 	process_hint_savemap(w, 1, w->nbmaps, "player");

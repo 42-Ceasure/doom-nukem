@@ -107,7 +107,6 @@ SRCFIL				=	src_game/main.c \
 						src_editor/line_editor.c \
 						src_editor/undo.c \
 						src_editor/delete_mode.c \
-						src_editor/neighbour.c \
 						src_editor/triangulate.c \
 						src_editor/placing.c \
 						src_editor/placing2.c \
@@ -129,6 +128,7 @@ SRCFIL				=	src_game/main.c \
 						src_editor/data15.c \
 						src_editor/data16.c \
 						src_editor/data17.c \
+						src_editor/first_line.c \
 						src_editor/free_editor.c \
 						src_editor/texture_mode.c \
 						src_editor/texture_mode2.c \

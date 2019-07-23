@@ -91,7 +91,7 @@ void		loop_play(t_env *w, t_win *win)
 		sdl_event(w, win);
 		on_click(win);
 		clean_render(w, 000);
-		draw_grid(w, win);
+		draw_grid(w);
 		if (win->triangles)
 			draw_triangulate(w, win);
 		if (win->lstlst)

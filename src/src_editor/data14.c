@@ -12,52 +12,9 @@
 
 #include "doom.h"
 
-void		fl2_helper(t_win *win, int fp, int i)
+void		write_dots_helper2(int y, int fp)
 {
-	char		*str;
-
-	str = ",sector:";
-	ft_putstr_fd(str, fp);
-	str = ft_itoa(i);
-	ft_putstr_fd(str, fp);
-	str = ",sprite:";
-	ft_putstr_fd(str, fp);
-	str = ft_itoa(number_of_sprite(win));
-	ft_putstr_fd(str, fp);
-	str = ",ennemy:";
-	ft_putstr_fd(str, fp);
-	str = ft_itoa(number_of_ennemy(win));
-	ft_putstr_fd(str, fp);
-	str = "\n";
-	ft_putstr_fd(str, fp);
-	str = "Section:map\n";
-	ft_putstr_fd(str, fp);
-}
-
-void		first_line2(t_win *win, int fp)
-{
-	char		*str;
-	t_lstlst	*tmp2;
-	int			i;
-
-	i = 0;
-	tmp2 = win->triangles;
-	while (tmp2)
-	{
-		if (tmp2->sector != -1)
-			i++;
-		tmp2 = tmp2->next;
-	}
-	str = "dots:";
-	ft_putstr_fd(str, fp);
-	str = ft_itoa(total_exclusive_points(win));
-	ft_putstr_fd(str, fp);
-	fl2_helper(win, fp, i);
-}
-
-/*void		write_dots_helper(t_win *win, int fp, int x, int y)
-{
-	char *str;
+	char	*str;
 
 	str = "\tdots:";
 	ft_putstr_fd(str, fp);
@@ -65,21 +22,39 @@ void		first_line2(t_win *win, int fp)
 	ft_putstr_fd(str, fp);
 	str = ":";
 	ft_putstr_fd(str, fp);
+}
+
+void		write_dots_helper(t_win *win, int fp, int y)
+{
+	char		*str;
+	int			x;
+	int			i;
+	int			index;
+
+	index = 1;
+	i = number_of_dot_per_line(win, y);
+	write_dots_helper2(y, fp);
 	x = x_min_on_line(win, y);
 	str = ft_itoa(x / 5);
 	ft_putstr_fd(str, fp);
-}*/
+	while (index < i)
+	{
+		str = ",";
+		ft_putstr_fd(str, fp);
+		x = next_x_on_line(win, y, x);
+		str = ft_itoa(x / 5);
+		ft_putstr_fd(str, fp);
+		index++;
+	}
+	str = "\n";
+	ft_putstr_fd(str, fp);
+}
 
-void		write_dots(t_win *win, int fp)
+void		write_dots(t_win *win, int fp, int boole)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
-	char		*str;
-	int			i;
-	int			x;
 	int			y;
-	int			index;
-	int			boole;
 	int			a;
 	int			b;
 
@@ -87,36 +62,14 @@ void		write_dots(t_win *win, int fp)
 	tmp = NULL;
 	b = number_of_y(win, tmp2, tmp);
 	a = 0;
-	boole = 0;
 	y = y_min_point(win);
 	while (a < b)
 	{
-		index = 1;
 		if (boole == 0)
 			boole = 1;
 		else
 			y = next_y(win, y);
-		i = number_of_dot_per_line(win, y);
-		str = "\tdots:";
-		ft_putstr_fd(str, fp);
-		str = ft_itoa(y / 5);
-		ft_putstr_fd(str, fp);
-		str = ":";
-		ft_putstr_fd(str, fp);
-		x = x_min_on_line(win, y);
-		str = ft_itoa(x / 5);
-		ft_putstr_fd(str, fp);
-		while (index < i)
-		{
-			str = ",";
-			ft_putstr_fd(str, fp);
-			x = next_x_on_line(win, y, x);
-			str = ft_itoa(x / 5);
-			ft_putstr_fd(str, fp);
-			index++;
-		}
-		str = "\n";
-		ft_putstr_fd(str, fp);
+		write_dots_helper(win, fp, y);
 		a++;
 	}
 }

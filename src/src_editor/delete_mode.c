@@ -12,7 +12,7 @@
 
 #include "doom.h"
 
-void	overing(t_win *win)
+void		overing(t_win *win)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
@@ -34,7 +34,41 @@ void	overing(t_win *win)
 	}
 }
 
-void	delete_sector(t_win *win)
+void		delete_sector_helper(t_win *win, t_lstlst *previous, t_lstlst *next)
+{
+	win->link -= 1;
+	win->sector -= 1;
+	if (previous)
+		previous->next = next;
+	if (previous == NULL && next == NULL)
+	{
+		win->lstlst = NULL;
+		win->lst = NULL;
+		win->tmp = NULL;
+		win->sector = 0;
+		win->link = 0;
+	}
+	if (previous == NULL && next != NULL)
+		win->lstlst = next;
+	while (next)
+	{
+		next->sector -= 1;
+		next = next->next;
+	}
+	win->overed_sector = -1;
+}
+
+void		delete_sector_helper2(t_lstlst *current, t_lst *tmp)
+{
+	tmp = current->head;
+	if (tmp)
+		free_list(tmp);
+	current->head = NULL;
+	free(current);
+	current = NULL;
+}
+
+void		delete_sector(t_win *win)
 {
 	t_lst		*tmp;
 	t_lstlst	*current;
@@ -57,32 +91,8 @@ void	delete_sector(t_win *win)
 			while (previous->sector < win->overed_sector - 1)
 				previous = previous->next;
 		}
-		tmp = current->head;
-		if (tmp)
-			free_list(tmp);
-		current->head = NULL;
-		free(current);
-		current = NULL;
-		win->link -= 1;
-		win->sector -= 1;
-		if (previous)
-			previous->next = next;
-		if (previous == NULL && next == NULL)
-		{
-			win->lstlst = NULL;
-			win->lst = NULL;
-			win->tmp = NULL;
-			win->sector = 0;
-			win->link = 0;
-		}
-		if (previous == NULL && next != NULL)
-			win->lstlst = next;
-		while (next)
-		{
-			next->sector -= 1;
-			next = next->next;
-		}
-		win->overed_sector = -1;
+		delete_sector_helper2(current, tmp);
+		delete_sector_helper(win, previous, next);
 	}
 }
 

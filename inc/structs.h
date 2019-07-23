@@ -216,6 +216,7 @@ struct					s_win
 	int					god_value;
 	int					hud_box;
 	int					neighbour_index;
+	int					norme_sector;
 };
 
 typedef struct		s_lst
