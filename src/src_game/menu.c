@@ -6,85 +6,25 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:45:13 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/23 20:45:54 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/23 22:29:49 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void	main_pic(t_env *w, int nb)
+void	menu_main_type(t_env *w)
 {
-	t_img	img;
-
-	if (nb < 0 || nb > 3)
-		return ;
-	img = fill_t_img(0, 0, WIDTH, HEIGHT);
-	img_to_screen(w, w->main_pic[nb], img);
-}
-
-void	menu_screen(t_env *w)
-{
-	t_dot	dot;
-	char	*start;
-
-	if (w->m->newgame == 1)
-	{
-		if (w->menu.j == 1)
-			start = ft_strdup("> NEW GAME\n");
-		else
-			start = ft_strdup("NEW GAME\n");
-	}
-	else
-	{
-		if (w->menu.j == 1)
-			start = ft_strdup("> CONTINUE\n");
-		else
-			start = ft_strdup("CONTINUE\n");
-	}
-	dot.x = WIDTH / 2 - 50;
-	dot.y = 140;
-	main_pic(w, 1);
 	if (w->menu.j == 1)
-	{
-		type_str(w, dot, start, 0xFF78F7);
-		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\nEXIT", 0x12FEA800);
-	}
-	else if (w->menu.j == 2)
-	{
-		type_str(w, dot, start, 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n> MAPS\n", 0xFF78F7);
-		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\nEXIT", 0x12FEA800);
-	}
-	else if (w->menu.j == 3)
-	{
-		type_str(w, dot, start, 0x12FEA800);
-		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n> SETTINGS\n", 0xFF78F7);
-		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\nEXIT", 0x12FEA800);
-	}
-	else if (w->menu.j == 4)
-	{
-		type_str(w, dot, start, 0x12FEA800);
-		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n> EDITOR\n", 0xFF78F7);
-		type_str(w, w->txtnxtline, "\nEXIT", 0x12FEA800);
-	}
+		w->menu.i = 5;
+	else if (w->menu.j >= 2 && w->menu.j <= 4)
+		w->menu.i = w->menu.j;
+	else if (w->menu.j == 5)
+		w->menu.i = -1;
 	else
 	{
-		type_str(w, dot, start, 0x12FEA800);
-		type_str(w, w->txtnxtline, "\nMAPS\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\nSETTINGS\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\nEDITOR\n", 0x12FEA800);
-		type_str(w, w->txtnxtline, "\n> EXIT", 0xFF78F7);
+		w->menu.j = 1;
+		w->menu.i = vmin(w->menu.i + 1, 2);
 	}
-	free(start);
 }
 
 void	event_menu(t_env *w)
@@ -99,23 +39,7 @@ void	event_menu(t_env *w)
 				w->m->newgame = 1;
 			}
 			if (KEY == SDLK_RETURN || KEY == SDLK_KP_ENTER)
-			{
-				if (w->menu.j == 5)
-					w->menu.i = -1;
-				else if (w->menu.j == 4)
-					w->menu.i = 4;
-				else if (w->menu.j == 3)
-					w->menu.i = 3;
-				else if (w->menu.j == 2)
-					w->menu.i = 2;
-				else if (w->menu.j == 1)
-					w->menu.i = 5;
-				else
-				{
-					w->menu.j = 1;
-					w->menu.i = vmin(w->menu.i + 1, 2);
-				}
-			}
+				menu_main_type(w);
 			if (KEY == SDLK_UP)
 				w->menu.j = ((w->menu.j - 1) < 1) ? 5 : (w->menu.j - 1);
 			if (KEY == SDLK_DOWN)
@@ -134,8 +58,7 @@ void	main_menu(t_env *w, t_map *m)
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	SDL_ShowCursor(SDL_ENABLE);
 	Mix_PauseMusic();
-	w->txthead.x = 800;
-	w->txthead.y = 550;
+	w->txthead = fill_t_dot(800, 550);
 	w->menu.j = 1;
 	while (1)
 	{
@@ -157,150 +80,24 @@ void	main_menu(t_env *w, t_map *m)
 	}
 }
 
-int		loose(t_env *w, t_map *m)
+int		launch_type(t_env *w, t_map *m)
 {
-	int stop;
-
-	stop = 0;
-	main_pic(w, 2);
-	w->txthead.x = 350;
-	w->txthead.y = 400;
-	type_str(w, w->txthead, "Press enter to retry", 0x12FFFFFF);
-	m->newgame = 1;
-	while (stop != 1)
+	if (m->game_over == 1)
 	{
-		while (SDL_PollEvent(&w->event))
-		{
-			if (w->event.type == SDL_KEYDOWN)
-			{
-				if (KEY == 27)
-				{
-					w->menu.i = 1;
-					stop = 1;
-					m->game_over = 0;
-					return (1);
-				}
-				if (KEY == SDLK_RETURN || KEY == SDLK_KP_ENTER)
-				{
-					m->game_over = 0;
-					m->player.hp = m->player.max_hp;
-					stop = 1;
-				}
-			}
-			if (w->event.type == SDL_WINDOWEVENT)
-			{
-				if (WINDOW == SDL_WINDOWEVENT_CLOSE)
-					exit_game(w, w->m, 1);
-			}
-		}
-		img_update(w);
-	}
-	return (0);
-}
-
-int		map_is_in_core(t_env *w, char *map)
-{
-	int		i;
-	int		found;
-
-	i = 0;
-	found = 0;
-	w->nbmaps = get_nb_maps_in_core(w);
-	if ((w->namesmaps = (char **)malloc(sizeof(char *) * (w->nbmaps + 1))) == NULL)
-		set_error(w, w->m, 0, ft_strdup("map_is_in_core"));
-	get_names_maps_in_core(w, w->namesmaps);
-	w->namesmaps[w->nbmaps] = NULL;
-	get_names_maps_in_core(w, w->namesmaps);
-	while (w->namesmaps[i])
-	{
-		if (ft_strcmp(w->namesmaps[i], map) == 0)
-		{
-			found = 1;
-			break ;
-		}
-		i++;
-	}
-	i = 0;
-	while (w->namesmaps[i])
-	{
-		free(w->namesmaps[i]);
-		i++;
-	}
-	free(w->namesmaps);
-	if (found == 1)
-		return (1);
-	else
-		return (0);
-}
-
-int		change_lvl(t_env *w, t_map *m)
-{
-	int		stop;
-	float	time_lvl;
-
-	stop = 0;
-	w->dtime.end_lvl = SDL_GetTicks();
-	time_lvl = w->dtime.end_lvl - w->dtime.start_lvl;
-	if (time_lvl != 0)
-		time_lvl = time_lvl / 1000;
-	w->txthead.x = 350;
-	w->txthead.y = 400;
-	free(w->currmap);
-	if (map_is_in_core(w, m->linklvl) == 1)
-	{
-		main_pic(w, 1);
-		type_str(w, w->txthead, "Press enter to start next level", 0x12FFFFFF);
-		w->currmap = ft_strdup(m->linklvl);
-		w->menu.i = 5;
-	}
-	else
-	{
-		w->currmap = ft_strdup("hsh");
-		w->menu.i = 1;
-		m->change_lvl = 0;
-		m->newgame = 1;
-		w->txthead.x = 100;
-		if (ft_strcmp(m->linklvl, "end_game") == 0)
-		{
-			main_pic(w, 1);
-			type_str(w, w->txthead, "Congratulation, you finished the game ! press enter", 0x12FFFFFF);
-		}
-		else
+		if (menu_loose(w, m) == 1)
 			return (1);
 	}
-	type_str(w, w->txtnxtline, "Level completed in :", 0x12FFFFFF);
-	type_str(w, w->txtnxtline, ft_strjoin(ft_ftoa(time_lvl, 4), " seconds"), 0x12FFFFFF);
-	while (stop != 1)
+	else if (m->change_lvl == 1)
 	{
-		while (SDL_PollEvent(&w->event))
-		{
-			if (w->event.type == SDL_KEYDOWN)
-			{
-				if (KEY == 27)
-				{
-					w->menu.i = 1;
-					m->newgame = 1;
-					m->change_lvl = 0;
-					stop = 1;
-					return (1);
-				}
-				if (KEY == SDLK_RETURN || KEY == SDLK_KP_ENTER)
-				{
-					m->newgame = 1;
-					m->change_lvl = 0;
-					stop = 1;
-				}
-			}
-			if (w->event.type == SDL_WINDOWEVENT)
-			{
-				if (WINDOW == SDL_WINDOWEVENT_CLOSE)
-					exit_game(w, w->m, 1);
-			}
-		}
-		img_update(w);
+		if (menu_change_lvl(w, m) == 1)
+			return (1);
 	}
-	if (w->menu.i == 1)
-		return (1);
+	if (m->newgame == 1)
+	{
+		if (parse_map_in_core(w, m, w->currmap) != 0)
+			return (1);
+		w->dtime.start_lvl = SDL_GetTicks();
+	}
 	return (0);
 }
 
@@ -318,22 +115,8 @@ void	launch(t_env *w, t_map *m)
 			level_editor_start(w);
 		if (w->menu.i > 4)
 		{
-			if (m->game_over == 1)
-			{
-				if (loose(w, m) == 1)
-					continue ;
-			}
-			else if (m->change_lvl == 1)
-			{
-				if (change_lvl(w, m) == 1)
-					continue ;
-			}
-			if (m->newgame == 1)
-			{
-				if (parse_map_in_core(w, m, w->currmap) != 0)
-					continue ;
-				w->dtime.start_lvl = SDL_GetTicks();
-			}
+			if (launch_type(w, m) == 1)
+				continue ;
 			run(w, m);
 		}
 	}

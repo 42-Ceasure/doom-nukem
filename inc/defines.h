@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   w3d_defines.h                                      :+:      :+:    :+:   */
+/*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <abechet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:06:30 by abechet           #+#    #+#             */
-/*   Updated: 2019/05/21 19:33:12 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/23 21:59:59 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,7 @@
 # define TRANSPARENT		0x0000FF00
 # define PAKOMSA			"Your core file seems invalid. You may need to reinstall the game"
 # define COREBROKEN			"Some of game core components seems like to be broken, concider delete your core.dn3d and extract it again"
+# define CHANGELVL			"Press enter to start next level"
+# define ENDGAME			"Congratulation, you finished the game ! press enter"
 
 #endif

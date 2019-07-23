@@ -1,16 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   menu_settings_utils.c                              :+:      :+:    :+:   */
+/*   menu_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:44:59 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/23 20:28:12 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/23 22:30:02 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+
+void	main_pic(t_env *w, int nb)
+{
+	t_img	img;
+
+	if (nb < 0 || nb > 3)
+		return ;
+	img = fill_t_img(0, 0, WIDTH, HEIGHT);
+	img_to_screen(w, w->main_pic[nb], img);
+}
+
+int		map_is_in_core(t_env *w, char *map)
+{
+	int		i;
+	int		found;
+
+	i = 0;
+	found = 0;
+	w->nbmaps = get_nb_maps_in_core(w);
+	if ((w->namesmaps = (char **)malloc(sizeof(char *)
+		* (w->nbmaps + 1))) == NULL)
+		set_error(w, w->m, 0, ft_strdup("map_is_in_core"));
+	get_names_maps_in_core(w, w->namesmaps);
+	w->namesmaps[w->nbmaps] = NULL;
+	get_names_maps_in_core(w, w->namesmaps);
+	while (w->namesmaps[i])
+	{
+		if (ft_strcmp(w->namesmaps[i], map) == 0)
+			found = 1;
+		i++;
+	}
+	ft_memreg(w->namesmaps);
+	if (found == 1)
+		return (1);
+	else
+		return (0);
+}
 
 void	change_value_settings_nxt(t_env *w, int direction)
 {

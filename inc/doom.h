@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/23 21:25:02 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/23 22:21:57 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,5 +324,8 @@ t_dot			fill_t_dot(int x, int y);
 void			menu_settings(t_env *w);
 int				settings_changed(t_env *w);
 void			change_value_settings(t_env *w, int direction);
-
+int				menu_loose(t_env *w, t_map *m);
+int				menu_change_lvl(t_env *w, t_map *m);
+int				map_is_in_core(t_env *w, char *map);
+void			menu_screen(t_env *w);
 #endif
