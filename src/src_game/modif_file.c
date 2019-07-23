@@ -1,17 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   modif_file.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/23 17:06:19 by nvienot           #+#    #+#             */
+/*   Updated: 2019/07/23 17:47:44 by nvienot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
-
-// test
 
 void		replace_line(char *path, char *balise, char *content, t_env *w)
 {
 	t_filer f;
-	int 	i;
+	int		i;
 	int		nb;
 
 	i = 0;
 	nb = 0;
-	f.stop = 0; 
+	f.stop = 0;
 	f.buffer = 256;
 	if ((f.fd = open("./tmp", O_RDWR | O_CREAT | O_TRUNC, 0655)) != -1
 		&& (f.fd2 = open(path, O_RDONLY)) != -1)
@@ -49,6 +58,7 @@ void		replace_line(char *path, char *balise, char *content, t_env *w)
 			free(f.line);
 			i++;
 		}
+		free(f.line);
 		close(f.fd2);
 		close(f.fd);
 	}
@@ -59,7 +69,7 @@ void		add_map_to_core(char *path, char *path2, t_env *w)
 {
 	t_filer f;
 	int		fd;
-	int 	i;
+	int		i;
 	int		nb;
 	char	*line;
 
@@ -105,6 +115,7 @@ void		add_map_to_core(char *path, char *path2, t_env *w)
 			free(f.line);
 			i++;
 		}
+		free(f.line);
 		close(f.fd2);
 		close(f.fd);
 		close(fd);
@@ -119,27 +130,18 @@ void		change_settings(t_env *w, t_map *m)
 	char	*str;
 
 	nb = ft_itoa(w->window_mode);
-	str = ft_strjoin(nb, ":");
-	free(nb);
+	str = ft_strjoinnfree(nb, ":", 1);
 	nb = ft_itoa(w->window_res);
-	tmp = ft_strjoin(str, nb);
-	free(nb);
-	free(str);
-	nb = ft_itoa(m->player.field_of_vision_h); /* double */
-	str = ft_strjoin(tmp, ":");
-	free(tmp);
-	tmp = ft_strjoin(str, nb);
-	free(nb);
-	free(str);
-	nb = ft_itoa(m->player.field_of_vision_v); /* double */
-	str = ft_strjoin(tmp, ":");
-	free(tmp);
-	tmp = ft_strjoin(str, nb);
-	free(nb);
-	free(str);
+	tmp = ft_strjoinnfree(str, nb, 3);
+	nb = ft_itoa(m->player.field_of_vision_h);
+	str = ft_strjoinnfree(tmp, ":", 1);
+	tmp = ft_strjoinnfree(str, nb, 3);
+	nb = ft_itoa(m->player.field_of_vision_v);
+	str = ft_strjoinnfree(tmp, ":", 1);
+	tmp = ft_strjoinnfree(str, nb, 3);
 	nb = ft_itoa(m->player.mousesp); /* double */
-	str = ft_strjoin(tmp, ":");
-	free(tmp);
-	tmp = ft_strjoin(str, nb);
+	str = ft_strjoinnfree(tmp, ":", 1);
+	tmp = ft_strjoinnfree(str, nb, 3);
 	replace_line("./core/core.dn3d", "settings", tmp, w);
+	free(tmp);
 }
