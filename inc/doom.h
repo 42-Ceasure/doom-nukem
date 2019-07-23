@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/23 16:04:40 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/23 21:25:02 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,5 +321,8 @@ void			calc_z(t_work *work, int x);
 int				fill_arg(int *nb, char *number);
 void			menu_maps(t_env *w);
 t_dot			fill_t_dot(int x, int y);
+void			menu_settings(t_env *w);
+int				settings_changed(t_env *w);
+void			change_value_settings(t_env *w, int direction);
 
 #endif

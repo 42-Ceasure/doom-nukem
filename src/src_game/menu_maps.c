@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:01:11 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/23 19:27:26 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/23 20:00:02 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ void	aff_maps_2(t_env *w)
 	int				start;
 	unsigned int	color;
 
-	j = 0;
+	j = -1;
 	start = 1;
 	i = ((w->menu.k - 5) >= 0) ? (w->menu.k - 5) : w->nbmaps + (w->menu.k - 5);
 	dot = fill_t_dot(WIDTH / 2 - 50, 140);
-	while (j < 10)
+	while (++j < 10)
 	{
 		if (i >= w->nbmaps)
 			i = 0;
@@ -63,7 +63,6 @@ void	aff_maps_2(t_env *w)
 			type_str(w, w->txtnxtline, w->namesmaps[i], color);
 		start = 0;
 		i++;
-		j++;
 	}
 }
 
@@ -89,6 +88,16 @@ void	aff_maps_1(t_env *w)
 	}
 }
 
+void	get_maps_infos(t_env *w)
+{
+	w->nbmaps = get_nb_maps_in_core(w);
+	if ((w->namesmaps = (char **)malloc(sizeof(char *)
+		* (w->nbmaps + 1))) == NULL)
+		set_error(w, w->m, 0, ft_strdup("menu_maps"));
+	get_names_maps_in_core(w, w->namesmaps);
+	w->namesmaps[w->nbmaps] = NULL;
+}
+
 void	menu_maps(t_env *w)
 {
 	t_dot	dot;
@@ -97,11 +106,7 @@ void	menu_maps(t_env *w)
 	i = 0;
 	w->menu.k = 0;
 	dot = fill_t_dot(10, 10);
-	w->nbmaps = get_nb_maps_in_core(w);
-	if ((w->namesmaps = (char **)malloc(sizeof(char *) * (w->nbmaps + 1))) == NULL)
-		set_error(w, w->m, 0, ft_strdup("menu_maps"));
-	get_names_maps_in_core(w, w->namesmaps);
-	w->namesmaps[w->nbmaps] = NULL;
+	get_maps_infos(w);
 	while (1)
 	{
 		main_pic(w, 1);

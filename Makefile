@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
+#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/23 14:59:22 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/23 21:25:01 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,6 +112,11 @@ SRCFIL				=	src_game/main.c \
 						src_editor/dot_per_line.c \
 						src_editor/first_line.c \
 						src_editor/free_editor.c \
+						src_game/menu_settings.c \
+						src_game/menu_settings_utils.c \
+						src_editor/manage_sdl_window.c \
+						src_editor/launch_editor.c \
+						src_editor/init_editor.c \
 						src_editor/grid.c \
 						src_editor/init_editor.c \
 						src_editor/launch_editor.c \
