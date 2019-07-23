@@ -76,6 +76,7 @@ int			parse_map_in_core(t_env *w, t_map *m, char *name)
 				{
 					w->menu.i = 1;
 					w->stopread = 1;
+					w->m->newgame = 1;
 					get_next_line_until(m->fd, &m->line, w->stopread);
 					free(m->line);
 					return (-1);
@@ -84,8 +85,9 @@ int			parse_map_in_core(t_env *w, t_map *m, char *name)
 			else if (ft_strcmp(m->line, "ENDMAPSECTION") == 0)
 			{	
 				w->menu.i = 1;
-				free(m->line);
 				w->stopread = 1;
+				w->m->newgame = 1;
+				free(m->line);
 				continue;
 			}
 			else
