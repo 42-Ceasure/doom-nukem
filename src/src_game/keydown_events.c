@@ -102,8 +102,6 @@ void		keydown_events(t_env *w, t_map *m)
 		w->sequential_frame = 1;
 		sequential_frame(w, m);
 	}
-	if (KEY == SDLK_UP && m->god_mod == 1)
-		m->player.move_speed.z = m->player.move_speed.z + 0.2;
 	sit_down(w, m);
 	music(w);
 	affichage(w, m);

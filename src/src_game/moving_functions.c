@@ -81,7 +81,7 @@ void		is_falling(t_map *m)
 		if (m->player.move_speed.z < 0 && nxtz < m->sector[m->player.sector].floor + m->player.height)
 		{
 			m->player.coor.z = m->sector[m->player.sector].floor + m->player.height;
-			if (m->player.move_speed.z <= -1.5)
+			if (m->player.move_speed.z <= -1.7  && m->god_mod != 1)
 				m->player.hp = m->player.hp - (10 * -m->player.move_speed.z * -m->player.move_speed.z);
 			m->player.move_speed.z = 0;
 			m->player.fall = 0;

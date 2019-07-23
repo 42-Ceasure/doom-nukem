@@ -67,4 +67,6 @@ void		key_events(t_env *w, t_map *m)
 		jump(w, m);
 	if (w->inkeys[SDL_SCANCODE_LSHIFT] && w->inkeys[SDL_SCANCODE_W])
 		sprint(m);
+	if (w->inkeys[SDL_SCANCODE_UP] && m->god_mod == 1)
+		m->player.move_speed.z = m->player.move_speed.z + 0.07;
 }
