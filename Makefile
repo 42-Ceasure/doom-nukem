@@ -115,23 +115,23 @@ SRCFIL				=	src_game/main.c \
 						src_editor/placing.c \
 						src_editor/placing2.c \
 						src_editor/delete_asset.c \
-						src_editor/data.c \
-						src_editor/data2.c \
-						src_editor/data3.c \
-						src_editor/data4.c \
-						src_editor/data5.c \
-						src_editor/data6.c \
-						src_editor/data7.c \
-						src_editor/data8.c \
-						src_editor/data9.c \
-						src_editor/data10.c \
-						src_editor/data11.c \
-						src_editor/data12.c \
-						src_editor/data13.c \
-						src_editor/data14.c \
-						src_editor/data15.c \
-						src_editor/data16.c \
-						src_editor/data17.c \
+						src_editor/map_save.c \
+						src_editor/correct_map.c \
+						src_editor/triangulate_all_assets.c \
+						src_editor/write_in_file.c \
+						src_editor/write_weapons.c \
+						src_editor/write_player.c \
+						src_editor/write_sectors.c \
+						src_editor/sort_triangles_points.c \
+						src_editor/utilities.c \
+						src_editor/xy_on_line.c \
+						src_editor/dot_per_line.c \
+						src_editor/sort_points.c \
+						src_editor/nopis.c \
+						src_editor/write_dots.c \
+						src_editor/triangle_neighbours.c \
+						src_editor/triang_player_start.c \
+						src_editor/write_sprites.c \
 						src_editor/first_line.c \
 						src_editor/free_editor.c \
 						src_editor/texture_mode.c \
