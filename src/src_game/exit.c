@@ -72,6 +72,7 @@ void		ft_free_sector(t_map *m)
 			i++;
 		}
 		free(m->sector);
+		m->sector = NULL;
 	}
 }
 

@@ -25,6 +25,7 @@ void		ft_free_tab(t_map *m)
 			i++;
 		}
 		free(m->tab);
+		m->tab = NULL;
 	}
 }
 
@@ -39,6 +40,7 @@ void		ft_free_sprt(t_map *m)
 			m->i++;
 		}
 		free(m->sprt);
+		m->sprt = NULL;
 	}
 }
 
@@ -54,11 +56,15 @@ void		ft_free_sprite(t_map *m)
 			m->i++;
 		}
 		free(m->sprite);
+		m->sprite = NULL;
 	}
 	ft_free_tab(m);
 	ft_free_sprt(m);
 	if (m->fire.pix != NULL)
+	{
 		free(m->fire.pix);
+		m->fire.pix = NULL;
+	}
 }
 
 void		ft_free_weap(t_map *m)
@@ -82,5 +88,6 @@ void		ft_free_weap(t_map *m)
 			i++;
 		}
 		free(m->weap);
+		m->weap = NULL;
 	}
 }

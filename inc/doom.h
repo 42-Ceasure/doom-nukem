@@ -48,6 +48,8 @@ void			replace_line(char *path, char *balise, char *content, t_env *w);
 void			add_map_to_core(char *path, char *path2, t_env *w);
 void			change_settings(t_env *w, t_map *m);
 void			parse_map_file(t_env *w, t_map *m);
+int				first_line(t_map *m);
+void			init_map_structs(t_map *m);
 int				parse_map_section(t_map *m, char **tab);
 int				parse_player_section(t_map *m, char **tab);
 int				parse_weapon_section(t_map *m, char **tab);

@@ -95,6 +95,7 @@ SRCFIL				=	src_game/main.c \
 						src_game/maths_functions.c \
 						src_game/go_player.c \
 						src_game/look_around.c \
+						src_game/parse_first_line.c\
 						src_editor/manage_sdl_window.c \
 						src_editor/launch_editor.c \
 						src_editor/init_editor.c \

@@ -24,37 +24,6 @@ void	init_map_structs(t_map *m)
 	}
 }
 
-int		first_line(char **tab, t_map *m)
-{
-	char	**tmp;
-
-	tmp = ft_strsplit(tab[1], ',');
-	m->dots_count = ft_atoi(tmp[0]);
-	ft_memreg(tmp);
-	tmp = ft_strsplit(tab[2], ',');
-	M_S_C = ft_atoi(tmp[0]);
-	ft_memreg(tmp);
-	tmp = ft_strsplit(tab[3], ',');
-	m->sprite_map_count = ft_atoi(tmp[0]);
-	ft_memreg(tmp);
-	tmp = ft_strsplit(tab[4], ',');
-	m->ennemy_count = ft_atoi(tmp[0]);
-	ft_memreg(tmp);
-	if ((m->sector = (t_sector *)malloc(sizeof(t_sector) * M_S_C)) == NULL)
-		return (-1);
-	if ((m->dot = (t_dot *)malloc(sizeof(t_dot) * m->dots_count)) == NULL)
-		return (-1);
-	if ((m->sprt = (t_map_sprite *)malloc(sizeof(t_map_sprite)
-		* m->sprite_map_count)) == NULL)
-		return (-1);
-	if ((m->ennemy = (t_ennemy *)malloc(sizeof(t_ennemy) * m->ennemy_count))
-		== NULL)
-		return (-1);
-	init_sprite_tab(m);
-	init_map_structs(m);
-	return (0);
-}
-
 int		second_parse(t_env *w, t_map *m, char **tmp)
 {
 	if (m->section_number == 2)
@@ -92,7 +61,7 @@ int		parse_line(t_env *w, t_map *m)
 		m->section_number++;
 	if (m->section_number == 0)
 	{
-		if (first_line(tmp, m) == -1)
+		if (first_line(m) == -1)
 			return (-1);
 	}
 	else if (m->section_number == 1)

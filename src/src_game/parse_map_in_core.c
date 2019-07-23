@@ -7,16 +7,19 @@ void	reset_map(t_map *m)
 	int i;
 
 	i = 0;
-	if (m->tab != NULL)
-		ft_free_tab(m);
-	if (m->sector != NULL)
-		ft_free_sector(m);
+	ft_free_tab(m);
+	ft_free_sector(m);
 	if (m->dot != NULL)
+	{
 		free(m->dot);
-	if (m->sprt != NULL)
-		ft_free_sprt(m);
+		m->dot = NULL;
+	}
+	ft_free_sprt(m);
 	if (m->ennemy != NULL)
+	{
 		free(m->ennemy);
+		m->ennemy = NULL;
+	}
 	if (m->linklvl != NULL)
 	{
 		free(m->linklvl);
