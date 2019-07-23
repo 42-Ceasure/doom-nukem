@@ -85,21 +85,10 @@ void		write_in_file_helper(t_win *win, t_env *w, int fp)
 	write_ennemies(win, fp);
 }
 
-void		do_system_to_save(char *name)
-{
-	char	*command;
-
-	command = ft_strjoinnfree("cat ", name, 2);
-	command = ft_strjoinnfree(command, " >> nouveau.txt && echo '\n\n' >> nouveau.txt && cat ./core/core.dn3d >> nouveau.txt", 1);
-	system(command);
-	free(command);
-	system("rm ./core/core.dn3d && rm ./tmp.dn3d && cp ./nouveau.txt ./core && mv ./core/nouveau.txt ./core/core.dn3d && rm ./nouveau.txt");
-}
-
 void		write_in_file(t_win *win, t_env *w)
 {
 	int			fp;
-	char	*name;
+	char		*name;
 	char		*str;
 
 	name = ft_strdup("tmp.dn3d");
@@ -113,9 +102,6 @@ void		write_in_file(t_win *win, t_env *w)
 	ft_putstr_fd(str, fp);
 	free(str);
 	close(fp);
-
-	//do_system_to_save(name);
 	add_map_to_core("./core/core.dn3d", "./tmp.dn3d", w);
-
 	unlink("./tmp.dn3d");
 }

@@ -12,14 +12,12 @@
 
 #include "doom.h"
 
-void		stph2(t_win *win, int y, int i)
+void		stph2(t_win *win, int y, int i, int index)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
-	int			index;
 	int			*dot_tab;
 
-	index = 0;
 	dot_tab = create_y_dot_tab(win, y, i);
 	while (index < i)
 	{
@@ -44,9 +42,12 @@ void		stph2(t_win *win, int y, int i)
 
 void		stph(t_win *win, int y, int i)
 {
+	int		index;
+
+	index = 0;
 	i = number_of_dot_per_line_with_same(win, y);
 	if (i > 0)
-		stph2(win, y, i);
+		stph2(win, y, i, index);
 }
 
 void		sort_triangles_points(t_win *win)

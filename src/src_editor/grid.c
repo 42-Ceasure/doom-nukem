@@ -12,6 +12,20 @@
 
 #include "doom.h"
 
+void		och5(t_win *win)
+{
+	if (win->left_click == 1 && win->mode == 2)
+	{
+		win->place = 1;
+	}
+	if (win->left_click == 1 && win->mode == 4)
+	{
+		win->put_texture = 1;
+	}
+	if (win->moving == 0)
+		win->left_click = 0;
+}
+
 void    draw_grid(t_env *w, t_win *win)
 {
     int     i;
@@ -29,19 +43,14 @@ void    draw_grid(t_env *w, t_win *win)
         x = 0;
         while (i < WIN_X * 10)
         {
-            // if (i % 100 == 0 || j % 100 == 0)
-            //  set_txtr_pix(w, i, j, 0xFF9dfcf6);
-            // else if (i % 50 == 0 || j % 50 == 0)
-            //  set_txtr_pix(w, i, j, 0xFFb08411);
-            // else
-                set_txtr_pix(w, i, j, 0xFF36E2D7);
+            set_txtr_pix(w, i, j, 0xFF36E2D7);
             i += 10;
             x++;
         }
         j += 10;
         y++;
     }
-    i = 0;
+    /*i = 0;
     j = 0;
     while (i < WIN_Y)
     {
@@ -52,18 +61,5 @@ void    draw_grid(t_env *w, t_win *win)
             j++;
         }
         i += 50;
-    }
-    i = 0;
-    j = 0;
-    while (i < WIN_Y)
-    {
-        j = 0;
-        while (j < WIN_X)
-        {
-            set_txtr_pix(w, i, j, 0xFF113d3a);
-            j++;
-        }
-        i += 50;
-    }
+    }*/
 }
-

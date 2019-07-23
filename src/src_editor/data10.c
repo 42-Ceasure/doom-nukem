@@ -34,10 +34,8 @@ int			y_min_point(t_win *win)
 	return (y);
 }
 
-int			number_of_y(t_win *win)
+int			number_of_y(t_win *win, t_lstlst *tmp2, t_lst *tmp)
 {
-	t_lstlst	*tmp2;
-	t_lst		*tmp;
 	int			y;
 	int			i;
 

@@ -101,6 +101,8 @@ SRCFIL				=	src_game/main.c \
 						src_editor/init_editor.c \
 						src_editor/grid.c \
 						src_editor/loop.c \
+						src_editor/loop2.c \
+						src_editor/loop3.c \
 						src_editor/list.c \
 						src_editor/line_editor.c \
 						src_editor/undo.c \
@@ -132,6 +134,8 @@ SRCFIL				=	src_game/main.c \
 						src_editor/texture_mode2.c \
 						src_editor/params.c \
 						src_editor/sdl_event.c \
+						src_editor/sdl_mouse_event.c \
+						src_editor/sdl_keyboard_event.c \
 						src_editor/polygone.c \
 						src_editor/new_poly.c \
 						src_editor/vertex.c \

@@ -72,6 +72,8 @@ void		first_line2(t_win *win, int fp)
 
 void		write_dots(t_win *win, int fp)
 {
+	t_lstlst	*tmp2;
+	t_lst		*tmp;
 	char		*str;
 	int			i;
 	int			x;
@@ -81,7 +83,9 @@ void		write_dots(t_win *win, int fp)
 	int			a;
 	int			b;
 
-	b = number_of_y(win);
+	tmp2 = NULL;
+	tmp = NULL;
+	b = number_of_y(win, tmp2, tmp);
 	a = 0;
 	boole = 0;
 	y = y_min_point(win);

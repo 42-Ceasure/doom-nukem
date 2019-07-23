@@ -36,7 +36,6 @@ void		sector_confirm(t_win *win)
 	win->lst = NULL;
 	win->sector += 1;
 	win->drawing = 0;
-	win->just_close = 1;
 }
 
 int			check_list(t_win *win, t_lst *lst, int x, int y)

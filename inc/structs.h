@@ -42,7 +42,7 @@ typedef struct		s_scalling
 	int				text_w;
 	int				text_h;
 	unsigned int	tmpix;
-}					t_scalling;		
+}					t_scalling;
 
 typedef struct		s_draw
 {
@@ -191,7 +191,6 @@ struct					s_win
 	int					h_win_tmp;
 	int					w_win_tmp;
 	int					link;
-	int					just_close;
 	int					color;
 	int					overed_sector;
 	int					asset;

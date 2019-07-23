@@ -12,45 +12,55 @@
 
 #include "doom.h"
 
-void		sort_points(t_win *win)
+void		sort_points_helper2(t_win *win, int index, int y, int *dot_tab)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
-	int			y;
+
+	tmp2 = win->lstlst;
+	while (tmp2)
+	{
+		tmp = tmp2->head;
+		while (tmp)
+		{
+			if (tmp->y == y && tmp->x == dot_tab[index])
+				tmp->nb = win->number;
+			tmp = tmp->next;
+		}
+		tmp2 = tmp2->next;
+	}
+}
+
+void		sort_points_helper(t_win *win, int y)
+{
 	int			i;
 	int			index;
 	int			*dot_tab;
 
+	i = number_of_dot_per_line_with_same(win, y);
+	if (i > 0)
+	{
+		index = 0;
+		dot_tab = create_y_dot_tab(win, y, i);
+		while (index < i)
+		{
+			sort_points_helper2(win, index, y, dot_tab);
+			index++;
+			if (dot_tab[index] != dot_tab[index - 1])
+				win->number++;
+		}
+	}
+}
+
+void		sort_points(t_win *win)
+{
+	int			y;
+
 	y = WIN_Y;
-	tmp = NULL;
-	index = 0;
 	y = y_min_point(win);
 	while (y < WIN_Y)
 	{
-		i = number_of_dot_per_line_with_same(win, y);
-		if (i > 0)
-		{
-			index = 0;
-			dot_tab = create_y_dot_tab(win, y, i);
-			while (index < i)
-			{
-				tmp2 = win->lstlst;
-				while (tmp2)
-				{
-					tmp = tmp2->head;
-					while (tmp)
-					{
-						if (tmp->y == y && tmp->x == dot_tab[index])
-							tmp->nb = win->number;
-						tmp = tmp->next;
-					}
-					tmp2 = tmp2->next;
-				}
-				index++;
-				if (dot_tab[index] != dot_tab[index - 1])
-					win->number++;
-			}
-		}
+		sort_points_helper(win, y);
 		y++;
 	}
 }

@@ -1,19 +1,27 @@
-/*BIG42HEADER*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   manage_sdl_window.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/23 11:40:41 by abechet           #+#    #+#             */
+/*   Updated: 2019/07/23 11:40:45 by abechet          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
 
 void	fit_to_editor(t_env *w)
 {
-
-	// Rajoute ton centrage de fenetre si tu veux
-
 	w->res.width = w->editor_res.width;
 	w->res.height = w->editor_res.height;
 	if (w->window_mode == 0)
 		SDL_SetWindowFullscreen(w->win, 0);
 	SDL_SetWindowResizable(w->win, SDL_FALSE);
 	SDL_SetWindowSize(w->win, WIDTH, HEIGHT);
-	SDL_SetWindowPosition(w->win, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+	SDL_SetWindowPosition(w->win, SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED);
 	SDL_DestroyRenderer(w->rdr);
 	SDL_DestroyTexture(w->txtr);
 	free(w->pix);
@@ -35,7 +43,8 @@ void	fit_to_game(t_env *w)
 		SDL_SetWindowFullscreen(w->win, 0);
 	SDL_SetWindowResizable(w->win, SDL_TRUE);
 	SDL_SetWindowSize(w->win, WIDTH, HEIGHT);
-	SDL_SetWindowPosition(w->win, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+	SDL_SetWindowPosition(w->win, SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED);
 	SDL_DestroyRenderer(w->rdr);
 	SDL_DestroyTexture(w->txtr);
 	free(w->pix);

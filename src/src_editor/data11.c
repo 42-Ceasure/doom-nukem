@@ -44,7 +44,6 @@ int			*create_y_dot_tab(t_win *win, int y, int i)
 	index = 0;
 	if (!(dot_tab = (int *)malloc(sizeof(int) * (i + 1))))
 		clear_n_exit(win, 1);
-	// A verifier plus longuement
 	tmp2 = win->lstlst;
 	while (tmp2)
 	{

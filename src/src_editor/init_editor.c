@@ -116,7 +116,6 @@ static int	init_struct(t_win *win)
 	win->lst = NULL;
 	win->lstlst = NULL;
 	win->lstasset = NULL;
-	win->just_close = 0;
 	win->color = 255255255;
 	win->overed_sector = -1;
 	win->triangles = NULL;
