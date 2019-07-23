@@ -1,0 +1,23 @@
+map			;i_believe_i_can_fly
+dots:8,sector:5,sprite:0,ennemy:0
+Section:map
+	dots:0:0,600
+	dots:280:280,320
+	dots:320:280,320
+	dots:600:0,600
+	sector:0,900:2,3,5,4:1,2,3,4:24,0,6,3,6,46
+	sector:300,900:0,1,3,2:x,2,0,4:6,0,3,3,3,46
+	sector:300,900:3,1,7,5:1,x,3,0:6,0,3,3,3,46
+	sector:300,900:4,5,7,6:0,2,x,4:6,0,3,3,3,46
+	sector:300,900:0,2,4,6:1,0,3,x:6,0,3,3,3,46
+Section:player
+	player_location:300,300
+	player_direction:90
+	player_sector:0
+	player_max_hp:100
+	gravity:0.05
+	god_mod:1
+Section:sprite
+Section:ennemy
+Section:level
+Section:over

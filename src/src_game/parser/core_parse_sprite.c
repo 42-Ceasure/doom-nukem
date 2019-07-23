@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse_sprite_section.c                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/15 13:25:09 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/15 13:31:05 by ochaar           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "doom.h"
 
@@ -99,4 +88,23 @@ int			parse_sprite_section(t_map *m, char *name, char *def, char *pix)
 	process_hint_w(m->world, 0, " ");
 	ft_memreg(tmp);
 	return (0);
+}
+
+void			parse_sprite_line(t_env *w, t_map *m, char *line)
+{
+	char 		**tab;
+
+	tab = ft_strsplit(line, ':');
+	if (ft_strcmp(tab[0], "weapon_sprite") == 0)
+	{
+		process_hint_w(m->world, 4, "weapon sprite");
+		if (parse_weapon_sprite(m, tab[1], tab[2], tab[3]) == -1)
+			set_error(w, m, 8, ft_strdup("weapon sprite"));
+	}
+	if (ft_strcmp(tab[0], "weapon_sprite") != 0)
+	{
+		if (parse_sprite_section(m, tab[0], tab[1], tab[2]) == -1)
+			set_error(w, m, 8, ft_strdup("sprites"));
+	}
+	ft_memreg(tab);
 }

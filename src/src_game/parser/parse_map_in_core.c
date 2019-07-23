@@ -41,7 +41,7 @@ int		get_that_map_parsed(t_env *w, t_map *m)
 	m->weap[2].actu_ammo = m->weap[2].magazine;
 	while (get_next_line_until(m->fd, &m->line, w->stopread) && w->stopread == 0)
 	{
-		if ((parse_line(w, m)) == -1)
+		if ((parse_map_line(w, m)) == -1)
 		{
 			write(2, "error on map collect\n", 22);
 			free(m->line);

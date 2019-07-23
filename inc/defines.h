@@ -80,5 +80,6 @@
 # define EDIT				1
 # define TRANSPARENT		0x0000FF00
 # define PAKOMSA			"Your core file seems invalid. You may need to reinstall the game"
+# define COREBROKEN			"Some of game core components seems like to be broken, concider delete your core.dn3d and extract it again"
 
 #endif

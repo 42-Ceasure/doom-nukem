@@ -12,6 +12,54 @@
 
 #include "doom.h"
 
+
+void	reset_player(t_env *w, t_map *m)
+{
+	m->player.bullet[0] = 0;
+	m->player.bullet[1] = 0;
+	m->player.take[0] = 0;
+	m->player.take[1] = 0;
+	m->player.take[2] = 0;
+	m->player.take[3] = 0;
+	m->player.intactu_ammo = 0;
+	m->player.firing = 0;
+	m->player.shooting = 0;
+	m->player.field_of_vision_h = w->mem_field_of_vision_h;
+	m->player.field_of_vision_v = w->mem_field_of_vision_v;
+	m->player.aiming = 0;
+	m->elevator = 0;
+	m->weap[0].actu_ammo = m->weap[0].magazine;
+	m->weap[1].actu_ammo = m->weap[1].magazine;
+	m->weap[2].actu_ammo = m->weap[2].magazine;
+}
+
+void			set_screen_res(t_env *w, char *aspect)
+{
+	w->window_res = ft_atoi(aspect);
+	if (w->window_res == 0) //			16/9
+	{
+		w->res.width = BASEWIDTH;
+		w->res.height = BASEHEIGHT;
+	}
+	else if (w->window_res == 1)
+	{
+		w->res.width = 1920;
+		w->res.height = 1080;
+	}
+	else if (w->window_res == 2)
+	{
+		w->res.width = 800;
+		w->res.height = 600;
+	}
+	else
+	{
+		w->res.width = BASEWIDTH;
+		w->res.height = BASEHEIGHT;
+	}
+	w->game_res.width = w->res.width;
+	w->game_res.height = w->res.height;
+}
+
 void			set_w(t_env *w, int ac)
 {
 	w->currmap = ft_strdup("hsh");

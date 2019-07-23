@@ -87,3 +87,36 @@ void		init_sprite_tab(t_map *m)
 		i++;
 	}
 }
+
+void	init_map_structs(t_map *m)
+{
+	int	i;
+
+	i = 0;
+	while (i < m->sprite_map_count)
+	{
+		m->sprt[i].name = NULL;
+		i++;
+	}
+}
+
+t_texture			pre_init_texture(int w, int h)
+{
+	t_texture		texture;
+
+	if (w > 0 && h > 0)
+	{
+		texture.w = w;
+		texture.h = h;
+		texture.len = w * h;
+		texture.pix = (Uint32 *)malloc(sizeof(Uint32) * w * h);
+	}
+	else
+	{
+		texture.w = 0;
+		texture.h = 0;
+		texture.len = 0;
+		texture.pix = NULL;
+	}
+	return (texture);
+}

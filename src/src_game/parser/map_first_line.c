@@ -12,22 +12,6 @@
 
 #include "doom.h"
 
-int		fill_arg(int *nb, char *number)
-{
-	int		i;
-
-	i = 0;
-	while (number[i] != '\0')
-	{
-		if (ft_isdigit((int)number[i]) != 1)
-			return (-1);
-		i++;
-	}
-	i = ft_atoi(number);
-	*nb = i;
-	return (0);
-}
-
 int		first_line_compare(t_map *m, char **tmp)
 {
 	if (ft_strcmp(tmp[0], "dots") == 0
@@ -87,7 +71,7 @@ int		first_line_check(t_map *m)
 	return (0);
 }
 
-int		first_line(t_map *m)
+int		parse_first_line(t_map *m)
 {
 	if (first_line_check(m) != 0)
 		return (-1);
