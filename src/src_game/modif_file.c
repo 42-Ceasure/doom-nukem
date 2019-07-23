@@ -21,7 +21,7 @@ void		replace_line(char *path, char *balise, char *content, t_env *w)
 			f.tmp = ft_strsplit(f.line, ';');
 			if (w->corenbl != 0)
 				nb = vmin(((double)i / (double)(w->corenbl) * (double)100), 99);
-			process_hint_w(w, 2, ft_itoa(nb));
+			process_hint_w(w, 8, ft_itoa(nb));
 			if (ft_strncmp(f.line, "buffer", 6) == 0)
 			{
 				ft_putendl_fd(f.line, f.fd);

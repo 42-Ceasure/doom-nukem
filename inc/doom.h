@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/23 14:58:21 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/23 16:04:40 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void			main_pic(t_env *w, int nb);
 int				load_sounds(t_env *w, t_map *m);
 void			process_hint(int i, char *s);
 void			process_hint_w(t_env *w, int i, char *s);
-void			print_load(char *s, int i3, int len);
 void			set_config(t_env *w, t_map *m);
 void			set_w(t_env *w, int ac);
 void			set_m(t_map *m);
