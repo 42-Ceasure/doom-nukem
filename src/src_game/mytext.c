@@ -122,22 +122,14 @@ void		type_s(t_env *w)
 	w->txtnxtto.y = y;
 }
 
-t_text		type_set(int x, int y, char *s, Uint32 color)
-{
-	t_text	txt;
-
-	txt.x = x;
-	txt.y = y;
-	txt.text = s;
-	txt.color = color;
-	return (txt);
-}
-
 void		type_str(t_env *w, t_dot dot, char *s, Uint32 color)
 {
 	if (w->asciichk == ASCIINB)
 	{
-		w->txt = type_set(dot.x, dot.y, s, color);
+		w->txt.x = dot.x;
+		w->txt.y = dot.y;
+		w->txt.text = s;
+		w->txt.color = color;
 		type_s(w);
 	}
 }

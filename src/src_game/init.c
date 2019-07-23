@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:03:15 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/22 19:03:17 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/23 14:37:35 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			load_sounds(t_env *w, t_map *m)
 		return (-1);
 	Mix_PlayMusic(w->sound.musique, -1);
 	Mix_VolumeMusic(w->sound.volume);
-	Mix_AllocateChannels(10);
+	Mix_AllocateChannels(7);
 	if (!(w->sound.jump = Mix_LoadWAV("./sounds/jump2.wav")))
 		return (-1);
 	if (!(w->sound.reload = Mix_LoadWAV("./sounds/reload.wav")))
@@ -74,7 +74,7 @@ int			init_sdl(t_env *w)
 	return (0);
 }
 
-void			init_sprite_tab(t_map *m)
+void		init_sprite_tab(t_map *m)
 {
 	int i;
 

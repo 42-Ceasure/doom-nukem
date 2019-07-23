@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 13:33:43 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/14 15:13:43 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/23 12:59:31 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void		move_ennemy(double dx, double dy, t_map *m, int x)
 	int			s;
 	t_intersect	i;
 	t_coor		coor;
+	t_dot		p;
 
 	i.x1 = 0;
 	i = init_x1_x2(m, i, x);
@@ -42,10 +43,12 @@ void		move_ennemy(double dx, double dy, t_map *m, int x)
 	while (s < m->sector[m->ennemy[x].sector].wall_count)
 	{
 		i = init_x3_x4(m, i, x, s);
+		p.x = i.x3;
+		p.y = i.y3;
 		coor.x = i.x2;
 		coor.y = i.y2;
 		if (m->sector[m->ennemy[x].sector].network[s] >= 0 && intersectbox(i)
-		&& pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
+		&& pointside(coor, p, i.x4, i.y4) <= 0)
 		{
 			m->ennemy[x].sector = m->sector[m->ennemy[x].sector].network[s];
 			break ;
@@ -61,18 +64,21 @@ void		is_moving_ennemy(t_map *m, int x)
 	int			s;
 	t_intersect	i;
 	t_coor		coor;
+	t_dot		p;
 
 	s = 0;
 	i.x1 = 0;
 	i = init_x1_x2(m, i, x);
 	coor.x = i.x2;
 	coor.y = i.y2;
+	p.x = i.x3;
+	p.y = i.y3;
 	i.dx = m->ennemy[x].move_speed.x;
 	i.dy = m->ennemy[x].move_speed.y;
 	while (s < m->sector[m->ennemy[x].sector].wall_count)
 	{
 		i = init_x3_x4(m, i, x, s);
-		if (intersectbox(i) && pointside(coor, i.x3, i.y3, i.x4, i.y4) <= 0)
+		if (intersectbox(i) && pointside(coor, p, i.x4, i.y4) <= 0)
 			walk_up_stairs(m, i, x, s);
 		s++;
 	}

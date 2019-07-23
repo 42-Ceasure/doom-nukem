@@ -6,31 +6,11 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 13:01:57 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/22 18:57:38 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/23 14:00:31 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
-
-void	reset_player(t_env *w, t_map *m)
-{
-	m->player.bullet[0] = 0;
-	m->player.bullet[1] = 0;
-	m->player.take[0] = 0;
-	m->player.take[1] = 0;
-	m->player.take[2] = 0;
-	m->player.take[3] = 0;
-	m->player.intactu_ammo = 0;
-	m->player.firing = 0;
-	m->player.shooting = 0;
-	m->player.field_of_vision_h = w->mem_field_of_vision_h;
-	m->player.field_of_vision_v = w->mem_field_of_vision_v;
-	m->player.aiming = 0;
-	m->elevator = 0;
-	m->weap[0].actu_ammo = m->weap[0].magazine;
-	m->weap[1].actu_ammo = m->weap[1].magazine;
-	m->weap[2].actu_ammo = m->weap[2].magazine;
-}
 
 void	fill_sprite(t_map_sprite *sprite, char **tmp)
 {
@@ -47,7 +27,7 @@ int		parse_sprite_map(t_map *m, char **tab)
 {
 	char	**tmp;
 	int		nb;
-	int 	check;
+	int		check;
 
 	check = 0;
 	if (tab[0] == NULL)
@@ -128,23 +108,6 @@ int		parse_ennemy_map(t_map *m, char **tab)
 			set_ennemy(m, nb);
 			m->ennemyc++;
 		}
-		ft_memreg(tmp);
-	}
-	return (0);
-}
-
-int		parse_level_map(t_map *m, char **tab)
-{
-	char	**tmp;
-
-	if (tab[0] == NULL)
-		return (-1);
-	if (ft_strcmp(tab[0], "Section") != 0
-		&& tab[1] != NULL)
-	{
-		tmp = ft_strsplit(tab[1], ',');
-		m->endsector = ft_atoi(tmp[0]);
-		m->linklvl = ft_strdup(tmp[1]);
 		ft_memreg(tmp);
 	}
 	return (0);
