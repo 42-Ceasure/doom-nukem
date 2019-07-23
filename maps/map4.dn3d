@@ -1,0 +1,14 @@
+Section:map
+	dots:0:0,25
+	dots:10:0,10,15,25
+	dots:15:0,10,15,25
+	dots:25:0,25
+	sector:0,30:0,1,5,4,3,2:x,x,3,2,1,x
+	sector:0,30:2,3,7,6:0,2,4,x
+	sector:2,30:3,4,8,7:0,3,4,1
+	sector:0,30:4,5,9,8:0,x,4,2
+	sector:0,30:6,7,8,9,11,10:1,2,3,x,x,x
+Section:player
+	player_location:6,4
+	player_direction:0
+	player_sector:0

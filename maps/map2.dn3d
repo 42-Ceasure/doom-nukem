@@ -1,0 +1,29 @@
+dots:10,sector:4,sprite:9,ennemy:4
+Section:map
+	dots:0:40,80
+	dots:20:0,40,80
+	dots:60:0,40,80
+	dots:100:40,80
+	sector:0,50:2,3,6,5:x,1,x,x:3,5,3,2,2,7
+	sector:0,50:3,4,7,6:2,x,3,0:6,5,3,2,2,7
+	sector:0,50:0,1,4,3:x,x,1,x:3,5,3,2,2,7
+	sector:0,70:6,7,9,8:1,x,x,x:2,5,2,2,2,7
+Section:player
+	player_location:5,5
+	player_direction:90
+	player_sector:0
+Section:sprite
+	health:0,3,1,10,30
+	health:1,3,0,10,10
+	cartouche:2,4,0,15,15
+	ammo:3,5,1,25,35
+	ammo:8,5,2,30,80
+	M4A1:4,0,2,25,70
+	M4A1:5,0,2,20,85
+	M9:6,2,0,20,10
+	pompe:7,1,1,5,40
+Section:ennemy
+	monstre:0,5,2,20,90
+	monstre:1,5,2,25,70
+	monstre:2,5,1,12,42
+	monstre:3,5,0,30,15

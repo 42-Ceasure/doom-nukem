@@ -1,9 +1,15 @@
 libSDL2/
 obj/
 SDL2-2.0.3/
+SDL2-2.0.9/
 SDL2_mixer-2.0.1/
-
+SDL2_mixer-2.0.4/
+.vscode
+core.dn3d
 user_config.dn3d
 doom-nukem
-
+.DS_Store
 *.[oa]
+libft.a
+tmp
+mycore/
