@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_and_reset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 13:01:57 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/22 16:12:32 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/22 18:57:38 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		parse_sprite_map(t_map *m, char **tab)
 {
 	char	**tmp;
 	int		nb;
-	int check;
+	int 	check;
 
 	check = 0;
 	if (tab[0] == NULL)

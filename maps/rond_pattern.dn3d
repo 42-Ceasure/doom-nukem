@@ -1,0 +1,23 @@
+map			;rond_pattern
+dots:16,sector:1,sprite:0,ennemy:0
+Section:map
+	dots:8:22,28
+	dots:10:16,34
+	dots:14:12,38
+	dots:20:10,40
+	dots:26:10,40
+	dots:32:12,38
+	dots:36:16,34
+	dots:38:22,28
+	sector:0,60:0,1,3,5,7,9,11,13,15,14,12,10,8,6,4,2:x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x:38,0,35,3,3,46
+Section:player
+	player_location:24,24
+	player_direction:90
+	player_sector:0
+	player_max_hp:100
+	gravity:0.01
+	god_mod:0
+Section:sprite
+Section:ennemy
+Section:level
+Section:over
