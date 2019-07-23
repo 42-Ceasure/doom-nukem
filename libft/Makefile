@@ -3,17 +3,25 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+         #
+#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/19 18:35:47 by cglavieu          #+#    #+#              #
-#    Updated: 2019/04/18 14:09:47 by ochaar           ###   ########.fr        #
+#    Updated: 2019/07/23 01:55:36 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+SHELL = bash
+DEBUG = 0
+
 CC = gcc
 
-CFLAG		=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
-DBGFLAG		=	-g -O0 -fsanitize=address
+ifeq ($(DEBUG), 0)
+    CFLAG		=	-Wall -Wextra -Werror -O2
+	MESSAGE		= 	"\033[38;5;79m[$(NAME)] compiled on normal rules !\033[0m                  "
+else
+    CFLAG		=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
+	MESSAGE		= 	"\033[38;5;79m[DEBUG] [$(NAME)] compiled on debug rules !\033[0m                 "
+endif
 
 NAME = libft.a
 
@@ -73,14 +81,15 @@ SRC = ft_atoi.c\
 	ft_strctrim.c\
 	ft_tolower.c\
 	ft_toupper.c\
-	get_next_line1000k.c\
-	get_next_line500k.c\
-	get_next_line10k.c\
+	precise_get_next_line.c\
 	get_next_line.c\
+	get_next_line_until.c\
 	ft_atof.c\
 	ft_memreg.c\
 	ft_uitoa_base.c\
-	ft_atoui_base.c
+	ft_atoui_base.c\
+	ft_strjoinnfree.c\
+	ft_ftoa.c
 
 SRCDIR = ./src/
 SRCFILL = $(addprefix $(SRCDIR),$(SRC))
@@ -91,20 +100,28 @@ OBJFILL = $(addprefix $(OBJDIR),$(OBJ))
 
 INC = ./inc/
 
-all: 		$(NAME)
+T = $(words $(OBJ))
+N = 0
+C = $(words $N)$(eval N := x $N)
+PROGRESS = "[`expr $C  '*' 100 / $T`%]"
 
-$(NAME): 	$(OBJFILL)
-			@ar rc $@ $^
-			@echo "compile of libft done."
+all: 			$(NAME)
+
+$(NAME): 		$(OBJFILL)
+				@ar rc $@ $^
+				@echo -e $(MESSAGE)
 
 $(OBJDIR)%.o:	$(SRCDIR)%.c
-			@mkdir -p $(OBJDIR)
-			@$(CC) $(CFLAG) -I $(INC) -c $< -o $@
+				@mkdir -p $(OBJDIR)
+				@$(CC) $(CFLAG) -I $(INC) -c $< -o $@
+				@echo -ne "[$(NAME)] progress : $(PROGRESS) | $@            \r"
 
 clean:
-			@rm -rf $(OBJDIR)
+				@rm -rf $(OBJDIR)
 
-fclean:		clean
-			@rm -f $(NAME)
+fclean:			clean
+				@echo -ne "Cleaning [$(NAME)]... In progress...\r"
+				@rm -f $(NAME)
+				@echo -e "Cleaning [$(NAME)] done !              "
 
-re: 		fclean all
+re: 			fclean all

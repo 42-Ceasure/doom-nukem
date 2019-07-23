@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/19 18:18:57 by cglavieu          #+#    #+#             */
-/*   Updated: 2019/04/18 14:09:03 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/23 01:57:47 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,15 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define BUFF_SIZE 3000000
+# define BUFF_SIZE 9000
+
+typedef struct	s_ftoa
+{
+	int			int_fl;
+	int			int_fl_after;
+	int			pui;
+	int			i;
+}				t_ftoa;
 
 size_t				ft_strlen(char const *s);
 size_t				ft_strlcat(char *dst, char const *src, size_t size);
@@ -55,10 +63,8 @@ int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
-int					get_next_line10k(int const fd, char **line);
-int					get_next_line500k(int const fd, char **line);
-int					get_next_line1000k(int const fd, char **line);
-int					get_next_line(int const fd, char **line);
+int					get_next_line_until(int const fd, char **line, int stop);
+int					precise_get_next_line(int const fd, char **line, int size);
 int					get_next_line(int const fd, char **line);
 void				*ft_memalloc(size_t size);
 void				*ft_memchr(const void *s, int c, size_t n);
@@ -80,6 +86,7 @@ char				*ft_strmap(char const *s, char (*f) (char));
 char				*ft_strmapi(char const *s, char (*f) (unsigned int, char));
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoinnfree(char *s1, char *s2, int fr);
 char				*ft_strtrim(char const *s);
 char				*ft_itoa(int n);
 void				ft_light_itoa(int n, char *str);
@@ -92,5 +99,6 @@ void				ft_memreg(char **s);
 void				ft_memreg3(char ***s);
 unsigned int		ft_atoui_base(const char *str, int base);
 char				*ft_uitoa_base(unsigned int n, int base);
+char	            *ft_ftoa(float fl, int precision);
 
 #endif
