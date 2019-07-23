@@ -619,7 +619,7 @@ int		change_lvl(t_env *w, t_map *m)
 			return (1);
 	}
 	type_str(w,  w->txtnxtline, "Level completed in :", 0x12FFFFFF);
-	type_str(w,  w->txtnxtline, ft_strjoin(ft_ftoa(time_lvl, 3), " seconds"), 0x12FFFFFF);
+	type_str(w,  w->txtnxtline, ft_strjoin(ft_ftoa(time_lvl, 4), " seconds"), 0x12FFFFFF);
 	while (stop != 1)
 	{
 		while (SDL_PollEvent(&w->event))
