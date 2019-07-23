@@ -56,6 +56,8 @@ void			set_w(t_env *w, int ac)
 	w->dtime.dead = 0;
 	w->dtime.shootime = 0;
 	w->dtime.stime = 0;
+	w->dtime.start_lvl = 0;
+	w->dtime.end_lvl = 0;
 	w->txthead.x = 0;
 	w->txthead.y = 0;
 	w->txtnxtline.x = 0;

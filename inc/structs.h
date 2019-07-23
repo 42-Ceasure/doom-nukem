@@ -18,16 +18,16 @@ typedef struct s_render	t_render;
 
 typedef struct		s_ceiling
 {
-	double		side;
-	double		rot_x;
-	double		rot_y;
-	double		map_x;
-	double		map_y;
-	int			x;
-	unsigned	x_tex;
-	unsigned	y_tex;
-	unsigned	tmpix;
-}				t_ceiling;
+	double			side;
+	double			rot_x;
+	double			rot_y;
+	double			map_x;
+	double			map_y;
+	int				x;
+	unsigned		x_tex;
+	unsigned		y_tex;
+	unsigned		tmpix;
+}					t_ceiling;
 
 typedef struct		s_scalling
 {
@@ -634,6 +634,8 @@ typedef	struct		s_dtime
 	Uint32			stime;		/* second ticker */
 	Uint32			walk;		/* time of walk animation */
 	Uint32			dead;		/* time of dead animation */
+	Uint32			start_lvl;	/* start_lvl time */
+	Uint32			end_lvl;	/* end_lvl time */
 }					t_dtime;
 
 typedef struct		s_env

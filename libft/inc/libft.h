@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/19 18:18:57 by cglavieu          #+#    #+#             */
-/*   Updated: 2019/07/18 23:49:33 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/23 01:57:47 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 # include <string.h>
 
 # define BUFF_SIZE 9000
+
+typedef struct	s_ftoa
+{
+	int			int_fl;
+	int			int_fl_after;
+	int			pui;
+	int			i;
+}				t_ftoa;
 
 size_t				ft_strlen(char const *s);
 size_t				ft_strlcat(char *dst, char const *src, size_t size);
@@ -91,5 +99,6 @@ void				ft_memreg(char **s);
 void				ft_memreg3(char ***s);
 unsigned int		ft_atoui_base(const char *str, int base);
 char				*ft_uitoa_base(unsigned int n, int base);
+char	            *ft_ftoa(float fl, int precision);
 
 #endif

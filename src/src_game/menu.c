@@ -585,9 +585,14 @@ int		map_is_in_core(t_env *w, char *map)
 
 int		change_lvl(t_env *w, t_map *m)
 {
-	int stop;
+	int 	stop;
+	float	time_lvl;
 
 	stop = 0;
+	w->dtime.end_lvl = SDL_GetTicks();
+	time_lvl = w->dtime.end_lvl - w->dtime.start_lvl;
+	if (time_lvl != 0)
+		time_lvl = time_lvl / 1000;
 	w->txthead.x = 350;
 	w->txthead.y = 400;
 	free(w->currmap);
@@ -600,7 +605,6 @@ int		change_lvl(t_env *w, t_map *m)
 	}
 	else
 	{
-
 		w->currmap = ft_strdup("hsh");
 		w->menu.i = 1;
 		m->change_lvl = 0;
@@ -614,6 +618,8 @@ int		change_lvl(t_env *w, t_map *m)
 		else
 			return (1);
 	}
+	type_str(w,  w->txtnxtline, "Level completed in :", 0x12FFFFFF);
+	type_str(w,  w->txtnxtline, ft_strjoin(ft_ftoa(time_lvl, 3), " seconds"), 0x12FFFFFF);
 	while (stop != 1)
 	{
 		while (SDL_PollEvent(&w->event))
@@ -623,6 +629,8 @@ int		change_lvl(t_env *w, t_map *m)
 				if (KEY == 27)
 				{
 					w->menu.i = 1;
+					m->newgame = 1;
+					m->change_lvl = 0;
 					stop = 1;
 					return (1);
 				}
@@ -674,6 +682,7 @@ void	launch(t_env *w, t_map *m)
 			{
 				if (parse_map_in_core(w, m, w->currmap) != 0)
 					continue;
+				w->dtime.start_lvl = SDL_GetTicks();
 			}
 			run(w, m);
 		}

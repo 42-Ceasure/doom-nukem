@@ -6,7 +6,7 @@
 #    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/19 18:35:47 by cglavieu          #+#    #+#              #
-#    Updated: 2019/07/18 23:25:23 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/23 01:55:36 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,8 @@ SRC = ft_atoi.c\
 	ft_memreg.c\
 	ft_uitoa_base.c\
 	ft_atoui_base.c\
-	ft_strjoinnfree.c
+	ft_strjoinnfree.c\
+	ft_ftoa.c
 
 SRCDIR = ./src/
 SRCFILL = $(addprefix $(SRCDIR),$(SRC))
