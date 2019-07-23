@@ -1,4 +1,14 @@
-/*BIG42HEADER*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/22 19:03:15 by ochaar            #+#    #+#             */
+/*   Updated: 2019/07/22 19:03:17 by ochaar           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
 
@@ -13,7 +23,7 @@ int			load_sounds(t_env *w, t_map *m)
 {
 	if (!(w->sound.musique = Mix_LoadMUS("./sounds/musique.wav")))
 		return (-1);
-   	Mix_PlayMusic(w->sound.musique, -1);
+	Mix_PlayMusic(w->sound.musique, -1);
 	Mix_VolumeMusic(w->sound.volume);
 	Mix_AllocateChannels(10);
 	if (!(w->sound.jump = Mix_LoadWAV("./sounds/jump2.wav")))
