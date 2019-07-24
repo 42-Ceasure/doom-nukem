@@ -28,10 +28,12 @@ void		free_list(t_lst *lst)
 	}
 }
 
-void		free_listlist(t_win *win, t_lstlst *tmp2)
+void		free_listlist(t_win *win)
 {
+	t_lstlst	*tmp2;
 	t_lstlst	*current;
 
+	tmp2 = win->lstlst;
 	current = tmp2;
 	while (current)
 	{
@@ -66,11 +68,29 @@ void		free_triangles(t_win *win)
 	win->triangles = NULL;
 }
 
+void		free_assets(t_win *win)
+{
+	t_lstasset	*tmp2;
+	t_lstasset	*current;
+
+	tmp2 = win->lstasset;
+	current = tmp2;
+	while (current)
+	{
+		current = current->next;
+		free(tmp2);
+		tmp2 = NULL;
+		tmp2 = current;
+	}
+	win->lstasset = NULL;
+	win->tmpasset = NULL;
+}
+
 void		free_dot_tab(int *dot_tab)
 {
 	if (dot_tab != NULL)
 	{
-		//free(dot_tab);
+		free(dot_tab);
 		dot_tab = NULL;
 	}
 }

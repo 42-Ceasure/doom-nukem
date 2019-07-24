@@ -93,7 +93,10 @@ void		loop_play(t_env *w, t_win *win)
 		clean_render(w, 000);
 		draw_grid(w);
 		if (win->triangles)
+		{
+			win->color = 0xFF00FF;
 			draw_triangulate(w, win);
+		}
 		if (win->lstlst)
 			draw_segments(w, win);
 		if (win->lstasset)

@@ -12,7 +12,26 @@
 
 #include "doom.h"
 
-static void	init_helper(t_win *win)
+void			draw_asset_points(t_env *w, int i, int j, int color)
+{
+	set_txtr_pix(w, i, j, color);
+	set_txtr_pix(w, i + 1, j, color);
+	set_txtr_pix(w, i - 1, j, color);
+	set_txtr_pix(w, i + 2, j, color);
+	set_txtr_pix(w, i - 2, j, color);
+	set_txtr_pix(w, i, j - 1, color);
+	set_txtr_pix(w, i + 1, j - 1, color);
+	set_txtr_pix(w, i - 1, j - 1, color);
+	set_txtr_pix(w, i - 2, j - 2, color);
+	set_txtr_pix(w, i + 2, j - 2, color);
+	set_txtr_pix(w, i, j + 1, color);
+	set_txtr_pix(w, i + 1, j + 1, color);
+	set_txtr_pix(w, i - 1, j + 1, color);
+	set_txtr_pix(w, i + 2, j + 2, color);
+	set_txtr_pix(w, i - 2, j + 2, color);
+}
+
+static void		init_helper(t_win *win)
 {
 	win->dst9.x = 0;
 	win->dst9.y = 0;
@@ -32,7 +51,7 @@ static void	init_helper(t_win *win)
 	win->h_win = WIN_Y;
 }
 
-void	init_dst(t_win *win)
+void			init_dst(t_win *win)
 {
 	win->helptxt = NULL;
 	win->dst.x = 250;
@@ -54,7 +73,7 @@ void	init_dst(t_win *win)
 	init_helper(win);
 }
 
-void		och5(t_win *win)
+void			och5(t_win *win)
 {
 	if (win->left_click == 1 && win->mode == 2)
 	{
@@ -68,7 +87,7 @@ void		och5(t_win *win)
 		win->left_click = 0;
 }
 
-void		draw_grid(t_env *w)
+void			draw_grid(t_env *w)
 {
 	int		i;
 	int		j;

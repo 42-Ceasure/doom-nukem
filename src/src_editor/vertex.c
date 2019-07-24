@@ -76,5 +76,4 @@ int		vertex_max_dist(t_lst *polygone, t_point p, int *tab)
 		cpt.i++;
 	}
 	return (cpt.j);
-	// free tab a la fin
 }

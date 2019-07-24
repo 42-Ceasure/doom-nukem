@@ -66,6 +66,5 @@ t_lst	*new_poly(t_lst *polygone, int start, int end)
 			p = p->next;
 		p->next = polylstnew(get_point_in_list(polygone, i));
 	}
-	// free la liste quelque part
 	return (tmp);
 }

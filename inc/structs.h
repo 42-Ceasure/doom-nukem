@@ -117,20 +117,30 @@ struct					s_win
 	SDL_Window			*window;
 	SDL_Renderer		*renderer;
 	SDL_Texture			**texture;
-	t_texture			ceiling;
-	t_texture			surface;
+	SDL_Event			event;
+	SDL_Cursor			*cursor;
 
-	t_texture			map_ui;
+	struct s_lst		*lst;
+	struct s_lstlst		*lstlst;
+	struct s_lstlst		*triangles;
+	struct s_lst		*tmp;
+	struct s_lstasset	*lstasset;
+	struct s_lstasset	*tmpasset;
+
 	char				*helptxt;
 	char				*texturetxt;
 	char				*paramtxt;
 	char				*paramvaluetxt;
+	char				**tab;
 
 	t_sprite			asset_sprite;
 	t_sprite			asset_tmp;
-	t_texture			texture_sprite;
 	t_sprite			player_start;
 
+	t_texture			ceiling;
+	t_texture			surface;
+	t_texture			map_ui;
+	t_texture			texture_sprite;
 	t_texture			inventory;
 	t_texture			blackbox;
 	t_texture			slot0;
@@ -138,7 +148,6 @@ struct					s_win
 	t_texture			slot2;
 	t_texture			slot3;
 	t_texture			slot4;
-
 	t_texture			building_hud;
 
 	Uint32				color_font_r;
@@ -156,8 +165,6 @@ struct					s_win
 	t_dot				dst11;
 	t_dot				dst12;
 	t_dot				dst13;
-
-	SDL_Cursor			*cursor;
 
 	Mix_Music			*theme;
 	Mix_Chunk			*headshot;
@@ -179,13 +186,6 @@ struct					s_win
 	int					mode;
 	int					changemode;
 	int					moving;
-	struct s_lst		*lst;
-	struct s_lstlst		*lstlst;
-	struct s_lstlst		*triangles;
-	struct s_lst		*tmp;
-	struct s_lstasset	*lstasset;
-	struct s_lstasset	*tmpasset;
-	SDL_Event			event;
 	int					h_win;
 	int					w_win;
 	int					h_win_tmp;
@@ -201,7 +201,6 @@ struct					s_win
 	int					same_dots;
 	int					tab_index;
 	int					tab_malloced;
-	char				**tab;
 	int					triangle_sector;
 	int					check_textures;
 	int					texture_choice;
@@ -212,12 +211,12 @@ struct					s_win
 	int					txtr_input_type;
 	int					param_index;
 	int					hp_value;
-	double				gravity_value;
 	int					god_value;
 	int					hud_box;
 	int					neighbour_index;
 	int					norme_sector;
 	int					tni;
+	double				gravity_value;
 };
 
 typedef struct		s_lst

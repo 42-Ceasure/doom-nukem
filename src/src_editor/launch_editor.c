@@ -14,14 +14,9 @@
 
 int		clear_n_exit(t_win *win, int error)
 {
-	/*put_error(error);
-	if (win->surface != NULL)
-		SDL_FreeSurface(win->surface);
-	if (win->renderer != NULL)
-		SDL_DestroyRenderer(win->renderer);
-	if (win->window != NULL)
-		SDL_DestroyWindow(win->window);*/
-	(void)win;
+	free_listlist(win);
+	free_triangles(win);
+	free_assets(win);
 	if (error > 0)
 		exit(EXIT_FAILURE);
 	exit(EXIT_SUCCESS);

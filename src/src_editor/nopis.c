@@ -53,7 +53,6 @@ int			nopis_helper(t_win *win, int sector, t_lst *tmp, int *dot_tab)
 			j = nopis_helper2(win, sector, tmp, dot_tab);
 			break ;
 		}
-		//free_dot_tab(dot_tab);
 		tmp2 = tmp2->next;
 	}
 	return (j);
@@ -66,6 +65,7 @@ int			number_of_points_in_sector(t_win *win, int sector)
 
 	dot_tab = NULL;
 	tmp = NULL;
+	free_dot_tab(dot_tab);
 	return (nopis_helper(win, sector, tmp, dot_tab));
 }
 

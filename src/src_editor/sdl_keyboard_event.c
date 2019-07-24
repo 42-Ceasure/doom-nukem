@@ -18,8 +18,10 @@ static void		sdl_event_key_helper(t_env *w, t_win *win)
 		|| win->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 	{
 		w->stopread = 1;
+		win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+		SDL_SetCursor(win->cursor);
 		fit_to_game(w);
-		//clear_n_exit(win, 0);
+		clear_n_exit(win, 0);
 		return ;
 	}
 	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_F5])
@@ -35,10 +37,6 @@ static void		sdl_event_key_helper(t_env *w, t_win *win)
 	{
 		if (win->mode == 4)
 			win->put_texture = 1;
-	}
-	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_P])
-	{
-		correct_intersections_in_a_sector(win);
 	}
 }
 

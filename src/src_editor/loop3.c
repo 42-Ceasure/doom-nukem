@@ -25,7 +25,7 @@ void		draw_points(t_env *w, int i, int j)
 	set_txtr_pix(w, i - 1, j + 1, 250240230);
 }
 
-void		draw_segments_helper(t_lstlst *tmp2, t_win *win)
+void		draw_segments_helper2(t_lstlst *tmp2, t_win *win)
 {
 	if (win->mode == 3 && tmp2->sector == win->overed_sector)
 		win->color = 0xFF0000;
@@ -40,31 +40,44 @@ void		draw_segments_helper(t_lstlst *tmp2, t_win *win)
 	}
 }
 
+void		draw_segments_helper(t_env *w, t_win *win,
+				t_lst *tmp, t_lstlst *tmp2)
+{
+	t_dot		tmp_dot;
+	t_dot		tmp2_dot;
+
+	draw_segments_helper2(tmp2, win);
+	while (tmp->next)
+	{
+		tmp_dot = fill_t_dot(tmp->x, tmp->y);
+		tmp2_dot = fill_t_dot(tmp->next->x, tmp->next->y);
+		line(w, win, tmp_dot, tmp2_dot);
+		tmp = tmp->next;
+	}
+	tmp = tmp2->head;
+	while (tmp)
+	{
+		draw_points(w, tmp->x, tmp->y);
+		tmp = tmp->next;
+	}
+	if (win->drawing == 1)
+	{
+		tmp_dot = fill_t_dot(win->x1, win->y1);
+		tmp2_dot = fill_t_dot(win->x2, win->y2);
+		line(w, win, tmp_dot, tmp2_dot);
+	}
+}
+
 void		draw_segments(t_env *w, t_win *win)
 {
 	t_lst		*tmp;
 	t_lstlst	*tmp2;
-	t_dot		tmp_dot;
 
 	tmp2 = win->lstlst;
 	while (tmp2)
 	{
 		tmp = tmp2->head;
-		draw_segments_helper(tmp2, win);
-		while (tmp->next)
-		{
-			tmp_dot = fill_t_dot(tmp->x, tmp->y);
-			line(w, win, tmp_dot, tmp->next->x, tmp->next->y);
-			tmp = tmp->next;
-		}
-		tmp = tmp2->head;
-		while (tmp)
-		{
-			draw_points(w, tmp->x, tmp->y);
-			tmp = tmp->next;
-		}
-		if (win->drawing == 1)
-			line(w, win, win->x1, win->y1, win->x2, win->y2);
+		draw_segments_helper(w, win, tmp, tmp2);
 		tmp2 = tmp2->next;
 	}
 	win->overed_sector = -1;
@@ -75,9 +88,10 @@ void		draw_triangulate(t_env *w, t_win *win)
 {
 	t_lst		*tmp;
 	t_lstlst	*tmp2;
+	t_dot		tmp_dot;
+	t_dot		tmp2_dot;
 
 	tmp2 = win->triangles;
-	win->color = 0xFF00FF;
 	while (tmp2)
 	{
 		tmp = tmp2->head;
@@ -85,33 +99,16 @@ void		draw_triangulate(t_env *w, t_win *win)
 		{
 			if (tmp->next && tmp)
 			{
-				line(w, win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
+				tmp_dot = fill_t_dot(tmp->x, tmp->y);
+				tmp2_dot = fill_t_dot(tmp->next->x, tmp->next->y);
+				line(w, win, tmp_dot, tmp2_dot);
 				tmp = tmp->next;
 			}
 			else
 				break ;
 		}
 		if (tmp && tmp->next)
-			line(w, win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
+			line(w, win, tmp_dot, tmp2_dot);
 		tmp2 = tmp2->next;
 	}
-}
-
-void		draw_asset_points(t_env *w, int i, int j, int color)
-{
-	set_txtr_pix(w, i, j, color);
-	set_txtr_pix(w, i + 1, j, color);
-	set_txtr_pix(w, i - 1, j, color);
-	set_txtr_pix(w, i + 2, j, color);
-	set_txtr_pix(w, i - 2, j, color);
-	set_txtr_pix(w, i, j - 1, color);
-	set_txtr_pix(w, i + 1, j - 1, color);
-	set_txtr_pix(w, i - 1, j - 1, color);
-	set_txtr_pix(w, i - 2, j - 2, color);
-	set_txtr_pix(w, i + 2, j - 2, color);
-	set_txtr_pix(w, i, j + 1, color);
-	set_txtr_pix(w, i + 1, j + 1, color);
-	set_txtr_pix(w, i - 1, j + 1, color);
-	set_txtr_pix(w, i + 2, j + 2, color);
-	set_txtr_pix(w, i - 2, j + 2, color);
 }
