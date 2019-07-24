@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_first_line.c                                 :+:      :+:    :+:   */
+/*   map_first_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 14:53:23 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/23 14:53:24 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/24 14:03:24 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		parse_first_line(t_map *m)
 	if ((m->ennemy = (t_ennemy *)malloc(sizeof(t_ennemy) * m->ennemy_count))
 		== NULL)
 		return (-1);
-	init_sprite_tab(m);
 	init_map_structs(m);
+	init_sprite_tab(m);
 	return (0);
 }

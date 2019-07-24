@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 10:17:33 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/17 11:14:29 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/24 13:28:13 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void		empty_world(t_env *w)
 	i = -1;
 	if (w != NULL)
 	{
-		free(w->light_nb);
+		if (w->light_nb != NULL)
+			free(w->light_nb);
 		if (w->main_pic[0].pix != NULL)
 			free(w->main_pic[0].pix);
 		if (w->main_pic[1].pix != NULL)
@@ -45,13 +46,25 @@ void		empty_world(t_env *w)
 			free(w->main_pic[2].pix);
 		if (w->pix != NULL)
 			free(w->pix);
-		while (++i < w->asciino)
-			free(w->ascii[i].pix);
-		free(w->ascii);
+		if (w->ascii != NULL)
+		{
+			while (++i < w->asciino)
+			{
+				if (w->ascii[i].pix != NULL)
+					free(w->ascii[i].pix);
+			}
+			free(w->ascii);
+		}
 		i = -1;
-		while (++i < w->texturingno)
-			free(w->texturing[i].pix);
-		free(w->texturing);
+		if (w->texturing != NULL)
+		{
+			while (++i < w->texturingno)
+			{
+				if (w->texturing[i].pix != NULL)
+					free(w->texturing[i].pix);
+			}
+			free(w->texturing);
+		}
 		free(w);
 	}
 }
@@ -80,10 +93,14 @@ void		empty_map(t_map *m)
 {
 	if (m != NULL)
 	{
-		free(m->player.fps);
-		free(m->player.stractu_ammo);
-		free(m->player.strhp);
-		free(m->player.strbullet);
+		if (m->player.fps != NULL)
+			free(m->player.fps);
+		if (m->player.stractu_ammo != NULL)
+			free(m->player.stractu_ammo);
+		if (m->player.strhp != NULL)
+			free(m->player.strhp);
+		if (m->player.strbullet != NULL)
+			free(m->player.strbullet);
 		if (m->map_name != NULL)
 			free(m->map_name);
 		if (m->map_name != NULL)

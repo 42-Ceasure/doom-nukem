@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:03:15 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/24 11:42:09 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/24 14:05:16 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,13 @@ void		init_sprite_tab(t_map *m)
 	int i;
 
 	i = 0;
-	m->tab = (double**)malloc(sizeof(double*) * (m->sprite_map_count
-		+ m->ennemy_count));
+	if (!(m->tab = (double**)malloc(sizeof(double*) * (m->sprite_map_count
+		+ m->ennemy_count))))
+		set_error((t_env *)m->world, m, 0, ft_strdup("m->tab"));
 	while (i < m->sprite_map_count + m->ennemy_count)
 	{
-		m->tab[i] = (double*)malloc(sizeof(double) * 3);
+		if (!(m->tab[i] = (double*)malloc(sizeof(double) * 3)))
+			set_error((t_env *)m->world, m, 0, ft_strdup("m->tab[i]"));
 		i++;
 	}
 }

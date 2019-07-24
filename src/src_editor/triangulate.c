@@ -63,7 +63,8 @@ t_count		init_cpt(t_count cpt, t_lst *polygone)
 	return (cpt);
 }
 
-t_lstlst	*recursive_triangulate(t_win *win, t_lstlst *tmp3, t_lst *polygone)
+t_lstlst	*recursive_triangulate(t_env *w, t_win *win,
+				t_lstlst *tmp3, t_lst *polygone)
 {
 	t_count		cpt;
 	int			*tab;
@@ -72,7 +73,7 @@ t_lstlst	*recursive_triangulate(t_win *win, t_lstlst *tmp3, t_lst *polygone)
 
 	cpt.i = 0;
 	cpt = init_cpt(cpt, polygone);
-	tab = indice(win, cpt.j0, cpt.j1, cpt.j2);
+	tab = indice(w, win, cpt.j0, cpt.j1, cpt.j2);
 	p.p0 = get_point_in_list(polygone, cpt.j0);
 	p.p1 = get_point_in_list(polygone, cpt.j1);
 	p.p2 = get_point_in_list(polygone, cpt.j2);
@@ -80,26 +81,26 @@ t_lstlst	*recursive_triangulate(t_win *win, t_lstlst *tmp3, t_lst *polygone)
 	if (cpt.x == 0)
 	{
 		if ((polygone1 = new_poly(polygone, cpt.j1, cpt.j2)) == NULL)
-			clear_n_exit(win, 1);
+			clear_n_exit(w, win);
 		win->triangles = stock_last_triangle(win->triangles, tmp3, p);
 		if (len_list(polygone1) == 3)
 			win->triangles = stock_triangles(win->triangles, tmp3, polygone1);
 		else
-			recursive_triangulate(win, tmp3, polygone1);
+			recursive_triangulate(w, win, tmp3, polygone1);
 	}
 	else
-		win->triangles = two_poly(win, polygone, cpt, tmp3);
+		win->triangles = two_poly(w, win, polygone, cpt, tmp3);
 	return (win->triangles);
 }
 
-void		recursive_check(t_win *win)
+void		recursive_check(t_env *w, t_win *win)
 {
 	t_lstlst	*tmp2;
 
 	tmp2 = win->lstlst;
 	while (tmp2)
 	{
-		recursive_triangulate(win, tmp2, tmp2->head);
+		recursive_triangulate(w, win, tmp2, tmp2->head);
 		tmp2 = tmp2->next;
 	}
 }

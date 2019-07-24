@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main2.c                                            :+:      :+:    :+:   */
+/*   ft_isfloat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/12 13:26:31 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/16 17:38:39 by nvienot          ###   ########.fr       */
+/*   Created: 2019/07/24 13:30:48 by nvienot           #+#    #+#             */
+/*   Updated: 2019/07/24 13:42:51 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom.h"
+#include "libft.h"
 
-void	clear_n_exit(t_env *w, t_win *win)
+int		ft_isfloat(char *str)
 {
-	if (win->helptxt != NULL)
-		free(win->helptxt);
-	free_listlist(win);
-	free_triangles(win);
-	free_assets(win);
-	w->stopread = 1;
-}
+	int i;
+	int	count;
 
-int		level_editor_start(t_env *w)
-{
-	t_win	win;
-
-	fit_to_editor(w);
-	init2(w, &win);
-	loop_play(w, &win);
-	w->menu.i = 1;
-	return (EXIT_SUCCESS);
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]) == 1 || str[i] == '.')
+		{
+			if (str[i] == '.')
+				count++;
+		}
+		else
+			return (0);
+		if (count > 1)
+			return (0);
+		i++;
+	}
+	return (1);
 }
