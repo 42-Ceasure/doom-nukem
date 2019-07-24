@@ -12,12 +12,12 @@
 
 #include "doom.h"
 
-t_lstasset	*lstassetnew(t_win *win, int sector)
+t_lstasset	*lstassetnew(t_env *w, t_win *win, int sector)
 {
 	t_lstasset	*tmp;
 
 	if (!(tmp = (t_lstasset *)malloc(sizeof(t_lstasset))))
-		return (NULL);
+		clear_n_exit(w, win);
 	tmp->x = win->x2;
 	tmp->y = win->y2;
 	tmp->sector = sector;

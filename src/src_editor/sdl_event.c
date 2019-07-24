@@ -50,7 +50,7 @@ static void		sdl_event_mouse(t_env *w, t_win *win)
 	tmp = win->lst;
 	tmp2 = win->lstlst;
 	if (win->event.type == SDL_MOUSEWHEEL)
-		sdl_event_mouse_wheel(win, tmp2);
+		sdl_event_mouse_wheel(w, win, tmp2);
 	if (win->event.button.button == SDL_BUTTON_RIGHT
 		&& win->event.type == SDL_MOUSEBUTTONUP && win->moving == 0)
 		sdl_event_mouse_right_click(w, win);

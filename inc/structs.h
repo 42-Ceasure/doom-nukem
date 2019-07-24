@@ -210,7 +210,6 @@ struct					s_win
 	int					index_dot;
 	int					same_dots;
 	int					tab_index;
-	int					tab_malloced;
 	int					triangle_sector;
 	int					check_textures;
 	int					texture_choice;

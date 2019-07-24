@@ -56,11 +56,11 @@ void		write_player(t_win *win, int fp)
 	ft_putstr_fd(str, fp);
 	str = "\tplayer_location:";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->x / 5);
+	str = ft_itoa(tmp->x / 2);
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->y / 5);
+	str = ft_itoa(tmp->y / 2);
 	ft_putstr_fd(str, fp);
 	str = "\n";
 	ft_putstr_fd(str, fp);
@@ -86,11 +86,11 @@ void		write_m4(t_win *win, int fp, t_lstasset *tmp, int i)
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->x / 5);
+	str = ft_itoa(tmp->x / 2);
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->y / 5);
+	str = ft_itoa(tmp->y / 2);
 	ft_putstr_fd(str, fp);
 }
 
@@ -111,10 +111,10 @@ void		write_shotgun(t_win *win, int fp, t_lstasset *tmp, int i)
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->x / 5);
+	str = ft_itoa(tmp->x / 2);
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->y / 5);
+	str = ft_itoa(tmp->y / 2);
 	ft_putstr_fd(str, fp);
 }

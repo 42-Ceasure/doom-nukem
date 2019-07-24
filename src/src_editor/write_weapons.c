@@ -29,11 +29,11 @@ void		write_shotgun_ammo(t_win *win, int fp, t_lstasset *tmp, int i)
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->x / 5);
+	str = ft_itoa(tmp->x / 2);
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->y / 5);
+	str = ft_itoa(tmp->y / 2);
 	ft_putstr_fd(str, fp);
 }
 
@@ -54,11 +54,11 @@ void		write_m4_ammo(t_win *win, int fp, t_lstasset *tmp, int i)
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->x / 5);
+	str = ft_itoa(tmp->x / 2);
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->y / 5);
+	str = ft_itoa(tmp->y / 2);
 	ft_putstr_fd(str, fp);
 }
 
@@ -79,11 +79,11 @@ void		write_m9(t_win *win, int fp, t_lstasset *tmp, int i)
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->x / 5);
+	str = ft_itoa(tmp->x / 2);
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->y / 5);
+	str = ft_itoa(tmp->y / 2);
 	ft_putstr_fd(str, fp);
 }
 
@@ -104,11 +104,11 @@ void		write_health(t_win *win, int fp, t_lstasset *tmp, int i)
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->x / 5);
+	str = ft_itoa(tmp->x / 2);
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->y / 5);
+	str = ft_itoa(tmp->y / 2);
 	ft_putstr_fd(str, fp);
 }
 
@@ -129,10 +129,10 @@ void		write_undertale(t_win *win, int fp, t_lstasset *tmp, int i)
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->x / 5);
+	str = ft_itoa(tmp->x / 2);
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->y / 5);
+	str = ft_itoa(tmp->y / 2);
 	ft_putstr_fd(str, fp);
 }

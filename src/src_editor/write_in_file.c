@@ -29,11 +29,11 @@ void		write_ennemy(t_win *win, int fp, t_lstasset *tmp, int i)
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->x / 5);
+	str = ft_itoa(tmp->x / 2);
 	ft_putstr_fd(str, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->y / 5);
+	str = ft_itoa(tmp->y / 2);
 	ft_putstr_fd(str, fp);
 }
 
@@ -94,14 +94,14 @@ void		write_in_file(t_env *w, t_win *win)
 	char		*name;
 	char		*str;
 
-	name = ft_strdup("tmp.dn3d");
+	name = strdup_safe(w, win, "tmp.dn3d");
 	fp = open(name, O_RDWR | O_CREAT | O_TRUNC, 0655);
 	write_in_file_helper(w, win, fp);
 	process_hint_savemap(w, 1, w->nbmaps, "sections");
-	str = ft_strdup("Section:level\n");
+	str = strdup_safe(w, win, "Section:level\n");
 	ft_putstr_fd(str, fp);
 	free(str);
-	str = ft_strdup("Section:over\n");
+	str = strdup_safe(w, win, "Section:over\n");
 	ft_putstr_fd(str, fp);
 	free(str);
 	close(fp);

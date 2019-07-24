@@ -12,7 +12,8 @@
 
 #include "doom.h"
 
-void		write_sectors_neighbours(t_env *w, t_win *win, int fp, t_lstlst *tmp2)
+void		write_sectors_neighbours(t_env *w,
+				t_win *win, int fp, t_lstlst *tmp2)
 {
 	char		*str;
 	int			len;

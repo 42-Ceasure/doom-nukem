@@ -50,35 +50,56 @@ void		decrease_value(t_win *win)
 	}
 }
 
-void		param_text(t_win *win)
+void		param_text_helper(t_env *w, t_win *win)
+{
+	char	*tmp;
+
+	if (win->param_index == 1)
+	{
+		if (win->paramtxt)
+			free(win->paramtxt);
+		win->paramtxt = strdup_safe(w, win, "Gravity");
+		tmp = ft_itoa(win->gravity_value);
+		if (win->paramvaluetxt != NULL)
+			free(win->paramvaluetxt);
+		win->paramvaluetxt = strdup_safe(w, win, tmp);
+		free(tmp);
+	}
+	if (win->param_index == 2)
+	{
+		if (win->paramtxt)
+			free(win->paramtxt);
+		win->paramtxt = strdup_safe(w, win, "God Mode");
+		if (win->paramvaluetxt != NULL)
+			free(win->paramvaluetxt);
+		if (win->god_value)
+			win->paramvaluetxt = strdup_safe(w, win, "ON");
+		else
+			win->paramvaluetxt = strdup_safe(w, win, "OFF");
+	}
+}
+
+void		param_text(t_env *w, t_win *win)
 {
 	char	*tmp;
 
 	if (win->param_index == 0)
 	{
-		win->paramtxt = ft_strdup("HP");
+		if (win->paramtxt != NULL)
+			free(win->paramtxt);
+		win->paramtxt = strdup_safe(w, win, "HP");
 		tmp = ft_itoa(win->hp_value);
-		win->paramvaluetxt = ft_strdup(tmp);
+		if (win->paramvaluetxt != NULL)
+			free(win->paramvaluetxt);
+		win->paramvaluetxt = strdup_safe(w, win, tmp);
+		free(tmp);
 	}
-	if (win->param_index == 1)
-	{
-		win->paramtxt = ft_strdup("Gravity");
-		tmp = ft_itoa(win->gravity_value);
-		win->paramvaluetxt = ft_strdup(tmp);
-	}
-	if (win->param_index == 2)
-	{
-		win->paramtxt = ft_strdup("God Mode");
-		if (win->god_value)
-			win->paramvaluetxt = ft_strdup("ON");
-		else
-			win->paramvaluetxt = ft_strdup("OFF");
-	}
+	param_text_helper(w, win);
 }
 
 void		set_params(t_env *w, t_win *win)
 {
-	param_text(win);
+	param_text(w, win);
 	win->dst12.x = win->x2 + 30;
 	win->dst12.y = win->y2 - 20;
 	win->dst13.x = win->x2 + 30;

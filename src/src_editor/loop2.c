@@ -66,35 +66,41 @@ void		och3(t_win *win, t_lst *tmp, t_lstlst *tmp2, t_lstasset *tmp3)
 	}
 }
 
-void		och2(t_win *win, t_lstlst *tmp2)
+void		och2(t_env *w, t_win *win, t_lstlst *tmp2)
 {
 	if (win->sector == win->link)
 	{
 		tmp2 = win->lstlst;
 		while (tmp2->next)
 			tmp2 = tmp2->next;
-		tmp2->next = lstlstnew(win);
+		tmp2->next = lstlstnew(w, win);
 	}
 }
 
-void		och(t_win *win, t_lstlst *tmp2, int closed)
+void		och(t_env *w, t_win *win, t_lstlst *tmp2, int closed)
 {
+	t_dot	dot;
+
 	if (win->left_click && win->mode == 0)
 	{
 		if (win->lstlst == NULL)
-			win->lstlst = lstlstnew(win);
-		och2(win, tmp2);
+			win->lstlst = lstlstnew(w, win);
+		och2(w, win, tmp2);
 		win->drawing = 1;
 		if (win->lst == NULL)
 		{
-			win->lst = lstnew(win->x1, win->y1, win->sector);
+			dot = fill_t_dot(win->x1, win->y1);
+			win->lst = lstnew(w, win, dot, win->sector);
 			tmp2 = win->lstlst;
 			while (tmp2->next)
 				tmp2 = tmp2->next;
 			tmp2->head = win->lst;
 		}
 		else
-			closed = check_list(win, win->lst, win->x1, win->y1);
+		{
+			dot = fill_t_dot(win->x1, win->y1);
+			closed = check_list(w, win, win->lst, dot);
+		}
 		if (closed)
 		{
 			tmp2 = win->lstlst;
@@ -105,7 +111,7 @@ void		och(t_win *win, t_lstlst *tmp2, int closed)
 	}
 }
 
-void		on_click(t_win *win)
+void		on_click(t_env *w, t_win *win)
 {
 	int			closed;
 	t_lst		*tmp;
@@ -129,7 +135,7 @@ void		on_click(t_win *win)
 		delete_sector(win);
 		delete_asset(win);
 	}
-	och(win, tmp2, closed);
+	och(w, win, tmp2, closed);
 	och3(win, tmp, tmp2, tmp3);
 	och5(win);
 }

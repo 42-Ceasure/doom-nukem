@@ -89,7 +89,7 @@ void		loop_play(t_env *w, t_win *win)
 	{
 		SDL_WaitEvent(&win->event);
 		sdl_event(w, win);
-		on_click(win);
+		on_click(w, win);
 		clean_render(w, 000);
 		draw_grid(w);
 		if (win->triangles)

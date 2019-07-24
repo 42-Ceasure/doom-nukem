@@ -12,14 +12,14 @@
 
 #include "doom.h"
 
-void		stph2(t_env *w, t_win *win, int y, int i, int index)
+void		stph2(t_env *w, t_win *win, int y, t_count d)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
 	int			*dot_tab;
 
-	dot_tab = create_y_dot_tab(w, win, y, i);
-	while (index < i)
+	dot_tab = create_y_dot_tab(w, win, y, d.i);
+	while (d.j < d.i)
 	{
 		tmp2 = win->triangles;
 		while (tmp2)
@@ -27,14 +27,14 @@ void		stph2(t_env *w, t_win *win, int y, int i, int index)
 			tmp = tmp2->head;
 			while (tmp)
 			{
-				if (tmp->y == y && tmp->x == dot_tab[index])
+				if (tmp->y == y && tmp->x == dot_tab[d.j])
 					tmp->nb = win->number;
 				tmp = tmp->next;
 			}
 			tmp2 = tmp2->next;
 		}
-		index++;
-		if (dot_tab[index] != dot_tab[index - 1])
+		d.j++;
+		if (dot_tab[d.j] != dot_tab[d.j - 1])
 			win->number++;
 	}
 	free_dot_tab(dot_tab);
@@ -43,11 +43,16 @@ void		stph2(t_env *w, t_win *win, int y, int i, int index)
 void		stph(t_env *w, t_win *win, int y, int i)
 {
 	int		index;
+	t_count	d;
 
 	index = 0;
 	i = number_of_dot_per_line_with_same(win, y);
 	if (i > 0)
-		stph2(w, win, y, i, index);
+	{
+		d.i = i;
+		d.j = index;
+		stph2(w, win, y, d);
+	}
 }
 
 void		sort_triangles_points(t_env *w, t_win *win)

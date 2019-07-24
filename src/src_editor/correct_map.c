@@ -98,19 +98,19 @@ int			correct_map_helper(t_win *win)
 	ret = sectors_on_top(tmp2);
 	if (ret == -7)
 	{
-		printf("Two sectors on top of each other\n");
+		ft_putendl("Two sectors on top of each other");
 		return (ret);
 	}
 	ret = point_on_top(win);
 	if (ret == -6)
 	{
-		printf("Two points on top of each other in same sector\n");
+		ft_putendl("Two points on top of each other in same sector");
 		return (ret);
 	}
 	ret = sector_inside_sector(win);
 	if (ret == -5)
 	{
-		printf("Sector inside a sector\n");
+		ft_putendl("Sector inside a sector");
 		return (ret);
 	}
 	return (ret);
@@ -127,19 +127,19 @@ int			correct_map(t_win *win)
 	ret = correct_three_points(win);
 	if (ret == -4)
 	{
-		printf("Too many points of a sector on same x\n");
+		ft_putendl("Too many points of a sector on same x");
 		return (ret);
 	}
 	ret = correct_intersections_in_a_sector(win);
 	if (ret == -3)
 	{
-		printf("Crossed segments \n");
+		ft_putendl("Crossed segments");
 		return (ret);
 	}
 	ret = check_player_start(win);
 	if (ret == -1)
-		printf("Map need a player start \n");
+		ft_putendl("Map need a player start");
 	if (ret == -2)
-		printf("Player start need to be inside a sector \n");
+		ft_putendl("Player start need to be inside a sector");
 	return (ret);
 }

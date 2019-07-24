@@ -49,6 +49,7 @@ void		sort_points_helper(t_env *w, t_win *win, int y)
 			if (dot_tab[index] != dot_tab[index - 1])
 				win->number++;
 		}
+		free_dot_tab(dot_tab);
 	}
 }
 

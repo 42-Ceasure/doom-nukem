@@ -54,6 +54,8 @@ static int	init_assets(t_env *w, t_win *win)
 	win->hud_box = 0;
 	win->building_hud = w->m->hud;
 	win->lst = NULL;
+	win->paramtxt = NULL;
+	win->paramvaluetxt = NULL;
 	return (0);
 }
 

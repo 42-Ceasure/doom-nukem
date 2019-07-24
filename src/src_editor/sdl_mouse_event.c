@@ -12,7 +12,7 @@
 
 #include "doom.h"
 
-static void	sdl_event_mouse_wheel_helper(t_win *win, t_lstlst *tmp2)
+static void	sdl_event_mouse_wheel_helper(t_env *w, t_win *win, t_lstlst *tmp2)
 {
 	if (win->mode == 0)
 	{
@@ -27,7 +27,7 @@ static void	sdl_event_mouse_wheel_helper(t_win *win, t_lstlst *tmp2)
 		}
 		if (win->helptxt != NULL)
 			free(win->helptxt);
-		win->helptxt = ft_strdup("Drawing Mode");
+		win->helptxt = strdup_safe(w, win, "Drawing Mode");
 	}
 	if (win->mode == 1)
 	{
@@ -36,11 +36,11 @@ static void	sdl_event_mouse_wheel_helper(t_win *win, t_lstlst *tmp2)
 		win->drawing = 0;
 		if (win->helptxt != NULL)
 			free(win->helptxt);
-		win->helptxt = ft_strdup("Moving Mode");
+		win->helptxt = strdup_safe(w, win, "Moving Mode");
 	}
 }
 
-static void	sdl_event_mouse_wheel_helper2(t_win *win)
+static void	sdl_event_mouse_wheel_helper2(t_env *w, t_win *win)
 {
 	if (win->mode == 2)
 	{
@@ -49,7 +49,7 @@ static void	sdl_event_mouse_wheel_helper2(t_win *win)
 		win->drawing = 0;
 		if (win->helptxt != NULL)
 			free(win->helptxt);
-		win->helptxt = ft_strdup("Placing Mode");
+		win->helptxt = strdup_safe(w, win, "Placing Mode");
 	}
 	if (win->mode == 3)
 	{
@@ -58,11 +58,11 @@ static void	sdl_event_mouse_wheel_helper2(t_win *win)
 		win->drawing = 0;
 		if (win->helptxt != NULL)
 			free(win->helptxt);
-		win->helptxt = ft_strdup("Delete Mode");
+		win->helptxt = strdup_safe(w, win, "Delete Mode");
 	}
 }
 
-void		sdl_event_mouse_wheel(t_win *win, t_lstlst *tmp2)
+void		sdl_event_mouse_wheel(t_env *w, t_win *win, t_lstlst *tmp2)
 {
 	win->changemode = 1;
 	if (win->moving == 0)
@@ -76,8 +76,8 @@ void		sdl_event_mouse_wheel(t_win *win, t_lstlst *tmp2)
 		win->mode = 0;
 	if (win->mode < 0)
 		win->mode = 4;
-	sdl_event_mouse_wheel_helper(win, tmp2);
-	sdl_event_mouse_wheel_helper2(win);
+	sdl_event_mouse_wheel_helper(w, win, tmp2);
+	sdl_event_mouse_wheel_helper2(w, win);
 	if (win->mode == 4)
 	{
 		SDL_FreeCursor(win->cursor);
@@ -85,7 +85,7 @@ void		sdl_event_mouse_wheel(t_win *win, t_lstlst *tmp2)
 		win->drawing = 0;
 		if (win->helptxt != NULL)
 			free(win->helptxt);
-		win->helptxt = ft_strdup("Texture Mode");
+		win->helptxt = strdup_safe(w, win, "Texture Mode");
 	}
 }
 

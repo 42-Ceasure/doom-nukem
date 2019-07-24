@@ -12,12 +12,13 @@
 
 #include "doom.h"
 
-t_lstlst	*triangles_new(t_lstlst *tmp3, t_lst *polygone)
+t_lstlst	*triangles_new(t_env *w,
+	t_win *win, t_lstlst *tmp3, t_lst *polygone)
 {
 	t_lstlst	*tmp;
 
 	if (!(tmp = (t_lstlst *)malloc(sizeof(t_lstlst))))
-		return (NULL);
+		clear_n_exit(w, win);
 	tmp->head = polygone;
 	tmp->next = NULL;
 	tmp->txtr_wall = tmp3->txtr_wall;
@@ -28,39 +29,49 @@ t_lstlst	*triangles_new(t_lstlst *tmp3, t_lst *polygone)
 	return (tmp);
 }
 
-t_lstlst	*stock_triangles(t_lstlst *triangles, t_lstlst *tmp3, t_lst *poly)
+t_lstlst	*stock_triangles(t_env *w,
+	t_win *win, t_lstlst *triangles, t_lstlst *tmp3, t_lst *poly)
 {
 	t_lstlst	*tmp2;
 
 	tmp2 = NULL;
 	if (triangles == NULL)
-		triangles = triangles_new(tmp3, poly);
+		triangles = triangles_new(w, win, tmp3, poly);
 	else
 	{
 		tmp2 = triangles;
 		while (tmp2->next)
 			tmp2 = tmp2->next;
-		tmp2->next = triangles_new(tmp3, poly);
+		tmp2->next = triangles_new(w, win, tmp3, poly);
 	}
 	return (triangles);
 }
 
-t_lstlst	*two_poly(t_env *w, t_win *win, t_lst *polygone, t_count cpt, t_lstlst *tmp3)
+t_lstlst	*two_poly(t_env *w, t_win *win,
+	t_lst *polygone, t_count cpt, t_lstlst *tmp3)
 {
 	t_lst		*polygone1;
 	t_lst		*polygone2;
 
-	if ((polygone1 = new_poly(polygone, cpt.j0, cpt.x)) == NULL)
+	if ((polygone1 = new_poly(w, win, polygone, cpt.j0, cpt.x)) == NULL)
 		clear_n_exit(w, win);
-	if ((polygone2 = new_poly(polygone, cpt.x, cpt.j0)) == NULL)
+	if ((polygone2 = new_poly(w, win, polygone, cpt.x, cpt.j0)) == NULL)
 		clear_n_exit(w, win);
 	if (len_list(polygone1) == 3)
-		win->triangles = stock_triangles(win->triangles, tmp3, polygone1);
+		win->triangles = stock_triangles(w, win, win->triangles,
+			tmp3, polygone1);
 	else
+	{
 		recursive_triangulate(w, win, tmp3, polygone1);
+		free_list(polygone1);
+	}
 	if (len_list(polygone2) == 3)
-		win->triangles = stock_triangles(win->triangles, tmp3, polygone2);
+		win->triangles = stock_triangles(w, win, win->triangles,
+			tmp3, polygone2);
 	else
+	{
 		recursive_triangulate(w, win, tmp3, polygone2);
+		free_list(polygone2);
+	}
 	return (win->triangles);
 }

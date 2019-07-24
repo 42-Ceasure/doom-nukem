@@ -57,7 +57,7 @@ int			map_save_helper(t_win *win)
 	tmp2 = win->lstlst;
 	if (sector_minimum_needed_point(win) != 0)
 	{
-		printf("Un secteur est au minimum un triangle \n");
+		ft_putendl("A sector is at least a triangle");
 		return (0);
 	}
 	while (tmp2)
@@ -85,10 +85,10 @@ void		map_save(t_win *win, t_env *w)
 			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 			SDL_SetCursor(win->cursor);
 			fit_to_game(w);
-			w->stopread = 1;
 			main_pic(w, 1);
 			fill_buffer(w, win);
-			printf("Map saved\n");
+			ft_putendl("Map saved");
+			clear_n_exit(w, win);
 		}
 	}
 	win->number = 0;

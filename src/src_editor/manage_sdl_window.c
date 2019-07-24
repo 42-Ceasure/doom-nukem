@@ -12,7 +12,7 @@
 
 #include "doom.h"
 
-void	fit_to_editor(t_env *w)
+void	fit_to_editor(t_env *w, t_win *win)
 {
 	w->res.width = w->editor_res.width;
 	w->res.height = w->editor_res.height;
@@ -25,10 +25,13 @@ void	fit_to_editor(t_env *w)
 	SDL_DestroyRenderer(w->rdr);
 	SDL_DestroyTexture(w->txtr);
 	free(w->pix);
-	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED);
-	w->pix = (Uint32 *)malloc(sizeof(Uint32) * WIDTH * HEIGHT);
-	w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
-		SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
+	if (!(w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED)))
+		clear_n_exit(w, win);
+	if (!(w->pix = (Uint32 *)malloc(sizeof(Uint32) * WIDTH * HEIGHT)))
+		clear_n_exit(w, win);
+	if (!(w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
+		SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT)))
+		clear_n_exit(w, win);
 	clean_render(w, 0x12000000);
 	img_update(w);
 }

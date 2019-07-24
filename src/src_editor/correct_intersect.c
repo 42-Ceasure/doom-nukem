@@ -39,13 +39,13 @@ int			is_crossed(t_point p, t_lst *tmp, t_lst *tmp0)
 			if ((p.p1.x != p.p3.x || p.p1.y != p.p3.y)
 				&& (p.p2.x != p.p4.x || p.p2.y != p.p4.y))
 			{
-				ft_putendl("Crossed segments \n");
+				ft_putendl("Crossed segments");
 				return (-3);
 			}
 		}
 		else
 		{
-			ft_putendl("Crossed segments \n");
+			ft_putendl("Crossed segments");
 			return (-3);
 		}
 	}

@@ -12,6 +12,29 @@
 
 #include "doom.h"
 
+char	*strdup_safe(t_env *w, t_win *win, const char *s1)
+{
+	int			i;
+	int			j;
+	char		*s2;
+
+	i = 0;
+	if (!s1)
+		return (NULL);
+	while (s1[i])
+		i++;
+	if (!(s2 = (char *)ft_memalloc(sizeof(char) * (i + 1))))
+		clear_n_exit(w, win);
+	j = 0;
+	while (s1[j])
+	{
+		s2[j] = s1[j];
+		j++;
+	}
+	s2[j] = '\0';
+	return (s2);
+}
+
 void		ft_swap2(int *a, int *b)
 {
 	int		tmp;

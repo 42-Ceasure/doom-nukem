@@ -12,23 +12,24 @@
 
 #include "doom.h"
 
-t_lst	*polylstnew(t_dot d)
+t_lst	*polylstnew(t_env *w, t_win *win, t_dot d)
 {
 	t_lst	*tmp;
 
 	if (!(tmp = (t_lst *)malloc(sizeof(t_lst))))
-		return (NULL);
+		clear_n_exit(w, win);
 	tmp->x = d.x;
 	tmp->y = d.y;
 	tmp->next = NULL;
 	return (tmp);
 }
 
-t_lst	*append_poly(t_lst *polygone, t_lst *p, t_lst **tmp, int i)
+t_lst	*append_poly(t_env *w, t_win *win, t_lst *polygone,
+	t_lst *p, t_lst **tmp, int i)
 {
 	if (p == NULL)
 	{
-		p = polylstnew(get_point_in_list(polygone, i));
+		p = polylstnew(w, win, get_point_in_list(polygone, i));
 		*tmp = p;
 		if (p->x == -1 && p->y == -1)
 			return (NULL);
@@ -37,12 +38,12 @@ t_lst	*append_poly(t_lst *polygone, t_lst *p, t_lst **tmp, int i)
 	{
 		while (p->next)
 			p = p->next;
-		p->next = polylstnew(get_point_in_list(polygone, i));
+		p->next = polylstnew(w, win, get_point_in_list(polygone, i));
 	}
 	return (p);
 }
 
-t_lst	*new_poly(t_lst *polygone, int start, int end)
+t_lst	*new_poly(t_env *w, t_win *win, t_lst *polygone, int start, int end)
 {
 	int			n;
 	int			i;
@@ -55,7 +56,7 @@ t_lst	*new_poly(t_lst *polygone, int start, int end)
 	i = start;
 	while (i != end)
 	{
-		p = append_poly(polygone, p, &tmp, i);
+		p = append_poly(w, win, polygone, p, &tmp, i);
 		i = near_vertex(n, i, 1);
 		if (i == -10000)
 			return (p);
@@ -64,7 +65,7 @@ t_lst	*new_poly(t_lst *polygone, int start, int end)
 	{
 		while (p->next)
 			p = p->next;
-		p->next = polylstnew(get_point_in_list(polygone, i));
+		p->next = polylstnew(w, win, get_point_in_list(polygone, i));
 	}
 	return (tmp);
 }

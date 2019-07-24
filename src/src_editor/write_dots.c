@@ -18,7 +18,7 @@ void		write_dots_helper2(int y, int fp)
 
 	str = "\tdots:";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(y / 5);
+	str = ft_itoa(y / 2);
 	ft_putstr_fd(str, fp);
 	str = ":";
 	ft_putstr_fd(str, fp);
@@ -35,14 +35,14 @@ void		write_dots_helper(t_env *w, t_win *win, int fp, int y)
 	i = number_of_dot_per_line(w, win, y);
 	write_dots_helper2(y, fp);
 	x = x_min_on_line(win, y);
-	str = ft_itoa(x / 5);
+	str = ft_itoa(x / 2);
 	ft_putstr_fd(str, fp);
 	while (index < i)
 	{
 		str = ",";
 		ft_putstr_fd(str, fp);
 		x = next_x_on_line(win, y, x);
-		str = ft_itoa(x / 5);
+		str = ft_itoa(x / 2);
 		ft_putstr_fd(str, fp);
 		index++;
 	}

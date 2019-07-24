@@ -12,18 +12,19 @@
 
 #include "doom.h"
 
-t_lstlst	*fill_link(t_lstlst *tmp3, t_dot p0, t_dot p1, t_dot p2)
+t_lstlst	*fill_link(t_env *w, t_win *win,
+	t_lstlst *tmp3, t_point point)
 {
 	t_lstlst	*tmp;
 	t_lst		*l0;
 	t_lst		*l1;
 	t_lst		*l2;
 
-	l0 = polylstnew(p0);
-	l1 = polylstnew(p1);
-	l2 = polylstnew(p2);
+	l0 = polylstnew(w, win, point.p0);
+	l1 = polylstnew(w, win, point.p1);
+	l2 = polylstnew(w, win, point.p2);
 	if (!(tmp = (t_lstlst *)malloc(sizeof(t_lstlst))))
-		return (NULL);
+		clear_n_exit(w, win);
 	tmp->head = l0;
 	tmp->head->next = l1;
 	tmp->head->next->next = l2;
@@ -37,19 +38,20 @@ t_lstlst	*fill_link(t_lstlst *tmp3, t_dot p0, t_dot p1, t_dot p2)
 	return (tmp);
 }
 
-t_lstlst	*stock_last_triangle(t_lstlst *triangle, t_lstlst *tmp3, t_point p)
+t_lstlst	*stock_last_triangle(t_env *w, t_win *win,
+	t_lstlst *triangle, t_lstlst *tmp3, t_point p)
 {
 	t_lstlst	*tmp2;
 
 	tmp2 = NULL;
 	if (triangle == NULL)
-		triangle = fill_link(tmp3, p.p0, p.p1, p.p2);
+		triangle = fill_link(w, win, tmp3, p);
 	else
 	{
 		tmp2 = triangle;
 		while (tmp2->next)
 			tmp2 = tmp2->next;
-		tmp2->next = fill_link(tmp3, p.p0, p.p1, p.p2);
+		tmp2->next = fill_link(w, win, tmp3, p);
 	}
 	return (triangle);
 }
@@ -64,11 +66,11 @@ t_count		init_cpt(t_count cpt, t_lst *polygone)
 }
 
 t_lstlst	*recursive_triangulate(t_env *w, t_win *win,
-				t_lstlst *tmp3, t_lst *polygone)
+	t_lstlst *tmp3, t_lst *polygone)
 {
-	t_count		cpt;
 	int			*tab;
 	t_point		p;
+	t_count		cpt;
 	t_lst		*polygone1;
 
 	cpt.i = 0;
@@ -80,13 +82,17 @@ t_lstlst	*recursive_triangulate(t_env *w, t_win *win,
 	cpt.x = vertex_max_dist(polygone, p, tab);
 	if (cpt.x == 0)
 	{
-		if ((polygone1 = new_poly(polygone, cpt.j1, cpt.j2)) == NULL)
+		if (!(polygone1 = new_poly(w, win, polygone, cpt.j1, cpt.j2)))
 			clear_n_exit(w, win);
-		win->triangles = stock_last_triangle(win->triangles, tmp3, p);
+		win->triangles = stock_last_triangle(w, win, win->triangles, tmp3, p);
 		if (len_list(polygone1) == 3)
-			win->triangles = stock_triangles(win->triangles, tmp3, polygone1);
+			win->triangles = stock_triangles(w, win, win->triangles,
+				tmp3, polygone1);
 		else
+		{
 			recursive_triangulate(w, win, tmp3, polygone1);
+			free_list(polygone1);
+		}
 	}
 	else
 		win->triangles = two_poly(w, win, polygone, cpt, tmp3);
