@@ -12,23 +12,23 @@
 
 #include "doom.h"
 
-void		triangles_neighbours_helper(t_win *win, int i, int *ts1, int *ts2)
+void		triangles_neighbours_helper(t_win *win, int *ts1, int *ts2)
 {
-	if (i == 0)
+	if (win->tni == 0)
 	{
 		if (ts1[0] == ts2[0] || ts1[0] == ts2[1] || ts1[0] == ts2[2])
 			win->neighbour_index++;
 		if (ts1[1] == ts2[0] || ts1[1] == ts2[1] || ts1[1] == ts2[2])
 			win->neighbour_index++;
 	}
-	if (i == 1)
+	if (win->tni == 1)
 	{
 		if (ts1[1] == ts2[0] || ts1[1] == ts2[1] || ts1[1] == ts2[2])
 			win->neighbour_index++;
 		if (ts1[2] == ts2[0] || ts1[2] == ts2[1] || ts1[2] == ts2[2])
 			win->neighbour_index++;
 	}
-	if (i == 2)
+	if (win->tni == 2)
 	{
 		if (ts1[2] == ts2[0] || ts1[2] == ts2[1] || ts1[2] == ts2[2])
 			win->neighbour_index++;
@@ -38,7 +38,7 @@ void		triangles_neighbours_helper(t_win *win, int i, int *ts1, int *ts2)
 }
 
 int			triangles_neighbours_helper2(t_win *win, t_lstlst *tmp2,
-				t_lstlst *tmp3, int i, int *tab_sector1)
+				t_lstlst *tmp3, int *tab_sector1)
 {
 	int			swap;
 	int			*tab_sector2;
@@ -54,7 +54,7 @@ int			triangles_neighbours_helper2(t_win *win, t_lstlst *tmp2,
 			tab_sector2[1] = tab_sector2[2];
 			tab_sector2[2] = swap;
 		}
-		triangles_neighbours_helper(win, i, tab_sector1, tab_sector2);
+		triangles_neighbours_helper(win, tab_sector1, tab_sector2);
 		if (win->neighbour_index == 2)
 			return (tmp3->sector);
 	}
@@ -62,7 +62,7 @@ int			triangles_neighbours_helper2(t_win *win, t_lstlst *tmp2,
 	return (-1);
 }
 
-int			triangles_neighbours(t_win *win, t_lstlst *tmp2, int i)
+int			triangles_neighbours(t_win *win, t_lstlst *tmp2)
 {
 	t_lstlst	*tmp3;
 	int			*tab_sector1;
@@ -79,7 +79,7 @@ int			triangles_neighbours(t_win *win, t_lstlst *tmp2, int i)
 	tmp3 = win->triangles;
 	while (tmp3)
 	{
-		ret = triangles_neighbours_helper2(win, tmp2, tmp3, i, tab_sector1);
+		ret = triangles_neighbours_helper2(win, tmp2, tmp3, tab_sector1);
 		if (ret != -1)
 		{
 			free_dot_tab(tab_sector1);

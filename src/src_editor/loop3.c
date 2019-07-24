@@ -44,6 +44,7 @@ void		draw_segments(t_env *w, t_win *win)
 {
 	t_lst		*tmp;
 	t_lstlst	*tmp2;
+	t_dot		tmp_dot;
 
 	tmp2 = win->lstlst;
 	while (tmp2)
@@ -52,7 +53,8 @@ void		draw_segments(t_env *w, t_win *win)
 		draw_segments_helper(tmp2, win);
 		while (tmp->next)
 		{
-			line(w, win, tmp->x, tmp->y, tmp->next->x, tmp->next->y);
+			tmp_dot = fill_t_dot(tmp->x, tmp->y);
+			line(w, win, tmp_dot, tmp->next->x, tmp->next->y);
 			tmp = tmp->next;
 		}
 		tmp = tmp2->head;

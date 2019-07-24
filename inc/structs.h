@@ -217,6 +217,7 @@ struct					s_win
 	int					hud_box;
 	int					neighbour_index;
 	int					norme_sector;
+	int					tni;
 };
 
 typedef struct		s_lst

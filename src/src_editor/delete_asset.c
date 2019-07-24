@@ -12,7 +12,7 @@
 
 #include "doom.h"
 
-void	delete_asset_helper(t_win *win, t_lstasset *current,
+void	delete_asset_helper2(t_win *win, t_lstasset *current,
 			t_lstasset *next, t_lstasset *previous)
 {
 	if (previous)
@@ -28,43 +28,47 @@ void	delete_asset_helper(t_win *win, t_lstasset *current,
 	}
 }
 
-void	delete_asset(t_win *win)
+void	delete_asset_helper(t_win *win, t_lstasset *tmp, int j, int i)
 {
-	t_lstasset	*tmp;
 	t_lstasset	*current;
 	t_lstasset	*previous;
 	t_lstasset	*next;
+
+	current = NULL;
+	previous = NULL;
+	next = NULL;
+	win->tmpasset = NULL;
+	current = tmp;
+	next = current->next;
+	if (j > 0)
+	{
+		previous = win->lstasset;
+		while (i < j - 1)
+		{
+			previous = previous->next;
+			i++;
+		}
+	}
+	if (j == 0)
+		win->lstasset = NULL;
+	delete_asset_helper2(win, current, next, previous);
+	tmp = NULL;
+}
+
+void	delete_asset(t_win *win)
+{
+	t_lstasset	*tmp;
 	int			i;
 	int			j;
 
 	tmp = NULL;
-	current = NULL;
-	previous = NULL;
-	next = NULL;
 	i = 0;
 	j = 0;
 	tmp = win->lstasset;
 	while (tmp)
 	{
 		if (tmp->x == win->x2 && tmp->y == win->y2)
-		{
-			win->tmpasset = NULL;
-			current = tmp;
-			next = current->next;
-			if (j > 0)
-			{
-				previous = win->lstasset;
-				while (i < j - 1)
-				{
-					previous = previous->next;
-					i++;
-				}
-			}
-			if (j == 0)
-				win->lstasset = NULL;
-			delete_asset_helper(win, current, next, previous);
-			tmp = NULL;
-		}
+			delete_asset_helper(win, tmp, j, i);
 		if (tmp)
 		{
 			tmp = tmp->next;

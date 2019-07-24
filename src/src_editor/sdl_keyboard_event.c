@@ -1,132 +1,109 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sdl_keyboard_event.c                               :+:      :+:    :+:   */
+/*   sdl_mouse_event.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/23 11:19:59 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/23 11:20:14 by abechet          ###   ########.fr       */
+/*   Created: 2019/07/23 11:19:20 by abechet           #+#    #+#             */
+/*   Updated: 2019/07/23 11:19:31 by abechet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-static void	sdl_event_mouse_wheel_helper(t_win *win, t_lstlst *tmp2)
+static void		sdl_event_key_helper(t_env *w, t_win *win)
 {
-	if (win->mode == 0)
+	if (win->event.type == SDL_QUIT
+		|| win->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 	{
-		SDL_FreeCursor(win->cursor);
-		win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
-		if (tmp2)
+		w->stopread = 1;
+		fit_to_game(w);
+		//clear_n_exit(win, 0);
+		return ;
+	}
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_F5])
+	{
+		if (win->lstlst)
 		{
-			while (tmp2->next)
-				tmp2 = tmp2->next;
-			if (tmp2->closed == 0)
-				win->drawing = 1;
+			map_save(win, w);
+			if (w->stopread == 1)
+				return ;
 		}
-		if (win->helptxt != NULL)
-			free(win->helptxt);
-		win->helptxt = ft_strdup("Drawing Mode");
 	}
-	if (win->mode == 1)
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_RETURN])
 	{
-		SDL_FreeCursor(win->cursor);
-		win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
-		win->drawing = 0;
-		if (win->helptxt != NULL)
-			free(win->helptxt);
-		win->helptxt = ft_strdup("Moving Mode");
+		if (win->mode == 4)
+			win->put_texture = 1;
+	}
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_P])
+	{
+		correct_intersections_in_a_sector(win);
 	}
 }
 
-static void	sdl_event_mouse_wheel_helper2(t_win *win)
+static void		sdl_event_key_helper2(t_win *win)
 {
-	if (win->mode == 2)
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_UP])
 	{
-		SDL_FreeCursor(win->cursor);
-		win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
-		win->drawing = 0;
-		if (win->helptxt != NULL)
-			free(win->helptxt);
-		win->helptxt = ft_strdup("Placing Mode");
-	}
-	if (win->mode == 3)
-	{
-		SDL_FreeCursor(win->cursor);
-		win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
-		win->drawing = 0;
-		if (win->helptxt != NULL)
-			free(win->helptxt);
-		win->helptxt = ft_strdup("Delete Mode");
-	}
-}
-
-void		sdl_event_mouse_wheel(t_win *win, t_lstlst *tmp2)
-{
-	win->changemode = 1;
-	if (win->moving == 0)
-	{
-		if (win->event.wheel.y > 0)
-			win->mode -= 1;
-		if (win->event.wheel.y < 0)
-			win->mode += 1;
-	}
-	if (win->mode > 4)
-		win->mode = 0;
-	if (win->mode < 0)
-		win->mode = 4;
-	sdl_event_mouse_wheel_helper(win, tmp2);
-	sdl_event_mouse_wheel_helper2(win);
-	if (win->mode == 4)
-	{
-		SDL_FreeCursor(win->cursor);
-		win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
-		win->drawing = 0;
-		if (win->helptxt != NULL)
-			free(win->helptxt);
-		win->helptxt = ft_strdup("Texture Mode");
-	}
-}
-
-void		sdl_event_mouse_left_click(t_win *win, int x, int y, t_lst *tmp)
-{
-	SDL_GetMouseState(&x, &y);
-	if (win->mode == 0)
-	{
-		win->x1 = ft_round(x);
-		win->y1 = ft_round(y);
-	}
-	win->x0 = ft_round(x);
-	win->y0 = ft_round(y);
-	win->left_click = 1;
-	if (win->left_click == 1 && win->mode == 1
-		&& (win->moving == 1 || win->moving == 2))
-	{
-		win->moving = 0;
-		win->tmp = NULL;
-		win->tmpasset = NULL;
-		win->x0 = -1;
-		win->y0 = -1;
-		if (win->lst)
+		if (win->mode == 4)
 		{
-			while (tmp->next)
-				tmp = tmp->next;
-			win->x1 = tmp->x;
-			win->y1 = tmp->y;
+			win->texture_choice += 1;
+			if (win->texture_choice > 4)
+				win->texture_choice = 0;
+		}
+		if (win->mode == 1)
+		{
+			win->param_index += 1;
+			if (win->param_index > 2)
+				win->param_index = 0;
 		}
 	}
 }
 
-void		sdl_event_mouse_right_click(t_env *w, t_win *win)
+static void		sdl_event_key_helper3(t_win *win)
 {
-	if (win->mode == 0)
-		undo(win);
-	if (win->mode == 2)
-		pick_asset(w, win);
-	if (win->mode == 4)
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_DOWN])
 	{
-		win->txtr_input_type = 1;
-		change_texture_index(w, win);
+		if (win->mode == 4)
+		{
+			win->texture_choice -= 1;
+			if (win->texture_choice < 0)
+				win->texture_choice = 4;
+		}
+		if (win->mode == 1)
+		{
+			win->param_index -= 1;
+			if (win->param_index < 0)
+				win->param_index = 2;
+		}
+	}
+}
+
+void			sdl_event_key(t_env *w, t_win *win)
+{
+	win->keystate = (Uint8 *)SDL_GetKeyboardState(0);
+	sdl_event_key_helper(w, win);
+	sdl_event_key_helper2(win);
+	sdl_event_key_helper3(win);
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_RIGHT])
+	{
+		if (win->mode == 4)
+		{
+			win->txtr_input_type = 2;
+			change_texture_index(w, win);
+		}
+		if (win->mode == 1)
+			increase_value(win);
+	}
+	if (win->event.type == SDL_KEYDOWN && win->keystate[SDL_SCANCODE_LEFT])
+	{
+		if (win->mode == 4)
+		{
+			win->txtr_input_type = 3;
+			change_texture_index(w, win);
+		}
+		if (win->mode == 1)
+			decrease_value(win);
 	}
 }

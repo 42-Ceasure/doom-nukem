@@ -250,7 +250,7 @@ void			init_dst(t_win *win);
 void			save_map(t_win *win);
 void			map_save(t_win *win, t_env *w);
 void			check4(t_win *win);
-int				triangles_neighbours(t_win *win, t_lstlst *tmp2, int i);
+int				triangles_neighbours(t_win *win, t_lstlst *tmp2);
 void			sort_triangles_points(t_win *win);
 void			triangulate_all_assets(t_win *win);
 int				triangulate_a_triangle(t_win *win, t_dot m);

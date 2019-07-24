@@ -15,29 +15,28 @@
 void		write_sectors_neighbours(t_win *win, int fp, t_lstlst *tmp2)
 {
 	char		*str;
-	int			i;
 	int			len;
 
-	i = 0;
+	win->tni = 0;
 	len = len_list(tmp2->head);
-	while (i < len)
+	while (win->tni < len)
 	{
-		if (triangles_neighbours(win, tmp2, i) == -1)
+		if (triangles_neighbours(win, tmp2) == -1)
 		{
 			str = "x";
 			ft_putstr_fd(str, fp);
 		}
 		else
 		{
-			str = ft_itoa(triangles_neighbours(win, tmp2, i));
+			str = ft_itoa(triangles_neighbours(win, tmp2));
 			ft_putstr_fd(str, fp);
 		}
-		if (i < len - 1)
+		if (win->tni < len - 1)
 		{
 			str = ",";
 			ft_putstr_fd(str, fp);
 		}
-		i++;
+		win->tni++;
 	}
 }
 
