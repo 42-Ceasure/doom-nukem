@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:06:30 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/23 11:11:10 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/24 11:43:47 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,14 @@ typedef struct		s_point
 	t_dot			p0;
 	t_dot			p1;
 	t_dot			p2;
+	t_dot			p3;
+	t_dot			p4;
+	int				ret;
+	int				index3;
+	int				index2;
+	int				len;
+	int				index4;
+	int				index5;
 }					t_point;
 
 typedef struct		s_count
@@ -540,6 +548,7 @@ typedef struct		s_map
 	int				elevator;
 	int				door;
 	int				nb_a;
+	int				nb_d;
 	int				i;
 	int				w;
 	int				fd;

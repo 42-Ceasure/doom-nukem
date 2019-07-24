@@ -157,7 +157,9 @@ SRCFIL				=	src_game/main.c \
 						src_editor/write_sectors.c \
 						src_editor/write_sprites.c \
 						src_editor/write_weapons.c \
-						src_editor/xy_on_line.c
+						src_editor/xy_on_line.c \
+						src_editor/on_top.c \
+						src_editor/correct_intersect.c
 
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))

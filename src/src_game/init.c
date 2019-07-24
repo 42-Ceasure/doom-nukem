@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:03:15 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/23 14:37:35 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/24 11:42:09 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int			init_sdl(t_env *w)
 		return (-1);
 	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED |
 		SDL_RENDERER_PRESENTVSYNC);
-	w->pix = (Uint32 *)malloc(sizeof(Uint32) * WIDTH * HEIGHT);
+	if (!(w->pix = (Uint32 *)malloc(sizeof(Uint32) * WIDTH * HEIGHT)))
+		set_error(w, w->m, 0, ft_strdup("malloc error"));
 	w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
 		SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
 	clean_render(w, 0x12000000);
