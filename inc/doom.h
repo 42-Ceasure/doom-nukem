@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/23 16:04:40 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/23 22:21:57 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,23 @@
 # include <stdlib.h>
 # include <math.h>
 
-void			interpret_cmd(t_env *w, t_map *m, char ***cmd, char **av);
+void			parse_settings_line(t_env *w, t_map *m, char *line);
+void			parse_allocating_line(t_env *w, t_map *m, char *line);
+void			parse_weapon_line(t_map *m, char *line);
+void			parse_texture_line(t_env *w, t_map *m, char *line);
+void			parse_sprite_line(t_env *w, t_map *m, char *line);
+int				parse_map_in_core(t_env *w, t_map *m, char *name);
+int				parse_map_line(t_env *w, t_map *m);
+int				parse_first_line(t_map *m);
+int				parse_map_dots(t_map *m, char *y, char *x);
+int				parse_sectors(t_map *m, char **tab);
+
+
+int				parse_player_section(t_map *m, char **tab);
+int				parse_ennemy_map(t_map *m, char **tab);
+int				parse_sprite_map(t_map *m, char **tab);
 char			***parse_cmd(int ac, char **av);
+void			interpret_cmd(t_env *w, t_map *m, char ***cmd, char **av);
 t_texture		pre_init_texture(int w, int h);
 void			l_f_priority_cmd(t_env *w, t_map *m, char ***cmd);
 void			map_cmd(t_env *w, t_map *m, char **cmd);
@@ -36,30 +51,12 @@ void			seq_cmd(t_env *w, char ***cmd, int i);
 void			set_error(t_env *w, t_map *m, int errorno, char *s);
 void			set_basics(t_env *w, t_map *m, int ac);
 void			set_count(t_map *m);
-void			parse_config_line(t_env *w, t_map *m, char *line);
-void			parse_allocating_line(t_env *w, t_map *m, char *line);
-t_menu			parse_menu_line(t_env *w, char *line);
-void			parse_weapon_line(t_map *m, char *line);
-int				parse_weapon_sprite(t_map *m, char *name, char *def, char *pix);
-void			parse_texture_line(t_env *w, t_map *m, char *line);
-void			parse_sprite_line(t_env *w, t_map *m, char *line);
-int				parse_sector_network(t_map *m, char *net);
-int				parse_sector_texturing(t_map *m, char *text);
-int				parse_sector_dots(t_map *m, char **dots);
 void			set_screen_res(t_env *w, char *aspect);
 void			replace_line(char *path, char *balise, char *content, t_env *w);
 void			add_map_to_core(char *path, char *path2, t_env *w);
 void			change_settings(t_env *w, t_map *m);
-void			parse_map_file(t_env *w, t_map *m);
-int				first_line(t_map *m);
 void			init_map_structs(t_map *m);
-int				parse_map_section(t_map *m, char **tab);
-int				parse_player_section(t_map *m, char **tab);
-int				parse_weapon_section(t_map *m, char **tab);
-int				parse_sprite_section(t_map *m, char *name, char *def, char *pix);
-void			parse_core_section(t_env *w, t_map *m, char *line, int mode);
 int				quick_look(t_env *w, t_map *m);
-int				do_parse(t_env *w, t_map *m);
 void			set_advanced_run(char **av, t_env *w, t_map *m);
 void			exit_game(t_env *w, t_map *m, int i);
 int				init_sdl(t_env *w);
@@ -131,7 +128,6 @@ void			set_w(t_env *w, int ac);
 void			set_m(t_map *m);
 void			set_m_player(t_map *m);
 void			load_core(t_env *w, t_map *m);
-t_texture		parse_texture(t_env *w, t_map *m, char **tmp);
 Uint32			*faster_please(Uint32 *dst, char *src, int len);
 void			type_str(t_env *w, t_dot dot, char *s, Uint32 color);
 void			go_forward(t_map *m);
@@ -189,12 +185,8 @@ void			ft_free_weap(t_map *m);
 void			ft_free_sprite(t_map *m);
 void			ft_free_sprt(t_map *m);
 void			ft_free_sector(t_map *m);
-int				get_that_map_parsed(t_env *w, t_map *m);
-int				parse_map_in_core(t_env *w, t_map *m, char *name);
-int				parse_line(t_env *w, t_map *m);
+void			reset_map(t_map *m);
 void			reset_player(t_env *w, t_map *m);
-int				parse_ennemy_map(t_map *m, char **tab);
-int				parse_sprite_map(t_map *m, char **tab);
 void			fit_to_editor(t_env *w);
 void			fit_to_game(t_env *w);
 int				level_editor_start(t_env *w);
@@ -317,7 +309,7 @@ int				init2(t_env *w, t_win *win);
 double			pointside2(t_dot m, t_dot p0, double x1, double y1);
 void			delete_sector2(t_win *win, t_lstlst *current, t_lstlst *previous);
 int				get_nb_maps_in_core(t_env *w);
-int				get_names_maps_in_core(t_env *w, char **names);
+int				get_names_maps_in_core(t_env *w, t_map *m, char **names);
 void			init_sprite_tab(t_map *m);
 void			ft_free_tab(t_map *m);
 void			process_hint_savemap(t_env *w, int i, int nbmaps, char *s);
@@ -327,5 +319,14 @@ void			draw_walls(t_work *work, t_env *w, int x);
 int				dark_side(int color, t_work *work);
 void			ft_trucage(char *s);
 void			calc_z(t_work *work, int x);
-
+int				fill_arg(int *nb, char *number);
+void			menu_maps(t_env *w);
+t_dot			fill_t_dot(int x, int y);
+void			menu_settings(t_env *w);
+int				settings_changed(t_env *w);
+void			change_value_settings(t_env *w, int direction);
+int				menu_loose(t_env *w, t_map *m);
+int				menu_change_lvl(t_env *w, t_map *m);
+int				map_is_in_core(t_env *w, char *map);
+void			menu_screen(t_env *w);
 #endif
