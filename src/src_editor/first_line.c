@@ -34,7 +34,7 @@ void		fl2_helper(t_win *win, int fp, int i)
 	ft_putstr_fd(str, fp);
 }
 
-void		first_line2(t_win *win, int fp)
+void		first_line2(t_env *w, t_win *win, int fp)
 {
 	char		*str;
 	t_lstlst	*tmp2;
@@ -50,7 +50,7 @@ void		first_line2(t_win *win, int fp)
 	}
 	str = "dots:";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(total_exclusive_points(win));
+	str = ft_itoa(total_exclusive_points(w, win));
 	ft_putstr_fd(str, fp);
 	fl2_helper(win, fp, i);
 }

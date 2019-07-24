@@ -34,7 +34,7 @@ int			number_of_dot_per_line_with_same(t_win *win, int y)
 	return (i);
 }
 
-int			*create_y_dot_tab(t_win *win, int y, int i)
+int			*create_y_dot_tab(t_env *w, t_win *win, int y, int i)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
@@ -43,7 +43,7 @@ int			*create_y_dot_tab(t_win *win, int y, int i)
 
 	index = 0;
 	if (!(dot_tab = (int *)malloc(sizeof(int) * (i + 1))))
-		clear_n_exit(win, 1);
+		clear_n_exit(w, win);
 	tmp2 = win->lstlst;
 	while (tmp2)
 	{
@@ -63,7 +63,7 @@ int			*create_y_dot_tab(t_win *win, int y, int i)
 	return (dot_tab);
 }
 
-int			number_of_dot_per_line(t_win *win, int y)
+int			number_of_dot_per_line(t_env *w, t_win *win, int y)
 {
 	int			*dot_tab;
 	int			i;
@@ -73,7 +73,7 @@ int			number_of_dot_per_line(t_win *win, int y)
 	index = 0;
 	same = 0;
 	i = number_of_dot_per_line_with_same(win, y);
-	dot_tab = create_y_dot_tab(win, y, i);
+	dot_tab = create_y_dot_tab(w, win, y, i);
 	if (i > 1)
 	{
 		while (index < i - 1)
@@ -88,7 +88,7 @@ int			number_of_dot_per_line(t_win *win, int y)
 	return (i);
 }
 
-int			total_exclusive_points(t_win *win)
+int			total_exclusive_points(t_env *w, t_win *win)
 {
 	int		i;
 	int		y;
@@ -97,7 +97,7 @@ int			total_exclusive_points(t_win *win)
 	y = 0;
 	while (y <= WIN_Y)
 	{
-		i += number_of_dot_per_line(win, y);
+		i += number_of_dot_per_line(w, win, y);
 		y++;
 	}
 	return (i);

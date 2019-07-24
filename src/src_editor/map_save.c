@@ -38,10 +38,10 @@ void		new_clockwise(t_win *win)
 	}
 }
 
-void		everything_is_a_triangle(t_win *win)
+void		everything_is_a_triangle(t_env *w, t_win *win)
 {
-	recursive_check(win);
-	sort_triangles_points(win);
+	recursive_check(w, win);
+	sort_triangles_points(w, win);
 	check4(win);
 	new_clockwise(win);
 	triangulate_all_assets(win);
@@ -79,7 +79,7 @@ void		map_save(t_win *win, t_env *w)
 {
 	if (map_save_helper(win) == 1)
 	{
-		everything_is_a_triangle(win);
+		everything_is_a_triangle(w, win);
 		if (correct_map(win) == 0)
 		{
 			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
@@ -87,7 +87,7 @@ void		map_save(t_win *win, t_env *w)
 			fit_to_game(w);
 			w->stopread = 1;
 			main_pic(w, 1);
-			fill_buffer(win, w);
+			fill_buffer(w, win);
 			printf("Map saved\n");
 		}
 	}

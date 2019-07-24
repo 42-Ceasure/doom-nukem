@@ -84,9 +84,9 @@ static int	init_struct(t_win *win)
 int			init2(t_env *w, t_win *win)
 {
 	if (init_struct(win) != 0)
-		clear_n_exit(win, 4);
+		clear_n_exit(w, win);
 	if (init_assets(w, win) != 0)
-		clear_n_exit(win, 4);
+		clear_n_exit(w, win);
 	init_dst(win);
 	return (0);
 }

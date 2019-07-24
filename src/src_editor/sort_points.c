@@ -31,7 +31,7 @@ void		sort_points_helper2(t_win *win, int index, int y, int *dot_tab)
 	}
 }
 
-void		sort_points_helper(t_win *win, int y)
+void		sort_points_helper(t_env *w, t_win *win, int y)
 {
 	int			i;
 	int			index;
@@ -41,7 +41,7 @@ void		sort_points_helper(t_win *win, int y)
 	if (i > 0)
 	{
 		index = 0;
-		dot_tab = create_y_dot_tab(win, y, i);
+		dot_tab = create_y_dot_tab(w, win, y, i);
 		while (index < i)
 		{
 			sort_points_helper2(win, index, y, dot_tab);
@@ -52,7 +52,7 @@ void		sort_points_helper(t_win *win, int y)
 	}
 }
 
-void		sort_points(t_win *win)
+void		sort_points(t_env *w, t_win *win)
 {
 	int			y;
 
@@ -60,7 +60,7 @@ void		sort_points(t_win *win)
 	y = y_min_point(win);
 	while (y < WIN_Y)
 	{
-		sort_points_helper(win, y);
+		sort_points_helper(w, win, y);
 		y++;
 	}
 }
@@ -79,7 +79,7 @@ t_lstlst	*dts_helper(t_win *win, int sector)
 	return (tmp2);
 }
 
-int			*dot_tab_sector(t_win *win, int sector)
+int			*dot_tab_sector(t_env *w, t_win *win, int sector)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
@@ -96,7 +96,7 @@ int			*dot_tab_sector(t_win *win, int sector)
 	if (tmp2)
 	{
 		if (!(dot_tab = (int *)malloc(sizeof(int) * i)))
-			clear_n_exit(win, 1);
+			clear_n_exit(w, win);
 		while (tmp)
 		{
 			dot_tab[index] = tmp->nb;

@@ -76,12 +76,12 @@ t_dot	get_point_in_list(t_lst *polygone, int index)
 	return (p);
 }
 
-int		*indice(t_win *win, int i, int j, int k)
+int		*indice(t_env *w, t_win *win, int i, int j, int k)
 {
 	int		*tab;
 
 	if (!(tab = (int *)malloc(sizeof(int) * 3)))
-		clear_n_exit(win, 1);
+		clear_n_exit(w, win);
 	tab[0] = i;
 	tab[1] = j;
 	tab[2] = k;

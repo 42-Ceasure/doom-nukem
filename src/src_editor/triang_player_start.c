@@ -12,11 +12,11 @@
 
 #include "doom.h"
 
-void		fill_buffer(t_win *win, t_env *w)
+void		fill_buffer(t_env *w, t_win *win)
 {
 	win->number = 0;
-	sort_points(win);
-	write_in_file(win, w);
+	sort_points(w, win);
+	write_in_file(w, win);
 }
 
 int			tpsh(t_lstlst *tmp2, t_dot m)

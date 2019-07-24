@@ -24,7 +24,7 @@ void		write_dots_helper2(int y, int fp)
 	ft_putstr_fd(str, fp);
 }
 
-void		write_dots_helper(t_win *win, int fp, int y)
+void		write_dots_helper(t_env *w, t_win *win, int fp, int y)
 {
 	char		*str;
 	int			x;
@@ -32,7 +32,7 @@ void		write_dots_helper(t_win *win, int fp, int y)
 	int			index;
 
 	index = 1;
-	i = number_of_dot_per_line(win, y);
+	i = number_of_dot_per_line(w, win, y);
 	write_dots_helper2(y, fp);
 	x = x_min_on_line(win, y);
 	str = ft_itoa(x / 5);
@@ -50,7 +50,7 @@ void		write_dots_helper(t_win *win, int fp, int y)
 	ft_putstr_fd(str, fp);
 }
 
-void		write_dots(t_win *win, int fp, int boole)
+void		write_dots(t_env *w, t_win *win, int fp, int boole)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
@@ -69,7 +69,7 @@ void		write_dots(t_win *win, int fp, int boole)
 			boole = 1;
 		else
 			y = next_y(win, y);
-		write_dots_helper(win, fp, y);
+		write_dots_helper(w, win, fp, y);
 		a++;
 	}
 }
@@ -88,7 +88,7 @@ t_lstlst	*tab_sector3_helper(t_win *win, int sector)
 	return (tmp2);
 }
 
-int			*tab_sector3(t_win *win, int sector)
+int			*tab_sector3(t_env *w, t_win *win, int sector)
 {
 	t_lstlst	*tmp2;
 	t_lst		*tmp;
@@ -105,7 +105,7 @@ int			*tab_sector3(t_win *win, int sector)
 	if (tmp2)
 	{
 		if (!(dot_tab = (int *)malloc(sizeof(int) * i)))
-			clear_n_exit(win, 1);
+			clear_n_exit(w, win);
 		while (tmp)
 		{
 			dot_tab[index] = tmp->nb;

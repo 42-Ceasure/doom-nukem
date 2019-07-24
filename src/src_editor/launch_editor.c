@@ -12,14 +12,14 @@
 
 #include "doom.h"
 
-int		clear_n_exit(t_win *win, int error)
+void	clear_n_exit(t_env *w, t_win *win)
 {
+	if (win->helptxt != NULL)
+		free(win->helptxt);
 	free_listlist(win);
 	free_triangles(win);
 	free_assets(win);
-	if (error > 0)
-		exit(EXIT_FAILURE);
-	exit(EXIT_SUCCESS);
+	w->stopread = 1;
 }
 
 int		level_editor_start(t_env *w)

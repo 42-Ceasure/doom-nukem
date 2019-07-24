@@ -12,7 +12,7 @@
 
 #include "doom.h"
 
-void		write_sectors_neighbours(t_win *win, int fp, t_lstlst *tmp2)
+void		write_sectors_neighbours(t_env *w, t_win *win, int fp, t_lstlst *tmp2)
 {
 	char		*str;
 	int			len;
@@ -21,14 +21,14 @@ void		write_sectors_neighbours(t_win *win, int fp, t_lstlst *tmp2)
 	len = len_list(tmp2->head);
 	while (win->tni < len)
 	{
-		if (triangles_neighbours(win, tmp2) == -1)
+		if (triangles_neighbours(w, win, tmp2) == -1)
 		{
 			str = "x";
 			ft_putstr_fd(str, fp);
 		}
 		else
 		{
-			str = ft_itoa(triangles_neighbours(win, tmp2));
+			str = ft_itoa(triangles_neighbours(w, win, tmp2));
 			ft_putstr_fd(str, fp);
 		}
 		if (win->tni < len - 1)
@@ -68,7 +68,7 @@ void		write_sectors_textures(int fp, t_lstlst *tmp2)
 	ft_putstr_fd(str, fp);
 }
 
-void		write_sectors_helper2(t_win *win, int fp, t_lstlst *tmp2)
+void		write_sectors_helper2(t_env *w, t_win *win, int fp, t_lstlst *tmp2)
 {
 	char	*str;
 	t_lst	*tmp;
@@ -89,13 +89,13 @@ void		write_sectors_helper2(t_win *win, int fp, t_lstlst *tmp2)
 	}
 	str = ":";
 	ft_putstr_fd(str, fp);
-	write_sectors_neighbours(win, fp, tmp2);
+	write_sectors_neighbours(w, win, fp, tmp2);
 	write_sectors_textures(fp, tmp2);
 	str = "\n";
 	ft_putstr_fd(str, fp);
 }
 
-void		write_sectors_helper(t_win *win, int fp, t_lstlst *tmp2)
+void		write_sectors_helper(t_env *w, t_win *win, int fp, t_lstlst *tmp2)
 {
 	char		*str;
 	t_lst		*tmp;
@@ -117,10 +117,10 @@ void		write_sectors_helper(t_win *win, int fp, t_lstlst *tmp2)
 			}
 		}
 	}
-	write_sectors_helper2(win, fp, tmp2);
+	write_sectors_helper2(w, win, fp, tmp2);
 }
 
-void		write_sectors(t_win *win, int fp)
+void		write_sectors(t_env *w, t_win *win, int fp)
 {
 	int			i;
 	int			index;
@@ -132,7 +132,7 @@ void		write_sectors(t_win *win, int fp)
 	while (index < i)
 	{
 		if (tmp2->sector != -1)
-			write_sectors_helper(win, fp, tmp2);
+			write_sectors_helper(w, win, fp, tmp2);
 		index++;
 		tmp2 = tmp2->next;
 	}

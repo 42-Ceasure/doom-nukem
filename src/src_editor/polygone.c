@@ -45,22 +45,22 @@ t_lstlst	*stock_triangles(t_lstlst *triangles, t_lstlst *tmp3, t_lst *poly)
 	return (triangles);
 }
 
-t_lstlst	*two_poly(t_win *win, t_lst *polygone, t_count cpt, t_lstlst *tmp3)
+t_lstlst	*two_poly(t_env *w, t_win *win, t_lst *polygone, t_count cpt, t_lstlst *tmp3)
 {
 	t_lst		*polygone1;
 	t_lst		*polygone2;
 
 	if ((polygone1 = new_poly(polygone, cpt.j0, cpt.x)) == NULL)
-		clear_n_exit(win, 1);
+		clear_n_exit(w, win);
 	if ((polygone2 = new_poly(polygone, cpt.x, cpt.j0)) == NULL)
-		clear_n_exit(win, 1);
+		clear_n_exit(w, win);
 	if (len_list(polygone1) == 3)
 		win->triangles = stock_triangles(win->triangles, tmp3, polygone1);
 	else
-		recursive_triangulate(win, tmp3, polygone1);
+		recursive_triangulate(w, win, tmp3, polygone1);
 	if (len_list(polygone2) == 3)
 		win->triangles = stock_triangles(win->triangles, tmp3, polygone2);
 	else
-		recursive_triangulate(win, tmp3, polygone2);
+		recursive_triangulate(w, win, tmp3, polygone2);
 	return (win->triangles);
 }

@@ -68,18 +68,18 @@ void		write_map_mame(t_env *w, int fp)
 	ft_putchar_fd('\n', fp);
 }
 
-void		write_in_file_helper(t_win *win, t_env *w, int fp)
+void		write_in_file_helper(t_env *w, t_win *win, int fp)
 {
 	int			boole;
 
 	boole = 0;
 	write_map_mame(w, fp);
 	process_hint_savemap(w, 1, w->nbmaps, "map");
-	first_line2(win, fp);
+	first_line2(w, win, fp);
 	process_hint_savemap(w, 1, w->nbmaps, "dots");
-	write_dots(win, fp, boole);
+	write_dots(w, win, fp, boole);
 	process_hint_savemap(w, 1, w->nbmaps, "sectors");
-	write_sectors(win, fp);
+	write_sectors(w, win, fp);
 	process_hint_savemap(w, 1, w->nbmaps, "player");
 	write_player(win, fp);
 	process_hint_savemap(w, 1, w->nbmaps, "sprites");
@@ -88,7 +88,7 @@ void		write_in_file_helper(t_win *win, t_env *w, int fp)
 	write_ennemies(win, fp);
 }
 
-void		write_in_file(t_win *win, t_env *w)
+void		write_in_file(t_env *w, t_win *win)
 {
 	int			fp;
 	char		*name;
@@ -96,7 +96,7 @@ void		write_in_file(t_win *win, t_env *w)
 
 	name = ft_strdup("tmp.dn3d");
 	fp = open(name, O_RDWR | O_CREAT | O_TRUNC, 0655);
-	write_in_file_helper(win, w, fp);
+	write_in_file_helper(w, win, fp);
 	process_hint_savemap(w, 1, w->nbmaps, "sections");
 	str = ft_strdup("Section:level\n");
 	ft_putstr_fd(str, fp);
