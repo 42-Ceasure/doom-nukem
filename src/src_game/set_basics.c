@@ -12,6 +12,33 @@
 
 #include "doom.h"
 
+void	reset_map(t_map *m)
+{
+	int i;
+
+	i = 0;
+	ft_free_tab(m);
+	ft_free_sector(m);
+	if (m->dot != NULL)
+	{
+		free(m->dot);
+		m->dot = NULL;
+	}
+	ft_free_sprt(m);
+	if (m->ennemy != NULL)
+	{
+		free(m->ennemy);
+		m->ennemy = NULL;
+	}
+	if (m->linklvl != NULL)
+	{
+		free(m->linklvl);
+		m->linklvl = NULL;
+	}
+	m->endsector = -1;
+	m->change_lvl = 0;
+	m->newgame = 0;
+}
 
 void	reset_player(t_env *w, t_map *m)
 {

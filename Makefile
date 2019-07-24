@@ -40,6 +40,12 @@ INCFIL              =   doom.h
 OBJFIL              =   $(SRCFIL:.c=.o)
 LIBFTFIL            =   libft.a
 SRCFIL				=	src_game/main.c \
+						src_game/menu/menu.c \
+						src_game/menu/menu_level_n_loose.c \
+						src_game/menu/menu_maps.c \
+						src_game/menu/menu_screen.c \
+						src_game/menu/menu_settings.c \
+						src_game/menu/menu_utils.c \
 						src_game/parser/core_load_core.c \
 						src_game/parser/core_parse_allocations.c \
 						src_game/parser/core_parse_settings.c \
@@ -48,6 +54,7 @@ SRCFIL				=	src_game/main.c \
 						src_game/parser/core_parse_weapon.c \
 						src_game/parser/load_img.c \
 						src_game/parser/map_first_line.c \
+						src_game/parser/map_nb_names.c \
 						src_game/parser/map_parse_dots.c \
 						src_game/parser/map_parse_ennemy.c \
 						src_game/parser/map_parse_line.c \
@@ -88,8 +95,6 @@ SRCFIL				=	src_game/main.c \
 						src_game/list_main.c \
 						src_game/look_around.c \
 						src_game/maths_functions.c \
-						src_game/menu.c \
-						src_game/menu_maps.c \
 						src_game/modif_file.c \
 						src_game/mouse_events.c \
 						src_game/moving_ennemy.c \
@@ -106,10 +111,6 @@ SRCFIL				=	src_game/main.c \
 						src_game/sprite.c \
 						src_game/visibility.c \
 						src_game/weapon.c \
-						src_game/menu_settings.c \
-						src_game/menu_utils.c \
-						src_game/menu_level_n_loose.c \
-						src_game/menu_screen.c \
 						src_editor/correct_map.c \
 						src_editor/delete_asset.c \
 						src_editor/delete_mode.c \
@@ -198,6 +199,7 @@ $(NAME)             :   $(OBJ) $(LIBFT)
 $(OBJDIR)%.o        :   $(SRCDIR)%.c $(INC)
 						@mkdir -p $(OBJDIR)
 						@mkdir -p ./obj/src_game
+						@mkdir -p ./obj/src_game/menu
 						@mkdir -p ./obj/src_game/parser
 						@mkdir -p ./obj/src_editor
 						@$(CC) $(CFLAG) -I $(INCDIR) -I $(INCLIBFT) -I $(INCSDL) -o $@ -c $<

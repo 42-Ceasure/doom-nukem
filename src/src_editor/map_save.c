@@ -82,6 +82,8 @@ void		map_save(t_win *win, t_env *w)
 		everything_is_a_triangle(win);
 		if (correct_map(win) == 0)
 		{
+			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+			SDL_SetCursor(win->cursor);
 			fit_to_game(w);
 			w->stopread = 1;
 			main_pic(w, 1);

@@ -94,7 +94,7 @@ void	get_maps_infos(t_env *w)
 	if ((w->namesmaps = (char **)malloc(sizeof(char *)
 		* (w->nbmaps + 1))) == NULL)
 		set_error(w, w->m, 0, ft_strdup("menu_maps"));
-	get_names_maps_in_core(w, w->namesmaps);
+	get_names_maps_in_core(w, w->m, w->namesmaps);
 	w->namesmaps[w->nbmaps] = NULL;
 }
 

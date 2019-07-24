@@ -18,6 +18,8 @@ static void		sdl_event_key_helper(t_env *w, t_win *win)
 		|| win->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 	{
 		w->stopread = 1;
+		win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+		SDL_SetCursor(win->cursor);
 		fit_to_game(w);
 		//clear_n_exit(win, 0);
 		return ;

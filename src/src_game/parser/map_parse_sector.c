@@ -77,7 +77,6 @@ int			parse_sector_dots(t_map *m, char **dots)
 	return (0);
 }
 
-
 int			alloc_sector(t_map *m)
 {
 	if ((m->sector[m->s].dot = (t_dot *)malloc(sizeof(t_dot)
@@ -117,4 +116,3 @@ int			parse_sectors(t_map *m, char **tab)
 	m->s++;
 	return (0);
 }
-

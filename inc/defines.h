@@ -83,5 +83,6 @@
 # define COREBROKEN			"Some of game core components seems like to be broken, concider delete your core.dn3d and extract it again"
 # define CHANGELVL			"Press enter to start next level"
 # define ENDGAME			"Congratulation, you finished the game ! press enter"
+# define WSR				w->stopread
 
 #endif

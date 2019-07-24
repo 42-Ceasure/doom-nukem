@@ -11,7 +11,7 @@ void		check_i2(int i2, int i3)
 	}
 }
 
-Uint32		*faster_please(Uint32 *dst, char *src, int len)
+Uint32			*faster_please(Uint32 *dst, char *src, int len)
 {
 	int				i;
 	int				i2;
@@ -40,12 +40,12 @@ Uint32		*faster_please(Uint32 *dst, char *src, int len)
 	return (dst);
 }
 
-int			parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
+int				parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 {
-	int				i;
-	int				wn;
-	int				sn;
-	char			**tmp;
+	int			i;
+	int			wn;
+	int			sn;
+	char		**tmp;
 
 	tmp = ft_strsplit(def, ',');
 	wn = ft_atoi(tmp[0]);
@@ -67,11 +67,11 @@ int			parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 	return (0);
 }
 
-int			parse_sprite_section(t_map *m, char *name, char *def, char *pix)
+int				parse_sprite_section(t_map *m, char *name, char *def, char *pix)
 {
-	int				i;
-	int				sn;
-	char			**tmp;
+	int			i;
+	int			sn;
+	char		**tmp;
 
 	tmp = ft_strsplit(def, ',');
 	sn = ft_atoi(tmp[0]);
@@ -92,7 +92,7 @@ int			parse_sprite_section(t_map *m, char *name, char *def, char *pix)
 
 void			parse_sprite_line(t_env *w, t_map *m, char *line)
 {
-	char 		**tab;
+	char		**tab;
 
 	tab = ft_strsplit(line, ':');
 	if (ft_strcmp(tab[0], "weapon_sprite") == 0)

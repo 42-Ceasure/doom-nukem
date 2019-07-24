@@ -3,8 +3,8 @@
 
 void			parse_settings_line(t_env *w, t_map *m, char *line)
 {
-	char **tmp;
-	int check;
+	char		**tmp;
+	int			check;
 
 	check = 0;
 	tmp = ft_strsplit(line, ':');

@@ -1,9 +1,9 @@
 
 #include "doom.h"
 
-int		fill_arg(int *nb, char *number)
+int				fill_arg(int *nb, char *number)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	while (number[i] != '\0')
@@ -26,15 +26,15 @@ void			fill_weapon_int(t_map *m, char **tmp)
 	{
 		if (i == 0 && fill_arg(&m->weap[m->w].range, tmp[i]) != 0)
 			set_error(m->world, m, 911, ft_strdup("weapon line"));
-		if (i == 1 && fill_arg(&m->weap[m->w].firerate, tmp[i])!= 0)
+		if (i == 1 && fill_arg(&m->weap[m->w].firerate, tmp[i]) != 0)
 			set_error(m->world, m, 911, ft_strdup("weapon line"));
-		if (i == 2 && fill_arg(&m->weap[m->w].accuracy, tmp[i])!= 0)
+		if (i == 2 && fill_arg(&m->weap[m->w].accuracy, tmp[i]) != 0)
 			set_error(m->world, m, 911, ft_strdup("weapon line"));
-		if (i == 4 && fill_arg(&m->weap[m->w].ammo_type, tmp[i])!= 0)
+		if (i == 4 && fill_arg(&m->weap[m->w].ammo_type, tmp[i]) != 0)
 			set_error(m->world, m, 911, ft_strdup("weapon line"));
-		if (i == 5 && fill_arg(&m->weap[m->w].magazine, tmp[i])!= 0)
+		if (i == 5 && fill_arg(&m->weap[m->w].magazine, tmp[i]) != 0)
 			set_error(m->world, m, 911, ft_strdup("weapon line"));
-		if (i == 6 && fill_arg(&m->weap[m->w].recoil, tmp[i])!= 0)
+		if (i == 6 && fill_arg(&m->weap[m->w].recoil, tmp[i]) != 0)
 			set_error(m->world, m, 911, ft_strdup("weapon line"));
 		i++;
 	}

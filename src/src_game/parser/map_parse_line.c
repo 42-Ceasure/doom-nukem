@@ -1,9 +1,9 @@
 
 #include "doom.h"
 
-int		parse_level_map(t_map *m, char **tab)
+int				parse_level_map(t_map *m, char **tab)
 {
-	char	**tmp;
+	char		**tmp;
 
 	if (tab[0] == NULL)
 		return (-1);
@@ -18,7 +18,7 @@ int		parse_level_map(t_map *m, char **tab)
 	return (0);
 }
 
-int			second_parse(t_env *w, t_map *m, char **tmp)
+int				second_parse(t_env *w, t_map *m, char **tmp)
 {
 	if (m->section_number == 2)
 	{
@@ -45,7 +45,7 @@ int			second_parse(t_env *w, t_map *m, char **tmp)
 	return (0);
 }
 
-int			parse_map_section(t_map *m, char **tab)
+int				parse_map_section(t_map *m, char **tab)
 {
 	if (ft_strcmp(tab[0], "\tdots") == 0)
 	{
@@ -68,9 +68,9 @@ int			parse_map_section(t_map *m, char **tab)
 	return (0);
 }
 
-int		parse_map_line(t_env *w, t_map *m)
+int				parse_map_line(t_env *w, t_map *m)
 {
-	char	**tmp;
+	char		**tmp;
 
 	if ((tmp = ft_strsplit(m->line, ':')) == NULL)
 		return (-1);
