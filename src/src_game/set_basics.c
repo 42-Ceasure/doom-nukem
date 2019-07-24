@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 13:47:03 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/23 11:26:35 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/24 11:49:56 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,8 @@ void			set_count(t_map *m)
 	m->sector_count = 0;
 	m->weapon_count = -1;
 	m->sprite_count = -1;
+	m->nb_d = 0;
+	m->nb_a = 0;
 }
 
 void			set_m(t_map *m)

@@ -3,19 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   hud.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 14:19:05 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/22 16:17:51 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/24 11:01:59 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
+void	inventory_2(t_env *w, t_map *m, t_img img)
+{
+	if (m->player.take[2] == 1)
+	{
+		img = fill_t_img(480, HEIGHT - 54, 64, 0);
+		sprt_to_screen(w, m->sprite[2], img);
+	}
+	if (m->player.take[3] == 1)
+	{
+		img = fill_t_img(560, HEIGHT - 54, 64, 0);
+		sprt_to_screen(w, m->sprite[22], img);
+	}
+}
+
 void	inventory(t_env *w, t_map *m, t_dot dot)
 {
 	t_img	img;
-	
+
 	dot.x = 115;
 	if (m->player.take[PH] == 1)
 	{
@@ -34,16 +48,7 @@ void	inventory(t_env *w, t_map *m, t_dot dot)
 		img = fill_t_img(399, HEIGHT - 60, 64, 48);
 		sprt_to_screen(w, m->sprite[1], img);
 	}
-	if (m->player.take[2] == 1)
-	{
-		img = fill_t_img(480, HEIGHT - 54, 64, 0);
-		sprt_to_screen(w, m->sprite[2], img);
-	}
-	if (m->player.take[3] == 1)
-	{
-		img = fill_t_img(560, HEIGHT - 54, 64, 0);
-		sprt_to_screen(w, m->sprite[22], img);
-	}
+	inventory_2(w, m, img);
 }
 
 void	ft_hud(t_env *w, t_map *m)

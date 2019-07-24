@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 15:04:59 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/23 13:46:58 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/24 11:04:35 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void		move_floor_ceiling(t_env *w, t_map *m)
 	}
 	if (KEY == SDLK_f && m->sector[m->player.sector].texturing[3] == 32
 		&& m->player.take[3] == 1 && m->door == 0)
+	{
 		m->door = 1;
+		m->nb_d = m->player.sector;
+	}
 }
 
 void		key_events(t_env *w, t_map *m)
