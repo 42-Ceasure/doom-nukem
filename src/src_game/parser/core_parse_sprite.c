@@ -58,7 +58,8 @@ int				parse_weapon_sprite(t_map *m, char *name, char *def, char *pix)
 	i = ft_atoi(tmp[4]) * ft_atoi(tmp[5]);
 	m->weap[wn].sprt[sn].len = i;
 	process_hint_w(m->world, 1, "textures");
-	m->weap[wn].sprt[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i);
+	if (!(m->weap[wn].sprt[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i)))
+		set_error((t_env *)m->world, m, 0, ft_strdup("weapon"));
 	process_hint_w(m->world, 6, name);
 	process_hint_w(m->world, 0, " ");
 	m->weap[wn].sprt[sn].pix = faster_please(m->weap[wn].sprt[sn].pix, pix, i);
@@ -81,7 +82,8 @@ int				parse_sprite_section(t_map *m, char *name, char *def, char *pix)
 	i = ft_atoi(tmp[1]) * ft_atoi(tmp[2]);
 	m->sprite[sn].len = i;
 	process_hint_w(m->world, 1, "sprite");
-	m->sprite[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i);
+	if (!(m->sprite[sn].pix = (Uint32 *)malloc(sizeof(Uint32) * i)))
+		set_error((t_env *)m->world, m, 0, ft_strdup("sprite"));
 	process_hint_w(m->world, 6, name);
 	process_hint_w(m->world, 0, " ");
 	m->sprite[sn].pix = faster_please(m->sprite[sn].pix, pix, i);

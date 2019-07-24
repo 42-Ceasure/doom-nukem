@@ -26,29 +26,60 @@ int			parse_other_info(t_map *m, char **tab)
 	return (0);
 }
 
-int			parse_player_section(t_map *m, char **tab)
+static int	parse_location(t_map *m, char **tab)
 {
 	char	**tmp;
+	int		i;
 
+	i = 0;
+	if (tab[1] == NULL)
+		return (-1);
+	tmp = ft_strsplit(tab[1], ',');
+	while (tmp[i] != NULL)
+		i++;
+	if (i != 2)
+		return (-1);
+	m->player.coor.x = ft_atof(tmp[0]);
+	m->player.coor.y = ft_atof(tmp[1]);
+	ft_memreg(tmp);
+	return (0);
+}
+
+static int	parse_dir(t_map *m, char **tab)
+{
+	if (tab[1] == NULL)
+		return (-1);
+	m->player.angle = (ft_atof(tab[1]) * M_PI / 180);
+	m->player.anglecos = cos(m->player.angle);
+	m->player.anglesin = sin(m->player.angle);
+	return (0);
+}
+
+static int	parse_player_sector(t_map *m, char **tab)
+{
+	if (tab[1] == NULL)
+		return (-1);
+	m->player.sector = ft_atoi(tab[1]);
+	m->player.coor.z = m->sector[m->player.sector].floor + STAND;
+	return (0);
+}
+
+int			parse_player_section(t_map *m, char **tab)
+{
 	if (ft_strcmp(tab[0], "\tplayer_location") == 0)
 	{
-		tmp = ft_strsplit(tab[1], ',');
-		if (tmp == NULL)
+		if (parse_location(m, tab) != 0)
 			return (-1);
-		m->player.coor.x = ft_atof(tmp[0]);
-		m->player.coor.y = ft_atof(tmp[1]);
-		ft_memreg(tmp);
 	}
 	else if (ft_strcmp(tab[0], "\tplayer_direction") == 0)
 	{
-		m->player.angle = (ft_atof(tab[1]) * M_PI / 180);
-		m->player.anglecos = cos(m->player.angle);
-		m->player.anglesin = sin(m->player.angle);
+		if (parse_dir(m, tab) != 0)
+			return (-1);
 	}
 	else if (ft_strcmp(tab[0], "\tplayer_sector") == 0)
 	{
-		m->player.sector = ft_atoi(tab[1]);
-		m->player.coor.z = m->sector[m->player.sector].floor + STAND;
+		if (parse_player_sector(m, tab) != 0)
+			return (-1);
 	}
 	else if (parse_other_info(m, tab) != 0)
 		return (-1);

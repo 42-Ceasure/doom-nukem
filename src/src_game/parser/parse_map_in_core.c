@@ -2,7 +2,7 @@
 
 #include "doom.h"
 
-int		get_that_map_parsed(t_env *w, t_map *m)
+int				get_that_map_parsed(t_env *w, t_map *m)
 {
 	free(m->line);
 	set_count(m);
@@ -63,7 +63,7 @@ static int		process_line(t_env *w, t_map *m, char *tmp)
 		}
 	}
 	else if (ft_strcmp(m->line, "ENDMAPSECTION") == 0)
-	{	
+	{
 		parse_failed(w);
 		free(m->line);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:26:17 by agay              #+#    #+#             */
-/*   Updated: 2019/07/24 11:48:17 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/24 14:09:39 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void			parse_sprite_line(t_env *w, t_map *m, char *line);
 int				parse_map_in_core(t_env *w, t_map *m, char *name);
 int				parse_map_line(t_env *w, t_map *m);
 int				parse_first_line(t_map *m);
-int				parse_map_dots(t_map *m, char *y, char *x);
+int				parse_map_dots(t_map *m, char **tab);
 int				parse_sectors(t_map *m, char **tab);
 
 

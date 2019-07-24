@@ -35,7 +35,6 @@ int		map_is_in_core(t_env *w, char *map)
 		set_error(w, w->m, 0, ft_strdup("map_is_in_core"));
 	get_names_maps_in_core(w, w->m, w->namesmaps);
 	w->namesmaps[w->nbmaps] = NULL;
-	get_names_maps_in_core(w, w->m, w->namesmaps);
 	while (w->namesmaps[i])
 	{
 		if (ft_strcmp(w->namesmaps[i], map) == 0)
