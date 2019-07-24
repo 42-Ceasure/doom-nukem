@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 18:15:26 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/22 17:29:26 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/24 14:02:10 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		img_to_screen(t_env *w, t_texture texture, t_img img)
 			{
 				s.tmpix = (int)s.y_tex * texture.w + (int)s.x_tex;
 				if (texture.pix[s.tmpix] != TRANSPARENT)
-					w->pix[img.y * WIDTH + img.x] = texture.pix[s.tmpix];
+				w->pix[img.y * WIDTH + img.x] = texture.pix[s.tmpix];
 			}
 			s.x_tex += s.step_x_tex;
 			img.x++;

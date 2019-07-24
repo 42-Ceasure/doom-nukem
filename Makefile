@@ -6,7 +6,7 @@
 #    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 15:00:20 by nvienot           #+#    #+#              #
-#    Updated: 2019/07/23 22:22:18 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/24 13:56:57 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -160,7 +160,6 @@ SRCFIL				=	src_game/main.c \
 						src_editor/xy_on_line.c \
 						src_editor/on_top.c \
 						src_editor/correct_intersect.c
-
 
 SRC                 =   $(addprefix $(SRCDIR),$(SRCFIL))
 OBJ                 =   $(addprefix $(OBJDIR),$(OBJFIL))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:06:30 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/24 11:43:47 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/24 13:48:23 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct		s_ceiling
 	double			map_x;
 	double			map_y;
 	int				x;
+	int				y1;
+	int				y2;
 	unsigned		x_tex;
 	unsigned		y_tex;
 	unsigned		tmpix;

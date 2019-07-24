@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:32:27 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/23 18:42:47 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/24 13:50:03 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	skybox(int x, t_env *w, t_work *work, t_texture text)
 			x_tex = (x * (text.w / 4)) / WIDTH + ((w->m->player.angle
 				* (180 / PI)) * text.w) / 360;
 			y_tex = (((y1 + w->m->yaw / 0.004 + 500) * text.h)
-				/ HEIGHT / ((1576.f / (double)HEIGHT)));
+				/ HEIGHT / (((double)(HEIGHT + 1000) / (double)HEIGHT)));
 			tmpix = (int)((int)y_tex % text.h) * text.w + ((int)x_tex % text.w);
 			if (tmpix >= 0 && tmpix < text.h * text.w)
 				w->pix[y1 * WIDTH + x] = text.pix[tmpix];
@@ -57,30 +57,28 @@ void	calc_map_pos_ceil(t_env *w, t_work *work, t_ceiling *c, int y1)
 void	draw_ceiling_line_t(int x, t_env *w, t_work *work, t_texture *text)
 {
 	t_ceiling	c;
-	int			y1;
-	int			y2;
 
-	y1 = vmid(work->starty, 0, HEIGHT - 1);
-	y2 = vmid(work->stopy, 0, HEIGHT - 1);
+	c.y1 = vmid(work->starty, 0, HEIGHT - 1);
+	c.y2 = vmid(work->stopy, 0, HEIGHT - 1);
 	c.x = x;
-	if (y2 >= y1)
+	if (c.y2 >= c.y1)
 	{
-		while (y1 <= y2)
+		while (c.y1 <= c.y2)
 		{
-			if (y1 >= work->cya && y1 <= work->cyb && y2 != y1)
+			if (c.y1 >= work->cya && c.y1 <= work->cyb && c.y2 != c.y1)
 			{
-				y1 = work->cyb;
+				c.y1 = work->cyb;
 				continue;
 			}
-			calc_map_pos_ceil(w, work, &c, y1);
-			if (y1 != y2)
+			calc_map_pos_ceil(w, work, &c, c.y1);
+			if (c.y1 != c.y2)
 				test_sprite(w->m, c.map_x, c.map_y);
 			c.x_tex = (c.map_x * text->w / 6);
 			c.y_tex = (c.map_y * text->w / 6);
 			c.tmpix = (c.y_tex % text->h) * text->w + (c.x_tex % text->w);
 			if (text->pix[c.tmpix] != TRANSPARENT)
-				w->pix[y1 * WIDTH + x] = text->pix[c.tmpix];
-			y1++;
+				w->pix[c.y1 * WIDTH + x] = text->pix[c.tmpix];
+			c.y1++;
 		}
 	}
 }

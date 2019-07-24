@@ -1,36 +1,49 @@
-/*BIG42HEADER*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   moving_functions.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/24 14:03:16 by nvienot           #+#    #+#             */
+/*   Updated: 2019/07/24 14:06:24 by nvienot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "doom.h"
 // http://peroxide.dk/papers/collision/collision.pdf
 // http://www.peroxide.dk/download/tutorials/tut10/pxdtut10.html
 // https://wildbunny.co.uk/blog/2011/03/25/speculative-contacts-an-continuous-collision-engine-approach-part-1/
 // https://stackoverflow.com/questions/1945632/2d-ball-collisions-with-corners
-t_coor  trymapcorner(t_coor player, t_coor speed, t_dot dot)
+
+#include "doom.h"
+
+t_coor		trymapcorner(t_coor player, t_coor speed, t_dot dot)
 {
-    double len;
-    double nx;
-    double ny;
-    t_coor ret;
-    double projection;
-    nx = player.x - dot.x;
-    ny = player.y - dot.y;
-    len = sqrt(nx * nx + ny * ny);
-    if (len < 1)
-        printf("%f\n", len);
-    nx /= len;
-    ny /= len;
-    projection = speed.x * nx + speed.y * ny;
-    ret.x = speed.x - 2 * projection * nx;
-    ret.y = speed.y - 2 * projection * ny;
-    if (len < 1)
-        return (ret);
-    else
-        return (speed);
+	double len;
+	double nx;
+	double ny;
+	double projection;
+	t_coor ret;
+
+	nx = player.x - dot.x;
+	ny = player.y - dot.y;
+	len = sqrt(nx * nx + ny * ny);
+	if (len < 1)
+		printf("%f\n", len);
+	nx /= len;
+	ny /= len;
+	projection = speed.x * nx + speed.y * ny;
+	ret.x = speed.x - 2 * projection * nx;
+	ret.y = speed.y - 2 * projection * ny;
+	if (len < 1)
+		return (ret);
+	else
+		return (speed);
 }
 
 void		get_height(t_map *m)
 {
-	int tmp;
+	int 	tmp;
 
 	tmp = m->sector[m->player.sector].ceiling - m->sector[m->player.sector].floor;
 	if (m->player.stance == 0)
@@ -133,7 +146,6 @@ int			is_on_a_map_dot(t_map *m, int sector)
 	i.y1 = m->player.coor.y;
 	i.x2 = m->player.coor.x + (m->player.move_speed.x * 5);
 	i.y2 = m->player.coor.y + (m->player.move_speed.y * 5);
-	//printf("%f,%f\n", (m->player.move_speed.x * 12), (m->player.move_speed.y * 12));
 	while (i.mem < m->sector[sector].wall_count)
 	{
 		i.x3 = m->sector[sector].dot[i.mem].x;
@@ -199,13 +211,12 @@ int			is_next_to_a_dot(t_map *m)
 	return (0);
 }
 
-void move_player(double dx, double dy, t_map *m)
+void		move_player(double dx, double dy, t_map *m)
 {
 	int			s;
 	t_intersect	i;
 	t_coor		coor;
 	t_dot		p;
-	
 
 	i.x1 = m->player.coor.x;
 	i.y1 = m->player.coor.y;
@@ -222,7 +233,7 @@ void move_player(double dx, double dy, t_map *m)
 		coor.y = i.y2;
 		p.x = i.x3;
 		p.y = i.y3;
-		if(m->sector[m->player.sector].network[s] >= 0 && intersectbox(i) 
+		if (m->sector[m->player.sector].network[s] >= 0 && intersectbox(i)
 		&& pointside(coor, p, i.x4, i.y4) < 0)
 		{
 			m->player.sector = m->sector[m->player.sector].network[s];
@@ -291,7 +302,7 @@ void		is_moving(t_map *m)
 			}
 		}
 		s++;
-	}	
+	}
 	// is_next_to_a_dot(m);
 	move_player(m->player.move_speed.x, m->player.move_speed.y, m);
 	m->player.fall = 1;
