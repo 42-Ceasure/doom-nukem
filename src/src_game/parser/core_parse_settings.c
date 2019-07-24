@@ -7,6 +7,8 @@ void			parse_settings_line(t_env *w, t_map *m, char *line)
 	int			check;
 
 	check = 0;
+	if (line == NULL)
+		set_error(w, m, 911, ft_strdup("error on core settings"));
 	tmp = ft_strsplit(line, ':');
 	while (tmp[check])
 		check++;

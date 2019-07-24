@@ -49,7 +49,7 @@ int				parse_map_section(t_map *m, char **tab)
 {
 	if (ft_strcmp(tab[0], "\tdots") == 0)
 	{
-		if (parse_map_dots(m, tab[1], tab[2]) == -1)
+		if (parse_map_dots(m, tab) == -1)
 		{
 			ft_putendl("error on parsing of the dot section");
 			return (-1);
