@@ -6,7 +6,7 @@
 /*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 13:47:03 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/24 11:49:56 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/24 13:54:22 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void			set_w(t_env *w, int ac)
 	w->nbmaps = 0;
 	w->editor_res.width = WIN_X;
 	w->editor_res.height = WIN_Y;
-	w->light_nb = (char *)malloc(sizeof(char) * 12);
+	if (!(w->light_nb = (char *)malloc(sizeof(char) * 12)))
+		set_error(w, w->m, 0, "light_nb");
 	ft_light_itoa(0, w->light_nb);
 	w->loading_time = 0;
 	w->window_mode = -1;
@@ -101,18 +102,21 @@ void			set_w(t_env *w, int ac)
 	w->ac = ac;
 	w->asciichk = 0;
 	w->asciino = -1;
+	w->ascii = NULL;
 	w->stopread = 0;
 	w->invert = 1;
 	w->random = 0;
 	w->sequential_draw = 0;
 	w->win = NULL;
 	w->rdr = NULL;
+	w->sound.dammage = NULL;
 	w->sound.volume = 80;
 	w->sound.musique = NULL;
 	w->sound.jump = NULL;
 	w->sound.ground = NULL;
 	w->sound.reload = NULL;
 	w->sound.clic = NULL;
+	w->texturing = NULL;
 	w->pix = NULL;
 	w->inkeys = NULL;
 	w->txtr = NULL;
@@ -228,14 +232,17 @@ void			set_player_math(t_map *m)
 void			set_m_player(t_map *m)
 {
 	m->player.bal = 0;
-	m->player.fps = (char *)malloc(sizeof(char) * 12);
+	if (!(m->player.fps = (char *)malloc(sizeof(char) * 12)))
+		set_error((t_env *)m->world, m, 0, ft_strdup("m->player.fps"));
 	ft_light_itoa(0, m->player.fps);
-	m->player.stractu_ammo = (char *)malloc(sizeof(char) * 12);
+	if (!(m->player.stractu_ammo = (char *)malloc(sizeof(char) * 12)))
+		set_error((t_env *)m->world, m, 0, ft_strdup("m->player.ammo"));
 	ft_light_itoa(0, m->player.stractu_ammo);
-	m->player.strhp = (char *)malloc(sizeof(char) * 12);
+	if (!(m->player.strhp = (char *)malloc(sizeof(char) * 12)))
+		set_error((t_env *)m->world, m, 0, ft_strdup("m->player.ammo"));
 	ft_light_itoa(0, m->player.strhp);
-	m->player.strbullet = (char *)malloc(sizeof(char) * 12);
-	ft_light_itoa(0, m->player.strbullet);
+	if (!(m->player.strbullet = (char *)malloc(sizeof(char) * 12)))
+		set_error((t_env *)m->world, m, 0, ft_strdup("m->player.bullet"));
 	m->player.handed = 0;
 	m->player.aiming = 0;
 	m->player.shooting = 0;
