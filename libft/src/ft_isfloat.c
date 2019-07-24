@@ -1,21 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_isfloat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/16 21:25:12 by cglavieu          #+#    #+#             */
-/*   Updated: 2019/07/24 13:39:34 by nvienot          ###   ########.fr       */
+/*   Created: 2019/07/24 13:30:48 by nvienot           #+#    #+#             */
+/*   Updated: 2019/07/24 13:41:11 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isdigit(int c)
+int		ft_isfloat(char *str)
 {
-	if (c >= 48 && c <= 57)
-		return (1);
-	else
-		return (0);
+	int i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]) == 1 || str[i] == '.')
+		{
+			if (str[i] == '.')
+				count++;
+		}
+		else
+			return (0);
+		if (count > 1)
+			return (0);
+		i++;
+	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/19 18:18:57 by cglavieu          #+#    #+#             */
-/*   Updated: 2019/07/23 01:57:47 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/24 13:41:17 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int					ft_isalnum(int c);
 int					ft_isalpha(int c);
 int					ft_isascii(int c);
 int					ft_isdigit(int c);
+int					ft_isfloat(char *str);
 int					ft_isprint(int c);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
