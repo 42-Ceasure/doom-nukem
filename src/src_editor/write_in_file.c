@@ -12,39 +12,39 @@
 
 #include "doom.h"
 
-void		write_ennemy(t_win *win, int fp, t_lstasset *tmp, int i)
+void		write_ennemy(t_win *win, int fp, t_lstast *tmp, int i)
 {
-	char		*str;
+	char	*str;
 
-	if (win->lstasset)
+	if (win->lstast)
 	{
 		str = "\tmonstre:";
 		ft_putstr_fd(str, fp);
 	}
-	str = ft_itoa(i);
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(i, win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 	str = ",6,";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->sector);
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(tmp->sector, win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->x / 2);
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(tmp->x / 2, win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp->y / 2);
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(tmp->y / 2, win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 }
 
 void		write_ennemies(t_win *win, int fp)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 	char		*str;
 	int			i;
 
 	i = 0;
-	tmp = win->lstasset;
+	tmp = win->lstast;
 	str = "Section:ennemy\n";
 	ft_putstr_fd(str, fp);
 	while (tmp)
@@ -96,6 +96,7 @@ void		write_in_file(t_env *w, t_win *win)
 
 	name = strdup_safe(w, win, "tmp.dn3d");
 	fp = open(name, O_RDWR | O_CREAT | O_TRUNC, 0655);
+	free(name);
 	write_in_file_helper(w, win, fp);
 	process_hint_savemap(w, 1, w->nbmaps, "sections");
 	str = strdup_safe(w, win, "Section:level\n");
@@ -105,6 +106,6 @@ void		write_in_file(t_env *w, t_win *win)
 	ft_putstr_fd(str, fp);
 	free(str);
 	close(fp);
-	add_map_to_core("./core/core.dn3d", "./tmp.dn3d", w);
+	add_map_to_core("./core/core.dn3d", "./tmp.dn3d", w, w->m);
 	unlink("./tmp.dn3d");
 }

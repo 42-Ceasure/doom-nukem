@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data.c                                             :+:      :+:    :+:   */
+/*   map_save.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 10:51:32 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/21 17:06:01 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/25 18:58:53 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void		map_save(t_win *win, t_env *w)
 		everything_is_a_triangle(w, win);
 		if (correct_map(win) == 0)
 		{
-			win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+			if (!(win->cursor = SDL_CreateSystemCursor(ARROW)))
+				clear_n_exit(w, win);
 			SDL_SetCursor(win->cursor);
 			fit_to_game(w);
 			main_pic(w, 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:03:15 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/24 14:05:16 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/25 19:07:09 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void		img_update(t_env *w)
 {
-	SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32));
-	SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL);
+	if ((SDL_UpdateTexture(w->txtr, NULL, w->pix, WIDTH * sizeof(Uint32))) < 0)
+		set_error(w, w->m, 4, strdup_check(w, "SDL_UpdateTexture"));
+	if ((SDL_RenderCopy(w->rdr, w->txtr, NULL, NULL)) < 0)
+		set_error(w, w->m, 4, strdup_check(w, "SDL_RenderCopy"));
 	SDL_RenderPresent(w->rdr);
 }
 
@@ -48,78 +50,40 @@ int			load_sounds(t_env *w, t_map *m)
 	return (1);
 }
 
+int			init_window(t_env *w)
+{
+	if (w->window_mode == 1)
+	{
+		if (!(w->win = SDL_CreateWindow(NAME, SDL_WINDOWPOS_CENTERED,
+			SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_RESIZABLE)))
+			return (-1);
+	}
+	else if (w->window_mode == 0)
+	{
+		if (!(w->win = SDL_CreateWindow(NAME, SDL_WINDOWPOS_CENTERED,
+			SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_FULLSCREEN)))
+			return (-1);
+	}
+	return (0);
+}
+
 int			init_sdl(t_env *w)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 		return (-1);
-	if (w->window_mode == 1)
-	{
-		w->win = SDL_CreateWindow(NAME, SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_RESIZABLE);
-	}
-	else if (w->window_mode == 0)
-	{
-		w->win = SDL_CreateWindow(NAME, SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_FULLSCREEN);
-	}
+	if (init_window(w) == -1)
+		return (-1);
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 		return (-1);
-	w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED |
-		SDL_RENDERER_PRESENTVSYNC);
+	if (!(w->rdr = SDL_CreateRenderer(w->win, -1, SDL_RENDERER_ACCELERATED
+		| SDL_RENDERER_PRESENTVSYNC)))
+		return (-1);
 	if (!(w->pix = (Uint32 *)malloc(sizeof(Uint32) * WIDTH * HEIGHT)))
-		set_error(w, w->m, 0, ft_strdup("malloc error"));
-	w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
-		SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
+		set_error(w, w->m, 0, strdup_check(w, "malloc error"));
+	if (!(w->txtr = SDL_CreateTexture(w->rdr, SDL_PIXELFORMAT_ARGB8888,
+		SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT)))
+		return (-1);
 	clean_render(w, 0x12000000);
 	img_update(w);
 	return (0);
-}
-
-void		init_sprite_tab(t_map *m)
-{
-	int i;
-
-	i = 0;
-	if (!(m->tab = (double**)malloc(sizeof(double*) * (m->sprite_map_count
-		+ m->ennemy_count))))
-		set_error((t_env *)m->world, m, 0, ft_strdup("m->tab"));
-	while (i < m->sprite_map_count + m->ennemy_count)
-	{
-		if (!(m->tab[i] = (double*)malloc(sizeof(double) * 3)))
-			set_error((t_env *)m->world, m, 0, ft_strdup("m->tab[i]"));
-		i++;
-	}
-}
-
-void	init_map_structs(t_map *m)
-{
-	int	i;
-
-	i = 0;
-	while (i < m->sprite_map_count)
-	{
-		m->sprt[i].name = NULL;
-		i++;
-	}
-}
-
-t_texture			pre_init_texture(int w, int h)
-{
-	t_texture		texture;
-
-	if (w > 0 && h > 0)
-	{
-		texture.w = w;
-		texture.h = h;
-		texture.len = w * h;
-		texture.pix = (Uint32 *)malloc(sizeof(Uint32) * w * h);
-	}
-	else
-	{
-		texture.w = 0;
-		texture.h = 0;
-		texture.len = 0;
-		texture.pix = NULL;
-	}
-	return (texture);
 }

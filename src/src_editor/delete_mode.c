@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_mode.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 11:36:02 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/22 17:32:18 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/25 09:03:25 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,6 @@ void		delete_sector(t_win *win)
 
 void		delete_sector2(t_win *win, t_lstlst *current, t_lstlst *previous)
 {
-	t_lst		*tmp;
-
-	tmp = NULL;
 	if (win->lstlst)
 	{
 		free(current);

@@ -18,16 +18,16 @@ void		fl2_helper(t_win *win, int fp, int i)
 
 	str = ",sector:";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(i);
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(i, win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 	str = ",sprite:";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(number_of_sprite(win));
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(number_of_sprite(win), win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 	str = ",ennemy:";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(number_of_ennemy(win));
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(number_of_ennemy(win), win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 	str = "\n";
 	ft_putstr_fd(str, fp);
 	str = "Section:map\n";
@@ -50,7 +50,7 @@ void		first_line2(t_env *w, t_win *win, int fp)
 	}
 	str = "dots:";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(total_exclusive_points(w, win));
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(total_exclusive_points(w, win), win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 	fl2_helper(win, fp, i);
 }

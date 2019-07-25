@@ -29,8 +29,8 @@ void		write_sectors_neighbours(t_env *w,
 		}
 		else
 		{
-			str = ft_itoa(triangles_neighbours(w, win, tmp2));
-			ft_putstr_fd(str, fp);
+			ft_light_itoa(triangles_neighbours(w, win, tmp2), win->itoastr);
+			ft_putstr_fd(win->itoastr, fp);
 		}
 		if (win->tni < len - 1)
 		{
@@ -41,31 +41,31 @@ void		write_sectors_neighbours(t_env *w,
 	}
 }
 
-void		write_sectors_textures(int fp, t_lstlst *tmp2)
+void		write_sectors_textures(t_win *win, int fp, t_lstlst *tmp2)
 {
 	char		*str;
 
 	str = ":";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp2->txtr_floor);
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(tmp2->txtr_floor, win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp2->txtr_ceiling);
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(tmp2->txtr_ceiling, win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp2->txtr_wall);
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(tmp2->txtr_wall, win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp2->txtr_lower_extrude);
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(tmp2->txtr_lower_extrude, win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 	str = ",";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(tmp2->txtr_higher_extrude);
-	ft_putstr_fd(str, fp);
-	str = ",2";
+	ft_light_itoa(tmp2->txtr_higher_extrude, win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
+	str = ",48";
 	ft_putstr_fd(str, fp);
 }
 
@@ -77,21 +77,21 @@ void		write_sectors_helper2(t_env *w, t_win *win, int fp, t_lstlst *tmp2)
 	tmp = tmp2->head;
 	if (tmp2->clockwise == 2)
 	{
-		str = ft_itoa(tmp->nb);
-		ft_putstr_fd(str, fp);
+		ft_light_itoa(tmp->nb, win->itoastr);
+		ft_putstr_fd(win->itoastr, fp);
 		str = ",";
 		ft_putstr_fd(str, fp);
-		str = ft_itoa(tmp->next->next->nb);
-		ft_putstr_fd(str, fp);
+		ft_light_itoa(tmp->next->next->nb, win->itoastr);
+		ft_putstr_fd(win->itoastr, fp);
 		str = ",";
 		ft_putstr_fd(str, fp);
-		str = ft_itoa(tmp->next->nb);
-		ft_putstr_fd(str, fp);
+		ft_light_itoa(tmp->next->nb, win->itoastr);
+		ft_putstr_fd(win->itoastr, fp);
 	}
 	str = ":";
 	ft_putstr_fd(str, fp);
 	write_sectors_neighbours(w, win, fp, tmp2);
-	write_sectors_textures(fp, tmp2);
+	write_sectors_textures(win, fp, tmp2);
 	str = "\n";
 	ft_putstr_fd(str, fp);
 }
@@ -108,8 +108,8 @@ void		write_sectors_helper(t_env *w, t_win *win, int fp, t_lstlst *tmp2)
 	{
 		while (tmp)
 		{
-			str = ft_itoa(tmp->nb);
-			ft_putstr_fd(str, fp);
+			ft_light_itoa(tmp->nb, win->itoastr);
+			ft_putstr_fd(win->itoastr, fp);
 			tmp = tmp->next;
 			if (tmp)
 			{

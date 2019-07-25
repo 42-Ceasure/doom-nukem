@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:44:59 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/23 22:30:02 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/25 09:10:35 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		map_is_in_core(t_env *w, char *map)
 	w->nbmaps = get_nb_maps_in_core(w);
 	if ((w->namesmaps = (char **)malloc(sizeof(char *)
 		* (w->nbmaps + 1))) == NULL)
-		set_error(w, w->m, 0, ft_strdup("map_is_in_core"));
+		set_error(w, w->m, 0, strdup_check(w, "map_is_in_core"));
 	get_names_maps_in_core(w, w->m, w->namesmaps);
 	w->namesmaps[w->nbmaps] = NULL;
 	while (w->namesmaps[i])
@@ -78,7 +78,7 @@ void	change_value_settings(t_env *w, int direction)
 	else if (w->menu.k == 1)
 	{
 		if (direction == 1)
-			w->window_res_menu = vmin(w->window_res_menu + 1, 2);
+			w->window_res_menu = vmin(w->window_res_menu + 1, 1);
 		else
 			w->window_res_menu = vmax(0, w->window_res_menu - 1);
 	}
@@ -108,7 +108,9 @@ int		settings_changed(t_env *w)
 	}
 	else
 	{
-		if (w->window_mode != w->window_mode_menu || w->window_res_menu)
+		if (w->window_mode != w->window_mode_menu)
+			return (1);
+		if (w->window_res != w->window_res_menu)
 			return (1);
 		if (w->m->player.field_of_vision_h != w->fov_h_menu)
 			return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_first_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 14:53:23 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/24 14:03:24 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/25 10:52:16 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ int		first_line_prepare(t_map *m, char **tab)
 	i = 0;
 	while (i < 4)
 	{
-		tmp = ft_strsplit(tab[i], ':');
-		if (tmp[0] == NULL || tmp[1] == NULL)
+		if ((tmp = ft_strsplit(tab[i], ':')) == NULL)
+			set_error(m->world, m, 0, strdup_check(m->world, "error strsplit"));
+		if (check_tab(tmp, 2) != 0)
 			return (-1);
 		if (first_line_compare(m, tmp) != 0)
 		{
@@ -57,17 +58,23 @@ int		first_line_check(t_map *m)
 	char	**tmp;
 	int		check;
 
-	tmp = ft_strsplit(m->line, ',');
-	check = 0;
-	while (tmp[check] != NULL)
-		check++;
+	if ((tmp = ft_strsplit(m->line, ',')) == NULL)
+		set_error(m->world, m, 0, strdup_check(m->world, "error strsplit"));
+	check = ft_tab_len(tmp);
 	if (check != 4)
+	{
+		ft_memreg(tmp);
 		return (-1);
+	}
 	else
 	{
 		if (first_line_prepare(m, tmp) != 0)
+		{
+			ft_memreg(tmp);
 			return (-1);
+		}
 	}
+	ft_memreg(tmp);
 	return (0);
 }
 

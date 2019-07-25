@@ -3,20 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   set_basics.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 13:47:03 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/24 13:54:22 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/25 14:05:04 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void	reset_map(t_map *m)
+void		reset_map(t_map *m)
 {
-	int i;
-
-	i = 0;
 	ft_free_tab(m);
 	ft_free_sector(m);
 	if (m->dot != NULL)
@@ -40,30 +37,10 @@ void	reset_map(t_map *m)
 	m->newgame = 0;
 }
 
-void	reset_player(t_env *w, t_map *m)
-{
-	m->player.bullet[0] = 0;
-	m->player.bullet[1] = 0;
-	m->player.take[0] = 0;
-	m->player.take[1] = 0;
-	m->player.take[2] = 0;
-	m->player.take[3] = 0;
-	m->player.intactu_ammo = 0;
-	m->player.firing = 0;
-	m->player.shooting = 0;
-	m->player.field_of_vision_h = w->mem_field_of_vision_h;
-	m->player.field_of_vision_v = w->mem_field_of_vision_v;
-	m->player.aiming = 0;
-	m->elevator = 0;
-	m->weap[0].actu_ammo = m->weap[0].magazine;
-	m->weap[1].actu_ammo = m->weap[1].magazine;
-	m->weap[2].actu_ammo = m->weap[2].magazine;
-}
-
-void			set_screen_res(t_env *w, char *aspect)
+void		set_screen_res(t_env *w, char *aspect)
 {
 	w->window_res = ft_atoi(aspect);
-	if (w->window_res == 0) //			16/9
+	if (w->window_res == 0)
 	{
 		w->res.width = BASEWIDTH;
 		w->res.height = BASEHEIGHT;
@@ -72,11 +49,6 @@ void			set_screen_res(t_env *w, char *aspect)
 	{
 		w->res.width = 1920;
 		w->res.height = 1080;
-	}
-	else if (w->window_res == 2)
-	{
-		w->res.width = 800;
-		w->res.height = 600;
 	}
 	else
 	{
@@ -87,42 +59,34 @@ void			set_screen_res(t_env *w, char *aspect)
 	w->game_res.height = w->res.height;
 }
 
-void			set_w(t_env *w, int ac)
+void		set_null(t_env *w)
 {
-	w->currmap = ft_strdup("hsh");
-	w->nbmaps = 0;
-	w->editor_res.width = WIN_X;
-	w->editor_res.height = WIN_Y;
-	if (!(w->light_nb = (char *)malloc(sizeof(char) * 12)))
-		set_error(w, w->m, 0, "light_nb");
-	ft_light_itoa(0, w->light_nb);
-	w->loading_time = 0;
-	w->window_mode = -1;
-	w->i = 0;
-	w->ac = ac;
-	w->asciichk = 0;
-	w->asciino = -1;
-	w->ascii = NULL;
-	w->stopread = 0;
-	w->invert = 1;
-	w->random = 0;
-	w->sequential_draw = 0;
 	w->win = NULL;
 	w->rdr = NULL;
 	w->sound.dammage = NULL;
 	w->sound.volume = 80;
 	w->sound.musique = NULL;
 	w->sound.jump = NULL;
-	w->sound.ground = NULL;
 	w->sound.reload = NULL;
 	w->sound.clic = NULL;
 	w->texturing = NULL;
 	w->pix = NULL;
 	w->inkeys = NULL;
 	w->txtr = NULL;
-	w->main_pic[0] = pre_init_texture(w->res.width, w->res.height);
-	w->main_pic[1] = pre_init_texture(w->res.width, w->res.height);
-	w->main_pic[2] = pre_init_texture(w->res.width, w->res.height);
+	w->ascii = NULL;
+}
+
+void		set_int(t_env *w)
+{
+	w->nbmaps = 0;
+	w->window_mode = -1;
+	w->i = 0;
+	w->asciichk = 0;
+	w->asciino = -1;
+	w->stopread = 0;
+	w->invert = 1;
+	w->random = 0;
+	w->sequential_draw = 0;
 	w->menu.i = 0;
 	w->menu.j = 0;
 	w->dtime.fps = 0;
@@ -137,6 +101,23 @@ void			set_w(t_env *w, int ac)
 	w->dtime.stime = 0;
 	w->dtime.start_lvl = 0;
 	w->dtime.end_lvl = 0;
+	w->mousesp_menu = 0;
+}
+
+void		set_w(t_env *w, int ac)
+{
+	set_null(w);
+	set_int(w);
+	w->ac = ac;
+	w->currmap = strdup_check(w, "hsh");
+	w->editor_res.width = WIN_X;
+	w->editor_res.height = WIN_Y;
+	if (!(w->light_nb = (char *)malloc(sizeof(char) * 12)))
+		set_error(w, w->m, 0, strdup_check(w, "light_nb"));
+	ft_light_itoa(0, w->light_nb);
+	w->main_pic[0] = pre_init_texture(w->res.width, w->res.height);
+	w->main_pic[1] = pre_init_texture(w->res.width, w->res.height);
+	w->main_pic[2] = pre_init_texture(w->res.width, w->res.height);
 	w->txthead.x = 0;
 	w->txthead.y = 0;
 	w->txtnxtline.x = 0;
@@ -148,111 +129,5 @@ void			set_w(t_env *w, int ac)
 	w->window_res_menu = 0;
 	w->fov_h_menu = 0;
 	w->fov_v_menu = 0;
-	w->mousesp_menu = 0;
 	w->corenbl = 0;
-}
-
-void			set_count(t_map *m)
-{
-	m->i = 0;
-	m->dotsc = 0;
-	m->s = 0;
-	m->spmc = 0;
-	m->ennemyc = 0;
-	m->door = 0;
-	m->w = 0;
-	m->section_number = 0;
-	m->dots_count = 0;
-	m->sector_count = 0;
-	m->weapon_count = -1;
-	m->sprite_count = -1;
-	m->nb_d = 0;
-	m->nb_a = 0;
-}
-
-void			set_m(t_map *m)
-{
-	m->trippymod = 0;
-	m->fd = 0;
-	m->fd2 = 0;
-	m->stop = 0;
-	m->launchwmap = 0;
-	m->newgame = 1;
-	m->endsector = -1;
-	m->change_lvl = 0;
-	m->maxrenderedsector = 32;
-	m->yaw = 0;
-	m->gravity = BASE_GRAVITY;
-	m->line = NULL;
-	m->map_path = ft_strdup("maps/home_sweet_home.dn3d");
-	m->map_name = ft_strdup("Home Sweet Home");
-	m->linklvl = NULL;
-	m->dot = NULL;
-	m->sector = NULL;
-	m->weap = NULL;
-	m->ennemy = NULL;
-	m->sprite = NULL;
-	m->sprt = NULL;
-	m->tab = NULL;
-	m->player.max_hp = 100;
-	m->god_mod = 0;
-	m->hud = pre_init_texture(0, 0);
-	set_count(m);
-}
-
-void			set_player_math(t_map *m)
-{
-	m->player.coor.x = 0;
-	m->player.coor.y = 0;
-	m->player.coor.z = 0;
-	m->player.memz = 0;
-	m->player.movespeed = 0;
-	m->player.move_speed.x = 0;
-	m->player.move_speed.y = 0;
-	m->player.move_speed.z = 0;
-	m->player.move_speedless.x = 0;
-	m->player.move_speedless.y = 0;
-	m->player.move_speedless.z = 0;
-	m->player.angle = 0;
-	m->player.anglecos = 0;
-	m->player.anglesin = 0;
-	m->player.yaw = 0;
-	m->player.stance = 0;
-	m->player.fall = 1;
-	m->player.jump = 0;
-	m->player.ground = 0;
-	m->player.moving = 0;
-	m->player.height = 0;
-	m->player.hole_low = 0;
-	m->player.hole_high = 0;
-	m->player.press = 0;
-	m->player.accel = 0;
-}
-
-void			set_m_player(t_map *m)
-{
-	m->player.bal = 0;
-	if (!(m->player.fps = (char *)malloc(sizeof(char) * 12)))
-		set_error((t_env *)m->world, m, 0, ft_strdup("m->player.fps"));
-	ft_light_itoa(0, m->player.fps);
-	if (!(m->player.stractu_ammo = (char *)malloc(sizeof(char) * 12)))
-		set_error((t_env *)m->world, m, 0, ft_strdup("m->player.ammo"));
-	ft_light_itoa(0, m->player.stractu_ammo);
-	if (!(m->player.strhp = (char *)malloc(sizeof(char) * 12)))
-		set_error((t_env *)m->world, m, 0, ft_strdup("m->player.ammo"));
-	ft_light_itoa(0, m->player.strhp);
-	if (!(m->player.strbullet = (char *)malloc(sizeof(char) * 12)))
-		set_error((t_env *)m->world, m, 0, ft_strdup("m->player.bullet"));
-	m->player.handed = 0;
-	m->player.aiming = 0;
-	m->player.shooting = 0;
-	m->player.firing = 0;
-	m->player.refresh = 0;
-	m->player.switching = 0;
-	m->player.recoil = 0;
-	m->player.sector = 0;
-	m->player.hud = 1;
-	set_player_math(m);
-	m->player.display = 0;
-	m->player.minimap = 0;
 }

@@ -38,12 +38,12 @@ void		och4(t_win *win, t_lst *tmp, t_lstlst *tmp2)
 	}
 }
 
-void		och3(t_win *win, t_lst *tmp, t_lstlst *tmp2, t_lstasset *tmp3)
+void		och3(t_win *win, t_lst *tmp, t_lstlst *tmp2, t_lstast *tmp3)
 {
 	if (win->left_click == 1 && win->mode == 1)
 	{
 		tmp2 = win->lstlst;
-		tmp3 = win->lstasset;
+		tmp3 = win->lstast;
 		och4(win, tmp, tmp2);
 		while (tmp3 && win->moving == 0)
 		{
@@ -77,30 +77,36 @@ void		och2(t_env *w, t_win *win, t_lstlst *tmp2)
 	}
 }
 
-void		och(t_env *w, t_win *win, t_lstlst *tmp2, int closed)
+int			och1(t_env *w, t_win *win, t_lstlst *tmp2, int closed)
 {
 	t_dot	dot;
 
+	win->drawing = 1;
+	if (win->lst == NULL)
+	{
+		dot = fill_t_dot(win->x1, win->y1);
+		win->lst = lstnew(w, win, dot, win->sector);
+		tmp2 = win->lstlst;
+		while (tmp2->next)
+			tmp2 = tmp2->next;
+		tmp2->head = win->lst;
+	}
+	else
+	{
+		dot = fill_t_dot(win->x1, win->y1);
+		closed = check_list(w, win, win->lst, dot);
+	}
+	return (closed);
+}
+
+void		och(t_env *w, t_win *win, t_lstlst *tmp2, int closed)
+{
 	if (win->left_click && win->mode == 0)
 	{
 		if (win->lstlst == NULL)
 			win->lstlst = lstlstnew(w, win);
 		och2(w, win, tmp2);
-		win->drawing = 1;
-		if (win->lst == NULL)
-		{
-			dot = fill_t_dot(win->x1, win->y1);
-			win->lst = lstnew(w, win, dot, win->sector);
-			tmp2 = win->lstlst;
-			while (tmp2->next)
-				tmp2 = tmp2->next;
-			tmp2->head = win->lst;
-		}
-		else
-		{
-			dot = fill_t_dot(win->x1, win->y1);
-			closed = check_list(w, win, win->lst, dot);
-		}
+		closed = och1(w, win, tmp2, closed);
 		if (closed)
 		{
 			tmp2 = win->lstlst;
@@ -109,33 +115,4 @@ void		och(t_env *w, t_win *win, t_lstlst *tmp2, int closed)
 			tmp2->closed = 1;
 		}
 	}
-}
-
-void		on_click(t_env *w, t_win *win)
-{
-	int			closed;
-	t_lst		*tmp;
-	t_lstlst	*tmp2;
-	t_lstasset	*tmp3;
-
-	tmp = NULL;
-	tmp2 = NULL;
-	tmp3 = NULL;
-	closed = 0;
-	if (win->left_click)
-	{
-		win->changemode = 0;
-		if (win->triangles)
-			free_triangles(win);
-	}
-	if (win->mode == 3)
-		overing(win);
-	if (win->left_click && win->mode == 3)
-	{
-		delete_sector(win);
-		delete_asset(win);
-	}
-	och(w, win, tmp2, closed);
-	och3(win, tmp, tmp2, tmp3);
-	och5(win);
 }

@@ -6,24 +6,17 @@
 #    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/19 18:35:47 by cglavieu          #+#    #+#              #
-#    Updated: 2019/07/23 01:55:36 by nvienot          ###   ########.fr        #
+#    Updated: 2019/07/25 17:42:51 by nvienot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SHELL = bash
-DEBUG = 0
+SHELL		= bash
+CC			= gcc
 
-CC = gcc
+CFLAG		=	-Wall -Wextra -Werror -O2
+MESSAGE		= 	"\033[38;5;79m[$(NAME)] compiled on normal rules !\033[0m                  "
 
-ifeq ($(DEBUG), 0)
-    CFLAG		=	-Wall -Wextra -Werror -O2
-	MESSAGE		= 	"\033[38;5;79m[$(NAME)] compiled on normal rules !\033[0m                  "
-else
-    CFLAG		=	-Wall -Wextra -Werror -g -O0 -fsanitize=address
-	MESSAGE		= 	"\033[38;5;79m[DEBUG] [$(NAME)] compiled on debug rules !\033[0m                 "
-endif
-
-NAME = libft.a
+NAME		= libft.a
 
 SRC = ft_atoi.c\
 	ft_bzero.c\
@@ -79,6 +72,7 @@ SRC = ft_atoi.c\
 	ft_strsub.c\
 	ft_strtrim.c\
 	ft_strctrim.c\
+	ft_tab_len.c\
 	ft_tolower.c\
 	ft_toupper.c\
 	precise_get_next_line.c\
@@ -89,7 +83,7 @@ SRC = ft_atoi.c\
 	ft_uitoa_base.c\
 	ft_atoui_base.c\
 	ft_strjoinnfree.c\
-	ft_ftoa.c
+	ft_strisnone.c
 
 SRCDIR = ./src/
 SRCFILL = $(addprefix $(SRCDIR),$(SRC))

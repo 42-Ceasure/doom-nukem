@@ -70,10 +70,10 @@ void		free_triangles(t_win *win)
 
 void		free_assets(t_win *win)
 {
-	t_lstasset	*tmp2;
-	t_lstasset	*current;
+	t_lstast	*tmp2;
+	t_lstast	*current;
 
-	tmp2 = win->lstasset;
+	tmp2 = win->lstast;
 	current = tmp2;
 	while (current)
 	{
@@ -82,7 +82,7 @@ void		free_assets(t_win *win)
 		tmp2 = NULL;
 		tmp2 = current;
 	}
-	win->lstasset = NULL;
+	win->lstast = NULL;
 	win->tmpasset = NULL;
 }
 

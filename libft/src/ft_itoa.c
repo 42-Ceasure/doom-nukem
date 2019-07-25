@@ -3,31 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cglavieu <cglavieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 19:35:13 by cglavieu          #+#    #+#             */
-/*   Updated: 2015/01/17 16:59:47 by cglavieu         ###   ########.fr       */
+/*   Updated: 2019/07/24 20:06:07 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+void				check_negatif(int n, long *mem, int *sign)
+{
+	if (n < 0)
+	{
+		*mem = -n;
+		*sign = 1;
+	}
+	else
+		*mem = n;
+}
 
 void				ft_light_itoa(int n, char *str)
 {
 	int				sign;
 	long			mem;
 	unsigned int	nb;
-	int 			i;
+	int				i;
 
 	i = 1;
 	sign = 0;
-	if (n < 0)
-	{
-		mem = -n;
-		sign = 1;
-	}
-	else
-		mem = n;
+	check_negatif(n, &mem, &sign);
 	nb = (unsigned int)mem;
 	while (mem /= 10)
 		i++;

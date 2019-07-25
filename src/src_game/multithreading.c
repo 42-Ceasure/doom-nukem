@@ -6,17 +6,33 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 12:07:14 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/22 12:30:49 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/25 07:07:52 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void	calc_z(t_work *work, int x)
+void	calcul_render_no_mthrd(t_env *w, t_work *work)
 {
-	work->z = ((x - work->x1) * (work->t2.z - work->t1.z)
-		/ (work->x2 - work->x1) + work->t1.z) * 2;
-	work->z = vmin(work->z, 255);
+	int x;
+
+	x = work->startx;
+	while (x <= work->endx)
+	{
+		calc_z(work, x);
+		draw_ceiling_n_floor(work, w, x);
+		if (work->network >= 0)
+		{
+			draw_networks(work, w, x);
+			work->ytop[x] = vmid(vmax(work->cya, work->cnya),
+				work->ytop[x], HEIGHT - 1);
+			work->ybot[x] = vmid(vmin(work->cyb,
+				work->cnyb), 0, work->ybot[x]);
+		}
+		else
+			draw_walls(work, w, x);
+		x++;
+	}
 }
 
 void	*thread(t_worker_arg *arg)
@@ -67,7 +83,7 @@ int		calcul_render_mthrd(t_env *w, t_work work, int *ybot, int *ytop)
 		};
 		thr[i] = pthread_create(&calc_thread[i], NULL, (void*)thread, args + i);
 		if (thr[i])
-			set_error(w, w->m, 8, "threadon't exist");
+			set_error(w, w->m, 8, strdup_check(w, "thread doesn't exist"));
 		i++;
 	}
 	while (i--)

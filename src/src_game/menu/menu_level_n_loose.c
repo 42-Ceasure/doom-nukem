@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 21:28:01 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/23 22:06:02 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/25 08:58:49 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ int		event_menu_loose(t_env *w, t_map *m)
 
 int		menu_loose(t_env *w, t_map *m)
 {
-	int		stop;
 	int		ret;
 
 	ret = 0;
-	stop = 0;
 	main_pic(w, 2);
 	w->txthead = fill_t_dot(350, 400);
 	type_str(w, w->txthead, "Press enter to retry", 0x12FFFFFF);
@@ -94,19 +92,17 @@ int		change_lvl_type(t_env *w, t_map *m)
 	if (map_is_in_core(w, m->linklvl) == 1)
 	{
 		type_str(w, w->txthead, CHANGELVL, 0x12FFFFFF);
-		w->currmap = ft_strdup(m->linklvl);
+		w->currmap = strdup_check(w, m->linklvl);
 		w->menu.i = 5;
 	}
 	else
 	{
-		w->currmap = ft_strdup("hsh");
+		w->currmap = strdup_check(w, "hsh");
 		w->menu.i = 1;
 		m->change_lvl = 0;
 		m->newgame = 1;
 		if (ft_strcmp(m->linklvl, "end_game") == 0)
-		{
 			type_str(w, w->txthead, ENDGAME, 0x12FFFFFF);
-		}
 		else
 			return (1);
 	}
@@ -128,9 +124,9 @@ int		menu_change_lvl(t_env *w, t_map *m)
 	main_pic(w, 1);
 	if (change_lvl_type(w, m) == 1)
 		return (1);
-	type_str(w, w->txtnxtline, "Level completed in :", 0x12FFFFFF);
-	type_str(w, w->txtnxtline, ft_strjoin(ft_ftoa(time_lvl, 4),
-		" seconds"), 0x12FFFFFF);
+	type_str(w, w->txtnxtline, "Level completed in : ", 0x12FFFFFF);
+	ft_get_time(w, time_lvl);
+	type_str(w, w->txtnxtto, " seconds", 0x12FFFFFF);
 	while (1)
 	{
 		if ((ret = event_menu_lvl(w)) < 2)

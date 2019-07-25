@@ -14,27 +14,27 @@
 
 void		place_asset(t_env *w, t_win *win)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 
-	if (win->lstasset == NULL)
-		win->lstasset = lstassetnew(w, win, 0);
+	if (win->lstast == NULL)
+		win->lstast = lstastnew(w, win, 0);
 	else
 	{
-		tmp = win->lstasset;
+		tmp = win->lstast;
 		while (tmp->next)
 			tmp = tmp->next;
-		tmp->next = lstassetnew(w, win, 0);
+		tmp->next = lstastnew(w, win, 0);
 	}
 	win->place = 0;
 }
 
 int			check_first_player_start(t_win *win)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 	int			ret;
 
 	ret = 0;
-	tmp = win->lstasset;
+	tmp = win->lstast;
 	while (tmp)
 	{
 		if (tmp->asset_type == 0)
@@ -46,11 +46,11 @@ int			check_first_player_start(t_win *win)
 
 int			check_max_number_ennemy(t_win *win)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 	int			ret;
 
 	ret = 0;
-	tmp = win->lstasset;
+	tmp = win->lstast;
 	while (tmp)
 	{
 		if (tmp->asset_type == 3)
@@ -64,11 +64,11 @@ int			check_max_number_ennemy(t_win *win)
 
 int			check_max_number_sprite(t_win *win)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 	int			ret;
 
 	ret = 0;
-	tmp = win->lstasset;
+	tmp = win->lstast;
 	while (tmp)
 	{
 		ret++;

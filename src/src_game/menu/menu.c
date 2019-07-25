@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:45:13 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/23 22:29:49 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/25 19:09:52 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	event_menu(t_env *w)
 void	main_menu(t_env *w, t_map *m)
 {
 	SDL_SetRelativeMouseMode(SDL_FALSE);
-	SDL_ShowCursor(SDL_ENABLE);
+	if (SDL_ShowCursor(SDL_ENABLE) < 0)
+		set_error(w, m, 4, strdup_check(w, "SDL_ShowCursor"));
 	Mix_PauseMusic();
 	w->txthead = fill_t_dot(800, 550);
 	w->menu.j = 1;

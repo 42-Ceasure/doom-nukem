@@ -12,7 +12,7 @@
 
 #include "doom.h"
 
-char	*strdup_safe(t_env *w, t_win *win, const char *s1)
+char		*strdup_safe(t_env *w, t_win *win, const char *s1)
 {
 	int			i;
 	int			j;

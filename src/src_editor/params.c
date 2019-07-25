@@ -52,18 +52,15 @@ void		decrease_value(t_win *win)
 
 void		param_text_helper(t_env *w, t_win *win)
 {
-	char	*tmp;
-
 	if (win->param_index == 1)
 	{
 		if (win->paramtxt)
 			free(win->paramtxt);
 		win->paramtxt = strdup_safe(w, win, "Gravity");
-		tmp = ft_itoa(win->gravity_value);
+		ft_light_itoa(win->gravity_value, win->itoastr);
 		if (win->paramvaluetxt != NULL)
 			free(win->paramvaluetxt);
-		win->paramvaluetxt = strdup_safe(w, win, tmp);
-		free(tmp);
+		win->paramvaluetxt = strdup_safe(w, win, win->itoastr);
 	}
 	if (win->param_index == 2)
 	{
@@ -81,18 +78,15 @@ void		param_text_helper(t_env *w, t_win *win)
 
 void		param_text(t_env *w, t_win *win)
 {
-	char	*tmp;
-
 	if (win->param_index == 0)
 	{
 		if (win->paramtxt != NULL)
 			free(win->paramtxt);
 		win->paramtxt = strdup_safe(w, win, "HP");
-		tmp = ft_itoa(win->hp_value);
+		ft_light_itoa(win->hp_value, win->itoastr);
 		if (win->paramvaluetxt != NULL)
 			free(win->paramvaluetxt);
-		win->paramvaluetxt = strdup_safe(w, win, tmp);
-		free(tmp);
+		win->paramvaluetxt = strdup_safe(w, win, win->itoastr);
 	}
 	param_text_helper(w, win);
 }

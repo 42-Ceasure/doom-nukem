@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cglavieu <cglavieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 23:11:42 by cglavieu          #+#    #+#             */
-/*   Updated: 2015/01/17 16:59:47 by cglavieu         ###   ########.fr       */
+/*   Updated: 2019/07/24 19:23:56 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int			ft_caract(const char *str)
 
 unsigned int		ft_atou(const char *str)
 {
-	int 			i;
+	int				i;
 	unsigned int	res;
 
 	i = ft_caract(str);

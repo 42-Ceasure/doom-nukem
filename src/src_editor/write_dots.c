@@ -12,14 +12,14 @@
 
 #include "doom.h"
 
-void		write_dots_helper2(int y, int fp)
+void		write_dots_helper2(t_win *win, int y, int fp)
 {
 	char	*str;
 
 	str = "\tdots:";
 	ft_putstr_fd(str, fp);
-	str = ft_itoa(y / 2);
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(y / 2, win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 	str = ":";
 	ft_putstr_fd(str, fp);
 }
@@ -33,17 +33,17 @@ void		write_dots_helper(t_env *w, t_win *win, int fp, int y)
 
 	index = 1;
 	i = number_of_dot_per_line(w, win, y);
-	write_dots_helper2(y, fp);
+	write_dots_helper2(win, y, fp);
 	x = x_min_on_line(win, y);
-	str = ft_itoa(x / 2);
-	ft_putstr_fd(str, fp);
+	ft_light_itoa(x / 2, win->itoastr);
+	ft_putstr_fd(win->itoastr, fp);
 	while (index < i)
 	{
 		str = ",";
 		ft_putstr_fd(str, fp);
 		x = next_x_on_line(win, y, x);
-		str = ft_itoa(x / 2);
-		ft_putstr_fd(str, fp);
+		ft_light_itoa(x / 2, win->itoastr);
+		ft_putstr_fd(win->itoastr, fp);
 		index++;
 	}
 	str = "\n";

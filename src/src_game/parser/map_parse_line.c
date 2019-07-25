@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_parse_line.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/24 18:08:34 by ochaar            #+#    #+#             */
+/*   Updated: 2019/07/25 10:55:12 by nvienot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
 
@@ -10,9 +21,10 @@ int				parse_level_map(t_map *m, char **tab)
 	if (ft_strcmp(tab[0], "Section") != 0
 		&& tab[1] != NULL)
 	{
-		tmp = ft_strsplit(tab[1], ',');
+		if ((tmp = ft_strsplit(tab[1], ',')) == NULL)
+			set_error(m->world, m, 0, strdup_check(m->world, "error strsplit"));
 		m->endsector = ft_atoi(tmp[0]);
-		m->linklvl = ft_strdup(tmp[1]);
+		m->linklvl = strdup_check(m->world, tmp[1]);
 		ft_memreg(tmp);
 	}
 	return (0);
@@ -47,6 +59,9 @@ int				second_parse(t_env *w, t_map *m, char **tmp)
 
 int				parse_map_section(t_map *m, char **tab)
 {
+	int			check;
+
+	check = ft_tab_len(tab);
 	if (ft_strcmp(tab[0], "\tdots") == 0)
 	{
 		if (parse_map_dots(m, tab) == -1)
@@ -57,7 +72,7 @@ int				parse_map_section(t_map *m, char **tab)
 	}
 	else if (ft_strcmp(tab[0], "\tsector") == 0)
 	{
-		if (parse_sectors(m, tab) == -1)
+		if (parse_sectors(m, tab, check) == -1)
 		{
 			ft_putendl("error on parsing of the \"sector\" section");
 			return (-1);

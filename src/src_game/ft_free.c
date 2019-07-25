@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 11:18:57 by ochaar            #+#    #+#             */
-/*   Updated: 2019/07/24 14:06:32 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/25 09:55:45 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,18 @@ void		ft_free_weap(t_map *m)
 		free(m->weap);
 		m->weap = NULL;
 	}
+}
+
+void		ft_free_w(t_env *w)
+{
+	if (w->light_nb != NULL)
+		free(w->light_nb);
+	if (w->main_pic[0].pix != NULL)
+		free(w->main_pic[0].pix);
+	if (w->main_pic[1].pix != NULL)
+		free(w->main_pic[1].pix);
+	if (w->main_pic[2].pix != NULL)
+		free(w->main_pic[2].pix);
+	if (w->pix != NULL)
+		free(w->pix);
 }

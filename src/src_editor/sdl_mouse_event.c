@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sdl_keyboard_event.c                               :+:      :+:    :+:   */
+/*   sdl_mouse_event.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:19:59 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/23 11:20:14 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/25 18:58:53 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	sdl_event_mouse_wheel_helper(t_env *w, t_win *win, t_lstlst *tmp2)
 	if (win->mode == 0)
 	{
 		SDL_FreeCursor(win->cursor);
-		win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+		if (!(win->cursor = SDL_CreateSystemCursor(ARROW)))
+			clear_n_exit(w, win);
 		if (tmp2)
 		{
 			while (tmp2->next)
@@ -29,15 +30,7 @@ static void	sdl_event_mouse_wheel_helper(t_env *w, t_win *win, t_lstlst *tmp2)
 			free(win->helptxt);
 		win->helptxt = strdup_safe(w, win, "Drawing Mode");
 	}
-	if (win->mode == 1)
-	{
-		SDL_FreeCursor(win->cursor);
-		win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
-		win->drawing = 0;
-		if (win->helptxt != NULL)
-			free(win->helptxt);
-		win->helptxt = strdup_safe(w, win, "Moving Mode");
-	}
+	mouse_wheel_helper(win);
 }
 
 static void	sdl_event_mouse_wheel_helper2(t_env *w, t_win *win)
@@ -45,7 +38,8 @@ static void	sdl_event_mouse_wheel_helper2(t_env *w, t_win *win)
 	if (win->mode == 2)
 	{
 		SDL_FreeCursor(win->cursor);
-		win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+		if (!(win->cursor = SDL_CreateSystemCursor(ARROW)))
+			clear_n_exit(w, win);
 		win->drawing = 0;
 		if (win->helptxt != NULL)
 			free(win->helptxt);
@@ -54,7 +48,8 @@ static void	sdl_event_mouse_wheel_helper2(t_env *w, t_win *win)
 	if (win->mode == 3)
 	{
 		SDL_FreeCursor(win->cursor);
-		win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
+		if (!(win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO)))
+			clear_n_exit(w, win);
 		win->drawing = 0;
 		if (win->helptxt != NULL)
 			free(win->helptxt);
@@ -81,7 +76,8 @@ void		sdl_event_mouse_wheel(t_env *w, t_win *win, t_lstlst *tmp2)
 	if (win->mode == 4)
 	{
 		SDL_FreeCursor(win->cursor);
-		win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
+		if (!(win->cursor = SDL_CreateSystemCursor(CROSSHAIR)))
+			clear_n_exit(w, win);
 		win->drawing = 0;
 		if (win->helptxt != NULL)
 			free(win->helptxt);

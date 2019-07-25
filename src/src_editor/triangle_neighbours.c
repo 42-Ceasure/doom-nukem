@@ -37,8 +37,8 @@ void		triangles_neighbours_helper(t_win *win, int *ts1, int *ts2)
 	}
 }
 
-int			triangles_neighbours_helper2(t_env *w, t_win *win, t_lstlst *tmp2,
-				t_lstlst *tmp3, int *tab_sector1)
+int			triangles_neighbours_helper2(t_win *win,
+	t_lstlst *tmp2, t_lstlst *tmp3, int *tab_sector1)
 {
 	int			swap;
 	int			*tab_sector2;
@@ -47,7 +47,7 @@ int			triangles_neighbours_helper2(t_env *w, t_win *win, t_lstlst *tmp2,
 	win->neighbour_index = 0;
 	if (tmp3->sector != -1 && tmp3->sector != tmp2->sector)
 	{
-		tab_sector2 = tab_sector3(w, win, tmp3->sector);
+		tab_sector2 = tab_sector3(win->wo, win, tmp3->sector);
 		if (tmp3->clockwise == 2)
 		{
 			swap = tab_sector2[1];
@@ -56,7 +56,10 @@ int			triangles_neighbours_helper2(t_env *w, t_win *win, t_lstlst *tmp2,
 		}
 		triangles_neighbours_helper(win, tab_sector1, tab_sector2);
 		if (win->neighbour_index == 2)
+		{
+			free_dot_tab(tab_sector2);
 			return (tmp3->sector);
+		}
 	}
 	free_dot_tab(tab_sector2);
 	return (-1);
@@ -79,7 +82,7 @@ int			triangles_neighbours(t_env *w, t_win *win, t_lstlst *tmp2)
 	tmp3 = win->triangles;
 	while (tmp3)
 	{
-		ret = triangles_neighbours_helper2(w, win, tmp2, tmp3, tab_sector1);
+		ret = triangles_neighbours_helper2(win, tmp2, tmp3, tab_sector1);
 		if (ret != -1)
 		{
 			free_dot_tab(tab_sector1);
@@ -87,6 +90,7 @@ int			triangles_neighbours(t_env *w, t_win *win, t_lstlst *tmp2)
 		}
 		tmp3 = tmp3->next;
 	}
+	free_dot_tab(tab_sector1);
 	return (-1);
 }
 

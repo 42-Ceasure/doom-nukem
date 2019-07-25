@@ -27,7 +27,7 @@ int			print_game(t_env *w, t_win *win)
 	return (0);
 }
 
-int			draw_assets_helper(t_lstasset *tmp)
+int			draw_assets_helper(t_lstast *tmp)
 {
 	int		color;
 
@@ -49,12 +49,12 @@ int			draw_assets_helper(t_lstasset *tmp)
 
 void		draw_assets(t_env *w, t_win *win)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 	int			color;
 	int			ret;
 
 	color = 707070;
-	tmp = win->lstasset;
+	tmp = win->lstast;
 	while (tmp)
 	{
 		if (tmp->asset_type == 0)
@@ -99,7 +99,7 @@ void		loop_play(t_env *w, t_win *win)
 		}
 		if (win->lstlst)
 			draw_segments(w, win);
-		if (win->lstasset)
+		if (win->lstast)
 			draw_assets(w, win);
 		mode(w, win);
 		if (win->mode != 2)

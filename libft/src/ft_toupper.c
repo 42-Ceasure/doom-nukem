@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cglavieu <cglavieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 23:32:59 by cglavieu          #+#    #+#             */
-/*   Updated: 2015/01/17 16:59:47 by cglavieu         ###   ########.fr       */
+/*   Updated: 2019/07/25 15:23:38 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char		*str_to_upper(char *s)
 	char	*str;
 
 	i = 0;
-	str = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if ((str = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1))) == NULL)
+		return (NULL);
 	while (s[i] != '\0')
 	{
 		str[i] = ft_toupper(s[i]);

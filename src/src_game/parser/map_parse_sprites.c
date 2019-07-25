@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_parse_sprites.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/24 18:09:53 by ochaar            #+#    #+#             */
+/*   Updated: 2019/07/25 12:19:41 by nvienot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
 
@@ -18,20 +29,19 @@ int		parse_sprite_map(t_map *m, char **tab)
 	int		nb;
 	int		check;
 
-	check = 0;
 	if (tab[0] == NULL)
 		return (-1);
 	if (ft_strcmp(tab[0], "Section") != 0
 		&& tab[1] != NULL && m->spmc < m->sprite_map_count)
 	{
-		tmp = ft_strsplit(tab[1], ',');
-		while (tmp[check] != NULL)
-			check++;
+		if ((tmp = ft_strsplit(tab[1], ',')) == NULL)
+			set_error(m->world, m, 0, strdup_check(m->world, "error strsplit"));
+		check = ft_tab_len(tmp);
 		if (check == 5)
 		{
 			nb = ft_atoi(tmp[0]);
 			fill_sprite(&m->sprt[nb], tmp);
-			m->sprt[nb].name = ft_strdup(tab[0]);
+			m->sprt[nb].name = strdup_check(m->world, tab[0]);
 			m->spmc++;
 		}
 		else

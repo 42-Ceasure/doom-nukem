@@ -14,6 +14,7 @@
 
 void	clear_n_exit(t_env *w, t_win *win)
 {
+	free(win->itoastr);
 	if (win->paramtxt != NULL)
 		free(win->paramtxt);
 	if (win->paramvaluetxt != NULL)
@@ -30,6 +31,7 @@ int		level_editor_start(t_env *w)
 {
 	t_win	win;
 
+	win.wo = w;
 	fit_to_editor(w, &win);
 	init2(w, &win);
 	loop_play(w, &win);

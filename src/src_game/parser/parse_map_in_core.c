@@ -1,4 +1,14 @@
-/*BIG42HEADER*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map_in_core.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/24 18:08:30 by ochaar            #+#    #+#             */
+/*   Updated: 2019/07/25 11:07:15 by nvienot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
 
@@ -41,8 +51,9 @@ static char		*pre_loading(t_env *w, t_map *m, char *name)
 	char		*tmp;
 	char		*pre;
 
-	pre = ft_strdup("map\t\t\t;");
-	tmp = ft_strjoin(pre, name);
+	pre = strdup_check(w, "map\t\t\t;");
+	if ((tmp = ft_strjoin(pre, name)) == NULL)
+		set_error(w, w->m, 0, strdup_check(w, "error strsplit"));
 	free(pre);
 	WSR = 0;
 	reset_map(m);
@@ -95,7 +106,7 @@ int				parse_map_in_core(t_env *w, t_map *m, char *name)
 		close(m->fd);
 	}
 	else
-		set_error(w, m, 5, "core/core.dn3d");
+		set_error(w, m, 5, strdup_check(w, "core/core.dn3d"));
 	free(tmp);
 	return (0);
 }

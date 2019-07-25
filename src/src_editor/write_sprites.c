@@ -38,7 +38,7 @@ int			correct_three_points(t_win *win)
 	return (0);
 }
 
-void		write_sprites_helper(t_win *win, int fp, t_lstasset *tmp, int i)
+void		write_sprites_helper(t_win *win, int fp, t_lstast *tmp, int i)
 {
 	if (tmp->asset_type == 1)
 		write_m4(win, fp, tmp, i);
@@ -58,12 +58,12 @@ void		write_sprites_helper(t_win *win, int fp, t_lstasset *tmp, int i)
 
 void		write_sprites(t_win *win, int fp)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 	char		*str;
 	int			i;
 
 	i = 0;
-	tmp = win->lstasset;
+	tmp = win->lstast;
 	str = "Section:sprite\n";
 	ft_putstr_fd(str, fp);
 	while (tmp)

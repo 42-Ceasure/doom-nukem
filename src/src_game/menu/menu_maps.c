@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:01:11 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/23 22:05:43 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/25 08:59:09 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	event_menu_maps(t_env *w)
 		if (KEY == SDLK_RETURN || KEY == SDLK_KP_ENTER)
 		{
 			free(w->currmap);
-			w->currmap = ft_strdup(w->namesmaps[w->menu.k]);
+			w->currmap = strdup_check(w, w->namesmaps[w->menu.k]);
 			w->m->newgame = 1;
 			w->menu.i = 5;
 		}
@@ -93,7 +93,7 @@ void	get_maps_infos(t_env *w)
 	w->nbmaps = get_nb_maps_in_core(w);
 	if ((w->namesmaps = (char **)malloc(sizeof(char *)
 		* (w->nbmaps + 1))) == NULL)
-		set_error(w, w->m, 0, ft_strdup("menu_maps"));
+		set_error(w, w->m, 0, strdup_check(w, "menu_maps"));
 	get_names_maps_in_core(w, w->m, w->namesmaps);
 	w->namesmaps[w->nbmaps] = NULL;
 }
@@ -101,9 +101,7 @@ void	get_maps_infos(t_env *w)
 void	menu_maps(t_env *w)
 {
 	t_dot	dot;
-	int		i;
 
-	i = 0;
 	w->menu.k = 0;
 	dot = fill_t_dot(10, 10);
 	get_maps_infos(w);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_uitoa_base.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 11:20:27 by ochaar            #+#    #+#             */
-/*   Updated: 2019/04/18 14:11:28 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/25 15:19:42 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ char		*ft_uitoa_base(unsigned int n, int base)
 		return (0);
 	str = (char*)malloc(sizeof(char) * 100);
 	tmp = (char*)malloc(sizeof(char) * 100);
+	if (str == NULL || tmp == NULL)
+		return (NULL);
 	dbase = "0123456789ABCDEF";
 	ft_bzero1(str, tmp);
 	j = 0;

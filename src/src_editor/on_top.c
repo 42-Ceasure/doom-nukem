@@ -14,11 +14,11 @@
 
 int			check_player_start(t_win *win)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 	int			ret;
 
 	ret = -1;
-	tmp = win->lstasset;
+	tmp = win->lstast;
 	while (tmp)
 	{
 		if (tmp->asset_type == 0)

@@ -43,8 +43,6 @@ static void		init_helper(t_win *win)
 	win->dst12.y = 10;
 	win->dst13.x = 40;
 	win->dst13.y = 10;
-	win->color_font_r = 0xFF0000;
-	win->color_font_z = 0xFFFF00;
 	win->h_win_tmp = 0;
 	win->w_win_tmp = 0;
 	win->w_win = WIN_X;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_editor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:44:25 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/22 17:21:31 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/25 18:58:53 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,6 @@ static int	init_assets(t_env *w, t_win *win)
 
 static int	init_struct(t_win *win)
 {
-	win->delta_clock = 0;
-	win->current_fps = 0;
-	win->start_clock = SDL_GetTicks();
 	win->drawing = 0;
 	win->sector = 0;
 	win->link = 0;
@@ -74,17 +71,20 @@ static int	init_struct(t_win *win)
 	win->tmpasset = NULL;
 	win->lst = NULL;
 	win->lstlst = NULL;
-	win->lstasset = NULL;
+	win->lstast = NULL;
 	win->color = 255255255;
 	win->overed_sector = -1;
 	win->triangles = NULL;
-	win->cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+	if (!(win->cursor = SDL_CreateSystemCursor(ARROW)))
+		clear_n_exit(win->wo, win);
 	init_struct_helper(win);
 	return (0);
 }
 
 int			init2(t_env *w, t_win *win)
 {
+	if (!(win->itoastr = (char *)malloc(sizeof(char) * 12)))
+		clear_n_exit(w, win);
 	if (init_struct(win) != 0)
 		clear_n_exit(w, win);
 	if (init_assets(w, win) != 0)

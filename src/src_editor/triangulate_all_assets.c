@@ -38,7 +38,7 @@ int			triangulate_a_triangle(t_win *win, t_dot m)
 	return (-1);
 }
 
-void		taa_helper(t_win *win, t_lstasset *tmp3, t_lstlst *tmp2, int ret)
+void		taa_helper(t_win *win, t_lstast *tmp3, t_lstlst *tmp2, int ret)
 {
 	t_lst		*tmp;
 	t_dot		p0;
@@ -62,12 +62,12 @@ void		taa_helper(t_win *win, t_lstasset *tmp3, t_lstlst *tmp2, int ret)
 
 void		triangulate_all_assets(t_win *win)
 {
-	t_lstasset	*tmp3;
+	t_lstast	*tmp3;
 	t_lstlst	*tmp2;
 	int			ret;
 
 	ret = -1;
-	tmp3 = win->lstasset;
+	tmp3 = win->lstast;
 	while (tmp3)
 	{
 		tmp2 = win->triangles;

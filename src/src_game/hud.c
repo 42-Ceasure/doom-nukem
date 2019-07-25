@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hud.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 14:19:05 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/24 11:01:59 by ochaar           ###   ########.fr       */
+/*   Updated: 2019/07/24 22:26:23 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void	inventory(t_env *w, t_map *m, t_dot dot)
 
 void	ft_hud(t_env *w, t_map *m)
 {
+	t_img	img;
 	t_dot	dot;
 
-	dot.x = WIDTH / 2 - m->hud.w / 2;
-	dot.y = HEIGHT - m->hud.h;
-	safe_texture_to_screen(w, m->hud, dot.x, dot.y);
+	img = fill_t_img(WIDTH / 2 - m->hud.w / 2, HEIGHT - m->hud.h, 0, 0);
+	img_to_screen(w, m->hud, img);
 	dot.x = 10;
 	dot.y = 10;
 	type_str(w, dot, "HP : ", 0x12FF0000);

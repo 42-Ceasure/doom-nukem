@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   menu_screen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ochaar <ochaar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 22:21:24 by nvienot           #+#    #+#             */
-/*   Updated: 2019/07/23 22:22:00 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/25 12:58:42 by ochaar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+
+void	affichage_set_str(t_env *w)
+{
+	t_dot	dot;
+
+	dot.y = 10;
+	if (w->window_mode_menu == 0)
+	{
+		dot.x = WIDTH - 215;
+		type_str(w, dot, "FULL SCREEN", 0x12FEA800);
+	}
+	else
+	{
+		dot.x = WIDTH - 170;
+		type_str(w, dot, "WINDOWED", 0x12FEA800);
+	}
+	dot.y += 50;
+	if (w->window_res_menu == 0)
+	{
+		dot.x = WIDTH - 203;
+		type_str(w, dot, "1024 x 576", 0x12FEA800);
+	}
+	else
+	{
+		dot.x = WIDTH - 220;
+		type_str(w, dot, "1920 x 1080", 0x12FEA800);
+	}
+}
 
 void	aff_menu_screen_2(t_env *w, char *start, t_dot dot)
 {
@@ -69,16 +97,16 @@ void	menu_screen(t_env *w)
 	if (w->m->newgame == 1)
 	{
 		if (w->menu.j == 1)
-			start = ft_strdup("> NEW GAME\n");
+			start = strdup_check(w, "> NEW GAME\n");
 		else
-			start = ft_strdup("NEW GAME\n");
+			start = strdup_check(w, "NEW GAME\n");
 	}
 	else
 	{
 		if (w->menu.j == 1)
-			start = ft_strdup("> CONTINUE\n");
+			start = strdup_check(w, "> CONTINUE\n");
 		else
-			start = ft_strdup("CONTINUE\n");
+			start = strdup_check(w, "CONTINUE\n");
 	}
 	main_pic(w, 1);
 	if (w->menu.j < 4)

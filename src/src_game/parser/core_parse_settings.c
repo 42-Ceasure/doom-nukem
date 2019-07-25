@@ -1,19 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   core_parse_settings.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/24 18:08:51 by ochaar            #+#    #+#             */
+/*   Updated: 2019/07/25 10:46:46 by nvienot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "doom.h"
 
-void			parse_settings_line(t_env *w, t_map *m, char *line)
+void			parse_settings_line(t_env *w, t_map *m, char *l)
 {
 	char		**tmp;
-	int			check;
 
-	check = 0;
-	if (line == NULL)
-		set_error(w, m, 911, ft_strdup("error on core settings"));
-	tmp = ft_strsplit(line, ':');
-	while (tmp[check])
-		check++;
-	if (check != 5)
-		set_error(w, m, 911, ft_strdup("error on core settings"));
+	if (l == NULL)
+		set_error(w, m, 911, strdup_check(w, "error on core settings"));
+	if ((tmp = ft_strsplit(l, ':')) == NULL)
+		set_error(w, w->m, 0, strdup_check(w, "error strsplit"));
+	check_tab_exit(w, tmp, 5);
 	if (w->window_mode == -1)
 		w->window_mode = ft_atoi(tmp[0]);
 	set_screen_res(w, tmp[1]);
@@ -24,5 +31,5 @@ void			parse_settings_line(t_env *w, t_map *m, char *line)
 	m->player.mousesp = ft_atof(tmp[4]);
 	ft_memreg(tmp);
 	if ((init_sdl(w)) == -1)
-		set_error(w, m, 4, ft_strdup("SDL Initialisation"));
+		set_error(w, m, 4, strdup_check(w, "SDL Initialisation"));
 }

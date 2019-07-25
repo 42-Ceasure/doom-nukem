@@ -6,7 +6,7 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/19 18:18:57 by cglavieu          #+#    #+#             */
-/*   Updated: 2019/07/24 13:41:17 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/25 05:58:06 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@
 
 # define BUFF_SIZE 9000
 
-typedef struct	s_ftoa
+typedef struct		s_gnlu
 {
-	int			int_fl;
-	int			int_fl_after;
-	int			pui;
-	int			i;
-}				t_ftoa;
+	int			ret;
+	char		*temp;
+	char		*buff;
+}					t_gnlu;
 
 size_t				ft_strlen(char const *s);
 size_t				ft_strlcat(char *dst, char const *src, size_t size);
@@ -56,6 +55,7 @@ int					ft_isascii(int c);
 int					ft_isdigit(int c);
 int					ft_isfloat(char *str);
 int					ft_isprint(int c);
+int					ft_strisnone(char *str);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
 char				*str_to_upper(char *s);
@@ -100,6 +100,7 @@ void				ft_memreg(char **s);
 void				ft_memreg3(char ***s);
 unsigned int		ft_atoui_base(const char *str, int base);
 char				*ft_uitoa_base(unsigned int n, int base);
-char	            *ft_ftoa(float fl, int precision);
+char				*ft_ftoa(float fl, int precision);
+int					ft_tab_len(char **tab);
 
 #endif
