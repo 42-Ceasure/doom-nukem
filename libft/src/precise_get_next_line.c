@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   precise_get_next_line.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cglavieu <cglavieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/18 16:34:01 by cglavieu          #+#    #+#             */
-/*   Updated: 2015/05/19 19:56:46 by cglavieu         ###   ########.fr       */
+/*   Updated: 2019/07/25 07:15:11 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char			*ft_stock(char *s)
 	return (str);
 }
 
-static void				ft_norme(char **buff, char **line, char **save, int ret)
+static void			ft_norme(char **buff, char **line, char **save, int ret)
 {
 	ft_strdel(buff);
 	*line = ft_line(*save);

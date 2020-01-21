@@ -6,15 +6,12 @@
 /*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:06:30 by abechet           #+#    #+#             */
-/*   Updated: 2019/07/22 20:14:11 by nvienot          ###   ########.fr       */
+/*   Updated: 2019/07/25 15:35:31 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
-
-typedef struct s_win	t_win;
-typedef struct s_render	t_render;
 
 typedef struct		s_ceiling
 {
@@ -24,6 +21,8 @@ typedef struct		s_ceiling
 	double			map_x;
 	double			map_y;
 	int				x;
+	int				y1;
+	int				y2;
 	unsigned		x_tex;
 	unsigned		y_tex;
 	unsigned		tmpix;
@@ -31,32 +30,32 @@ typedef struct		s_ceiling
 
 typedef struct		s_scalling
 {
-	double 			step_x_tex;
-	double 			step_y_tex;
+	double			step_x_tex;
+	double			step_y_tex;
 	double			x_tex;
 	double			y_tex;
-	int 			maxx;
+	int				maxx;
 	int				maxy;
-	int 			x_tmp;
-	int 			x_tex_tmp;
+	int				x_tmp;
+	int				x_tex_tmp;
 	int				text_w;
 	int				text_h;
 	unsigned int	tmpix;
-}					t_scalling;		
+}					t_scalling;
 
 typedef struct		s_draw
 {
 	double			wall_height_from_bottom;
-	double 			wall_height_scale;
-	double 			wall_width_scale;
+	double			wall_height_scale;
+	double			wall_width_scale;
 	double			y_tex_start;
 	double			y_tex_pos;
 	int				x;
 	int				y1;
 	int				y2;
-	int 			x_tex;
+	int				x_tex;
 	int				y_tex;
-	int 			color;
+	int				color;
 }					t_draw;
 
 typedef struct		s_coor
@@ -99,6 +98,14 @@ typedef struct		s_point
 	t_dot			p0;
 	t_dot			p1;
 	t_dot			p2;
+	t_dot			p3;
+	t_dot			p4;
+	int				ret;
+	int				index3;
+	int				index2;
+	int				len;
+	int				index4;
+	int				index5;
 }					t_point;
 
 typedef struct		s_count
@@ -111,113 +118,6 @@ typedef struct		s_count
 	int				j1;
 	int				j2;
 }					t_count;
-
-struct					s_win
-{
-	SDL_Window			*window;
-	SDL_Renderer		*renderer;
-	SDL_Texture			**texture;
-	t_texture			ceiling;
-	t_texture			surface;
-
-	t_texture			map_ui;
-	char				*helptxt;
-	char				*texturetxt;
-	char				*paramtxt;
-	char				*paramvaluetxt;
-
-	t_sprite			asset_sprite;
-	t_sprite			asset_tmp;
-	t_texture			texture_sprite;
-	t_sprite			player_start;
-
-	t_texture			inventory;
-	t_texture			blackbox;
-	t_texture			slot0;
-	t_texture			slot1;
-	t_texture			slot2;
-	t_texture			slot3;
-	t_texture			slot4;
-
-	t_texture			building_hud;
-
-	Uint32				color_font_r;
-	Uint32				color_font_z;
-	t_dot				dst;
-	t_dot				dst2;
-	t_dot				dst3;
-	t_dot				dst4;
-	t_dot				dst5;
-	t_dot				dst6;
-	t_dot				dst7;
-	t_dot				dst8;
-	t_dot				dst9;
-	t_dot				dst10;
-	t_dot				dst11;
-	t_dot				dst12;
-	t_dot				dst13;
-
-	SDL_Cursor			*cursor;
-
-	Mix_Music			*theme;
-	Mix_Chunk			*headshot;
-	Mix_Chunk			*medic;
-	Uint32				start_clock;
-	Uint32				delta_clock;
-	Uint32				current_fps;
-	Uint8				*keystate;
-
-	int					drawing;
-	int					left_click;
-	int					x0;
-	int					y0;
-	int					x1;
-	int					y1;
-	int					x2;
-	int					y2;
-	int					sector;
-	int					mode;
-	int					changemode;
-	int					moving;
-	struct s_lst		*lst;
-	struct s_lstlst		*lstlst;
-	struct s_lstlst		*triangles;
-	struct s_lst		*tmp;
-	struct s_lstasset	*lstasset;
-	struct s_lstasset	*tmpasset;
-	SDL_Event			event;
-	int					h_win;
-	int					w_win;
-	int					h_win_tmp;
-	int					w_win_tmp;
-	int					link;
-	int					just_close;
-	int					color;
-	int					overed_sector;
-	int					asset;
-	int					drawtriangles;
-	int					place;
-	int					number;
-	int					index_dot;
-	int					same_dots;
-	int					tab_index;
-	int					tab_malloced;
-	char				**tab;
-	int					triangle_sector;
-	int					check_textures;
-	int					texture_choice;
-	int					put_texture;
-	int					texture_overed_sector;
-	int					texture_index;
-	int					blackbox_x;
-	int					txtr_input_type;
-	int					param_index;
-	int					hp_value;
-	double				gravity_value;
-	int					god_value;
-	int					hud_box;
-	int					neighbour_index;
-};
 
 typedef struct		s_lst
 {
@@ -243,14 +143,14 @@ typedef struct		s_lstlst
 	struct s_lstlst	*next;
 }					t_lstlst;
 
-typedef struct		s_lstasset
+typedef struct		s_lstast
 {
 	int				x;
 	int				y;
 	int				sector;
 	int				asset_type;
-	struct s_lstasset	*next;
-}					t_lstasset;
+	struct s_lstast	*next;
+}					t_lstast;
 
 typedef struct		s_filer
 {
@@ -396,12 +296,6 @@ typedef struct		s_work
 	t_coor			tt2;
 	t_coor			ip1;
 	t_coor			ip2;
-	t_coor			lol1;
-	t_coor			lol2;
-	t_coor			lel1;
-	t_coor			lel2;
-	t_coor			lul1;
-	t_coor			lul2;
 	t_coor			p1;
 	t_coor			p2;
 	double			p1yb;
@@ -444,9 +338,6 @@ typedef struct		s_work
 	int				z;
 	int				ytop[3840];
 	int				ybot[2160];
-	unsigned int	r;
-	unsigned int	r1;
-	unsigned int	r2;
 	double			sx1;
 	double			sx2;
 	double			height;
@@ -524,8 +415,8 @@ typedef struct		s_weapon
 	int				magazine;
 	int				reloadtime;
 	int				recoil;
-	t_sprite		sprt[5];
-	Mix_Chunk 		*shoot;
+	t_sprite		sprt[3];
+	Mix_Chunk		*shoot;
 }					t_weapon;
 
 typedef struct		s_map
@@ -538,7 +429,9 @@ typedef struct		s_map
 	int				newgame;
 	int				trippymod;
 	int				elevator;
+	int				door;
 	int				nb_a;
+	int				nb_d;
 	int				i;
 	int				w;
 	int				fd;
@@ -593,8 +486,7 @@ typedef struct		s_sound
 {
 	int				volume;
 	Mix_Music		*musique;
-	Mix_Chunk 		*jump;
-	Mix_Chunk 		*ground;
+	Mix_Chunk		*jump;
 	Mix_Chunk		*reload;
 	Mix_Chunk		*clic;
 	Mix_Chunk		*dammage;
@@ -627,22 +519,21 @@ typedef	struct		s_dtime
 	int				fps;
 	Uint32			start;
 	Uint32			end;
-	Uint32			ctime;		/* current time */
-	Uint32			otime;		/* old time */
-	Uint32			etime;		/* elapsed time (from start of program) */
-	Uint32			shootime;	/* time between each shot of a given weapon */
-	Uint32			stime;		/* second ticker */
-	Uint32			walk;		/* time of walk animation */
-	Uint32			dead;		/* time of dead animation */
-	Uint32			start_lvl;	/* start_lvl time */
-	Uint32			end_lvl;	/* end_lvl time */
+	Uint32			ctime;
+	Uint32			otime;
+	Uint32			etime;
+	Uint32			shootime;
+	Uint32			stime;
+	Uint32			walk;
+	Uint32			dead;
+	Uint32			start_lvl;
+	Uint32			end_lvl;
 }					t_dtime;
 
 typedef struct		s_env
 {
 	t_map			*m;
 	char			*light_nb;
-	double			loading_time;
 	int				i;
 	int				ac;
 	int				sens;
@@ -688,6 +579,98 @@ typedef struct		s_env
 	double			mem_field_of_vision_v;
 }					t_env;
 
+typedef struct		s_win
+{
+	double			gravity_value;
+	t_env			*wo;
+	SDL_Window		*window;
+	SDL_Event		event;
+	SDL_Cursor		*cursor;
+	struct s_lst	*lst;
+	struct s_lstlst	*lstlst;
+	struct s_lstlst	*triangles;
+	struct s_lst	*tmp;
+	struct s_lstast	*lstast;
+	struct s_lstast	*tmpasset;
+	char			*itoastr;
+	char			*helptxt;
+	char			*texturetxt;
+	char			*paramtxt;
+	char			*paramvaluetxt;
+	char			**tab;
+	t_sprite		asset_sprite;
+	t_sprite		asset_tmp;
+	t_sprite		player_start;
+	t_texture		ceiling;
+	t_texture		surface;
+	t_texture		map_ui;
+	t_texture		texture_sprite;
+	t_texture		inventory;
+	t_texture		blackbox;
+	t_texture		slot0;
+	t_texture		slot1;
+	t_texture		slot2;
+	t_texture		slot3;
+	t_texture		slot4;
+	t_texture		building_hud;
+	t_dot			dst;
+	t_dot			dst2;
+	t_dot			dst3;
+	t_dot			dst4;
+	t_dot			dst5;
+	t_dot			dst6;
+	t_dot			dst7;
+	t_dot			dst8;
+	t_dot			dst9;
+	t_dot			dst10;
+	t_dot			dst11;
+	t_dot			dst12;
+	t_dot			dst13;
+	Uint8			*keystate;
+	int				drawing;
+	int				left_click;
+	int				x0;
+	int				y0;
+	int				x1;
+	int				y1;
+	int				x2;
+	int				y2;
+	int				sector;
+	int				mode;
+	int				changemode;
+	int				moving;
+	int				h_win;
+	int				w_win;
+	int				h_win_tmp;
+	int				w_win_tmp;
+	int				link;
+	int				color;
+	int				overed_sector;
+	int				asset;
+	int				drawtriangles;
+	int				place;
+	int				number;
+	int				index_dot;
+	int				same_dots;
+	int				tab_index;
+	int				tab_malloced;
+	int				triangle_sector;
+	int				check_textures;
+	int				texture_choice;
+	int				put_texture;
+	int				texture_overed_sector;
+	int				texture_index;
+	int				blackbox_x;
+	int				txtr_input_type;
+	int				param_index;
+	int				hp_value;
+	int				god_value;
+	int				hud_box;
+	int				neighbour_index;
+	int				norme_sector;
+	int				tni;
+	int				append_i;
+}					t_win;
 
 typedef struct		s_worker_arg
 {
@@ -697,5 +680,14 @@ typedef struct		s_worker_arg
 	int				*ybot;
 	int				*ytop;
 }					t_worker_arg;
+
+typedef struct		s_babytrot
+{
+	int				settings;
+	int				allocs;
+	int				weapon;
+	int				texture;
+	int				sprite;
+}					t_babytrot;
 
 #endif

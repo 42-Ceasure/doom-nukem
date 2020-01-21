@@ -12,29 +12,29 @@
 
 #include "doom.h"
 
-void		place_asset(t_win *win)
+void		place_asset(t_env *w, t_win *win)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 
-	if (win->lstasset == NULL)
-		win->lstasset = lstassetnew(win, 0);
+	if (win->lstast == NULL)
+		win->lstast = lstastnew(w, win, 0);
 	else
 	{
-		tmp = win->lstasset;
+		tmp = win->lstast;
 		while (tmp->next)
 			tmp = tmp->next;
-		tmp->next = lstassetnew(win, 0);
+		tmp->next = lstastnew(w, win, 0);
 	}
 	win->place = 0;
 }
 
 int			check_first_player_start(t_win *win)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 	int			ret;
 
 	ret = 0;
-	tmp = win->lstasset;
+	tmp = win->lstast;
 	while (tmp)
 	{
 		if (tmp->asset_type == 0)
@@ -46,11 +46,11 @@ int			check_first_player_start(t_win *win)
 
 int			check_max_number_ennemy(t_win *win)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 	int			ret;
 
 	ret = 0;
-	tmp = win->lstasset;
+	tmp = win->lstast;
 	while (tmp)
 	{
 		if (tmp->asset_type == 3)
@@ -58,24 +58,24 @@ int			check_max_number_ennemy(t_win *win)
 		tmp = tmp->next;
 	}
 	if (ret == 30)
-		printf("Too many ennemies\n");
+		ft_putendl("Too many ennemies");
 	return (ret);
 }
 
 int			check_max_number_sprite(t_win *win)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 	int			ret;
 
 	ret = 0;
-	tmp = win->lstasset;
+	tmp = win->lstast;
 	while (tmp)
 	{
 		ret++;
 		tmp = tmp->next;
 	}
 	if (ret == 60)
-		printf("Too many items\n");
+		ft_putendl("Too many items");
 	return (ret);
 }
 
@@ -101,7 +101,7 @@ void		mode(t_env *w, t_win *win)
 				ret = check_first_player_start(win);
 			ret2 = check_max_number_ennemy(win);
 			if (ret == 0 && ret2 < 30 && check_max_number_sprite(win) < 60)
-				place_asset(win);
+				place_asset(w, win);
 			else
 				win->place = 0;
 		}

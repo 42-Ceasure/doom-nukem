@@ -12,12 +12,12 @@
 
 #include "doom.h"
 
-t_lstasset	*lstassetnew(t_win *win, int sector)
+t_lstast	*lstastnew(t_env *w, t_win *win, int sector)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 
-	if (!(tmp = (t_lstasset *)malloc(sizeof(t_lstasset))))
-		return (NULL);
+	if (!(tmp = (t_lstast *)malloc(sizeof(t_lstast))))
+		clear_n_exit(w, win);
 	tmp->x = win->x2;
 	tmp->y = win->y2;
 	tmp->sector = sector;
@@ -74,7 +74,7 @@ void		pick_asset(t_env *w, t_win *win)
 		win->asset_sprite = w->m->sprite[14];
 }
 
-void		asset_overing_helper(t_env *w, t_win *win, t_lstasset *tmp)
+void		asset_overing_helper(t_env *w, t_win *win, t_lstast *tmp)
 {
 	if (tmp->asset_type == 1)
 		win->asset_tmp = w->m->sprite[0];
@@ -96,10 +96,10 @@ void		asset_overing_helper(t_env *w, t_win *win, t_lstasset *tmp)
 
 void		asset_overing(t_env *w, t_win *win)
 {
-	t_lstasset	*tmp;
+	t_lstast	*tmp;
 	t_img		img;
 
-	tmp = win->lstasset;
+	tmp = win->lstast;
 	while (tmp)
 	{
 		if (tmp->x == win->x2 && tmp->y == win->y2)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   w3d_defines.h                                      :+:      :+:    :+:   */
+/*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abechet <abechet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:06:30 by abechet           #+#    #+#             */
-/*   Updated: 2019/05/21 19:33:12 by abechet          ###   ########.fr       */
+/*   Updated: 2019/07/25 18:59:00 by nvienot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@
 # define FULL_SCREEN		0
 # define WIDTH 				w->res.width
 # define HEIGHT 			w->res.height
+# define WBW 				w->res.width / 1024
+# define HBH 				w->res.height / 576
 # define KEY 				w->event.key.keysym.sym
 # define BUTTON				w->event.button.button
 # define WINDOW				w->event.window.event
@@ -79,6 +81,25 @@
 # define GAME				0
 # define EDIT				1
 # define TRANSPARENT		0x0000FF00
-# define PAKOMSA			"Your core file seems invalid. You may need to reinstall the game"
+# define CROSSHAIR			SDL_SYSTEM_CURSOR_CROSSHAIR
+# define ARROW				SDL_SYSTEM_CURSOR_ARROW
+# define PAKOMSA			"Your core file seems invalid. Reinstall the game"
+# define COREBROKEN			"Core seems to be broken, delete your core.dn3d"
+# define CHANGELVL			"Press enter to start next level"
+# define ENDGAME			"Congratulation, you finished the game!press enter"
+# define WSR				w->stopread
+# define SCENAR_1			"Your beloved dog Rex was kidnapped,"
+# define SCENAR_2			"     you need to find him !"
+# define SCENAR_3			"  Who the hell are these guys ?!  "
+# define SCENAR_4			"  They don't seem to mess around "
+# define SCENAR_5			"Are they part of an organization ?"
+# define SCENAR_6			"   What do they want with Rex ?"
+# define SCENAR_7			"       So many of them !"
+# define SCENAR_8			" Is Rex such a special dog ?"
+# define SCENAR_9			"     Rex is here !"
+# define SCENAR_10			"Go get your good boy !"
+# define SCENAR_11			"    Hello my Human,"
+# define SCENAR_12			" thanks for rescuing me !"
+# define SCENAR_13			"  Let's go back home"
 
 #endif
